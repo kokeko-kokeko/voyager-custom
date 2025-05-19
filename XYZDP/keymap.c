@@ -1125,9 +1125,29 @@ tap_dance_action_t tap_dance_actions[] = {
 layer_state_t layer_state_set_user(layer_state_t state) {
   //if (!keyboard_config.led_level) return state;
   uint8_t layer = get_highest_layer(state);
-  STATUS_LED_1(layer & (1 << 0));
-  STATUS_LED_2(layer & (1 << 1));
-  STATUS_LED_3(layer & (1 << 2));
-  STATUS_LED_4(layer & (1 << 3));  
+  //STATUS_LED_1(layer & (1 << 0));
+  //STATUS_LED_2(layer & (1 << 1));
+  //STATUS_LED_3(layer & (1 << 2));
+  //STATUS_LED_4(layer & (1 << 3));
+  switch (layer) {
+    case 0:
+      STATUS_LED_1(1);
+      STATUS_LED_2(0);
+      STATUS_LED_3(0);
+      STATUS_LED_4(0);
+      break;
+    case 1:
+      STATUS_LED_1(0);
+      STATUS_LED_2(0);
+      STATUS_LED_3(1);
+      STATUS_LED_4(0);
+      break;
+    default:
+      STATUS_LED_1(1);
+      STATUS_LED_2(1);
+      STATUS_LED_3(1);
+      STATUS_LED_4(1);
+      break;
+  }
   return state;
 }
