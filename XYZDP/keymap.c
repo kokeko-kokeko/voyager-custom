@@ -94,23 +94,23 @@ enum tap_dance_codes {
   DANCE_3,
 };
 
-#define DUAL_FUNC_0 LT(19, KC_A)
-#define DUAL_FUNC_1 LT(25, KC_F16)
-#define DUAL_FUNC_2 LT(26, KC_F22)
-#define DUAL_FUNC_3 LT(27, KC_F3)
-#define DUAL_FUNC_4 LT(22, KC_I)
-#define DUAL_FUNC_5 LT(30, KC_7)
+#define DUAL_FUNC_0 LT(22, KC_5)
+#define DUAL_FUNC_1 LT(17, KC_L)
+#define DUAL_FUNC_2 LT(19, KC_8)
+#define DUAL_FUNC_3 LT(19, KC_I)
+#define DUAL_FUNC_4 LT(22, KC_F22)
+#define DUAL_FUNC_5 LT(32, KC_F12)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    KC_AT,          KC_HASH,        KC_Y,           KC_O,           KC_U,           KC_QUOTE,                                       KC_DQUO,        KC_L,           KC_D,           KC_W,           KC_SLASH,       KC_TRANSPARENT, 
+    KC_AT,          KC_HASH,        KC_Y,           KC_O,           KC_U,           KC_QUOTE,                                       KC_DQUO,        KC_L,           KC_D,           KC_W,           KC_SLASH,       CW_TOGG,        
     LT(10, KC_B),   MT(MOD_LGUI, KC_C),MT(MOD_LALT, KC_I),LT(2, KC_E),    MT(MOD_LCTL, KC_A),ALL_T(KC_COMMA),                                MEH_T(KC_DOT),  MT(MOD_RCTL, KC_H),LT(2, KC_T),    MT(MOD_RALT, KC_S),MT(MOD_RGUI, KC_N),LT(12, KC_V),   
     MT(MOD_LCTL, KC_Z),KC_G,           KC_X,           KC_J,           KC_K,           KC_MINUS,                                       KC_QUES,        KC_R,           KC_M,           KC_F,           KC_P,           MT(MOD_RCTL, KC_Q),
     KC_LEFT_SHIFT,  KC_LEFT,        KC_RIGHT,       KC_BSPC,        LT(4, KC_SPACE),KC_LANGUAGE_2,                                  LT(6, KC_LANGUAGE_1),LT(8, KC_SPACE),KC_DELETE,      KC_UP,          KC_DOWN,        KC_RIGHT_SHIFT, 
                                                     LT(6, KC_TAB),  TD(DANCE_0),                                    TD(DANCE_1),    KC_ENTER
   ),
   [1] = LAYOUT_voyager(
-    KC_LBRC,        KC_HASH,        KC_Y,           KC_O,           KC_U,           KC_AMPR,                                        KC_AT,          KC_L,           KC_D,           KC_W,           KC_SLASH,       KC_TRANSPARENT, 
+    KC_LBRC,        KC_HASH,        KC_Y,           KC_O,           KC_U,           KC_AMPR,                                        KC_AT,          KC_L,           KC_D,           KC_W,           KC_SLASH,       CW_TOGG,        
     LT(11, KC_B),   MT(MOD_LGUI, KC_C),MT(MOD_LALT, KC_I),LT(3, KC_E),    MT(MOD_LCTL, KC_A),ALL_T(KC_COMMA),                                MEH_T(KC_DOT),  MT(MOD_RCTL, KC_H),LT(3, KC_T),    MT(MOD_RALT, KC_S),MT(MOD_RGUI, KC_N),LT(13, KC_V),   
     MT(MOD_LCTL, KC_Z),KC_G,           KC_X,           KC_J,           KC_K,           KC_MINUS,                                       KC_QUES,        KC_R,           KC_M,           KC_F,           KC_P,           MT(MOD_RCTL, KC_Q),
     KC_LEFT_SHIFT,  KC_LEFT,        KC_RIGHT,       KC_BSPC,        LT(5, KC_SPACE),KC_LANGUAGE_2,                                  LT(7, KC_LANGUAGE_1),LT(9, KC_SPACE),KC_DELETE,      KC_UP,          KC_DOWN,        KC_RIGHT_SHIFT, 
