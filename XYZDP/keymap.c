@@ -1122,6 +1122,14 @@ tap_dance_action_t tap_dance_actions[] = {
         [DANCE_3] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_3, dance_3_finished, dance_3_reset),
 };
 
+
+
+
+//
+// additional
+//
+//
+//
 layer_state_t layer_state_set_user(layer_state_t state) {
   //if (!keyboard_config.led_level) return state;
   uint8_t layer = get_highest_layer(state);
@@ -1131,16 +1139,70 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   //STATUS_LED_4(layer & (1 << 3));
   switch (layer) {
     case 0:
+      STATUS_LED_1(0);
+      STATUS_LED_2(0);
+      STATUS_LED_3(1);
+      STATUS_LED_4(0);
+      break;
+    case 1:
       STATUS_LED_1(1);
       STATUS_LED_2(0);
       STATUS_LED_3(0);
       STATUS_LED_4(0);
       break;
-    case 1:
-      STATUS_LED_1(0);
+    case 2:
+    case 3:
+      STATUS_LED_1(1);
       STATUS_LED_2(0);
       STATUS_LED_3(1);
       STATUS_LED_4(0);
+      break;
+    case 4:
+    case 5:
+      STATUS_LED_1(0);
+      STATUS_LED_2(1);
+      STATUS_LED_3(0);
+      STATUS_LED_4(0);
+      break;
+    case 6:
+    case 7:
+      STATUS_LED_1(0);
+      STATUS_LED_2(1);
+      STATUS_LED_3(0);
+      STATUS_LED_4(1);
+      break;
+    case 8:
+    case 9:
+      STATUS_LED_1(0);
+      STATUS_LED_2(0);
+      STATUS_LED_3(0);
+      STATUS_LED_4(1);
+      break;
+    case 10:
+    case 11:
+      STATUS_LED_1(1);
+      STATUS_LED_2(1);
+      STATUS_LED_3(0);
+      STATUS_LED_4(0);
+      break;
+    case 12:
+    case 13:
+      STATUS_LED_1(0);
+      STATUS_LED_2(0);
+      STATUS_LED_3(1);
+      STATUS_LED_4(1);
+      break;
+    case 14:
+      STATUS_LED_1(1);
+      STATUS_LED_2(1);
+      STATUS_LED_3(0);
+      STATUS_LED_4(1);
+      break;
+    case 15:
+      STATUS_LED_1(0);
+      STATUS_LED_2(1);
+      STATUS_LED_3(1);
+      STATUS_LED_4(1);
       break;
     default:
       STATUS_LED_1(1);
