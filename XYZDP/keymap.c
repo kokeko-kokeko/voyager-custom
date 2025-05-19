@@ -1033,7 +1033,7 @@ tap_dance_action_t tap_dance_actions[] = {
 
 //
 // additional
-//
+// LED control
 //
 //
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -1044,6 +1044,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   //STATUS_LED_3(layer & (1 << 2));
   //STATUS_LED_4(layer & (1 << 3));
   switch (layer) {
+    // Base
     case 0:
       STATUS_LED_1(0);
       STATUS_LED_2(0);
@@ -1056,6 +1057,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       STATUS_LED_3(0);
       STATUS_LED_4(0);
       break;
+    // Shift
     case 2:
     case 3:
       STATUS_LED_1(1);
@@ -1063,6 +1065,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       STATUS_LED_3(1);
       STATUS_LED_4(0);
       break;
+    // Num
     case 4:
     case 5:
       STATUS_LED_1(0);
@@ -1070,6 +1073,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       STATUS_LED_3(0);
       STATUS_LED_4(0);
       break;
+    // Fn
     case 6:
     case 7:
       STATUS_LED_1(0);
@@ -1077,6 +1081,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       STATUS_LED_3(0);
       STATUS_LED_4(1);
       break;
+    // Bkt
     case 8:
     case 9:
       STATUS_LED_1(0);
@@ -1084,26 +1089,30 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       STATUS_LED_3(0);
       STATUS_LED_4(1);
       break;
+    // Lcur
     case 10:
     case 11:
       STATUS_LED_1(1);
       STATUS_LED_2(1);
-      STATUS_LED_3(1);
+      STATUS_LED_3(0);
       STATUS_LED_4(0);
       break;
+    // Rcur
     case 12:
     case 13:
-      STATUS_LED_1(1);
+      STATUS_LED_1(0);
       STATUS_LED_2(0);
       STATUS_LED_3(1);
       STATUS_LED_4(1);
       break;
+    // Color(Rside double)
     case 14:
       STATUS_LED_1(1);
       STATUS_LED_2(0);
       STATUS_LED_3(0);
       STATUS_LED_4(1);
       break;
+    // FwSys(Lside double)
     case 15:
       STATUS_LED_1(0);
       STATUS_LED_2(1);
