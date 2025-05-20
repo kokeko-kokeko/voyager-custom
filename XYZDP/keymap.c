@@ -1373,7 +1373,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 //
 // Tap Flow Control
-// Space disable
+// Space disable -> layer mod
+// semecolon dinable -> engram opt
 //
 bool is_flow_tap_key(uint16_t keycode) {
   if ((get_mods() & (MOD_MASK_CG | MOD_BIT_LALT)) != 0) {
@@ -1384,7 +1385,7 @@ bool is_flow_tap_key(uint16_t keycode) {
     case KC_A ... KC_Z:
     case KC_DOT:
     case KC_COMM:
-    case KC_SCLN:
+    //case KC_SCLN:
     case KC_SLSH:
       return true;
   }
