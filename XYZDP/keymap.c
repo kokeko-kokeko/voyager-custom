@@ -1104,20 +1104,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       STATUS_LED_2(0);
       STATUS_LED_4(1);
       break;
-    // Color(Rside double)
-    case 14:
-      STATUS_LED_1(0);
-      STATUS_LED_3(1);
-      STATUS_LED_2(1);
-      STATUS_LED_4(0);
-      break;
-    // FwSys(Lside double)
-    case 15:
-      STATUS_LED_1(1);
-      STATUS_LED_3(0);
-      STATUS_LED_2(0);
-      STATUS_LED_4(1);
-      break;
     default:
       STATUS_LED_1(1);
       STATUS_LED_3(1);
