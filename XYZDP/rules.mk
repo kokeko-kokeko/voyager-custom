@@ -10,3 +10,6 @@ REPEAT_KEY_ENABLE = yes
 DYNAMIC_TAPPING_TERM_ENABLE = yes
 LAYER_LOCK_ENABLE = yes
 
+
+
+DEBOUNCE_TYPE = asym_eager_defer_pk
