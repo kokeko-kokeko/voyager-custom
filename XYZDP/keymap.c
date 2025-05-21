@@ -1295,9 +1295,9 @@ tap_dance_action_t tap_dance_actions[] = {
 // 3 -> Red Right
 // 2 -> Green Left
 // 4 -> Green Right
+// if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
 layer_state_t layer_state_set_user(layer_state_t state) {
   //if (!keyboard_config.led_level) return state;
-  
   uint8_t layer = get_highest_layer(state);
   switch (layer) {
     // Base
