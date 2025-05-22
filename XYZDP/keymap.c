@@ -1291,6 +1291,25 @@ tap_dance_action_t tap_dance_actions[] = {
 //
 // additional
 //
+// tap flow cntrol thumb space LT 
+// and pinkey cursor layer
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record, 
+                           uint16_t prev_keycode) {
+  if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+    switch (keycode) {
+      case LT(4, KC_SPACE):
+      case LT(8, KC_SPACE):
+      case LT(5, KC_SPACE):
+      case LT(9, KC_SPACE):
+        return 0;
+        
+      default:
+        return FLOW_TAP_TERM;  // Longer timeout otherwise.
+    }
+  }
+  return 0;  // Disable Flow Tap.
+}
+
 // LED control
 // 1 -> Red Left
 // 3 -> Red Right
