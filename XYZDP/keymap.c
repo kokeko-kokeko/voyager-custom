@@ -1302,8 +1302,8 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
     switch (keycode) {
       case LT(4, KC_SPACE):
       case LT(5, KC_SPACE):      
-      case LT(8, KC_SPACE):
-      case LT(9, KC_SPACE):
+      case LT(6, KC_SPACE):
+      case LT(7, KC_SPACE):
         return 0;
 
       case LT(10, KC_B):
@@ -1367,7 +1367,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 7:
       STATUS_LED_1(0);
       STATUS_LED_3(0);
-      STATUS_LED_2(1);
+      STATUS_LED_2(0);
       STATUS_LED_4(1);
       break;
     // Bkt
@@ -1375,7 +1375,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 9:
       STATUS_LED_1(0);
       STATUS_LED_3(0);
-      STATUS_LED_2(0);
+      STATUS_LED_2(1);
       STATUS_LED_4(1);
       break;
     // Lcur
