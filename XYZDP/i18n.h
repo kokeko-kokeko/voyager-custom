@@ -14,6 +14,8 @@
 #define JP_BSLS KC_INT1
 #define JP_COLN KC_QUOT
 #define JP_EXLM S(KC_1)
+#define JP_COMM KC_COMM
+#define JP_DOT KC_DOT
 #define JP_GT S(KC_DOT)
 #define JP_LBRC KC_RBRC
 #define JP_LCBR S(KC_RBRC)

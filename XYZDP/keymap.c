@@ -95,28 +95,28 @@ enum tap_dance_codes {
   DANCE_3,
 };
 
-#define DUAL_FUNC_0 LT(17, KC_F6)
-#define DUAL_FUNC_1 LT(17, KC_8)
-#define DUAL_FUNC_2 LT(27, KC_F23)
-#define DUAL_FUNC_3 LT(30, KC_Y)
-#define DUAL_FUNC_4 LT(32, KC_R)
-#define DUAL_FUNC_5 LT(19, KC_F16)
-#define DUAL_FUNC_6 LT(28, KC_S)
-#define DUAL_FUNC_7 LT(25, KC_F18)
-#define DUAL_FUNC_8 LT(32, KC_D)
-#define DUAL_FUNC_9 LT(21, KC_6)
-#define DUAL_FUNC_10 LT(24, KC_B)
-#define DUAL_FUNC_11 LT(21, KC_F8)
-#define DUAL_FUNC_12 LT(25, KC_V)
-#define DUAL_FUNC_13 LT(32, KC_6)
-#define DUAL_FUNC_14 LT(19, KC_D)
-#define DUAL_FUNC_15 LT(26, KC_9)
-#define DUAL_FUNC_16 LT(20, KC_Q)
-#define DUAL_FUNC_17 LT(27, KC_F10)
-#define DUAL_FUNC_18 LT(24, KC_F20)
-#define DUAL_FUNC_19 LT(26, KC_F17)
-#define DUAL_FUNC_20 LT(23, KC_F10)
-#define DUAL_FUNC_21 LT(21, KC_F22)
+#define DUAL_FUNC_0 LT(17, KC_D)
+#define DUAL_FUNC_1 LT(29, KC_F15)
+#define DUAL_FUNC_2 LT(30, KC_F)
+#define DUAL_FUNC_3 LT(17, KC_J)
+#define DUAL_FUNC_4 LT(23, KC_8)
+#define DUAL_FUNC_5 LT(23, KC_L)
+#define DUAL_FUNC_6 LT(25, KC_F18)
+#define DUAL_FUNC_7 LT(24, KC_F5)
+#define DUAL_FUNC_8 LT(31, KC_F18)
+#define DUAL_FUNC_9 LT(20, KC_S)
+#define DUAL_FUNC_10 LT(25, KC_X)
+#define DUAL_FUNC_11 LT(23, KC_P)
+#define DUAL_FUNC_12 LT(31, KC_F4)
+#define DUAL_FUNC_13 LT(27, KC_2)
+#define DUAL_FUNC_14 LT(30, KC_3)
+#define DUAL_FUNC_15 LT(31, KC_F20)
+#define DUAL_FUNC_16 LT(30, KC_F6)
+#define DUAL_FUNC_17 LT(30, KC_H)
+#define DUAL_FUNC_18 LT(21, KC_5)
+#define DUAL_FUNC_19 LT(18, KC_L)
+#define DUAL_FUNC_20 LT(32, KC_F13)
+#define DUAL_FUNC_21 LT(31, KC_F11)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -155,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TAB,         KC_ESCAPE,                                      KC_BSPC,        KC_ENTER
   ),
   [5] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_COMMA,       KC_DOT,         KC_6,           JP_GT,                                          KC_5,           JP_AT,          JP_GRV,         JP_HASH,        JP_DLR,         KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, JP_COMM,        JP_DOT,         KC_6,           JP_GT,                                          KC_5,           JP_AT,          JP_GRV,         JP_HASH,        JP_DLR,         KC_TRANSPARENT, 
     JP_LBRC,        MT(MOD_LGUI, KC_1),MT(MOD_LALT, KC_2),KC_3,           MT(MOD_LCTL, KC_4),KC_5,                                           KC_6,           MT(MOD_RCTL, KC_7),KC_8,           MT(MOD_RALT, KC_9),MT(MOD_RGUI, KC_0),JP_RBRC,        
     DUAL_FUNC_14,   DUAL_FUNC_15,   JP_EQL,         JP_TILD,        JP_PLUS,        JP_LT,                                          JP_GT,          JP_CIRC,        JP_AMPR,        JP_PERC,        DUAL_FUNC_16,   DUAL_FUNC_17,   
     KC_TRANSPARENT, KC_LEFT_GUI,    KC_LEFT_ALT,    KC_TRANSPARENT, KC_SPACE,       KC_LANGUAGE_2,                                  KC_LANGUAGE_1,  KC_SPACE,       KC_TRANSPARENT, KC_RIGHT_ALT,   KC_RIGHT_GUI,   KC_TRANSPARENT, 
