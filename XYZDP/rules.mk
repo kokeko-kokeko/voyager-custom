@@ -13,4 +13,5 @@ LAYER_LOCK_ENABLE = yes
 
 
 DEBOUNCE_TYPE = asym_eager_defer_pk
+DEFERRED_EXEC_ENABLE = yes
 LTO_ENABLE = no
