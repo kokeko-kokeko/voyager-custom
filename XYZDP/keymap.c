@@ -1399,50 +1399,50 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     // Base
     case 0:
-      led_oneshot_3(3000);
+      led_oneshot_3(2000);
       break;
     case 1:
-      led_oneshot_1(3000);
+      led_oneshot_1(2000);
       break;
     // Shift
     case 2:
     case 3:
-      led_oneshot_1(1000);
-      led_oneshot_3(1000);
+      led_oneshot_1(2000);
+      led_oneshot_3(2000);
       break;
     // Num
     case 4:
     case 5:
-      led_oneshot_2(1000);
+      led_oneshot_2(2000);
       break;
     // Fn
     case 6:
     case 7:
-      led_oneshot_4(1000);
+      led_oneshot_4(2000);
       break;
     // Bkt
     case 8:
     case 9:
-      led_oneshot_2(1000);
-      led_oneshot_4(1000);
+      led_oneshot_2(2000);
+      led_oneshot_4(2000);
       break;
     // Lcur
     case 10:
     case 11:
-      led_oneshot_1(1000);
-      led_oneshot_2(1000);
+      led_oneshot_1(2000);
+      led_oneshot_2(2000);
       break;
     // Rcur
     case 12:
     case 13:
-      led_oneshot_3(1000);
-      led_oneshot_4(1000);
+      led_oneshot_3(2000);
+      led_oneshot_4(2000);
       break;
     default:
-      led_oneshot_1(1000);
-      led_oneshot_2(1000);
-      led_oneshot_3(1000);
-      led_oneshot_4(1000);
+      led_oneshot_1(2000);
+      led_oneshot_2(2000);
+      led_oneshot_3(2000);
+      led_oneshot_4(2000);
       break;
   }
   return state;
