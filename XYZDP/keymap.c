@@ -1366,14 +1366,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     // Base
     case 0:
-      led_off_queue(800);
+      led_off_queue(1000);
       STATUS_LED_1(0);
       STATUS_LED_2(0);
       STATUS_LED_3(1);
       STATUS_LED_4(0);
       break;
     case 1:
-      led_off_queue(800);
+      led_off_queue(1000);
       STATUS_LED_1(1);
       STATUS_LED_2(0);
       STATUS_LED_3(0);
@@ -1382,7 +1382,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Shift
     case 2:
     case 3:
-      led_off_queue(1200);
+      led_off_queue(2000);
       STATUS_LED_1(1);
       STATUS_LED_2(0);
       STATUS_LED_3(1);
@@ -1391,7 +1391,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Num
     case 4:
     case 5:
-      led_off_queue(1200);
+      led_off_queue(2000);
       STATUS_LED_1(0);
       STATUS_LED_2(1);
       STATUS_LED_3(0);
@@ -1400,7 +1400,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Fn
     case 6:
     case 7:
-      led_off_queue(1200);
+      led_off_queue(2000);
       STATUS_LED_1(0);
       STATUS_LED_2(0);
       STATUS_LED_3(0);
@@ -1409,7 +1409,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Bkt
     case 8:
     case 9:
-      led_off_queue(1200);
+      led_off_queue(2000);
       STATUS_LED_1(0);
       STATUS_LED_2(1);
       STATUS_LED_3(0);
@@ -1418,7 +1418,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Lcur
     case 10:
     case 11:
-      led_off_queue(1200);
+      led_off_queue(2000);
       STATUS_LED_1(1);
       STATUS_LED_2(1);
       STATUS_LED_3(0);
@@ -1427,14 +1427,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Rcur
     case 12:
     case 13:
-      led_off_queue(1200);
+      led_off_queue(2000);
       STATUS_LED_1(0);
       STATUS_LED_2(0);
       STATUS_LED_3(1);
       STATUS_LED_4(1);
       break;
     default:
-      led_off_queue(1200);
+      led_off_queue(2000);
       STATUS_LED_1(1);
       STATUS_LED_2(1);
       STATUS_LED_3(1);
