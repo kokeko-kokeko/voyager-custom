@@ -1399,10 +1399,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     // Base
     case 0:
-      led_oneshot_3(1500);
+      led_oneshot_1(1500);
       break;
     case 1:
-      led_oneshot_1(1500);
+      led_oneshot_2(1500);
       break;
     // Shift
     case 2:
