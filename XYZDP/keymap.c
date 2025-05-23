@@ -1348,7 +1348,7 @@ static uint32_t led_off_func(uint32_t trigger_time, void *cb_arg) {
 }
 
 static bool led_off_queue(uint32_t delay_ms) {
-  if(extend_deferred_exec(led_off_token, delay_ms)) {
+  if(!extend_deferred_exec(led_off_token, delay_ms)) {
     led_off_token = defer_exec(delay_ms, led_off_func, NULL);
   }
   return true;
