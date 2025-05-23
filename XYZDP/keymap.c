@@ -1341,8 +1341,8 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 static deferred_token led_off_token = INVALID_DEFERRED_TOKEN;
 static uint32_t led_off_func(uint32_t trigger_time, void *cb_arg) {
   STATUS_LED_1(0);
-  STATUS_LED_3(0);
   STATUS_LED_2(0);
+  STATUS_LED_3(0);
   STATUS_LED_4(0);
   return 0;
 }
@@ -1366,70 +1366,78 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     // Base
     case 0:
+      led_off_queue(5000);
       STATUS_LED_1(0);
-      STATUS_LED_3(1);
       STATUS_LED_2(0);
+      STATUS_LED_3(1);
       STATUS_LED_4(0);
-      led_off_queue(3000);
       break;
     case 1:
+      led_off_queue(5000);
       STATUS_LED_1(1);
-      STATUS_LED_3(0);
       STATUS_LED_2(0);
+      STATUS_LED_3(0);
       STATUS_LED_4(0);
       break;
     // Shift
     case 2:
     case 3:
+      led_off_queue(1500);
       STATUS_LED_1(1);
-      STATUS_LED_3(1);
       STATUS_LED_2(0);
+      STATUS_LED_3(1);
       STATUS_LED_4(0);
       break;
     // Num
     case 4:
     case 5:
+      led_off_queue(1500);
       STATUS_LED_1(0);
-      STATUS_LED_3(0);
       STATUS_LED_2(1);
+      STATUS_LED_3(0);
       STATUS_LED_4(0);
       break;
     // Fn
     case 6:
     case 7:
+      led_off_queue(1500);
       STATUS_LED_1(0);
-      STATUS_LED_3(0);
       STATUS_LED_2(0);
+      STATUS_LED_3(0);
       STATUS_LED_4(1);
       break;
     // Bkt
     case 8:
     case 9:
+      led_off_queue(1500);
       STATUS_LED_1(0);
-      STATUS_LED_3(0);
       STATUS_LED_2(1);
+      STATUS_LED_3(0);
       STATUS_LED_4(1);
       break;
     // Lcur
     case 10:
     case 11:
+      led_off_queue(1500);
       STATUS_LED_1(1);
-      STATUS_LED_3(1);
       STATUS_LED_2(1);
+      STATUS_LED_3(0);
       STATUS_LED_4(0);
       break;
     // Rcur
     case 12:
     case 13:
-      STATUS_LED_1(1);
-      STATUS_LED_3(1);
+      led_off_queue(1500);
+      STATUS_LED_1(0);
       STATUS_LED_2(0);
+      STATUS_LED_3(1);
       STATUS_LED_4(1);
       break;
     default:
+      led_off_queue(1500);
       STATUS_LED_1(1);
-      STATUS_LED_3(1);
       STATUS_LED_2(1);
+      STATUS_LED_3(1);
       STATUS_LED_4(1);
       break;
   }
