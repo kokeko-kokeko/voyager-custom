@@ -1366,14 +1366,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     // Base
     case 0:
-      led_off_queue(5000);
+      led_off_queue(3000);
       STATUS_LED_1(0);
       STATUS_LED_2(0);
       STATUS_LED_3(1);
       STATUS_LED_4(0);
       break;
     case 1:
-      led_off_queue(5000);
+      led_off_queue(3000);
       STATUS_LED_1(1);
       STATUS_LED_2(0);
       STATUS_LED_3(0);
