@@ -1339,22 +1339,55 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 }
 
 // LED control
-static deferred_token led_off_token = INVALID_DEFERRED_TOKEN;
-static uint32_t led_off_func(uint32_t trigger_time, void *cb_arg) {
+static deferred_token led_off_token_1 = INVALID_DEFERRED_TOKEN;
+static deferred_token led_off_token_2 = INVALID_DEFERRED_TOKEN;
+static deferred_token led_off_token_3 = INVALID_DEFERRED_TOKEN;
+static deferred_token led_off_token_4 = INVALID_DEFERRED_TOKEN;
+static uint32_t led_off_func_1(uint32_t trigger_time, void *cb_arg) {
   STATUS_LED_1(0);
+  return 0;
+}
+static uint32_t led_off_func_2(uint32_t trigger_time, void *cb_arg) {
   STATUS_LED_2(0);
+  return 0;
+}
+static uint32_t led_off_func_3(uint32_t trigger_time, void *cb_arg) {
   STATUS_LED_3(0);
+  return 0;
+}
+static uint32_t led_off_func_4(uint32_t trigger_time, void *cb_arg) {
   STATUS_LED_4(0);
   return 0;
 }
 
-static bool led_off_queue(uint32_t delay_ms) {
-  if(!extend_deferred_exec(led_off_token, delay_ms)) {
-    led_off_token = defer_exec(delay_ms, led_off_func, NULL);
+static bool led_oneshot_1(uint32_t delay_ms) {
+  if(!extend_deferred_exec(led_off_token_1, delay_ms)) {
+    led_off_token_1 = defer_exec(delay_ms, led_off_func_1, NULL);
   }
+  STATUS_LED_1(1);
   return true;
 }
-
+static bool led_oneshot_2(uint32_t delay_ms) {
+  if(!extend_deferred_exec(led_off_token_2, delay_ms)) {
+    led_off_token_2 = defer_exec(delay_ms, led_off_func_2, NULL);
+  }
+  STATUS_LED_2(1);
+  return true;
+}
+static bool led_oneshot_3(uint32_t delay_ms) {
+  if(!extend_deferred_exec(led_off_token_3, delay_ms)) {
+    led_off_token_3 = defer_exec(delay_ms, led_off_func_3, NULL);
+  }
+  STATUS_LED_3(1);
+  return true;
+}
+static bool led_oneshot_4(uint32_t delay_ms) {
+  if(!extend_deferred_exec(led_off_token_4, delay_ms)) {
+    led_off_token_4 = defer_exec(delay_ms, led_off_func_4, NULL);
+  }
+  STATUS_LED_4(1);
+  return true;
+}
 // 1 -> Red Left
 // 2 -> Green Left
 // 3 -> Red Right
@@ -1366,79 +1399,50 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     // Base
     case 0:
-      led_off_queue(1000);
-      STATUS_LED_1(0);
-      STATUS_LED_2(0);
-      STATUS_LED_3(1);
-      STATUS_LED_4(0);
+      led_oneshot_3(3000);
       break;
     case 1:
-      led_off_queue(1000);
-      STATUS_LED_1(1);
-      STATUS_LED_2(0);
-      STATUS_LED_3(0);
-      STATUS_LED_4(0);
+      led_oneshot_1(3000);
       break;
     // Shift
     case 2:
     case 3:
-      led_off_queue(2000);
-      STATUS_LED_1(1);
-      STATUS_LED_2(0);
-      STATUS_LED_3(1);
-      STATUS_LED_4(0);
+      led_oneshot_1(1000);
+      led_oneshot_3(1000);
       break;
     // Num
     case 4:
     case 5:
-      led_off_queue(2000);
-      STATUS_LED_1(0);
-      STATUS_LED_2(1);
-      STATUS_LED_3(0);
-      STATUS_LED_4(0);
+      led_oneshot_2(1000);
       break;
     // Fn
     case 6:
     case 7:
-      led_off_queue(2000);
-      STATUS_LED_1(0);
-      STATUS_LED_2(0);
-      STATUS_LED_3(0);
-      STATUS_LED_4(1);
+      led_oneshot_4(1000);
       break;
     // Bkt
     case 8:
     case 9:
-      led_off_queue(2000);
-      STATUS_LED_1(0);
-      STATUS_LED_2(1);
-      STATUS_LED_3(0);
-      STATUS_LED_4(1);
+      led_oneshot_2(1000);
+      led_oneshot_4(1000);
       break;
     // Lcur
     case 10:
     case 11:
-      led_off_queue(2000);
-      STATUS_LED_1(1);
-      STATUS_LED_2(1);
-      STATUS_LED_3(0);
-      STATUS_LED_4(0);
+      led_oneshot_1(1000);
+      led_oneshot_2(1000);
       break;
     // Rcur
     case 12:
     case 13:
-      led_off_queue(2000);
-      STATUS_LED_1(0);
-      STATUS_LED_2(0);
-      STATUS_LED_3(1);
-      STATUS_LED_4(1);
+      led_oneshot_3(1000);
+      led_oneshot_4(1000);
       break;
     default:
-      led_off_queue(2000);
-      STATUS_LED_1(1);
-      STATUS_LED_2(1);
-      STATUS_LED_3(1);
-      STATUS_LED_4(1);
+      led_oneshot_1(1000);
+      led_oneshot_2(1000);
+      led_oneshot_3(1000);
+      led_oneshot_4(1000);
       break;
   }
   return state;
