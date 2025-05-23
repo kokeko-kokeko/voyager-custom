@@ -1356,8 +1356,8 @@ static bool led_off_queue(uint32_t delay_ms) {
 
 // LED control
 // 1 -> Red Left
-// 3 -> Red Right
 // 2 -> Green Left
+// 3 -> Red Right
 // 4 -> Green Right
 // if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
 layer_state_t layer_state_set_user(layer_state_t state) {
