@@ -1439,10 +1439,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       led_oneshot_4(400);
       break;
     default:
-      led_oneshot_1(200);
-      led_oneshot_2(200);
-      led_oneshot_3(200);
-      led_oneshot_4(200);
+      led_oneshot_1(400);
+      led_oneshot_2(400);
+      led_oneshot_3(400);
+      led_oneshot_4(400);
       break;
   }
   return state;
