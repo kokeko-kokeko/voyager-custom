@@ -1400,11 +1400,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Base
     case 0:
       led_oneshot_3(2000);
-      led_oneshot_4(2000);
       break;
     case 1:
       led_oneshot_1(2000);
-      led_oneshot_2(2000);
       break;
     // Shift
     case 2:
@@ -1432,11 +1430,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 10:
     case 11:
       led_oneshot_1(1000);
+      led_oneshot_2(1000);
       break;
     // Rcur
     case 12:
     case 13:
       led_oneshot_3(1000);
+      led_oneshot_4(1000);
       break;
     default:
       led_oneshot_1(500);
