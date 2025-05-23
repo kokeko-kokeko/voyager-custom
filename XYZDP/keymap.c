@@ -1338,6 +1338,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
   return 0;  // Disable Flow Tap.
 }
 
+// LED control
 static deferred_token led_off_token = INVALID_DEFERRED_TOKEN;
 static uint32_t led_off_func(uint32_t trigger_time, void *cb_arg) {
   STATUS_LED_1(0);
@@ -1354,7 +1355,6 @@ static bool led_off_queue(uint32_t delay_ms) {
   return true;
 }
 
-// LED control
 // 1 -> Red Left
 // 2 -> Green Left
 // 3 -> Red Right
@@ -1366,14 +1366,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     // Base
     case 0:
-      led_off_queue(2000);
+      led_off_queue(500);
       STATUS_LED_1(0);
       STATUS_LED_2(0);
       STATUS_LED_3(1);
       STATUS_LED_4(0);
       break;
     case 1:
-      led_off_queue(2000);
+      led_off_queue(500);
       STATUS_LED_1(1);
       STATUS_LED_2(0);
       STATUS_LED_3(0);
