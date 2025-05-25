@@ -1344,9 +1344,9 @@ static deferred_token led_token_2 = INVALID_DEFERRED_TOKEN;
 static deferred_token led_token_3 = INVALID_DEFERRED_TOKEN;
 static deferred_token led_token_4 = INVALID_DEFERRED_TOKEN;
 static uint8_t led_state_1 = 0;
-static uint8_t led_state_2 = 0;
-static uint8_t led_state_3 = 0;
-static uint8_t led_state_4 = 0;
+//static uint8_t led_state_2 = 0;
+//static uint8_t led_state_3 = 0;
+//static uint8_t led_state_4 = 0;
 
 static const uint32_t led_pattern_blink[] = {250, 250, 250, 250, 250, 250, 250, 250};
 
@@ -1410,6 +1410,12 @@ static uint32_t led_off_4(uint32_t trigger_time, void *cb_arg) {
   return 0;
 }
 
+static bool led_pattern_1(void *pattern) {
+  cancel_deferred_exec(led_token_1);
+  led_state_1=0;
+  led_token_1 = defer_exec(10, led_pattern_task_1, pattern);
+}
+
 static bool led_oneshot_1(uint32_t delay_ms) {
   if(!extend_deferred_exec(led_token_1, delay_ms)) {
     led_token_1 = defer_exec(delay_ms, led_off_1, NULL);
@@ -1449,7 +1455,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     // Base
     case 0:
-      led_oneshot_1(1000);
+      led_pattern_1(led_pattern_blink);
       break;
     case 1:
       led_oneshot_2(1000);
