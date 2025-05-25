@@ -1414,6 +1414,8 @@ static bool led_pattern_1(uint32_t *pattern) {
   cancel_deferred_exec(led_token_1);
   led_state_1=0;
   led_token_1 = defer_exec(10, led_pattern_task_1, (void *)pattern);
+
+  return true;
 }
 
 static bool led_oneshot_1(uint32_t delay_ms) {
