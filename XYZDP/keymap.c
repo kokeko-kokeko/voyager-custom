@@ -1340,9 +1340,9 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 
 // LED control
 static deferred_token led_token_1 = INVALID_DEFERRED_TOKEN;
-static deferred_token led_token_2 = INVALID_DEFERRED_TOKEN;
-static deferred_token led_token_3 = INVALID_DEFERRED_TOKEN;
-static deferred_token led_token_4 = INVALID_DEFERRED_TOKEN;
+//static deferred_token led_token_2 = INVALID_DEFERRED_TOKEN;
+//static deferred_token led_token_3 = INVALID_DEFERRED_TOKEN;
+//static deferred_token led_token_4 = INVALID_DEFERRED_TOKEN;
 static uint8_t led_state_1 = 0;
 //static uint8_t led_state_2 = 0;
 //static uint8_t led_state_3 = 0;
@@ -1417,7 +1417,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Base
     case 0:
       led_pattern_1(0b0001, led_pattern_blink);
-      led_pattern_1(0b1110, led_pattern_off);
+      led_pattern_1(0b0110, led_pattern_off);
+      led_pattern_1(0b1000, led_pattern_on);
       break;
     case 1:
    //   led_oneshot_2(1000);
