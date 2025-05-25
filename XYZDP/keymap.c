@@ -1480,7 +1480,7 @@ static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
       return pattern[4];
     case 5:
       STATUS_LED_3(1);
-      led_state_3=6;
+      state=6;
       return pattern[5];
     case 6:
       STATUS_LED_3(0);
