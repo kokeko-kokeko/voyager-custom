@@ -1343,10 +1343,10 @@ static deferred_token led_token_1 = INVALID_DEFERRED_TOKEN;
 static deferred_token led_token_2 = INVALID_DEFERRED_TOKEN;
 static deferred_token led_token_3 = INVALID_DEFERRED_TOKEN;
 static deferred_token led_token_4 = INVALID_DEFERRED_TOKEN;
-static uint8_t led_state_1 = 0;
-static uint8_t led_state_2 = 0;
-static uint8_t led_state_3 = 0;
-static uint8_t led_state_4 = 0;
+//static uint8_t led_state_1 = 0;
+//static uint8_t led_state_2 = 0;
+//static uint8_t led_state_3 = 0;
+//static uint8_t led_state_4 = 0;
 
 static uint32_t led_pattern_blink[] = {250, 250, 250, 250, 250, 250, 250, 250};
 static uint32_t led_pattern_off[] = {0};
@@ -1354,117 +1354,129 @@ static uint32_t led_pattern_on[] = {5, 0};
 static uint32_t led_pattern_oneshot[] = {5, 2000, 0};
 
 static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
-  if (cb_arg == NULL) return 0;
+  static uint8_t state = 0;
+  if (cb_arg == NULL){
+    state = 0;
+    return 0;
+  }
   uint32_t *pattern = cb_arg; 
 
-  switch (led_state_1) {
+  switch (state) {
     case 0:
       STATUS_LED_1(0);
-      led_state_1=1;
+      state=1;
       return pattern[0];
     case 1:
       STATUS_LED_1(1);
-      led_state_1=2;
+      state=2;
       return pattern[1];
     case 2:
       STATUS_LED_1(0);
-      led_state_1=3;
+      state=3;
       return pattern[2];
     case 3:
       STATUS_LED_1(1);
-      led_state_1=4;
+      state=4;
       return pattern[3];
     case 4:
       STATUS_LED_1(0);
-      led_state_1=5;
+      state=5;
       return pattern[4];
     case 5:
       STATUS_LED_1(1);
-      led_state_1=6;
+      state=6;
       return pattern[5];
     case 6:
       STATUS_LED_1(0);
-      led_state_1=7;
+      state=7;
       return pattern[6];
     case 7:
       STATUS_LED_1(1);
-      led_state_1=0;
+      state=0;
       return pattern[7];
     default:
-      led_state_1=0;
+      state=0;
       return 0;
   }
   return 0;
 }
 
 static uint32_t led_pattern_task_2(uint32_t trigger_time, void *cb_arg) {
-  if (cb_arg == NULL) return 0;
+  static uint8_t state = 0;
+  if (cb_arg == NULL){
+    state = 0;
+    return 0;
+  }
   uint32_t *pattern = cb_arg; 
 
-  switch (led_state_2) {
+  switch (state) {
     case 0:
       STATUS_LED_2(0);
-      led_state_2=1;
+      state=1;
       return pattern[0];
     case 1:
       STATUS_LED_2(1);
-      led_state_2=2;
+      state=2;
       return pattern[1];
     case 2:
       STATUS_LED_2(0);
-      led_state_2=3;
+      state=3;
       return pattern[2];
     case 3:
       STATUS_LED_2(1);
-      led_state_2=4;
+      state=4;
       return pattern[3];
     case 4:
       STATUS_LED_2(0);
-      led_state_2=5;
+      state=5;
       return pattern[4];
     case 5:
       STATUS_LED_2(1);
-      led_state_2=6;
+      state=6;
       return pattern[5];
     case 6:
       STATUS_LED_2(0);
-      led_state_2=7;
+      state=7;
       return pattern[6];
     case 7:
       STATUS_LED_2(1);
-      led_state_2=0;
+      state=0;
       return pattern[7];
     default:
-      led_state_2=0;
+      state=0;
       return 0;
   }
   return 0;
 }
 
 static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
-  if (cb_arg == NULL) return 0;
+  static uint8_t state = 0;
+  if (cb_arg == NULL){
+    state = 0;
+    return 0;
+  }
   uint32_t *pattern = cb_arg; 
 
-  switch (led_state_3) {
+  switch (state) {
     case 0:
       STATUS_LED_3(0);
-      led_state_3=1;
+      state=1;
       return pattern[0];
     case 1:
       STATUS_LED_3(1);
-      led_state_3=2;
+      state=2;
       return pattern[1];
     case 2:
       STATUS_LED_3(0);
-      led_state_3=3;
+      state=3;
       return pattern[2];
     case 3:
       STATUS_LED_3(1);
-      led_state_3=4;
+      state=4;
       return pattern[3];
     case 4:
       STATUS_LED_3(0);
-      led_state_3=5;
+      state=5;
       return pattern[4];
     case 5:
       STATUS_LED_3(1);
@@ -1472,58 +1484,62 @@ static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
       return pattern[5];
     case 6:
       STATUS_LED_3(0);
-      led_state_3=7;
+      state=7;
       return pattern[6];
     case 7:
       STATUS_LED_3(1);
-      led_state_3=0;
+      state=0;
       return pattern[7];
     default:
-      led_state_1=0;
+      state=0;
       return 0;
   }
   return 0;
 }
 
 static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
-  if (cb_arg == NULL) return 0;
+  static uint8_t state = 0;
+  if (cb_arg == NULL){
+    state = 0;
+    return 0;
+  }
   uint32_t *pattern = cb_arg; 
 
-  switch (led_state_4) {
+  switch (state) {
     case 0:
       STATUS_LED_4(0);
-      led_state_4=1;
+      state=1;
       return pattern[0];
     case 1:
       STATUS_LED_4(1);
-      led_state_4=2;
+      state=2;
       return pattern[1];
     case 2:
       STATUS_LED_4(0);
-      led_state_4=3;
+      state=3;
       return pattern[2];
     case 3:
       STATUS_LED_4(1);
-      led_state_4=4;
+      state=4;
       return pattern[3];
     case 4:
       STATUS_LED_4(0);
-      led_state_4=5;
+      state=5;
       return pattern[4];
     case 5:
       STATUS_LED_4(1);
-      led_state_4=6;
+      state=6;
       return pattern[5];
     case 6:
       STATUS_LED_4(0);
-      led_state_4=7;
+      state=7;
       return pattern[6];
     case 7:
       STATUS_LED_4(1);
-      led_state_4=0;
+      state=0;
       return pattern[7];
     default:
-      led_state_4=0;
+      state=0;
       return 0;
   }
   return 0;
@@ -1532,25 +1548,25 @@ static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
 static bool led_pattern(uint8_t mask, uint32_t *pattern) {
   if (mask & 0b00000001) {
     cancel_deferred_exec(led_token_1);
-    led_state_1 = 0;
+    led_pattern_task_1(0, NULL);
     led_token_1 = defer_exec(5, led_pattern_task_1, (void *)pattern);
   }
 
   if (mask & 0b00000010) {
     cancel_deferred_exec(led_token_2);
-    led_state_2 = 0;
+    led_pattern_task_2(0, NULL);
     led_token_2 = defer_exec(5, led_pattern_task_2, (void *)pattern);
   }
 
   if (mask & 0b00000100) {
     cancel_deferred_exec(led_token_3);
-    led_state_3 = 0;
+    led_pattern_task_3(0, NULL);
     led_token_3 = defer_exec(5, led_pattern_task_3, (void *)pattern);
   }
 
   if (mask & 0b00001000) {
     cancel_deferred_exec(led_token_4);
-    led_state_4 = 0;
+    led_pattern_task_4(0, NULL);
     led_token_4 = defer_exec(5, led_pattern_task_4, (void *)pattern);
   }
   return true;
