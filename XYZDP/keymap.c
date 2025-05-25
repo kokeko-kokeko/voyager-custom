@@ -1344,7 +1344,7 @@ static deferred_token led_token_2 = INVALID_DEFERRED_TOKEN;
 static deferred_token led_token_3 = INVALID_DEFERRED_TOKEN;
 static deferred_token led_token_4 = INVALID_DEFERRED_TOKEN;
 
-// LED pattern list max 9 number (ms delay, 0 is terminate)
+// LED pattern list max 9 numbers (ms delay, 0 is terminate)
 // off -> on ... -> off (off start for no glitch, off end for fast repeat)
 static uint32_t led_pattern_blink[] = {10, 250, 250, 250, 250, 250, 250, 250, 240};
 static uint32_t led_pattern_off[] = {0};
@@ -1357,49 +1357,12 @@ static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
     state = 0;
     return 0;
   }
-  uint32_t *pattern = cb_arg; 
-  switch (state) {
-    case 0:
-      STATUS_LED_1(0);
-      state=1;
-      return pattern[0];
-    case 1:
-      STATUS_LED_1(1);
-      state=2;
-      return pattern[1];
-    case 2:
-      STATUS_LED_1(0);
-      state=3;
-      return pattern[2];
-    case 3:
-      STATUS_LED_1(1);
-      state=4;
-      return pattern[3];
-    case 4:
-      STATUS_LED_1(0);
-      state=5;
-      return pattern[4];
-    case 5:
-      STATUS_LED_1(1);
-      state=6;
-      return pattern[5];
-    case 6:
-      STATUS_LED_1(0);
-      state=7;
-      return pattern[6];
-    case 7:
-      STATUS_LED_1(1);
-      state=8;
-      return pattern[7];
-    case 8:
-      STATUS_LED_1(0);
-      state=0;
-      return pattern[8];
-    default:
-      state=0;
-      return 0;
+  if (state >= 9){
+    state = 0;
   }
-  return 0;
+  uint32_t *pattern = cb_arg; 
+  STATUS_LED_1(state & 0b00000001);
+  return pattern[state++];
 }
 
 static uint32_t led_pattern_task_2(uint32_t trigger_time, void *cb_arg) {
