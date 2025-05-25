@@ -1343,10 +1343,6 @@ static deferred_token led_token_1 = INVALID_DEFERRED_TOKEN;
 static deferred_token led_token_2 = INVALID_DEFERRED_TOKEN;
 static deferred_token led_token_3 = INVALID_DEFERRED_TOKEN;
 static deferred_token led_token_4 = INVALID_DEFERRED_TOKEN;
-//static uint8_t led_state_1 = 0;
-//static uint8_t led_state_2 = 0;
-//static uint8_t led_state_3 = 0;
-//static uint8_t led_state_4 = 0;
 
 static uint32_t led_pattern_blink[] = {250, 250, 250, 250, 250, 250, 250, 250};
 static uint32_t led_pattern_off[] = {0};
