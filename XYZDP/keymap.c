@@ -1410,10 +1410,10 @@ static uint32_t led_off_4(uint32_t trigger_time, void *cb_arg) {
   return 0;
 }
 
-static bool led_pattern_1(void *pattern) {
+static bool led_pattern_1(uint32_t *pattern) {
   cancel_deferred_exec(led_token_1);
   led_state_1=0;
-  led_token_1 = defer_exec(10, led_pattern_task_1, pattern);
+  led_token_1 = defer_exec(10, led_pattern_task_1, (void *)pattern);
 }
 
 static bool led_oneshot_1(uint32_t delay_ms) {
