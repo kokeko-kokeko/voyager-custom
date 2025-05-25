@@ -1343,6 +1343,56 @@ static deferred_token led_token_1 = INVALID_DEFERRED_TOKEN;
 static deferred_token led_token_2 = INVALID_DEFERRED_TOKEN;
 static deferred_token led_token_3 = INVALID_DEFERRED_TOKEN;
 static deferred_token led_token_4 = INVALID_DEFERRED_TOKEN;
+static uint8_t led_state_1 = 0;
+static uint8_t led_state_2 = 0;
+static uint8_t led_state_3 = 0;
+static uint8_t led_state_4 = 0;
+
+static const uint32_t led_pattern_blink[] = {250, 250, 250, 250, 250, 250, 250, 250};
+
+static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
+  if (cb_arg == NULL) return 0;
+  uint32_t *pattern = cb_arg; 
+
+  switch (led_state_1) {
+    case 0:
+      STATUS_LED_1(0);
+      led_state_1=1;
+      return pattern[0];
+    case 1:
+      STATUS_LED_1(1);
+      led_state_1=2;
+      return pattern[1];
+    case 2:
+      STATUS_LED_1(0);
+      led_state_1=3;
+      return pattern[2];
+    case 3:
+      STATUS_LED_1(1);
+      led_state_1=4;
+      return pattern[3];
+    case 4:
+      STATUS_LED_1(0);
+      led_state_1=5;
+      return pattern[4];
+    case 5:
+      STATUS_LED_1(1);
+      led_state_1=6;
+      return pattern[5];
+    case 6:
+      STATUS_LED_1(0);
+      led_state_1=7;
+      return pattern[6];
+    case 7:
+      STATUS_LED_1(1);
+      led_state_1=0;
+      return pattern[7];
+    default:
+      led_state_1=0;
+      return 0;
+  }
+}
+
 static uint32_t led_off_1(uint32_t trigger_time, void *cb_arg) {
   STATUS_LED_1(0);
   return 0;
