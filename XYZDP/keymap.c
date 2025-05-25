@@ -1348,7 +1348,7 @@ static uint8_t led_state_1 = 0;
 //static uint8_t led_state_3 = 0;
 //static uint8_t led_state_4 = 0;
 
-static const uint32_t led_pattern_blink[] = {250, 250, 250, 250, 250, 250, 250, 250};
+static uint32_t led_pattern_blink[] = {250, 250, 250, 250, 250, 250, 250, 250};
 
 static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
   if (cb_arg == NULL) return 0;
