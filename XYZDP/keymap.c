@@ -1549,25 +1549,25 @@ static bool led_pattern(uint8_t mask, uint32_t *pattern) {
   if (mask & 0b00000001) {
     cancel_deferred_exec(led_token_1);
     led_pattern_task_1(0, NULL);
-    led_token_1 = defer_exec(5, led_pattern_task_1, (void *)pattern);
+    led_token_1 = defer_exec(1, led_pattern_task_1, (void *)pattern);
   }
 
   if (mask & 0b00000010) {
     cancel_deferred_exec(led_token_2);
     led_pattern_task_2(0, NULL);
-    led_token_2 = defer_exec(5, led_pattern_task_2, (void *)pattern);
+    led_token_2 = defer_exec(1, led_pattern_task_2, (void *)pattern);
   }
 
   if (mask & 0b00000100) {
     cancel_deferred_exec(led_token_3);
     led_pattern_task_3(0, NULL);
-    led_token_3 = defer_exec(5, led_pattern_task_3, (void *)pattern);
+    led_token_3 = defer_exec(1, led_pattern_task_3, (void *)pattern);
   }
 
   if (mask & 0b00001000) {
     cancel_deferred_exec(led_token_4);
     led_pattern_task_4(0, NULL);
-    led_token_4 = defer_exec(5, led_pattern_task_4, (void *)pattern);
+    led_token_4 = defer_exec(1, led_pattern_task_4, (void *)pattern);
   }
   return true;
 }
