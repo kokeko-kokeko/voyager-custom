@@ -1339,10 +1339,10 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 }
 
 // LED control
-static deferred_token led_off_token_1 = INVALID_DEFERRED_TOKEN;
-static deferred_token led_off_token_2 = INVALID_DEFERRED_TOKEN;
-static deferred_token led_off_token_3 = INVALID_DEFERRED_TOKEN;
-static deferred_token led_off_token_4 = INVALID_DEFERRED_TOKEN;
+static deferred_token led_token_1 = INVALID_DEFERRED_TOKEN;
+static deferred_token led_token_2 = INVALID_DEFERRED_TOKEN;
+static deferred_token led_token_3 = INVALID_DEFERRED_TOKEN;
+static deferred_token led_token_4 = INVALID_DEFERRED_TOKEN;
 static uint32_t led_off_1(uint32_t trigger_time, void *cb_arg) {
   STATUS_LED_1(0);
   return 0;
@@ -1361,29 +1361,29 @@ static uint32_t led_off_4(uint32_t trigger_time, void *cb_arg) {
 }
 
 static bool led_oneshot_1(uint32_t delay_ms) {
-  if(!extend_deferred_exec(led_off_token_1, delay_ms)) {
-    led_off_token_1 = defer_exec(delay_ms, led_off_1, NULL);
+  if(!extend_deferred_exec(led_token_1, delay_ms)) {
+    led_token_1 = defer_exec(delay_ms, led_off_1, NULL);
   }
   STATUS_LED_1(1);
   return true;
 }
 static bool led_oneshot_2(uint32_t delay_ms) {
-  if(!extend_deferred_exec(led_off_token_2, delay_ms)) {
-    led_off_token_2 = defer_exec(delay_ms, led_off_2, NULL);
+  if(!extend_deferred_exec(led_token_2, delay_ms)) {
+    led_token_2 = defer_exec(delay_ms, led_off_2, NULL);
   }
   STATUS_LED_2(1);
   return true;
 }
 static bool led_oneshot_3(uint32_t delay_ms) {
-  if(!extend_deferred_exec(led_off_token_3, delay_ms)) {
-    led_off_token_3 = defer_exec(delay_ms, led_off_3, NULL);
+  if(!extend_deferred_exec(led_token_3, delay_ms)) {
+    led_token_3 = defer_exec(delay_ms, led_off_3, NULL);
   }
   STATUS_LED_3(1);
   return true;
 }
 static bool led_oneshot_4(uint32_t delay_ms) {
-  if(!extend_deferred_exec(led_off_token_4, delay_ms)) {
-    led_off_token_4 = defer_exec(delay_ms, led_off_4, NULL);
+  if(!extend_deferred_exec(led_token_4, delay_ms)) {
+    led_token_4 = defer_exec(delay_ms, led_off_4, NULL);
   }
   STATUS_LED_4(1);
   return true;
