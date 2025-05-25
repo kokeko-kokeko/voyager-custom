@@ -1350,7 +1350,7 @@ static uint8_t led_state_1 = 0;
 
 static uint32_t led_pattern_blink[] = {250, 250, 250, 250, 250, 250, 250, 250};
 static uint32_t led_pattern_off[] = {0};
-static uint32_t led_pattern_on[] = {10, 0};
+static uint32_t led_pattern_on[] = {5, 0};
 
 static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
   if (cb_arg == NULL) return 0;
@@ -1399,7 +1399,7 @@ static bool led_pattern(uint8_t mask, uint32_t *pattern) {
   if (mask & 0b00000001) {
     cancel_deferred_exec(led_token_1);
     led_state_1 = 0;
-    led_token_1 = defer_exec(10, led_pattern_task_1, (void *)pattern);
+    led_token_1 = defer_exec(5, led_pattern_task_1, (void *)pattern);
   }
 
   return true;
@@ -1416,9 +1416,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     // Base
     case 0:
-      led_pattern_1(0b0001, led_pattern_blink);
-      led_pattern_1(0b0110, led_pattern_off);
-      led_pattern_1(0b1000, led_pattern_on);
+      led_pattern(0b0001, led_pattern_blink);
+      led_pattern(0b0110, led_pattern_off);
+      led_pattern(0b1000, led_pattern_on);
       break;
     case 1:
    //   led_oneshot_2(1000);
