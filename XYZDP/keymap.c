@@ -1343,7 +1343,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // 0: terminate, output this area value
 // UINT16_MAX: return to position 0 immediately, this cycle output 0 value & wait
 // other: output value & wait
-static const uint16_t * const led_pattern_blink = (uint16_t[]){10, 400, 90, UINT16_MAX, UINT16_MAX, UINT16_MAX};
+static const uint16_t * const led_pattern_blink = (uint16_t[]){10, 300, 90, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 static const uint16_t * const led_pattern_off = (uint16_t[]){0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 //static const uint16_t * const led_pattern_on = (uint16_t[]){10, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 static const uint16_t * const led_pattern_oneshot = (uint16_t[]){10, 50, 100, 50, 100, 50, 100, 50, 100, 50, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
@@ -1479,7 +1479,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 6:
     case 7:
       led_pattern(0b0001, led_pattern_blink, 0);
-      led_pattern(0b0101, led_pattern_blink, 100);
+      led_pattern(0b0100, led_pattern_blink, 100);
       led_pattern(0b1010, led_pattern_off, 0);
       break;
     // Fn
