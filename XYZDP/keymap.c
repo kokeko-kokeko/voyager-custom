@@ -1339,14 +1339,14 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 }
 
 // LED pattern list, no const limit, terminate symbol
-// off -> on ... -> off (off start for no glitch, off end for fast repeat)
+// off -> on -> off ... (off start for no glitch)
 // 0: terminate, output this area value
-// UINT16_MAX: return to position 0 immediately, this cycle output 0 value & wait
-// other: output value & wait
+// UINT16_MAX: return to position 0 immediately, this cycle output position 0 value & wait
+// other: output current position value & wait
 static const uint16_t * const led_pattern_blink = (uint16_t[]){10, 300, 90, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 static const uint16_t * const led_pattern_off = (uint16_t[]){0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 //static const uint16_t * const led_pattern_on = (uint16_t[]){10, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
-static const uint16_t * const led_pattern_oneshot = (uint16_t[]){10, 50, 100, 50, 100, 50, 100, 50, 100, 50, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
+static const uint16_t * const led_pattern_oneshot = (uint16_t[]){10, 50, 150, 50, 150, 50, 150, 50, 150, 50, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 
 static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
   static uint8_t state = 0;
