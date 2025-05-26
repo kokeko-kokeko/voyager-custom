@@ -1407,29 +1407,29 @@ static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
   return pattern[state++];
 }
 
-static bool led_pattern(uint8_t mask, uint32_t *pattern) {
+static bool led_pattern(uint8_t mask, uint32_t *pattern, uint32_t init_delay_ms) {
   if (mask & 0b00000001) {
     cancel_deferred_exec(led_token_1);
     led_pattern_task_1(0, NULL);
-    led_token_1 = defer_exec(1, led_pattern_task_1, (void *)pattern);
+    led_token_1 = defer_exec(init_delay_ms + 1, led_pattern_task_1, (void *)pattern);
   }
 
   if (mask & 0b00000010) {
     cancel_deferred_exec(led_token_2);
     led_pattern_task_2(0, NULL);
-    led_token_2 = defer_exec(1, led_pattern_task_2, (void *)pattern);
+    led_token_2 = defer_exec(init_delay_ms + 1, led_pattern_task_2, (void *)pattern);
   }
 
   if (mask & 0b00000100) {
     cancel_deferred_exec(led_token_3);
     led_pattern_task_3(0, NULL);
-    led_token_3 = defer_exec(1, led_pattern_task_3, (void *)pattern);
+    led_token_3 = defer_exec(init_delay_ms + 1, led_pattern_task_3, (void *)pattern);
   }
 
   if (mask & 0b00001000) {
     cancel_deferred_exec(led_token_4);
     led_pattern_task_4(0, NULL);
-    led_token_4 = defer_exec(1, led_pattern_task_4, (void *)pattern);
+    led_token_4 = defer_exec(init_delay_ms + 1, led_pattern_task_4, (void *)pattern);
   }
   return true;
 }
@@ -1445,51 +1445,51 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     // Base
     case 0:
-      led_pattern(0b0001, led_pattern_oneshot);
-      led_pattern(0b1110, led_pattern_off);
+      led_pattern(0b0001, led_pattern_oneshot, 0);
+      led_pattern(0b1110, led_pattern_off, 0);
       break;
     case 1:
-      led_pattern(0b0010, led_pattern_oneshot);
-      led_pattern(0b1101, led_pattern_off);
+      led_pattern(0b0010, led_pattern_oneshot, 0);
+      led_pattern(0b1101, led_pattern_off, 0);
       break;
     // Shift
     case 2:
     case 3:
-      led_pattern(0b0101, led_pattern_blink);
-      led_pattern(0b1010, led_pattern_off);
+      led_pattern(0b0101, led_pattern_blink, 0);
+      led_pattern(0b1010, led_pattern_off, 0);
       break;
     // Num
     case 4:
     case 5:
-      led_pattern(0b0010, led_pattern_blink);
-      led_pattern(0b1101, led_pattern_off);
+      led_pattern(0b0010, led_pattern_blink, 0);
+      led_pattern(0b1101, led_pattern_off, 0);
       break;
     // Fn
     case 6:
     case 7:
-      led_pattern(0b1000, led_pattern_blink);
-      led_pattern(0b0111, led_pattern_off);
+      led_pattern(0b1000, led_pattern_blink, 0);
+      led_pattern(0b0111, led_pattern_off, 0);
       break;
     // Bkt
     case 8:
     case 9:
-      led_pattern(0b1010, led_pattern_blink);
-      led_pattern(0b0101, led_pattern_off);
+      led_pattern(0b1010, led_pattern_blink, 0);
+      led_pattern(0b0101, led_pattern_off, 0);
       break;
     // Lcur
     case 10:
     case 11:
-      led_pattern(0b0011, led_pattern_blink);
-      led_pattern(0b1100, led_pattern_off);
+      led_pattern(0b0011, led_pattern_blink, 0);
+      led_pattern(0b1100, led_pattern_off, 0);
       break;
     // Rcur
     case 12:
     case 13:
-      led_pattern(0b1100, led_pattern_blink);
-      led_pattern(0b0011, led_pattern_off);
+      led_pattern(0b1100, led_pattern_blink, 0);
+      led_pattern(0b0011, led_pattern_off, 0);
       break;
     default:
-      led_pattern(0b1111, led_pattern_on);
+      led_pattern(0b1111, led_pattern_on, 0);
       break;
   }
   return state;
