@@ -1455,12 +1455,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     // Base
     case 0:
-      led_pattern(0b1000, led_pattern_oneshot, 0);
-      led_pattern(0b0111, led_pattern_off, 0);
+      led_pattern(0b1010, led_pattern_oneshot, 0);
+      led_pattern(0b0101, led_pattern_off, 0);
       break;
     case 1:
-      led_pattern(0b0100, led_pattern_oneshot, 0);
-      led_pattern(0b1011, led_pattern_off, 0);
+      led_pattern(0b0101, led_pattern_oneshot, 0);
+      led_pattern(0b1010, led_pattern_off, 0);
       break;
     // Shift
     case 2:
