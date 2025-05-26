@@ -1472,14 +1472,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 4:
     case 5:
       led_pattern(0b0100, led_pattern_blink, 0);
-      led_pattern(0b0001, led_pattern_blink, 100);
+      led_pattern(0b0001, led_pattern_blink, 200);
       led_pattern(0b1010, led_pattern_off, 0);
       break;
     // Bkt
     case 6:
     case 7:
       led_pattern(0b0001, led_pattern_blink, 0);
-      led_pattern(0b0100, led_pattern_blink, 100);
+      led_pattern(0b0100, led_pattern_blink, 200);
       led_pattern(0b1010, led_pattern_off, 0);
       break;
     // Fn
@@ -1492,27 +1492,27 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 10:
     case 11:
       led_pattern(0b1000, led_pattern_blink, 0);
-      led_pattern(0b0100, led_pattern_blink, 100);
+      led_pattern(0b0100, led_pattern_blink, 200);
       led_pattern(0b0011, led_pattern_off, 0);
       break;
     // Rcur
     case 12:
     case 13:
       led_pattern(0b0010, led_pattern_blink, 0);
-      led_pattern(0b0001, led_pattern_blink, 100);
+      led_pattern(0b0001, led_pattern_blink, 200);
       led_pattern(0b1100, led_pattern_off, 0);
       break;
     case 14:
-      led_pattern(0b0010, led_pattern_on, 100);
-      led_pattern(0b0001, led_pattern_on, 200);
-      led_pattern(0b0100, led_pattern_on, 300);
-      led_pattern(0b1000, led_pattern_on, 400);
+      led_pattern(0b0010, led_pattern_on, 200);
+      led_pattern(0b0001, led_pattern_on, 400);
+      led_pattern(0b0100, led_pattern_on, 600);
+      led_pattern(0b1000, led_pattern_on, 800);
       break;    
     case 15:
-      led_pattern(0b1000, led_pattern_on, 100);
-      led_pattern(0b0100, led_pattern_on, 200);
-      led_pattern(0b0001, led_pattern_on, 300);
-      led_pattern(0b0010, led_pattern_on, 400);
+      led_pattern(0b1000, led_pattern_on, 200);
+      led_pattern(0b0100, led_pattern_on, 400);
+      led_pattern(0b0001, led_pattern_on, 600);
+      led_pattern(0b0010, led_pattern_on, 800);
       break;
     default :
       led_pattern(0b1111, led_pattern_off, 0);
