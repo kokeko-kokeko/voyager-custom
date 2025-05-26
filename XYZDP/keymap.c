@@ -1343,7 +1343,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // 0: terminate, output this area value
 // UINT16_MAX: return to position 0 immediately, this cycle output 0 value & wait
 // other: output value & wait
-static const uint16_t * const led_pattern_blink = (uint16_t[]){10, 250, 240, UINT16_MAX, UINT16_MAX, UINT16_MAX};
+static const uint16_t * const led_pattern_blink = (uint16_t[]){10, 300, 290, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 static const uint16_t * const led_pattern_off = (uint16_t[]){0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 //static const uint16_t * const led_pattern_on = (uint16_t[]){10, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 static const uint16_t * const led_pattern_oneshot = (uint16_t[]){10, 500, 100, 400, 100, 300, 100, 200, 100, 100, 0,UINT16_MAX, UINT16_MAX, UINT16_MAX};
@@ -1490,21 +1490,21 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 10:
     case 11:
       led_pattern(0b1000, led_pattern_blink, 0);
-      led_pattern(0b0100, led_pattern_blink, 125);
+      led_pattern(0b0100, led_pattern_blink, 150);
       led_pattern(0b0011, led_pattern_off, 0);
       break;
     // Rcur
     case 12:
     case 13:
       led_pattern(0b0010, led_pattern_blink, 0);
-      led_pattern(0b0001, led_pattern_blink, 125);
+      led_pattern(0b0001, led_pattern_blink, 150);
       led_pattern(0b1100, led_pattern_off, 0);
       break;
     default:
       led_pattern(0b1000, led_pattern_blink, 0);
-      led_pattern(0b0100, led_pattern_blink, 125);
-      led_pattern(0b0001, led_pattern_blink, 250);
-      led_pattern(0b0010, led_pattern_blink, 375);
+      led_pattern(0b0100, led_pattern_blink, 75);
+      led_pattern(0b0001, led_pattern_blink, 150);
+      led_pattern(0b0010, led_pattern_blink, 225);
       break;
   }
   return state;
