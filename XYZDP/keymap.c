@@ -1345,7 +1345,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // other: output current position value & wait
 static const uint16_t * const led_pattern_blink = (uint16_t[]){10, 300, 90, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 static const uint16_t * const led_pattern_off = (uint16_t[]){0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
-//static const uint16_t * const led_pattern_on = (uint16_t[]){10, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
+static const uint16_t * const led_pattern_on = (uint16_t[]){10, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 static const uint16_t * const led_pattern_oneshot = (uint16_t[]){10, 50, 150, 50, 150, 50, 150, 50, 150, 50, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 
 static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
@@ -1503,10 +1503,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       led_pattern(0b1100, led_pattern_off, 0);
       break;
     default:
-      led_pattern(0b1000, led_pattern_blink, 0);
-      led_pattern(0b0100, led_pattern_blink, 100);
-      led_pattern(0b0010, led_pattern_blink, 200);
-      led_pattern(0b0001, led_pattern_blink, 300);
+      led_pattern(0b1000, led_pattern_on, 100);
+      led_pattern(0b0100, led_pattern_on, 200);
+      led_pattern(0b0010, led_pattern_on, 400);
+      led_pattern(0b0001, led_pattern_on, 300);
       break;
   }
   return state;
