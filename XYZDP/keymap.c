@@ -1341,9 +1341,9 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // LED pattern list max 9 numbers (ms delay, 0 is terminate)
 // off -> on ... -> off (off start for no glitch, off end for fast repeat)
 // 0: terminate, output this area value
-// 1: return to 0 immediately, this cycle output 0 value & wait
+// UINT16_MAX: return to position 0 immediately, this cycle output 0 value & wait
 // other: output value & wait
-static uint16_t led_pattern_blink[] = {10, 250, 240, 1, UINT16_MAX};
+static uint16_t led_pattern_blink[] = {10, 250, 240, UINT16_MAX};
 static uint16_t led_pattern_off[] = {0, UINT16_MAX};
 static uint16_t led_pattern_on[] = {10, 0, UINT16_MAX};
 static uint16_t led_pattern_oneshot[] = {10, 2000, 0, UINT16_MAX};
@@ -1358,7 +1358,7 @@ static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
   if (9 <= state){
     state = 0;
   }
-  if (pattern[state] == 1) {
+  if (pattern[state] == UINT16_MAX) {
     state = 0;
   }
   STATUS_LED_1(state & 0b00000001);
@@ -1375,7 +1375,7 @@ static uint32_t led_pattern_task_2(uint32_t trigger_time, void *cb_arg) {
   if (9 <= state){
     state = 0;
   }
-  if (pattern[state] == 1) {
+  if (pattern[state] == UINT16_MAX) {
     state = 0;
   }
   STATUS_LED_2(state & 0b00000001);
@@ -1392,7 +1392,7 @@ static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
   if (9 <= state){
     state = 0;
   }
-  if (pattern[state] == 1) {
+  if (pattern[state] == UINT16_MAX) {
     state = 0;
   }
   STATUS_LED_3(state & 0b00000001);
@@ -1409,7 +1409,7 @@ static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
   if (9 <= state){
     state = 0;
   }
-  if (pattern[state] == 1) {
+  if (pattern[state] == UINT16_MAX) {
     state = 0;
   }
   STATUS_LED_4(state & 0b00000001);
@@ -1500,15 +1500,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Lcur
     case 10:
     case 11:
-      led_pattern(0b0010, led_pattern_blink, 0);
-      led_pattern(0b0001, led_pattern_blink, 100);
+      led_pattern(0b0010, led_pattern_blink, 100);
+      led_pattern(0b0001, led_pattern_blink, 0);
       led_pattern(0b1100, led_pattern_off, 0);
       break;
     // Rcur
     case 12:
     case 13:
-      led_pattern(0b1000, led_pattern_blink, 0);
-      led_pattern(0b0100, led_pattern_blink, 100);
+      led_pattern(0b1000, led_pattern_blink, 100);
+      led_pattern(0b0100, led_pattern_blink, 0);
       led_pattern(0b0011, led_pattern_off, 0);
       break;
     default:
