@@ -1402,39 +1402,39 @@ static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
 }
 
 static bool led_pattern(uint8_t mask, uint32_t *pattern, uint32_t init_delay_ms) {
-  static deferred_token led_token_1 = INVALID_DEFERRED_TOKEN;
-  static deferred_token led_token_2 = INVALID_DEFERRED_TOKEN;
-  static deferred_token led_token_3 = INVALID_DEFERRED_TOKEN;
-  static deferred_token led_token_4 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_1 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_4 = INVALID_DEFERRED_TOKEN;
   
   if (mask & 0b00000001) {
-    cancel_deferred_exec(led_token_1);
+    cancel_deferred_exec(token_1);
     led_pattern_task_1(0, NULL);
   }
   if (mask & 0b00000010) {
-    cancel_deferred_exec(led_token_2);
+    cancel_deferred_exec(token_2);
     led_pattern_task_2(0, NULL);
   }
   if (mask & 0b00000100) {
-    cancel_deferred_exec(led_token_3);
+    cancel_deferred_exec(token_3);
     led_pattern_task_3(0, NULL);
   }
   if (mask & 0b00001000) {
-    cancel_deferred_exec(led_token_4);
+    cancel_deferred_exec(token_4);
     led_pattern_task_4(0, NULL);
   }
   
   if (mask & 0b00000001) {
-    led_token_1 = defer_exec(init_delay_ms + 1, led_pattern_task_1, (void *)pattern);
+    token_1 = defer_exec(init_delay_ms + 1, led_pattern_task_1, (void *)pattern);
   }
   if (mask & 0b00000010) {
-    led_token_2 = defer_exec(init_delay_ms + 1, led_pattern_task_2, (void *)pattern);
+    token_2 = defer_exec(init_delay_ms + 1, led_pattern_task_2, (void *)pattern);
   }
   if (mask & 0b00000100) {
-    led_token_3 = defer_exec(init_delay_ms + 1, led_pattern_task_3, (void *)pattern);
+    token_3 = defer_exec(init_delay_ms + 1, led_pattern_task_3, (void *)pattern);
   }
   if (mask & 0b00001000) {
-    led_token_4 = defer_exec(init_delay_ms + 1, led_pattern_task_4, (void *)pattern);
+    token_4 = defer_exec(init_delay_ms + 1, led_pattern_task_4, (void *)pattern);
   }
   
   return true;
