@@ -1358,7 +1358,7 @@ static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
     return 0;
   }
   uint32_t *pattern = cb_arg; 
-  if (state >= 9){
+  if (9 <= state){
     state = 0;
   }
   STATUS_LED_1(state & 0b00000001);
@@ -1372,7 +1372,7 @@ static uint32_t led_pattern_task_2(uint32_t trigger_time, void *cb_arg) {
     return 0;
   }
   uint32_t *pattern = cb_arg; 
-  if (state >= 9){
+  if (9 <= state){
     state = 0;
   }
   STATUS_LED_2(state & 0b00000001);
@@ -1386,7 +1386,7 @@ static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
     return 0;
   }
   uint32_t *pattern = cb_arg; 
-  if (state >= 9){
+  if (9 <= state){
     state = 0;
   }
   STATUS_LED_3(state & 0b00000001);
@@ -1400,7 +1400,7 @@ static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
     return 0;
   }
   uint32_t *pattern = cb_arg; 
-  if (state >= 9){
+  if (9 <= state){
     state = 0;
   }
   STATUS_LED_4(state & 0b00000001);
