@@ -1338,12 +1338,6 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
   return 0;  // Disable Flow Tap.
 }
 
-// LED control
-static deferred_token led_token_1 = INVALID_DEFERRED_TOKEN;
-static deferred_token led_token_2 = INVALID_DEFERRED_TOKEN;
-static deferred_token led_token_3 = INVALID_DEFERRED_TOKEN;
-static deferred_token led_token_4 = INVALID_DEFERRED_TOKEN;
-
 // LED pattern list max 9 numbers (ms delay, 0 is terminate)
 // off -> on ... -> off (off start for no glitch, off end for fast repeat)
 static uint32_t led_pattern_blink[] = {10, 250, 250, 250, 250, 250, 250, 250, 240};
@@ -1408,6 +1402,11 @@ static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
 }
 
 static bool led_pattern(uint8_t mask, uint32_t *pattern, uint32_t init_delay_ms) {
+  static deferred_token led_token_1 = INVALID_DEFERRED_TOKEN;
+  static deferred_token led_token_2 = INVALID_DEFERRED_TOKEN;
+  static deferred_token led_token_3 = INVALID_DEFERRED_TOKEN;
+  static deferred_token led_token_4 = INVALID_DEFERRED_TOKEN;
+  
   if (mask & 0b00000001) {
     cancel_deferred_exec(led_token_1);
     led_pattern_task_1(0, NULL);
