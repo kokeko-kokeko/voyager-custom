@@ -1343,7 +1343,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // 0: terminate, output this area value
 // UINT16_MAX: return to position 0 immediately, this cycle output 0 value & wait
 // other: output value & wait
-static const uint16_t * const led_pattern_blink = (uint16_t[]){10, 400, 19vv0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
+static const uint16_t * const led_pattern_blink = (uint16_t[]){10, 400, 240, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 static const uint16_t * const led_pattern_off = (uint16_t[]){0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 //static const uint16_t * const led_pattern_on = (uint16_t[]){10, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 static const uint16_t * const led_pattern_oneshot = (uint16_t[]){10, 50, 10, 45, 15, 40, 20, 35, 25, 30, 0,UINT16_MAX, UINT16_MAX, UINT16_MAX};
