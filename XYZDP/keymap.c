@@ -1340,7 +1340,10 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 
 // LED pattern list max 9 numbers (ms delay, 0 is terminate)
 // off -> on ... -> off (off start for no glitch, off end for fast repeat)
-static uint32_t led_pattern_blink[] = {10, 250, 250, 250, 250, 250, 250, 250, 240};
+// 0: terminate, output this area value
+// 1: return to 0 immediately, this cycle output 0 value & wait
+// other: output value & wait
+static uint32_t led_pattern_blink[] = {10, 250, 240, 1};
 static uint32_t led_pattern_off[] = {0};
 static uint32_t led_pattern_on[] = {10, 0};
 static uint32_t led_pattern_oneshot[] = {10, 2000, 0};
@@ -1353,6 +1356,9 @@ static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
   }
   uint32_t *pattern = cb_arg; 
   if (9 <= state){
+    state = 0;
+  }
+  if (pattern[state] == 1) {
     state = 0;
   }
   STATUS_LED_1(state & 0b00000001);
@@ -1369,6 +1375,9 @@ static uint32_t led_pattern_task_2(uint32_t trigger_time, void *cb_arg) {
   if (9 <= state){
     state = 0;
   }
+  if (pattern[state] == 1) {
+    state = 0;
+  }
   STATUS_LED_2(state & 0b00000001);
   return pattern[state++];
 }
@@ -1383,6 +1392,9 @@ static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
   if (9 <= state){
     state = 0;
   }
+  if (pattern[state] == 1) {
+    state = 0;
+  }
   STATUS_LED_3(state & 0b00000001);
   return pattern[state++];
 }
@@ -1395,6 +1407,9 @@ static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
   }
   uint32_t *pattern = cb_arg; 
   if (9 <= state){
+    state = 0;
+  }
+  if (pattern[state] == 1) {
     state = 0;
   }
   STATUS_LED_4(state & 0b00000001);
