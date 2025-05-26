@@ -1416,7 +1416,7 @@ static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
   return (uint32_t)pattern[state++];
 }
 
-static bool led_pattern(uint8_t mask, uint16_t *pattern, uint32_t init_delay_ms) {
+static bool led_pattern(uint8_t mask, const uint16_t * const pattern, uint32_t init_delay_ms) {
   static deferred_token token_1 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
