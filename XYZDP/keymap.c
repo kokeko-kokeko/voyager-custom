@@ -1338,15 +1338,15 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
   return 0;  // Disable Flow Tap.
 }
 
-// LED pattern list max 9 numbers (ms delay, 0 is terminate)
+// LED pattern list max 17 numbers
 // off -> on ... -> off (off start for no glitch, off end for fast repeat)
 // 0: terminate, output this area value
 // UINT16_MAX: return to position 0 immediately, this cycle output 0 value & wait
 // other: output value & wait
-static uint16_t led_pattern_blink[] = {10, 250, 240, UINT16_MAX};
-static uint16_t led_pattern_off[] = {0, UINT16_MAX};
-static uint16_t led_pattern_on[] = {10, 0, UINT16_MAX};
-static uint16_t led_pattern_oneshot[] = {10, 2000, 0, UINT16_MAX};
+static uint16_t led_pattern_blink[] = {10, 250, 240, UINT16_MAX, UINT16_MAX};
+static uint16_t led_pattern_off[] = {0, UINT16_MAX, UINT16_MAX};
+static uint16_t led_pattern_on[] = {10, 0, UINT16_MAX, UINT16_MAX};
+static uint16_t led_pattern_oneshot[] = {10, 2000, 0, UINT16_MAX, UINT16_MAX};
 
 static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
   static uint8_t state = 0;
@@ -1355,7 +1355,7 @@ static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
     return 0;
   }
   const uint16_t * const pattern = cb_arg; 
-  if (9 <= state){
+  if (17 <= state){
     state = 0;
   }
   if (pattern[state] == UINT16_MAX) {
@@ -1371,8 +1371,8 @@ static uint32_t led_pattern_task_2(uint32_t trigger_time, void *cb_arg) {
     state = 0;
     return 0;
   }
-  uint16_t *pattern = cb_arg; 
-  if (9 <= state){
+  const uint16_t * const pattern = cb_arg; 
+  if (17 <= state){
     state = 0;
   }
   if (pattern[state] == UINT16_MAX) {
@@ -1388,8 +1388,8 @@ static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
     state = 0;
     return 0;
   }
-  uint16_t *pattern = cb_arg; 
-  if (9 <= state){
+  const uint16_t * const pattern = cb_arg; 
+  if (17 <= state){
     state = 0;
   }
   if (pattern[state] == UINT16_MAX) {
@@ -1405,8 +1405,8 @@ static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
     state = 0;
     return 0;
   }
-  uint16_t *pattern = cb_arg; 
-  if (9 <= state){
+  const uint16_t * const pattern = cb_arg; 
+  if (17 <= state){
     state = 0;
   }
   if (pattern[state] == UINT16_MAX) {
