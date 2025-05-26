@@ -1343,10 +1343,10 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // 0: terminate, output this area value
 // 1: return to 0 immediately, this cycle output 0 value & wait
 // other: output value & wait
-static uint32_t led_pattern_blink[] = {10, 250, 240, 1};
-static uint32_t led_pattern_off[] = {0};
-static uint32_t led_pattern_on[] = {10, 0};
-static uint32_t led_pattern_oneshot[] = {10, 2000, 0};
+static uint16_t led_pattern_blink[] = {10, 250, 240, 1};
+static uint16_t led_pattern_off[] = {0};
+static uint16_t led_pattern_on[] = {10, 0};
+static uint16_t led_pattern_oneshot[] = {10, 2000, 0};
 
 static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
   static uint8_t state = 0;
@@ -1354,7 +1354,7 @@ static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
     state = 0;
     return 0;
   }
-  uint32_t *pattern = cb_arg; 
+  uint16_t *pattern = cb_arg; 
   if (9 <= state){
     state = 0;
   }
@@ -1362,7 +1362,7 @@ static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
     state = 0;
   }
   STATUS_LED_1(state & 0b00000001);
-  return pattern[state++];
+  return (uint32_t)pattern[state++];
 }
 
 static uint32_t led_pattern_task_2(uint32_t trigger_time, void *cb_arg) {
@@ -1371,7 +1371,7 @@ static uint32_t led_pattern_task_2(uint32_t trigger_time, void *cb_arg) {
     state = 0;
     return 0;
   }
-  uint32_t *pattern = cb_arg; 
+  uint16_t *pattern = cb_arg; 
   if (9 <= state){
     state = 0;
   }
@@ -1379,7 +1379,7 @@ static uint32_t led_pattern_task_2(uint32_t trigger_time, void *cb_arg) {
     state = 0;
   }
   STATUS_LED_2(state & 0b00000001);
-  return pattern[state++];
+  return (uint32_t)pattern[state++];
 }
 
 static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
@@ -1388,7 +1388,7 @@ static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
     state = 0;
     return 0;
   }
-  uint32_t *pattern = cb_arg; 
+  uint16_t *pattern = cb_arg; 
   if (9 <= state){
     state = 0;
   }
@@ -1396,7 +1396,7 @@ static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
     state = 0;
   }
   STATUS_LED_3(state & 0b00000001);
-  return pattern[state++];
+  return (uint32_t)pattern[state++];
 }
 
 static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
@@ -1405,7 +1405,7 @@ static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
     state = 0;
     return 0;
   }
-  uint32_t *pattern = cb_arg; 
+  uint16_t *pattern = cb_arg; 
   if (9 <= state){
     state = 0;
   }
@@ -1413,10 +1413,10 @@ static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
     state = 0;
   }
   STATUS_LED_4(state & 0b00000001);
-  return pattern[state++];
+  return (uint32_t)pattern[state++];
 }
 
-static bool led_pattern(uint8_t mask, uint32_t *pattern, uint32_t init_delay_ms) {
+static bool led_pattern(uint8_t mask, uint16_t *pattern, uint32_t init_delay_ms) {
   static deferred_token token_1 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
