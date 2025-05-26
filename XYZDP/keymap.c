@@ -1338,7 +1338,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
   return 0;  // Disable Flow Tap.
 }
 
-// LED pattern list max 17 numbers
+// LED pattern list, no const limit, terminate symbol
 // off -> on ... -> off (off start for no glitch, off end for fast repeat)
 // 0: terminate, output this area value
 // UINT16_MAX: return to position 0 immediately, this cycle output 0 value & wait
@@ -1355,9 +1355,6 @@ static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
     return 0;
   }
   const uint16_t * const pattern = cb_arg; 
-  if (17 <= state){
-    state = 0;
-  }
   if (pattern[state] == UINT16_MAX) {
     state = 0;
   }
@@ -1372,9 +1369,6 @@ static uint32_t led_pattern_task_2(uint32_t trigger_time, void *cb_arg) {
     return 0;
   }
   const uint16_t * const pattern = cb_arg; 
-  if (17 <= state){
-    state = 0;
-  }
   if (pattern[state] == UINT16_MAX) {
     state = 0;
   }
@@ -1389,9 +1383,6 @@ static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
     return 0;
   }
   const uint16_t * const pattern = cb_arg; 
-  if (17 <= state){
-    state = 0;
-  }
   if (pattern[state] == UINT16_MAX) {
     state = 0;
   }
@@ -1406,9 +1397,6 @@ static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
     return 0;
   }
   const uint16_t * const pattern = cb_arg; 
-  if (17 <= state){
-    state = 0;
-  }
   if (pattern[state] == UINT16_MAX) {
     state = 0;
   }
