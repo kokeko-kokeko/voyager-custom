@@ -1343,10 +1343,10 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // 0: terminate, output this area value
 // 1: return to 0 immediately, this cycle output 0 value & wait
 // other: output value & wait
-static uint16_t led_pattern_blink[] = {10, 250, 240, 1};
-static uint16_t led_pattern_off[] = {0};
-static uint16_t led_pattern_on[] = {10, 0};
-static uint16_t led_pattern_oneshot[] = {10, 2000, 0};
+static uint16_t led_pattern_blink[] = {10, 250, 240, 1, UINT16_MAX};
+static uint16_t led_pattern_off[] = {0, UINT16_MAX};
+static uint16_t led_pattern_on[] = {10, 0, UINT16_MAX};
+static uint16_t led_pattern_oneshot[] = {10, 2000, 0, UINT16_MAX};
 
 static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
   static uint8_t state = 0;
