@@ -1354,7 +1354,7 @@ static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
     state = 0;
     return 0;
   }
-  const uint16_t *pattern = cb_arg; 
+  const uint16_t * const pattern = cb_arg; 
   if (9 <= state){
     state = 0;
   }
