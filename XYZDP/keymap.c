@@ -1460,9 +1460,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       if (base_normal) {
         status_led(0b1111, led_pattern_off, 0);
       } else {
-        status_led(0b1100, led_pattern_oneshot, 100);
-        status_led(0b0011, led_pattern_off, 0);
         base_normal = true;
+        status_led(0b1100, led_pattern_oneshot, 200);
+        status_led(0b0011, led_pattern_off, 0);
       }
       break;
     // Base (JIS)
@@ -1470,9 +1470,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       if (base_normal) {
         status_led(0b1111, led_pattern_off, 0);
       } else {
-        status_led(0b0011, led_pattern_oneshot, 100);
-        status_led(0b1100, led_pattern_off, 0);
         base_normal = true;
+        status_led(0b0011, led_pattern_oneshot, 200);
+        status_led(0b1100, led_pattern_off, 0);
       }
       break;
     // Shift
@@ -1485,14 +1485,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 4:
     case 5:
       status_led(0b0010, led_pattern_blink, 0);
-      status_led(0b0001, led_pattern_blink, 100);
+      status_led(0b0001, led_pattern_blink, 200);
       status_led(0b1100, led_pattern_off, 0);
       break;
     // Bkt
     case 6:
     case 7:
       status_led(0b0001, led_pattern_blink, 0);
-      status_led(0b0010, led_pattern_blink, 100);
+      status_led(0b0010, led_pattern_blink, 200);
       status_led(0b1100, led_pattern_off, 0);
       break;
     // Fn
@@ -1505,29 +1505,29 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 10:
     case 11:
       status_led(0b1000, led_pattern_blink, 0);
-      status_led(0b0110, led_pattern_blink, 100);
+      status_led(0b0110, led_pattern_blink, 200);
       status_led(0b0001, led_pattern_off, 0);
       break;
     // Rcur
     case 12:
     case 13:
       status_led(0b0100, led_pattern_blink, 0);
-      status_led(0b1001, led_pattern_blink, 100);
+      status_led(0b1001, led_pattern_blink, 200);
       status_led(0b0010, led_pattern_off, 0);
       break;
     case 14:
-      status_led(0b0100, led_pattern_on, 0);
-      status_led(0b0001, led_pattern_on, 200);
-      status_led(0b1000, led_pattern_on, 400);
-      status_led(0b0010, led_pattern_on, 600);
       base_normal = false;
+      status_led(0b0100, led_pattern_on, 200);
+      status_led(0b0001, led_pattern_on, 400);
+      status_led(0b1000, led_pattern_on, 600);
+      status_led(0b0010, led_pattern_on, 800);
       break;    
     case 15:
-      status_led(0b1000, led_pattern_on, 0);
-      status_led(0b0010, led_pattern_on, 200);
-      status_led(0b0100, led_pattern_on, 400);
-      status_led(0b0001, led_pattern_on, 600);
       base_normal = false;
+      status_led(0b1000, led_pattern_on, 200);
+      status_led(0b0010, led_pattern_on, 400);
+      status_led(0b0100, led_pattern_on, 600);
+      status_led(0b0001, led_pattern_on, 800);
       break;
     default :
       status_led(0b1111, led_pattern_off, 0);
