@@ -1491,7 +1491,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Base
     case 0:
       if (pass_spl) {
-        status_led(0b1010, led_pattern_oneshot, 1000);
+        status_led(0b1010, led_pattern_oneshot, 100);
         pass_spl  = false;
       } else {
         status_led_off(0b1010);
@@ -1500,7 +1500,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       break;
     case 1:
       if (pass_spl) {
-        status_led(0b0101, led_pattern_oneshot, 1000);
+        status_led(0b0101, led_pattern_oneshot, 100);
         pass_spl = false;
       } else {
         status_led_off(0b0101);
