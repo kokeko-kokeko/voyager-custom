@@ -1482,10 +1482,10 @@ extern bool is_launching;
 
 // if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
 layer_state_t layer_state_set_user(layer_state_t state) {
-  static bool pass_spl = false;
+  static bool base_normal = false;
   
   if (is_launching || !keyboard_config.led_level) {
-    pass_spl  = true;
+    base_normal  = false;
     return state;
   }
 
@@ -1493,20 +1493,20 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     // Base
     case 0:
-      if (pass_spl) {
-        status_led(0b1010, led_pattern_oneshot, 100);
-        pass_spl  = false;
-      } else {
+      if (base_normal) {
         status_led_off(0b1010);
+      } else {
+        status_led(0b1010, led_pattern_oneshot, 100);
+        base_normal = false;
       }
       status_led_off(0b0101);
       break;
     case 1:
-      if (pass_spl) {
-        status_led(0b0101, led_pattern_oneshot, 100);
-        pass_spl = false;
-      } else {
+      if (base_normal) {
         status_led_off(0b0101);
+      } else {
+        status_led(0b0101, led_pattern_oneshot, 100);
+        base_normal = false;
       }
       status_led_off(0b1010);
       break;
@@ -1555,14 +1555,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0001, led_pattern_on, 200);
       status_led(0b1000, led_pattern_on, 400);
       status_led(0b0100, led_pattern_on, 600);
-      pass_spl = true;
+      base_normal = false;
       break;    
     case 15:
       status_led(0b1000, led_pattern_on, 0);
       status_led(0b0100, led_pattern_on, 200);
       status_led(0b0010, led_pattern_on, 400);
       status_led(0b0001, led_pattern_on, 600);
-      pass_spl = true;
+      base_normal = false;
       break;
     default :
       status_led_off(0b1111);
