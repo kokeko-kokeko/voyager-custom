@@ -1330,9 +1330,9 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // UINT16_MAX: return to position 0 immediately, this cycle output position 0 value & wait
 // other: output current position value & wait
 static const uint16_t * const led_pattern_blink = (uint16_t[]){8, 256, 88, UINT16_MAX, UINT16_MAX, UINT16_MAX};
-static const uint16_t * const led_pattern_off = (uint16_t[]){0, 0, 0};
-static const uint16_t * const led_pattern_on = (uint16_t[]){8, 0, 0, 0};
-static const uint16_t * const led_pattern_oneshot = (uint16_t[]){8, 56, 152, 56, 152, 56, 152, 56, 152, 56, 0, 0, 0};
+static const uint16_t * const led_pattern_off = (uint16_t[]){0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
+static const uint16_t * const led_pattern_on = (uint16_t[]){8, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
+static const uint16_t * const led_pattern_oneshot = (uint16_t[]){8, 56, 152, 56, 152, 56, 152, 56, 152, 56, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 
 // access to system-side flag
 extern keyboard_config_t keyboard_config;
