@@ -1338,13 +1338,11 @@ static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8
 static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 16, 32, 16, 32, 16, 32, 16, 32, 16, 0, UINT8_MAX, UINT8_MAX};
 
 static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
-  static const uint8_t *pattern = NULL;
   static uint8_t state = 0;
-  //if (cb_arg == NULL) return 0;
-  if (cb_arg != pattern) {
-    pattern = cb_arg;
+  if (cb_arg == NULL) {
     state = 0;
   }
+  const uint8_t * const pattern = cb_arg;
   if (pattern[state] == UINT8_MAX) {
     state = 0;
   }
@@ -1353,13 +1351,11 @@ static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
 }
 
 static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
-  static const uint8_t *pattern = NULL;
   static uint8_t state = 0;
-  //if (cb_arg == NULL) return 0;
-  if (cb_arg != pattern) {
-    pattern = cb_arg;
+  if (cb_arg == NULL) {
     state = 0;
   }
+  const uint8_t * const pattern = cb_arg;
   if (pattern[state] == UINT8_MAX) {
     state = 0;
   }
@@ -1368,13 +1364,11 @@ static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
 }
 
 static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
-  static const uint8_t *pattern = NULL;
   static uint8_t state = 0;
-  //if (cb_arg == NULL) return 0;
-  if (cb_arg != pattern) {
-    pattern = cb_arg;
+  if (cb_arg == NULL) {
     state = 0;
   }
+  const uint8_t * const pattern = cb_arg;
   if (pattern[state] == UINT8_MAX) {
     state = 0;
   }
@@ -1383,13 +1377,11 @@ static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
 }
 
 static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
-  static const uint8_t *pattern = NULL;
   static uint8_t state = 0;
-  //if (cb_arg == NULL) return 0;
-  if (cb_arg != pattern) {
-    pattern = cb_arg;
+  if (cb_arg == NULL) {
     state = 0;
   }
+  const uint8_t * const pattern = cb_arg;
   if (pattern[state] == UINT8_MAX) {
     state = 0;
   }
@@ -1412,29 +1404,33 @@ static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t ini
   
   if (mask & 0b1000) {
     cancel_deferred_exec(token_1);
+    status_led_task_1(0, NULL);
   }
   if (mask & 0b0100) {
     cancel_deferred_exec(token_2);
+    status_led_task_2(0, NULL);
   }
   if (mask & 0b0010) {
     cancel_deferred_exec(token_3);
+    status_led_task_3(0, NULL);
   }
   if (mask & 0b0001) {
     cancel_deferred_exec(token_4);
+    status_led_task_4(0, NULL);
   }
 
-  // add pseudo rondom delay unit 16/4
+  // add pseudo rondom delay 
   if (mask & 0b1000) {
-    token_1 = defer_exec((uint32_t)(init_delay_ms + 2), status_led_task_1, (void *)pattern);
+    token_1 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_1, (void *)pattern);
   }
   if (mask & 0b0100) {
-    token_2 = defer_exec((uint32_t)(init_delay_ms + 6), status_led_task_2, (void *)pattern);
+    token_2 = defer_exec((uint32_t)(init_delay_ms + 2), status_led_task_2, (void *)pattern);
   }
   if (mask & 0b0010) {
-    token_3 = defer_exec((uint32_t)(init_delay_ms + 10), status_led_task_3, (void *)pattern);
+    token_3 = defer_exec((uint32_t)(init_delay_ms + 3), status_led_task_3, (void *)pattern);
   }
   if (mask & 0b0001) {
-    token_4 = defer_exec((uint32_t)(init_delay_ms + 14), status_led_task_4, (void *)pattern);
+    token_4 = defer_exec((uint32_t)(init_delay_ms + 4), status_led_task_4, (void *)pattern);
   }
   
   return true;
