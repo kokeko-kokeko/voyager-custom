@@ -1451,24 +1451,24 @@ extern bool is_launching;
 layer_state_t layer_state_set_user(layer_state_t state) {
   if (is_launching || !keyboard_config.led_level) return state;
 
-  static bool pass_fwsys = true;
+  static bool pass_spl = true;
   
   uint8_t layer = get_highest_layer(state);
   switch (layer) {
     // Base
     case 0:
-      if (pass_fwsys) {
+      if (pass_spl) {
         status_led(0b1010, led_pattern_oneshot, 0);
-        pass_fwsys  = false;
+        pass_spl  = false;
       } else {
         status_led(0b1010, led_pattern_off, 0);
       }
       status_led(0b0101, led_pattern_off, 0);
       break;
     case 1:
-      if (pass_fwsys) {
+      if (pass_spl) {
         status_led(0b0101, led_pattern_oneshot, 0);
-        pass_fwsys = false;
+        pass_spl = false;
       } else {
         status_led(0b0101, led_pattern_off, 0);
       }
@@ -1519,13 +1519,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0001, led_pattern_on, 200);
       status_led(0b1000, led_pattern_on, 400);
       status_led(0b0100, led_pattern_on, 600);
+      pass_spl = true;
       break;    
     case 15:
       status_led(0b1000, led_pattern_on, 0);
       status_led(0b0100, led_pattern_on, 200);
       status_led(0b0010, led_pattern_on, 400);
       status_led(0b0001, led_pattern_on, 600);
-      pass_fwsys = true;
+      pass_spl = true;
       break;
     default :
       status_led(0b1111, led_pattern_off, 0);
