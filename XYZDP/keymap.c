@@ -1335,11 +1335,12 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 //static const uint16_t * const led_pattern_on = (uint16_t[]){8, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 //static const uint16_t * const led_pattern_oneshot = (uint16_t[]){8, 56, 500, 56, 500, 56, 500, 56, 500, 56, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 
-// reduce data x8 (3bit shift) 8bit
-static const uint8_t * const led_pattern_blink = (uint8_t[]){1, 31, 11, UINT8_MAX, UINT8_MAX};
+// reduce data x16 (4bit shift) 8bit
+// 16x255=4080ms 4sec
+static const uint8_t * const led_pattern_blink = (uint8_t[]){1, 16, 6, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_off = (uint8_t[]){0, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 7, 31, 7, 31, 7, 31, 7, 31, 7, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 3, 31, 3, 31, 3, 31, 3, 31, 3, 0, UINT8_MAX, UINT8_MAX};
 
 static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
   static const uint8_t *pattern = NULL;
@@ -1353,7 +1354,7 @@ static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
     state = 0;
   }
   STATUS_LED_1(state & 0b00000001);
-  return ((uint32_t)pattern[state++]) << 3;
+  return ((uint32_t)pattern[state++]) << 4;
 }
 
 static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
@@ -1368,7 +1369,7 @@ static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
     state = 0;
   }
   STATUS_LED_2(state & 0b00000001);
-  return ((uint32_t)pattern[state++]) << 3;
+  return ((uint32_t)pattern[state++]) << 4;
 }
 
 static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
@@ -1383,7 +1384,7 @@ static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
     state = 0;
   }
   STATUS_LED_3(state & 0b00000001);
-  return ((uint32_t)pattern[state++]) << 3;
+  return ((uint32_t)pattern[state++]) << 4;
 }
 
 static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
@@ -1398,7 +1399,7 @@ static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
     state = 0;
   }
   STATUS_LED_4(state & 0b00000001);
-  return ((uint32_t)pattern[state++]) << 3;
+  return ((uint32_t)pattern[state++]) << 4;
 }
 
 static deferred_token status_led_token_1 = INVALID_DEFERRED_TOKEN;
@@ -1416,27 +1417,18 @@ static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t ini
   
   if (mask & 0b1000) {
     cancel_deferred_exec(status_led_token_1);
-  }
-  if (mask & 0b0100) {
-    cancel_deferred_exec(status_led_token_2);
-  }
-  if (mask & 0b0010) {
-    cancel_deferred_exec(status_led_token_3);
-  }
-  if (mask & 0b0001) {
-    cancel_deferred_exec(status_led_token_4);
-  }
-  
-  if (mask & 0b1000) {
     status_led_token_1 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_1, (void *)pattern);
   }
   if (mask & 0b0100) {
+    cancel_deferred_exec(status_led_token_2);
     status_led_token_2 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_2, (void *)pattern);
   }
   if (mask & 0b0010) {
+    cancel_deferred_exec(status_led_token_3);
     status_led_token_3 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_3, (void *)pattern);
   }
   if (mask & 0b0001) {
+    cancel_deferred_exec(status_led_token_4);
     status_led_token_4 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_4, (void *)pattern);
   }
   
