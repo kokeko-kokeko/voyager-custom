@@ -1397,10 +1397,7 @@ static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
   return ((uint32_t)pattern[state++]) << 4;
 }
 
-static deferred_token status_led_token_1 = INVALID_DEFERRED_TOKEN;
-static deferred_token status_led_token_2 = INVALID_DEFERRED_TOKEN;
-static deferred_token status_led_token_3 = INVALID_DEFERRED_TOKEN;
-static deferred_token status_led_token_4 = INVALID_DEFERRED_TOKEN;
+
 
 // 1 -> Red Left
 // 2 -> Green Left
@@ -1409,6 +1406,11 @@ static deferred_token status_led_token_4 = INVALID_DEFERRED_TOKEN;
 // re-order bit position
 static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t init_delay_ms) {
   if (pattern == NULL) return false;
+
+  static deferred_token status_led_token_1 = INVALID_DEFERRED_TOKEN;
+  static deferred_token status_led_token_2 = INVALID_DEFERRED_TOKEN;
+  static deferred_token status_led_token_3 = INVALID_DEFERRED_TOKEN;
+  static deferred_token status_led_token_4 = INVALID_DEFERRED_TOKEN;
   
   if (mask & 0b1000) {
     cancel_deferred_exec(status_led_token_1);
@@ -1435,39 +1437,6 @@ static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t ini
   }
   if (mask & 0b0001) {
     status_led_token_4 = defer_exec((uint32_t)(init_delay_ms + 14), status_led_task_4, (void *)pattern);
-  }
-  
-  return true;
-}
-
-static bool status_led_off(uint8_t mask) {
-  if (mask & 0b1000) {
-    if (status_led_token_1 != INVALID_DEFERRED_TOKEN) {
-      cancel_deferred_exec(status_led_token_1);
-      status_led_token_1 = INVALID_DEFERRED_TOKEN;
-      STATUS_LED_1(0);
-    }
-  }
-  if (mask & 0b0100) {
-    if (status_led_token_2 != INVALID_DEFERRED_TOKEN) {
-      cancel_deferred_exec(status_led_token_2);
-      status_led_token_2 = INVALID_DEFERRED_TOKEN;
-      STATUS_LED_2(0);
-    }
-  }
-  if (mask & 0b0010) {
-    if (status_led_token_3 != INVALID_DEFERRED_TOKEN) {
-      cancel_deferred_exec(status_led_token_3);
-      status_led_token_3 = INVALID_DEFERRED_TOKEN;
-      STATUS_LED_3(0);
-    }
-  }
-  if (mask & 0b0001) {
-    if (status_led_token_4 != INVALID_DEFERRED_TOKEN) {
-      cancel_deferred_exec(status_led_token_4);
-      status_led_token_4 = INVALID_DEFERRED_TOKEN;
-      STATUS_LED_4(0);
-    }
   }
   
   return true;
