@@ -1341,10 +1341,6 @@ static const uint8_t * const led_pattern_off = (uint8_t[]){0, UINT8_MAX, UINT8_M
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 7, 31, 7, 31, 7, 31, 7, 31, 7, 0, UINT8_MAX, UINT8_MAX};
 
-// access to system-side flag
-extern keyboard_config_t keyboard_config;
-extern bool is_launching;
-
 static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
   static const uint8_t *pattern = NULL;
   static uint8_t state = 0;
@@ -1446,6 +1442,10 @@ static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t ini
   
   return true;
 }
+
+// access to system-side flag
+extern keyboard_config_t keyboard_config;
+extern bool is_launching;
 
 // if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
 layer_state_t layer_state_set_user(layer_state_t state) {
