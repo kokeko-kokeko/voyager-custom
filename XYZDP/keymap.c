@@ -1330,73 +1330,79 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // UINT16_MAX: return to position 0 immediately, this cycle output position 0 value & wait
 // other: output current position value & wait
 // put reurn token for safety
-static const uint16_t * const led_pattern_blink = (uint16_t[]){8, 256, 88, UINT16_MAX, UINT16_MAX, UINT16_MAX};
-static const uint16_t * const led_pattern_off = (uint16_t[]){0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
-static const uint16_t * const led_pattern_on = (uint16_t[]){8, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
-static const uint16_t * const led_pattern_oneshot = (uint16_t[]){8, 56, 500, 56, 500, 56, 500, 56, 500, 56, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
+//static const uint16_t * const led_pattern_blink = (uint16_t[]){8, 256, 88, UINT16_MAX, UINT16_MAX, UINT16_MAX};
+//static const uint16_t * const led_pattern_off = (uint16_t[]){0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
+//static const uint16_t * const led_pattern_on = (uint16_t[]){8, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
+//static const uint16_t * const led_pattern_oneshot = (uint16_t[]){8, 56, 500, 56, 500, 56, 500, 56, 500, 56, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
+
+// reduce data x16 (4bit shift) 8bit
+static const uint8_t * const led_pattern_blink = (uint8_t[]){1, 16, 6, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_off = (uint8_t[]){0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 3, 31, 3, 31, 3, 31, 3, 31, 3, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 // access to system-side flag
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
 
 static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
-  static const uint16_t *pattern = NULL;
+  static const uint8_t *pattern = NULL;
   static uint8_t state = 0;
   if (cb_arg == NULL) return 0;
   if (cb_arg != pattern) {
     pattern = cb_arg;
     state = 0;
   }
-  if (pattern[state] == UINT16_MAX) {
+  if (pattern[state] == UINT8_MAX) {
     state = 0;
   }
   STATUS_LED_1(state & 0b00000001);
-  return (uint32_t)pattern[state++];
+  return ((uint32_t)pattern[state++]) << 4;
 }
 
 static uint32_t led_pattern_task_2(uint32_t trigger_time, void *cb_arg) {
-  static const uint16_t *pattern = NULL;
+  static const uint8_t *pattern = NULL;
   static uint8_t state = 0;
   if (cb_arg == NULL) return 0;
   if (cb_arg != pattern) {
     pattern = cb_arg;
     state = 0;
   }
-  if (pattern[state] == UINT16_MAX) {
+  if (pattern[state] == UINT8_MAX) {
     state = 0;
   }
   STATUS_LED_2(state & 0b00000001);
-  return (uint32_t)pattern[state++];
+  return ((uint32_t)pattern[state++]) << 4;
 }
 
 static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
-  static const uint16_t *pattern = NULL;
+  static const uint8_t *pattern = NULL;
   static uint8_t state = 0;
   if (cb_arg == NULL) return 0;
   if (cb_arg != pattern) {
     pattern = cb_arg;
     state = 0;
   }
-  if (pattern[state] == UINT16_MAX) {
+  if (pattern[state] == UINT8_MAX) {
     state = 0;
   }
   STATUS_LED_3(state & 0b00000001);
-  return (uint32_t)pattern[state++];
+  return ((uint32_t)pattern[state++]) << 4;
 }
 
 static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
-  static const uint16_t *pattern = NULL;
+  static const uint8_t *pattern = NULL;
   static uint8_t state = 0;
   if (cb_arg == NULL) return 0;
   if (cb_arg != pattern) {
     pattern = cb_arg;
     state = 0;
   }
-  if (pattern[state] == UINT16_MAX) {
+  if (pattern[state] == UINT8_MAX) {
     state = 0;
   }
   STATUS_LED_4(state & 0b00000001);
-  return (uint32_t)pattern[state++];
+  return ((uint32_t)pattern[state++]) << 4;
 }
 
 // 1 -> Red Left
@@ -1404,7 +1410,7 @@ static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
 // 3 -> Red Right
 // 4 -> Green Right
 // re-order bit position
-static bool led_pattern(uint8_t mask, const uint16_t * const pattern, uint16_t init_delay_ms) {
+static bool led_pattern(uint8_t mask, const uint8_t * const pattern, uint16_t init_delay_ms) {
   static deferred_token token_1 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
