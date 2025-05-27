@@ -1339,13 +1339,13 @@ extern keyboard_config_t keyboard_config;
 extern bool is_launching;
 
 static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
-  static void *cb_arg_last = NULL;
+  static const uint16_t *pattern = NULL;
   static uint8_t state = 0;
-  if (cb_arg_last != cb_arg){
-    cb_arg_last = cb_arg;
+  if (cb_arg == NULL) return 0;
+  if (pattern != cb_arg) {
+    pattern = cb_arg;
     state = 0;
   }
-  const uint16_t * const pattern = cb_arg; 
   if (pattern[state] == UINT16_MAX) {
     state = 0;
   }
