@@ -1433,7 +1433,6 @@ static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t ini
   if (mask & 0b0010) {
     token_2 = defer_exec((uint32_t)(init_delay_ms + 14), status_led_task_2, (void *)pattern);
   }
-
   if (mask & 0b0001) {
     token_4 = defer_exec((uint32_t)(init_delay_ms + 16), status_led_task_4, (void *)pattern);
   }
