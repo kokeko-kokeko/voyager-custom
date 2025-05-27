@@ -1337,7 +1337,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 
 // reduce data x8 (3bit shift) 8bit
 static const uint8_t * const led_pattern_blink = (uint8_t[]){1, 31, 11, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_off = (uint8_t[]){0, UINT8_MAX, UINT8_MAX};
+//static const uint8_t * const led_pattern_off = (uint8_t[]){0, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 7, 31, 7, 31, 7, 31, 7, 31, 7, 0, UINT8_MAX, UINT8_MAX};
 
@@ -1443,6 +1443,39 @@ static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t ini
   return true;
 }
 
+static bool status_led_off(uint8_t mask) {
+  if (mask & 0b1000) {
+    if (status_led_token_1 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(status_led_token_1);
+      status_led_token_1 = INVALID_DEFERRED_TOKEN;
+      STATUS_LED_1(0);
+    }
+  }
+  if (mask & 0b0100) {
+    if (status_led_token_2 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(status_led_token_2);
+      status_led_token_2 = INVALID_DEFERRED_TOKEN;
+      STATUS_LED_2(0);
+    }
+  }
+  if (mask & 0b0010) {
+    if (status_led_token_3 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(status_led_token_3);
+      status_led_token_3 = INVALID_DEFERRED_TOKEN;
+      STATUS_LED_3(0);
+    }
+  }
+  if (mask & 0b0001) {
+    if (status_led_token_4 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(status_led_token_4);
+      status_led_token_4 = INVALID_DEFERRED_TOKEN;
+      STATUS_LED_4(0);
+    }
+  }
+  
+  return true;
+}
+
 // access to system-side flag
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
@@ -1458,61 +1491,61 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Base
     case 0:
       if (pass_spl) {
-        status_led(0b1010, led_pattern_oneshot, 0);
+        status_led(0b1010, led_pattern_oneshot, 1000);
         pass_spl  = false;
       } else {
-        status_led(0b1010, led_pattern_off, 0);
+        status_led_off(0b1010);
       }
-      status_led(0b0101, led_pattern_off, 0);
+      status_led_off(0b0101);
       break;
     case 1:
       if (pass_spl) {
-        status_led(0b0101, led_pattern_oneshot, 0);
+        status_led(0b0101, led_pattern_oneshot, 1000);
         pass_spl = false;
       } else {
-        status_led(0b0101, led_pattern_off, 0);
+        status_led_off(0b0101);
       }
-      status_led(0b1010, led_pattern_off, 0);
+      status_led_off(0b1010);
       break;
     // Shift
     case 2:
     case 3:
       status_led(0b1010, led_pattern_blink, 0);
-      status_led(0b0101, led_pattern_off, 0);
+      status_led_off(0b0101);
       break;
     // Num
     case 4:
     case 5:
       status_led(0b0100, led_pattern_blink, 0);
       status_led(0b0001, led_pattern_blink, 100);
-      status_led(0b1010, led_pattern_off, 0);
+      status_led_off(0b1010);
       break;
     // Bkt
     case 6:
     case 7:
       status_led(0b0001, led_pattern_blink, 0);
       status_led(0b0100, led_pattern_blink, 100);
-      status_led(0b1010, led_pattern_off, 0);
+      status_led_off(0b1010);
       break;
     // Fn
     case 8:
     case 9:
       status_led(0b0101, led_pattern_blink, 0);
-      status_led(0b1010, led_pattern_off, 0);
+      status_led_off(0b1010);
       break;
     // Lcur
     case 10:
     case 11:
       status_led(0b1000, led_pattern_blink, 0);
       status_led(0b0100, led_pattern_blink, 100);
-      status_led(0b0011, led_pattern_off, 0);
+      status_led_off(0b0011);
       break;
     // Rcur
     case 12:
     case 13:
       status_led(0b0010, led_pattern_blink, 0);
       status_led(0b0001, led_pattern_blink, 100);
-      status_led(0b1100, led_pattern_off, 0);
+      status_led_off(0b1100);
       break;
     case 14:
       status_led(0b0010, led_pattern_on, 0);
@@ -1529,7 +1562,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       pass_spl = true;
       break;
     default :
-      status_led(0b1111, led_pattern_off, 0);
+      status_led_off(0b1111);
       break;
   }
   return state;
