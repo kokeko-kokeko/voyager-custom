@@ -1332,10 +1332,10 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // put reurn token for safety
 // reduce data x16 (4bit shift) 8bit
 // 16x255=4080ms 4sec
-static const uint8_t * const led_pattern_blink = (uint8_t[]){1, 16, 7, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_blink = (uint8_t[]){1, 16, 15, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_off = (uint8_t[]){0, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 8, 32, 8, 32, 8, 32, 8, 32, 8, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 16, 32, 16, 32, 16, 32, 16, 32, 16, 0, UINT8_MAX, UINT8_MAX};
 
 static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
   static const uint8_t *pattern = NULL;
@@ -1501,7 +1501,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Shift
     case 2:
     case 3:
-      status_led(0b1010, led_pattern_blink, 0);
+      status_led(0b1000, led_pattern_blink, 0);
+      status_led(0b0010, led_pattern_blink, 200);
       status_led_off(0b0101);
       break;
     // Num
@@ -1519,19 +1520,22 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Fn
     case 8:
     case 9:
-      status_led(0b0101, led_pattern_blink, 0);
+      status_led(0b0100, led_pattern_blink, 0);
+      status_led(0b0001, led_pattern_blink, 200);
       status_led_off(0b1010);
       break;
     // Lcur
     case 10:
     case 11:
-      status_led(0b1100, led_pattern_blink, 0);
+      status_led(0b1000, led_pattern_blink, 0);
+      status_led(0b0100, led_pattern_blink, 200);
       status_led_off(0b0011);
       break;
     // Rcur
     case 12:
     case 13:
-      status_led(0b0011, led_pattern_blink, 0);
+      status_led(0b0010, led_pattern_blink, 0);
+      status_led(0b0001, led_pattern_blink, 200);
       status_led_off(0b1100);
       break;
     case 14:
