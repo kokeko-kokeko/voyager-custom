@@ -1394,16 +1394,16 @@ static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
 }
 
 // 1 -> Red Left
-// 2 -> Green Left
 // 3 -> Red Right
+// 2 -> Green Left
 // 4 -> Green Right
 // re-order bit position
 static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t init_delay_ms) {
   if (pattern == NULL) return false;
 
   static deferred_token token_1 = INVALID_DEFERRED_TOKEN;
-  static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_4 = INVALID_DEFERRED_TOKEN;
   
   if (mask & 0b1000) {
@@ -1411,12 +1411,12 @@ static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t ini
     status_led_task_1(0, NULL);
   }
   if (mask & 0b0100) {
-    cancel_deferred_exec(token_2);
-    status_led_task_2(0, NULL);
-  }
-  if (mask & 0b0010) {
     cancel_deferred_exec(token_3);
     status_led_task_3(0, NULL);
+  }  
+  if (mask & 0b0010) {
+    cancel_deferred_exec(token_2);
+    status_led_task_2(0, NULL);
   }
   if (mask & 0b0001) {
     cancel_deferred_exec(token_4);
@@ -1428,11 +1428,12 @@ static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t ini
     token_1 = defer_exec((uint32_t)(init_delay_ms + 10), status_led_task_1, (void *)pattern);
   }
   if (mask & 0b0100) {
-    token_2 = defer_exec((uint32_t)(init_delay_ms + 14), status_led_task_2, (void *)pattern);
-  }
-  if (mask & 0b0010) {
     token_3 = defer_exec((uint32_t)(init_delay_ms + 12), status_led_task_3, (void *)pattern);
   }
+  if (mask & 0b0010) {
+    token_2 = defer_exec((uint32_t)(init_delay_ms + 14), status_led_task_2, (void *)pattern);
+  }
+
   if (mask & 0b0001) {
     token_4 = defer_exec((uint32_t)(init_delay_ms + 16), status_led_task_4, (void *)pattern);
   }
@@ -1460,8 +1461,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       if (base_normal) {
         status_led(0b1111, led_pattern_off, 0);
       } else {
-        status_led(0b1010, led_pattern_oneshot, 100);
-        status_led(0b0101, led_pattern_off, 0);
+        status_led(0b1100, led_pattern_oneshot, 100);
+        status_led(0b0011, led_pattern_off, 0);
         base_normal = true;
       }
       break;
@@ -1470,36 +1471,36 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       if (base_normal) {
         status_led(0b1111, led_pattern_off, 0);
       } else {
-        status_led(0b0101, led_pattern_oneshot, 100);
-        status_led(0b1010, led_pattern_off, 0);
+        status_led(0b0011, led_pattern_oneshot, 100);
+        status_led(0b1100, led_pattern_off, 0);
         base_normal = true;
       }
       break;
     // Shift
     case 2:
     case 3:
-      status_led(0b1010, led_pattern_blink, 0);
-      status_led(0b0101, led_pattern_off, 0);
+      status_led(0b1100, led_pattern_blink, 0);
+      status_led(0b0011, led_pattern_off, 0);
       break;
     // Num
     case 4:
     case 5:
-      status_led(0b0100, led_pattern_blink, 0);
+      status_led(0b0010, led_pattern_blink, 0);
       status_led(0b0001, led_pattern_blink, 100);
-      status_led(0b1010, led_pattern_off, 0);
+      status_led(0b1100, led_pattern_off, 0);
       break;
     // Bkt
     case 6:
     case 7:
       status_led(0b0001, led_pattern_blink, 0);
-      status_led(0b0100, led_pattern_blink, 100);
-      status_led(0b1010, led_pattern_off, 0);
+      status_led(0b0010, led_pattern_blink, 100);
+      status_led(0b1100, led_pattern_off, 0);
       break;
     // Fn
     case 8:
     case 9:
-      status_led(0b0101, led_pattern_blink, 0);
-      status_led(0b1010, led_pattern_off, 0);
+      status_led(0b0011, led_pattern_blink, 0);
+      status_led(0b1100, led_pattern_off, 0);
       break;
     // Lcur
     case 10:
@@ -1511,21 +1512,21 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Rcur
     case 12:
     case 13:
-      status_led(0b0010, led_pattern_blink, 0);
+      status_led(0b0100, led_pattern_blink, 0);
       status_led(0b1001, led_pattern_blink, 100);
-      status_led(0b0100, led_pattern_off, 0);
+      status_led(0b0010, led_pattern_off, 0);
       break;
     case 14:
-      status_led(0b0010, led_pattern_on, 0);
+      status_led(0b0100, led_pattern_on, 0);
       status_led(0b0001, led_pattern_on, 200);
       status_led(0b1000, led_pattern_on, 400);
-      status_led(0b0100, led_pattern_on, 600);
+      status_led(0b0010, led_pattern_on, 600);
       base_normal = false;
       break;    
     case 15:
       status_led(0b1000, led_pattern_on, 0);
-      status_led(0b0100, led_pattern_on, 200);
-      status_led(0b0010, led_pattern_on, 400);
+      status_led(0b0010, led_pattern_on, 200);
+      status_led(0b0100, led_pattern_on, 400);
       status_led(0b0001, led_pattern_on, 600);
       base_normal = false;
       break;
