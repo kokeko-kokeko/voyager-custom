@@ -1423,17 +1423,18 @@ static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t ini
     cancel_deferred_exec(status_led_token_4);
   }
 
+  // add pseudo rondom delay unit 16/4
   if (mask & 0b1000) {
-    status_led_token_1 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_1, (void *)pattern);
+    status_led_token_1 = defer_exec((uint32_t)(init_delay_ms + 4), status_led_task_1, (void *)pattern);
   }
   if (mask & 0b0100) {
-    status_led_token_2 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_2, (void *)pattern);
+    status_led_token_2 = defer_exec((uint32_t)(init_delay_ms + 12), status_led_task_2, (void *)pattern);
   }
   if (mask & 0b0010) {
-    status_led_token_3 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_3, (void *)pattern);
+    status_led_token_3 = defer_exec((uint32_t)(init_delay_ms + 8), status_led_task_3, (void *)pattern);
   }
   if (mask & 0b0001) {
-    status_led_token_4 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_4, (void *)pattern);
+    status_led_token_4 = defer_exec((uint32_t)(init_delay_ms + 16), status_led_task_4, (void *)pattern);
   }
   
   return true;
