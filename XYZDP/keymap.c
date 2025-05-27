@@ -1512,7 +1512,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 12:
     case 13:
       status_led(0b0010, led_pattern_blink, 0);
-      status_led(0b0101, led_pattern_blink, 100);
+      status_led(0b1001, led_pattern_blink, 100);
       status_led(0b1000, led_pattern_off, 0);
       break;
     case 14:
