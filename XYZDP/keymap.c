@@ -1495,14 +1495,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 14:
       led_pattern(0b0010, led_pattern_on, 250);
       led_pattern(0b0001, led_pattern_on, 500);
-      led_pattern(0b0100, led_pattern_on, 750);
-      led_pattern(0b1000, led_pattern_on, 1000);
+      led_pattern(0b1000, led_pattern_on, 750);
+      led_pattern(0b0100, led_pattern_on, 1000);
       break;    
     case 15:
       led_pattern(0b1000, led_pattern_on, 250);
       led_pattern(0b0100, led_pattern_on, 500);
-      led_pattern(0b0001, led_pattern_on, 750);
-      led_pattern(0b0010, led_pattern_on, 1000);
+      led_pattern(0b0010, led_pattern_on, 750);
+      led_pattern(0b0001, led_pattern_on, 1000);
       break;
     default :
       led_pattern(0b1111, led_pattern_off, 0);
