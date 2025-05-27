@@ -1425,16 +1425,16 @@ static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t ini
 
   // add pseudo rondom delay 
   if (mask & 0b1000) {
-    token_1 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_1, (void *)pattern);
+    token_1 = defer_exec((uint32_t)(init_delay_ms + 10), status_led_task_1, (void *)pattern);
   }
   if (mask & 0b0100) {
-    token_2 = defer_exec((uint32_t)(init_delay_ms + 3), status_led_task_2, (void *)pattern);
+    token_2 = defer_exec((uint32_t)(init_delay_ms + 12), status_led_task_2, (void *)pattern);
   }
   if (mask & 0b0010) {
-    token_3 = defer_exec((uint32_t)(init_delay_ms + 2), status_led_task_3, (void *)pattern);
+    token_3 = defer_exec((uint32_t)(init_delay_ms + 11), status_led_task_3, (void *)pattern);
   }
   if (mask & 0b0001) {
-    token_4 = defer_exec((uint32_t)(init_delay_ms + 4), status_led_task_4, (void *)pattern);
+    token_4 = defer_exec((uint32_t)(init_delay_ms + 13), status_led_task_4, (void *)pattern);
   }
   
   return true;
@@ -1492,7 +1492,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 6:
     case 7:
       status_led(0b0001, led_pattern_blink, 0);
-      status_led(0b0101, led_pattern_blink, 100);
+      status_led(0b0100, led_pattern_blink, 100);
       status_led(0b1010, led_pattern_off, 0);
       break;
     // Fn
@@ -1505,15 +1505,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 10:
     case 11:
       status_led(0b1000, led_pattern_blink, 0);
-      status_led(0b0100, led_pattern_blink, 100);
-      status_led(0b0011, led_pattern_off, 0);
+      status_led(0b0110, led_pattern_blink, 100);
+      status_led(0b0001, led_pattern_off, 0);
       break;
     // Rcur
     case 12:
     case 13:
       status_led(0b0010, led_pattern_blink, 0);
-      status_led(0b0001, led_pattern_blink, 100);
-      status_led(0b1100, led_pattern_off, 0);
+      status_led(0b0101, led_pattern_blink, 100);
+      status_led(0b1000, led_pattern_off, 0);
       break;
     case 14:
       status_led(0b0010, led_pattern_on, 0);
