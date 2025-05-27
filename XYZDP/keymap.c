@@ -1335,11 +1335,11 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 //static const uint16_t * const led_pattern_on = (uint16_t[]){8, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 //static const uint16_t * const led_pattern_oneshot = (uint16_t[]){8, 56, 500, 56, 500, 56, 500, 56, 500, 56, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 
-// reduce data x16 (4bit shift) 8bit
-static const uint8_t * const led_pattern_blink = (uint8_t[]){1, 16, 6, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_off = (uint8_t[]){0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 3, 31, 3, 31, 3, 31, 3, 31, 3, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+// reduce data x8 (3bit shift) 8bit
+static const uint8_t * const led_pattern_blink = (uint8_t[]){1, 32, 11, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_off = (uint8_t[]){0, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 7, 62, 7, 62, 7, 62, 7, 62, 7, 0, UINT8_MAX, UINT8_MAX};
 
 // access to system-side flag
 extern keyboard_config_t keyboard_config;
@@ -1357,7 +1357,7 @@ static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
     state = 0;
   }
   STATUS_LED_1(state & 0b00000001);
-  return ((uint32_t)pattern[state++]) << 4;
+  return ((uint32_t)pattern[state++]) << 3;
 }
 
 static uint32_t led_pattern_task_2(uint32_t trigger_time, void *cb_arg) {
@@ -1372,7 +1372,7 @@ static uint32_t led_pattern_task_2(uint32_t trigger_time, void *cb_arg) {
     state = 0;
   }
   STATUS_LED_2(state & 0b00000001);
-  return ((uint32_t)pattern[state++]) << 4;
+  return ((uint32_t)pattern[state++]) << 3;
 }
 
 static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
@@ -1387,7 +1387,7 @@ static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
     state = 0;
   }
   STATUS_LED_3(state & 0b00000001);
-  return ((uint32_t)pattern[state++]) << 4;
+  return ((uint32_t)pattern[state++]) << 3;
 }
 
 static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
@@ -1402,7 +1402,7 @@ static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
     state = 0;
   }
   STATUS_LED_4(state & 0b00000001);
-  return ((uint32_t)pattern[state++]) << 4;
+  return ((uint32_t)pattern[state++]) << 3;
 }
 
 // 1 -> Red Left
