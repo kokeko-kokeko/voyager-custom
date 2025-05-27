@@ -1339,10 +1339,10 @@ extern keyboard_config_t keyboard_config;
 extern bool is_launching;
 
 static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
-  static void *arg_last = NULL;
+  static void *cb_arg_last = NULL;
   static uint8_t state = 0;
-  if (arg_last != cb_arg){
-    arg_last = cb_arg;
+  if (cb_arg_last != cb_arg){
+    cb_arg_last = cb_arg;
     state = 0;
   }
   const uint16_t * const pattern = cb_arg; 
@@ -1354,10 +1354,11 @@ static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
 }
 
 static uint32_t led_pattern_task_2(uint32_t trigger_time, void *cb_arg) {
+  static void *cb_arg_last = NULL;
   static uint8_t state = 0;
-  if (cb_arg == NULL){
+  if (cb_arg_last != cb_arg){
+    cb_arg_last = cb_arg;
     state = 0;
-    return 0;
   }
   const uint16_t * const pattern = cb_arg; 
   if (pattern[state] == UINT16_MAX) {
@@ -1368,10 +1369,11 @@ static uint32_t led_pattern_task_2(uint32_t trigger_time, void *cb_arg) {
 }
 
 static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
+  static void *cb_arg_last = NULL;
   static uint8_t state = 0;
-  if (cb_arg == NULL){
+  if (cb_arg_last != cb_arg){
+    cb_arg_last = cb_arg;
     state = 0;
-    return 0;
   }
   const uint16_t * const pattern = cb_arg; 
   if (pattern[state] == UINT16_MAX) {
@@ -1382,10 +1384,11 @@ static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
 }
 
 static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
+  static void *cb_arg_last = NULL;
   static uint8_t state = 0;
-  if (cb_arg == NULL){
+  if (cb_arg_last != cb_arg){
+    cb_arg_last = cb_arg;
     state = 0;
-    return 0;
   }
   const uint16_t * const pattern = cb_arg; 
   if (pattern[state] == UINT16_MAX) {
@@ -1408,19 +1411,15 @@ static bool led_pattern(uint8_t mask, const uint16_t * const pattern, uint16_t i
   
   if (mask & 0b1000) {
     cancel_deferred_exec(token_1);
-    //led_pattern_task_1(0, NULL);
   }
   if (mask & 0b0100) {
     cancel_deferred_exec(token_2);
-    led_pattern_task_2(0, NULL);
   }
   if (mask & 0b0010) {
     cancel_deferred_exec(token_3);
-    led_pattern_task_3(0, NULL);
   }
   if (mask & 0b0001) {
     cancel_deferred_exec(token_4);
-    led_pattern_task_4(0, NULL);
   }
   
   if (mask & 0b1000) {
