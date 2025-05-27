@@ -1494,21 +1494,21 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Base
     case 0:
       if (base_normal) {
-        status_led_off(0b1010);
+        status_led_off(0b1111);
       } else {
         status_led(0b1010, led_pattern_oneshot, 100);
+        status_led_off(0b0101);
         base_normal = false;
       }
-      status_led_off(0b0101);
       break;
     case 1:
       if (base_normal) {
-        status_led_off(0b0101);
+        status_led_off(0b1111);
       } else {
         status_led(0b0101, led_pattern_oneshot, 100);
+        status_led_off(0b1010);
         base_normal = false;
       }
-      status_led_off(0b1010);
       break;
     // Shift
     case 2:
