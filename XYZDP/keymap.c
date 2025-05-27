@@ -1482,10 +1482,13 @@ extern bool is_launching;
 
 // if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
 layer_state_t layer_state_set_user(layer_state_t state) {
-  if (is_launching || !keyboard_config.led_level) return state;
-
-  static bool pass_spl = true;
+  static bool pass_spl = false;
   
+  if (is_launching || !keyboard_config.led_level) {
+    pass_spl  = true;
+    return state;
+  }
+
   uint8_t layer = get_highest_layer(state);
   switch (layer) {
     // Base
