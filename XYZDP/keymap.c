@@ -1341,6 +1341,7 @@ static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
   static uint8_t state = 0;
   if (cb_arg == NULL) {
     state = 0;
+    return 0;
   }
   const uint8_t * const pattern = cb_arg;
   if (pattern[state] == UINT8_MAX) {
@@ -1354,6 +1355,7 @@ static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
   static uint8_t state = 0;
   if (cb_arg == NULL) {
     state = 0;
+    return 0;
   }
   const uint8_t * const pattern = cb_arg;
   if (pattern[state] == UINT8_MAX) {
@@ -1367,6 +1369,7 @@ static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
   static uint8_t state = 0;
   if (cb_arg == NULL) {
     state = 0;
+    return 0;
   }
   const uint8_t * const pattern = cb_arg;
   if (pattern[state] == UINT8_MAX) {
@@ -1380,6 +1383,7 @@ static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
   static uint8_t state = 0;
   if (cb_arg == NULL) {
     state = 0;
+    return 0;
   }
   const uint8_t * const pattern = cb_arg;
   if (pattern[state] == UINT8_MAX) {
