@@ -1329,10 +1329,11 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // 0: terminate, output this area value
 // UINT16_MAX: return to position 0 immediately, this cycle output position 0 value & wait
 // other: output current position value & wait
+// put reurn token for safety
 static const uint16_t * const led_pattern_blink = (uint16_t[]){8, 256, 88, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 static const uint16_t * const led_pattern_off = (uint16_t[]){0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 static const uint16_t * const led_pattern_on = (uint16_t[]){8, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
-static const uint16_t * const led_pattern_oneshot = (uint16_t[]){8, 56, 152, 56, 152, 56, 152, 56, 152, 56, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
+static const uint16_t * const led_pattern_oneshot = (uint16_t[]){8, 56, 500, 56, 500, 56, 500, 56, 500, 56, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
 
 // access to system-side flag
 extern keyboard_config_t keyboard_config;
@@ -1342,7 +1343,7 @@ static uint32_t led_pattern_task_1(uint32_t trigger_time, void *cb_arg) {
   static const uint16_t *pattern = NULL;
   static uint8_t state = 0;
   if (cb_arg == NULL) return 0;
-  if (pattern != cb_arg) {
+  if (cb_arg != pattern) {
     pattern = cb_arg;
     state = 0;
   }
@@ -1357,7 +1358,7 @@ static uint32_t led_pattern_task_2(uint32_t trigger_time, void *cb_arg) {
   static const uint16_t *pattern = NULL;
   static uint8_t state = 0;
   if (cb_arg == NULL) return 0;
-  if (pattern != cb_arg) {
+  if (cb_arg != pattern) {
     pattern = cb_arg;
     state = 0;
   }
@@ -1372,7 +1373,7 @@ static uint32_t led_pattern_task_3(uint32_t trigger_time, void *cb_arg) {
   static const uint16_t *pattern = NULL;
   static uint8_t state = 0;
   if (cb_arg == NULL) return 0;
-  if (pattern != cb_arg) {
+  if (cb_arg != pattern) {
     pattern = cb_arg;
     state = 0;
   }
@@ -1387,7 +1388,7 @@ static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
   static const uint16_t *pattern = NULL;
   static uint8_t state = 0;
   if (cb_arg == NULL) return 0;
-  if (pattern != cb_arg) {
+  if (cb_arg != pattern) {
     pattern = cb_arg;
     state = 0;
   }
