@@ -1329,10 +1329,10 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // 0: terminate, output this area value
 // UINT16_MAX: return to position 0 immediately, this cycle output position 0 value & wait
 // other: output current position value & wait
-static const uint16_t * const led_pattern_blink = (uint16_t[]){10, 300, 90, UINT16_MAX, UINT16_MAX, UINT16_MAX};
-static const uint16_t * const led_pattern_off = (uint16_t[]){0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
-static const uint16_t * const led_pattern_on = (uint16_t[]){10, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
-static const uint16_t * const led_pattern_oneshot = (uint16_t[]){10, 50, 150, 50, 150, 50, 150, 50, 150, 50, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
+static const uint16_t * const led_pattern_blink = (uint16_t[]){8, 256, 88, UINT16_MAX, UINT16_MAX, UINT16_MAX};
+static const uint16_t * const led_pattern_off = (uint16_t[]){0, 0, 0};
+static const uint16_t * const led_pattern_on = (uint16_t[]){8, 0, 0, 0};
+static const uint16_t * const led_pattern_oneshot = (uint16_t[]){8, 56, 152, 56, 152, 56, 152, 56, 152, 56, 0, 0, 0};
 
 // access to system-side flag
 extern keyboard_config_t keyboard_config;
@@ -1399,7 +1399,7 @@ static uint32_t led_pattern_task_4(uint32_t trigger_time, void *cb_arg) {
 // 3 -> Red Right
 // 4 -> Green Right
 // re-order bit position
-static bool led_pattern(uint8_t mask, const uint16_t * const pattern, uint32_t init_delay_ms) {
+static bool led_pattern(uint8_t mask, const uint16_t * const pattern, uint16_t init_delay_ms) {
   static deferred_token token_1 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
@@ -1423,16 +1423,16 @@ static bool led_pattern(uint8_t mask, const uint16_t * const pattern, uint32_t i
   }
   
   if (mask & 0b1000) {
-    token_1 = defer_exec(init_delay_ms + 1, led_pattern_task_1, (void *)pattern);
+    token_1 = defer_exec((uint32_t)(init_delay_ms + 1), led_pattern_task_1, (void *)pattern);
   }
   if (mask & 0b0100) {
-    token_2 = defer_exec(init_delay_ms + 1, led_pattern_task_2, (void *)pattern);
+    token_2 = defer_exec((uint32_t)(init_delay_ms + 1), led_pattern_task_2, (void *)pattern);
   }
   if (mask & 0b0010) {
-    token_3 = defer_exec(init_delay_ms + 1, led_pattern_task_3, (void *)pattern);
+    token_3 = defer_exec((uint32_t)(init_delay_ms + 1), led_pattern_task_3, (void *)pattern);
   }
   if (mask & 0b0001) {
-    token_4 = defer_exec(init_delay_ms + 1, led_pattern_task_4, (void *)pattern);
+    token_4 = defer_exec((uint32_t)(init_delay_ms + 1), led_pattern_task_4, (void *)pattern);
   }
   
   return true;
@@ -1441,6 +1441,7 @@ static bool led_pattern(uint8_t mask, const uint16_t * const pattern, uint32_t i
 // if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
 layer_state_t layer_state_set_user(layer_state_t state) {
   if (is_launching || !keyboard_config.led_level) return state;
+  
   uint8_t layer = get_highest_layer(state);
   switch (layer) {
     // Base
@@ -1462,14 +1463,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 4:
     case 5:
       led_pattern(0b0100, led_pattern_blink, 0);
-      led_pattern(0b0001, led_pattern_blink, 125);
+      led_pattern(0b0001, led_pattern_blink, 100);
       led_pattern(0b1010, led_pattern_off, 0);
       break;
     // Bkt
     case 6:
     case 7:
       led_pattern(0b0001, led_pattern_blink, 0);
-      led_pattern(0b0100, led_pattern_blink, 125);
+      led_pattern(0b0100, led_pattern_blink, 100);
       led_pattern(0b1010, led_pattern_off, 0);
       break;
     // Fn
@@ -1482,27 +1483,27 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 10:
     case 11:
       led_pattern(0b1000, led_pattern_blink, 0);
-      led_pattern(0b0100, led_pattern_blink, 125);
+      led_pattern(0b0100, led_pattern_blink, 100);
       led_pattern(0b0011, led_pattern_off, 0);
       break;
     // Rcur
     case 12:
     case 13:
       led_pattern(0b0010, led_pattern_blink, 0);
-      led_pattern(0b0001, led_pattern_blink, 125);
+      led_pattern(0b0001, led_pattern_blink, 100);
       led_pattern(0b1100, led_pattern_off, 0);
       break;
     case 14:
       led_pattern(0b0010, led_pattern_on, 0);
-      led_pattern(0b0001, led_pattern_on, 250);
-      led_pattern(0b1000, led_pattern_on, 500);
-      led_pattern(0b0100, led_pattern_on, 750);
+      led_pattern(0b0001, led_pattern_on, 200);
+      led_pattern(0b1000, led_pattern_on, 400);
+      led_pattern(0b0100, led_pattern_on, 600);
       break;    
     case 15:
       led_pattern(0b1000, led_pattern_on, 0);
-      led_pattern(0b0100, led_pattern_on, 250);
-      led_pattern(0b0010, led_pattern_on, 500);
-      led_pattern(0b0001, led_pattern_on, 750);
+      led_pattern(0b0100, led_pattern_on, 200);
+      led_pattern(0b0010, led_pattern_on, 400);
+      led_pattern(0b0001, led_pattern_on, 600);
       break;
     default :
       led_pattern(0b1111, led_pattern_off, 0);
