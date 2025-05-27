@@ -1327,20 +1327,15 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // LED pattern list, no const limit, terminate symbol
 // off -> on -> off ... (off start for no glitch)
 // 0: terminate, output this area value
-// UINT16_MAX: return to position 0 immediately, this cycle output position 0 value & wait
+// MAX: return to position 0 immediately, this cycle output position 0 value & wait
 // other: output current position value & wait
 // put reurn token for safety
-//static const uint16_t * const led_pattern_blink = (uint16_t[]){8, 256, 88, UINT16_MAX, UINT16_MAX, UINT16_MAX};
-//static const uint16_t * const led_pattern_off = (uint16_t[]){0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
-//static const uint16_t * const led_pattern_on = (uint16_t[]){8, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
-//static const uint16_t * const led_pattern_oneshot = (uint16_t[]){8, 56, 500, 56, 500, 56, 500, 56, 500, 56, 0, UINT16_MAX, UINT16_MAX, UINT16_MAX};
-
 // reduce data x16 (4bit shift) 8bit
 // 16x255=4080ms 4sec
 static const uint8_t * const led_pattern_blink = (uint8_t[]){1, 16, 6, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_off = (uint8_t[]){0, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 3, 31, 3, 31, 3, 31, 3, 31, 3, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 4, 31, 4, 31, 4, 31, 4, 31, 4, 0, UINT8_MAX, UINT8_MAX};
 
 static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
   static const uint8_t *pattern = NULL;
@@ -1513,15 +1508,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 4:
     case 5:
       status_led(0b0100, led_pattern_blink, 0);
-      status_led(0b0001, led_pattern_blink, 200);
-      status_led_off(0b1010);
+      status_led_off(0b1011);
       break;
     // Bkt
     case 6:
     case 7:
       status_led(0b0001, led_pattern_blink, 0);
-      status_led(0b0100, led_pattern_blink, 200);
-      status_led_off(0b1010);
+      status_led_off(0b1110);
       break;
     // Fn
     case 8:
@@ -1532,15 +1525,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Lcur
     case 10:
     case 11:
-      status_led(0b1000, led_pattern_blink, 0);
-      status_led(0b0100, led_pattern_blink, 200);
+      status_led(0b1100, led_pattern_blink, 0);
       status_led_off(0b0011);
       break;
     // Rcur
     case 12:
     case 13:
-      status_led(0b0010, led_pattern_blink, 0);
-      status_led(0b0001, led_pattern_blink, 200);
+      status_led(0b0011, led_pattern_blink, 0);
       status_led_off(0b1100);
       break;
     case 14:
