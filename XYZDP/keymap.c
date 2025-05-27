@@ -1407,36 +1407,36 @@ static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
 static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t init_delay_ms) {
   if (pattern == NULL) return false;
 
-  static deferred_token status_led_token_1 = INVALID_DEFERRED_TOKEN;
-  static deferred_token status_led_token_2 = INVALID_DEFERRED_TOKEN;
-  static deferred_token status_led_token_3 = INVALID_DEFERRED_TOKEN;
-  static deferred_token status_led_token_4 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_1 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_4 = INVALID_DEFERRED_TOKEN;
   
   if (mask & 0b1000) {
-    cancel_deferred_exec(status_led_token_1);
+    cancel_deferred_exec(token_1);
   }
   if (mask & 0b0100) {
-    cancel_deferred_exec(status_led_token_2);
+    cancel_deferred_exec(token_2);
   }
   if (mask & 0b0010) {
-    cancel_deferred_exec(status_led_token_3);
+    cancel_deferred_exec(token_3);
   }
   if (mask & 0b0001) {
-    cancel_deferred_exec(status_led_token_4);
+    cancel_deferred_exec(token_4);
   }
 
   // add pseudo rondom delay unit 16/4
   if (mask & 0b1000) {
-    status_led_token_1 = defer_exec((uint32_t)(init_delay_ms + 2), status_led_task_1, (void *)pattern);
+    token_1 = defer_exec((uint32_t)(init_delay_ms + 4), status_led_task_1, (void *)pattern);
   }
   if (mask & 0b0100) {
-    status_led_token_2 = defer_exec((uint32_t)(init_delay_ms + 6), status_led_task_2, (void *)pattern);
+    token_2 = defer_exec((uint32_t)(init_delay_ms + 8), status_led_task_2, (void *)pattern);
   }
   if (mask & 0b0010) {
-    status_led_token_3 = defer_exec((uint32_t)(init_delay_ms + 10), status_led_task_3, (void *)pattern);
+    token_3 = defer_exec((uint32_t)(init_delay_ms + 12), status_led_task_3, (void *)pattern);
   }
   if (mask & 0b0001) {
-    status_led_token_4 = defer_exec((uint32_t)(init_delay_ms + 14), status_led_task_4, (void *)pattern);
+    token_4 = defer_exec((uint32_t)(init_delay_ms + 16), status_led_task_4, (void *)pattern);
   }
   
   return true;
