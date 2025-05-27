@@ -1416,7 +1416,7 @@ static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t ini
   static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_4 = INVALID_DEFERRED_TOKEN;
 
-  if (pattern == NULL) return 0;
+  if (pattern == NULL) return false;
   
   if (mask & 0b1000) {
     cancel_deferred_exec(token_1);
