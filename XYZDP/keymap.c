@@ -1491,22 +1491,23 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
   uint8_t layer = get_highest_layer(state);
   switch (layer) {
-    // Base
+    // Base (ANSI)
     case 0:
       if (base_normal) {
         status_led_off(0b1111);
       } else {
-        status_led(0b1010, led_pattern_oneshot, 100);
-        status_led_off(0b0101);
+        status_led(0b1000, led_pattern_oneshot, 200);
+        status_led_off(0b0111);
         base_normal = true;
       }
       break;
+    // Base (JIS)
     case 1:
       if (base_normal) {
         status_led_off(0b1111);
       } else {
-        status_led(0b0101, led_pattern_oneshot, 100);
-        status_led_off(0b1010);
+        status_led(0b0100, led_pattern_oneshot, 200);
+        status_led_off(0b1011);
         base_normal = true;
       }
       break;
@@ -1520,14 +1521,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 4:
     case 5:
       status_led(0b0100, led_pattern_blink, 0);
-      status_led(0b0001, led_pattern_blink, 100);
+      status_led(0b0001, led_pattern_blink, 200);
       status_led_off(0b1010);
       break;
     // Bkt
     case 6:
     case 7:
       status_led(0b0001, led_pattern_blink, 0);
-      status_led(0b0100, led_pattern_blink, 100);
+      status_led(0b0100, led_pattern_blink, 200);
       status_led_off(0b1010);
       break;
     // Fn
@@ -1540,14 +1541,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 10:
     case 11:
       status_led(0b1000, led_pattern_blink, 0);
-      status_led(0b0100, led_pattern_blink, 100);
+      status_led(0b0100, led_pattern_blink, 200);
       status_led_off(0b0011);
       break;
     // Rcur
     case 12:
     case 13:
       status_led(0b0010, led_pattern_blink, 0);
-      status_led(0b0001, led_pattern_blink, 100);
+      status_led(0b0001, led_pattern_blink, 200);
       status_led_off(0b1100);
       break;
     case 14:
