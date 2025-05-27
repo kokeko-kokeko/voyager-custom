@@ -1450,16 +1450,28 @@ extern bool is_launching;
 // if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
 layer_state_t layer_state_set_user(layer_state_t state) {
   if (is_launching || !keyboard_config.led_level) return state;
+
+  static bool pass_fwsys = true;
   
   uint8_t layer = get_highest_layer(state);
   switch (layer) {
     // Base
     case 0:
-      status_led(0b1010, led_pattern_oneshot, 0);
+      if (pass_fwsys) {
+        status_led(0b1010, led_pattern_oneshot, 0);
+        pass_fwsys  = false;
+      } else {
+        status_led(0b1010, led_pattern_off, 0);
+      }
       status_led(0b0101, led_pattern_off, 0);
       break;
     case 1:
-      status_led(0b0101, led_pattern_oneshot, 0);
+      if (pass_fwsys) {
+        status_led(0b0101, led_pattern_oneshot, 0);
+        pass_fwsys = false;
+      } else {
+        status_led(0b0101, led_pattern_off, 0);
+      }
       status_led(0b1010, led_pattern_off, 0);
       break;
     // Shift
@@ -1513,6 +1525,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0100, led_pattern_on, 200);
       status_led(0b0010, led_pattern_on, 400);
       status_led(0b0001, led_pattern_on, 600);
+      pass_fwsys = true;
       break;
     default :
       status_led(0b1111, led_pattern_off, 0);
