@@ -1425,16 +1425,16 @@ static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t ini
 
   // add pseudo rondom delay unit 16/4
   if (mask & 0b1000) {
-    token_1 = defer_exec((uint32_t)(init_delay_ms + 3), status_led_task_1, (void *)pattern);
+    token_1 = defer_exec((uint32_t)(init_delay_ms + 2), status_led_task_1, (void *)pattern);
   }
   if (mask & 0b0100) {
     token_2 = defer_exec((uint32_t)(init_delay_ms + 6), status_led_task_2, (void *)pattern);
   }
   if (mask & 0b0010) {
-    token_3 = defer_exec((uint32_t)(init_delay_ms + 9), status_led_task_3, (void *)pattern);
+    token_3 = defer_exec((uint32_t)(init_delay_ms + 10), status_led_task_3, (void *)pattern);
   }
   if (mask & 0b0001) {
-    token_4 = defer_exec((uint32_t)(init_delay_ms + 12), status_led_task_4, (void *)pattern);
+    token_4 = defer_exec((uint32_t)(init_delay_ms + 14), status_led_task_4, (void *)pattern);
   }
   
   return true;
