@@ -1332,10 +1332,10 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // put reurn token for safety
 // reduce data x16 (4bit shift) 8bit
 // 16x255=4080ms 4sec
-static const uint8_t * const led_pattern_blink = (uint8_t[]){1, 25, 15, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_off = (uint8_t[]){0, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 16, 32, 16, 32, 16, 32, 16, 32, 16, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_blink = (uint8_t[]){1, 31, 18, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_off = (uint8_t[]){0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 24, 32, 24, 32, 24, 32, 24, 32, 24, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
   static uint8_t state = 0;
@@ -1466,14 +1466,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 4:
     case 5:
       status_led(0b0010, led_pattern_blink, 0);
-      status_led(0b0001, led_pattern_blink, 200);
+      status_led(0b0001, led_pattern_blink, 250);
       status_led(0b1100, led_pattern_off, 0);
       break;
     // Bkt
     case 6:
     case 7:
       status_led(0b0001, led_pattern_blink, 0);
-      status_led(0b0010, led_pattern_blink, 200);
+      status_led(0b0010, led_pattern_blink, 250);
       status_led(0b1100, led_pattern_off, 0);
       break;
     // Fn
@@ -1495,19 +1495,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b1001, led_pattern_off, 0);
       break;
     case 14:
-      status_led(0b0100, led_pattern_on, 200);
-      status_led(0b0001, led_pattern_on, 400);
-      status_led(0b1000, led_pattern_on, 600);
-      status_led(0b0010, led_pattern_on, 800);
+      status_led(0b0100, led_pattern_on, 250);
+      status_led(0b0001, led_pattern_on, 500);
+      status_led(0b1000, led_pattern_on, 750);
+      status_led(0b0010, led_pattern_on, 1000);
       break;    
     case 15:
       status_led(0b1111, led_pattern_off, 0);
       if (layer_state_cmp(state, 1)) {
         //JIS enable
-        status_led(0b0010, led_pattern_oneshot, 200);
+        status_led(0b0010, led_pattern_oneshot, 250);
       } else {
         //ANSI enable
-        status_led(0b1000, led_pattern_oneshot, 200);
+        status_led(0b1000, led_pattern_oneshot, 250);
       }
       break;
     default :
