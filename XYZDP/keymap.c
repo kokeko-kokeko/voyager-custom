@@ -1446,34 +1446,15 @@ extern bool is_launching;
 
 // if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
 layer_state_t layer_state_set_user(layer_state_t state) {
-  static bool base_normal = false;
-  
-  if (is_launching || !keyboard_config.led_level) {
-    base_normal  = false;
-    return state;
-  }
+  if (is_launching || !keyboard_config.led_level) return state;
 
   uint8_t layer = get_highest_layer(state);
   switch (layer) {
     // Base (ANSI)
     case 0:
-      if (base_normal) {
-        status_led(0b1111, led_pattern_off, 0);
-      } else {
-        base_normal = true;
-        status_led(0b1100, led_pattern_oneshot, 200);
-        status_led(0b0011, led_pattern_off, 0);
-      }
-      break;
     // Base (JIS)
     case 1:
-      if (base_normal) {
-        status_led(0b1111, led_pattern_off, 0);
-      } else {
-        base_normal = true;
-        status_led(0b0011, led_pattern_oneshot, 200);
-        status_led(0b1100, led_pattern_off, 0);
-      }
+      status_led(0b1111, led_pattern_off, 0);
       break;
     // Shift
     case 2:
@@ -1505,30 +1486,28 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 10:
     case 11:
       status_led(0b1000, led_pattern_blink, 0);
-      status_led(0b0010, led_pattern_blink, 200);
-      status_led(0b0001, led_pattern_off, 0);
+      status_led(0b0001, led_pattern_blink, 200);
+      status_led(0b0110, led_pattern_off, 0);
       break;
     // Rcur
     case 12:
     case 13:
       status_led(0b0100, led_pattern_blink, 0);
-      status_led(0b0001, led_pattern_blink, 200);
-      status_led(0b0010, led_pattern_off, 0);
+      status_led(0b0010, led_pattern_blink, 200);
+      status_led(0b1001, led_pattern_off, 0);
       break;
     case 14:
-      base_normal = false;
       status_led(0b0100, led_pattern_on, 200);
       status_led(0b0001, led_pattern_on, 400);
       status_led(0b1000, led_pattern_on, 600);
       status_led(0b0010, led_pattern_on, 800);
       break;    
     case 15:
-      base_normal = false;
       status_led(0b1111, led_pattern_off, 0);
       if (layer_state_cmp(state, 1)) {
         //JIS enable
         status_led(0b0010, led_pattern_oneshot, 200);
-      } else if (layer_state_cmp(state, 0)) {
+      } else {
         //ANSI enable
         status_led(0b1000, led_pattern_oneshot, 200);
       }
