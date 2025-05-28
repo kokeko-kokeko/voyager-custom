@@ -1338,59 +1338,63 @@ static const uint8_t * const led_pattern_blink = (uint8_t[]){16, 31, UINT8_MAX, 
 static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 24, 32, 24, 32, 24, 32, 24, 32, 24, 32, 24, 32, 24, 32, 24, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
-  static uint8_t state = 0;
+  static uint8_t count = 0;
   if (cb_arg == NULL) {
-    state = 0;
+    count = 0;
+    STATUS_LED_1(0);
     return 0;
   }
   const uint8_t * const pattern = cb_arg;
-  if (pattern[state] == UINT8_MAX) {
-    state = 0;
+  if (pattern[count] == UINT8_MAX) {
+    count = 0;
   }
-  STATUS_LED_1(state & 0b00000001);
-  return ((uint32_t)pattern[state++]) << 4;
+  STATUS_LED_1(count & 0b00000001);
+  return ((uint32_t)pattern[count++]) << 4;
 }
 
 static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
-  static uint8_t state = 0;
+  static uint8_t count = 0;
   if (cb_arg == NULL) {
-    state = 0;
+    count = 0;
+    STATUS_LED_2(0);
     return 0;
   }
   const uint8_t * const pattern = cb_arg;
-  if (pattern[state] == UINT8_MAX) {
-    state = 0;
+  if (pattern[count] == UINT8_MAX) {
+    count = 0;
   }
-  STATUS_LED_2(state & 0b00000001);
-  return ((uint32_t)pattern[state++]) << 4;
+  STATUS_LED_2(count & 0b00000001);
+  return ((uint32_t)pattern[count++]) << 4;
 }
 
 static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
-  static uint8_t state = 0;
+  static uint8_t count = 0;
   if (cb_arg == NULL) {
-    state = 0;
+    count = 0;
+    STATUS_LED_3(0);
     return 0;
   }
   const uint8_t * const pattern = cb_arg;
-  if (pattern[state] == UINT8_MAX) {
-    state = 0;
+  if (pattern[count] == UINT8_MAX) {
+    count = 0;
   }
-  STATUS_LED_3(state & 0b00000001);
-  return ((uint32_t)pattern[state++]) << 4;
+  STATUS_LED_3(count & 0b00000001);
+  return ((uint32_t)pattern[count++]) << 4;
 }
 
 static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
-  static uint8_t state = 0;
+  static uint8_t count = 0;
   if (cb_arg == NULL) {
-    state = 0;
+    count = 0;
+    STATUS_LED_4(0);
     return 0;
   }
   const uint8_t * const pattern = cb_arg;
-  if (pattern[state] == UINT8_MAX) {
-    state = 0;
+  if (pattern[count] == UINT8_MAX) {
+    count = 0;
   }
-  STATUS_LED_4(state & 0b00000001);
-  return ((uint32_t)pattern[state++]) << 4;
+  STATUS_LED_4(count & 0b00000001);
+  return ((uint32_t)pattern[count++]) << 4;
 }
 
 // 1 -> Red Left
@@ -1399,8 +1403,6 @@ static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
 // 4 -> Green Right
 // re-order bit position
 static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t init_delay_ms) {
-  if (pattern == NULL) return false;
-
   static deferred_token token_1 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
@@ -1422,6 +1424,9 @@ static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t ini
     cancel_deferred_exec(token_4);
     status_led_task_4(0, NULL);
   }
+
+  // skip tank exec
+  if (pattern == NULL) return true;
 
   // add pseudo rondom delay 
   if (mask & 0b1000) {
