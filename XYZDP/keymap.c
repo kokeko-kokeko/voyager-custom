@@ -1505,14 +1505,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 10:
     case 11:
       status_led(0b1000, led_pattern_blink, 0);
-      status_led(0b0110, led_pattern_blink, 200);
+      status_led(0b0010, led_pattern_blink, 200);
       status_led(0b0001, led_pattern_off, 0);
       break;
     // Rcur
     case 12:
     case 13:
       status_led(0b0100, led_pattern_blink, 0);
-      status_led(0b1001, led_pattern_blink, 200);
+      status_led(0b0001, led_pattern_blink, 200);
       status_led(0b0010, led_pattern_off, 0);
       break;
     case 14:
@@ -1524,10 +1524,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       break;    
     case 15:
       base_normal = false;
-      status_led(0b1000, led_pattern_on, 200);
-      status_led(0b0010, led_pattern_on, 400);
-      status_led(0b0100, led_pattern_on, 600);
-      status_led(0b0001, led_pattern_on, 800);
+      status_led(0b1111, led_pattern_off, 0);
+      if (layer_state_cmp(state, 1)) {
+        //JIS enable
+        status_led(0b0010, led_pattern_oneshot, 200);
+      } else if (layer_state_cmp(state, 0)) {
+        //ANSI enable
+        status_led(0b1000, led_pattern_oneshot, 200);
+      }
       break;
     default :
       status_led(0b1111, led_pattern_off, 0);
