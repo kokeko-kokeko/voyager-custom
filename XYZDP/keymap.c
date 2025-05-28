@@ -1459,39 +1459,41 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Shift
     case 2:
     case 3:
-      status_led(0b1100, led_pattern_blink, 0);
+      status_led(0b1100, led_pattern_on, 0);
       status_led(0b0011, led_pattern_off, 0);
       break;
     // Num
     case 4:
     case 5:
-      status_led(0b0010, led_pattern_blink, 0);
-      status_led(0b0001, led_pattern_blink, 250);
+      status_led(0b0010, led_pattern_on, 0);
+      status_led(0b0001, led_pattern_blink, 0);
       status_led(0b1100, led_pattern_off, 0);
       break;
     // Bkt
     case 6:
     case 7:
-      status_led(0b0001, led_pattern_blink, 0);
-      status_led(0b0010, led_pattern_blink, 250);
+      status_led(0b0001, led_pattern_on, 0);
+      status_led(0b0010, led_pattern_blink, 0);
       status_led(0b1100, led_pattern_off, 0);
       break;
     // Fn
     case 8:
     case 9:
-      status_led(0b0011, led_pattern_blink, 0);
+      status_led(0b0011, led_pattern_on, 0);
       status_led(0b1100, led_pattern_off, 0);
       break;
     // Lcur
     case 10:
     case 11:
-      status_led(0b1001, led_pattern_blink, 0);
+      status_led(0b1000, led_pattern_on, 0);
+      status_led(0b0001, led_pattern_blink, 0);
       status_led(0b0110, led_pattern_off, 0);
       break;
     // Rcur
     case 12:
     case 13:
-      status_led(0b0110, led_pattern_blink, 0);
+      status_led(0b0100, led_pattern_on, 0);
+      status_led(0b0010, led_pattern_blink, 0);
       status_led(0b1001, led_pattern_off, 0);
       break;
     case 14:
