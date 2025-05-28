@@ -1332,10 +1332,10 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // put reurn token for safety
 // reduce data x16 (4bit shift) 8bit
 // 16x255=4080ms 4sec
-static const uint8_t * const led_pattern_blink = (uint8_t[]){1, 31, 18, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_blink = (uint8_t[]){16, 31, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_off = (uint8_t[]){0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 24, 32, 24, 32, 24, 32, 24, 32, 24, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 24, 32, 24, 32, 24, 32, 24, 32, 24, 32, 24, 32, 24, 32, 24, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
   static uint8_t state = 0;
