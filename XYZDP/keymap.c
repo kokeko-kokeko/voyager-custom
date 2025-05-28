@@ -1485,15 +1485,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Lcur
     case 10:
     case 11:
-      status_led(0b1000, led_pattern_blink, 0);
-      status_led(0b0001, led_pattern_blink, 200);
+      status_led(0b1001, led_pattern_blink, 0);
       status_led(0b0110, led_pattern_off, 0);
       break;
     // Rcur
     case 12:
     case 13:
-      status_led(0b0100, led_pattern_blink, 0);
-      status_led(0b0010, led_pattern_blink, 200);
+      status_led(0b0110, led_pattern_blink, 0);
       status_led(0b1001, led_pattern_off, 0);
       break;
     case 14:
