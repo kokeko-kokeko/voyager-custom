@@ -1409,20 +1409,32 @@ static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t ini
   static deferred_token token_4 = INVALID_DEFERRED_TOKEN;
   
   if (mask & 0b1000) {
-    cancel_deferred_exec(token_1);
-    status_led_task_1(0, NULL);
+    if (token_1 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(token_1);
+      token_1 = INVALID_DEFERRED_TOKEN;
+      status_led_task_1(0, NULL);
+    }
   }
   if (mask & 0b0100) {
-    cancel_deferred_exec(token_3);
-    status_led_task_3(0, NULL);
+    if (token_3 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(token_3);
+      token_3 = INVALID_DEFERRED_TOKEN;
+      status_led_task_3(0, NULL);
+    }
   }  
   if (mask & 0b0010) {
-    cancel_deferred_exec(token_2);
-    status_led_task_2(0, NULL);
+    if (token_2 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(token_2);
+      token_2 = INVALID_DEFERRED_TOKEN;
+      status_led_task_2(0, NULL);
+    }
   }
   if (mask & 0b0001) {
-    cancel_deferred_exec(token_4);
-    status_led_task_4(0, NULL);
+    if (token_4 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(token_4);
+      token_4 = INVALID_DEFERRED_TOKEN;
+      status_led_task_4(0, NULL);
+    }
   }
 
   // skip task exec
