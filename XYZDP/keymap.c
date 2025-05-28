@@ -1425,7 +1425,7 @@ static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t ini
     status_led_task_4(0, NULL);
   }
 
-  // skip tank exec
+  // skip task exec
   if (pattern == NULL) return true;
 
   // add pseudo rondom delay 
