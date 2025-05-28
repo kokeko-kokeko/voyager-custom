@@ -1336,8 +1336,7 @@ static const uint8_t * const led_pattern_off = NULL;
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_blink = (uint8_t[]){13, 50, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-
+//static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
   static uint8_t count = 0;
@@ -1473,8 +1472,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 0:
     // Base (JIS)
     case 1:
-      status_led(0b0100, led_pattern_heartbeat, 0);
-      status_led(0b1011, led_pattern_off, 0);
+      //status_led(0b0100, led_pattern_heartbeat, 0);
+      status_led(0b1111, led_pattern_off, 0);
       break;
     // Shift
     case 2:
