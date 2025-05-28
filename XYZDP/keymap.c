@@ -1335,7 +1335,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 static const uint8_t * const led_pattern_off = NULL;
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_blink = (uint8_t[]){16, 31, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 24, 32, 24, 32, 24, 32, 24, 32, 24, 32, 24, 32, 24, 32, 24, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_oneshot = (uint8_t[]){16, 24, 32, 24, 32, 24, 32, 24, 32, 24, 32, 24, 32, 24, 32, 24, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
   static uint8_t count = 0;
@@ -1514,19 +1514,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b1001, led_pattern_off, 0);
       break;
     case 14:
-      status_led(0b0100, led_pattern_on, 250);
-      status_led(0b0001, led_pattern_on, 500);
-      status_led(0b1000, led_pattern_on, 750);
-      status_led(0b0010, led_pattern_on, 1000);
+      status_led(0b0100, led_pattern_on, 0);
+      status_led(0b0001, led_pattern_on, 250);
+      status_led(0b1000, led_pattern_on, 500);
+      status_led(0b0010, led_pattern_on, 750);
       break;    
     case 15:
       status_led(0b1111, led_pattern_off, 0);
       if (layer_state_cmp(state, 1)) {
         //JIS enable
-        status_led(0b0010, led_pattern_oneshot, 250);
+        status_led(0b0010, led_pattern_oneshot, 0);
       } else {
         //ANSI enable
-        status_led(0b1000, led_pattern_oneshot, 250);
+        status_led(0b1000, led_pattern_oneshot, 0);
       }
       break;
     default :
