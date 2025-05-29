@@ -95,30 +95,30 @@ enum tap_dance_codes {
   DANCE_3,
 };
 
-#define DUAL_FUNC_0 LT(2, KC_F9)
-#define DUAL_FUNC_1 LT(3, KC_O)
-#define DUAL_FUNC_2 LT(11, KC_O)
-#define DUAL_FUNC_3 LT(8, KC_2)
-#define DUAL_FUNC_4 LT(10, KC_F12)
-#define DUAL_FUNC_5 LT(7, KC_O)
-#define DUAL_FUNC_6 LT(5, KC_7)
-#define DUAL_FUNC_7 LT(9, KC_1)
-#define DUAL_FUNC_8 LT(6, KC_0)
-#define DUAL_FUNC_9 LT(13, KC_8)
-#define DUAL_FUNC_10 LT(15, KC_K)
-#define DUAL_FUNC_11 LT(15, KC_2)
-#define DUAL_FUNC_12 LT(8, KC_F19)
-#define DUAL_FUNC_13 LT(2, KC_B)
-#define DUAL_FUNC_14 LT(3, KC_G)
-#define DUAL_FUNC_15 LT(2, KC_R)
-#define DUAL_FUNC_16 LT(13, KC_K)
-#define DUAL_FUNC_17 LT(8, KC_J)
-#define DUAL_FUNC_18 LT(13, KC_E)
-#define DUAL_FUNC_19 LT(14, KC_F13)
-#define DUAL_FUNC_20 LT(7, KC_A)
-#define DUAL_FUNC_21 LT(7, KC_F3)
-#define DUAL_FUNC_22 LT(9, KC_H)
-#define DUAL_FUNC_23 LT(1, KC_L)
+#define DUAL_FUNC_0 LT(6, KC_D)
+#define DUAL_FUNC_1 LT(1, KC_F17)
+#define DUAL_FUNC_2 LT(12, KC_F11)
+#define DUAL_FUNC_3 LT(13, KC_0)
+#define DUAL_FUNC_4 LT(1, KC_F8)
+#define DUAL_FUNC_5 LT(7, KC_F12)
+#define DUAL_FUNC_6 LT(7, KC_F8)
+#define DUAL_FUNC_7 LT(13, KC_F11)
+#define DUAL_FUNC_8 LT(3, KC_F8)
+#define DUAL_FUNC_9 LT(14, KC_F)
+#define DUAL_FUNC_10 LT(2, KC_R)
+#define DUAL_FUNC_11 LT(14, KC_F3)
+#define DUAL_FUNC_12 LT(13, KC_1)
+#define DUAL_FUNC_13 LT(10, KC_5)
+#define DUAL_FUNC_14 LT(11, KC_K)
+#define DUAL_FUNC_15 LT(4, KC_F7)
+#define DUAL_FUNC_16 LT(10, KC_9)
+#define DUAL_FUNC_17 LT(6, KC_F2)
+#define DUAL_FUNC_18 LT(14, KC_F22)
+#define DUAL_FUNC_19 LT(14, KC_1)
+#define DUAL_FUNC_20 LT(7, KC_3)
+#define DUAL_FUNC_21 LT(6, KC_B)
+#define DUAL_FUNC_22 LT(10, KC_F18)
+#define DUAL_FUNC_23 LT(13, KC_P)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -199,7 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TAB,         KC_ESCAPE,                                      KC_BSPC,        KC_ENTER
   ),
   [11] = LAYOUT_voyager(
-    CW_TOGG,        DUAL_FUNC_20,   DUAL_FUNC_21,   KC_PAGE_UP,     KC_PGDN,        LGUI(LCTL(KC_V)),                                KC_TAB,         RCTL(KC_LEFT),  KC_UP,          RCTL(KC_RIGHT), KC_ESCAPE,      KC_APPLICATION, 
+    CW_TOGG,        DUAL_FUNC_20,   DUAL_FUNC_21,   KC_PAGE_UP,     KC_PGDN,        LGUI(LCTL(KC_V)),                                KC_TAB,         LCTL(KC_LEFT),  KC_UP,          LCTL(KC_RIGHT), KC_ESCAPE,      KC_APPLICATION, 
     KC_TRANSPARENT, DUAL_FUNC_22,   DUAL_FUNC_23,   LCTL(KC_C),     LCTL(KC_V),     LGUI(KC_V),                                     KC_BSPC,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_DELETE,      KC_TRANSPARENT, 
     LCTL(KC_Y),     LCTL(KC_Z),     LCTL(KC_X),     KC_HOME,        KC_END,         LGUI(LSFT(KC_V)),                                LGUI(LCTL(KC_T)),LCTL(LSFT(KC_P)),LALT(LGUI(KC_SPACE)),LGUI(LSFT(KC_M)),LGUI(LSFT(KC_C)),ST_MACRO_29,    
     QK_LLCK,        RGB_HUD,        RGB_HUI,        KC_TRANSPARENT, KC_SPACE,       KC_LANGUAGE_2,                                  KC_LANGUAGE_1,  KC_SPACE,       KC_TRANSPARENT, RGB_SAD,        RGB_SAI,        QK_LLCK,        
@@ -231,7 +231,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TO(1),          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_NO,          EE_CLR,         
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_MEDIA_REWIND,KC_MEDIA_FAST_FORWARD,KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          QK_DYNAMIC_TAPPING_TERM_PRINT,QK_DYNAMIC_TAPPING_TERM_DOWN,QK_DYNAMIC_TAPPING_TERM_UP,                                KC_MEDIA_STOP,  KC_MEDIA_PLAY_PAUSE,KC_NO,          RGB_SPD,        RGB_SPI,        RGB_SLD,        
-                                                    LGUI(LSFT(KC_SLASH)),KC_NO,                                          RALT(RCTL(KC_DELETE)),RGUI(KC_L)
+                                                    LGUI(LSFT(KC_SLASH)),KC_NO,                                          LALT(LCTL(KC_DELETE)),RGUI(KC_L)
   ),
 };
 
