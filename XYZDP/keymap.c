@@ -1382,7 +1382,7 @@ static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
     count = 0;
   }
   STATUS_LED_1(count & 0b00000001);
-  return ((uint32_t)pattern[count++]) << 4;
+  return (((uint32_t)pattern[count++]) << 4);
 }
 
 static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
@@ -1397,7 +1397,7 @@ static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
     count = 0;
   }
   STATUS_LED_2(count & 0b00000001);
-  return ((uint32_t)pattern[count++]) << 4;
+  return (((uint32_t)pattern[count++]) << 4);
 }
 
 static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
@@ -1412,7 +1412,7 @@ static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
     count = 0;
   }
   STATUS_LED_3(count & 0b00000001);
-  return ((uint32_t)pattern[count++]) << 4;
+  return (((uint32_t)pattern[count++]) << 4);
 }
 
 static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
@@ -1427,7 +1427,7 @@ static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
     count = 0;
   }
   STATUS_LED_4(count & 0b00000001);
-  return ((uint32_t)pattern[count++]) << 4;
+  return (((uint32_t)pattern[count++]) << 4);
 }
 
 // 1 -> Red Left
