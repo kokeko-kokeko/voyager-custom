@@ -1364,7 +1364,8 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // other: output current position value & wait
 // put reurn token for safety
 // max 16x255=4080ms 4sec
-static const uint8_t * const led_pattern_off = NULL;
+//static const uint8_t * const led_pattern_off = NULL;
+// write NULL direct 
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_blink = (uint8_t[]){13, 50, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
@@ -1504,46 +1505,45 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 0:
     // Base (JIS)
     case 1:
-      //status_led(0b0100, led_pattern_heartbeat, 0);
-      status_led(0b1111, led_pattern_off, 0);
+      status_led(0b1111, NULL, 0);
       break;
     // Shift
     case 2:
     case 3:
-      status_led(0b0011, led_pattern_off, 0);
+      status_led(0b0011, NULL, 0);
       status_led(0b1100, led_pattern_on, 0);
       break;
     // Num
     case 4:
     case 5:
-      status_led(0b1100, led_pattern_off, 0);
+      status_led(0b1100, NULL, 0);
       status_led(0b0010, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
       break;
     // Bkt
     case 6:
     case 7:
-      status_led(0b1100, led_pattern_off, 0);
+      status_led(0b1100, NULL, 0);
       status_led(0b0001, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
       break;
     // Fn
     case 8:
     case 9:
-      status_led(0b1100, led_pattern_off, 0);
+      status_led(0b1100, NULL, 0);
       status_led(0b0011, led_pattern_on, 0);
       break;
     // Lcur
     case 10:
     case 11:
-      status_led(0b0110, led_pattern_off, 0);
+      status_led(0b0110, NULL, 0);
       status_led(0b1000, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
       break;
     // Rcur
     case 12:
     case 13:
-      status_led(0b1001, led_pattern_off, 0);
+      status_led(0b1001, NULL, 0);
       status_led(0b0100, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
       break;
@@ -1554,7 +1554,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0010, led_pattern_on, 800);
       break;    
     case 15:
-      status_led(0b1111, led_pattern_off, 0);
+      status_led(0b1111, NULL, 0);
       if (layer_state_cmp(state, 1)) {
         //JIS enable
         status_led(0b0010, led_pattern_oneshot, 0);
@@ -1564,7 +1564,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       }
       break;
     default :
-      status_led(0b1111, led_pattern_off, 0);
+      status_led(0b1111, NULL, 0);
       break;
   }
   return state;
