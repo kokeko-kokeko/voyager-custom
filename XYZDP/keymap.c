@@ -1555,6 +1555,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 15:
       os_variant_t host = detected_host_os();
       status_led(0b1111, NULL, 0);
+
+      if (host == OS_LINUX) {
+        
+      } else if (hont == OS_WINDOWS) {
+        status_led(0b0100, led_pattern_oneshot, 0);
+      } else if (host == OS_MACOS) {
+        
+      } else if (host == OS_IOS) {
+        
+      } else {
+        
+      }
+      
       if (layer_state_cmp(state, 1)) {
         //JIS enable
         status_led(0b0010, led_pattern_oneshot, 0);
