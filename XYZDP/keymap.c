@@ -1553,6 +1553,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0010, led_pattern_on, 800);
       break;    
     case 15:
+      os_variant_t host = detected_host_os();
       status_led(0b1111, NULL, 0);
       if (layer_state_cmp(state, 1)) {
         //JIS enable
