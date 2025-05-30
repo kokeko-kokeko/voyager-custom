@@ -1557,15 +1557,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b1111, NULL, 0);
 
       if (host == OS_LINUX) {
-        
+        status_led(0b0001, led_pattern_on, 0);
+        status_led(0b0100, led_pattern_blink, 0);
       } else if (host == OS_WINDOWS) {
-        status_led(0b0100, led_pattern_oneshot, 0);
+        status_led(0b0001, led_pattern_on, 0);
       } else if (host == OS_MACOS) {
-        
+        status_led(0b0100, led_pattern_on, 0);
       } else if (host == OS_IOS) {
-        
+        status_led(0b0100, led_pattern_on, 0);
+        status_led(0b0001, led_pattern_blink, 0);
       } else {
-        
+        status_led(0b0101, led_pattern_oneshot, 0);
       }
       
       if (layer_state_cmp(state, 1)) {
