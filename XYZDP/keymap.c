@@ -1556,7 +1556,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       os_variant_t host = detected_host_os();
       status_led(0b1111, NULL, 0);
 
-      if (host == OS_LINUX) {
+      if (host == OS_UNSURE) {
+        status_led(0b0101, NULL, 0);
+      } else if (host == OS_LINUX) {
         status_led(0b0001, led_pattern_on, 0);
         status_led(0b0100, led_pattern_blink, 0);
       } else if (host == OS_WINDOWS) {
