@@ -1558,7 +1558,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
       if (host == OS_LINUX) {
         
-      } else if (hont == OS_WINDOWS) {
+      } else if (host == OS_WINDOWS) {
         status_led(0b0100, led_pattern_oneshot, 0);
       } else if (host == OS_MACOS) {
         
