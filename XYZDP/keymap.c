@@ -1574,10 +1574,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       
       if (layer_state_cmp(state, 1)) {
         //JIS enable
-        status_led(0b0010, led_pattern_oneshot, 0);
+        status_led(0b0010, led_pattern_on, 0);
       } else {
         //ANSI enable
-        status_led(0b1000, led_pattern_oneshot, 0);
+        status_led(0b1000, led_pattern_on, 0);
       }
       break;
     default :
