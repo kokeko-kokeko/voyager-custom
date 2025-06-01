@@ -6,54 +6,54 @@
 
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
-  HSV_0_255_112,
-  HSV_10_255_112,
-  HSV_32_255_112,
-  HSV_43_255_112,
-  HSV_53_255_112,
-  HSV_75_255_112,
-  HSV_16_255_112,
-  HSV_36_255_112,
-  HSV_59_255_112,
-  HSV_79_255_112,
-  HSV_3_255_112,
-  HSV_21_255_112,
-  HSV_39_255_112,
-  HSV_46_255_112,
-  HSV_64_255_112,
-  HSV_82_255_112,
-  HSV_6_255_112,
-  HSV_26_255_112,
-  HSV_42_255_112,
-  HSV_49_255_112,
-  HSV_69_255_112,
-  HSV_85_255_112,
-  HSV_0_0_112,
-  HSV_0_255_255,
-  HSV_86_255_112,
-  HSV_118_255_112,
-  HSV_139_255_112,
-  HSV_172_255_112,
-  HSV_204_255_112,
-  HSV_225_255_112,
-  HSV_89_255_112,
-  HSV_125_255_112,
-  HSV_150_255_112,
-  HSV_175_255_112,
-  HSV_211_255_112,
-  HSV_236_255_112,
-  HSV_96_255_112,
-  HSV_129_255_112,
-  HSV_161_255_112,
-  HSV_182_255_112,
-  HSV_215_255_112,
-  HSV_247_255_112,
-  HSV_107_255_112,
-  HSV_132_255_112,
-  HSV_168_255_112,
-  HSV_193_255_112,
-  HSV_218_255_112,
-  HSV_254_255_112,
+  HSV_0_255_254,
+  HSV_7_255_254,
+  HSV_20_255_254,
+  HSV_40_255_254,
+  HSV_53_255_254,
+  HSV_67_255_254,
+  HSV_1_255_254,
+  HSV_8_255_254,
+  HSV_25_255_254,
+  HSV_45_255_254,
+  HSV_56_255_254,
+  HSV_71_255_254,
+  HSV_3_255_254,
+  HSV_10_255_254,
+  HSV_30_255_254,
+  HSV_48_255_254,
+  HSV_59_255_254,
+  HSV_75_255_254,
+  HSV_5_255_254,
+  HSV_15_255_254,
+  HSV_35_255_254,
+  HSV_50_255_254,
+  HSV_63_255_254,
+  HSV_79_255_254,
+  HSV_83_255_254,
+  HSV_105_255_254,
+  HSV_137_255_254,
+  HSV_172_255_254,
+  HSV_200_255_254,
+  HSV_229_255_254,
+  HSV_86_255_254,
+  HSV_111_255_254,
+  HSV_146_255_254,
+  HSV_179_255_254,
+  HSV_207_255_254,
+  HSV_236_255_254,
+  HSV_92_255_254,
+  HSV_118_255_254,
+  HSV_154_255_254,
+  HSV_186_255_254,
+  HSV_215_255_254,
+  HSV_243_255_254,
+  HSV_98_255_254,
+  HSV_129_255_254,
+  HSV_163_255_254,
+  HSV_193_255_254,
+  HSV_222_255_254,
+  HSV_250_255_254,
   ST_MACRO_0,
   ST_MACRO_1,
   ST_MACRO_2,
@@ -95,30 +95,30 @@ enum tap_dance_codes {
   DANCE_3,
 };
 
-#define DUAL_FUNC_0 LT(2, KC_I)
-#define DUAL_FUNC_1 LT(14, KC_F1)
-#define DUAL_FUNC_2 LT(13, KC_F1)
-#define DUAL_FUNC_3 LT(1, KC_F8)
-#define DUAL_FUNC_4 LT(14, KC_F2)
-#define DUAL_FUNC_5 LT(13, KC_7)
-#define DUAL_FUNC_6 LT(6, KC_L)
-#define DUAL_FUNC_7 LT(4, KC_C)
-#define DUAL_FUNC_8 LT(12, KC_F11)
-#define DUAL_FUNC_9 LT(3, KC_F6)
-#define DUAL_FUNC_10 LT(8, KC_3)
-#define DUAL_FUNC_11 LT(5, KC_F17)
-#define DUAL_FUNC_12 LT(7, KC_Y)
-#define DUAL_FUNC_13 LT(2, KC_O)
-#define DUAL_FUNC_14 LT(15, KC_Y)
-#define DUAL_FUNC_15 LT(13, KC_F10)
-#define DUAL_FUNC_16 LT(14, KC_O)
-#define DUAL_FUNC_17 LT(10, KC_F16)
-#define DUAL_FUNC_18 LT(10, KC_F3)
-#define DUAL_FUNC_19 LT(12, KC_F13)
-#define DUAL_FUNC_20 LT(15, KC_9)
-#define DUAL_FUNC_21 LT(13, KC_F19)
-#define DUAL_FUNC_22 LT(8, KC_R)
-#define DUAL_FUNC_23 LT(5, KC_S)
+#define DUAL_FUNC_0 LT(11, KC_F20)
+#define DUAL_FUNC_1 LT(2, KC_F2)
+#define DUAL_FUNC_2 LT(13, KC_F24)
+#define DUAL_FUNC_3 LT(1, KC_F19)
+#define DUAL_FUNC_4 LT(8, KC_F4)
+#define DUAL_FUNC_5 LT(15, KC_T)
+#define DUAL_FUNC_6 LT(3, KC_F17)
+#define DUAL_FUNC_7 LT(6, KC_P)
+#define DUAL_FUNC_8 LT(12, KC_F18)
+#define DUAL_FUNC_9 LT(7, KC_R)
+#define DUAL_FUNC_10 LT(15, KC_0)
+#define DUAL_FUNC_11 LT(12, KC_7)
+#define DUAL_FUNC_12 LT(8, KC_F11)
+#define DUAL_FUNC_13 LT(8, KC_S)
+#define DUAL_FUNC_14 LT(13, KC_F15)
+#define DUAL_FUNC_15 LT(5, KC_F17)
+#define DUAL_FUNC_16 LT(5, KC_F24)
+#define DUAL_FUNC_17 LT(11, KC_F7)
+#define DUAL_FUNC_18 LT(2, KC_4)
+#define DUAL_FUNC_19 LT(12, KC_F23)
+#define DUAL_FUNC_20 LT(11, KC_7)
+#define DUAL_FUNC_21 LT(7, KC_9)
+#define DUAL_FUNC_22 LT(1, KC_F22)
+#define DUAL_FUNC_23 LT(14, KC_E)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -220,13 +220,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TAB,         KC_ESCAPE,                                      KC_BSPC,        KC_ENTER
   ),
   [14] = LAYOUT_voyager(
-    HSV_0_255_112,  HSV_10_255_112, HSV_32_255_112, HSV_43_255_112, HSV_53_255_112, HSV_75_255_112,                                 HSV_86_255_112, HSV_118_255_112,HSV_139_255_112,HSV_172_255_112,HSV_204_255_112,HSV_225_255_112,
-    HSV_0_255_112,  HSV_16_255_112, HSV_36_255_112, HSV_43_255_112, HSV_59_255_112, HSV_79_255_112,                                 HSV_89_255_112, HSV_125_255_112,HSV_150_255_112,HSV_175_255_112,HSV_211_255_112,HSV_236_255_112,
-    HSV_3_255_112,  HSV_21_255_112, HSV_39_255_112, HSV_46_255_112, HSV_64_255_112, HSV_82_255_112,                                 HSV_96_255_112, HSV_129_255_112,HSV_161_255_112,HSV_182_255_112,HSV_215_255_112,HSV_247_255_112,
-    HSV_6_255_112,  HSV_26_255_112, HSV_42_255_112, HSV_49_255_112, HSV_69_255_112, HSV_85_255_112,                                 HSV_107_255_112,HSV_132_255_112,HSV_168_255_112,HSV_193_255_112,HSV_218_255_112,HSV_254_255_112,
-                                                    HSV_0_0_112,    HSV_0_255_255,                                  KC_NO,          KC_NO
+    HSV_0_255_254,  HSV_7_255_254,  HSV_20_255_254, HSV_40_255_254, HSV_53_255_254, HSV_67_255_254,                                 HSV_83_255_254, HSV_105_255_254,HSV_137_255_254,HSV_172_255_254,HSV_200_255_254,HSV_229_255_254,
+    HSV_1_255_254,  HSV_8_255_254,  HSV_25_255_254, HSV_45_255_254, HSV_56_255_254, HSV_71_255_254,                                 HSV_86_255_254, HSV_111_255_254,HSV_146_255_254,HSV_179_255_254,HSV_207_255_254,HSV_236_255_254,
+    HSV_3_255_254,  HSV_10_255_254, HSV_30_255_254, HSV_48_255_254, HSV_59_255_254, HSV_75_255_254,                                 HSV_92_255_254, HSV_118_255_254,HSV_154_255_254,HSV_186_255_254,HSV_215_255_254,HSV_243_255_254,
+    HSV_5_255_254,  HSV_15_255_254, HSV_35_255_254, HSV_50_255_254, HSV_63_255_254, HSV_79_255_254,                                 HSV_98_255_254, HSV_129_255_254,HSV_163_255_254,HSV_193_255_254,HSV_222_255_254,HSV_250_255_254,
+                                                    KC_NO,          MO(15),                                         KC_NO,          KC_NO
   ),
   [15] = LAYOUT_voyager(
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+                                                    KC_NO,          KC_NO,                                          KC_NO,          KC_NO
+  ),
+  [16] = LAYOUT_voyager(
     TO(0),          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,  KC_NO,          KC_NO,          QK_BOOT,        
     TO(1),          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_NO,          EE_CLR,         
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_MEDIA_REWIND,KC_MEDIA_FAST_FORWARD,KC_NO,          KC_NO,          KC_NO,          KC_NO,          
@@ -244,9 +251,11 @@ void keyboard_post_init_user(void) {
 }
 
 const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
-    [14] = { {0,255,255}, {10,255,255}, {32,255,255}, {43,255,255}, {53,255,255}, {75,255,255}, {0,255,255}, {16,255,255}, {36,255,255}, {43,255,255}, {59,255,255}, {79,255,255}, {2,255,255}, {21,255,255}, {40,255,255}, {45,255,255}, {64,255,255}, {83,255,255}, {6,255,255}, {26,255,255}, {42,255,255}, {49,255,255}, {69,255,255}, {85,255,255}, {0,0,255}, {0,255,255}, {86,255,255}, {118,255,255}, {139,255,255}, {172,255,255}, {204,255,255}, {225,255,255}, {88,255,255}, {126,255,255}, {150,255,255}, {174,255,255}, {212,255,255}, {236,255,255}, {96,255,255}, {129,255,255}, {161,255,255}, {182,255,255}, {215,255,255}, {247,255,255}, {107,255,255}, {131,255,255}, {169,255,255}, {193,255,255}, {217,255,255}, {255,255,255}, {0,0,0}, {0,0,0} },
+    [14] = { {0,255,255}, {7,255,255}, {20,255,255}, {40,255,255}, {53,255,255}, {67,255,255}, {1,255,255}, {8,255,255}, {25,255,255}, {45,255,255}, {56,255,255}, {71,255,255}, {3,255,255}, {10,255,255}, {30,255,255}, {48,255,255}, {59,255,255}, {75,255,255}, {5,255,255}, {15,255,255}, {35,255,255}, {50,255,255}, {63,255,255}, {79,255,255}, {0,0,0}, {0,0,255}, {83,255,255}, {105,255,255}, {137,255,255}, {172,255,255}, {200,255,255}, {229,255,255}, {86,255,255}, {111,255,255}, {146,255,255}, {179,255,255}, {207,255,255}, {236,255,255}, {92,255,255}, {118,255,255}, {154,255,255}, {186,255,255}, {215,255,255}, {243,255,255}, {98,255,255}, {129,255,255}, {163,255,255}, {193,255,255}, {222,255,255}, {250,255,255}, {0,0,0}, {0,0,0} },
 
-    [15] = { {0,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {86,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {172,255,255}, {215,255,128}, {215,255,255}, {86,255,255}, {0,0,0}, {21,255,128}, {21,255,255}, {0,255,255}, {0,0,0}, {0,0,0}, {0,255,255}, {86,255,128}, {86,255,255}, {43,255,128}, {43,255,255}, {0,0,0}, {21,255,255}, {129,255,128}, {129,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {43,255,255}, {172,255,255}, {0,0,0}, {0,0,128}, {0,0,255}, {0,255,255}, {0,255,255}, {172,255,255} },
+    [15] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+
+    [16] = { {0,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {86,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {172,255,255}, {215,255,128}, {215,255,255}, {86,255,255}, {0,0,0}, {21,255,128}, {21,255,255}, {0,255,255}, {0,0,0}, {0,0,0}, {0,255,255}, {86,255,128}, {86,255,255}, {43,255,128}, {43,255,255}, {0,0,0}, {21,255,255}, {129,255,128}, {129,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {43,255,255}, {172,255,255}, {0,0,0}, {0,0,128}, {0,0,255}, {0,255,255}, {0,255,255}, {172,255,255} },
 
 };
 
@@ -278,6 +287,9 @@ bool rgb_matrix_indicators_user(void) {
       break;
     case 15:
       set_layer_color(15);
+      break;
+    case 16:
+      set_layer_color(16);
       break;
    default:
     if (rgb_matrix_get_flags() == LED_FLAG_NONE)
@@ -806,292 +818,292 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_mode(1);
       }
       return false;
-    case HSV_0_255_112:
+    case HSV_0_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(0,255,112);
+        rgblight_sethsv(0,255,254);
       }
       return false;
-    case HSV_10_255_112:
+    case HSV_7_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(10,255,112);
+        rgblight_sethsv(7,255,254);
       }
       return false;
-    case HSV_32_255_112:
+    case HSV_20_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(32,255,112);
+        rgblight_sethsv(20,255,254);
       }
       return false;
-    case HSV_43_255_112:
+    case HSV_40_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(43,255,112);
+        rgblight_sethsv(40,255,254);
       }
       return false;
-    case HSV_53_255_112:
+    case HSV_53_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(53,255,112);
+        rgblight_sethsv(53,255,254);
       }
       return false;
-    case HSV_75_255_112:
+    case HSV_67_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(75,255,112);
+        rgblight_sethsv(67,255,254);
       }
       return false;
-    case HSV_16_255_112:
+    case HSV_1_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(16,255,112);
+        rgblight_sethsv(1,255,254);
       }
       return false;
-    case HSV_36_255_112:
+    case HSV_8_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(36,255,112);
+        rgblight_sethsv(8,255,254);
       }
       return false;
-    case HSV_59_255_112:
+    case HSV_25_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(59,255,112);
+        rgblight_sethsv(25,255,254);
       }
       return false;
-    case HSV_79_255_112:
+    case HSV_45_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(79,255,112);
+        rgblight_sethsv(45,255,254);
       }
       return false;
-    case HSV_3_255_112:
+    case HSV_56_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(3,255,112);
+        rgblight_sethsv(56,255,254);
       }
       return false;
-    case HSV_21_255_112:
+    case HSV_71_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(21,255,112);
+        rgblight_sethsv(71,255,254);
       }
       return false;
-    case HSV_39_255_112:
+    case HSV_3_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(39,255,112);
+        rgblight_sethsv(3,255,254);
       }
       return false;
-    case HSV_46_255_112:
+    case HSV_10_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(46,255,112);
+        rgblight_sethsv(10,255,254);
       }
       return false;
-    case HSV_64_255_112:
+    case HSV_30_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(64,255,112);
+        rgblight_sethsv(30,255,254);
       }
       return false;
-    case HSV_82_255_112:
+    case HSV_48_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(82,255,112);
+        rgblight_sethsv(48,255,254);
       }
       return false;
-    case HSV_6_255_112:
+    case HSV_59_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(6,255,112);
+        rgblight_sethsv(59,255,254);
       }
       return false;
-    case HSV_26_255_112:
+    case HSV_75_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(26,255,112);
+        rgblight_sethsv(75,255,254);
       }
       return false;
-    case HSV_42_255_112:
+    case HSV_5_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(42,255,112);
+        rgblight_sethsv(5,255,254);
       }
       return false;
-    case HSV_49_255_112:
+    case HSV_15_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(49,255,112);
+        rgblight_sethsv(15,255,254);
       }
       return false;
-    case HSV_69_255_112:
+    case HSV_35_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(69,255,112);
+        rgblight_sethsv(35,255,254);
       }
       return false;
-    case HSV_85_255_112:
+    case HSV_50_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(85,255,112);
+        rgblight_sethsv(50,255,254);
       }
       return false;
-    case HSV_0_0_112:
+    case HSV_63_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(0,0,112);
+        rgblight_sethsv(63,255,254);
       }
       return false;
-    case HSV_0_255_255:
+    case HSV_79_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(0,255,255);
+        rgblight_sethsv(79,255,254);
       }
       return false;
-    case HSV_86_255_112:
+    case HSV_83_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(86,255,112);
+        rgblight_sethsv(83,255,254);
       }
       return false;
-    case HSV_118_255_112:
+    case HSV_105_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(118,255,112);
+        rgblight_sethsv(105,255,254);
       }
       return false;
-    case HSV_139_255_112:
+    case HSV_137_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(139,255,112);
+        rgblight_sethsv(137,255,254);
       }
       return false;
-    case HSV_172_255_112:
+    case HSV_172_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(172,255,112);
+        rgblight_sethsv(172,255,254);
       }
       return false;
-    case HSV_204_255_112:
+    case HSV_200_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(204,255,112);
+        rgblight_sethsv(200,255,254);
       }
       return false;
-    case HSV_225_255_112:
+    case HSV_229_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(225,255,112);
+        rgblight_sethsv(229,255,254);
       }
       return false;
-    case HSV_89_255_112:
+    case HSV_86_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(89,255,112);
+        rgblight_sethsv(86,255,254);
       }
       return false;
-    case HSV_125_255_112:
+    case HSV_111_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(125,255,112);
+        rgblight_sethsv(111,255,254);
       }
       return false;
-    case HSV_150_255_112:
+    case HSV_146_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(150,255,112);
+        rgblight_sethsv(146,255,254);
       }
       return false;
-    case HSV_175_255_112:
+    case HSV_179_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(175,255,112);
+        rgblight_sethsv(179,255,254);
       }
       return false;
-    case HSV_211_255_112:
+    case HSV_207_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(211,255,112);
+        rgblight_sethsv(207,255,254);
       }
       return false;
-    case HSV_236_255_112:
+    case HSV_236_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(236,255,112);
+        rgblight_sethsv(236,255,254);
       }
       return false;
-    case HSV_96_255_112:
+    case HSV_92_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(96,255,112);
+        rgblight_sethsv(92,255,254);
       }
       return false;
-    case HSV_129_255_112:
+    case HSV_118_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(129,255,112);
+        rgblight_sethsv(118,255,254);
       }
       return false;
-    case HSV_161_255_112:
+    case HSV_154_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(161,255,112);
+        rgblight_sethsv(154,255,254);
       }
       return false;
-    case HSV_182_255_112:
+    case HSV_186_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(182,255,112);
+        rgblight_sethsv(186,255,254);
       }
       return false;
-    case HSV_215_255_112:
+    case HSV_215_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(215,255,112);
+        rgblight_sethsv(215,255,254);
       }
       return false;
-    case HSV_247_255_112:
+    case HSV_243_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(247,255,112);
+        rgblight_sethsv(243,255,254);
       }
       return false;
-    case HSV_107_255_112:
+    case HSV_98_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(107,255,112);
+        rgblight_sethsv(98,255,254);
       }
       return false;
-    case HSV_132_255_112:
+    case HSV_129_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(132,255,112);
+        rgblight_sethsv(129,255,254);
       }
       return false;
-    case HSV_168_255_112:
+    case HSV_163_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(168,255,112);
+        rgblight_sethsv(163,255,254);
       }
       return false;
-    case HSV_193_255_112:
+    case HSV_193_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(193,255,112);
+        rgblight_sethsv(193,255,254);
       }
       return false;
-    case HSV_218_255_112:
+    case HSV_222_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(218,255,112);
+        rgblight_sethsv(222,255,254);
       }
       return false;
-    case HSV_254_255_112:
+    case HSV_250_255_254:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(254,255,112);
+        rgblight_sethsv(250,255,254);
       }
       return false;
   }
@@ -1150,7 +1162,7 @@ void dance_0_finished(tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP: register_code16(KC_ESCAPE); break;
         case SINGLE_HOLD: layer_on(6); break;
         case DOUBLE_TAP: register_code16(KC_ESCAPE); register_code16(KC_ESCAPE); break;
-        case DOUBLE_HOLD: layer_on(15); break;
+        case DOUBLE_HOLD: layer_on(16); break;
         case DOUBLE_SINGLE_TAP: tap_code16(KC_ESCAPE); register_code16(KC_ESCAPE);
     }
 }
@@ -1166,8 +1178,8 @@ void dance_0_reset(tap_dance_state_t *state, void *user_data) {
         break;
         case DOUBLE_TAP: unregister_code16(KC_ESCAPE); break;
               case DOUBLE_HOLD: 
-                if(!is_layer_locked(15)) {
-                  layer_off(15);
+                if(!is_layer_locked(16)) {
+                  layer_off(16);
                 }
                 break;
         case DOUBLE_SINGLE_TAP: unregister_code16(KC_ESCAPE); break;
@@ -1240,7 +1252,7 @@ void dance_2_finished(tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP: register_code16(KC_ESCAPE); break;
         case SINGLE_HOLD: layer_on(7); break;
         case DOUBLE_TAP: register_code16(KC_ESCAPE); register_code16(KC_ESCAPE); break;
-        case DOUBLE_HOLD: layer_on(15); break;
+        case DOUBLE_HOLD: layer_on(16); break;
         case DOUBLE_SINGLE_TAP: tap_code16(KC_ESCAPE); register_code16(KC_ESCAPE);
     }
 }
@@ -1256,8 +1268,8 @@ void dance_2_reset(tap_dance_state_t *state, void *user_data) {
         break;
         case DOUBLE_TAP: unregister_code16(KC_ESCAPE); break;
               case DOUBLE_HOLD: 
-                if(!is_layer_locked(15)) {
-                  layer_off(15);
+                if(!is_layer_locked(16)) {
+                  layer_off(16);
                 }
                 break;
         case DOUBLE_SINGLE_TAP: unregister_code16(KC_ESCAPE); break;
