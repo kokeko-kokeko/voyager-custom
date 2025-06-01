@@ -1942,10 +1942,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // HSV independent update code
 // impl...
-typedef struct _rgblight_syncinfo_t {
-    rgblight_config_t config;
-    rgblight_status_t status;
-} rgblight_syncinfo_t;
+// copy from qmk code
+typedef union {
+    uint64_t raw;
+    struct {
+        bool    enable : 1;
+        bool    velocikey : 1;
+        uint8_t mode : 6;
+        uint8_t hue : 8;
+        uint8_t sat : 8;
+        uint8_t val : 8;
+        uint8_t speed : 8;
+    };
+} rgblight_config_t;
 void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom);
 extern rgblight_config_t rgblight_config;
 
