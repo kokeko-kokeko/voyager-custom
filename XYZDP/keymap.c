@@ -1955,32 +1955,29 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 // HSV independent update code
 // impl...
 // copy from qmk code
-void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom);
-//extern rgblight_config_t rgblight_config;
-
 void rgblight_sethsv_h_only(uint8_t hue, uint8_t sat, uint8_t val) {
   uint8_t sat_old = rgblight_get_sat();
   uint8_t val_old = rgblight_get_val();
-  rgblight_sethsv_eeprom_helper(hue, sat_old, val_old, false);
+  rgblight_sethsv_noeeprom(hue, sat_old, val_old);
 }
 
 void rgblight_sethsv_s_only(uint8_t hue, uint8_t sat, uint8_t val) {
   uint8_t hue_old = rgblight_get_hue();
   uint8_t val_old = rgblight_get_val();
-  rgblight_sethsv_eeprom_helper(hue_old, sat, val_old, false);
+  rgblight_sethsv_noeeprom(hue_old, sat, val_old);
 }
 
 void rgblight_sethsv_v_only(uint8_t hue, uint8_t sat, uint8_t val) {
   uint8_t hue_old = rgblight_get_hue();
   uint8_t sat_old = rgblight_get_sat();
-  rgblight_sethsv_eeprom_helper(hue_old, sat_old, val, false);
+  rgblight_sethsv_noeeprom(hue_old, sat_old, val);
 }
 
 void rgblight_sethsv_eeprom(uint8_t hue, uint8_t sat, uint8_t val) {
   uint8_t hue_old = rgblight_get_hue();
   uint8_t sat_old = rgblight_get_sat();
   uint8_t val_old = rgblight_get_val();
-  rgblight_sethsv_eeprom_helper(hue_old, sat_old, val_old, true);
+  rgblight_sethsv(hue_old, sat_old, val_old);
 }
 
 bool process_record_hsv_int(uint16_t keycode, keyrecord_t *record) {
