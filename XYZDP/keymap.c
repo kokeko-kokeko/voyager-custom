@@ -2468,6 +2468,10 @@ bool process_record_hsv_int(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv_v_only(0,0,255);
       }
       return false;
+
+    //inc/dec no eeprom
+
+    
     
     // EEPROM update
     case HSV_0_255_224:
