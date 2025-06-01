@@ -2226,12 +2226,7 @@ bool process_record_hsv_int(uint16_t keycode, keyrecord_t *record) {
       return false;
 
 
-    // EEPROM update
-    case HSV_0_255_224:
-      if (record->event.pressed) {
-        rgblight_sethsv_eeprom(0,255,224);
-      }
-      return false;
+
 
 
     // S value
@@ -2362,59 +2357,9 @@ bool process_record_hsv_int(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv_v_only(0,0,11);
       }
       return false;
-    case HSV_0_0_53:
-      if (record->event.pressed) {
-        rgblight_sethsv_v_only(0,0,53);
-      }
-      return false;
-    case HSV_0_0_96:
-      if (record->event.pressed) {
-        rgblight_sethsv_v_only(0,0,96);
-      }
-      return false;
-    case HSV_0_0_138:
-      if (record->event.pressed) {
-        rgblight_sethsv_v_only(0,0,138);
-      }
-      return false;
-    case HSV_0_0_181:
-      if (record->event.pressed) {
-        rgblight_sethsv_v_only(0,0,181);
-      }
-      return false;
-    case HSV_0_0_223:
-      if (record->event.pressed) {
-        rgblight_sethsv_v_only(0,0,223);
-      }
-      return false;
     case HSV_0_0_21:
       if (record->event.pressed) {
         rgblight_sethsv_v_only(0,0,21);
-      }
-      return false;
-    case HSV_0_0_64:
-      if (record->event.pressed) {
-        rgblight_sethsv_v_only(0,0,64);
-      }
-      return false;
-    case HSV_0_0_106:
-      if (record->event.pressed) {
-        rgblight_sethsv_v_only(0,0,106);
-      }
-      return false;
-    case HSV_0_0_149:
-      if (record->event.pressed) {
-        rgblight_sethsv_v_only(0,0,149);
-      }
-      return false;
-    case HSV_0_0_191:
-      if (record->event.pressed) {
-        rgblight_sethsv_v_only(0,0,191);
-      }
-      return false;
-    case HSV_0_0_234:
-      if (record->event.pressed) {
-        rgblight_sethsv_v_only(0,0,234);
       }
       return false;
     case HSV_0_0_32:
@@ -2422,59 +2367,116 @@ bool process_record_hsv_int(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv_v_only(0,0,32);
       }
       return false;
+    case HSV_0_0_43:
+      if (record->event.pressed) {
+        rgblight_sethsv_v_only(0,0,43);
+      }
+      return false;
+    case HSV_0_0_53:
+      if (record->event.pressed) {
+        rgblight_sethsv_v_only(0,0,53);
+      }
+      return false;    
+    case HSV_0_0_64:
+      if (record->event.pressed) {
+        rgblight_sethsv_v_only(0,0,64);
+      }
+      return false;    
     case HSV_0_0_74:
       if (record->event.pressed) {
         rgblight_sethsv_v_only(0,0,74);
       }
+      return false;        
+    case HSV_0_0_85:
+      if (record->event.pressed) {
+        rgblight_sethsv_v_only(0,0,85);
+      }
       return false;
+    case HSV_0_0_96:
+      if (record->event.pressed) {
+        rgblight_sethsv_v_only(0,0,96);
+      }
+      return false;    
+    case HSV_0_0_106:
+      if (record->event.pressed) {
+        rgblight_sethsv_v_only(0,0,106);
+      }
+      return false;    
     case HSV_0_0_117:
       if (record->event.pressed) {
         rgblight_sethsv_v_only(0,0,117);
+      }
+      return false;    
+    case HSV_0_0_128:
+      if (record->event.pressed) {
+        rgblight_sethsv_v_only(0,0,128);
+      }
+      return false;
+    case HSV_0_0_138:
+      if (record->event.pressed) {
+        rgblight_sethsv_v_only(0,0,138);
+      }
+      return false;
+    case HSV_0_0_149:
+      if (record->event.pressed) {
+        rgblight_sethsv_v_only(0,0,149);
       }
       return false;
     case HSV_0_0_159:
       if (record->event.pressed) {
         rgblight_sethsv_v_only(0,0,159);
       }
-      return false;
-    case HSV_0_0_202:
-      if (record->event.pressed) {
-        rgblight_sethsv_v_only(0,0,202);
-      }
-      return false;
-    case HSV_0_0_244:
-      if (record->event.pressed) {
-        rgblight_sethsv_v_only(0,0,244);
-      }
-      return false;
-    case HSV_0_0_43:
-      if (record->event.pressed) {
-        rgblight_sethsv_v_only(0,0,43);
-      }
-      return false;
-    case HSV_0_0_85:
-      if (record->event.pressed) {
-        rgblight_sethsv_v_only(0,0,85);
-      }
-      return false;
-    case HSV_0_0_128:
-      if (record->event.pressed) {
-        rgblight_sethsv_v_only(0,0,128);
-      }
-      return false;
+      return false;    
     case HSV_0_0_170:
       if (record->event.pressed) {
         rgblight_sethsv_v_only(0,0,170);
       }
       return false;
+    case HSV_0_0_181:
+      if (record->event.pressed) {
+        rgblight_sethsv_v_only(0,0,181);
+      }
+      return false;    
+    case HSV_0_0_191:
+      if (record->event.pressed) {
+        rgblight_sethsv_v_only(0,0,191);
+      }
+      return false;    
+    case HSV_0_0_202:
+      if (record->event.pressed) {
+        rgblight_sethsv_v_only(0,0,202);
+      }
+      return false;    
     case HSV_0_0_213:
       if (record->event.pressed) {
         rgblight_sethsv_v_only(0,0,213);
       }
       return false;
+     case HSV_0_0_223:
+      if (record->event.pressed) {
+        rgblight_sethsv_v_only(0,0,223);
+      }
+      return false;   
+    case HSV_0_0_234:
+      if (record->event.pressed) {
+        rgblight_sethsv_v_only(0,0,234);
+      }
+      return false;    
+    case HSV_0_0_244:
+      if (record->event.pressed) {
+        rgblight_sethsv_v_only(0,0,244);
+      }
+      return false;    
     case HSV_0_0_255:
       if (record->event.pressed) {
         rgblight_sethsv_v_only(0,0,255);
+      }
+      return false;
+    
+    // EEPROM update
+    case HSV_0_255_224:
+      if (record->event.pressed) {
+        rgblight_sethsv_eeprom(0,255,224);
       }
       return false;
   }
