@@ -348,8 +348,13 @@ bool rgb_matrix_indicators_user(void) {
   return true;
 }
 
+// interrupt HSV update
+bool process_record_hsv_int(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!process_record_hsv_int(keycode, record)) {
+    return false;
+  }
   switch (keycode) {
     case ST_MACRO_0:
     if (record->event.pressed) {
