@@ -2225,39 +2225,10 @@ bool process_record_hsv_int(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
-
-
-
-
     // S value
     case HSV_86_10_255:
       if (record->event.pressed) {
         rgblight_sethsv_s_only(86,10,255);
-      }
-      return false;
-    case HSV_86_53_255:
-      if (record->event.pressed) {
-        rgblight_sethsv_s_only(86,53,255);
-      }
-      return false;
-    case HSV_86_96_255:
-      if (record->event.pressed) {
-        rgblight_sethsv_s_only(86,96,255);
-      }
-      return false;
-    case HSV_86_138_255:
-      if (record->event.pressed) {
-        rgblight_sethsv_s_only(86,138,255);
-      }
-      return false;
-    case HSV_86_182_255:
-      if (record->event.pressed) {
-        rgblight_sethsv_s_only(86,182,255);
-      }
-      return false;
-    case HSV_86_223_255:
-      if (record->event.pressed) {
-        rgblight_sethsv_s_only(86,223,255);
       }
       return false;
     case HSV_86_21_255:
@@ -2265,59 +2236,9 @@ bool process_record_hsv_int(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv_s_only(86,21,255);
       }
       return false;
-    case HSV_86_64_255:
-      if (record->event.pressed) {
-        rgblight_sethsv_s_only(86,64,255);
-      }
-      return false;
-    case HSV_86_106_255:
-      if (record->event.pressed) {
-        rgblight_sethsv_s_only(86,106,255);
-      }
-      return false;
-    case HSV_86_150_255:
-      if (record->event.pressed) {
-        rgblight_sethsv_s_only(86,150,255);
-      }
-      return false;
-    case HSV_86_191_255:
-      if (record->event.pressed) {
-        rgblight_sethsv_s_only(86,191,255);
-      }
-      return false;
-    case HSV_86_234_255:
-      if (record->event.pressed) {
-        rgblight_sethsv_s_only(86,234,255);
-      }
-      return false;
     case HSV_86_32_255:
       if (record->event.pressed) {
         rgblight_sethsv_s_only(86,32,255);
-      }
-      return false;
-    case HSV_86_74_255:
-      if (record->event.pressed) {
-        rgblight_sethsv_s_only(86,74,255);
-      }
-      return false;
-    case HSV_86_117_255:
-      if (record->event.pressed) {
-        rgblight_sethsv_s_only(86,117,255);
-      }
-      return false;
-    case HSV_86_159_255:
-      if (record->event.pressed) {
-        rgblight_sethsv_s_only(86,159,255);
-      }
-      return false;
-    case HSV_86_202_255:
-      if (record->event.pressed) {
-        rgblight_sethsv_s_only(86,202,255);
-      }
-      return false;
-    case HSV_86_245_255:
-      if (record->event.pressed) {
-        rgblight_sethsv_s_only(86,245,255);
       }
       return false;
     case HSV_86_44_255:
@@ -2325,26 +2246,101 @@ bool process_record_hsv_int(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv_s_only(86,44,255);
       }
       return false;
+    case HSV_86_53_255:
+      if (record->event.pressed) {
+        rgblight_sethsv_s_only(86,53,255);
+      }
+      return false;    
+    case HSV_86_64_255:
+      if (record->event.pressed) {
+        rgblight_sethsv_s_only(86,64,255);
+      }
+      return false;    
+    case HSV_86_74_255:
+      if (record->event.pressed) {
+        rgblight_sethsv_s_only(86,74,255);
+      }
+      return false;    
     case HSV_86_85_255:
       if (record->event.pressed) {
         rgblight_sethsv_s_only(86,85,255);
       }
       return false;
+    case HSV_86_96_255:
+      if (record->event.pressed) {
+        rgblight_sethsv_s_only(86,96,255);
+      }
+      return false;    
+    case HSV_86_106_255:
+      if (record->event.pressed) {
+        rgblight_sethsv_s_only(86,106,255);
+      }
+      return false;        
+    case HSV_86_117_255:
+      if (record->event.pressed) {
+        rgblight_sethsv_s_only(86,117,255);
+      }
+      return false;    
     case HSV_86_128_255:
       if (record->event.pressed) {
         rgblight_sethsv_s_only(86,128,255);
       }
       return false;
+    case HSV_86_138_255:
+      if (record->event.pressed) {
+        rgblight_sethsv_s_only(86,138,255);
+      }
+      return false;    
+    case HSV_86_150_255:
+      if (record->event.pressed) {
+        rgblight_sethsv_s_only(86,150,255);
+      }
+      return false;   
+    case HSV_86_159_255:
+      if (record->event.pressed) {
+        rgblight_sethsv_s_only(86,159,255);
+      }
+      return false;    
     case HSV_86_170_255:
       if (record->event.pressed) {
         rgblight_sethsv_s_only(86,170,255);
       }
       return false;
+    case HSV_86_182_255:
+      if (record->event.pressed) {
+        rgblight_sethsv_s_only(86,182,255);
+      }
+      return false;   
+    case HSV_86_191_255:
+      if (record->event.pressed) {
+        rgblight_sethsv_s_only(86,191,255);
+      }
+      return false;    
+    case HSV_86_202_255:
+      if (record->event.pressed) {
+        rgblight_sethsv_s_only(86,202,255);
+      }
+      return false;    
     case HSV_86_214_255:
       if (record->event.pressed) {
         rgblight_sethsv_s_only(86,214,255);
       }
       return false;
+    case HSV_86_223_255:
+      if (record->event.pressed) {
+        rgblight_sethsv_s_only(86,223,255);
+      }
+      return false;    
+    case HSV_86_234_255:
+      if (record->event.pressed) {
+        rgblight_sethsv_s_only(86,234,255);
+      }
+      return false;   
+    case HSV_86_245_255:
+      if (record->event.pressed) {
+        rgblight_sethsv_s_only(86,245,255);
+      }
+      return false;   
     case HSV_86_255_255:
       if (record->event.pressed) {
         rgblight_sethsv_s_only(86,255,255);
@@ -2452,7 +2448,7 @@ bool process_record_hsv_int(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv_v_only(0,0,213);
       }
       return false;
-     case HSV_0_0_223:
+    case HSV_0_0_223:
       if (record->event.pressed) {
         rgblight_sethsv_v_only(0,0,223);
       }
