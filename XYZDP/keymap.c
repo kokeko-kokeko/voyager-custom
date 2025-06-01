@@ -1993,1102 +1993,588 @@ void rgblight_sethsv_eeprom(uint8_t hue, uint8_t sat, uint8_t val) {
 
 bool process_record_hsv_int(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case ST_MACRO_0:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_GRAVE)SS_DELAY(100)  SS_TAP(X_GRAVE)SS_DELAY(100)  SS_TAP(X_LEFT));
-    }
-    break;
-    case ST_MACRO_1:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_QUOTE)SS_DELAY(100)  SS_TAP(X_QUOTE)SS_DELAY(100)  SS_TAP(X_LEFT));
-    }
-    break;
-    case ST_MACRO_2:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_TAP(X_LEFT));
-    }
-    break;
-    case ST_MACRO_3:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_LSFT(SS_TAP(X_8)));
-    }
-    break;
-    case ST_MACRO_4:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_1))SS_DELAY(100)  SS_LSFT(SS_TAP(X_SLASH)));
-    }
-    break;
-    case ST_MACRO_5:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_SLASH))SS_DELAY(100)  SS_LSFT(SS_TAP(X_1)));
-    }
-    break;
-    case ST_MACRO_6:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_TAP(X_SLASH));
-    }
-    break;
-    case ST_MACRO_7:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_8))SS_DELAY(100)  SS_TAP(X_SLASH));
-    }
-    break;
-    case ST_MACRO_8:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_LBRC)SS_DELAY(100)  SS_TAP(X_RBRC)SS_DELAY(100)  SS_TAP(X_LEFT));
-    }
-    break;
-    case ST_MACRO_9:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(100)  SS_TAP(X_LEFT));
-    }
-    break;
-    case ST_MACRO_10:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_COMMA))SS_DELAY(100)  SS_LSFT(SS_TAP(X_DOT))SS_DELAY(100)  SS_TAP(X_LEFT));
-    }
-    break;
-    case ST_MACRO_11:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_9))SS_DELAY(100)  SS_LSFT(SS_TAP(X_0))SS_DELAY(100)  SS_TAP(X_LEFT));
-    }
-    break;
-    case ST_MACRO_12:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_TAP(X_SLASH)SS_DELAY(100)  SS_TAP(X_SLASH));
-    }
-    break;
-    case ST_MACRO_13:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_BSLS)SS_DELAY(100)  SS_TAP(X_BSLS));
-    }
-    break;
-    case ST_MACRO_14:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_TAP(X_LEFT));
-    }
-    break;
-    case ST_MACRO_15:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_7))SS_DELAY(100)  SS_LSFT(SS_TAP(X_7))SS_DELAY(100)  SS_TAP(X_LEFT));
-    }
-    break;
-    case ST_MACRO_16:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_2))SS_DELAY(100)  SS_LSFT(SS_TAP(X_2))SS_DELAY(100)  SS_TAP(X_LEFT));
-    }
-    break;
-    case ST_MACRO_17:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_LSFT(SS_TAP(X_QUOTE)));
-    }
-    break;
-    case ST_MACRO_18:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_1))SS_DELAY(100)  SS_LSFT(SS_TAP(X_SLASH)));
-    }
-    break;
-    case ST_MACRO_19:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_SLASH))SS_DELAY(100)  SS_LSFT(SS_TAP(X_1)));
-    }
-    break;
-    case ST_MACRO_20:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_TAP(X_SLASH));
-    }
-    break;
-    case ST_MACRO_21:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_TAP(X_SLASH));
-    }
-    break;
-    case ST_MACRO_22:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_RBRC)SS_DELAY(100)  SS_TAP(X_BSLS)SS_DELAY(100)  SS_TAP(X_LEFT));
-    }
-    break;
-    case ST_MACRO_23:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_BSLS))SS_DELAY(100)  SS_TAP(X_LEFT));
-    }
-    break;
-    case ST_MACRO_24:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_COMMA))SS_DELAY(100)  SS_LSFT(SS_TAP(X_DOT))SS_DELAY(100)  SS_TAP(X_LEFT));
-    }
-    break;
-    case ST_MACRO_25:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_8))SS_DELAY(100)  SS_LSFT(SS_TAP(X_9))SS_DELAY(100)  SS_TAP(X_LEFT));
-    }
-    break;
-    case ST_MACRO_26:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_TAP(X_SLASH)SS_DELAY(100)  SS_TAP(X_SLASH));
-    }
-    break;
-    case ST_MACRO_27:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_INTERNATIONAL_1)SS_DELAY(100)  SS_TAP(X_INTERNATIONAL_1));
-    }
-    break;
-    case ST_MACRO_28:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_LEFT_CTRL)SS_DELAY(100)  SS_TAP(X_LEFT_CTRL));
-    }
-    break;
-    case ST_MACRO_29:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_LEFT_CTRL)SS_DELAY(100)  SS_TAP(X_LEFT_CTRL));
-    }
-    break;
-
-    case DUAL_FUNC_0:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LSFT(KC_C));
-        } else {
-          unregister_code16(LSFT(KC_C));
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_LEFT_GUI);
-        } else {
-          unregister_code16(KC_LEFT_GUI);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_1:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LSFT(KC_I));
-        } else {
-          unregister_code16(LSFT(KC_I));
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_LEFT_ALT);
-        } else {
-          unregister_code16(KC_LEFT_ALT);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_2:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LSFT(KC_E));
-        } else {
-          unregister_code16(LSFT(KC_E));
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_LEFT_SHIFT);
-        } else {
-          unregister_code16(KC_LEFT_SHIFT);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_3:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LSFT(KC_A));
-        } else {
-          unregister_code16(LSFT(KC_A));
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_LEFT_CTRL);
-        } else {
-          unregister_code16(KC_LEFT_CTRL);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_4:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LSFT(KC_Z));
-        } else {
-          unregister_code16(LSFT(KC_Z));
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_LEFT_CTRL);
-        } else {
-          unregister_code16(KC_LEFT_CTRL);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_5:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LSFT(KC_G));
-        } else {
-          unregister_code16(LSFT(KC_G));
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_LEFT_CTRL);
-        } else {
-          unregister_code16(KC_LEFT_CTRL);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_6:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LSFT(KC_H));
-        } else {
-          unregister_code16(LSFT(KC_H));
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_RIGHT_CTRL);
-        } else {
-          unregister_code16(KC_RIGHT_CTRL);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_7:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LSFT(KC_T));
-        } else {
-          unregister_code16(LSFT(KC_T));
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_RIGHT_SHIFT);
-        } else {
-          unregister_code16(KC_RIGHT_SHIFT);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_8:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LSFT(KC_S));
-        } else {
-          unregister_code16(LSFT(KC_S));
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_RIGHT_ALT);
-        } else {
-          unregister_code16(KC_RIGHT_ALT);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_9:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LSFT(KC_N));
-        } else {
-          unregister_code16(LSFT(KC_N));
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_RIGHT_GUI);
-        } else {
-          unregister_code16(KC_RIGHT_GUI);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_10:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LSFT(KC_P));
-        } else {
-          unregister_code16(LSFT(KC_P));
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_RIGHT_CTRL);
-        } else {
-          unregister_code16(KC_RIGHT_CTRL);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_11:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LSFT(KC_Q));
-        } else {
-          unregister_code16(LSFT(KC_Q));
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_RIGHT_CTRL);
-        } else {
-          unregister_code16(KC_RIGHT_CTRL);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_12:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(KC_LCBR);
-        } else {
-          unregister_code16(KC_LCBR);
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_LEFT_CTRL);
-        } else {
-          unregister_code16(KC_LEFT_CTRL);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_13:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(KC_PIPE);
-        } else {
-          unregister_code16(KC_PIPE);
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_LEFT_CTRL);
-        } else {
-          unregister_code16(KC_LEFT_CTRL);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_14:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(KC_ASTR);
-        } else {
-          unregister_code16(KC_ASTR);
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_RIGHT_CTRL);
-        } else {
-          unregister_code16(KC_RIGHT_CTRL);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_15:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(KC_RCBR);
-        } else {
-          unregister_code16(KC_RCBR);
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_RIGHT_CTRL);
-        } else {
-          unregister_code16(KC_RIGHT_CTRL);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_16:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(JP_LCBR);
-        } else {
-          unregister_code16(JP_LCBR);
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_LEFT_CTRL);
-        } else {
-          unregister_code16(KC_LEFT_CTRL);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_17:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(JP_PIPE);
-        } else {
-          unregister_code16(JP_PIPE);
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_LEFT_CTRL);
-        } else {
-          unregister_code16(KC_LEFT_CTRL);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_18:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(JP_ASTR);
-        } else {
-          unregister_code16(JP_ASTR);
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_RIGHT_CTRL);
-        } else {
-          unregister_code16(KC_RIGHT_CTRL);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_19:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(JP_RCBR);
-        } else {
-          unregister_code16(JP_RCBR);
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_RIGHT_CTRL);
-        } else {
-          unregister_code16(KC_RIGHT_CTRL);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_20:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LCTL(KC_Q));
-        } else {
-          unregister_code16(LCTL(KC_Q));
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_LEFT_CTRL);
-        } else {
-          unregister_code16(KC_LEFT_CTRL);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_21:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LCTL(KC_W));
-        } else {
-          unregister_code16(LCTL(KC_W));
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_LEFT_ALT);
-        } else {
-          unregister_code16(KC_LEFT_ALT);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_22:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LCTL(KC_A));
-        } else {
-          unregister_code16(LCTL(KC_A));
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_LEFT_SHIFT);
-        } else {
-          unregister_code16(KC_LEFT_SHIFT);
-        }  
-      }  
-      return false;
-    case DUAL_FUNC_23:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LCTL(KC_S));
-        } else {
-          unregister_code16(LCTL(KC_S));
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_LEFT_GUI);
-        } else {
-          unregister_code16(KC_LEFT_GUI);
-        }  
-      }  
-      return false;
-    case RGB_SLD:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-      }
-      return false;
     case HSV_0_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(0,255,254);
       }
       return false;
     case HSV_7_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(7,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(7,255,254);
       }
       return false;
     case HSV_20_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(20,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(20,255,254);
       }
       return false;
     case HSV_40_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(40,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(40,255,254);
       }
       return false;
     case HSV_53_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(53,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(53,255,254);
       }
       return false;
     case HSV_67_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(67,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(67,255,254);
       }
       return false;
     case HSV_1_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(1,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(1,255,254);
       }
       return false;
     case HSV_8_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(8,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(8,255,254);
       }
       return false;
     case HSV_25_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(25,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(25,255,254);
       }
       return false;
     case HSV_45_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(45,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(45,255,254);
       }
       return false;
     case HSV_56_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(56,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(56,255,254);
       }
       return false;
     case HSV_71_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(71,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(71,255,254);
       }
       return false;
     case HSV_3_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(3,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(3,255,254);
       }
       return false;
     case HSV_10_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(10,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(10,255,254);
       }
       return false;
     case HSV_30_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(30,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(30,255,254);
       }
       return false;
     case HSV_48_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(48,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(48,255,254);
       }
       return false;
     case HSV_59_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(59,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(59,255,254);
       }
       return false;
     case HSV_75_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(75,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(75,255,254);
       }
       return false;
     case HSV_5_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(5,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(5,255,254);
       }
       return false;
     case HSV_15_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(15,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(15,255,254);
       }
       return false;
     case HSV_35_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(35,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(35,255,254);
       }
       return false;
     case HSV_50_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(50,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(50,255,254);
       }
       return false;
     case HSV_63_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(63,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(63,255,254);
       }
       return false;
     case HSV_79_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(79,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(79,255,254);
       }
       return false;
     case HSV_83_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(83,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(83,255,254);
       }
       return false;
     case HSV_105_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(105,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(105,255,254);
       }
       return false;
     case HSV_137_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(137,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(137,255,254);
       }
       return false;
     case HSV_172_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(172,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(172,255,254);
       }
       return false;
     case HSV_200_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(200,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(200,255,254);
       }
       return false;
     case HSV_229_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(229,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(229,255,254);
       }
       return false;
     case HSV_86_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(86,255,254);
       }
       return false;
     case HSV_111_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(111,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(111,255,254);
       }
       return false;
     case HSV_146_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(146,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(146,255,254);
       }
       return false;
     case HSV_179_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(179,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(179,255,254);
       }
       return false;
     case HSV_207_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(207,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(207,255,254);
       }
       return false;
     case HSV_236_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(236,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(236,255,254);
       }
       return false;
     case HSV_92_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(92,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(92,255,254);
       }
       return false;
     case HSV_118_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(118,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(118,255,254);
       }
       return false;
     case HSV_154_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(154,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(154,255,254);
       }
       return false;
     case HSV_186_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(186,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(186,255,254);
       }
       return false;
     case HSV_215_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(215,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(215,255,254);
       }
       return false;
     case HSV_243_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(243,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(243,255,254);
       }
       return false;
     case HSV_98_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(98,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(98,255,254);
       }
       return false;
     case HSV_129_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(129,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(129,255,254);
       }
       return false;
     case HSV_163_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(163,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(163,255,254);
       }
       return false;
     case HSV_193_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(193,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(193,255,254);
       }
       return false;
     case HSV_222_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(222,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(222,255,254);
       }
       return false;
     case HSV_250_255_254:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(250,255,254);
+        //rgblight_mode(1);
+        rgblight_sethsv_h_only(250,255,254);
       }
       return false;
+    
     case HSV_0_255_224:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,224);
+        //rgblight_mode(1);
+        rgblight_sethsv_eeprom(0,255,224);
       }
       return false;
+    
     case HSV_86_10_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,10,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,10,255);
       }
       return false;
     case HSV_86_53_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,53,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,53,255);
       }
       return false;
     case HSV_86_96_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,96,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,96,255);
       }
       return false;
     case HSV_86_138_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,138,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,138,255);
       }
       return false;
     case HSV_86_182_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,182,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,182,255);
       }
       return false;
     case HSV_86_223_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,223,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,223,255);
       }
       return false;
     case HSV_86_21_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,21,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,21,255);
       }
       return false;
     case HSV_86_64_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,64,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,64,255);
       }
       return false;
     case HSV_86_106_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,106,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,106,255);
       }
       return false;
     case HSV_86_150_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,150,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,150,255);
       }
       return false;
     case HSV_86_191_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,191,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,191,255);
       }
       return false;
     case HSV_86_234_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,234,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,234,255);
       }
       return false;
     case HSV_86_32_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,32,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,32,255);
       }
       return false;
     case HSV_86_74_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,74,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,74,255);
       }
       return false;
     case HSV_86_117_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,117,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,117,255);
       }
       return false;
     case HSV_86_159_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,159,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,159,255);
       }
       return false;
     case HSV_86_202_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,202,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,202,255);
       }
       return false;
     case HSV_86_245_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,245,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,245,255);
       }
       return false;
     case HSV_86_44_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,44,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,44,255);
       }
       return false;
     case HSV_86_85_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,85,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,85,255);
       }
       return false;
     case HSV_86_128_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,128,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,128,255);
       }
       return false;
     case HSV_86_170_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,170,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,170,255);
       }
       return false;
     case HSV_86_214_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,214,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,214,255);
       }
       return false;
     case HSV_86_255_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,255,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_s_only(86,255,255);
       }
       return false;
     case HSV_0_0_11:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,11);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,11);
       }
       return false;
     case HSV_0_0_53:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,53);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,53);
       }
       return false;
     case HSV_0_0_96:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,96);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,96);
       }
       return false;
     case HSV_0_0_138:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,138);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,138);
       }
       return false;
     case HSV_0_0_181:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,181);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,181);
       }
       return false;
     case HSV_0_0_223:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,223);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,223);
       }
       return false;
     case HSV_0_0_21:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,21);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,21);
       }
       return false;
     case HSV_0_0_64:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,64);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,64);
       }
       return false;
     case HSV_0_0_106:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,106);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,106);
       }
       return false;
     case HSV_0_0_149:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,149);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,149);
       }
       return false;
     case HSV_0_0_191:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,191);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,191);
       }
       return false;
     case HSV_0_0_234:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,234);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,234);
       }
       return false;
     case HSV_0_0_32:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,32);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,32);
       }
       return false;
     case HSV_0_0_74:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,74);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,74);
       }
       return false;
     case HSV_0_0_117:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,117);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,117);
       }
       return false;
     case HSV_0_0_159:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,159);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,159);
       }
       return false;
     case HSV_0_0_202:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,202);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,202);
       }
       return false;
     case HSV_0_0_244:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,244);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,244);
       }
       return false;
     case HSV_0_0_43:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,43);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,43);
       }
       return false;
     case HSV_0_0_85:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,85);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,85);
       }
       return false;
     case HSV_0_0_128:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,128);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,128);
       }
       return false;
     case HSV_0_0_170:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,170);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,170);
       }
       return false;
     case HSV_0_0_213:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,213);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,213);
       }
       return false;
     case HSV_0_0_255:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,255);
+        //rgblight_mode(1);
+        rgblight_sethsv_v_only(0,0,255);
       }
       return false;
   }
