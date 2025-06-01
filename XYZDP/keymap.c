@@ -348,11 +348,11 @@ bool rgb_matrix_indicators_user(void) {
   return true;
 }
 
-// interrupt HSV update
-bool process_record_hsv_int(uint16_t keycode, keyrecord_t *record);
+// interrupt led update
+bool process_record_led_int(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_record_hsv_int(keycode, record)) {
+  if (!process_record_led_int(keycode, record)) {
     return false;
   }
   switch (keycode) {
@@ -1981,7 +1981,7 @@ void rgblight_sethsv_eeprom(uint8_t hue, uint8_t sat, uint8_t val) {
   rgblight_sethsv(hue_old, sat_old, val_old);
 }
 
-bool process_record_hsv_int(uint16_t keycode, keyrecord_t *record) {
+bool process_record_led_int(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // H value
     case HSV_0_255_254:
