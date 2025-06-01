@@ -1955,46 +1955,33 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 // HSV independent update code
 // impl...
 // copy from qmk code
-typedef union {
-    uint64_t raw;
-    struct {
-        bool    enable : 1;
-        bool    velocikey : 1;
-        uint8_t mode : 6;
-        uint8_t hue : 8;
-        uint8_t sat : 8;
-        uint8_t val : 8;
-        uint8_t speed : 8;
-    };
-} rgblight_config_t;
 void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom);
-extern rgblight_config_t rgblight_config;
+//extern rgblight_config_t rgblight_config;
 
 void rgblight_sethsv_h_only(uint8_t hue, uint8_t sat, uint8_t val) {
-  uint8_t sat_old = rgblight_config.sat;
-  uint8_t val_old = rgblight_config.val;
+  uint8_t sat_old = rgblight_get_sat();
+  uint8_t val_old = rgblight_get_val();
   rgblight_sethsv_eeprom_helper(hue, sat_old, val_old, false);
 }
 
 void rgblight_sethsv_s_only(uint8_t hue, uint8_t sat, uint8_t val) {
-  uint8_t hue_old = rgblight_config.hue;
-  uint8_t val_old = rgblight_config.val;
+  uint8_t hue_old = rgblight_get_hue();
+  uint8_t val_old = rgblight_get_val();
   rgblight_sethsv_eeprom_helper(hue_old, sat, val_old, false);
 }
 
 void rgblight_sethsv_v_only(uint8_t hue, uint8_t sat, uint8_t val) {
-  uint8_t hue_old = rgblight_config.hue;
-  uint8_t sat_old = rgblight_config.sat;
+  uint8_t hue_old = rgblight_get_hue();
+  uint8_t sat_old = rgblight_get_sat();
   rgblight_sethsv_eeprom_helper(hue_old, sat_old, val, false);
 }
 
 void rgblight_sethsv_eeprom(uint8_t hue, uint8_t sat, uint8_t val) {
-  uint8_t hue_old = rgblight_config.hue;
-  uint8_t sat_old = rgblight_config.sat;
-  uint8_t val_old = rgblight_config.val;
+  uint8_t hue_old = rgblight_get_hue();
+  uint8_t sat_old = rgblight_get_sat();
+  uint8_t val_old = rgblight_get_val();
   rgblight_sethsv_eeprom_helper(hue_old, sat_old, val_old, true);
 }
-
 
 bool process_record_hsv_int(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
