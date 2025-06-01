@@ -1943,6 +1943,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 // HSV independent update code
 // impl...
 
+extern rgblight_config_t rgblight_config;
+
 void rgblight_sethsv_h_only(uint8_t hue, uint8_t sat, uint8_t val) {
   uint8_t sat_old = rgblight_config.sat;
   uint8_t val_old = rgblight_config.val;
