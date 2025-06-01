@@ -1980,6 +1980,13 @@ void rgblight_sethsv_s_only(uint8_t hue, uint8_t sat, uint8_t val) {
 void rgblight_sethsv_v_only(uint8_t hue, uint8_t sat, uint8_t val) {
   uint8_t hue_old = rgblight_config.hue;
   uint8_t sat_old = rgblight_config.sat;
-  rgblight_sethsv_eeprom_helper(hue_old, sat_old, val, true);
+  rgblight_sethsv_eeprom_helper(hue_old, sat_old, val, false);
+}
+
+void rgblight_sethsv_eeprom(uint8_t hue, uint8_t sat, uint8_t val) {
+  uint8_t hue_old = rgblight_config.hue;
+  uint8_t sat_old = rgblight_config.sat;
+  uint8_t val_old = rgblight_config.val;
+  rgblight_sethsv_eeprom_helper(hue_old, sat_old, val_old, true);
 }
 
