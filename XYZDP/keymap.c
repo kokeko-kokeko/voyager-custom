@@ -1895,11 +1895,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0010, led_pattern_blink, 0);
       break;
     case 14:
-    case 15:
       status_led(0b0100, led_pattern_on, 50);
       status_led(0b0001, led_pattern_on, 300);
       status_led(0b1000, led_pattern_on, 550);
-      status_led(0b0010, led_pattern_on, 800);
+      status_led(0b0010, led_pattern_on, 800);  
+    case 15:
+      status_led(0b1000, led_pattern_on, 50);
+      status_led(0b0010, led_pattern_on, 300);
+      status_led(0b0100, led_pattern_on, 550);
+      status_led(0b0001, led_pattern_on, 800);
       break;    
     case 16:
       status_led(0b1111, NULL, 0);
@@ -1935,4 +1939,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   }
   return state;
 }
+
+// HSV independent update code
+// impl...
 
