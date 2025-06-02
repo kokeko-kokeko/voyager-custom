@@ -1954,8 +1954,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 // HSV independent update code
-// impl...
-// copy from qmk code
 void rgblight_sethsv_h_only(uint8_t hue, uint8_t sat, uint8_t val) {
   uint8_t sat_old = rgblight_get_sat();
   uint8_t val_old = rgblight_get_val();
@@ -2005,7 +2003,7 @@ void rgblight_sethsv_preset(uint8_t hue, uint8_t sat, uint8_t val) {
 
 bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    // H value
+    // Hue value
     case HSV_0_255_254:
       if (record->event.pressed) {
         rgblight_sethsv_h_only(0,255,254);
@@ -2247,7 +2245,7 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
-    // S value
+    // Sat value
     case HSV_86_10_255:
       if (record->event.pressed) {
         rgblight_sethsv_s_only(86,10,255);
@@ -2369,7 +2367,7 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
-    // V value
+    // Val value
     case HSV_0_0_11:
       if (record->event.pressed) {
         rgblight_sethsv_v_only(0,0,11);
