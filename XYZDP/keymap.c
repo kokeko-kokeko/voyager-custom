@@ -1998,7 +1998,7 @@ void rgblight_sethsv_preset(uint8_t hue, uint8_t sat, uint8_t val) {
   uint8_t sat_old = rgblight_get_sat();
   uint8_t val_old = rgblight_get_val();
   rgblight_sethsv(hue_old, sat_old, val_old);
-  uint8_t spd_old = RGBLIGHT_DEFAULT_SPD;
+  uint8_t spd_old = RGBLIGHT_DEFAULT_SPD
   rgblight_set_speed(spd_old);
   uint8_t mode_old = rgblight_get_mode();
   rgblight_mode(mode_old);
