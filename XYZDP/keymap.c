@@ -1907,16 +1907,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0010, led_pattern_blink, 0);
       break;
     case 14:
-      status_led(0b0100, led_pattern_on, 50);
-      status_led(0b0001, led_pattern_on, 300);
-      status_led(0b1000, led_pattern_on, 550);
-      status_led(0b0010, led_pattern_on, 800);
-      break;  
     case 15:
-      status_led(0b1000, led_pattern_on, 50);
-      status_led(0b0010, led_pattern_on, 300);
-      status_led(0b0100, led_pattern_on, 550);
-      status_led(0b0001, led_pattern_on, 800);
+      status_led(0b1111, NULL, 0);
       break;    
     case 16:
       status_led(0b1111, NULL, 0);
@@ -1960,18 +1952,21 @@ void rgblight_sethsv_h_only(uint8_t hue, uint8_t sat, uint8_t val) {
   uint8_t sat_old = rgblight_get_sat();
   uint8_t val_old = rgblight_get_val();
   rgblight_sethsv_noeeprom(hue, sat_old, val_old);
+  status_led(0b1000, led_pattern_blink, 0);
 }
 
 void rgblight_sethsv_s_only(uint8_t hue, uint8_t sat, uint8_t val) {
   uint8_t hue_old = rgblight_get_hue();
   uint8_t val_old = rgblight_get_val();
   rgblight_sethsv_noeeprom(hue_old, sat, val_old);
+  status_led(0b0010, led_pattern_blink, 0);
 }
 
 void rgblight_sethsv_v_only(uint8_t hue, uint8_t sat, uint8_t val) {
   uint8_t hue_old = rgblight_get_hue();
   uint8_t sat_old = rgblight_get_sat();
   rgblight_sethsv_noeeprom(hue_old, sat_old, val);
+  status_led(0b0100, led_pattern_blink, 0);
 }
 
 void rgblight_sethsv_eeprom(uint8_t hue, uint8_t sat, uint8_t val) {
@@ -1983,6 +1978,7 @@ void rgblight_sethsv_eeprom(uint8_t hue, uint8_t sat, uint8_t val) {
   rgblight_set_speed(spd_old);
   uint8_t mode_old = rgblight_get_mode();
   rgblight_mode(mode_old);
+  status_led(0b0001, led_pattern_blink, 0);
 }
 
 bool process_record_led_int(uint16_t keycode, keyrecord_t *record) {
