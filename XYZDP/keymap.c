@@ -1979,6 +1979,10 @@ void rgblight_sethsv_eeprom(uint8_t hue, uint8_t sat, uint8_t val) {
   uint8_t sat_old = rgblight_get_sat();
   uint8_t val_old = rgblight_get_val();
   rgblight_sethsv(hue_old, sat_old, val_old);
+  uint8_t spd_old = rgblight_get_speed();
+  rgblight_set_speed(spd_old);
+  uint8_t mode_old = rgblight_get_mode();
+  rgblight_mode(mode_old);
 }
 
 bool process_record_led_int(uint16_t keycode, keyrecord_t *record) {
@@ -2519,12 +2523,17 @@ bool process_record_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
          rgblight_step_noeeprom();
       }
-      return false;   
+      return false;
+    case RGB_SLD:
+      if (record->event.pressed) {
+        rgblight_mode_noeeprom(1);
+      }
+      return false;
     
     // EEPROM update
     case HSV_0_255_224:
       if (record->event.pressed) {
-        rgblight_sethsv_eeprom(0,255,224);
+         rgblight_sethsv_eeprom(0,255,224);
       }
       return false;
   }
