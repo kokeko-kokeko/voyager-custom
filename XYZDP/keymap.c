@@ -1955,34 +1955,34 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // HSV independent update code
 void rgblight_seth(uint8_t hue) {
-  uint8_t sat_old = rgblight_get_sat();
-  uint8_t val_old = rgblight_get_val();
-  rgblight_sethsv_noeeprom(hue, sat_old, val_old);
+  uint8_t sat = rgblight_get_sat();
+  uint8_t val = rgblight_get_val();
+  rgblight_sethsv_noeeprom(hue, sat, val);
   
   status_led(0b1000, led_pattern_single, 0);
 }
 
 void rgblight_sets(uint8_t sat) {
-  uint8_t hue_old = rgblight_get_hue();
-  uint8_t val_old = rgblight_get_val();
-  rgblight_sethsv_noeeprom(hue_old, sat, val_old);
+  uint8_t hue = rgblight_get_hue();
+  uint8_t val = rgblight_get_val();
+  rgblight_sethsv_noeeprom(hue, sat, val);
   
   status_led(0b0010, led_pattern_single, 0);
 }
 
 void rgblight_setv(uint8_t val) {
-  uint8_t hue_old = rgblight_get_hue();
-  uint8_t sat_old = rgblight_get_sat();
-  rgblight_sethsv_noeeprom(hue_old, sat_old, val);
+  uint8_t hue = rgblight_get_hue();
+  uint8_t sat = rgblight_get_sat();
+  rgblight_sethsv_noeeprom(hue, sat, val);
   
   status_led(0b0100, led_pattern_single, 0);
 }
 
 void rgblight_set_eeprom(void) {
-  uint8_t hue_old = rgblight_get_hue();
-  uint8_t sat_old = rgblight_get_sat();
-  uint8_t val_old = rgblight_get_val();
-  rgblight_sethsv(hue_old, sat_old, val_old);
+  uint8_t hue = rgblight_get_hue();
+  uint8_t sat = rgblight_get_sat();
+  uint8_t val = rgblight_get_val();
+  rgblight_sethsv(hue, sat, val);
   //eeprom write once
   //uint8_t spd_old = rgblight_get_speed();
   //rgblight_set_speed(spd_old);
@@ -1993,10 +1993,10 @@ void rgblight_set_eeprom(void) {
 }
 
 void rgblight_set_preset(void) {
-  uint8_t hue_old = 250;
-  uint8_t sat_old = 255;
-  uint8_t val_old = 128;
-  rgblight_sethsv(hue_old, sat_old, val_old);
+  uint8_t hue = 250;
+  uint8_t sat = 255;
+  uint8_t val = 128;
+  rgblight_sethsv(hue, sat, val);
   
   status_led(0b1111, led_pattern_single, 0);
 }
