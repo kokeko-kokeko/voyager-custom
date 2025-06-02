@@ -1978,7 +1978,7 @@ void rgblight_set_val_noeeprom(uint8_t val) {
   status_led(0b0100, led_pattern_single, 0);
 }
 
-void rgblight_set_eeprom(void) {
+void rgblight_save_eeprom(void) {
   uint8_t hue = rgblight_get_hue();
   uint8_t sat = rgblight_get_sat();
   uint8_t val = rgblight_get_val();
@@ -1992,7 +1992,7 @@ void rgblight_set_eeprom(void) {
   status_led(0b0001, led_pattern_single, 0);
 }
 
-void rgblight_set_preset(void) {
+void rgblight_load_preset(void) {
   uint8_t hue = 250;
   uint8_t sat = 255;
   uint8_t val = 128;
@@ -2549,12 +2549,12 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
     // EEPROM update
     case HSV_0_255_224:
       if (record->event.pressed) {
-        rgblight_set_preset();
+        rgblight_load_preset();
       }
       return false;
     case HSV_172_255_224:
       if (record->event.pressed) {
-        rgblight_set_eeprom();
+        rgblight_save_eeprom();
       }
       return false;
   }
