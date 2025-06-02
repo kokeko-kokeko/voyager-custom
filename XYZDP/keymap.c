@@ -2497,32 +2497,32 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       return false;
     case RGB_VAI:
       if (record->event.pressed) {
-         rgblight_increase_val_noeeprom();
+        rgblight_increase_val_noeeprom();
       }
       return false;
     case RGB_VAD:
       if (record->event.pressed) {
-         rgblight_decrease_val_noeeprom();
+        rgblight_decrease_val_noeeprom();
       }
       return false;
     case RGB_SPI:
       if (record->event.pressed) {
-         rgblight_increase_speed_noeeprom();
+        rgblight_increase_speed_noeeprom();
       }
       return false;
     case RGB_SPD:
       if (record->event.pressed) {
-         rgblight_decrease_speed_noeeprom();
+        rgblight_decrease_speed_noeeprom();
       }
       return false;
     case RGB_TOG:
       if (record->event.pressed) {
-         rgblight_toggle_noeeprom();
+        rgblight_toggle_noeeprom();
       }
       return false; 
     case RGB_MODE_FORWARD:
       if (record->event.pressed) {
-         rgblight_step_noeeprom();
+        rgblight_step_noeeprom();
       }
       return false;
     case RGB_SLD:
@@ -2534,7 +2534,7 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
     // EEPROM update
     case HSV_0_255_224:
       if (record->event.pressed) {
-         rgblight_sethsv_eeprom(0,255,224);
+        rgblight_sethsv_eeprom(0,255,224);
       }
       return false;
   }
