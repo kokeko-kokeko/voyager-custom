@@ -349,10 +349,10 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 // interrupt led update
-bool process_record_led_int(uint16_t keycode, keyrecord_t *record);
+bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_record_led_int(keycode, record)) {
+  if (!process_record_rgb_led_int(keycode, record)) {
     return false;
   }
   switch (keycode) {
@@ -1727,6 +1727,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 // write NULL direct 
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_blink = (uint8_t[]){13, 50, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_single = (uint8_t[]){1, 6, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
@@ -1952,21 +1953,24 @@ void rgblight_sethsv_h_only(uint8_t hue, uint8_t sat, uint8_t val) {
   uint8_t sat_old = rgblight_get_sat();
   uint8_t val_old = rgblight_get_val();
   rgblight_sethsv_noeeprom(hue, sat_old, val_old);
-  status_led(0b1000, led_pattern_blink, 0);
+  
+  status_led(0b1000, led_pattern_single, 0);
 }
 
 void rgblight_sethsv_s_only(uint8_t hue, uint8_t sat, uint8_t val) {
   uint8_t hue_old = rgblight_get_hue();
   uint8_t val_old = rgblight_get_val();
   rgblight_sethsv_noeeprom(hue_old, sat, val_old);
-  status_led(0b0010, led_pattern_blink, 0);
+  
+  status_led(0b0010, led_pattern_single, 0);
 }
 
 void rgblight_sethsv_v_only(uint8_t hue, uint8_t sat, uint8_t val) {
   uint8_t hue_old = rgblight_get_hue();
   uint8_t sat_old = rgblight_get_sat();
   rgblight_sethsv_noeeprom(hue_old, sat_old, val);
-  status_led(0b0100, led_pattern_blink, 0);
+  
+  status_led(0b0100, led_pattern_single, 0);
 }
 
 void rgblight_sethsv_eeprom(uint8_t hue, uint8_t sat, uint8_t val) {
@@ -1978,10 +1982,11 @@ void rgblight_sethsv_eeprom(uint8_t hue, uint8_t sat, uint8_t val) {
   rgblight_set_speed(spd_old);
   uint8_t mode_old = rgblight_get_mode();
   rgblight_mode(mode_old);
-  status_led(0b0001, led_pattern_blink, 0);
+  
+  status_led(0b0001, led_pattern_single, 0);
 }
 
-bool process_record_led_int(uint16_t keycode, keyrecord_t *record) {
+bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // H value
     case HSV_0_255_254:
