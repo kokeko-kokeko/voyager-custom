@@ -1994,16 +1994,12 @@ void rgblight_sethsv_eeprom(uint8_t hue, uint8_t sat, uint8_t val) {
 }
 
 void rgblight_sethsv_preset(uint8_t hue, uint8_t sat, uint8_t val) {
-  uint8_t hue_old = rgblight_get_hue();
-  uint8_t sat_old = rgblight_get_sat();
-  uint8_t val_old = rgblight_get_val();
+  uint8_t hue_old = 250;
+  uint8_t sat_old = 255;
+  uint8_t val_old = 128;
   rgblight_sethsv(hue_old, sat_old, val_old);
-  uint8_t spd_old = RGBLIGHT_DEFAULT_SPD
-  rgblight_set_speed(spd_old);
-  uint8_t mode_old = rgblight_get_mode();
-  rgblight_mode(mode_old);
   
-  status_led(0b0001, led_pattern_single, 0);
+  status_led(0b1111, led_pattern_single, 0);
 }
 
 bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
