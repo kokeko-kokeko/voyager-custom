@@ -145,30 +145,30 @@ enum tap_dance_codes {
   DANCE_3,
 };
 
-#define DUAL_FUNC_0 LT(6, KC_F12)
-#define DUAL_FUNC_1 LT(9, KC_F24)
-#define DUAL_FUNC_2 LT(6, KC_F6)
-#define DUAL_FUNC_3 LT(11, KC_3)
-#define DUAL_FUNC_4 LT(1, KC_F19)
-#define DUAL_FUNC_5 LT(7, KC_Y)
-#define DUAL_FUNC_6 LT(2, KC_F21)
-#define DUAL_FUNC_7 LT(13, KC_D)
-#define DUAL_FUNC_8 LT(9, KC_F6)
-#define DUAL_FUNC_9 LT(4, KC_2)
-#define DUAL_FUNC_10 LT(6, KC_F7)
-#define DUAL_FUNC_11 LT(9, KC_F7)
-#define DUAL_FUNC_12 LT(12, KC_L)
-#define DUAL_FUNC_13 LT(15, KC_0)
-#define DUAL_FUNC_14 LT(12, KC_F5)
-#define DUAL_FUNC_15 LT(3, KC_K)
-#define DUAL_FUNC_16 LT(15, KC_R)
-#define DUAL_FUNC_17 LT(4, KC_8)
-#define DUAL_FUNC_18 LT(9, KC_H)
-#define DUAL_FUNC_19 LT(11, KC_0)
-#define DUAL_FUNC_20 LT(9, KC_L)
-#define DUAL_FUNC_21 LT(10, KC_F6)
-#define DUAL_FUNC_22 LT(4, KC_H)
-#define DUAL_FUNC_23 LT(12, KC_X)
+#define DUAL_FUNC_0 LT(10, KC_9)
+#define DUAL_FUNC_1 LT(14, KC_Q)
+#define DUAL_FUNC_2 LT(9, KC_B)
+#define DUAL_FUNC_3 LT(5, KC_H)
+#define DUAL_FUNC_4 LT(5, KC_I)
+#define DUAL_FUNC_5 LT(13, KC_W)
+#define DUAL_FUNC_6 LT(5, KC_F17)
+#define DUAL_FUNC_7 LT(10, KC_F7)
+#define DUAL_FUNC_8 LT(9, KC_F17)
+#define DUAL_FUNC_9 LT(5, KC_D)
+#define DUAL_FUNC_10 LT(8, KC_X)
+#define DUAL_FUNC_11 LT(12, KC_X)
+#define DUAL_FUNC_12 LT(4, KC_F18)
+#define DUAL_FUNC_13 LT(5, KC_F16)
+#define DUAL_FUNC_14 LT(6, KC_4)
+#define DUAL_FUNC_15 LT(3, KC_2)
+#define DUAL_FUNC_16 LT(1, KC_M)
+#define DUAL_FUNC_17 LT(9, KC_K)
+#define DUAL_FUNC_18 LT(1, KC_Z)
+#define DUAL_FUNC_19 LT(14, KC_D)
+#define DUAL_FUNC_20 LT(9, KC_F2)
+#define DUAL_FUNC_21 LT(14, KC_F13)
+#define DUAL_FUNC_22 LT(1, KC_F)
+#define DUAL_FUNC_23 LT(2, KC_F4)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -242,16 +242,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TAB,         KC_ESCAPE,                                      KC_BSPC,        KC_ENTER
   ),
   [10] = LAYOUT_voyager(
-    CW_TOGG,        DUAL_FUNC_20,   DUAL_FUNC_21,   KC_PAGE_UP,     KC_PGDN,        LGUI(LCTL(KC_V)),                                KC_TAB,         LCTL(KC_LEFT),  KC_UP,          LCTL(KC_RIGHT), KC_ESCAPE,      KC_APPLICATION, 
+    CW_TOGG,        DUAL_FUNC_20,   DUAL_FUNC_21,   KC_PAGE_UP,     KC_HOME,        LGUI(LCTL(KC_V)),                                KC_TAB,         LCTL(KC_LEFT),  KC_UP,          LCTL(KC_RIGHT), KC_ESCAPE,      KC_APPLICATION, 
     KC_TRANSPARENT, DUAL_FUNC_22,   DUAL_FUNC_23,   LCTL(KC_C),     LCTL(KC_V),     LGUI(KC_V),                                     KC_BSPC,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_DELETE,      KC_TRANSPARENT, 
-    LCTL(KC_Y),     LCTL(KC_Z),     LCTL(KC_X),     KC_HOME,        KC_END,         LGUI(LSFT(KC_V)),                                LGUI(LCTL(KC_T)),LCTL(LSFT(KC_P)),LALT(LGUI(KC_SPACE)),LGUI(LSFT(KC_M)),LGUI(LSFT(KC_C)),ST_MACRO_28,    
+    LCTL(KC_Y),     LCTL(KC_Z),     LCTL(KC_X),     KC_PGDN,        KC_END,         LGUI(LSFT(KC_V)),                                LGUI(LCTL(KC_T)),LCTL(LSFT(KC_P)),LALT(LGUI(KC_SPACE)),LGUI(LSFT(KC_M)),LGUI(LSFT(KC_C)),ST_MACRO_28,    
     QK_LLCK,        RGB_HUD,        RGB_HUI,        KC_TRANSPARENT, KC_SPACE,       KC_LANGUAGE_2,                                  KC_LANGUAGE_1,  KC_SPACE,       KC_TRANSPARENT, RGB_SAD,        RGB_SAI,        QK_LLCK,        
                                                     KC_TAB,         KC_ESCAPE,                                      KC_BSPC,        KC_ENTER
   ),
   [11] = LAYOUT_voyager(
-    CW_TOGG,        DUAL_FUNC_20,   DUAL_FUNC_21,   KC_PAGE_UP,     KC_PGDN,        LGUI(LCTL(KC_V)),                                KC_TAB,         LCTL(KC_LEFT),  KC_UP,          LCTL(KC_RIGHT), KC_ESCAPE,      KC_APPLICATION, 
+    CW_TOGG,        DUAL_FUNC_20,   DUAL_FUNC_21,   KC_PAGE_UP,     KC_HOME,        LGUI(LCTL(KC_V)),                                KC_TAB,         LCTL(KC_LEFT),  KC_UP,          LCTL(KC_RIGHT), KC_ESCAPE,      KC_APPLICATION, 
     KC_TRANSPARENT, DUAL_FUNC_22,   DUAL_FUNC_23,   LCTL(KC_C),     LCTL(KC_V),     LGUI(KC_V),                                     KC_BSPC,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_DELETE,      KC_TRANSPARENT, 
-    LCTL(KC_Y),     LCTL(KC_Z),     LCTL(KC_X),     KC_HOME,        KC_END,         LGUI(LSFT(KC_V)),                                LGUI(LCTL(KC_T)),LCTL(LSFT(KC_P)),LALT(LGUI(KC_SPACE)),LGUI(LSFT(KC_M)),LGUI(LSFT(KC_C)),ST_MACRO_29,    
+    LCTL(KC_Y),     LCTL(KC_Z),     LCTL(KC_X),     KC_PGDN,        KC_END,         LGUI(LSFT(KC_V)),                                LGUI(LCTL(KC_T)),LCTL(LSFT(KC_P)),LALT(LGUI(KC_SPACE)),LGUI(LSFT(KC_M)),LGUI(LSFT(KC_C)),ST_MACRO_29,    
     QK_LLCK,        RGB_HUD,        RGB_HUI,        KC_TRANSPARENT, KC_SPACE,       KC_LANGUAGE_2,                                  KC_LANGUAGE_1,  KC_SPACE,       KC_TRANSPARENT, RGB_SAD,        RGB_SAI,        QK_LLCK,        
                                                     KC_TAB,         KC_ESCAPE,                                      KC_BSPC,        KC_ENTER
   ),
