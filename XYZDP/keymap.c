@@ -2544,6 +2544,11 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv_eeprom(0,255,224);
       }
       return false;
+    case HSV_172_255_224:
+      if (record->event.pressed) {
+        rgblight_sethsv_eeprom(0,255,224);
+      }
+      return false;
   }
   return true;
 }
