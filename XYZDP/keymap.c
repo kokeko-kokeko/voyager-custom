@@ -1978,7 +1978,7 @@ void rgblight_setv(uint8_t val) {
   status_led(0b0100, led_pattern_single, 0);
 }
 
-void rgblight_set_eeprom() {
+void rgblight_set_eeprom(void) {
   uint8_t hue_old = rgblight_get_hue();
   uint8_t sat_old = rgblight_get_sat();
   uint8_t val_old = rgblight_get_val();
@@ -1992,7 +1992,7 @@ void rgblight_set_eeprom() {
   status_led(0b0001, led_pattern_single, 0);
 }
 
-void rgblight_set_preset() {
+void rgblight_set_preset(void) {
   uint8_t hue_old = 250;
   uint8_t sat_old = 255;
   uint8_t val_old = 128;
