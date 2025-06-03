@@ -145,30 +145,30 @@ enum tap_dance_codes {
   DANCE_3,
 };
 
-#define DUAL_FUNC_0 LT(10, KC_9)
-#define DUAL_FUNC_1 LT(14, KC_Q)
-#define DUAL_FUNC_2 LT(9, KC_B)
-#define DUAL_FUNC_3 LT(5, KC_H)
-#define DUAL_FUNC_4 LT(5, KC_I)
-#define DUAL_FUNC_5 LT(13, KC_W)
-#define DUAL_FUNC_6 LT(5, KC_F17)
-#define DUAL_FUNC_7 LT(10, KC_F7)
-#define DUAL_FUNC_8 LT(9, KC_F17)
-#define DUAL_FUNC_9 LT(5, KC_D)
-#define DUAL_FUNC_10 LT(8, KC_X)
-#define DUAL_FUNC_11 LT(12, KC_X)
-#define DUAL_FUNC_12 LT(4, KC_F18)
-#define DUAL_FUNC_13 LT(5, KC_F16)
-#define DUAL_FUNC_14 LT(6, KC_4)
-#define DUAL_FUNC_15 LT(3, KC_2)
-#define DUAL_FUNC_16 LT(1, KC_M)
-#define DUAL_FUNC_17 LT(9, KC_K)
-#define DUAL_FUNC_18 LT(1, KC_Z)
-#define DUAL_FUNC_19 LT(14, KC_D)
-#define DUAL_FUNC_20 LT(9, KC_F2)
-#define DUAL_FUNC_21 LT(14, KC_F13)
-#define DUAL_FUNC_22 LT(1, KC_F)
-#define DUAL_FUNC_23 LT(2, KC_F4)
+#define DUAL_FUNC_0 LT(2, KC_4)
+#define DUAL_FUNC_1 LT(4, KC_F4)
+#define DUAL_FUNC_2 LT(7, KC_F4)
+#define DUAL_FUNC_3 LT(1, KC_F8)
+#define DUAL_FUNC_4 LT(11, KC_F19)
+#define DUAL_FUNC_5 LT(13, KC_F22)
+#define DUAL_FUNC_6 LT(7, KC_F16)
+#define DUAL_FUNC_7 LT(6, KC_D)
+#define DUAL_FUNC_8 LT(8, KC_4)
+#define DUAL_FUNC_9 LT(6, KC_F18)
+#define DUAL_FUNC_10 LT(1, KC_M)
+#define DUAL_FUNC_11 LT(15, KC_R)
+#define DUAL_FUNC_12 LT(2, KC_1)
+#define DUAL_FUNC_13 LT(2, KC_P)
+#define DUAL_FUNC_14 LT(13, KC_F12)
+#define DUAL_FUNC_15 LT(9, KC_P)
+#define DUAL_FUNC_16 LT(10, KC_V)
+#define DUAL_FUNC_17 LT(11, KC_F11)
+#define DUAL_FUNC_18 LT(12, KC_F23)
+#define DUAL_FUNC_19 LT(7, KC_S)
+#define DUAL_FUNC_20 LT(6, KC_O)
+#define DUAL_FUNC_21 LT(11, KC_S)
+#define DUAL_FUNC_22 LT(1, KC_X)
+#define DUAL_FUNC_23 LT(11, KC_Z)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -229,14 +229,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [8] = LAYOUT_voyager(
     CW_TOGG,        KC_F21,         KC_F22,         KC_F23,         KC_F24,         LCTL(KC_RBRC),                                  LGUI(LSFT(KC_S)),LGUI(LSFT(KC_R)),LGUI(KC_PSCR),  LALT(KC_PSCR),  KC_PSCR,        KC_TRANSPARENT, 
-    KC_TRANSPARENT, MT(MOD_LGUI, KC_F1),MT(MOD_LALT, KC_F2),MT(MOD_LSFT, KC_F3),MT(MOD_LCTL, KC_F4),KC_F5,                                          KC_F6,          MT(MOD_RCTL, KC_F7),MT(MOD_RSFT, KC_F8),MT(MOD_RALT, KC_F9),MT(MOD_RGUI, KC_F10),KC_TRANSPARENT, 
+    KC_F11,         MT(MOD_LGUI, KC_F1),MT(MOD_LALT, KC_F2),MT(MOD_LSFT, KC_F3),MT(MOD_LCTL, KC_F4),KC_F5,                                          KC_F6,          MT(MOD_RCTL, KC_F7),MT(MOD_RSFT, KC_F8),MT(MOD_RALT, KC_F9),MT(MOD_RGUI, KC_F10),KC_F12,         
     KC_LEFT_CTRL,   MT(MOD_LCTL, KC_F11),KC_F12,         KC_F13,         KC_F14,         KC_F15,                                         KC_F16,         KC_F17,         KC_F18,         KC_F19,         MT(MOD_RCTL, KC_F20),KC_RIGHT_CTRL,  
     KC_TRANSPARENT, KC_LEFT_GUI,    KC_LEFT_ALT,    KC_TRANSPARENT, KC_SPACE,       KC_LANGUAGE_2,                                  KC_LANGUAGE_1,  KC_SPACE,       KC_TRANSPARENT, KC_RIGHT_ALT,   KC_RIGHT_GUI,   KC_TRANSPARENT, 
                                                     KC_TAB,         KC_ESCAPE,                                      KC_BSPC,        KC_ENTER
   ),
   [9] = LAYOUT_voyager(
     CW_TOGG,        KC_F21,         KC_F22,         KC_F23,         KC_F24,         LCTL(JP_RBRC),                                  LGUI(LSFT(KC_S)),LGUI(LSFT(KC_R)),LGUI(KC_PSCR),  LALT(KC_PSCR),  KC_PSCR,        KC_TRANSPARENT, 
-    KC_TRANSPARENT, MT(MOD_LGUI, KC_F1),MT(MOD_LALT, KC_F2),MT(MOD_LSFT, KC_F3),MT(MOD_LCTL, KC_F4),KC_F5,                                          KC_F6,          MT(MOD_RCTL, KC_F7),MT(MOD_RSFT, KC_F8),MT(MOD_RALT, KC_F9),MT(MOD_RGUI, KC_F10),KC_TRANSPARENT, 
+    KC_F11,         MT(MOD_LGUI, KC_F1),MT(MOD_LALT, KC_F2),MT(MOD_LSFT, KC_F3),MT(MOD_LCTL, KC_F4),KC_F5,                                          KC_F6,          MT(MOD_RCTL, KC_F7),MT(MOD_RSFT, KC_F8),MT(MOD_RALT, KC_F9),MT(MOD_RGUI, KC_F10),KC_F12,         
     KC_LEFT_CTRL,   MT(MOD_LCTL, KC_F11),KC_F12,         KC_F13,         KC_F14,         KC_F15,                                         KC_F16,         KC_F17,         KC_F18,         KC_F19,         MT(MOD_RCTL, KC_F20),KC_RIGHT_CTRL,  
     KC_TRANSPARENT, KC_LEFT_GUI,    KC_LEFT_ALT,    KC_TRANSPARENT, KC_SPACE,       KC_LANGUAGE_2,                                  KC_LANGUAGE_1,  KC_SPACE,       KC_TRANSPARENT, KC_RIGHT_ALT,   KC_RIGHT_GUI,   KC_TRANSPARENT, 
                                                     KC_TAB,         KC_ESCAPE,                                      KC_BSPC,        KC_ENTER
