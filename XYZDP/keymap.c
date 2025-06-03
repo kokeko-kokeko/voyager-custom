@@ -80,6 +80,7 @@ enum custom_keycodes {
   HSV_86_170_255,
   HSV_86_214_255,
   HSV_86_255_255,
+  HSV_43_255_245,
   HSV_0_0_11,
   HSV_0_0_53,
   HSV_0_0_96,
@@ -104,6 +105,7 @@ enum custom_keycodes {
   HSV_0_0_170,
   HSV_0_0_213,
   HSV_0_0_255,
+  HSV_86_255_245,
   ST_MACRO_0,
   ST_MACRO_1,
   ST_MACRO_2,
@@ -145,30 +147,30 @@ enum tap_dance_codes {
   DANCE_3,
 };
 
-#define DUAL_FUNC_0 LT(15, KC_X)
-#define DUAL_FUNC_1 LT(5, KC_P)
-#define DUAL_FUNC_2 LT(6, KC_F14)
-#define DUAL_FUNC_3 LT(15, KC_I)
-#define DUAL_FUNC_4 LT(8, KC_E)
-#define DUAL_FUNC_5 LT(12, KC_F18)
-#define DUAL_FUNC_6 LT(14, KC_F24)
-#define DUAL_FUNC_7 LT(12, KC_U)
-#define DUAL_FUNC_8 LT(6, KC_F11)
-#define DUAL_FUNC_9 LT(7, KC_4)
-#define DUAL_FUNC_10 LT(4, KC_F23)
-#define DUAL_FUNC_11 LT(1, KC_H)
-#define DUAL_FUNC_12 LT(6, KC_F18)
-#define DUAL_FUNC_13 LT(10, KC_9)
-#define DUAL_FUNC_14 LT(14, KC_X)
-#define DUAL_FUNC_15 LT(13, KC_F17)
-#define DUAL_FUNC_16 LT(3, KC_L)
-#define DUAL_FUNC_17 LT(5, KC_0)
-#define DUAL_FUNC_18 LT(8, KC_S)
-#define DUAL_FUNC_19 LT(5, KC_F12)
-#define DUAL_FUNC_20 LT(4, KC_M)
-#define DUAL_FUNC_21 LT(3, KC_F2)
-#define DUAL_FUNC_22 LT(1, KC_F21)
-#define DUAL_FUNC_23 LT(11, KC_F20)
+#define DUAL_FUNC_0 LT(2, KC_N)
+#define DUAL_FUNC_1 LT(11, KC_F4)
+#define DUAL_FUNC_2 LT(1, KC_Y)
+#define DUAL_FUNC_3 LT(6, KC_X)
+#define DUAL_FUNC_4 LT(7, KC_X)
+#define DUAL_FUNC_5 LT(7, KC_S)
+#define DUAL_FUNC_6 LT(15, KC_Y)
+#define DUAL_FUNC_7 LT(7, KC_F12)
+#define DUAL_FUNC_8 LT(8, KC_1)
+#define DUAL_FUNC_9 LT(9, KC_K)
+#define DUAL_FUNC_10 LT(5, KC_A)
+#define DUAL_FUNC_11 LT(11, KC_4)
+#define DUAL_FUNC_12 LT(10, KC_W)
+#define DUAL_FUNC_13 LT(8, KC_I)
+#define DUAL_FUNC_14 LT(3, KC_F4)
+#define DUAL_FUNC_15 LT(9, KC_F17)
+#define DUAL_FUNC_16 LT(15, KC_5)
+#define DUAL_FUNC_17 LT(4, KC_Q)
+#define DUAL_FUNC_18 LT(9, KC_F3)
+#define DUAL_FUNC_19 LT(3, KC_Y)
+#define DUAL_FUNC_20 LT(12, KC_N)
+#define DUAL_FUNC_21 LT(8, KC_3)
+#define DUAL_FUNC_22 LT(5, KC_7)
+#define DUAL_FUNC_23 LT(13, KC_F18)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -281,7 +283,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     HSV_86_21_255,  HSV_86_64_255,  HSV_86_106_255, HSV_86_150_255, HSV_86_191_255, HSV_86_234_255,                                 HSV_0_0_21,     HSV_0_0_64,     HSV_0_0_106,    HSV_0_0_149,    HSV_0_0_191,    HSV_0_0_234,    
     HSV_86_32_255,  HSV_86_74_255,  HSV_86_117_255, HSV_86_159_255, HSV_86_202_255, HSV_86_245_255,                                 HSV_0_0_32,     HSV_0_0_74,     HSV_0_0_117,    HSV_0_0_159,    HSV_0_0_202,    HSV_0_0_244,    
     HSV_86_44_255,  HSV_86_85_255,  HSV_86_128_255, HSV_86_170_255, HSV_86_214_255, HSV_86_255_255,                                 HSV_0_0_43,     HSV_0_0_85,     HSV_0_0_128,    HSV_0_0_170,    HSV_0_0_213,    HSV_0_0_255,    
-                                                    HSV_0_255_245,  KC_NO,                                          KC_NO,          HSV_172_255_245
+                                                    HSV_43_255_245, KC_NO,                                          KC_NO,          HSV_86_255_245
   ),
   [16] = LAYOUT_voyager(
     TO(0),          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,  KC_NO,          KC_NO,          QK_BOOT,        
@@ -303,7 +305,7 @@ void keyboard_post_init_user(void) {
 const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     [14] = { {0,255,255}, {7,255,255}, {20,255,255}, {40,255,255}, {53,255,255}, {67,255,255}, {1,255,255}, {8,255,255}, {25,255,255}, {45,255,255}, {56,255,255}, {71,255,255}, {3,255,255}, {10,255,255}, {30,255,255}, {48,255,255}, {59,255,255}, {75,255,255}, {5,255,255}, {15,255,255}, {35,255,255}, {50,255,255}, {63,255,255}, {79,255,255}, {0,255,255}, {0,0,255}, {83,255,255}, {105,255,255}, {137,255,255}, {172,255,255}, {200,255,255}, {229,255,255}, {86,255,255}, {111,255,255}, {146,255,255}, {179,255,255}, {207,255,255}, {236,255,255}, {92,255,255}, {118,255,255}, {154,255,255}, {186,255,255}, {215,255,255}, {243,255,255}, {98,255,255}, {129,255,255}, {163,255,255}, {193,255,255}, {222,255,255}, {250,255,255}, {0,0,0}, {172,255,255} },
 
-    [15] = { {86,10,255}, {86,53,255}, {86,96,255}, {86,138,255}, {86,182,255}, {86,223,255}, {86,21,255}, {86,64,255}, {86,106,255}, {86,150,255}, {86,191,255}, {86,234,255}, {86,32,255}, {86,74,255}, {86,117,255}, {86,159,255}, {86,202,255}, {86,245,255}, {86,44,255}, {86,85,255}, {86,128,255}, {86,170,255}, {86,214,255}, {86,255,255}, {0,255,255}, {0,0,0}, {0,0,11}, {0,0,53}, {0,0,96}, {0,0,138}, {0,0,181}, {0,0,223}, {0,0,21}, {0,0,64}, {0,0,106}, {0,0,149}, {0,0,191}, {0,0,234}, {0,0,32}, {0,0,74}, {0,0,117}, {0,0,159}, {0,0,202}, {0,0,244}, {0,0,43}, {0,0,85}, {0,0,128}, {0,0,170}, {0,0,213}, {0,0,255}, {0,0,0}, {172,255,255} },
+    [15] = { {86,10,255}, {86,53,255}, {86,96,255}, {86,138,255}, {86,182,255}, {86,223,255}, {86,21,255}, {86,64,255}, {86,106,255}, {86,150,255}, {86,191,255}, {86,234,255}, {86,32,255}, {86,74,255}, {86,117,255}, {86,159,255}, {86,202,255}, {86,245,255}, {86,44,255}, {86,85,255}, {86,128,255}, {86,170,255}, {86,214,255}, {86,255,255}, {43,255,255}, {0,0,0}, {0,0,11}, {0,0,53}, {0,0,96}, {0,0,138}, {0,0,181}, {0,0,223}, {0,0,21}, {0,0,64}, {0,0,106}, {0,0,149}, {0,0,191}, {0,0,234}, {0,0,32}, {0,0,74}, {0,0,117}, {0,0,159}, {0,0,202}, {0,0,244}, {0,0,43}, {0,0,85}, {0,0,128}, {0,0,170}, {0,0,213}, {0,0,255}, {0,0,0}, {86,255,255} },
 
     [16] = { {0,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {86,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {172,255,255}, {215,255,128}, {215,255,255}, {86,255,255}, {0,0,0}, {21,255,128}, {21,255,255}, {0,255,255}, {0,0,0}, {0,0,0}, {0,255,255}, {86,255,128}, {86,255,255}, {43,255,128}, {43,255,255}, {0,0,0}, {21,255,255}, {129,255,128}, {129,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {43,255,255}, {172,255,255}, {0,0,0}, {0,0,128}, {0,0,255}, {0,255,255}, {0,255,255}, {172,255,255} },
 
@@ -1312,6 +1314,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv(86,255,255);
       }
       return false;
+    case HSV_43_255_245:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,245);
+      }
+      return false;
     case HSV_0_0_11:
       if (record->event.pressed) {
         rgblight_mode(1);
@@ -1454,6 +1462,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_mode(1);
         rgblight_sethsv(0,0,255);
+      }
+      return false;
+    case HSV_86_255_245:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(86,255,245);
       }
       return false;
   }
