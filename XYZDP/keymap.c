@@ -350,7 +350,7 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 // interrupt led update
-bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record);
+static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_record_rgb_led_int(keycode, record)) {
@@ -1956,7 +1956,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 // HSV independent update code
-void rgblight_set_hue_noeeprom(uint8_t hue) {
+static void rgblight_set_hue_noeeprom(uint8_t hue) {
   uint8_t sat = rgblight_get_sat();
   uint8_t val = rgblight_get_val();
   rgblight_sethsv_noeeprom(hue, sat, val);
@@ -1964,7 +1964,7 @@ void rgblight_set_hue_noeeprom(uint8_t hue) {
   status_led(0b1000, led_pattern_single, 0);
 }
 
-void rgblight_set_sat_noeeprom(uint8_t sat) {
+static void rgblight_set_sat_noeeprom(uint8_t sat) {
   uint8_t hue = rgblight_get_hue();
   uint8_t val = rgblight_get_val();
   rgblight_sethsv_noeeprom(hue, sat, val);
@@ -1972,7 +1972,7 @@ void rgblight_set_sat_noeeprom(uint8_t sat) {
   status_led(0b0010, led_pattern_single, 0);
 }
 
-void rgblight_set_val_noeeprom(uint8_t val) {
+static void rgblight_set_val_noeeprom(uint8_t val) {
   uint8_t hue = rgblight_get_hue();
   uint8_t sat = rgblight_get_sat();
   rgblight_sethsv_noeeprom(hue, sat, val);
@@ -1980,7 +1980,7 @@ void rgblight_set_val_noeeprom(uint8_t val) {
   status_led(0b0100, led_pattern_single, 0);
 }
 
-void rgblight_save_eeprom(void) {
+static void rgblight_save_eeprom(void) {
   uint8_t hue = rgblight_get_hue();
   uint8_t sat = rgblight_get_sat();
   uint8_t val = rgblight_get_val();
@@ -1994,7 +1994,7 @@ void rgblight_save_eeprom(void) {
   status_led(0b0001, led_pattern_single, 0);
 }
 
-void rgblight_load_preset(void) {
+static void rgblight_load_preset(void) {
   uint8_t hue = 250;
   uint8_t sat = 255;
   uint8_t val = 117;
@@ -2003,7 +2003,7 @@ void rgblight_load_preset(void) {
   status_led(0b1111, led_pattern_single, 0);
 }
 
-bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
+static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // Hue value
     case HSV_0_255_254:
