@@ -1995,7 +1995,7 @@ void rgblight_save_eeprom(void) {
 void rgblight_load_preset(void) {
   uint8_t hue = 250;
   uint8_t sat = 255;
-  uint8_t val = 128;
+  uint8_t val = 117;
   rgblight_sethsv(hue, sat, val);
   
   status_led(0b1111, led_pattern_single, 0);
@@ -2013,12 +2013,12 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(1);
       }
-      return false; 
+      return false;
     case HSV_3_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(3);
       }
-      return false;    
+      return false;
     case HSV_5_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(5);
@@ -2028,17 +2028,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(7);
       }
-      return false;  
+      return false;
     case HSV_8_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(8);
       }
-      return false;    
+      return false;
     case HSV_10_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(10);
       }
-      return false;    
+      return false;
     case HSV_15_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(15);
@@ -2048,17 +2048,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(20);
       }
-      return false;    
+      return false;
     case HSV_25_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(25);
       }
-      return false;    
+      return false;
     case HSV_30_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(30);
       }
-      return false;    
+      return false;
     case HSV_35_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(35);
@@ -2068,17 +2068,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(40);
       }
-      return false;    
+      return false;
     case HSV_45_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(45);
       }
-      return false;    
+      return false;
     case HSV_48_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(48);
       }
-      return false;    
+      return false;
     case HSV_50_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(50);
@@ -2088,7 +2088,7 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(53);
       }
-      return false;    
+      return false;
     case HSV_56_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(56);
@@ -2098,7 +2098,7 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(59);
       }
-      return false;    
+      return false;
     case HSV_63_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(63);
@@ -2108,17 +2108,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(67);
       }
-      return false;    
+      return false;
     case HSV_71_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(71);
       }
-      return false;    
+      return false;
     case HSV_75_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(75);
       }
-      return false;    
+      return false;
     case HSV_79_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(79);
@@ -2148,7 +2148,7 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(105);
       }
-      return false;    
+      return false;
     case HSV_111_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(111);
@@ -2158,7 +2158,7 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(118);
       }
-      return false;        
+      return false;
     case HSV_129_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(129);
@@ -2168,17 +2168,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(137);
       }
-      return false;  
+      return false;
     case HSV_146_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(146);
       }
-      return false;    
+      return false;
     case HSV_154_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(154);
       }
-      return false;    
+      return false;
     case HSV_163_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(163);
@@ -2188,17 +2188,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(172);
       }
-      return false;    
+      return false;
     case HSV_179_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(179);
       }
-      return false;   
+      return false;
     case HSV_186_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(186);
       }
-      return false;    
+      return false;
     case HSV_193_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(193);
@@ -2208,17 +2208,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(200);
       }
-      return false;    
+      return false;
     case HSV_207_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(207);
       }
-      return false;   
+      return false;
     case HSV_215_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(215);
       }
-      return false;    
+      return false;
     case HSV_222_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(222);
@@ -2228,17 +2228,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(229);
       }
-      return false;    
+      return false;
     case HSV_236_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(236);
       }
-      return false;    
+      return false;
     case HSV_243_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(243);
       }
-      return false;    
+      return false;
     case HSV_250_255_254:
       if (record->event.pressed) {
         rgblight_set_hue_noeeprom(250);
@@ -2270,17 +2270,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(53);
       }
-      return false;    
+      return false;
     case HSV_86_64_255:
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(64);
       }
-      return false;    
+      return false;
     case HSV_86_74_255:
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(74);
       }
-      return false;    
+      return false;
     case HSV_86_85_255:
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(85);
@@ -2290,17 +2290,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(96);
       }
-      return false;    
+      return false;
     case HSV_86_106_255:
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(106);
       }
-      return false;        
+      return false;
     case HSV_86_117_255:
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(117);
       }
-      return false;    
+      return false;
     case HSV_86_128_255:
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(128);
@@ -2310,17 +2310,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(138);
       }
-      return false;    
+      return false;
     case HSV_86_150_255:
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(150);
       }
-      return false;   
+      return false;
     case HSV_86_159_255:
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(159);
       }
-      return false;    
+      return false;
     case HSV_86_170_255:
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(170);
@@ -2330,17 +2330,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(182);
       }
-      return false;   
+      return false;
     case HSV_86_191_255:
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(191);
       }
-      return false;    
+      return false;
     case HSV_86_202_255:
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(202);
       }
-      return false;    
+      return false;
     case HSV_86_214_255:
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(214);
@@ -2350,17 +2350,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(223);
       }
-      return false;    
+      return false;
     case HSV_86_234_255:
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(234);
       }
-      return false;   
+      return false;
     case HSV_86_245_255:
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(245);
       }
-      return false;   
+      return false;
     case HSV_86_255_255:
       if (record->event.pressed) {
         rgblight_set_sat_noeeprom(255);
@@ -2392,17 +2392,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(53);
       }
-      return false;    
+      return false;
     case HSV_0_0_64:
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(64);
       }
-      return false;    
+      return false;
     case HSV_0_0_74:
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(74);
       }
-      return false;        
+      return false;
     case HSV_0_0_85:
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(85);
@@ -2412,17 +2412,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(96);
       }
-      return false;    
+      return false;
     case HSV_0_0_106:
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(106);
       }
-      return false;    
+      return false;
     case HSV_0_0_117:
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(117);
       }
-      return false;    
+      return false;
     case HSV_0_0_128:
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(128);
@@ -2442,7 +2442,7 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(159);
       }
-      return false;    
+      return false;
     case HSV_0_0_170:
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(170);
@@ -2452,17 +2452,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(181);
       }
-      return false;    
+      return false;
     case HSV_0_0_191:
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(191);
       }
-      return false;    
+      return false;
     case HSV_0_0_202:
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(202);
       }
-      return false;    
+      return false;
     case HSV_0_0_213:
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(213);
@@ -2472,17 +2472,17 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(223);
       }
-      return false;   
+      return false;
     case HSV_0_0_234:
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(234);
       }
-      return false;    
+      return false;
     case HSV_0_0_244:
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(244);
       }
-      return false;    
+      return false;
     case HSV_0_0_255:
       if (record->event.pressed) {
         rgblight_set_val_noeeprom(255);
@@ -2534,7 +2534,7 @@ bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_toggle_noeeprom();
       }
-      return false; 
+      return false;
     case RGB_MODE_FORWARD:
       if (record->event.pressed) {
         rgblight_step_noeeprom();
