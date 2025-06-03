@@ -1985,7 +1985,7 @@ static void rgblight_save_eeprom(void) {
   uint8_t sat = rgblight_get_sat();
   uint8_t val = rgblight_get_val();
   rgblight_sethsv(hue, sat, val);
-  //eeprom write once
+  //eeprom write once (write all value raw to eeprom)
   //uint8_t spd_old = rgblight_get_speed();
   //rgblight_set_speed(spd_old);
   //uint8_t mode_old = rgblight_get_mode();
