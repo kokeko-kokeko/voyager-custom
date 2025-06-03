@@ -2549,12 +2549,12 @@ static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       return false;
     
     // EEPROM update
-    case HSV_0_255_240:
+    case HSV_0_255_245:
       if (record->event.pressed) {
         rgblight_load_preset();
       }
       return false;
-    case HSV_172_255_240:
+    case HSV_172_255_245:
       if (record->event.pressed) {
         rgblight_save_eeprom();
       }
