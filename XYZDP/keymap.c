@@ -1998,7 +1998,7 @@ static void rgblight_load_preset(void) {
   uint8_t hue = 250;
   uint8_t sat = 255;
   uint8_t val = 117;
-  rgblight_sethsv(hue, sat, val);
+  rgblight_sethsv_noeeprom(hue, sat, val);
   
   status_led(0b1111, led_pattern_single, 0);
 }
