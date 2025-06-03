@@ -868,7 +868,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }  
       }  
       return false;
-/*
+
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);
@@ -1462,7 +1462,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv(0,0,255);
       }
       return false;
-*/
   }
   return true;
 }
