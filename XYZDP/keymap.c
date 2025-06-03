@@ -2504,7 +2504,7 @@ static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
-    //inc/dec no eeprom
+    //RGB inc/dec no eeprom over write
     case RGB_HUI:
       if (record->event.pressed) {
         rgblight_increase_hue_noeeprom();
