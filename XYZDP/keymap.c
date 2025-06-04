@@ -2424,7 +2424,7 @@ static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// lobal function
+// local function
 
 // LED pattern list, no const limit, terminate symbol
 // off -> on -> off ... (off start for no glitch)
