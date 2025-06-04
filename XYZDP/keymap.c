@@ -1703,11 +1703,31 @@ tap_dance_action_t tap_dance_actions[] = {
 
 
 //
-// additional function
+// additional 
 //
+
+// declaration for qmk function
+static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t init_delay_ms);
+
+static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_blink = (uint8_t[]){13, 50, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+//static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+
+static void rgblight_set_hue(uint8_t hue);
+static void rgblight_set_sat(uint8_t sat);
+static void rgblight_set_val(uint8_t val);
+static void rgblight_save_eeprom(void);
+static void rgblight_load_preset(void);
+
+// qmk callback
+// access to system-side flag
+extern keyboard_config_t keyboard_config;
+extern bool is_launching;
+
 // tap flow control
 // bool is_flow_tap_key(uint16_t keycode) is default
-
 // disable (return 0)
 // thumb space LT 
 // pinkey outer col
@@ -1737,145 +1757,6 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
   }
   return 0;  // Disable Flow Tap.
 }
-
-// LED pattern list, no const limit, terminate symbol
-// off -> on -> off ... (off start for no glitch)
-// reduce data x16 (4bit shift) 8bit
-// 0: terminate, output this area value
-// MAX: return to position 0 immediately, this cycle output position 0 value & wait
-// other: output current position value & wait
-// put reurn token for safety
-// max 16x255=4080ms 4sec
-// write NULL direct 
-static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_blink = (uint8_t[]){13, 50, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-//static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-
-static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
-  static uint8_t count = 0;
-  if (cb_arg == NULL) {
-    count = 0;
-    STATUS_LED_1(0);
-    return 0;
-  }
-  const uint8_t * const pattern = cb_arg;
-  if (pattern[count] == UINT8_MAX) {
-    count = 0;
-  }
-  STATUS_LED_1(count & 0b00000001);
-  return (((uint32_t)pattern[count++]) << 4);
-}
-
-static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
-  static uint8_t count = 0;
-  if (cb_arg == NULL) {
-    count = 0;
-    STATUS_LED_2(0);
-    return 0;
-  }
-  const uint8_t * const pattern = cb_arg;
-  if (pattern[count] == UINT8_MAX) {
-    count = 0;
-  }
-  STATUS_LED_2(count & 0b00000001);
-  return (((uint32_t)pattern[count++]) << 4);
-}
-
-static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
-  static uint8_t count = 0;
-  if (cb_arg == NULL) {
-    count = 0;
-    STATUS_LED_3(0);
-    return 0;
-  }
-  const uint8_t * const pattern = cb_arg;
-  if (pattern[count] == UINT8_MAX) {
-    count = 0;
-  }
-  STATUS_LED_3(count & 0b00000001);
-  return (((uint32_t)pattern[count++]) << 4);
-}
-
-static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
-  static uint8_t count = 0;
-  if (cb_arg == NULL) {
-    count = 0;
-    STATUS_LED_4(0);
-    return 0;
-  }
-  const uint8_t * const pattern = cb_arg;
-  if (pattern[count] == UINT8_MAX) {
-    count = 0;
-  }
-  STATUS_LED_4(count & 0b00000001);
-  return (((uint32_t)pattern[count++]) << 4);
-}
-
-// 1 -> Red Left
-// 3 -> Red Right
-// 2 -> Green Left
-// 4 -> Green Right
-// re-order bit position
-static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t init_delay_ms) {
-  static deferred_token token_1 = INVALID_DEFERRED_TOKEN;
-  static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
-  static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
-  static deferred_token token_4 = INVALID_DEFERRED_TOKEN;
-  
-  if (mask & 0b1000) {
-    if (token_1 != INVALID_DEFERRED_TOKEN) {
-      cancel_deferred_exec(token_1);
-      token_1 = INVALID_DEFERRED_TOKEN;
-      status_led_task_1(0, NULL);
-    }
-  }
-  if (mask & 0b0100) {
-    if (token_3 != INVALID_DEFERRED_TOKEN) {
-      cancel_deferred_exec(token_3);
-      token_3 = INVALID_DEFERRED_TOKEN;
-      status_led_task_3(0, NULL);
-    }
-  }  
-  if (mask & 0b0010) {
-    if (token_2 != INVALID_DEFERRED_TOKEN) {
-      cancel_deferred_exec(token_2);
-      token_2 = INVALID_DEFERRED_TOKEN;
-      status_led_task_2(0, NULL);
-    }
-  }
-  if (mask & 0b0001) {
-    if (token_4 != INVALID_DEFERRED_TOKEN) {
-      cancel_deferred_exec(token_4);
-      token_4 = INVALID_DEFERRED_TOKEN;
-      status_led_task_4(0, NULL);
-    }
-  }
-
-  // skip task exec
-  if (pattern == NULL) return true;
-
-  // add pseudo rondom delay 
-  if (mask & 0b1000) {
-    token_1 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_1, (void *)pattern);
-  }
-  if (mask & 0b0100) {
-    token_3 = defer_exec((uint32_t)(init_delay_ms + 3), status_led_task_3, (void *)pattern);
-  }
-  if (mask & 0b0010) {
-    token_2 = defer_exec((uint32_t)(init_delay_ms + 5), status_led_task_2, (void *)pattern);
-  }
-  if (mask & 0b0001) {
-    token_4 = defer_exec((uint32_t)(init_delay_ms + 7), status_led_task_4, (void *)pattern);
-  }
-  
-  return true;
-}
-
-// access to system-side flag
-extern keyboard_config_t keyboard_config;
-extern bool is_launching;
 
 // if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -1966,54 +1847,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       break;
   }
   return state;
-}
-
-// HSV independent update code
-static void rgblight_set_hue(uint8_t hue) {
-  uint8_t sat = rgblight_get_sat();
-  uint8_t val = rgblight_get_val();
-  rgblight_sethsv_noeeprom(hue, sat, val);
-  
-  status_led(0b1000, led_pattern_single, 0);
-}
-
-static void rgblight_set_sat(uint8_t sat) {
-  uint8_t hue = rgblight_get_hue();
-  uint8_t val = rgblight_get_val();
-  rgblight_sethsv_noeeprom(hue, sat, val);
-  
-  status_led(0b0010, led_pattern_single, 0);
-}
-
-static void rgblight_set_val(uint8_t val) {
-  uint8_t hue = rgblight_get_hue();
-  uint8_t sat = rgblight_get_sat();
-  rgblight_sethsv_noeeprom(hue, sat, val);
-  
-  status_led(0b0100, led_pattern_single, 0);
-}
-
-static void rgblight_save_eeprom(void) {
-  uint8_t hue = rgblight_get_hue();
-  uint8_t sat = rgblight_get_sat();
-  uint8_t val = rgblight_get_val();
-  rgblight_sethsv(hue, sat, val);
-  //eeprom write once (write all value raw to eeprom)
-  //uint8_t spd_old = rgblight_get_speed();
-  //rgblight_set_speed(spd_old);
-  //uint8_t mode_old = rgblight_get_mode();
-  //rgblight_mode(mode_old);
-  
-  status_led(0b0001, led_pattern_single, 0);
-}
-
-static void rgblight_load_preset(void) {
-  uint8_t hue = 250;
-  uint8_t sat = 255;
-  uint8_t val = 117;
-  rgblight_sethsv_noeeprom(hue, sat, val);
-  
-  status_led(0b1111, led_pattern_single, 0);
 }
 
 static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
@@ -2589,3 +2422,181 @@ static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+
+// LED pattern list, no const limit, terminate symbol
+// off -> on -> off ... (off start for no glitch)
+// reduce data x16 (4bit shift) 8bit
+// 0: terminate, output this area value
+// MAX: return to position 0 immediately, this cycle output position 0 value & wait
+// other: output current position value & wait
+// put reurn token for safety
+// max 16x255=4080ms 4sec
+// write NULL direct 
+static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
+  static uint8_t count = 0;
+  if (cb_arg == NULL) {
+    count = 0;
+    STATUS_LED_1(0);
+    return 0;
+  }
+  const uint8_t * const pattern = cb_arg;
+  if (pattern[count] == UINT8_MAX) {
+    count = 0;
+  }
+  STATUS_LED_1(count & 0b00000001);
+  return (((uint32_t)pattern[count++]) << 4);
+}
+
+static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
+  static uint8_t count = 0;
+  if (cb_arg == NULL) {
+    count = 0;
+    STATUS_LED_2(0);
+    return 0;
+  }
+  const uint8_t * const pattern = cb_arg;
+  if (pattern[count] == UINT8_MAX) {
+    count = 0;
+  }
+  STATUS_LED_2(count & 0b00000001);
+  return (((uint32_t)pattern[count++]) << 4);
+}
+
+static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
+  static uint8_t count = 0;
+  if (cb_arg == NULL) {
+    count = 0;
+    STATUS_LED_3(0);
+    return 0;
+  }
+  const uint8_t * const pattern = cb_arg;
+  if (pattern[count] == UINT8_MAX) {
+    count = 0;
+  }
+  STATUS_LED_3(count & 0b00000001);
+  return (((uint32_t)pattern[count++]) << 4);
+}
+
+static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
+  static uint8_t count = 0;
+  if (cb_arg == NULL) {
+    count = 0;
+    STATUS_LED_4(0);
+    return 0;
+  }
+  const uint8_t * const pattern = cb_arg;
+  if (pattern[count] == UINT8_MAX) {
+    count = 0;
+  }
+  STATUS_LED_4(count & 0b00000001);
+  return (((uint32_t)pattern[count++]) << 4);
+}
+
+// 1 -> Red Left
+// 3 -> Red Right
+// 2 -> Green Left
+// 4 -> Green Right
+// re-order bit position
+static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t init_delay_ms) {
+  static deferred_token token_1 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_4 = INVALID_DEFERRED_TOKEN;
+  
+  if (mask & 0b1000) {
+    if (token_1 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(token_1);
+      token_1 = INVALID_DEFERRED_TOKEN;
+      status_led_task_1(0, NULL);
+    }
+  }
+  if (mask & 0b0100) {
+    if (token_3 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(token_3);
+      token_3 = INVALID_DEFERRED_TOKEN;
+      status_led_task_3(0, NULL);
+    }
+  }  
+  if (mask & 0b0010) {
+    if (token_2 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(token_2);
+      token_2 = INVALID_DEFERRED_TOKEN;
+      status_led_task_2(0, NULL);
+    }
+  }
+  if (mask & 0b0001) {
+    if (token_4 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(token_4);
+      token_4 = INVALID_DEFERRED_TOKEN;
+      status_led_task_4(0, NULL);
+    }
+  }
+
+  // skip task exec
+  if (pattern == NULL) return true;
+
+  // add pseudo rondom delay 
+  if (mask & 0b1000) {
+    token_1 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_1, (void *)pattern);
+  }
+  if (mask & 0b0100) {
+    token_3 = defer_exec((uint32_t)(init_delay_ms + 3), status_led_task_3, (void *)pattern);
+  }
+  if (mask & 0b0010) {
+    token_2 = defer_exec((uint32_t)(init_delay_ms + 5), status_led_task_2, (void *)pattern);
+  }
+  if (mask & 0b0001) {
+    token_4 = defer_exec((uint32_t)(init_delay_ms + 7), status_led_task_4, (void *)pattern);
+  }
+  
+  return true;
+}
+
+// HSV independent update code
+static void rgblight_set_hue(uint8_t hue) {
+  uint8_t sat = rgblight_get_sat();
+  uint8_t val = rgblight_get_val();
+  rgblight_sethsv_noeeprom(hue, sat, val);
+  
+  status_led(0b1000, led_pattern_single, 0);
+}
+
+static void rgblight_set_sat(uint8_t sat) {
+  uint8_t hue = rgblight_get_hue();
+  uint8_t val = rgblight_get_val();
+  rgblight_sethsv_noeeprom(hue, sat, val);
+  
+  status_led(0b0010, led_pattern_single, 0);
+}
+
+static void rgblight_set_val(uint8_t val) {
+  uint8_t hue = rgblight_get_hue();
+  uint8_t sat = rgblight_get_sat();
+  rgblight_sethsv_noeeprom(hue, sat, val);
+  
+  status_led(0b0100, led_pattern_single, 0);
+}
+
+static void rgblight_save_eeprom(void) {
+  uint8_t hue = rgblight_get_hue();
+  uint8_t sat = rgblight_get_sat();
+  uint8_t val = rgblight_get_val();
+  rgblight_sethsv(hue, sat, val);
+  //eeprom write once (write all value raw to eeprom)
+  //uint8_t spd_old = rgblight_get_speed();
+  //rgblight_set_speed(spd_old);
+  //uint8_t mode_old = rgblight_get_mode();
+  //rgblight_mode(mode_old);
+  
+  status_led(0b0001, led_pattern_single, 0);
+}
+
+static void rgblight_load_preset(void) {
+  uint8_t hue = 250;
+  uint8_t sat = 255;
+  uint8_t val = 117;
+  rgblight_sethsv_noeeprom(hue, sat, val);
+  
+  status_led(0b1111, led_pattern_single, 0);
+}
+
