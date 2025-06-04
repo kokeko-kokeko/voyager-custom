@@ -351,7 +351,7 @@ bool rgb_matrix_indicators_user(void) {
   return true;
 }
 
-// interrupt led update
+// interrupt led update (declaration before use)
 static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -1721,10 +1721,11 @@ static void rgblight_set_val(uint8_t val);
 static void rgblight_save_eeprom(void);
 static void rgblight_load_preset(void);
 
-// qmk callback
 // access to system-side flag
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
+
+// qmk callback function
 
 // tap flow control
 // bool is_flow_tap_key(uint16_t keycode) is default
@@ -2422,6 +2423,8 @@ static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+
+// lobal function
 
 // LED pattern list, no const limit, terminate symbol
 // off -> on -> off ... (off start for no glitch)
