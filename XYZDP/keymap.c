@@ -1721,6 +1721,14 @@ static void rgblight_set_val(uint8_t val);
 static void rgblight_save_eeprom(void);
 static void rgblight_load_preset(void);
 
+static const uint8_t * const hue_tbl = (uint8_t[]){  0,   1,   3,   5,   7,   9,  10,  15,
+                                                    20,  25,  30,  35,  40,  43,  46,  49, 
+                                                    52,  55,  58,  63,  67,  71,  75,  79,
+                                                    83,  86,  92,  98, 105, 111, 118, 129,
+                                                   137, 146, 154, 163, 172, 179, 186, 193,
+                                                   200, 207, 215, 222, 229, 236, 243, 250};
+
+
 // access to system-side flag
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
@@ -1855,7 +1863,7 @@ static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
     // Hue value
     case HSV_0_255_100:
       if (record->event.pressed) {
-        rgblight_set_hue(0);
+        rgblight_set_hue(hue_tbl[0]);
       }
       return false;
     case HSV_0_255_101:
