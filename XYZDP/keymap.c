@@ -329,9 +329,7 @@ void set_layer_color(int layer) {
 }
 
 //custom map
-static void set_layer_color_hue_map(void) {
-  rgb_matrix_set_color( 51, 255, 255, 255 );
-}
+static void set_layer_color_hue_map(void);
 
 bool rgb_matrix_indicators_user(void) {
   if (rawhid_state.rgb_control) {
@@ -1739,6 +1737,12 @@ static const uint8_t * const sat_val_tbl = (uint8_t[]){ 10,  21,  32,  44,  53, 
                                                         11,  21,  32,  43,  53,  64,  74,  85,
                                                         96, 106, 117, 128, 138, 149, 159, 170,
                                                        181, 191, 202, 213, 223, 234, 244, 255};
+static const uint8_t * const pos_tbl = (uint8_t[]){  0,   6,  12,  18,   1,   7,  13,  19,
+                                                     2,   8,  14,  20,   3,   9,  15,  21, 
+                                                     4,  10,  16,  22,   5,  11,  17,  23,
+                                                    26,  32,  38,  44,  27,  33,  39,  45,
+                                                    28,  34,  40,  46,  29,  35,  41,  47,
+                                                    30,  36,  42,  48,  31,  37,  43,  49};
 
 // access to system-side flag
 extern keyboard_config_t keyboard_config;
@@ -2620,5 +2624,24 @@ static void rgblight_load_preset(void) {
   rgblight_sethsv_noeeprom(hue, sat, val);
   
   status_led(0b1111, led_pattern_single, 0);
+}
+
+static void set_layer_color_hue_map(void) {
+  for (int i = 0; i < 48; i++) {
+      uint8_t hue = hue_tbl[i];
+      uint8_t sat = rgblight_get_sat();
+      uint8_t val = rgblight_get_val();
+      HSV hsv = {
+      .h = hue,
+      .s = sat,
+      .v = val,
+    };
+    if (!hsv.h && !hsv.s && !hsv.v) {
+        rgb_matrix_set_color( pos_tbl[i], 0, 0, 0 );
+    } else {
+        RGB rgb = hsv_to_rgb( hsv );
+        rgb_matrix_set_color( i, rgb.r, rgb.g, rgb.b );
+    }
+  }
 }
 
