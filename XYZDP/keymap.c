@@ -2640,7 +2640,7 @@ static void set_layer_color_hue_map(void) {
     }
   }
   rgb_matrix_set_color( 24, 255, 0, 0 );
-  rgb_matrix_set_color( 25, 0, 0, 0 );
+  rgb_matrix_set_color( 25, 255, 255, 255 );
   rgb_matrix_set_color( 50, 0, 0, 0 );
   rgb_matrix_set_color( 51, 0, 0, 255 );
 }
