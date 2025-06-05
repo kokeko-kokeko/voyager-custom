@@ -2640,8 +2640,10 @@ static void set_layer_color_hue_map(void) {
         rgb_matrix_set_color( pos_tbl[i], 0, 0, 0 );
     } else {
         RGB rgb = hsv_to_rgb( hsv );
-        rgb_matrix_set_color( i, rgb.r, rgb.g, rgb.b );
+        rgb_matrix_set_color( pos_tbl[i], rgb.r, rgb.g, rgb.b );
     }
   }
+  rgb_matrix_set_color( 24, 255, 0, 0 );
+  rgb_matrix_set_color( 51, 0, 0, 255 );
 }
 
