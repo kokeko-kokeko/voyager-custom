@@ -328,6 +328,11 @@ void set_layer_color(int layer) {
   }
 }
 
+//custom map
+static void set_layer_color_hue_map(void) {
+  rgb_matrix_set_color( 0, 255, 255, 255 );
+}
+
 bool rgb_matrix_indicators_user(void) {
   if (rawhid_state.rgb_control) {
       return false;
@@ -335,7 +340,8 @@ bool rgb_matrix_indicators_user(void) {
   if (keyboard_config.disable_layer_led) { return false; }
   switch (biton32(layer_state)) {
     case 14:
-      set_layer_color(14);
+      //set_layer_color(14);
+      set_layer_color_hue_map();
       break;
     case 15:
       set_layer_color(15);
