@@ -330,7 +330,7 @@ void set_layer_color(int layer) {
 
 //custom map
 static void set_layer_color_hue_map(void) {
-  rgb_matrix_set_color( 50, 255, 255, 255 );
+  rgb_matrix_set_color( 51, 255, 255, 255 );
 }
 
 bool rgb_matrix_indicators_user(void) {
