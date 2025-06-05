@@ -2627,15 +2627,11 @@ static void rgblight_load_preset(void) {
 }
 
 static void set_layer_color_hue_map(void) {
+  HSV hsv;
+  hsv.s = rgblight_get_sat();
+  hsv.v = rgblight_get_val();
   for (int i = 0; i < 48; i++) {
-      uint8_t hue = hue_tbl[i];
-      uint8_t sat = rgblight_get_sat();
-      uint8_t val = rgblight_get_val();
-      HSV hsv = {
-      .h = hue,
-      .s = sat,
-      .v = val,
-    };
+      hsv.h = hue_tbl[i];
     if (!hsv.h && !hsv.s && !hsv.v) {
         rgb_matrix_set_color( pos_tbl[i], 0, 0, 0 );
     } else {
@@ -2644,6 +2640,8 @@ static void set_layer_color_hue_map(void) {
     }
   }
   rgb_matrix_set_color( 24, 255, 0, 0 );
+  rgb_matrix_set_color( 25, 0, 0, 0 );
+  rgb_matrix_set_color( 50, 0, 0, 0 );
   rgb_matrix_set_color( 51, 0, 0, 255 );
 }
 
