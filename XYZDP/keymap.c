@@ -1727,7 +1727,12 @@ static const uint8_t * const hue_tbl = (uint8_t[]){  0,   1,   3,   5,   7,   9,
                                                     83,  86,  92,  98, 105, 111, 118, 129,
                                                    137, 146, 154, 163, 172, 179, 186, 193,
                                                    200, 207, 215, 222, 229, 236, 243, 250};
-
+static const uint8_t * const sat_val_tbl = (uint8_t[]){ 10,  21,  32,  44,  53,  64,  74,  85,
+                                                        96, 106, 117, 128, 138, 150, 159, 170, 
+                                                       182, 191, 202, 214, 223, 234, 245, 255,
+                                                        11,  21,  32,  43,  53,  64,  74,  85,
+                                                        96, 106, 117, 128, 138, 149, 159, 170,
+                                                       181, 191, 202, 213, 223, 234, 244, 255};
 
 // access to system-side flag
 extern keyboard_config_t keyboard_config;
@@ -2105,7 +2110,7 @@ static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
     // Sat value
     case HSV_86_255_100:
       if (record->event.pressed) {
-        rgblight_set_sat(10);
+        rgblight_set_sat(sat_val_tbl[0]);
       }
       return false;
     case HSV_86_255_101:
