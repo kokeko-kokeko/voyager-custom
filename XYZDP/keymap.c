@@ -328,9 +328,6 @@ void set_layer_color(int layer) {
   }
 }
 
-// interrupt led update (declaration before use)
-static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record);
-
 bool rgb_matrix_indicators_user(void) {
   if (rawhid_state.rgb_control) {
       return false;
@@ -353,6 +350,9 @@ bool rgb_matrix_indicators_user(void) {
   }
   return true;
 }
+
+// interrupt led update (declaration before use)
+static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_record_rgb_led_int(keycode, record)) {
