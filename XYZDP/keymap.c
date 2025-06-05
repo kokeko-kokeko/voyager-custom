@@ -2415,28 +2415,16 @@ static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       return false;
     
     // Thumb special key
-    // Red
+    // Hue
     case HSV_0_255_148:
       if (record->event.pressed) {
         rgblight_load_preset();
       }
       return false;
-    // Blue
-    case HSV_0_255_149:
-      if (record->event.pressed) {
-        //rgblight_save_eeprom();
-      }
-      return false;
-    // Yellow
+    // Sat
     case HSV_86_255_148:
       if (record->event.pressed) {
         //rgblight_save_eeprom();
-      }
-      return false;
-    // Green
-    case HSV_86_255_149:
-      if (record->event.pressed) {
-        rgblight_save_eeprom();
       }
       return false;
   }
