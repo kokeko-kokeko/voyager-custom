@@ -3250,19 +3250,20 @@ static void set_layer_color_sat_map(void) {
     
     if (!hsv.h && !hsv.s && !hsv.v) {
       rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
-    } else {
-      if (search) {
-        if (hsv.s < key) {
-          rgb = hsv_to_rgb(hsv);
-          rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
-        } else {
-          rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
-          search = false;
-        }
-      } else {
+      continue;
+    }
+    
+    if (search) {
+      if (hsv.s < key) {
         rgb = hsv_to_rgb(hsv);
         rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+      } else {
+        rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+        search = false;
       }
+    } else {
+      rgb = hsv_to_rgb(hsv);
+      rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
     }
   }
 }
