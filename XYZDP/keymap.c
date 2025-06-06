@@ -3252,7 +3252,7 @@ static void set_layer_color_sat_map(void) {
       rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
     } else {
       if (search) {
-        if (hsv.h < key) {
+        if (hsv.s < key) {
           rgb = hsv_to_rgb(hsv);
           rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
         } else {
