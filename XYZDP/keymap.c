@@ -3209,17 +3209,20 @@ static void set_layer_color_hue_map(void) {
   hsv.h = rgblight_get_hue();
   hsv.s = rgblight_get_sat();
   hsv.v = rgblight_get_val();
+  uint8_t sel = hsv.h;
   rgb_matrix_set_color(24, hsv.s, hsv.s, hsv.s);
   rgb_matrix_set_color(25, hsv.v, hsv.v, hsv.v);
   rgb_matrix_set_color(50, 0, 0, 0 );
   rgb_matrix_set_color(51, hsv.v, 0, 0 );
   for (int i = 0; i < 48; i++) {
-      hsv.h = hue_tbl[i];
+    hsv.h = hue_tbl[i];
     if (!hsv.h && !hsv.s && !hsv.v) {
-        rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+    } else if (sel != hsv.h) {
+      rgb = hsv_to_rgb(hsv);
+      rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
     } else {
-        rgb = hsv_to_rgb(hsv);
-        rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
     }
   }
 }
@@ -3230,17 +3233,20 @@ static void set_layer_color_sat_map(void) {
   hsv.h = rgblight_get_hue();
   hsv.s = rgblight_get_sat();
   hsv.v = rgblight_get_val();
+  uint8_t sel = hsv.s;
   rgb_matrix_set_color(24, hsv.s, hsv.s, hsv.s);
   rgb_matrix_set_color(25, hsv.s, hsv.s, hsv.s);
   rgb_matrix_set_color(50, 0, 0, 0);
   rgb_matrix_set_color(51, 0, hsv.v, 0);
   for (int i = 0; i < 48; i++) {
-      hsv.s = sat_tbl[i];
+    hsv.s = sat_tbl[i];
     if (!hsv.h && !hsv.s && !hsv.v) {
-        rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+    } else if (sel != hsv.s) {
+      rgb = hsv_to_rgb(hsv);
+      rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
     } else {
-        rgb = hsv_to_rgb(hsv);
-        rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
     }
   }
 }
@@ -3251,17 +3257,20 @@ static void set_layer_color_val_map(void) {
   hsv.h = rgblight_get_hue();
   hsv.s = rgblight_get_sat();
   hsv.v = rgblight_get_val();
+  uint8_t sel = hsv.v;
   rgb_matrix_set_color(24, hsv.v, hsv.v, hsv.v);
   rgb_matrix_set_color(25, hsv.v, hsv.v, hsv.v);
   rgb_matrix_set_color(50, 0, 0, 0);
   rgb_matrix_set_color(51, 0, 0, hsv.v);  
   for (int i = 0; i < 48; i++) {
-      hsv.v = val_tbl[i];
+    hsv.v = val_tbl[i];
     if (!hsv.h && !hsv.s && !hsv.v) {
-        rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+    } else if (sel != hsv.v) {
+      rgb = hsv_to_rgb(hsv);
+      rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
     } else {
-        rgb = hsv_to_rgb(hsv);
-        rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
     }
   }
 }
