@@ -3208,6 +3208,7 @@ static void rgblight_load_preset(void) {
 static void set_layer_color_hue_map(void) {
   HSV hsv = rgblight_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
+  bool search = true;
   rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(50, 0, 0, 0 );
@@ -3215,13 +3216,22 @@ static void set_layer_color_hue_map(void) {
   uint8_t sel = hsv.h;
   for (int i = 0; i < 48; i++) {
     hsv.h = hue_tbl[i];
+    
     if (!hsv.h && !hsv.s && !hsv.v) {
       rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
-    } else if (sel != hsv.h) {
-      rgb = hsv_to_rgb(hsv);
-      rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
     } else {
-      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      if (search) {
+        if (hsv.h < sel) {
+          rgb = hsv_to_rgb(hsv);
+          rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+        } else {
+          rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+          search = false;
+        }
+      } else {
+        rgb = hsv_to_rgb(hsv);
+        rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+      }
     }
   }
 }
