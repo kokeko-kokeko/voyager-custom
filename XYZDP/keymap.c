@@ -3204,11 +3204,8 @@ static void rgblight_load_preset(void) {
 }
 
 static void set_layer_color_hue_map(void) {
-  HSV hsv;
+  HSV hsv = rgblight_get_hsv();
   RGB rgb;
-  hsv.h = rgblight_get_hue();
-  hsv.s = rgblight_get_sat();
-  hsv.v = rgblight_get_val();
   uint8_t sel = hsv.h;
   rgb_matrix_set_color(24, hsv.s, hsv.s, hsv.s);
   rgb_matrix_set_color(25, hsv.v, hsv.v, hsv.v);
@@ -3228,11 +3225,8 @@ static void set_layer_color_hue_map(void) {
 }
 
 static void set_layer_color_sat_map(void) {
-  HSV hsv;
+  HSV hsv = rgblight_get_hsv();
   RGB rgb;
-  hsv.h = rgblight_get_hue();
-  hsv.s = rgblight_get_sat();
-  hsv.v = rgblight_get_val();
   uint8_t sel = hsv.s;
   rgb_matrix_set_color(24, hsv.s, hsv.s, hsv.s);
   rgb_matrix_set_color(25, hsv.s, hsv.s, hsv.s);
@@ -3252,11 +3246,8 @@ static void set_layer_color_sat_map(void) {
 }
 
 static void set_layer_color_val_map(void) {
-  HSV hsv;
+  HSV hsv = rgblight_get_hsv();
   RGB rgb;
-  hsv.h = rgblight_get_hue();
-  hsv.s = rgblight_get_sat();
-  hsv.v = rgblight_get_val();
   uint8_t sel = hsv.v;
   rgb_matrix_set_color(24, hsv.v, hsv.v, hsv.v);
   rgb_matrix_set_color(25, hsv.v, hsv.v, hsv.v);
