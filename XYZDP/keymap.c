@@ -2443,7 +2443,7 @@ static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_0_255_143:
       if (record->event.pressed) {
-        rgblight_set_hue(43);
+        rgblight_set_hue(hue_tbl[43]);
       }
       return false;
     case HSV_0_255_144:
