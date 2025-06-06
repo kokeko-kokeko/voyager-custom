@@ -3165,21 +3165,21 @@ static void rgblight_set_hue(uint8_t hue) {
   HSV hsv = rgblight_get_hsv();
   rgblight_sethsv_noeeprom(hue, hsv.s, hsv.v);
   
-  status_led(0b1000, led_pattern_single, 0);
+  //status_led(0b1000, led_pattern_single, 0);
 }
 
 static void rgblight_set_sat(uint8_t sat) {
   HSV hsv = rgblight_get_hsv();
   rgblight_sethsv_noeeprom(hsv.h, sat, hsv.v);
   
-  status_led(0b0010, led_pattern_single, 0);
+  //status_led(0b0010, led_pattern_single, 0);
 }
 
 static void rgblight_set_val(uint8_t val) {
   HSV hsv = rgblight_get_hsv();
   rgblight_sethsv_noeeprom(hsv.h, hsv.s, val);
   
-  status_led(0b0100, led_pattern_single, 0);
+  //status_led(0b0100, led_pattern_single, 0);
 }
 
 static void rgblight_save_eeprom(void) {
@@ -3191,14 +3191,11 @@ static void rgblight_save_eeprom(void) {
   //uint8_t mode_old = rgblight_get_mode();
   //rgblight_mode(mode_old);
   
-  status_led(0b0001, led_pattern_single, 0);
+  //status_led(0b0001, led_pattern_single, 0);
 }
 
 static void rgblight_load_preset(void) {
-  uint8_t hue = 250;
-  uint8_t sat = 255;
-  uint8_t val = 117;
-  rgblight_sethsv_noeeprom(hue, sat, val);
+  rgblight_sethsv_noeeprom(250, 255, 102);
   
   status_led(0b1111, led_pattern_single, 0);
 }
