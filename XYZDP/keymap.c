@@ -3205,60 +3205,63 @@ static void rgblight_load_preset(void) {
 
 static void set_layer_color_hue_map(void) {
   HSV hsv;
+  RGB rgb;
   hsv.h = rgblight_get_hue();
   hsv.s = rgblight_get_sat();
   hsv.v = rgblight_get_val();
-  rgb_matrix_set_color( 24, hsv.s, hsv.s, hsv.s );
-  rgb_matrix_set_color( 25, hsv.v, hsv.v, hsv.v );
-  rgb_matrix_set_color( 50, 0, 0, 0 );
-  rgb_matrix_set_color( 51, hsv.v, 0, 0 );
+  rgb_matrix_set_color(24, hsv.s, hsv.s, hsv.s);
+  rgb_matrix_set_color(25, hsv.v, hsv.v, hsv.v);
+  rgb_matrix_set_color(50, 0, 0, 0 );
+  rgb_matrix_set_color(51, hsv.v, 0, 0 );
   for (int i = 0; i < 48; i++) {
       hsv.h = hue_tbl[i];
     if (!hsv.h && !hsv.s && !hsv.v) {
-        rgb_matrix_set_color( pos_tbl[i], 0, 0, 0 );
+        rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
     } else {
-        RGB rgb = hsv_to_rgb( hsv );
-        rgb_matrix_set_color( pos_tbl[i], rgb.r, rgb.g, rgb.b );
+        rgb = hsv_to_rgb(hsv);
+        rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
     }
   }
 }
 
 static void set_layer_color_sat_map(void) {
   HSV hsv;
+  RGB rgb;
   hsv.h = rgblight_get_hue();
   hsv.s = rgblight_get_sat();
   hsv.v = rgblight_get_val();
-  rgb_matrix_set_color( 24, hsv.s, hsv.s, hsv.s );
-  rgb_matrix_set_color( 25, hsv.s, hsv.s, hsv.s );
-  rgb_matrix_set_color( 50, 0, 0, 0 );
-  rgb_matrix_set_color( 51, 0, hsv.v, 0 );
+  rgb_matrix_set_color(24, hsv.s, hsv.s, hsv.s);
+  rgb_matrix_set_color(25, hsv.s, hsv.s, hsv.s);
+  rgb_matrix_set_color(50, 0, 0, 0);
+  rgb_matrix_set_color(51, 0, hsv.v, 0);
   for (int i = 0; i < 48; i++) {
       hsv.s = sat_tbl[i];
     if (!hsv.h && !hsv.s && !hsv.v) {
-        rgb_matrix_set_color( pos_tbl[i], 0, 0, 0 );
+        rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
     } else {
-        RGB rgb = hsv_to_rgb( hsv );
-        rgb_matrix_set_color( pos_tbl[i], rgb.r, rgb.g, rgb.b );
+        rgb = hsv_to_rgb(hsv);
+        rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
     }
   }
 }
 
 static void set_layer_color_val_map(void) {
   HSV hsv;
+  RGB rgb;
   hsv.h = rgblight_get_hue();
   hsv.s = rgblight_get_sat();
   hsv.v = rgblight_get_val();
-  rgb_matrix_set_color( 24, hsv.v, hsv.v, hsv.v );
-  rgb_matrix_set_color( 25, hsv.v, hsv.v, hsv.v );
-  rgb_matrix_set_color( 50, 0, 0, 0 );
-  rgb_matrix_set_color( 51, 0, 0, hsv.v );  
+  rgb_matrix_set_color(24, hsv.v, hsv.v, hsv.v);
+  rgb_matrix_set_color(25, hsv.v, hsv.v, hsv.v);
+  rgb_matrix_set_color(50, 0, 0, 0);
+  rgb_matrix_set_color(51, 0, 0, hsv.v);  
   for (int i = 0; i < 48; i++) {
       hsv.v = val_tbl[i];
     if (!hsv.h && !hsv.s && !hsv.v) {
-        rgb_matrix_set_color( pos_tbl[i], 0, 0, 0 );
+        rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
     } else {
-        RGB rgb = hsv_to_rgb( hsv );
-        rgb_matrix_set_color( pos_tbl[i], rgb.r, rgb.g, rgb.b );
+        rgb = hsv_to_rgb(hsv);
+        rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
     }
   }
 }
