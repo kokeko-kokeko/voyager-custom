@@ -3225,7 +3225,7 @@ static void set_layer_color_hue_map(void) {
     if (search) {
       if (hsv.h < key) {
         rgb = hsv_to_rgb(hsv);
-        gb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
       } else {
         rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
         search = false;
