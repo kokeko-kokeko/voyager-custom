@@ -2181,11 +2181,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0100, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
       break;
+    // HSV update
     case 14:
     case 15:
     case 16:
       status_led(0b1111, NULL, 0);
-      break;    
+      break;
+    // FwSys
     case 17:
       status_led(0b1111, NULL, 0);
       
