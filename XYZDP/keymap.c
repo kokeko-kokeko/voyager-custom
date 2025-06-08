@@ -2324,7 +2324,7 @@ static void set_layer_color_hue_map(void) {
   for (i = 0; i < 48; i++) {
     hsv.h = hue_tbl[i];
     
-    if (!hsv.h && !hsv.s && !hsv.v) {
+    if (hsv.v == 0) {
       rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
       continue;
     }
@@ -2340,7 +2340,7 @@ static void set_layer_color_hue_map(void) {
   for (i++; i < 48; i++) {
     hsv.h = hue_tbl[i];
     
-    if (!hsv.h && !hsv.s && !hsv.v) {
+    if (hsv.v == 0) {
       rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
       continue;
     }
@@ -2362,7 +2362,7 @@ static void set_layer_color_sat_map(void) {
   for (i = 0; i < 48; i++) {
     hsv.s = sat_tbl[i];
     
-    if (!hsv.h && !hsv.s && !hsv.v) {
+    if (hsv.v == 0) {
       rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
       continue;
     }
@@ -2378,7 +2378,7 @@ static void set_layer_color_sat_map(void) {
   for (i++; i < 48; i++) {
     hsv.s = sat_tbl[i];
     
-    if (!hsv.h && !hsv.s && !hsv.v) {
+    if (hsv.v == 0) {
       rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
       continue;
     }
@@ -2400,7 +2400,7 @@ static void set_layer_color_val_map(void) {
   for (i = 0; i < 48; i++) {
     hsv.v = val_tbl[i];
     
-    if (!hsv.h && !hsv.s && !hsv.v) {
+    if (hsv.v == 0) {
       rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
       continue;
     }
@@ -2416,7 +2416,7 @@ static void set_layer_color_val_map(void) {
   for (i++; i < 48; i++) {
     hsv.v = val_tbl[i];
     
-    if (!hsv.h && !hsv.s && !hsv.v) {
+    if (hsv.v == 0) {
       rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
       continue;
     }
