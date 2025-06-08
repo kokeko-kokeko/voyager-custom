@@ -476,12 +476,25 @@ void set_layer_color(int layer) {
   }
 }
 
+static void set_layer_color_hue_map(void);
+static void set_layer_color_sat_map(void);
+static void set_layer_color_val_map(void);
+
 bool rgb_matrix_indicators_user(void) {
   if (rawhid_state.rgb_control) {
       return false;
   }
   if (keyboard_config.disable_layer_led) { return false; }
   switch (biton32(layer_state)) {
+    case 38:
+      set_layer_color_hue_map();
+      break;
+    case 29:
+      set_layer_color_sat_map();
+      break;
+    case 30:
+      set_layer_color_val_map();
+      break;
     case 31:
       set_layer_color(31);
       break;
