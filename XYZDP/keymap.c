@@ -431,15 +431,7 @@ bool rgb_matrix_indicators_user(void) {
   }
   if (keyboard_config.disable_layer_led) { return false; }
   switch (biton32(layer_state)) {
-    case 20:
-      set_layer_color_hue_map();
-      break;
-    case 21:
-      set_layer_color_sat_map();
-      break;
-    case 22:
-      set_layer_color_val_map();
-      break;   
+
     case 23:
       set_layer_color(23);
       break;
