@@ -487,6 +487,15 @@ bool rgb_matrix_indicators_user(void) {
   }
   if (keyboard_config.disable_layer_led) { return false; }
   switch (biton32(layer_state)) {
+    case 28:
+      set_layer_color_hue_map();
+      break;
+    case 29:
+      set_layer_color_sat_map();
+      break;
+    case 30:
+      set_layer_color_val_map();
+      break;
     case 31:
       set_layer_color(31);
       break;
@@ -1387,13 +1396,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0010, led_pattern_blink, 0);
       break;
     // HSV update
-    case 20:
-    case 21:
-    case 22:
+    case 28:
+    case 29:
+    case 30:
       status_led(0b1111, NULL, 0);
       break;
     // FwSys
-    case 23:
+    case 31:
       status_led(0b1111, NULL, 0);
       
       os_variant_t host = detected_host_os();
