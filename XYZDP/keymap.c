@@ -448,7 +448,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-
 extern rgb_config_t rgb_matrix_config;
 
 void keyboard_post_init_user(void) {
@@ -476,11 +475,6 @@ void set_layer_color(int layer) {
     }
   }
 }
-
-//custom map
-static void set_layer_color_hue_map(void);
-static void set_layer_color_sat_map(void);
-static void set_layer_color_val_map(void);
 
 bool rgb_matrix_indicators_user(void) {
   if (rawhid_state.rgb_control) {
