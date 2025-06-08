@@ -194,30 +194,30 @@ enum tap_dance_codes {
   DANCE_3,
 };
 
-#define DUAL_FUNC_0 LT(2, KC_F17)
-#define DUAL_FUNC_1 LT(13, KC_2)
-#define DUAL_FUNC_2 LT(6, KC_F9)
-#define DUAL_FUNC_3 LT(5, KC_F8)
-#define DUAL_FUNC_4 LT(9, KC_P)
-#define DUAL_FUNC_5 LT(14, KC_F)
-#define DUAL_FUNC_6 LT(5, KC_2)
-#define DUAL_FUNC_7 LT(6, KC_O)
-#define DUAL_FUNC_8 LT(7, KC_F1)
-#define DUAL_FUNC_9 LT(14, KC_F21)
-#define DUAL_FUNC_10 LT(10, KC_C)
-#define DUAL_FUNC_11 LT(4, KC_F13)
-#define DUAL_FUNC_12 LT(6, KC_F6)
-#define DUAL_FUNC_13 LT(6, KC_F24)
-#define DUAL_FUNC_14 LT(7, KC_F15)
+#define DUAL_FUNC_0 LT(15, KC_7)
+#define DUAL_FUNC_1 LT(14, KC_F8)
+#define DUAL_FUNC_2 LT(3, KC_D)
+#define DUAL_FUNC_3 LT(12, KC_5)
+#define DUAL_FUNC_4 LT(10, KC_F1)
+#define DUAL_FUNC_5 LT(3, KC_C)
+#define DUAL_FUNC_6 LT(7, KC_2)
+#define DUAL_FUNC_7 LT(11, KC_F7)
+#define DUAL_FUNC_8 LT(1, KC_K)
+#define DUAL_FUNC_9 LT(4, KC_F21)
+#define DUAL_FUNC_10 LT(14, KC_F17)
+#define DUAL_FUNC_11 LT(15, KC_F1)
+#define DUAL_FUNC_12 LT(10, KC_9)
+#define DUAL_FUNC_13 LT(8, KC_9)
+#define DUAL_FUNC_14 LT(5, KC_F18)
 #define DUAL_FUNC_15 LT(12, KC_J)
-#define DUAL_FUNC_16 LT(15, KC_K)
-#define DUAL_FUNC_17 LT(5, KC_F10)
-#define DUAL_FUNC_18 LT(14, KC_N)
-#define DUAL_FUNC_19 LT(9, KC_A)
-#define DUAL_FUNC_20 LT(15, KC_F8)
-#define DUAL_FUNC_21 LT(8, KC_I)
-#define DUAL_FUNC_22 LT(1, KC_F17)
-#define DUAL_FUNC_23 LT(10, KC_2)
+#define DUAL_FUNC_16 LT(1, KC_G)
+#define DUAL_FUNC_17 LT(15, KC_R)
+#define DUAL_FUNC_18 LT(3, KC_F18)
+#define DUAL_FUNC_19 LT(9, KC_F1)
+#define DUAL_FUNC_20 LT(1, KC_1)
+#define DUAL_FUNC_21 LT(6, KC_A)
+#define DUAL_FUNC_22 LT(13, KC_F24)
+#define DUAL_FUNC_23 LT(14, KC_R)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -361,27 +361,76 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [20] = LAYOUT_voyager(
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
+  ),
+  [21] = LAYOUT_voyager(
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
+  ),
+  [22] = LAYOUT_voyager(
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
+  ),
+  [23] = LAYOUT_voyager(
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
+  ),
+  [24] = LAYOUT_voyager(
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
+  ),
+  [25] = LAYOUT_voyager(
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
+  ),
+  [26] = LAYOUT_voyager(
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
+  ),
+  [27] = LAYOUT_voyager(
     HSV_0_255_100,  HSV_0_255_104,  HSV_0_255_108,  HSV_0_255_112,  HSV_0_255_116,  HSV_0_255_120,                                  HSV_0_255_124,  HSV_0_255_128,  HSV_0_255_132,  HSV_0_255_136,  HSV_0_255_140,  HSV_0_255_144,  
     HSV_0_255_101,  HSV_0_255_105,  HSV_0_255_109,  HSV_0_255_113,  HSV_0_255_117,  HSV_0_255_121,                                  HSV_0_255_125,  HSV_0_255_129,  HSV_0_255_133,  HSV_0_255_137,  HSV_0_255_141,  HSV_0_255_145,  
     HSV_0_255_102,  HSV_0_255_106,  HSV_0_255_110,  HSV_0_255_114,  HSV_0_255_118,  HSV_0_255_122,                                  HSV_0_255_126,  HSV_0_255_130,  HSV_0_255_134,  HSV_0_255_138,  HSV_0_255_142,  HSV_0_255_146,  
     HSV_0_255_103,  HSV_0_255_107,  HSV_0_255_111,  HSV_0_255_115,  HSV_0_255_119,  HSV_0_255_123,                                  HSV_0_255_127,  HSV_0_255_131,  HSV_0_255_135,  HSV_0_255_139,  HSV_0_255_143,  HSV_0_255_147,  
-                                                    MO(21),         MO(22),                                         KC_NO,          HSV_0_255_148
+                                                    MO(28),         MO(29),                                         KC_NO,          HSV_0_255_148
   ),
-  [21] = LAYOUT_voyager(
+  [28] = LAYOUT_voyager(
     HSV_86_255_100, HSV_86_255_104, HSV_86_255_108, HSV_86_255_112, HSV_86_255_116, HSV_86_255_120,                                 HSV_86_255_124, HSV_86_255_128, HSV_86_255_132, HSV_86_255_136, HSV_86_255_140, HSV_86_255_144, 
     HSV_86_255_101, HSV_86_255_105, HSV_86_255_109, HSV_86_255_113, HSV_86_255_117, HSV_86_255_121,                                 HSV_86_255_125, HSV_86_255_129, HSV_86_255_133, HSV_86_255_137, HSV_86_255_141, HSV_86_255_145, 
     HSV_86_255_102, HSV_86_255_106, HSV_86_255_110, HSV_86_255_114, HSV_86_255_118, HSV_86_255_122,                                 HSV_86_255_126, HSV_86_255_130, HSV_86_255_134, HSV_86_255_138, HSV_86_255_142, HSV_86_255_146, 
     HSV_86_255_103, HSV_86_255_107, HSV_86_255_111, HSV_86_255_115, HSV_86_255_119, HSV_86_255_123,                                 HSV_86_255_127, HSV_86_255_131, HSV_86_255_135, HSV_86_255_139, HSV_86_255_143, HSV_86_255_147, 
                                                     KC_NO,          KC_NO,                                          KC_NO,          HSV_86_255_148
   ),
-  [22] = LAYOUT_voyager(
+  [29] = LAYOUT_voyager(
     HSV_172_255_100,HSV_172_255_104,HSV_172_255_108,HSV_172_255_112,HSV_172_255_116,HSV_172_255_120,                                HSV_172_255_124,HSV_172_255_128,HSV_172_255_132,HSV_172_255_136,HSV_172_255_140,HSV_172_255_144,
     HSV_172_255_101,HSV_172_255_105,HSV_172_255_109,HSV_172_255_113,HSV_172_255_117,HSV_172_255_121,                                HSV_172_255_125,HSV_172_255_129,HSV_172_255_133,HSV_172_255_137,HSV_172_255_141,HSV_172_255_145,
     HSV_172_255_102,HSV_172_255_106,HSV_172_255_110,HSV_172_255_114,HSV_172_255_118,HSV_172_255_122,                                HSV_172_255_126,HSV_172_255_130,HSV_172_255_134,HSV_172_255_138,HSV_172_255_142,HSV_172_255_146,
     HSV_172_255_103,HSV_172_255_107,HSV_172_255_111,HSV_172_255_115,HSV_172_255_119,HSV_172_255_123,                                HSV_172_255_127,HSV_172_255_131,HSV_172_255_135,HSV_172_255_139,HSV_172_255_143,HSV_172_255_147,
                                                     KC_NO,          KC_NO,                                          KC_NO,          HSV_172_255_148
   ),
-  [23] = LAYOUT_voyager(
+  [30] = LAYOUT_voyager(
     TO(0),          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,  KC_NO,          KC_NO,          QK_BOOT,        
     TO(1),          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_NO,          EE_CLR,         
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_MEDIA_REWIND,KC_MEDIA_FAST_FORWARD,KC_NO,          KC_NO,          KC_NO,          KC_NO,          
@@ -399,7 +448,7 @@ void keyboard_post_init_user(void) {
 }
 
 const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
-    [23] = { {0,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {86,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {172,255,255}, {215,255,128}, {215,255,255}, {86,255,255}, {0,0,0}, {21,255,128}, {21,255,255}, {0,255,255}, {0,0,0}, {0,0,0}, {0,255,255}, {86,255,128}, {86,255,255}, {43,255,128}, {43,255,255}, {0,0,0}, {21,255,255}, {129,255,128}, {129,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {43,255,255}, {172,255,255}, {0,0,0}, {0,0,128}, {0,0,255}, {0,255,255}, {0,255,255}, {172,255,255} },
+    [30] = { {0,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {86,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {172,255,255}, {215,255,128}, {215,255,255}, {86,255,255}, {0,0,0}, {21,255,128}, {21,255,255}, {0,255,255}, {0,0,0}, {0,0,0}, {0,255,255}, {86,255,128}, {86,255,255}, {43,255,128}, {43,255,255}, {0,0,0}, {21,255,255}, {129,255,128}, {129,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {43,255,255}, {172,255,255}, {0,0,0}, {0,0,128}, {0,0,255}, {0,255,255}, {0,255,255}, {172,255,255} },
 
 };
 
@@ -426,8 +475,8 @@ bool rgb_matrix_indicators_user(void) {
   }
   if (keyboard_config.disable_layer_led) { return false; }
   switch (biton32(layer_state)) {
-    case 23:
-      set_layer_color(23);
+    case 30:
+      set_layer_color(30);
       break;
    default:
     if (rgb_matrix_get_flags() == LED_FLAG_NONE)
@@ -1894,7 +1943,7 @@ void dance_0_finished(tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP: register_code16(KC_ESCAPE); break;
         case SINGLE_HOLD: layer_on(6); break;
         case DOUBLE_TAP: register_code16(KC_ESCAPE); register_code16(KC_ESCAPE); break;
-        case DOUBLE_HOLD: layer_on(23); break;
+        case DOUBLE_HOLD: layer_on(30); break;
         case DOUBLE_SINGLE_TAP: tap_code16(KC_ESCAPE); register_code16(KC_ESCAPE);
     }
 }
@@ -1910,8 +1959,8 @@ void dance_0_reset(tap_dance_state_t *state, void *user_data) {
         break;
         case DOUBLE_TAP: unregister_code16(KC_ESCAPE); break;
               case DOUBLE_HOLD: 
-                if(!is_layer_locked(23)) {
-                  layer_off(23);
+                if(!is_layer_locked(30)) {
+                  layer_off(30);
                 }
                 break;
         case DOUBLE_SINGLE_TAP: unregister_code16(KC_ESCAPE); break;
@@ -1939,7 +1988,7 @@ void dance_1_finished(tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP: register_code16(KC_BSPC); break;
         case SINGLE_HOLD: layer_on(4); break;
         case DOUBLE_TAP: register_code16(KC_BSPC); register_code16(KC_BSPC); break;
-        case DOUBLE_HOLD: layer_on(20); break;
+        case DOUBLE_HOLD: layer_on(27); break;
         case DOUBLE_SINGLE_TAP: tap_code16(KC_BSPC); register_code16(KC_BSPC);
     }
 }
@@ -1955,8 +2004,8 @@ void dance_1_reset(tap_dance_state_t *state, void *user_data) {
         break;
         case DOUBLE_TAP: unregister_code16(KC_BSPC); break;
               case DOUBLE_HOLD: 
-                if(!is_layer_locked(20)) {
-                  layer_off(20);
+                if(!is_layer_locked(27)) {
+                  layer_off(27);
                 }
                 break;
         case DOUBLE_SINGLE_TAP: unregister_code16(KC_BSPC); break;
@@ -1984,7 +2033,7 @@ void dance_2_finished(tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP: register_code16(KC_ESCAPE); break;
         case SINGLE_HOLD: layer_on(7); break;
         case DOUBLE_TAP: register_code16(KC_ESCAPE); register_code16(KC_ESCAPE); break;
-        case DOUBLE_HOLD: layer_on(23); break;
+        case DOUBLE_HOLD: layer_on(30); break;
         case DOUBLE_SINGLE_TAP: tap_code16(KC_ESCAPE); register_code16(KC_ESCAPE);
     }
 }
@@ -2000,8 +2049,8 @@ void dance_2_reset(tap_dance_state_t *state, void *user_data) {
         break;
         case DOUBLE_TAP: unregister_code16(KC_ESCAPE); break;
               case DOUBLE_HOLD: 
-                if(!is_layer_locked(23)) {
-                  layer_off(23);
+                if(!is_layer_locked(30)) {
+                  layer_off(30);
                 }
                 break;
         case DOUBLE_SINGLE_TAP: unregister_code16(KC_ESCAPE); break;
@@ -2029,7 +2078,7 @@ void dance_3_finished(tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP: register_code16(KC_BSPC); break;
         case SINGLE_HOLD: layer_on(5); break;
         case DOUBLE_TAP: register_code16(KC_BSPC); register_code16(KC_BSPC); break;
-        case DOUBLE_HOLD: layer_on(20); break;
+        case DOUBLE_HOLD: layer_on(27); break;
         case DOUBLE_SINGLE_TAP: tap_code16(KC_BSPC); register_code16(KC_BSPC);
     }
 }
@@ -2045,8 +2094,8 @@ void dance_3_reset(tap_dance_state_t *state, void *user_data) {
         break;
         case DOUBLE_TAP: unregister_code16(KC_BSPC); break;
               case DOUBLE_HOLD: 
-                if(!is_layer_locked(20)) {
-                  layer_off(20);
+                if(!is_layer_locked(27)) {
+                  layer_off(27);
                 }
                 break;
         case DOUBLE_SINGLE_TAP: unregister_code16(KC_BSPC); break;
