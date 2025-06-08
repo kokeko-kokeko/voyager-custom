@@ -493,8 +493,13 @@ bool rgb_matrix_indicators_user(void) {
   return true;
 }
 
+// interrupt led update (declaration before use)
+static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!process_record_rgb_led_int(keycode, record)) {
+    return false;
+  }
   switch (keycode) {
     case ST_MACRO_0:
     if (record->event.pressed) {
@@ -2116,3 +2121,1260 @@ tap_dance_action_t tap_dance_actions[] = {
         [DANCE_2] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_2, dance_2_finished, dance_2_reset),
         [DANCE_3] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_3, dance_3_finished, dance_3_reset),
 };
+
+
+//
+// additional 
+//
+
+// declaration for qmk function
+static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t init_delay_ms);
+
+static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_blink = (uint8_t[]){13, 50, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+//static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+
+static void rgblight_set_hue(uint8_t hue);
+static void rgblight_set_sat(uint8_t sat);
+static void rgblight_set_val(uint8_t val);
+static void rgblight_save_eeprom(void);
+static void rgblight_load_preset(void);
+
+// hue value 6 * 8 like NCS
+static const uint8_t * const hue_tbl = 
+(uint8_t[]){  0,   1,   3,   5,   7,   9,
+             10,  15,  20,  25,  30,  35,
+             40,  43,  46,  49,  52,  55,
+             58,  63,  67,  71,  75,  79,
+             83,  86,  92,  98, 105, 111,
+            118, 129, 137, 146, 154, 163,
+            172, 179, 186, 193, 200, 207,
+            215, 222, 229, 236, 243, 250};
+static const uint8_t * const sat_tbl = 
+(uint8_t[]){  1,   6,  12,  17,  23,  28,  33,  39,
+             44,  50,  55,  60,  66,  71,  77,  82,
+             87,  93,  98, 104, 109, 114, 120, 125,
+            131, 136, 142, 147, 152, 158, 163, 169,
+            174, 179, 185, 190, 196, 201, 206, 212,
+            217, 223, 228, 233, 239, 244, 250, 255};
+// val value max limit 175
+static const uint8_t * const val_tbl = 
+(uint8_t[]){  1,   5,   8,  12,  16,  20,  23,  27,
+             31,  34,  38,  42,  45,  49,  53,  57,
+             60,  64,  68,  71,  75,  79,  82,  86,
+             90,  94,  97, 101, 105, 108, 112, 116,
+            119, 123, 127, 131, 134, 138, 142, 145,
+            149, 153, 156, 160, 164, 168, 171, 175};
+static const uint8_t * const pos_tbl = 
+(uint8_t[]){  0,   6,  12,  18,   1,   7,  13,  19,
+              2,   8,  14,  20,   3,   9,  15,  21, 
+              4,  10,  16,  22,   5,  11,  17,  23,
+             26,  32,  38,  44,  27,  33,  39,  45,
+             28,  34,  40,  46,  29,  35,  41,  47,
+             30,  36,  42,  48,  31,  37,  43,  49};
+
+// access to system-side flag
+extern keyboard_config_t keyboard_config;
+extern bool is_launching;
+
+// qmk callback function
+
+// tap flow control
+// bool is_flow_tap_key(uint16_t keycode) is default
+// disable (return 0)
+// thumb space LT 
+// pinkey outer col
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record, 
+                           uint16_t prev_keycode) {
+  if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+    switch (keycode) {
+      case LT(4, KC_SPACE):
+      case LT(5, KC_SPACE):      
+      case LT(6, KC_SPACE):
+      case LT(7, KC_SPACE):
+        return 0;
+
+      case LT(10, KC_B):
+      case LT(11, KC_B):
+      case LT(12, KC_V):
+      case LT(13, KC_V):
+        return 0;
+
+      case MT(MOD_LCTL, KC_Z):
+      case MT(MOD_RCTL, KC_Q):
+        return 0;
+        
+      default:
+        return FLOW_TAP_TERM;  // Longer timeout otherwise.
+    }
+  }
+  return 0;  // Disable Flow Tap.
+}
+
+// if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
+layer_state_t layer_state_set_user(layer_state_t state) {
+  if (is_launching || !keyboard_config.led_level) return state;
+
+  uint8_t layer = get_highest_layer(state);
+  switch (layer) {
+    // Base (ANSI)
+    case 0:
+    // Base (JIS)
+    case 1:
+      status_led(0b1111, NULL, 0);
+      break;
+    // Shift
+    case 2:
+    case 3:
+      status_led(0b0011, NULL, 0);
+      status_led(0b1100, led_pattern_on, 0);
+      break;
+    // Num
+    case 4:
+    case 5:
+      status_led(0b1100, NULL, 0);
+      status_led(0b0010, led_pattern_on, 0);
+      status_led(0b0001, led_pattern_blink, 0);
+      break;
+    // Bkt
+    case 6:
+    case 7:
+      status_led(0b1100, NULL, 0);
+      status_led(0b0001, led_pattern_on, 0);
+      status_led(0b0010, led_pattern_blink, 0);
+      break;
+    // Fn
+    case 8:
+    case 9:
+      status_led(0b1100, NULL, 0);
+      status_led(0b0011, led_pattern_on, 0);
+      break;
+    // Lcur
+    case 10:
+    case 11:
+      status_led(0b0110, NULL, 0);
+      status_led(0b1000, led_pattern_on, 0);
+      status_led(0b0001, led_pattern_blink, 0);
+      break;
+    // Rcur
+    case 12:
+    case 13:
+      status_led(0b1001, NULL, 0);
+      status_led(0b0100, led_pattern_on, 0);
+      status_led(0b0010, led_pattern_blink, 0);
+      break;
+    // HSV update
+    case 28:
+    case 29:
+    case 30:
+      status_led(0b1111, NULL, 0);
+      break;
+    // FwSys
+    case 31:
+      status_led(0b1111, NULL, 0);
+      
+      os_variant_t host = detected_host_os();
+      if (host == OS_WINDOWS) {
+        status_led(0b0001, led_pattern_on, 0);
+      } else if (host == OS_IOS) {
+        status_led(0b0100, led_pattern_on, 0);
+        status_led(0b0001, led_pattern_blink, 0);
+      } else if (host == OS_LINUX) {
+        status_led(0b0001, led_pattern_on, 0);
+        status_led(0b0100, led_pattern_blink, 0);
+      } else if (host == OS_MACOS) {
+        status_led(0b0100, led_pattern_on, 0);
+      } else if (host == OS_UNSURE) {
+        status_led(0b0101, NULL, 0);
+      } else {
+        status_led(0b0101, led_pattern_oneshot, 0);
+      }
+      
+      if (layer_state_cmp(state, 1)) {
+        //JIS base enable
+        status_led(0b0010, led_pattern_on, 0);
+      } else {
+        //other
+        status_led(0b1000, led_pattern_on, 0);
+      }
+      break;
+    default :
+      status_led(0b1111, NULL, 0);
+      break;
+  }
+  return state;
+}
+
+static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    // Hue value
+    case HSV_0_255_100:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[0]);
+      }
+      return false;
+    case HSV_0_255_101:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[1]);
+      }
+      return false;
+    case HSV_0_255_102:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[2]);
+      }
+      return false;
+    case HSV_0_255_103:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[3]);
+      }
+      return false;
+    case HSV_0_255_104:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[4]);
+      }
+      return false;
+    case HSV_0_255_105:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[5]);
+      }
+      return false;
+    case HSV_0_255_106:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[6]);
+      }
+      return false;
+    case HSV_0_255_107:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[7]);
+      }
+      return false;
+    case HSV_0_255_108:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[8]);
+      }
+      return false;
+    case HSV_0_255_109:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[9]);
+      }
+      return false;
+    case HSV_0_255_110:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[10]);
+      }
+      return false;
+    case HSV_0_255_111:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[11]);
+      }
+      return false;
+    case HSV_0_255_112:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[12]);
+      }
+      return false;
+    case HSV_0_255_113:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[13]);
+      }
+      return false;
+    case HSV_0_255_114:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[14]);
+      }
+      return false;
+    case HSV_0_255_115:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[15]);
+      }
+      return false;
+    case HSV_0_255_116:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[16]);
+      }
+      return false;
+    case HSV_0_255_117:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[17]);
+      }
+      return false;
+    case HSV_0_255_118:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[18]);
+      }
+      return false;
+    case HSV_0_255_119:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[19]);
+      }
+      return false;
+    case HSV_0_255_120:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[20]);
+      }
+      return false;
+    case HSV_0_255_121:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[21]);
+      }
+      return false;
+    case HSV_0_255_122:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[22]);
+      }
+      return false;
+    case HSV_0_255_123:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[23]);
+      }
+      return false;
+    case HSV_0_255_124:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[24]);
+      }
+      return false;
+    case HSV_0_255_125:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[25]);
+      }
+      return false;
+    case HSV_0_255_126:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[26]);
+      }
+      return false;
+    case HSV_0_255_127:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[27]);
+      }
+      return false;
+    case HSV_0_255_128:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[28]);
+      }
+      return false;
+    case HSV_0_255_129:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[29]);
+      }
+      return false;
+    case HSV_0_255_130:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[30]);
+      }
+      return false;
+    case HSV_0_255_131:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[31]);
+      }
+      return false;
+    case HSV_0_255_132:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[32]);
+      }
+      return false;
+    case HSV_0_255_133:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[33]);
+      }
+      return false;
+    case HSV_0_255_134:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[34]);
+      }
+      return false;
+    case HSV_0_255_135:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[35]);
+      }
+      return false;
+    case HSV_0_255_136:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[36]);
+      }
+      return false;
+    case HSV_0_255_137:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[37]);
+      }
+      return false;
+    case HSV_0_255_138:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[38]);
+      }
+      return false;
+    case HSV_0_255_139:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[39]);
+      }
+      return false;
+    case HSV_0_255_140:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[40]);
+      }
+      return false;
+    case HSV_0_255_141:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[41]);
+      }
+      return false;
+    case HSV_0_255_142:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[42]);
+      }
+      return false;
+    case HSV_0_255_143:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[43]);
+      }
+      return false;
+    case HSV_0_255_144:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[44]);
+      }
+      return false;
+    case HSV_0_255_145:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[45]);
+      }
+      return false;
+    case HSV_0_255_146:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[46]);
+      }
+      return false;
+    case HSV_0_255_147:
+      if (record->event.pressed) {
+        rgblight_set_hue(hue_tbl[47]);
+      }
+      return false;
+    
+    // Sat value
+    case HSV_86_255_100:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[0]);
+      }
+      return false;
+    case HSV_86_255_101:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[1]);
+      }
+      return false;
+    case HSV_86_255_102:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[2]);
+      }
+      return false;
+    case HSV_86_255_103:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[3]);
+      }
+      return false;
+    case HSV_86_255_104:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[4]);
+      }
+      return false;
+    case HSV_86_255_105:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[5]);
+      }
+      return false;
+    case HSV_86_255_106:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[6]);
+      }
+      return false;
+    case HSV_86_255_107:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[7]);
+      }
+      return false;
+    case HSV_86_255_108:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[8]);
+      }
+      return false;
+    case HSV_86_255_109:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[9]);
+      }
+      return false;
+    case HSV_86_255_110:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[10]);
+      }
+      return false;
+    case HSV_86_255_111:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[11]);
+      }
+      return false;
+    case HSV_86_255_112:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[12]);
+      }
+      return false;
+    case HSV_86_255_113:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[13]);
+      }
+      return false;
+    case HSV_86_255_114:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[14]);
+      }
+      return false;
+    case HSV_86_255_115:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[15]);
+      }
+      return false;
+    case HSV_86_255_116:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[16]);
+      }
+      return false;
+    case HSV_86_255_117:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[17]);
+      }
+      return false;
+    case HSV_86_255_118:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[18]);
+      }
+      return false;
+    case HSV_86_255_119:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[19]);
+      }
+      return false;
+    case HSV_86_255_120:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[20]);
+      }
+      return false;
+    case HSV_86_255_121:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[21]);
+      }
+      return false;
+    case HSV_86_255_122:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[22]);
+      }
+      return false;
+    case HSV_86_255_123:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[23]);
+      }
+      return false;
+    case HSV_86_255_124:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[24]);
+      }
+      return false;
+    case HSV_86_255_125:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[25]);
+      }
+      return false;
+    case HSV_86_255_126:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[26]);
+      }
+      return false;
+    case HSV_86_255_127:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[27]);
+      }
+      return false;
+    case HSV_86_255_128:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[28]);
+      }
+      return false;
+    case HSV_86_255_129:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[29]);
+      }
+      return false;
+    case HSV_86_255_130:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[30]);
+      }
+      return false;
+    case HSV_86_255_131:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[31]);
+      }
+      return false;
+    case HSV_86_255_132:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[32]);
+      }
+      return false;
+    case HSV_86_255_133:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[33]);
+      }
+      return false;
+    case HSV_86_255_134:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[34]);
+      }
+      return false;
+    case HSV_86_255_135:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[35]);
+      }
+      return false;
+    case HSV_86_255_136:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[36]);
+      }
+      return false;
+    case HSV_86_255_137:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[37]);
+      }
+      return false;
+    case HSV_86_255_138:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[38]);
+      }
+      return false;
+    case HSV_86_255_139:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[39]);
+      }
+      return false;
+    case HSV_86_255_140:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[40]);
+      }
+      return false;
+    case HSV_86_255_141:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[41]);
+      }
+      return false;
+    case HSV_86_255_142:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[42]);
+      }
+      return false;
+    case HSV_86_255_143:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[43]);
+      }
+      return false;
+    case HSV_86_255_144:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[44]);
+      }
+      return false;
+    case HSV_86_255_145:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[45]);
+      }
+      return false;
+    case HSV_86_255_146:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[46]);
+      }
+      return false;
+    case HSV_86_255_147:
+      if (record->event.pressed) {
+        rgblight_set_sat(sat_tbl[47]);
+      }
+      return false;
+
+    // Val value
+    case HSV_172_255_100:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[0]);
+      }
+      return false;
+    case HSV_172_255_101:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[1]);
+      }
+      return false;
+    case HSV_172_255_102:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[2]);
+      }
+      return false;
+    case HSV_172_255_103:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[3]);
+      }
+      return false;
+    case HSV_172_255_104:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[4]);
+      }
+      return false;
+    case HSV_172_255_105:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[5]);
+      }
+      return false;
+    case HSV_172_255_106:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[6]);
+      }
+      return false;
+    case HSV_172_255_107:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[7]);
+      }
+      return false;
+    case HSV_172_255_108:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[8]);
+      }
+      return false;
+    case HSV_172_255_109:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[9]);
+      }
+      return false;
+    case HSV_172_255_110:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[10]);
+      }
+      return false;
+    case HSV_172_255_111:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[11]);
+      }
+      return false;
+    case HSV_172_255_112:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[12]);
+      }
+      return false;
+    case HSV_172_255_113:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[13]);
+      }
+      return false;
+    case HSV_172_255_114:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[14]);
+      }
+      return false;
+    case HSV_172_255_115:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[15]);
+      }
+      return false;
+    case HSV_172_255_116:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[16]);
+      }
+      return false;
+    case HSV_172_255_117:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[17]);
+      }
+      return false;
+    case HSV_172_255_118:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[18]);
+      }
+      return false;
+    case HSV_172_255_119:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[19]);
+      }
+      return false;
+    case HSV_172_255_120:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[20]);
+      }
+      return false;
+    case HSV_172_255_121:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[21]);
+      }
+      return false;
+    case HSV_172_255_122:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[22]);
+      }
+      return false;
+    case HSV_172_255_123:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[23]);
+      }
+      return false;
+    case HSV_172_255_124:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[24]);
+      }
+      return false;
+    case HSV_172_255_125:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[25]);
+      }
+      return false;
+    case HSV_172_255_126:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[26]);
+      }
+      return false;
+    case HSV_172_255_127:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[27]);
+      }
+      return false;
+    case HSV_172_255_128:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[28]);
+      }
+      return false;
+    case HSV_172_255_129:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[29]);
+      }
+      return false;
+    case HSV_172_255_130:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[30]);
+      }
+      return false;
+    case HSV_172_255_131:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[31]);
+      }
+      return false;
+    case HSV_172_255_132:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[32]);
+      }
+      return false;
+    case HSV_172_255_133:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[33]);
+      }
+      return false;
+    case HSV_172_255_134:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[34]);
+      }
+      return false;
+    case HSV_172_255_135:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[35]);
+      }
+      return false;
+    case HSV_172_255_136:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[36]);
+      }
+      return false;
+    case HSV_172_255_137:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[37]);
+      }
+      return false;
+    case HSV_172_255_138:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[38]);
+      }
+      return false;
+    case HSV_172_255_139:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[39]);
+      }
+      return false;
+    case HSV_172_255_140:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[40]);
+      }
+      return false;
+    case HSV_172_255_141:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[41]);
+      }
+      return false;
+    case HSV_172_255_142:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[42]);
+      }
+      return false;
+    case HSV_172_255_143:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[43]);
+      }
+      return false;
+    case HSV_172_255_144:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[44]);
+      }
+      return false;
+    case HSV_172_255_145:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[45]);
+      }
+      return false;
+    case HSV_172_255_146:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[46]);
+      }
+      return false;
+    case HSV_172_255_147:
+      if (record->event.pressed) {
+        rgblight_set_val(val_tbl[47]);
+      }
+      return false;
+
+    //RGB inc/dec no eeprom over write
+    case RGB_HUI:
+      if (record->event.pressed) {
+        rgblight_increase_hue_noeeprom();
+      }
+      return false;
+    case RGB_HUD:
+      if (record->event.pressed) {
+        rgblight_decrease_hue_noeeprom();
+      }
+      return false;
+    case RGB_SAI:
+      if (record->event.pressed) {
+        rgblight_increase_sat_noeeprom();
+      }
+      return false;
+    case RGB_SAD:
+      if (record->event.pressed) {
+        rgblight_decrease_sat_noeeprom();
+      }
+      return false;
+    case RGB_VAI:
+      if (record->event.pressed) {
+        rgblight_increase_val_noeeprom();
+      }
+      return false;
+    case RGB_VAD:
+      if (record->event.pressed) {
+        rgblight_decrease_val_noeeprom();
+      }
+      return false;
+    case RGB_SPI:
+      if (record->event.pressed) {
+        rgblight_increase_speed_noeeprom();
+      }
+      return false;
+    case RGB_SPD:
+      if (record->event.pressed) {
+        rgblight_decrease_speed_noeeprom();
+      }
+      return false;
+    case RGB_TOG:
+      if (record->event.pressed) {
+        rgblight_toggle_noeeprom();
+      }
+      return false;
+    case RGB_MODE_FORWARD:
+      if (record->event.pressed) {
+        rgblight_step_noeeprom();
+      }
+      return false;
+    case RGB_SLD:
+      if (record->event.pressed) {
+        rgblight_mode_noeeprom(1);
+      }
+      return false;
+    
+    // Thumb special key
+    // Hue
+    case HSV_0_255_148:
+      if (record->event.pressed) {
+        rgblight_load_preset();
+      }
+      return false;
+    // Sat
+    case HSV_86_255_148:
+      if (record->event.pressed) {
+        //rgblight_save_eeprom();
+      }
+      return false;
+    // Val
+    case HSV_172_255_148:
+      if (record->event.pressed) {
+        rgblight_save_eeprom();
+      }
+      return false;
+  }
+  return true;
+}
+
+// local function
+
+// LED pattern list, no const limit, terminate symbol
+// off -> on -> off ... (off start for no glitch)
+// reduce data x16 (4bit shift) 8bit
+// 0: terminate, output this area value
+// MAX: return to position 0 immediately, this cycle output position 0 value & wait
+// other: output current position value & wait
+// put reurn token for safety
+// max 16x255=4080ms 4sec
+// write NULL direct 
+static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
+  static uint8_t count = 0;
+  if (cb_arg == NULL) {
+    count = 0;
+    STATUS_LED_1(0);
+    return 0;
+  }
+  const uint8_t * const pattern = cb_arg;
+  if (pattern[count] == UINT8_MAX) {
+    count = 0;
+  }
+  STATUS_LED_1(count & 0b00000001);
+  return (((uint32_t)pattern[count++]) << 4);
+}
+
+static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
+  static uint8_t count = 0;
+  if (cb_arg == NULL) {
+    count = 0;
+    STATUS_LED_2(0);
+    return 0;
+  }
+  const uint8_t * const pattern = cb_arg;
+  if (pattern[count] == UINT8_MAX) {
+    count = 0;
+  }
+  STATUS_LED_2(count & 0b00000001);
+  return (((uint32_t)pattern[count++]) << 4);
+}
+
+static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
+  static uint8_t count = 0;
+  if (cb_arg == NULL) {
+    count = 0;
+    STATUS_LED_3(0);
+    return 0;
+  }
+  const uint8_t * const pattern = cb_arg;
+  if (pattern[count] == UINT8_MAX) {
+    count = 0;
+  }
+  STATUS_LED_3(count & 0b00000001);
+  return (((uint32_t)pattern[count++]) << 4);
+}
+
+static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
+  static uint8_t count = 0;
+  if (cb_arg == NULL) {
+    count = 0;
+    STATUS_LED_4(0);
+    return 0;
+  }
+  const uint8_t * const pattern = cb_arg;
+  if (pattern[count] == UINT8_MAX) {
+    count = 0;
+  }
+  STATUS_LED_4(count & 0b00000001);
+  return (((uint32_t)pattern[count++]) << 4);
+}
+
+// 1 -> Red Left
+// 3 -> Red Right
+// 2 -> Green Left
+// 4 -> Green Right
+// re-order bit position
+static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t init_delay_ms) {
+  static deferred_token token_1 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_4 = INVALID_DEFERRED_TOKEN;
+  
+  if (mask & 0b1000) {
+    if (token_1 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(token_1);
+      token_1 = INVALID_DEFERRED_TOKEN;
+      status_led_task_1(0, NULL);
+    }
+  }
+  if (mask & 0b0100) {
+    if (token_3 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(token_3);
+      token_3 = INVALID_DEFERRED_TOKEN;
+      status_led_task_3(0, NULL);
+    }
+  }  
+  if (mask & 0b0010) {
+    if (token_2 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(token_2);
+      token_2 = INVALID_DEFERRED_TOKEN;
+      status_led_task_2(0, NULL);
+    }
+  }
+  if (mask & 0b0001) {
+    if (token_4 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(token_4);
+      token_4 = INVALID_DEFERRED_TOKEN;
+      status_led_task_4(0, NULL);
+    }
+  }
+
+  // skip task exec
+  if (pattern == NULL) return true;
+
+  // add pseudo rondom delay 
+  if (mask & 0b1000) {
+    token_1 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_1, (void *)pattern);
+  }
+  if (mask & 0b0100) {
+    token_3 = defer_exec((uint32_t)(init_delay_ms + 3), status_led_task_3, (void *)pattern);
+  }
+  if (mask & 0b0010) {
+    token_2 = defer_exec((uint32_t)(init_delay_ms + 5), status_led_task_2, (void *)pattern);
+  }
+  if (mask & 0b0001) {
+    token_4 = defer_exec((uint32_t)(init_delay_ms + 7), status_led_task_4, (void *)pattern);
+  }
+  
+  return true;
+}
+
+// HSV independent update code
+static void rgblight_set_hue(uint8_t hue) {
+  HSV hsv = rgblight_get_hsv();
+  rgblight_sethsv_noeeprom(hue, hsv.s, hsv.v);
+}
+
+static void rgblight_set_sat(uint8_t sat) {
+  HSV hsv = rgblight_get_hsv();
+  rgblight_sethsv_noeeprom(hsv.h, sat, hsv.v);
+}
+
+static void rgblight_set_val(uint8_t val) {
+  HSV hsv = rgblight_get_hsv();
+  rgblight_sethsv_noeeprom(hsv.h, hsv.s, val);
+}
+
+static void rgblight_save_eeprom(void) {
+  HSV hsv = rgblight_get_hsv();
+  rgblight_sethsv(hsv.h, hsv.s, hsv.v);
+  //eeprom write once (write all value raw to eeprom)
+  //uint8_t spd_old = rgblight_get_speed();
+  //rgblight_set_speed(spd_old);
+  //uint8_t mode_old = rgblight_get_mode();
+  //rgblight_mode(mode_old);
+  
+  status_led(0b1111, led_pattern_single, 0);
+}
+
+static void rgblight_load_preset(void) {
+  rgblight_sethsv_noeeprom(250, 255, 105);
+  
+  status_led(0b1111, led_pattern_single, 0);
+}
+
+static void set_layer_color_hue_map(void) {
+  HSV hsv = rgblight_get_hsv();
+  RGB rgb = hsv_to_rgb(hsv);
+  //rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
+  //rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
+  rgb_matrix_set_color(50, 0, 0, 0 );
+  rgb_matrix_set_color(51, hsv.v, 0, 0 );
+  uint8_t key = hsv.h;
+  uint8_t i = 0;
+  for (i = 0; i < 48; i++) {
+    hsv.h = hue_tbl[i];
+    if (hsv.v == 0) {
+      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      continue;
+    }
+    if (key <= hsv.h) {
+      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      break;
+    }
+    rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+  }
+  for (i++; i < 48; i++) {
+    hsv.h = hue_tbl[i];
+    if (hsv.v == 0) {
+      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      continue;
+    }
+    rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+  }
+}
+
+static void set_layer_color_sat_map(void) {
+  HSV hsv = rgblight_get_hsv();
+  RGB rgb = hsv_to_rgb(hsv);
+  //rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
+  //rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
+  rgb_matrix_set_color(50, 0, 0, 0);
+  rgb_matrix_set_color(51, 0, hsv.v, 0);
+  uint8_t key = hsv.s;
+  uint8_t i = 0;
+  for (i = 0; i < 48; i++) {
+    hsv.s = sat_tbl[i];
+    if (hsv.v == 0) {
+      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      continue;
+    }
+    if (key <= hsv.s) {
+      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      break;
+    }
+    rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+  }
+  for (i++; i < 48; i++) {
+    hsv.s = sat_tbl[i];
+    if (hsv.v == 0) {
+      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      continue;
+    }
+    rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+  }
+}
+
+static void set_layer_color_val_map(void) {
+  HSV hsv = rgblight_get_hsv();
+  RGB rgb = hsv_to_rgb(hsv);
+  //rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
+  //rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
+  rgb_matrix_set_color(50, 0, 0, 0);
+  rgb_matrix_set_color(51, 0, 0, hsv.v);
+  uint8_t key = hsv.v;
+  uint8_t i = 0;
+  for (i = 0; i < 48; i++) {
+    hsv.v = val_tbl[i];
+    if (hsv.v == 0) {
+      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      continue;
+    }
+    if (key <= hsv.v) {
+      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      break;
+    }
+    rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+  }
+  for (i++; i < 48; i++) {
+    hsv.v = val_tbl[i];
+    if (hsv.v == 0) {
+      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      continue;
+    }
+    rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+  }
+}
