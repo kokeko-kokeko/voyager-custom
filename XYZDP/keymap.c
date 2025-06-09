@@ -2155,6 +2155,7 @@ static void rgblight_set_val(uint8_t val);
 static void rgblight_save_eeprom(void);
 static void rgblight_load_preset(void);
 
+// reverse sort order
 // hue value 6 * 8 like NCS
 static const uint8_t * const hue_tbl = 
 (uint8_t[]){250, 243, 236, 229, 222, 215,
@@ -2187,6 +2188,7 @@ static const uint8_t * const pos_tbl =
              46,  40,  34,  28,
              45,  39,  33,  27,
              44,  38,  32,  26,
+
              23,  17,  11,   5,
              22,  16,  10,   4,
              21,  15,   9,   3,
