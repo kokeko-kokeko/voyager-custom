@@ -3385,6 +3385,6 @@ static void set_layer_color_val_map(void) {
 static void set_layer_color_fwsys_map(void) {
   //stub
   rgb_matrix_set_color(0, 255, 0, 0);
-  rgb_matrix_set_color(0, 0, 255, 0);
+  rgb_matrix_set_color(6, 0, 255, 0);
 
 }
