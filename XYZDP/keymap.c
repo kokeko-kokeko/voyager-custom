@@ -3383,14 +3383,9 @@ static void set_layer_color_val_map(void) {
 }
 
 static void set_layer_color_fwsys_map(void) {
-  //stub
-  HSV hsv = rgblight_get_hsv();
-  hsv.h = 0;
-  hsv.s = 255;
-  RGB rgb = hsv_to_rgb(hsv);
-  uint8_t f = rgb.r;
-  uint8_t h = f >> 1;
-  uint8_t q = h >> 1;
+  const uint8_t f = 175;
+  const uint8_t h = f >> 1;
+  const uint8_t q = h >> 1;
 
   //ANSI/JIS
   rgb_matrix_set_color(0, f, 0, 0);
