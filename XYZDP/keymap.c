@@ -449,64 +449,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-extern rgb_config_t rgb_matrix_config;
-
-void keyboard_post_init_user(void) {
-  rgb_matrix_enable();
-}
-
-const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
-    [31] = { {0,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {86,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {172,255,255}, {215,255,128}, {215,255,255}, {86,255,255}, {0,0,0}, {21,255,128}, {21,255,255}, {0,255,255}, {0,0,0}, {0,0,0}, {0,255,255}, {86,255,128}, {86,255,255}, {43,255,128}, {43,255,255}, {0,0,0}, {21,255,255}, {129,255,128}, {129,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {43,255,255}, {172,255,255}, {0,0,0}, {0,0,128}, {0,0,255}, {0,255,255}, {0,255,255}, {172,255,255} },
-
-};
-
-void set_layer_color(int layer) {
-  for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-    HSV hsv = {
-      .h = pgm_read_byte(&ledmap[layer][i][0]),
-      .s = pgm_read_byte(&ledmap[layer][i][1]),
-      .v = pgm_read_byte(&ledmap[layer][i][2]),
-    };
-    if (!hsv.h && !hsv.s && !hsv.v) {
-        rgb_matrix_set_color( i, 0, 0, 0 );
-    } else {
-        RGB rgb = hsv_to_rgb( hsv );
-        float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-        rgb_matrix_set_color( i, f * rgb.r, f * rgb.g, f * rgb.b );
-    }
-  }
-}
-
-static void set_layer_color_hue_map(void);
-static void set_layer_color_sat_map(void);
-static void set_layer_color_val_map(void);
-
-bool rgb_matrix_indicators_user(void) {
-  if (rawhid_state.rgb_control) {
-      return false;
-  }
-  if (keyboard_config.disable_layer_led) { return false; }
-  switch (biton32(layer_state)) {
-    case 28:
-      set_layer_color_hue_map();
-      break;
-    case 29:
-      set_layer_color_sat_map();
-      break;
-    case 30:
-      set_layer_color_val_map();
-      break;
-    case 31:
-      set_layer_color(31);
-      break;
-   default:
-    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
-      rgb_matrix_set_color_all(0, 0, 0);
-    break;
-  }
-  return true;
-}
-
 // interrupt led update (declaration before use)
 static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record);
 
@@ -2201,6 +2143,41 @@ static const uint8_t * const pos_tbl =
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
 
+extern rgb_config_t rgb_matrix_config;
+
+void keyboard_post_init_user(void) {
+  rgb_matrix_enable();
+}
+
+static void set_layer_color_hue_map(void);
+static void set_layer_color_sat_map(void);
+static void set_layer_color_val_map(void);
+
+bool rgb_matrix_indicators_user(void) {
+  if (rawhid_state.rgb_control) {
+      return false;
+  }
+  if (keyboard_config.disable_layer_led) { return false; }
+  switch (biton32(layer_state)) {
+    case 28:
+      set_layer_color_hue_map();
+      break;
+    case 29:
+      set_layer_color_sat_map();
+      break;
+    case 30:
+      set_layer_color_val_map();
+      break;
+    case 31:
+      set_layer_color(31);
+      break;
+   default:
+    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
+      rgb_matrix_set_color_all(0, 0, 0);
+    break;
+  }
+  return true;
+}
 // qmk callback function
 
 // tap flow control
