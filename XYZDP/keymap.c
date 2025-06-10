@@ -451,11 +451,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-// interrupt led update (declaration before use)
-static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record);
+// additional keycode process (declaration before use)
+static bool process_record_additional(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_record_rgb_led_int(keycode, record)) {
+  if (!process_record_additional(keycode, record)) {
     return false;
   }
   switch (keycode) {
@@ -2310,7 +2310,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
-static bool process_record_rgb_led_int(uint16_t keycode, keyrecord_t *record) {
+static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // Hue value
     case HSV_0_255_100:
