@@ -3383,7 +3383,7 @@ static void set_layer_color_val_map(void) {
 }
 
 static void set_layer_color_fwsys_map(void) {
-  const uint8_t f = 175;
+  const uint8_t f = rgblight_get_val();
   const uint8_t h = f >> 1;
   const uint8_t q = h >> 1;
 
