@@ -2102,6 +2102,10 @@ static void rgblight_set_val(uint8_t val);
 static void rgblight_save_eeprom(void);
 static void rgblight_load_preset(void);
 
+static void set_layer_color_hue_map(void);
+static void set_layer_color_sat_map(void);
+static void set_layer_color_val_map(void);
+
 // reverse sort order
 // hue value 6 * 8 like NCS
 static const uint8_t * const hue_tbl = 
@@ -2146,16 +2150,12 @@ static const uint8_t * const pos_tbl =
 // access to system-side flag
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
-
 extern rgb_config_t rgb_matrix_config;
 
+// qmk callback function
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
 }
-
-static void set_layer_color_hue_map(void);
-static void set_layer_color_sat_map(void);
-static void set_layer_color_val_map(void);
 
 bool rgb_matrix_indicators_user(void) {
   if (rawhid_state.rgb_control) {
@@ -2182,7 +2182,6 @@ bool rgb_matrix_indicators_user(void) {
   }
   return true;
 }
-// qmk callback function
 
 // tap flow control
 // bool is_flow_tap_key(uint16_t keycode) is default
