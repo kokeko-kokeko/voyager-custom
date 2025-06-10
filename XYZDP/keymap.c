@@ -2173,7 +2173,7 @@ bool rgb_matrix_indicators_user(void) {
       set_layer_color_val_map();
       break;
     case 31:
-      set_layer_color(31);
+      //set_layer_color(31);
       break;
    default:
     if (rgb_matrix_get_flags() == LED_FLAG_NONE)
