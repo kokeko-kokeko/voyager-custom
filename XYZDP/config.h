@@ -1,4 +1,4 @@
-eeeee#undef DEBOUNCE
+#undef DEBOUNCE
 #define DEBOUNCE 5
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
