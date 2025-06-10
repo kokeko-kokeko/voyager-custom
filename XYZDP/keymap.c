@@ -3384,7 +3384,48 @@ static void set_layer_color_val_map(void) {
 
 static void set_layer_color_fwsys_map(void) {
   //stub
-  rgb_matrix_set_color(0, 255, 0, 0);
-  rgb_matrix_set_color(6, 0, 255, 0);
+  HSV hsv = rgblight_get_hsv();
+  hsv.h = 0;
+  hsv.s = 255;
+  RGB rgb = hsv_to_rgb(hsv);
+  uint8_t f = rgb.r;
+  uint8_t h = f >> 1;
+  uint8_t q = h >> 1;
 
+  //ANSI/JIS
+  rgb_matrix_set_color(0, f, 0, 0);
+  rgb_matrix_set_color(6, 0, f, 0);
+
+  //tapping
+  rgb_matrix_set_color(21, 0, 0, f);
+  rgb_matrix_set_color(22, h, 0, h);
+  rgb_matrix_set_color(23, f, 0, f);
+
+  //thumb
+  rgb_matrix_set_color(24, 0, f, 0);
+  rgb_matrix_set_color(25, 0, 0, 0);
+  rgb_matrix_set_color(50, f, 0, 0);
+  rgb_matrix_set_color(51, 0, 0, f);
+
+  //media
+  rgb_matrix_set_color(26, h, q, 0);
+  rgb_matrix_set_color(27, f, h, 0);
+  rgb_matrix_set_color(28, f, 0, 0);
+  rgb_matrix_set_color(32, 0, h, 0);
+  rgb_matrix_set_color(33, 0, f, 0);
+  rgb_matrix_set_color(34, h, h, 0);
+  rgb_matrix_set_color(35, f, f, 0);
+  rgb_matrix_set_color(38, 0, h, h);
+  rgb_matrix_set_color(39, 0, f, f);
+  rgb_matrix_set_color(44, f, f, 0);
+  rgb_matrix_set_color(45, 0, 0, f);
+
+  //LED
+  rgb_matrix_set_color(47, h, h, h);
+  rgb_matrix_set_color(48, f, f, f);
+  rgb_matrix_set_color(49, f, 0, 0);
+
+  //reset
+  rgb_matrix_set_color(31, f, 0, 0);
+  rgb_matrix_set_color(37, f, h, 0);
 }
