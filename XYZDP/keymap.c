@@ -2105,6 +2105,7 @@ static void rgblight_load_preset(void);
 static void set_layer_color_hue_map(void);
 static void set_layer_color_sat_map(void);
 static void set_layer_color_val_map(void);
+static void set_layer_color_fwsys_map(void);
 
 // reverse sort order
 // hue value 6 * 8 like NCS
@@ -2173,7 +2174,7 @@ bool rgb_matrix_indicators_user(void) {
       set_layer_color_val_map();
       break;
     case 31:
-      //set_layer_color(31);
+      set_layer_color_fwsys_map();
       break;
    default:
     if (rgb_matrix_get_flags() == LED_FLAG_NONE)
@@ -3379,4 +3380,11 @@ static void set_layer_color_val_map(void) {
     rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
   }
+}
+
+static void set_layer_color_fwsys_map(void) {
+  //stub
+  rgb_matrix_set_color(0, 255, 0, 0);
+  rgb_matrix_set_color(0, 0, 255, 0);
+
 }
