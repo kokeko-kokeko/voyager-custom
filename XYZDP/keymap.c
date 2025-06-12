@@ -3278,7 +3278,7 @@ static void rgblight_save_eeprom(void) {
 }
 
 static void rgblight_load_preset(void) {
-  rgblight_sethsv_noeeprom(250, 255, 105);
+  rgblight_sethsv_noeeprom(250, 255, 111);
   
   status_led(0b1111, led_pattern_single, 0);
 }
