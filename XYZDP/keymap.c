@@ -2543,9 +2543,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
+  // Hue value
   if (record->event.pressed) {
-    switch (keycode) {
-    // Hue value
+    switch (keycode) {  
       case HSV_0_255_149:
         rgblight_set_hue(hue_tbl[0]);
         return false;
@@ -2695,159 +2695,160 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
   }
-
-if (record->event.pressed) {
-  switch (keycode) {
-    // Sat value
-    case HSV_86_255_149:
-      rgblight_set_sat(sat_tbl[0]);
-      return false;
-    case HSV_86_255_143:
-      rgblight_set_sat(sat_tbl[1]);
-      return false;
-    case HSV_86_255_137:
-      rgblight_set_sat(sat_tbl[2]);
-      return false;
-    case HSV_86_255_131:
-      rgblight_set_sat(sat_tbl[3]);
-      return false;
-    case HSV_86_255_148:
-      rgblight_set_sat(sat_tbl[4]);
-      return false;
-    case HSV_86_255_142:
-      rgblight_set_sat(sat_tbl[5]);
-      return false;
-    case HSV_86_255_136:
-      rgblight_set_sat(sat_tbl[6]);
-      return false;
-    case HSV_86_255_130:
-      rgblight_set_sat(sat_tbl[7]);
-      return false;
-    case HSV_86_255_147:
-      rgblight_set_sat(sat_tbl[8]);
-      return false;
-    case HSV_86_255_141:
-      rgblight_set_sat(sat_tbl[9]);
-      return false;
-    case HSV_86_255_135:
-      rgblight_set_sat(sat_tbl[10]);
-      return false;
-    case HSV_86_255_129:
-      rgblight_set_sat(sat_tbl[11]);
-      return false;
-    case HSV_86_255_146:
-      rgblight_set_sat(sat_tbl[12]);
-      return false;
-    case HSV_86_255_140:
-      rgblight_set_sat(sat_tbl[13]);
-      return false;
-    case HSV_86_255_134:
-      rgblight_set_sat(sat_tbl[14]);
-      return false;
-    case HSV_86_255_128:
-      rgblight_set_sat(sat_tbl[15]);
-      return false;
-    case HSV_86_255_145:
-      rgblight_set_sat(sat_tbl[16]);
-      return false;
-    case HSV_86_255_139:
-      rgblight_set_sat(sat_tbl[17]);
-      return false;
-    case HSV_86_255_133:
-      rgblight_set_sat(sat_tbl[18]);
-      return false;
-    case HSV_86_255_127:
-      rgblight_set_sat(sat_tbl[19]);
-      return false;
-    case HSV_86_255_144:
-      rgblight_set_sat(sat_tbl[20]);
-      return false;
-    case HSV_86_255_138:
-      rgblight_set_sat(sat_tbl[21]);
-      return false;
-    case HSV_86_255_132:
-      rgblight_set_sat(sat_tbl[22]);
-      return false;
-    case HSV_86_255_126:
-      rgblight_set_sat(sat_tbl[23]);
-      return false;
-    case HSV_86_255_123:
-      rgblight_set_sat(sat_tbl[24]);
-      return false;
-    case HSV_86_255_117:
-      rgblight_set_sat(sat_tbl[25]);
-      return false;
-    case HSV_86_255_111:
-      rgblight_set_sat(sat_tbl[26]);
-      return false;
-    case HSV_86_255_105:
-      rgblight_set_sat(sat_tbl[27]);
-      return false;
-    case HSV_86_255_122:
-      rgblight_set_sat(sat_tbl[28]);
-      return false;
-    case HSV_86_255_116:
-      rgblight_set_sat(sat_tbl[29]);
-      return false;
-    case HSV_86_255_110:
-      rgblight_set_sat(sat_tbl[30]);
-      return false;
-    case HSV_86_255_104:
-      rgblight_set_sat(sat_tbl[31]);
-      return false;
-    case HSV_86_255_121:
-      rgblight_set_sat(sat_tbl[32]);
-      return false;
-    case HSV_86_255_115:
-      rgblight_set_sat(sat_tbl[33]);
-      return false;
-    case HSV_86_255_109:
-      rgblight_set_sat(sat_tbl[34]);
-      return false;
-    case HSV_86_255_103:
-      rgblight_set_sat(sat_tbl[35]);
-      return false;
-    case HSV_86_255_120:
-      rgblight_set_sat(sat_tbl[36]);
-      return false;
-    case HSV_86_255_114:
-      rgblight_set_sat(sat_tbl[37]);
-      return false;
-    case HSV_86_255_108:
-      rgblight_set_sat(sat_tbl[38]);
-      return false;
-    case HSV_86_255_102:
-      rgblight_set_sat(sat_tbl[39]);
-      return false;
-    case HSV_86_255_119:
-      rgblight_set_sat(sat_tbl[40]);
-      return false;
-    case HSV_86_255_113:
-      rgblight_set_sat(sat_tbl[41]);
-      return false;
-    case HSV_86_255_107:
-      rgblight_set_sat(sat_tbl[42]);
-      return false;
-    case HSV_86_255_101:
-      rgblight_set_sat(sat_tbl[43]);
-      return false;
-    case HSV_86_255_118:
-      rgblight_set_sat(sat_tbl[44]);
-      return false;
-    case HSV_86_255_112:
-      rgblight_set_sat(sat_tbl[45]);
-      return false;
-    case HSV_86_255_106:
-      rgblight_set_sat(sat_tbl[46]);
-      return false;
-    case HSV_86_255_100:
-      rgblight_set_sat(sat_tbl[47]);
-      return false;
-    case HSV_86_255_151:
-      //rgblight_save_eeprom();
-      return false;
+    
+  // Sat value
+  if (record->event.pressed) {
+    switch (keycode) {
+      case HSV_86_255_149:
+        rgblight_set_sat(sat_tbl[0]);
+        return false;
+      case HSV_86_255_143:
+        rgblight_set_sat(sat_tbl[1]);
+        return false;
+      case HSV_86_255_137:
+        rgblight_set_sat(sat_tbl[2]);
+        return false;
+      case HSV_86_255_131:
+        rgblight_set_sat(sat_tbl[3]);
+        return false;
+      case HSV_86_255_148:
+        rgblight_set_sat(sat_tbl[4]);
+        return false;
+      case HSV_86_255_142:
+        rgblight_set_sat(sat_tbl[5]);
+        return false;
+      case HSV_86_255_136:
+        rgblight_set_sat(sat_tbl[6]);
+        return false;
+      case HSV_86_255_130:
+        rgblight_set_sat(sat_tbl[7]);
+        return false;
+      case HSV_86_255_147:
+        rgblight_set_sat(sat_tbl[8]);
+        return false;
+      case HSV_86_255_141:
+        rgblight_set_sat(sat_tbl[9]);
+        return false;
+      case HSV_86_255_135:
+        rgblight_set_sat(sat_tbl[10]);
+        return false;
+      case HSV_86_255_129:
+        rgblight_set_sat(sat_tbl[11]);
+        return false;
+      case HSV_86_255_146:
+        rgblight_set_sat(sat_tbl[12]);
+        return false;
+      case HSV_86_255_140:
+        rgblight_set_sat(sat_tbl[13]);
+        return false;
+      case HSV_86_255_134:
+        rgblight_set_sat(sat_tbl[14]);
+        return false;
+      case HSV_86_255_128:
+        rgblight_set_sat(sat_tbl[15]);
+        return false;
+      case HSV_86_255_145:
+        rgblight_set_sat(sat_tbl[16]);
+        return false;
+      case HSV_86_255_139:
+        rgblight_set_sat(sat_tbl[17]);
+        return false;
+      case HSV_86_255_133:
+        rgblight_set_sat(sat_tbl[18]);
+        return false;
+      case HSV_86_255_127:
+        rgblight_set_sat(sat_tbl[19]);
+        return false;
+      case HSV_86_255_144:
+        rgblight_set_sat(sat_tbl[20]);
+        return false;
+      case HSV_86_255_138:
+        rgblight_set_sat(sat_tbl[21]);
+        return false;
+      case HSV_86_255_132:
+        rgblight_set_sat(sat_tbl[22]);
+        return false;
+      case HSV_86_255_126:
+        rgblight_set_sat(sat_tbl[23]);
+        return false;
+      case HSV_86_255_123:
+        rgblight_set_sat(sat_tbl[24]);
+        return false;
+      case HSV_86_255_117:
+        rgblight_set_sat(sat_tbl[25]);
+        return false;
+      case HSV_86_255_111:
+        rgblight_set_sat(sat_tbl[26]);
+        return false;
+      case HSV_86_255_105:
+        rgblight_set_sat(sat_tbl[27]);
+        return false;
+      case HSV_86_255_122:
+        rgblight_set_sat(sat_tbl[28]);
+        return false;
+      case HSV_86_255_116:
+        rgblight_set_sat(sat_tbl[29]);
+        return false;
+      case HSV_86_255_110:
+        rgblight_set_sat(sat_tbl[30]);
+        return false;
+      case HSV_86_255_104:
+        rgblight_set_sat(sat_tbl[31]);
+        return false;
+      case HSV_86_255_121:
+        rgblight_set_sat(sat_tbl[32]);
+        return false;
+      case HSV_86_255_115:
+        rgblight_set_sat(sat_tbl[33]);
+        return false;
+      case HSV_86_255_109:
+        rgblight_set_sat(sat_tbl[34]);
+        return false;
+      case HSV_86_255_103:
+        rgblight_set_sat(sat_tbl[35]);
+        return false;
+      case HSV_86_255_120:
+        rgblight_set_sat(sat_tbl[36]);
+        return false;
+      case HSV_86_255_114:
+        rgblight_set_sat(sat_tbl[37]);
+        return false;
+      case HSV_86_255_108:
+        rgblight_set_sat(sat_tbl[38]);
+        return false;
+      case HSV_86_255_102:
+        rgblight_set_sat(sat_tbl[39]);
+        return false;
+      case HSV_86_255_119:
+        rgblight_set_sat(sat_tbl[40]);
+        return false;
+      case HSV_86_255_113:
+        rgblight_set_sat(sat_tbl[41]);
+        return false;
+      case HSV_86_255_107:
+        rgblight_set_sat(sat_tbl[42]);
+        return false;
+      case HSV_86_255_101:
+        rgblight_set_sat(sat_tbl[43]);
+        return false;
+      case HSV_86_255_118:
+        rgblight_set_sat(sat_tbl[44]);
+        return false;
+      case HSV_86_255_112:
+        rgblight_set_sat(sat_tbl[45]);
+        return false;
+      case HSV_86_255_106:
+        rgblight_set_sat(sat_tbl[46]);
+        return false;
+      case HSV_86_255_100:
+        rgblight_set_sat(sat_tbl[47]);
+        return false;
+      case HSV_86_255_151:
+        //rgblight_save_eeprom();
+        return false;
+    }
   }
-}
+
   switch (keycode) {
 
     // Val value
