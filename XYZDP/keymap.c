@@ -2696,255 +2696,158 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
     }
   }
 
+if (record->event.pressed) {
   switch (keycode) {
     // Sat value
     case HSV_86_255_149:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[0]);
-      }
+      rgblight_set_sat(sat_tbl[0]);
       return false;
     case HSV_86_255_143:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[1]);
-      }
+      rgblight_set_sat(sat_tbl[1]);
       return false;
     case HSV_86_255_137:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[2]);
-      }
+      rgblight_set_sat(sat_tbl[2]);
       return false;
     case HSV_86_255_131:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[3]);
-      }
+      rgblight_set_sat(sat_tbl[3]);
       return false;
     case HSV_86_255_148:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[4]);
-      }
+      rgblight_set_sat(sat_tbl[4]);
       return false;
     case HSV_86_255_142:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[5]);
-      }
+      rgblight_set_sat(sat_tbl[5]);
       return false;
     case HSV_86_255_136:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[6]);
-      }
+      rgblight_set_sat(sat_tbl[6]);
       return false;
     case HSV_86_255_130:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[7]);
-      }
+      rgblight_set_sat(sat_tbl[7]);
       return false;
     case HSV_86_255_147:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[8]);
-      }
+      rgblight_set_sat(sat_tbl[8]);
       return false;
     case HSV_86_255_141:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[9]);
-      }
+      rgblight_set_sat(sat_tbl[9]);
       return false;
     case HSV_86_255_135:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[10]);
-      }
+      rgblight_set_sat(sat_tbl[10]);
       return false;
     case HSV_86_255_129:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[11]);
-      }
+      rgblight_set_sat(sat_tbl[11]);
       return false;
     case HSV_86_255_146:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[12]);
-      }
+      rgblight_set_sat(sat_tbl[12]);
       return false;
     case HSV_86_255_140:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[13]);
-      }
+      rgblight_set_sat(sat_tbl[13]);
       return false;
     case HSV_86_255_134:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[14]);
-      }
+      rgblight_set_sat(sat_tbl[14]);
       return false;
     case HSV_86_255_128:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[15]);
-      }
+      rgblight_set_sat(sat_tbl[15]);
       return false;
     case HSV_86_255_145:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[16]);
-      }
+      rgblight_set_sat(sat_tbl[16]);
       return false;
     case HSV_86_255_139:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[17]);
-      }
+      rgblight_set_sat(sat_tbl[17]);
       return false;
     case HSV_86_255_133:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[18]);
-      }
+      rgblight_set_sat(sat_tbl[18]);
       return false;
     case HSV_86_255_127:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[19]);
-      }
+      rgblight_set_sat(sat_tbl[19]);
       return false;
     case HSV_86_255_144:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[20]);
-      }
+      rgblight_set_sat(sat_tbl[20]);
       return false;
     case HSV_86_255_138:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[21]);
-      }
+      rgblight_set_sat(sat_tbl[21]);
       return false;
     case HSV_86_255_132:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[22]);
-      }
+      rgblight_set_sat(sat_tbl[22]);
       return false;
     case HSV_86_255_126:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[23]);
-      }
+      rgblight_set_sat(sat_tbl[23]);
       return false;
     case HSV_86_255_123:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[24]);
-      }
+      rgblight_set_sat(sat_tbl[24]);
       return false;
     case HSV_86_255_117:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[25]);
-      }
+      rgblight_set_sat(sat_tbl[25]);
       return false;
     case HSV_86_255_111:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[26]);
-      }
+      rgblight_set_sat(sat_tbl[26]);
       return false;
     case HSV_86_255_105:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[27]);
-      }
+      rgblight_set_sat(sat_tbl[27]);
       return false;
     case HSV_86_255_122:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[28]);
-      }
+      rgblight_set_sat(sat_tbl[28]);
       return false;
     case HSV_86_255_116:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[29]);
-      }
+      rgblight_set_sat(sat_tbl[29]);
       return false;
     case HSV_86_255_110:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[30]);
-      }
+      rgblight_set_sat(sat_tbl[30]);
       return false;
     case HSV_86_255_104:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[31]);
-      }
+      rgblight_set_sat(sat_tbl[31]);
       return false;
     case HSV_86_255_121:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[32]);
-      }
+      rgblight_set_sat(sat_tbl[32]);
       return false;
     case HSV_86_255_115:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[33]);
-      }
+      rgblight_set_sat(sat_tbl[33]);
       return false;
     case HSV_86_255_109:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[34]);
-      }
+      rgblight_set_sat(sat_tbl[34]);
       return false;
     case HSV_86_255_103:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[35]);
-      }
+      rgblight_set_sat(sat_tbl[35]);
       return false;
     case HSV_86_255_120:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[36]);
-      }
+      rgblight_set_sat(sat_tbl[36]);
       return false;
     case HSV_86_255_114:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[37]);
-      }
+      rgblight_set_sat(sat_tbl[37]);
       return false;
     case HSV_86_255_108:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[38]);
-      }
+      rgblight_set_sat(sat_tbl[38]);
       return false;
     case HSV_86_255_102:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[39]);
-      }
+      rgblight_set_sat(sat_tbl[39]);
       return false;
     case HSV_86_255_119:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[40]);
-      }
+      rgblight_set_sat(sat_tbl[40]);
       return false;
     case HSV_86_255_113:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[41]);
-      }
+      rgblight_set_sat(sat_tbl[41]);
       return false;
     case HSV_86_255_107:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[42]);
-      }
+      rgblight_set_sat(sat_tbl[42]);
       return false;
     case HSV_86_255_101:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[43]);
-      }
+      rgblight_set_sat(sat_tbl[43]);
       return false;
     case HSV_86_255_118:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[44]);
-      }
+      rgblight_set_sat(sat_tbl[44]);
       return false;
     case HSV_86_255_112:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[45]);
-      }
+      rgblight_set_sat(sat_tbl[45]);
       return false;
     case HSV_86_255_106:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[46]);
-      }
+      rgblight_set_sat(sat_tbl[46]);
       return false;
     case HSV_86_255_100:
-      if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[47]);
-      }
+      rgblight_set_sat(sat_tbl[47]);
       return false;
-
     case HSV_86_255_151:
-      if (record->event.pressed) {
-        //rgblight_save_eeprom();
-      }
+      //rgblight_save_eeprom();
       return false;
   }
+}
   switch (keycode) {
 
     // Val value
