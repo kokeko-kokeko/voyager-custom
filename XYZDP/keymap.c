@@ -2787,8 +2787,12 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
-    
-    
+    case HSV_0_255_151:
+      if (record->event.pressed) {
+        rgblight_load_preset();
+      }
+      return false;
+
     // Sat value
     case HSV_86_255_100:
       if (record->event.pressed) {
@@ -3029,6 +3033,12 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
     case HSV_86_255_149:
       if (record->event.pressed) {
         rgblight_set_sat(sat_tbl[0]);
+      }
+      return false;
+
+    case HSV_86_255_151:
+      if (record->event.pressed) {
+        //rgblight_save_eeprom();
       }
       return false;
 
@@ -3275,6 +3285,12 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
+    case HSV_172_255_151:
+      if (record->event.pressed) {
+        rgblight_save_eeprom();
+      }
+      return false;
+
     //FwSys
     case HSV_43_255_100:
       if (record->event.pressed) {
@@ -3432,26 +3448,6 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode_noeeprom(1);
-      }
-      return false;
-    
-    // Thumb special key
-    // Hue
-    case HSV_0_255_151:
-      if (record->event.pressed) {
-        rgblight_load_preset();
-      }
-      return false;
-    // Sat
-    case HSV_86_255_151:
-      if (record->event.pressed) {
-        //rgblight_save_eeprom();
-      }
-      return false;
-    // Val
-    case HSV_172_255_151:
-      if (record->event.pressed) {
-        rgblight_save_eeprom();
       }
       return false;
   }
