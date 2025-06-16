@@ -2224,12 +2224,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     // Base (ANSI)
     case 0:
-    // Base (JIS)
-    case 1:
       status_led(0b1111, NULL, 0);
       break;
-    // Shift
+    // Shift (ANSI) 
+    case 1:
+      status_led(0b0011, NULL, 0);
+      status_led(0b1100, led_pattern_on, 0);
+      break;
+    // Base (JIS)
     case 2:
+      status_led(0b1111, NULL, 0);
+      break;
+    // Shift (JIS) 
     case 3:
       status_led(0b0011, NULL, 0);
       status_led(0b1100, led_pattern_on, 0);
