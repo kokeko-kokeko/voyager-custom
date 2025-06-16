@@ -2380,6 +2380,7 @@ extern rgb_config_t rgb_matrix_config;
 // qmk callback function
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
+  set_single_default_layer(0);
 }
 
 bool rgb_matrix_indicators_user(void) {
@@ -3265,6 +3266,19 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
     case HSV_172_255_147:
       if (record->event.pressed) {
         rgblight_set_val(val_tbl[47]);
+      }
+      return false;
+
+    //FwSys
+    case HSV_43_255_100:
+      if (record->event.pressed) {
+        set_single_default_layer(0);
+      }
+      return false;
+
+    case HSV_43_255_106:
+      if (record->event.pressed) {
+        set_single_default_layer(2);
       }
       return false;
 
