@@ -2380,7 +2380,7 @@ extern rgb_config_t rgb_matrix_config;
 // qmk callback function
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
-  default_layer_set(1 << 0);
+  layer_move(0);
 }
 
 bool rgb_matrix_indicators_user(void) {
@@ -3272,13 +3272,13 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
     //FwSys
     case HSV_43_255_100:
       if (record->event.pressed) {
-        default_layer_set(1 << 0);
+        layer_move(0);
       }
       return false;
 
     case HSV_43_255_106:
       if (record->event.pressed) {
-        default_layer_set(1 << 2);
+        layer_move(2);
       }
       return false;
 
