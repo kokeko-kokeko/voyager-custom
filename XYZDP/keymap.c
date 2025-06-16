@@ -2529,8 +2529,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       if (layer_state_cmp(state, 2)) {
         //JIS base enable
         status_led(0b0010, led_pattern_on, 0);
-      } else {
-        //other
+      } else if (layer_state_cmp(state, 0)) {
+        //ANSI base
         status_led(0b1000, led_pattern_on, 0);
       }
       break;
