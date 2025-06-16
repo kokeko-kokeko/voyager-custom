@@ -3272,13 +3272,13 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
     //FwSys
     case HSV_43_255_100:
       if (record->event.pressed) {
-        switch_default_layer(0);
+        default_layer_set(1 << 0);
       }
       return false;
 
     case HSV_43_255_106:
       if (record->event.pressed) {
-        switch_default_layer(2);
+        default_layer_set(1 << 2);
       }
       return false;
 
