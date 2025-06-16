@@ -2380,7 +2380,7 @@ extern rgb_config_t rgb_matrix_config;
 // qmk callback function
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
-  switch_default_layer(0);
+  default_layer_set(1 << 0);
 }
 
 bool rgb_matrix_indicators_user(void) {
