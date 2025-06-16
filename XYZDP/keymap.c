@@ -2791,7 +2791,9 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
         rgblight_load_preset();
       }
       return false;
+  }
 
+  switch (keycode) {
     // Sat value
     case HSV_86_255_149:
       if (record->event.pressed) {
@@ -3039,6 +3041,8 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
         //rgblight_save_eeprom();
       }
       return false;
+  }
+  switch (keycode) {
 
     // Val value
     case HSV_172_255_149:
@@ -3287,7 +3291,9 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
         rgblight_save_eeprom();
       }
       return false;
+  }
 
+  switch (keycode) {
     //FwSys
     case HSV_43_255_100:
       if (record->event.pressed) {
@@ -3390,7 +3396,9 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
 
     case HSV_43_255_151:
       return false;
+  }
 
+  switch (keycode) {
     //RGB inc/dec no eeprom over write
     case RGB_HUI:
       if (record->event.pressed) {
@@ -3448,6 +3456,7 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
   }
+
   return true;
 }
 
