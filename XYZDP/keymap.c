@@ -2802,7 +2802,7 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_86_255_102:
       if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[38]);
+        rgblight_set_sat(sat_tbl[39]);
       }
       return false;
     case HSV_86_255_103:
@@ -2902,7 +2902,7 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_86_255_122:
       if (record->event.pressed) {
-        rgblight_set_sat(sat_tbl[38]);
+        rgblight_set_sat(sat_tbl[28]);
       }
       return false;
     case HSV_86_255_123:
