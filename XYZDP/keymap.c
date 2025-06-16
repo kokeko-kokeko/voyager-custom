@@ -3002,109 +3002,76 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
     }
   }
 
-  switch (keycode) {
-    //FwSys
-    case HSV_43_255_100:
-      if (record->event.pressed) {
+  //FwSys
+  if (record->event.pressed) {
+    switch (keycode) {
+      case HSV_43_255_100:
         layer_move(0);
-      }
-      return false;
-    
-    case HSV_43_255_101:
-      return false;
-
-    case HSV_43_255_102:
-      return false;
-    
-    case HSV_43_255_103:
-      return false;
-
-    case HSV_43_255_104:
-      return false;
-
-    case HSV_43_255_105:
-      return false;
-
-    case HSV_43_255_106:
-      if (record->event.pressed) {
+        return false;
+      case HSV_43_255_101:
+        return false;
+      case HSV_43_255_102:
+        return false;
+      case HSV_43_255_103:
+        return false;
+      case HSV_43_255_104:
+        return false;
+      case HSV_43_255_105:
+        return false;
+      case HSV_43_255_106:
         layer_move(2);
-      }
-      return false;
-
-    case HSV_43_255_107:
-      return false;
-
-    case HSV_43_255_108:
-      return false;
-
-    case HSV_43_255_109:
-      return false;
-
-    case HSV_43_255_110:
-      return false;
-
-    case HSV_43_255_111:
-      return false;
-
-    case HSV_43_255_112:
-      return false;
-
-    case HSV_43_255_113:
-      return false;
-
-    case HSV_43_255_114:
-      return false;
-
-    case HSV_43_255_115:
-      return false;
-
-    case HSV_43_255_116:
-      return false;
-
-    case HSV_43_255_117:
-      return false;
-
-    case HSV_43_255_118:
-      return false;
-
-    case HSV_43_255_119:
-      return false;
-
-    case HSV_43_255_120:
-      return false;
-
-    case HSV_43_255_124:
-      return false;
-
-    case HSV_43_255_129:
-      return false;
-
-    case HSV_43_255_130:
-      return false;
-
-    case HSV_43_255_136:
-      return false;
-
-    case HSV_43_255_140:
-      return false;
-
-    case HSV_43_255_141:
-      return false;
-
-    case HSV_43_255_142:
-      return false;
-
-    case HSV_43_255_143:
-      return false;
-
-    case HSV_43_255_146:
-      return false;
-
-    case HSV_43_255_150:
-      return false;
-
-    case HSV_43_255_151:
-      return false;
+        return false;
+      case HSV_43_255_107:
+        return false;
+      case HSV_43_255_108:
+        return false;
+      case HSV_43_255_109:
+        return false;
+      case HSV_43_255_110:
+        return false;
+      case HSV_43_255_111:
+        return false;
+      case HSV_43_255_112:
+        return false;
+      case HSV_43_255_113:
+        return false;
+      case HSV_43_255_114:
+        return false;
+      case HSV_43_255_115:
+        return false;
+      case HSV_43_255_116:
+        return false;
+      case HSV_43_255_117:
+        return false;
+      case HSV_43_255_118:
+        return false;
+      case HSV_43_255_119:
+        return false;
+      case HSV_43_255_120:
+        return false;
+      case HSV_43_255_124:
+        return false;
+      case HSV_43_255_129:
+        return false;
+      case HSV_43_255_130:
+        return false;
+      case HSV_43_255_136:
+        return false;
+      case HSV_43_255_140:
+        return false;
+      case HSV_43_255_141:
+        return false;
+      case HSV_43_255_142:
+        return false;
+      case HSV_43_255_143:
+        return false;
+      case HSV_43_255_146:
+        return false;
+      case HSV_43_255_150:
+        return false;
+      case HSV_43_255_151:
+        return false;
+    }
   }
 
   switch (keycode) {
