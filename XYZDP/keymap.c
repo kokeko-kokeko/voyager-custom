@@ -3074,63 +3074,43 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
     }
   }
 
-  switch (keycode) {
-    //RGB inc/dec no eeprom over write
-    case RGB_HUI:
-      if (record->event.pressed) {
+  //RGB inc/dec no eeprom over write
+  if (record->event.pressed) {
+    switch (keycode) {
+      case RGB_HUI:
         rgblight_increase_hue_noeeprom();
-      }
-      return false;
-    case RGB_HUD:
-      if (record->event.pressed) {
+        return false;
+      case RGB_HUD:
         rgblight_decrease_hue_noeeprom();
-      }
-      return false;
-    case RGB_SAI:
-      if (record->event.pressed) {
+        return false;
+      case RGB_SAI:
         rgblight_increase_sat_noeeprom();
-      }
-      return false;
-    case RGB_SAD:
-      if (record->event.pressed) {
+        return false;
+      case RGB_SAD:
         rgblight_decrease_sat_noeeprom();
-      }
-      return false;
-    case RGB_VAI:
-      if (record->event.pressed) {
+        return false;
+      case RGB_VAI:
         rgblight_increase_val_noeeprom();
-      }
-      return false;
-    case RGB_VAD:
-      if (record->event.pressed) {
+        return false;
+      case RGB_VAD:
         rgblight_decrease_val_noeeprom();
-      }
-      return false;
-    case RGB_SPI:
-      if (record->event.pressed) {
+        return false;
+      case RGB_SPI:
         rgblight_increase_speed_noeeprom();
-      }
-      return false;
-    case RGB_SPD:
-      if (record->event.pressed) {
+        return false;
+      case RGB_SPD:
         rgblight_decrease_speed_noeeprom();
-      }
-      return false;
-    case RGB_TOG:
-      if (record->event.pressed) {
+        return false;
+      case RGB_TOG:
         rgblight_toggle_noeeprom();
-      }
-      return false;
-    case RGB_MODE_FORWARD:
-      if (record->event.pressed) {
+        return false;
+      case RGB_MODE_FORWARD:
         rgblight_step_noeeprom();
-      }
-      return false;
-    case RGB_SLD:
-      if (record->event.pressed) {
+        return false;
+      case RGB_SLD:
         rgblight_mode_noeeprom(1);
-      }
-      return false;
+        return false;
+    }
   }
 
   return true;
