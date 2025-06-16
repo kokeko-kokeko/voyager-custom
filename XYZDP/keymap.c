@@ -2301,7 +2301,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         status_led(0b0101, led_pattern_oneshot, 0);
       }
       
-      if (layer_state_cmp(state, 1)) {
+      if (layer_state_cmp(state, 2)) {
         //JIS base enable
         status_led(0b0010, led_pattern_on, 0);
       } else {
