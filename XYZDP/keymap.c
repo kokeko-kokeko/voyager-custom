@@ -1446,10 +1446,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case OS_WINDOWS:
           status_led(0b0001, led_pattern_on, 0);
           break;
-        case OS_IOS:
-          status_led(0b0100, led_pattern_on, 0);
-          status_led(0b0001, led_pattern_blink, 0);
-          break;
         case OS_LINUX:
           status_led(0b0001, led_pattern_on, 0);
           status_led(0b0100, led_pattern_blink, 0);
@@ -1457,6 +1453,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case OS_MACOS:
           status_led(0b0100, led_pattern_on, 0);
           break;
+        case OS_IOS:
+          status_led(0b0100, led_pattern_on, 0);
+          status_led(0b0001, led_pattern_blink, 0);
+          break;        
         case OS_UNSURE:
           status_led(0b0101, NULL, 0);
           break;
