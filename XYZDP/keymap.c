@@ -484,10 +484,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 // additional keycode process (declaration before use)
-static bool process_record_additional(uint16_t keycode, keyrecord_t *record);
+static bool process_record_addition(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_record_additional(keycode, record)) {
+  if (!process_record_addition(keycode, record)) {
     return false;
   }
   switch (keycode) {
@@ -1474,7 +1474,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
-static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
+static bool process_record_addition(uint16_t keycode, keyrecord_t *record) {
   // Hue value
   switch (keycode) {  
     case HSV_0_255_149:
