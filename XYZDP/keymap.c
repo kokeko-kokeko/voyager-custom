@@ -1441,22 +1441,28 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // FwSys
     case 31:
       status_led(0b1111, NULL, 0);
-      
-      os_variant_t host = detected_host_os();
-      if (host == OS_WINDOWS) {
-        status_led(0b0001, led_pattern_on, 0);
-      } else if (host == OS_IOS) {
-        status_led(0b0100, led_pattern_on, 0);
-        status_led(0b0001, led_pattern_blink, 0);
-      } else if (host == OS_LINUX) {
-        status_led(0b0001, led_pattern_on, 0);
-        status_led(0b0100, led_pattern_blink, 0);
-      } else if (host == OS_MACOS) {
-        status_led(0b0100, led_pattern_on, 0);
-      } else if (host == OS_UNSURE) {
-        status_led(0b0101, NULL, 0);
-      } else {
-        status_led(0b0101, led_pattern_oneshot, 0);
+
+      switch (detected_host_os()) {
+        case OS_WINDOWS:
+          status_led(0b0001, led_pattern_on, 0);
+          break;
+        case OS_IOS:
+          status_led(0b0100, led_pattern_on, 0);
+          status_led(0b0001, led_pattern_blink, 0);
+          break;
+        case OS_LINUX:
+          status_led(0b0001, led_pattern_on, 0);
+          status_led(0b0100, led_pattern_blink, 0);
+          break;
+        case OS_MACOS:
+          status_led(0b0100, led_pattern_on, 0);
+          break;
+        case OS_UNSURE:
+          status_led(0b0101, NULL, 0);
+          break;
+        default:
+          status_led(0b0101, led_pattern_oneshot, 0);
+          break;
       }
       
       if (layer_state_cmp(state, 2)) {
@@ -2036,7 +2042,6 @@ static bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
   
-
   return true;
 }
 
