@@ -1003,16 +1003,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }  
       return false;
 
-
-
-
     
     // delete ORYX's HSV code
 
 
-
-
-    
   }
   return true;
 }
