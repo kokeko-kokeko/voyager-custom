@@ -1475,8 +1475,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 static bool process_record_add(uint16_t keycode, keyrecord_t *record) {
-  // Hue value
-  switch (keycode) {  
+  // Hue map
+  switch (keycode) {
     case HSV_0_255_149:
       if (record->event.pressed) rgblight_set_hue(hue_tbl[0]);
       return false;
@@ -1626,7 +1626,7 @@ static bool process_record_add(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
     
-  // Sat value
+  // Sat map
   switch (keycode) {
     case HSV_86_255_149:
       if (record->event.pressed) rgblight_set_sat(sat_tbl[0]);
@@ -1777,7 +1777,7 @@ static bool process_record_add(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
 
-  // Val value
+  // Val map
   switch (keycode) {
     case HSV_172_255_149:
       if (record->event.pressed) rgblight_set_val(val_tbl[0]);
