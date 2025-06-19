@@ -1394,7 +1394,7 @@ extern rgb_config_t rgb_matrix_config;
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
   // explicit move to ANSI
-  layer_move(0);
+  //layer_move(0);
   key_overrides = key_overrides_ansi;
 }
 
@@ -2020,7 +2020,7 @@ static bool process_record_add(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case HSV_43_255_100:
       if (record->event.pressed) {
-        layer_move(0);
+        //layer_move(0);
         key_overrides = key_overrides_ansi;
       }
       return false;
@@ -2036,7 +2036,7 @@ static bool process_record_add(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_43_255_106:
       if (record->event.pressed) {
-        layer_move(2);
+        //layer_move(2);
         key_overrides = key_overrides_jis;
       }
       return false;
