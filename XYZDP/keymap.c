@@ -1240,7 +1240,7 @@ tap_dance_action_t tap_dance_actions[] = {
 // keymap ovverride (process Engram symbol and ANSI/JIS)
 // init on keyboard_post_init_user
 
-// base (both over write une kp code)
+// base (both override use non-use kp code)
 const key_override_t ko_ansi_kp_1s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_1, KC_GRV);
 const key_override_t ko_ansi_kp_1  = ko_make_basic(             0, KC_KP_1, KC_AT);
 const key_override_t ko_ansi_kp_2s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_2, KC_DLR);
@@ -1259,7 +1259,7 @@ const key_override_t ko_ansi_kp_8s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_8, KC_C
 const key_override_t ko_ansi_kp_8  = ko_make_basic(             0, KC_KP_8, KC_DOT);
 const key_override_t ko_ansi_kp_9s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_9, KC_EXLM);
 const key_override_t ko_ansi_kp_9  = ko_make_basic(             0, KC_KP_9, KC_QUES);
-// number (only shift)
+// number (only shift side)
 const key_override_t ko_ansi_1s = ko_make_basic(MOD_MASK_SHIFT, KC_1, KC_PIPE);
 const key_override_t ko_ansi_2s = ko_make_basic(MOD_MASK_SHIFT, KC_2, KC_EQL);
 const key_override_t ko_ansi_3s = ko_make_basic(MOD_MASK_SHIFT, KC_3, KC_TILD);
@@ -1271,7 +1271,6 @@ const key_override_t ko_ansi_8s = ko_make_basic(MOD_MASK_SHIFT, KC_8, KC_AMPR);
 const key_override_t ko_ansi_9s = ko_make_basic(MOD_MASK_SHIFT, KC_9, KC_PERC);
 const key_override_t ko_ansi_0s = ko_make_basic(MOD_MASK_SHIFT, KC_0, KC_ASTR);
 
-
 const key_override_t **key_overrides_ansi =
 (const key_override_t *[]){ &ko_ansi_kp_1s, &ko_ansi_kp_1, &ko_ansi_kp_2s, &ko_ansi_kp_2, &ko_ansi_kp_3s, &ko_ansi_kp_3, &ko_ansi_kp_4s, &ko_ansi_kp_4,
                             &ko_ansi_kp_5s, &ko_ansi_kp_5, &ko_ansi_kp_6s, &ko_ansi_kp_6, &ko_ansi_kp_7s, &ko_ansi_kp_7, &ko_ansi_kp_8s, &ko_ansi_kp_8,
@@ -1280,6 +1279,7 @@ const key_override_t **key_overrides_ansi =
                             &ko_ansi_6s, &ko_ansi_7s, &ko_ansi_8s, &ko_ansi_9s, &ko_ansi_0s,
                             NULL};
 
+// base (both override use non-use kp code)
 const key_override_t ko_jis_kp_1s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_1, JP_GRV);
 const key_override_t ko_jis_kp_1  = ko_make_basic(             0, KC_KP_1, JP_AT);
 const key_override_t ko_jis_kp_2s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_2, JP_DLR);
@@ -1298,7 +1298,7 @@ const key_override_t ko_jis_kp_8s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_8, JP_CO
 const key_override_t ko_jis_kp_8  = ko_make_basic(             0, KC_KP_8, JP_DOT);
 const key_override_t ko_jis_kp_9s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_9, JP_EXLM);
 const key_override_t ko_jis_kp_9  = ko_make_basic(             0, KC_KP_9, JP_QUES);
-// number (only shift)
+// number (only shift side)
 const key_override_t ko_jis_1s = ko_make_basic(MOD_MASK_SHIFT, KC_1, JP_PIPE);
 const key_override_t ko_jis_2s = ko_make_basic(MOD_MASK_SHIFT, KC_2, JP_EQL);
 const key_override_t ko_jis_3s = ko_make_basic(MOD_MASK_SHIFT, KC_3, JP_TILD);
