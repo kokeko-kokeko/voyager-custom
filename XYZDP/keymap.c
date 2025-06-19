@@ -1319,6 +1319,7 @@ void keyboard_post_init_user(void) {
   rgb_matrix_enable();
   // explicit move to ANSI
   layer_move(0);
+  key_overrides = key_overrides_ansi;
 }
 
 bool rgb_matrix_indicators_user(void) {
@@ -1470,10 +1471,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
           break;
       }
       
-      if (layer_state_cmp(state, 2)) {
+      if (key_overrides == key_overrides_jis) {
         //JIS base enable
         status_led(0b0010, led_pattern_on, 0);
-      } else if (layer_state_cmp(state, 0)) {
+      } else if (key_overrides == key_overrides_ansi) {
         //ANSI base
         status_led(0b1000, led_pattern_on, 0);
       }
