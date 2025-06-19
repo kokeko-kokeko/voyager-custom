@@ -1309,6 +1309,11 @@ const key_override_t ko_jis_7s = ko_make_basic(MOD_MASK_SHIFT, KC_7, JP_CIRC);
 const key_override_t ko_jis_8s = ko_make_basic(MOD_MASK_SHIFT, KC_8, JP_AMPR);
 const key_override_t ko_jis_9s = ko_make_basic(MOD_MASK_SHIFT, KC_9, JP_PERC);
 const key_override_t ko_jis_0s = ko_make_basic(MOD_MASK_SHIFT, KC_0, JP_ASTR);
+// ANSI to JIS brc
+const key_override_t ko_jis_LBRCs = ko_make_basic(MOD_MASK_SHIFT, KC_LBRC, JP_LCBR);
+const key_override_t ko_jis_LBRC  = ko_make_basic(             0, KC_LBRC, JP_LBRC);
+const key_override_t ko_jis_RBRCs = ko_make_basic(MOD_MASK_SHIFT, KC_RBRC, JP_RCBR);
+const key_override_t ko_jis_RBRC  = ko_make_basic(             0, KC_RBRC, JP_RBRC);
 
 const key_override_t **key_overrides_jis =
 (const key_override_t *[]){ &ko_jis_kp_1s, &ko_jis_kp_1, &ko_jis_kp_2s, &ko_jis_kp_2, &ko_jis_kp_3s, &ko_jis_kp_3, &ko_jis_kp_4s, &ko_jis_kp_4,
@@ -1316,6 +1321,7 @@ const key_override_t **key_overrides_jis =
                             &ko_jis_kp_9s, &ko_jis_kp_9,
                             &ko_jis_1s, &ko_jis_2s, &ko_jis_3s, &ko_jis_4s, &ko_jis_5s,
                             &ko_jis_6s, &ko_jis_7s, &ko_jis_8s, &ko_jis_9s, &ko_jis_0s,
+                            &ko_jis_LBRCs, &ko_jis_LBRC, &ko_jis_RBRCs, &ko_jis_RBRC,
                             NULL};
 
 // declaration for qmk function
