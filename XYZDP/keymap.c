@@ -2537,50 +2537,31 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case 0:
       status_led(0b1111, NULL, 0);
       break;
-    // Shift (ANSI) 
-    case 1:
-      status_led(0b0011, NULL, 0);
-      status_led(0b1100, led_pattern_on, 0);
-      break;
-    // Base (JIS)
-    case 2:
-      status_led(0b1111, NULL, 0);
-      break;
-    // Shift (JIS) 
-    case 3:
-      status_led(0b0011, NULL, 0);
-      status_led(0b1100, led_pattern_on, 0);
-      break;
     // Num
-    case 4:
-    case 5:
+    case 1:
       status_led(0b1100, NULL, 0);
       status_led(0b0010, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
       break;
     // Bkt
-    case 6:
-    case 7:
+    case 2:
       status_led(0b1100, NULL, 0);
       status_led(0b0001, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
       break;
     // Fn
-    case 8:
-    case 9:
+    case 3:
       status_led(0b1100, NULL, 0);
       status_led(0b0011, led_pattern_on, 0);
       break;
     // Lcur
-    case 10:
-    case 11:
+    case 4:
       status_led(0b0110, NULL, 0);
       status_led(0b1000, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
       break;
     // Rcur
-    case 12:
-    case 13:
+    case 5:
       status_led(0b1001, NULL, 0);
       status_led(0b0100, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
