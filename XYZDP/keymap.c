@@ -1237,6 +1237,11 @@ tap_dance_action_t tap_dance_actions[] = {
 // additional 
 //
 
+// keymap ovverride
+
+const key_override_t **key_overrides = (const key_override_t *[]){
+NULL};
+
 // declaration for qmk function
 static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t init_delay_ms);
 
