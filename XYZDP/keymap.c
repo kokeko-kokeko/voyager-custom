@@ -1867,6 +1867,8 @@ tap_dance_action_t tap_dance_actions[] = {
 // additional 
 //
 
+#include "keymap_japanese.h"
+
 // keymap ovverride (process Engram symbol and ANSI/JIS)
 // init on keyboard_post_init_user
 
