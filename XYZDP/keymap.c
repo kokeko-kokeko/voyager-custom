@@ -1239,13 +1239,10 @@ tap_dance_action_t tap_dance_actions[] = {
 
 // keymap ovverride (process Engram symbol and ANSI/JIS)
 
-const key_override_t *key_overrides_ansi[] = (const key_override_t *[]){
+const key_override_t **key_overrides_ansi = (const key_override_t *[]){
 NULL};
 
-const key_override_t *key_overrides_jis[] = (const key_override_t *[]){
-NULL};
-
-const key_override_t *key_overrides[] = (const key_override_t *[]){
+const key_override_t **key_overrides_jis = (const key_override_t *[]){
 NULL};
 
 // declaration for qmk function
