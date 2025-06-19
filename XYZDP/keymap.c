@@ -1240,18 +1240,36 @@ tap_dance_action_t tap_dance_actions[] = {
 // keymap ovverride (process Engram symbol and ANSI/JIS)
 // init on keyboard_post_init_user
 
-const key_override_t ko_ansi_0 = ko_make_basic(MOD_MASK_SHIFT, KC_KP_1, KC_GRV);
-const key_override_t ko_ansi_1 = ko_make_basic(0, KC_KP_1, KC_AT);
+const key_override_t ko_ansi_1s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_1, KC_GRV);
+const key_override_t ko_ansi_1  = ko_make_basic(             0, KC_KP_1, KC_AT);
+const key_override_t ko_ansi_2s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_2, KC_DLR);
+const key_override_t ko_ansi_2  = ko_make_basic(             0, KC_KP_2, KC_HASH);
+const key_override_t ko_ansi_3s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_3, KC_LPRN);
+const key_override_t ko_ansi_3  = ko_make_basic(             0, KC_KP_3, KC_QUOTE);
+const key_override_t ko_ansi_4s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_4, KC_SCLN);
+const key_override_t ko_ansi_4  = ko_make_basic(             0, KC_KP_4, KC_COMMA);
+const key_override_t ko_ansi_5s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_5, KC_UNDS);
+const key_override_t ko_ansi_5  = ko_make_basic(             0, KC_KP_5, KC_MINUS);
 
 const key_override_t **key_overrides_ansi =
-(const key_override_t *[]){ &ko_ansi_0, &ko_ansi_1,
+(const key_override_t *[]){ &ko_ansi_1s, &ko_ansi_1, &ko_ansi_2s, &ko_ansi_2, &ko_ansi_3s, &ko_ansi_3, &ko_ansi_4s, &ko_ansi_4,
+                            &ko_ansi_5s, &ko_ansi_5,
                             NULL};
 
-const key_override_t ko_jis_0 = ko_make_basic(MOD_MASK_SHIFT, KC_KP_1, JP_GRV);
-const key_override_t ko_jis_1 = ko_make_basic(0, KC_KP_1, JP_AT);
+const key_override_t ko_jis_1s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_1, JP_GRV);
+const key_override_t ko_jis_1  = ko_make_basic(             0, KC_KP_1, JP_AT);
+const key_override_t ko_jis_2s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_2, JP_DLR);
+const key_override_t ko_jis_2  = ko_make_basic(             0, KC_KP_2, JP_HASH);
+const key_override_t ko_jis_3s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_3, JP_LPRN);
+const key_override_t ko_jis_3  = ko_make_basic(             0, KC_KP_3, JP_QUOTE);
+const key_override_t ko_jis_4s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_4, JP_SCLN);
+const key_override_t ko_jis_4  = ko_make_basic(             0, KC_KP_4, JP_COMMA);
+const key_override_t ko_jis_5s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_5, JP_UNDS);
+const key_override_t ko_jis_5  = ko_make_basic(             0, KC_KP_5, JP_MINUS);
 
 const key_override_t **key_overrides_jis =
-(const key_override_t *[]){ &ko_jis_0, &ko_jis_1,
+(const key_override_t *[]){ &ko_jis_1s, &ko_jis_1, &ko_jis_2s, &ko_jis_2, &ko_jis_3s, &ko_jis_3, &ko_jis_4s, &ko_jis_4,
+                            &ko_jis_5s, &ko_jis_5,
                             NULL};
 
 // declaration for qmk function
