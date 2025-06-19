@@ -1251,7 +1251,7 @@ const key_override_t ko_jis_0 = ko_make_basic(MOD_MASK_SHIFT, KC_KP_1, JP_GRV);
 const key_override_t ko_jis_1 = ko_make_basic(0, KC_KP_1, JP_AT);
 
 const key_override_t **key_overrides_jis =
-(const key_override_t *[]){ ko_jis_0, &ko_jis_1,
+(const key_override_t *[]){ &ko_jis_0, &ko_jis_1,
                             NULL};
 
 // declaration for qmk function
