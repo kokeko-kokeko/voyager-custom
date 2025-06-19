@@ -1238,6 +1238,7 @@ tap_dance_action_t tap_dance_actions[] = {
 //
 
 // keymap ovverride (process Engram symbol and ANSI/JIS)
+// init on keyboard_post_init_user
 
 const key_override_t **key_overrides_ansi = (const key_override_t *[]){
 NULL};
