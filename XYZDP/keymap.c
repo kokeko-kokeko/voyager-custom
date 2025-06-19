@@ -1240,11 +1240,19 @@ tap_dance_action_t tap_dance_actions[] = {
 // keymap ovverride (process Engram symbol and ANSI/JIS)
 // init on keyboard_post_init_user
 
-const key_override_t **key_overrides_ansi = (const key_override_t *[]){
-NULL};
+const key_override_t ko_ansi_0 = ko_make_basic(MOD_MASK_SHIFT, KC_KP_1, KC_GRV);
+const key_override_t ko_ansi_1 = ko_make_basic(0, KC_KP_1, KC_AT);
 
-const key_override_t **key_overrides_jis = (const key_override_t *[]){
-NULL};
+const key_override_t **key_overrides_ansi =
+(const key_override_t *[]){ &ko_ansi_0, &ko_ansi_1,
+                            NULL};
+
+const key_override_t ko_jis_0 = ko_make_basic(MOD_MASK_SHIFT, KC_KP_1, JP_GRV);
+const key_override_t ko_jis_1 = ko_make_basic(0, KC_KP_1, JP_AT);
+
+const key_override_t **key_overrides_jis =
+(const key_override_t *[]){ ko_jis_0, &ko_jis_1,
+                            NULL};
 
 // declaration for qmk function
 static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t init_delay_ms);
