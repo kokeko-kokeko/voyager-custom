@@ -1239,8 +1239,13 @@ tap_dance_action_t tap_dance_actions[] = {
 
 // keymap ovverride
 
-const key_override_t **key_overrides = (const key_override_t *[]){
+const key_override_t **key_overrides_ansi = (const key_override_t *[]){
 NULL};
+
+const key_override_t **key_overrides_jis = (const key_override_t *[]){
+NULL};
+
+const key_override_t **key_overrides = key_overrides_ansi;
 
 // declaration for qmk function
 static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t init_delay_ms);
@@ -1936,7 +1941,10 @@ static bool process_record_add(uint16_t keycode, keyrecord_t *record) {
   //FwSys
   switch (keycode) {
     case HSV_43_255_100:
-      if (record->event.pressed) layer_move(0);
+      if (record->event.pressed) {
+        layer_move(0);
+        key_overrides = key_overrides_ansi;
+      }
       return false;
     case HSV_43_255_101:
       return false;
@@ -1949,7 +1957,10 @@ static bool process_record_add(uint16_t keycode, keyrecord_t *record) {
     case HSV_43_255_105:
       return false;
     case HSV_43_255_106:
-      if (record->event.pressed) layer_move(2);
+      if (record->event.pressed) {
+        layer_move(2);
+        key_overrides = key_overrides_jis;
+      }
       return false;
     case HSV_43_255_107:
       return false;
