@@ -1870,7 +1870,7 @@ tap_dance_action_t tap_dance_actions[] = {
 // keymap ovverride (process Engram symbol and ANSI/JIS)
 // init on keyboard_post_init_user
 
-// base (both override use non-use kp code)
+// base (x and xs pair is shifted symbol, xs only overwrite shift)
 const key_override_t ko_ansi_base_1s = ko_make_with_layers(MOD_MASK_SHIFT, KC_1, KC_GRV,  1 << 0);
 const key_override_t ko_ansi_base_1  = ko_make_with_layers(             0, KC_1, KC_AT,   1 << 0);
 const key_override_t ko_ansi_base_2s = ko_make_with_layers(MOD_MASK_SHIFT, KC_2, KC_DLR,  1 << 0);
@@ -1887,7 +1887,7 @@ const key_override_t ko_ansi_base_COMMs = ko_make_with_layers(MOD_MASK_SHIFT, KC
 const key_override_t ko_ansi_base_DOTs = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT, KC_COLN, 1 << 0);
 const key_override_t ko_ansi_base_SLSHs = ko_make_with_layers(MOD_MASK_SHIFT, KC_SLSH, KC_BSLS, 1 << 0);
 
-// number (only shift side)
+// num (only shift override)
 const key_override_t ko_ansi_num_1s = ko_make_with_layers(MOD_MASK_SHIFT, KC_1, KC_PIPE, 1 << 1);
 const key_override_t ko_ansi_num_2s = ko_make_with_layers(MOD_MASK_SHIFT, KC_2, KC_EQL,  1 << 1);
 const key_override_t ko_ansi_num_3s = ko_make_with_layers(MOD_MASK_SHIFT, KC_3, KC_TILD, 1 << 1);
@@ -1908,36 +1908,34 @@ const key_override_t **key_overrides_ansi =
 
 #include "keymap_japanese.h"
 
-// base (both override use non-use kp code)
-const key_override_t ko_jis_kp_1s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_1, JP_GRV);
-const key_override_t ko_jis_kp_1  = ko_make_basic(             0, KC_KP_1, JP_AT);
-const key_override_t ko_jis_kp_2s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_2, JP_DLR);
-const key_override_t ko_jis_kp_2  = ko_make_basic(             0, KC_KP_2, JP_HASH);
-const key_override_t ko_jis_kp_3s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_3, JP_LPRN);
-const key_override_t ko_jis_kp_3  = ko_make_basic(             0, KC_KP_3, JP_QUOT);
-const key_override_t ko_jis_kp_4s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_4, JP_SCLN);
-const key_override_t ko_jis_kp_4  = ko_make_basic(             0, KC_KP_4, JP_COMM);
-const key_override_t ko_jis_kp_5s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_5, JP_UNDS);
-const key_override_t ko_jis_kp_5  = ko_make_basic(             0, KC_KP_5, JP_MINS);
-const key_override_t ko_jis_kp_6s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_6, JP_BSLS);
-const key_override_t ko_jis_kp_6  = ko_make_basic(             0, KC_KP_6, JP_SLSH);
-const key_override_t ko_jis_kp_7s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_7, JP_RPRN);
-const key_override_t ko_jis_kp_7  = ko_make_basic(             0, KC_KP_7, JP_DQUO);
-const key_override_t ko_jis_kp_8s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_8, JP_COLN);
-const key_override_t ko_jis_kp_8  = ko_make_basic(             0, KC_KP_8, JP_DOT);
-const key_override_t ko_jis_kp_9s = ko_make_basic(MOD_MASK_SHIFT, KC_KP_9, JP_EXLM);
-const key_override_t ko_jis_kp_9  = ko_make_basic(             0, KC_KP_9, JP_QUES);
-// number (only shift side)
-const key_override_t ko_jis_1s = ko_make_basic(MOD_MASK_SHIFT, KC_1, JP_PIPE);
-const key_override_t ko_jis_2s = ko_make_basic(MOD_MASK_SHIFT, KC_2, JP_EQL);
-const key_override_t ko_jis_3s = ko_make_basic(MOD_MASK_SHIFT, KC_3, JP_TILD);
-const key_override_t ko_jis_4s = ko_make_basic(MOD_MASK_SHIFT, KC_4, JP_PLUS);
-const key_override_t ko_jis_5s = ko_make_basic(MOD_MASK_SHIFT, KC_5, JP_LABK);
-const key_override_t ko_jis_6s = ko_make_basic(MOD_MASK_SHIFT, KC_6, JP_RABK);
-const key_override_t ko_jis_7s = ko_make_basic(MOD_MASK_SHIFT, KC_7, JP_CIRC);
-const key_override_t ko_jis_8s = ko_make_basic(MOD_MASK_SHIFT, KC_8, JP_AMPR);
-const key_override_t ko_jis_9s = ko_make_basic(MOD_MASK_SHIFT, KC_9, JP_PERC);
-const key_override_t ko_jis_0s = ko_make_basic(MOD_MASK_SHIFT, KC_0, JP_ASTR);
+// base (x and xs pair is shifted symbol, xs only overwrite shift)
+const key_override_t ko_jis_base_1s = ko_make_with_layers(MOD_MASK_SHIFT, KC_1, JP_GRV,  1 << 0);
+const key_override_t ko_jis_base_1  = ko_make_with_layers(             0, KC_1, JP_AT,   1 << 0);
+const key_override_t ko_jis_base_2s = ko_make_with_layers(MOD_MASK_SHIFT, KC_2, JP_DLR,  1 << 0);
+const key_override_t ko_jis_base_2  = ko_make_with_layers(             0, KC_2, JP_HASH, 1 << 0);
+const key_override_t ko_jis_base_3s = ko_make_with_layers(MOD_MASK_SHIFT, KC_3, JP_UNDS, 1 << 0);
+const key_override_t ko_jis_base_3  = ko_make_with_layers(             0, KC_3, JP_MINS, 1 << 0);
+const key_override_t ko_jis_base_4s = ko_make_with_layers(MOD_MASK_SHIFT, KC_4, JP_RPRN, 1 << 0);
+const key_override_t ko_jis_base_4  = ko_make_with_layers(             0, KC_4, JP_DQUO, 1 << 0);
+const key_override_t ko_jis_base_5s = ko_make_with_layers(MOD_MASK_SHIFT, KC_5, JP_EXLM, 1 << 0);
+const key_override_t ko_jis_base_5  = ko_make_with_layers(             0, KC_5, JP_QUES, 1 << 0);
+
+const key_override_t ko_jis_base_QUOTs = ko_make_with_layers(MOD_MASK_SHIFT, KC_QUOT, JP_LPRN, 1 << 0);
+const key_override_t ko_jis_base_COMMs = ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, JP_SCLN, 1 << 0);
+const key_override_t ko_jis_base_DOTs = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT, JP_COLN, 1 << 0);
+const key_override_t ko_jis_base_SLSHs = ko_make_with_layers(MOD_MASK_SHIFT, KC_SLSH, JP_BSLS, 1 << 0);
+
+// num (only shift override)
+const key_override_t ko_jis_num_1s = ko_make_with_layers(MOD_MASK_SHIFT, KC_1, JP_PIPE, 1 << 1);
+const key_override_t ko_jis_num_2s = ko_make_with_layers(MOD_MASK_SHIFT, KC_2, JP_EQL,  1 << 1);
+const key_override_t ko_jis_num_3s = ko_make_with_layers(MOD_MASK_SHIFT, KC_3, JP_TILD, 1 << 1);
+const key_override_t ko_jis_num_4s = ko_make_with_layers(MOD_MASK_SHIFT, KC_4, JP_PLUS, 1 << 1);
+const key_override_t ko_jis_num_5s = ko_make_with_layers(MOD_MASK_SHIFT, KC_5, JP_LABK, 1 << 1);
+const key_override_t ko_jis_num_6s = ko_make_with_layers(MOD_MASK_SHIFT, KC_6, JP_RABK, 1 << 1);
+const key_override_t ko_jis_num_7s = ko_make_with_layers(MOD_MASK_SHIFT, KC_7, JP_CIRC, 1 << 1);
+const key_override_t ko_jis_num_8s = ko_make_with_layers(MOD_MASK_SHIFT, KC_8, JP_AMPR, 1 << 1);
+const key_override_t ko_jis_num_9s = ko_make_with_layers(MOD_MASK_SHIFT, KC_9, JP_PERC, 1 << 1);
+const key_override_t ko_jis_num_0s = ko_make_with_layers(MOD_MASK_SHIFT, KC_0, JP_ASTR, 1 << 1);
 // ANSI to JIS brc
 const key_override_t ko_jis_LBRCs = ko_make_basic(MOD_MASK_SHIFT, KC_LBRC, JP_LCBR);
 const key_override_t ko_jis_LBRC  = ko_make_basic(             0, KC_LBRC, JP_LBRC);
@@ -1945,11 +1943,10 @@ const key_override_t ko_jis_RBRCs = ko_make_basic(MOD_MASK_SHIFT, KC_RBRC, JP_RC
 const key_override_t ko_jis_RBRC  = ko_make_basic(             0, KC_RBRC, JP_RBRC);
 
 const key_override_t **key_overrides_jis =
-(const key_override_t *[]){ &ko_jis_kp_1s, &ko_jis_kp_1, &ko_jis_kp_2s, &ko_jis_kp_2, &ko_jis_kp_3s, &ko_jis_kp_3, &ko_jis_kp_4s, &ko_jis_kp_4,
-                            &ko_jis_kp_5s, &ko_jis_kp_5, &ko_jis_kp_6s, &ko_jis_kp_6, &ko_jis_kp_7s, &ko_jis_kp_7, &ko_jis_kp_8s, &ko_jis_kp_8,
-                            &ko_jis_kp_9s, &ko_jis_kp_9,
-                            &ko_jis_1s, &ko_jis_2s, &ko_jis_3s, &ko_jis_4s, &ko_jis_5s,
-                            &ko_jis_6s, &ko_jis_7s, &ko_jis_8s, &ko_jis_9s, &ko_jis_0s,
+(const key_override_t *[]){ &ko_jis_base_1s, &ko_jis_base_1, &ko_jis_base_2s, &ko_jis_base_2, &ko_jis_base_3s, &ko_jis_base_3, &ko_jis_base_4s, &ko_jis_base_4, &ko_jis_base_5s, &ko_jis_base_5,
+                            &ko_jis_base_QUOTs, &ko_jis_base_COMMs, &ko_jis_base_DOTs, &ko_jis_base_SLSHs,
+                            &ko_jis_num_1s, &ko_jis_num_2s, &ko_jis_num_3s, &ko_jis_num_4s, &ko_jis_num_5s,
+                            &ko_jis_num_6s, &ko_jis_num_7s, &ko_jis_num_8s, &ko_jis_num_9s, &ko_jis_num_0s,
                             &ko_jis_LBRCs, &ko_jis_LBRC, &ko_jis_RBRCs, &ko_jis_RBRC,
                             NULL};
 
