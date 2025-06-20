@@ -1914,42 +1914,61 @@ const key_override_t ko_jis_base_COMMs = ko_make_with_layers(MOD_MASK_SHIFT, KC_
 const key_override_t ko_jis_base_DOTs = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT, JP_COLN, 1 << 0);
 const key_override_t ko_jis_base_SLSHs = ko_make_with_layers(MOD_MASK_SHIFT, KC_SLSH, JP_BSLS, 1 << 0);
 
+//unm
+const key_override_t ko_jis_num_a = ko_make_with_layers(0, KC_A, JP_PIPE, 1 << 1);
+const key_override_t ko_jis_num_b = ko_make_with_layers(0, KC_B, JP_EQL , 1 << 1);
+const key_override_t ko_jis_num_c = ko_make_with_layers(0, KC_C, JP_TILD, 1 << 1);
+const key_override_t ko_jis_num_d = ko_make_with_layers(0, KC_D, JP_PLUS, 1 << 1);
+const key_override_t ko_jis_num_e = ko_make_with_layers(0, KC_E, JP_LABK, 1 << 1);
+const key_override_t ko_jis_num_f = ko_make_with_layers(0, KC_F, JP_RABK, 1 << 1);
+const key_override_t ko_jis_num_g = ko_make_with_layers(0, KC_G, JP_CIRC, 1 << 1);
+const key_override_t ko_jis_num_h = ko_make_with_layers(0, KC_H, JP_AMPR, 1 << 1);
+const key_override_t ko_jis_num_i = ko_make_with_layers(0, KC_I, JP_PERC, 1 << 1);
+const key_override_t ko_jis_num_j = ko_make_with_layers(0, KC_J, JP_ASTR, 1 << 1);
+const key_override_t ko_jis_num_k = ko_make_with_layers(0, KC_K, JP_LBRC, 1 << 1);
+const key_override_t ko_jis_num_l = ko_make_with_layers(0, KC_L, JP_RBRC, 1 << 1);
+const key_override_t ko_jis_num_m = ko_make_with_layers(0, KC_M, JP_LCBR, 1 << 1);
+const key_override_t ko_jis_num_n = ko_make_with_layers(0, KC_N, JP_RCBR, 1 << 1);
+
 // ANSI to JIS
-const key_override_t ko_ansi_to_jis_0  = ko_make_with_layers_and_negmods(0, KC_GRV, JP_GRV, ~0, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_ansi_to_jis_1  = ko_make_with_layers_and_negmods(0, KC_MINS, JP_MINS, ~0, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_ansi_to_jis_2  = ko_make_with_layers_and_negmods(0, KC_EQL, JP_EQL, ~0, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_ansi_to_jis_3  = ko_make_with_layers_and_negmods(0, KC_LBRC , JP_LBRC, ~0, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_ansi_to_jis_4  = ko_make_with_layers_and_negmods(0, KC_RBRC , JP_RBRC, ~0, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_ansi_to_jis_5  = ko_make_with_layers_and_negmods(0, KC_BSLS , JP_BSLS, ~0, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_ansi_to_jis_6  = ko_make_with_layers_and_negmods(0, KC_SCLN , JP_SCLN, ~0, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_ansi_to_jis_7  = ko_make_with_layers_and_negmods(0, KC_QUOT , JP_QUOT, ~0, (uint8_t) MOD_MASK_SHIFT);
+//const key_override_t ko_ansi_to_jis_0  = ko_make_with_layers_and_negmods(0, KC_GRV, JP_GRV, ~0, (uint8_t) MOD_MASK_SHIFT);
+//const key_override_t ko_ansi_to_jis_1  = ko_make_with_layers_and_negmods(0, KC_MINS, JP_MINS, ~0, (uint8_t) MOD_MASK_SHIFT);
+//const key_override_t ko_ansi_to_jis_2  = ko_make_with_layers_and_negmods(0, KC_EQL, JP_EQL, ~0, (uint8_t) MOD_MASK_SHIFT);
+//const key_override_t ko_ansi_to_jis_3  = ko_make_with_layers_and_negmods(0, KC_LBRC , JP_LBRC, ~0, (uint8_t) MOD_MASK_SHIFT);
+//const key_override_t ko_ansi_to_jis_4  = ko_make_with_layers_and_negmods(0, KC_RBRC , JP_RBRC, ~0, (uint8_t) MOD_MASK_SHIFT);
+//const key_override_t ko_ansi_to_jis_5  = ko_make_with_layers_and_negmods(0, KC_BSLS , JP_BSLS, ~0, (uint8_t) MOD_MASK_SHIFT);
+//const key_override_t ko_ansi_to_jis_6  = ko_make_with_layers_and_negmods(0, KC_SCLN , JP_SCLN, ~0, (uint8_t) MOD_MASK_SHIFT);
+//const key_override_t ko_ansi_to_jis_7  = ko_make_with_layers_and_negmods(0, KC_QUOT , JP_QUOT, ~0, (uint8_t) MOD_MASK_SHIFT);
 
-const key_override_t ko_ansi_to_jis_8  = ko_make_basic(MOD_MASK_SHIFT, KC_GRV, JP_TILD);
-const key_override_t ko_ansi_to_jis_9  = ko_make_basic(MOD_MASK_SHIFT, KC_2, JP_AT);
-const key_override_t ko_ansi_to_jis_10 = ko_make_basic(MOD_MASK_SHIFT, KC_6, JP_CIRC);
-const key_override_t ko_ansi_to_jis_11 = ko_make_basic(MOD_MASK_SHIFT, KC_7, JP_AMPR);
-const key_override_t ko_ansi_to_jis_12 = ko_make_basic(MOD_MASK_SHIFT, KC_8, JP_ASTR);
-const key_override_t ko_ansi_to_jis_13 = ko_make_basic(MOD_MASK_SHIFT, KC_9, JP_LPRN);
-const key_override_t ko_ansi_to_jis_14 = ko_make_basic(MOD_MASK_SHIFT, KC_0, JP_RPRN);
-const key_override_t ko_ansi_to_jis_15 = ko_make_basic(MOD_MASK_SHIFT, KC_MINS, JP_UNDS);
-const key_override_t ko_ansi_to_jis_16 = ko_make_basic(MOD_MASK_SHIFT, KC_EQL, JP_PLUS);
+//const key_override_t ko_ansi_to_jis_8  = ko_make_basic(MOD_MASK_SHIFT, KC_GRV, JP_TILD);
+//const key_override_t ko_ansi_to_jis_9  = ko_make_basic(MOD_MASK_SHIFT, KC_2, JP_AT);
+//const key_override_t ko_ansi_to_jis_10 = ko_make_basic(MOD_MASK_SHIFT, KC_6, JP_CIRC);
+//const key_override_t ko_ansi_to_jis_11 = ko_make_basic(MOD_MASK_SHIFT, KC_7, JP_AMPR);
+//const key_override_t ko_ansi_to_jis_12 = ko_make_basic(MOD_MASK_SHIFT, KC_8, JP_ASTR);
+//const key_override_t ko_ansi_to_jis_13 = ko_make_basic(MOD_MASK_SHIFT, KC_9, JP_LPRN);
+//const key_override_t ko_ansi_to_jis_14 = ko_make_basic(MOD_MASK_SHIFT, KC_0, JP_RPRN);
+//const key_override_t ko_ansi_to_jis_15 = ko_make_basic(MOD_MASK_SHIFT, KC_MINS, JP_UNDS);
+//const key_override_t ko_ansi_to_jis_16 = ko_make_basic(MOD_MASK_SHIFT, KC_EQL, JP_PLUS);
 
-const key_override_t ko_ansi_to_jis_17 = ko_make_basic(MOD_MASK_SHIFT, KC_LBRC, JP_LCBR);
-const key_override_t ko_ansi_to_jis_18 = ko_make_basic(MOD_MASK_SHIFT, KC_RBRC, JP_RCBR);
-const key_override_t ko_ansi_to_jis_19 = ko_make_basic(MOD_MASK_SHIFT, KC_BSLS , JP_PIPE);
+//const key_override_t ko_ansi_to_jis_17 = ko_make_basic(MOD_MASK_SHIFT, KC_LBRC, JP_LCBR);
+//const key_override_t ko_ansi_to_jis_18 = ko_make_basic(MOD_MASK_SHIFT, KC_RBRC, JP_RCBR);
+//const key_override_t ko_ansi_to_jis_19 = ko_make_basic(MOD_MASK_SHIFT, KC_BSLS , JP_PIPE);
 
-const key_override_t ko_ansi_to_jis_20 = ko_make_basic(MOD_MASK_SHIFT, KC_SCLN , JP_COLN);
-const key_override_t ko_ansi_to_jis_21 = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT , JP_DQUO);
+//const key_override_t ko_ansi_to_jis_20 = ko_make_basic(MOD_MASK_SHIFT, KC_SCLN , JP_COLN);
+//const key_override_t ko_ansi_to_jis_21 = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT , JP_DQUO);
 
 const key_override_t **key_overrides_jis =
 (const key_override_t *[]){ &ko_jis_base_0,  &ko_jis_base_1,  &ko_jis_base_2,  &ko_jis_base_3,  &ko_jis_base_4, 
                             &ko_jis_base_0s, &ko_jis_base_1s, &ko_jis_base_2s, &ko_jis_base_3s, &ko_jis_base_4s,
                             &ko_jis_base_QUOTs, &ko_jis_base_COMMs, &ko_jis_base_DOTs, &ko_jis_base_SLSHs,
-                            &ko_ansi_to_jis_0,  &ko_ansi_to_jis_1,  &ko_ansi_to_jis_2,  &ko_ansi_to_jis_3,  &ko_ansi_to_jis_4, 
-                            &ko_ansi_to_jis_5,  &ko_ansi_to_jis_6,  &ko_ansi_to_jis_7,  &ko_ansi_to_jis_8,  &ko_ansi_to_jis_9, 
-                            &ko_ansi_to_jis_10, &ko_ansi_to_jis_11, &ko_ansi_to_jis_12, &ko_ansi_to_jis_13, &ko_ansi_to_jis_14, 
-                            &ko_ansi_to_jis_15, &ko_ansi_to_jis_16, &ko_ansi_to_jis_17, &ko_ansi_to_jis_18, &ko_ansi_to_jis_19,
-                            &ko_ansi_to_jis_20, &ko_ansi_to_jis_21,
+                            &ko_jis_num_a, &ko_jis_num_b, &ko_jis_num_c, &ko_jis_num_d, &ko_jis_num_e, &ko_jis_num_f,
+                            &ko_jis_num_g, &ko_jis_num_h, &ko_jis_num_i, &ko_jis_num_j, &ko_jis_num_k, &ko_jis_num_l,
+                            &ko_jis_num_m, &ko_jis_num_n, 
+                            //&ko_ansi_to_jis_0,  &ko_ansi_to_jis_1,  &ko_ansi_to_jis_2,  &ko_ansi_to_jis_3,  &ko_ansi_to_jis_4, 
+                            //&ko_ansi_to_jis_5,  &ko_ansi_to_jis_6,  &ko_ansi_to_jis_7,  &ko_ansi_to_jis_8,  &ko_ansi_to_jis_9, 
+                            //&ko_ansi_to_jis_10, &ko_ansi_to_jis_11, &ko_ansi_to_jis_12, &ko_ansi_to_jis_13, &ko_ansi_to_jis_14, 
+                            //&ko_ansi_to_jis_15, &ko_ansi_to_jis_16, &ko_ansi_to_jis_17, &ko_ansi_to_jis_18, &ko_ansi_to_jis_19,
+                            //&ko_ansi_to_jis_20, &ko_ansi_to_jis_21,
                             NULL, NULL, NULL};
 
 // declaration for qmk function
