@@ -2567,6 +2567,8 @@ static bool process_record_add(uint16_t keycode, keyrecord_t *record) {
     case HSV_43_255_100:
       if (record->event.pressed) {
         key_overrides = key_overrides_ansi;
+        status_led(0b1000, led_pattern_on, 0);
+        status_led(0b0010, NULL, 0);
       }
       return false;
     case HSV_43_255_101:
@@ -2582,6 +2584,8 @@ static bool process_record_add(uint16_t keycode, keyrecord_t *record) {
     case HSV_43_255_106:
       if (record->event.pressed) {
         key_overrides = key_overrides_jis;
+        status_led(0b0010, led_pattern_on, 0);
+        status_led(0b1000, NULL, 0);
       }
       return false;
     case HSV_43_255_107:
