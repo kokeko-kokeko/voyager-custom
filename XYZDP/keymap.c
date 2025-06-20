@@ -1806,8 +1806,8 @@ tap_dance_action_t tap_dance_actions[] = {
 // keymap ovverride (process Engram symbol and ANSI/JIS)
 // init on keyboard_post_init_user
 
-const key_override_t ko_com_LANG1s  = ko_make_basib(MOD_MASK_SHIFT, KC_LANGUAGE_1, KC_LANGUAGE_2);
-const key_override_t ko_com_LANG2s  = ko_make_basib(MOD_MASK_SHIFT, KC_LANGUAGE_2, KC_LANGUAGE_1);
+const key_override_t ko_com_LANG1s  = ko_make_basic(MOD_MASK_SHIFT, KC_LANGUAGE_1, KC_LANGUAGE_2);
+const key_override_t ko_com_LANG2s  = ko_make_basic(MOD_MASK_SHIFT, KC_LANGUAGE_2, KC_LANGUAGE_1);
 
 // base (x and xs pair is shifted symbol, xs only overwrite shift)
 const key_override_t ko_ansi_base_0  = ko_make_with_layers_and_negmods(0, KC_0, KC_AT,   1 << 0, (uint8_t) MOD_MASK_SHIFT);
