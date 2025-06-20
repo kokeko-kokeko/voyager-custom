@@ -2229,7 +2229,7 @@ const key_override_t ko_jis_base_COMMs = ko_make_with_layers(MOD_MASK_SHIFT, KC_
 const key_override_t ko_jis_base_DOTs  = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT , KC_QUOT, 1 << 1);
 const key_override_t ko_jis_base_SLSHs = ko_make_with_layers(MOD_MASK_SHIFT, KC_SLSH, KC_INT1, 1 << 1);
 
-const key_override_t ko_jis_fn_a = ko_make_with_layers(0, KC_A, LCTL(KC_RBRC), 1 << 6);
+const key_override_t ko_jis_fn_a = ko_make_with_layers(0, KC_A, LCTL(KC_NUHS), 1 << 6);
 
 const key_override_t **key_overrides_jis =
 (const key_override_t *[]){ &ko_jis_base_0,  &ko_jis_base_1,  &ko_jis_base_2,  &ko_jis_base_3,  &ko_jis_base_4, 
@@ -2396,18 +2396,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       break;
     // Fn
     case 6:
-    case 7:
       status_led(0b1100, NULL, 0);
       status_led(0b0011, led_pattern_on, 0);
       break;
     // Lcur
-    case 8:
+    case 7:
       status_led(0b0110, NULL, 0);
       status_led(0b1000, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
       break;
     // Rcur
-    case 9:
+    case 8:
       status_led(0b1001, NULL, 0);
       status_led(0b0100, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
