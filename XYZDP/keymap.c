@@ -1806,6 +1806,9 @@ tap_dance_action_t tap_dance_actions[] = {
 // keymap ovverride (process Engram symbol and ANSI/JIS)
 // init on keyboard_post_init_user
 
+const key_override_t ko_com_LANG1s  = ko_make_basib(MOD_MASK_SHIFT, KC_LANG1, KC_LANG2);
+const key_override_t ko_com_LANG2s  = ko_make_basib(MOD_MASK_SHIFT, KC_LANG2, KC_LANG1);
+
 // base (x and xs pair is shifted symbol, xs only overwrite shift)
 const key_override_t ko_ansi_base_0  = ko_make_with_layers_and_negmods(0, KC_0, KC_AT,   1 << 0, (uint8_t) MOD_MASK_SHIFT);
 const key_override_t ko_ansi_base_1  = ko_make_with_layers_and_negmods(0, KC_1, KC_HASH, 1 << 0, (uint8_t) MOD_MASK_SHIFT);
@@ -1847,6 +1850,7 @@ const key_override_t **key_overrides_ansi =
                             &ko_ansi_num_a, &ko_ansi_num_b, &ko_ansi_num_c, &ko_ansi_num_d, &ko_ansi_num_e, &ko_ansi_num_f,
                             &ko_ansi_num_g, &ko_ansi_num_h, &ko_ansi_num_i, &ko_ansi_num_j, &ko_ansi_num_k, &ko_ansi_num_l,
                             &ko_ansi_num_m, &ko_ansi_num_n, 
+                            &ko_com_LANG1s, &ko_com_LANG2s, 
                             NULL, NULL, NULL};
 
 #include "keymap_japanese.h"
@@ -1891,7 +1895,8 @@ const key_override_t **key_overrides_jis =
                             &ko_jis_base_QUOTs, &ko_jis_base_COMMs, &ko_jis_base_DOTs, &ko_jis_base_SLSHs,
                             &ko_jis_num_a, &ko_jis_num_b, &ko_jis_num_c, &ko_jis_num_d, &ko_jis_num_e, &ko_jis_num_f,
                             &ko_jis_num_g, &ko_jis_num_h, &ko_jis_num_i, &ko_jis_num_j, &ko_jis_num_k, &ko_jis_num_l,
-                            &ko_jis_num_m, &ko_jis_num_n, 
+                            &ko_jis_num_m, &ko_jis_num_n,
+                            &ko_com_LANG1s, &ko_com_LANG2s,
                             NULL, NULL, NULL};
 
 // declaration for qmk function
