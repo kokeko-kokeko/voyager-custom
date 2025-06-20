@@ -1835,10 +1835,10 @@ const key_override_t ko_ansi_num_g = ko_make_with_layers(0, KC_G, KC_CIRC, 1 << 
 const key_override_t ko_ansi_num_h = ko_make_with_layers(0, KC_H, KC_AMPR, 1 << 1);
 const key_override_t ko_ansi_num_i = ko_make_with_layers(0, KC_I, KC_PERC, 1 << 1);
 const key_override_t ko_ansi_num_j = ko_make_with_layers(0, KC_J, KC_ASTR, 1 << 1);
-const key_override_t ko_ansi_num_k = ko_make_with_layers(0, KC_K, KC_LBRC, 1 << 1);
-const key_override_t ko_ansi_num_l = ko_make_with_layers(0, KC_L, KC_RBRC, 1 << 1);
-const key_override_t ko_ansi_num_m = ko_make_with_layers(0, KC_M, KC_LCBR, 1 << 1);
-const key_override_t ko_ansi_num_n = ko_make_with_layers(0, KC_N, KC_RCBR, 1 << 1);
+const key_override_t ko_ansi_num_k = ko_make_with_layers(0, KC_K, KC_LCBR, 1 << 1);
+const key_override_t ko_ansi_num_l = ko_make_with_layers(0, KC_L, KC_RCBR, 1 << 1);
+const key_override_t ko_ansi_num_m = ko_make_with_layers(0, KC_M, KC_LBRC, 1 << 1);
+const key_override_t ko_ansi_num_n = ko_make_with_layers(0, KC_N, KC_RBRC, 1 << 1);
 
 const key_override_t **key_overrides_ansi =
 (const key_override_t *[]){ &ko_ansi_base_0,  &ko_ansi_base_1,  &ko_ansi_base_2,  &ko_ansi_base_3,  &ko_ansi_base_4,
@@ -1880,10 +1880,10 @@ const key_override_t ko_jis_num_g = ko_make_with_layers(0, KC_G, JP_CIRC, 1 << 1
 const key_override_t ko_jis_num_h = ko_make_with_layers(0, KC_H, JP_AMPR, 1 << 1);
 const key_override_t ko_jis_num_i = ko_make_with_layers(0, KC_I, JP_PERC, 1 << 1);
 const key_override_t ko_jis_num_j = ko_make_with_layers(0, KC_J, JP_ASTR, 1 << 1);
-const key_override_t ko_jis_num_k = ko_make_with_layers(0, KC_K, JP_LBRC, 1 << 1);
-const key_override_t ko_jis_num_l = ko_make_with_layers(0, KC_L, JP_RBRC, 1 << 1);
-const key_override_t ko_jis_num_m = ko_make_with_layers(0, KC_M, JP_LCBR, 1 << 1);
-const key_override_t ko_jis_num_n = ko_make_with_layers(0, KC_N, JP_RCBR, 1 << 1);
+const key_override_t ko_jis_num_k = ko_make_with_layers(0, KC_K, JP_LCBR, 1 << 1);
+const key_override_t ko_jis_num_l = ko_make_with_layers(0, KC_L, JP_RCBR, 1 << 1);
+const key_override_t ko_jis_num_m = ko_make_with_layers(0, KC_M, JP_LBRC, 1 << 1);
+const key_override_t ko_jis_num_n = ko_make_with_layers(0, KC_N, JP_RBRC, 1 << 1);
 
 
 const key_override_t **key_overrides_jis =
