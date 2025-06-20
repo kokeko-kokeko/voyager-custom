@@ -208,20 +208,20 @@ enum tap_dance_codes {
   DANCE_1,
 };
 
-#define DUAL_FUNC_0 LT(1, KC_F20)
-#define DUAL_FUNC_1 LT(10, KC_1)
-#define DUAL_FUNC_2 LT(1, KC_J)
-#define DUAL_FUNC_3 LT(5, KC_F13)
-#define DUAL_FUNC_4 LT(3, KC_F22)
-#define DUAL_FUNC_5 LT(6, KC_7)
-#define DUAL_FUNC_6 LT(14, KC_T)
-#define DUAL_FUNC_7 LT(12, KC_F23)
+#define DUAL_FUNC_0 LT(15, KC_F24)
+#define DUAL_FUNC_1 LT(5, KC_F18)
+#define DUAL_FUNC_2 LT(1, KC_F15)
+#define DUAL_FUNC_3 LT(10, KC_F19)
+#define DUAL_FUNC_4 LT(4, KC_Z)
+#define DUAL_FUNC_5 LT(9, KC_Z)
+#define DUAL_FUNC_6 LT(3, KC_F1)
+#define DUAL_FUNC_7 LT(10, KC_E)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    KC_1,           KC_2,           KC_Y,           KC_O,           KC_U,           KC_QUOTE,                                       KC_4,           KC_L,           KC_D,           KC_W,           KC_SLASH,       CW_TOGG,        
+    KC_0,           KC_1,           KC_Y,           KC_O,           KC_U,           KC_QUOTE,                                       KC_3,           KC_L,           KC_D,           KC_W,           KC_SLASH,       CW_TOGG,        
     LT(4, KC_B),    MT(MOD_LGUI, KC_C),MT(MOD_LALT, KC_I),MT(MOD_LSFT, KC_E),MT(MOD_LCTL, KC_A),KC_COMMA,                                       KC_DOT,         MT(MOD_RCTL, KC_H),MT(MOD_RSFT, KC_T),MT(MOD_RALT, KC_S),MT(MOD_RGUI, KC_N),LT(5, KC_V),    
-    MT(MOD_LCTL, KC_Z),MT(MOD_LCTL, KC_G),KC_X,           KC_J,           KC_K,           KC_3,                                           KC_5,           KC_R,           KC_M,           KC_F,           MT(MOD_RCTL, KC_P),MT(MOD_RCTL, KC_Q),
+    MT(MOD_LCTL, KC_Z),MT(MOD_LCTL, KC_G),KC_X,           KC_J,           KC_K,           KC_2,                                           KC_4,           KC_R,           KC_M,           KC_F,           MT(MOD_RCTL, KC_P),MT(MOD_RCTL, KC_Q),
     KC_LEFT_SHIFT,  KC_LEFT,        KC_RIGHT,       KC_BSPC,        LT(1, KC_SPACE),KC_LANGUAGE_2,                                  LT(3, KC_LANGUAGE_1),LT(2, KC_SPACE),KC_DELETE,      KC_UP,          KC_DOWN,        KC_RIGHT_SHIFT, 
                                                     LT(3, KC_TAB),  TD(DANCE_0),                                    TD(DANCE_1),    KC_ENTER
   ),
