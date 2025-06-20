@@ -208,10 +208,10 @@ enum tap_dance_codes {
   DANCE_1,
 };
 
-#define DUAL_FUNC_0 LT(9, KC_F24)
-#define DUAL_FUNC_1 LT(8, KC_F3)
-#define DUAL_FUNC_2 LT(10, KC_0)
-#define DUAL_FUNC_3 LT(3, KC_F14)
+#define DUAL_FUNC_0 LT(15, KC_U)
+#define DUAL_FUNC_1 LT(9, KC_6)
+#define DUAL_FUNC_2 LT(2, KC_H)
+#define DUAL_FUNC_3 LT(13, KC_C)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -222,7 +222,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     LT(3, KC_TAB),  TD(DANCE_0),                                    TD(DANCE_1),    KC_ENTER
   ),
   [1] = LAYOUT_voyager(
-    CW_TOGG,        KC_TRANSPARENT, KC_COMMA,       KC_DOT,         KC_6,           KC_F,                                           KC_5,           KC_AT,          KC_GRAVE,       KC_HASH,        KC_DLR,         KC_TRANSPARENT, 
+    CW_TOGG,        KC_1,           KC_COMMA,       KC_DOT,         KC_6,           KC_F,                                           KC_5,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRANSPARENT, 
     KC_K,           MT(MOD_LGUI, KC_1),MT(MOD_LALT, KC_2),MT(MOD_LSFT, KC_3),MT(MOD_LCTL, KC_4),KC_5,                                           KC_6,           MT(MOD_RCTL, KC_7),MT(MOD_RSFT, KC_8),MT(MOD_RALT, KC_9),MT(MOD_RGUI, KC_0),KC_L,           
     KC_M,           KC_A,           KC_B,           KC_C,           KC_D,           KC_E,                                           KC_F,           KC_G,           KC_H,           KC_I,           KC_J,           KC_N,           
     KC_TRANSPARENT, KC_LEFT_GUI,    KC_LEFT_ALT,    KC_TRANSPARENT, KC_SPACE,       KC_LANGUAGE_2,                                  KC_LANGUAGE_1,  KC_SPACE,       KC_TRANSPARENT, KC_RIGHT_ALT,   KC_RIGHT_GUI,   KC_TRANSPARENT, 
