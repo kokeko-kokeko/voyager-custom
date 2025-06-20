@@ -1871,11 +1871,11 @@ tap_dance_action_t tap_dance_actions[] = {
 // init on keyboard_post_init_user
 
 // base (x and xs pair is shifted symbol, xs only overwrite shift)
-const key_override_t ko_ansi_base_1  = ko_make_with_layers(             0, KC_1, KC_AT,   1 << 0);
-const key_override_t ko_ansi_base_2  = ko_make_with_layers(             0, KC_2, KC_HASH, 1 << 0);
-const key_override_t ko_ansi_base_3  = ko_make_with_layers(             0, KC_3, KC_MINS, 1 << 0);
-const key_override_t ko_ansi_base_4  = ko_make_with_layers(             0, KC_4, KC_DQUO, 1 << 0);
-const key_override_t ko_ansi_base_5  = ko_make_with_layers(             0, KC_5, KC_QUES, 1 << 0);
+const key_override_t ko_ansi_base_1  = ko_make_with_layers_and_negmods(0, KC_1, KC_AT,   1 << 0, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_ansi_base_2  = ko_make_with_layers_and_negmods(0, KC_2, KC_HASH, 1 << 0, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_ansi_base_3  = ko_make_with_layers_and_negmods(0, KC_3, KC_MINS, 1 << 0, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_ansi_base_4  = ko_make_with_layers_and_negmods(0, KC_4, KC_DQUO, 1 << 0, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_ansi_base_5  = ko_make_with_layers_and_negmods(0, KC_5, KC_QUES, 1 << 0, (uint8_t) MOD_MASK_SHIFT);
 
 const key_override_t ko_ansi_base_1s = ko_make_with_layers(MOD_MASK_SHIFT, KC_1, KC_GRV,  1 << 0);
 const key_override_t ko_ansi_base_2s = ko_make_with_layers(MOD_MASK_SHIFT, KC_2, KC_DLR,  1 << 0);
@@ -1897,11 +1897,11 @@ const key_override_t **key_overrides_ansi =
 #include "keymap_japanese.h"
 
 // base (x and xs pair is shifted symbol, xs only overwrite shift)
-const key_override_t ko_jis_base_1  = ko_make_with_layers(             0, KC_1, JP_AT,   1 << 0);
-const key_override_t ko_jis_base_2  = ko_make_with_layers(             0, KC_2, JP_HASH, 1 << 0);
-const key_override_t ko_jis_base_3  = ko_make_with_layers(             0, KC_3, JP_MINS, 1 << 0);
-const key_override_t ko_jis_base_4  = ko_make_with_layers(             0, KC_4, JP_DQUO, 1 << 0);
-const key_override_t ko_jis_base_5  = ko_make_with_layers(             0, KC_5, JP_QUES, 1 << 0);
+const key_override_t ko_jis_base_1  = ko_make_with_layers_and_negmods(0, KC_1, JP_AT,   1 << 0, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_2  = ko_make_with_layers_and_negmods(0, KC_2, JP_HASH, 1 << 0, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_3  = ko_make_with_layers_and_negmods(0, KC_3, JP_MINS, 1 << 0, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_4  = ko_make_with_layers_and_negmods(0, KC_4, JP_DQUO, 1 << 0, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_5  = ko_make_with_layers_and_negmods(0, KC_5, JP_QUES, 1 << 0, (uint8_t) MOD_MASK_SHIFT);
 
 const key_override_t ko_jis_base_1s = ko_make_with_layers(MOD_MASK_SHIFT, KC_1, JP_GRV,  1 << 0);
 const key_override_t ko_jis_base_2s = ko_make_with_layers(MOD_MASK_SHIFT, KC_2, JP_DLR,  1 << 0);
