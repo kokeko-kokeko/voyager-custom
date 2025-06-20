@@ -1934,8 +1934,8 @@ const key_override_t ko_ansi_to_jis_14 = ko_make_basic(MOD_MASK_SHIFT, KC_0, JP_
 const key_override_t ko_ansi_to_jis_15 = ko_make_basic(MOD_MASK_SHIFT, KC_MINS, JP_UNDS);
 const key_override_t ko_ansi_to_jis_16 = ko_make_basic(MOD_MASK_SHIFT, KC_EQL, JP_PLUS);
 
-const key_override_t ko_ansi_to_jis_17 = ko_make_basic(MOD_MASK_SHIFT, KC_LBRC, S(JP_LBRC));
-const key_override_t ko_ansi_to_jis_18 = ko_make_basic(MOD_MASK_SHIFT, KC_RBRC, S(JP_RBRC));
+const key_override_t ko_ansi_to_jis_17 = ko_make_basic(0, KC_LCBR, JP_LCBR);
+const key_override_t ko_ansi_to_jis_18 = ko_make_basic(0, KC_RCBR, JP_RCBR);
 const key_override_t ko_ansi_to_jis_19 = ko_make_basic(MOD_MASK_SHIFT, KC_BSLS , JP_PIPE);
 
 const key_override_t ko_ansi_to_jis_20 = ko_make_basic(MOD_MASK_SHIFT, KC_SCLN , JP_COLN);
