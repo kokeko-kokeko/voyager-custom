@@ -2205,7 +2205,7 @@ const key_override_t **key_overrides_ansi =
                             &ko_com_LANG1s, &ko_com_LANG2s, 
                             NULL, NULL, NULL};
 
-// confrict copy manual
+// conflict to zsa code, copy manual
 //#include "keymap_japanese.h"
 
 // base (x and xs pair is shifted symbol, xs only overwrite shift)
