@@ -1892,7 +1892,7 @@ const key_override_t **key_overrides_jis =
                             &ko_jis_base_QUOTs, &ko_jis_base_COMMs, &ko_jis_base_DOTs, &ko_jis_base_SLSHs,
                             &ko_jis_num_a, &ko_jis_num_b, &ko_jis_num_c, &ko_jis_num_d, &ko_jis_num_e, &ko_jis_num_f,
                             &ko_jis_num_g, &ko_jis_num_h, &ko_jis_num_i, &ko_jis_num_j, &ko_jis_num_k, &ko_jis_num_l,
-                            &ko_jis_num_m, &ko_jis_num_n, 
+                            //&ko_jis_num_m, &ko_jis_num_n, 
                             NULL, NULL, NULL};
 
 // declaration for qmk function
