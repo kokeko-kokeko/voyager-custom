@@ -1889,8 +1889,8 @@ const key_override_t ko_ansi_base_DOTs = ko_make_with_layers(MOD_MASK_SHIFT, KC_
 const key_override_t ko_ansi_base_SLSHs = ko_make_with_layers(MOD_MASK_SHIFT, KC_SLSH, KC_BSLS, 1 << 0);
 
 const key_override_t **key_overrides_ansi =
-(const key_override_t *[]){ &ko_ansi_base_1s, &ko_ansi_base_2s, &ko_ansi_base_3s, &ko_ansi_base_4s, &ko_ansi_base_5s,
-                            &ko_ansi_base_1, &ko_ansi_base_2, &ko_ansi_base_3, &ko_ansi_base_4, &ko_ansi_base_5,
+(const key_override_t *[]){ &ko_ansi_base_1, &ko_ansi_base_2, &ko_ansi_base_3, &ko_ansi_base_4, &ko_ansi_base_5,
+                            &ko_ansi_base_1s, &ko_ansi_base_2s, &ko_ansi_base_3s, &ko_ansi_base_4s, &ko_ansi_base_5s,
                             &ko_ansi_base_QUOTs, &ko_ansi_base_COMMs, &ko_ansi_base_DOTs, &ko_ansi_base_SLSHs,
                             NULL, NULL, NULL};
 
@@ -1937,8 +1937,8 @@ const key_override_t ko_ansi_to_jis_18 = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT ,
 const key_override_t ko_ansi_to_jis_19 = ko_make_basic(             0, KC_QUOT , JP_QUOT);
 
 const key_override_t **key_overrides_jis =
-(const key_override_t *[]){ &ko_jis_base_1s, &ko_jis_base_2s, &ko_jis_base_3s, &ko_jis_base_4s, &ko_jis_base_5s, 
-                            &ko_jis_base_1, &ko_jis_base_2, &ko_jis_base_3, &ko_jis_base_4, &ko_jis_base_5,
+(const key_override_t *[]){ &ko_jis_base_1, &ko_jis_base_2, &ko_jis_base_3, &ko_jis_base_4, &ko_jis_base_5, 
+                            &ko_jis_base_1s, &ko_jis_base_2s, &ko_jis_base_3s, &ko_jis_base_4s, &ko_jis_base_5s,
                             &ko_jis_base_QUOTs, &ko_jis_base_COMMs, &ko_jis_base_DOTs, &ko_jis_base_SLSHs,
                             &ko_ansi_to_jis_0, &ko_ansi_to_jis_1, &ko_ansi_to_jis_2, &ko_ansi_to_jis_3, &ko_ansi_to_jis_4, 
                             &ko_ansi_to_jis_5, &ko_ansi_to_jis_6, &ko_ansi_to_jis_7, &ko_ansi_to_jis_8, &ko_ansi_to_jis_9, 
