@@ -2195,7 +2195,7 @@ const key_override_t ko_ansi_base_4s = ko_make_with_layers(MOD_MASK_SHIFT, KC_4,
 
 const key_override_t ko_ansi_base_QUOTs = ko_make_with_layers(MOD_MASK_SHIFT, KC_QUOT, KC_LPRN, 1 << 0);
 const key_override_t ko_ansi_base_COMMs = ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, KC_SCLN, 1 << 0);
-const key_override_t ko_ansi_base_DOTs = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT, KC_COLN, 1 << 0);
+const key_override_t ko_ansi_base_DOTs  = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT , KC_COLN, 1 << 0);
 const key_override_t ko_ansi_base_SLSHs = ko_make_with_layers(MOD_MASK_SHIFT, KC_SLSH, KC_BSLS, 1 << 0);
 
 const key_override_t **key_overrides_ansi =
@@ -2209,22 +2209,22 @@ const key_override_t **key_overrides_ansi =
 //#include "keymap_japanese.h"
 
 // base (x and xs pair is shifted symbol, xs only overwrite shift)
-const key_override_t ko_jis_base_0  = ko_make_with_layers_and_negmods(0, KC_0, JP_AT,   1 << 1, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_jis_base_1  = ko_make_with_layers_and_negmods(0, KC_1, JP_HASH, 1 << 1, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_jis_base_2  = ko_make_with_layers_and_negmods(0, KC_2, JP_MINS, 1 << 1, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_jis_base_3  = ko_make_with_layers_and_negmods(0, KC_3, JP_DQUO, 1 << 1, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_jis_base_4  = ko_make_with_layers_and_negmods(0, KC_4, JP_QUES, 1 << 1, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_0  = ko_make_with_layers_and_negmods(0, KC_0, KC_LBRC   , 1 << 1, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_1  = ko_make_with_layers_and_negmods(0, KC_1, S(KC_3)   , 1 << 1, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_2  = ko_make_with_layers_and_negmods(0, KC_2, KC_MINS   , 1 << 1, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_3  = ko_make_with_layers_and_negmods(0, KC_3, S(KC_2)   , 1 << 1, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_4  = ko_make_with_layers_and_negmods(0, KC_4, S(KC_SLSH), 1 << 1, (uint8_t) MOD_MASK_SHIFT);
 
-const key_override_t ko_jis_base_0s = ko_make_with_layers(MOD_MASK_SHIFT, KC_0, JP_GRV,  1 << 1);
-const key_override_t ko_jis_base_1s = ko_make_with_layers(MOD_MASK_SHIFT, KC_1, JP_DLR,  1 << 1);
-const key_override_t ko_jis_base_2s = ko_make_with_layers(MOD_MASK_SHIFT, KC_2, JP_UNDS, 1 << 1);
-const key_override_t ko_jis_base_3s = ko_make_with_layers(MOD_MASK_SHIFT, KC_3, JP_RPRN, 1 << 1);
-const key_override_t ko_jis_base_4s = ko_make_with_layers(MOD_MASK_SHIFT, KC_4, JP_EXLM, 1 << 1);
+const key_override_t ko_jis_base_0s = ko_make_with_layers(MOD_MASK_SHIFT, KC_0, S(KC_LBRC), 1 << 1);
+const key_override_t ko_jis_base_1s = ko_make_with_layers(MOD_MASK_SHIFT, KC_1, S(KC_4)   , 1 << 1);
+const key_override_t ko_jis_base_2s = ko_make_with_layers(MOD_MASK_SHIFT, KC_2, S(KC_INT1), 1 << 1);
+const key_override_t ko_jis_base_3s = ko_make_with_layers(MOD_MASK_SHIFT, KC_3, S(KC_9)   , 1 << 1);
+const key_override_t ko_jis_base_4s = ko_make_with_layers(MOD_MASK_SHIFT, KC_4, S(KC_1)   , 1 << 1);
 
-const key_override_t ko_jis_base_QUOTs = ko_make_with_layers(MOD_MASK_SHIFT, KC_QUOT, JP_LPRN, 1 << 1);
-const key_override_t ko_jis_base_COMMs = ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, JP_SCLN, 1 << 1);
-const key_override_t ko_jis_base_DOTs = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT, JP_COLN, 1 << 1);
-const key_override_t ko_jis_base_SLSHs = ko_make_with_layers(MOD_MASK_SHIFT, KC_SLSH, JP_BSLS, 1 << 1);
+const key_override_t ko_jis_base_QUOTs = ko_make_with_layers(MOD_MASK_SHIFT, KC_QUOT, S(KC_8), 1 << 1);
+const key_override_t ko_jis_base_COMMs = ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, KC_SCLN, 1 << 1);
+const key_override_t ko_jis_base_DOTs  = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT , KC_QUOT, 1 << 1);
+const key_override_t ko_jis_base_SLSHs = ko_make_with_layers(MOD_MASK_SHIFT, KC_SLSH, KC_INT1, 1 << 1);
 
 const key_override_t **key_overrides_jis =
 (const key_override_t *[]){ &ko_jis_base_0,  &ko_jis_base_1,  &ko_jis_base_2,  &ko_jis_base_3,  &ko_jis_base_4, 
