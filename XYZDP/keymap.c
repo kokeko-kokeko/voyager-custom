@@ -2201,17 +2201,15 @@ const key_override_t ko_ansi_base_SLSHs = ko_make_with_layers(MOD_MASK_SHIFT, KC
 const key_override_t ko_ansi_fn_a = ko_make_with_layers(0, KC_A, LCTL(KC_RBRC), 1 << 6);
 
 const key_override_t **key_overrides_ansi =
-(const key_override_t *[]){ &ko_ansi_base_0,  &ko_ansi_base_1,  &ko_ansi_base_2,  &ko_ansi_base_3,  &ko_ansi_base_4,
+(const key_override_t *[]){ &ko_com_LANG1s, &ko_com_LANG2s, 
+                            &ko_ansi_base_0,  &ko_ansi_base_1,  &ko_ansi_base_2,  &ko_ansi_base_3,  &ko_ansi_base_4,
                             &ko_ansi_base_0s, &ko_ansi_base_1s, &ko_ansi_base_2s, &ko_ansi_base_3s, &ko_ansi_base_4s,
                             &ko_ansi_base_QUOTs, &ko_ansi_base_COMMs, &ko_ansi_base_DOTs, &ko_ansi_base_SLSHs,
                             &ko_ansi_fn_a,
-                            &ko_com_LANG1s, &ko_com_LANG2s, 
                             NULL, NULL, NULL};
 
 // conflict to zsa code, copy manual
 //#include "keymap_japanese.h"
-
-// base (x and xs pair is shifted symbol, xs only overwrite shift)
 const key_override_t ko_jis_base_0  = ko_make_with_layers_and_negmods(0, KC_0, KC_LBRC   , 1 << 1, (uint8_t) MOD_MASK_SHIFT);
 const key_override_t ko_jis_base_1  = ko_make_with_layers_and_negmods(0, KC_1, S(KC_3)   , 1 << 1, (uint8_t) MOD_MASK_SHIFT);
 const key_override_t ko_jis_base_2  = ko_make_with_layers_and_negmods(0, KC_2, KC_MINS   , 1 << 1, (uint8_t) MOD_MASK_SHIFT);
@@ -2232,11 +2230,11 @@ const key_override_t ko_jis_base_SLSHs = ko_make_with_layers(MOD_MASK_SHIFT, KC_
 const key_override_t ko_jis_fn_a = ko_make_with_layers(0, KC_A, LCTL(KC_NUHS), 1 << 6);
 
 const key_override_t **key_overrides_jis =
-(const key_override_t *[]){ &ko_jis_base_0,  &ko_jis_base_1,  &ko_jis_base_2,  &ko_jis_base_3,  &ko_jis_base_4, 
+(const key_override_t *[]){ &ko_com_LANG1s, &ko_com_LANG2s,
+                            &ko_jis_base_0,  &ko_jis_base_1,  &ko_jis_base_2,  &ko_jis_base_3,  &ko_jis_base_4, 
                             &ko_jis_base_0s, &ko_jis_base_1s, &ko_jis_base_2s, &ko_jis_base_3s, &ko_jis_base_4s,
                             &ko_jis_base_QUOTs, &ko_jis_base_COMMs, &ko_jis_base_DOTs, &ko_jis_base_SLSHs,
-                            &ko_jis_fn_a,
-                            &ko_com_LANG1s, &ko_com_LANG2s,
+                            &ko_jis_fn_a, 
                             NULL, NULL, NULL};
 
 // declaration for qmk function
