@@ -225,22 +225,22 @@ enum tap_dance_codes {
   DANCE_3,
 };
 
-#define DUAL_FUNC_0 LT(1, KC_F19)
-#define DUAL_FUNC_1 LT(12, KC_0)
-#define DUAL_FUNC_2 LT(4, KC_6)
-#define DUAL_FUNC_3 LT(1, KC_B)
-#define DUAL_FUNC_4 LT(6, KC_A)
-#define DUAL_FUNC_5 LT(4, KC_N)
-#define DUAL_FUNC_6 LT(5, KC_F16)
-#define DUAL_FUNC_7 LT(1, KC_7)
-#define DUAL_FUNC_8 LT(12, KC_F1)
-#define DUAL_FUNC_9 LT(10, KC_W)
-#define DUAL_FUNC_10 LT(5, KC_F19)
-#define DUAL_FUNC_11 LT(2, KC_F3)
-#define DUAL_FUNC_12 LT(3, KC_F10)
-#define DUAL_FUNC_13 LT(7, KC_F1)
-#define DUAL_FUNC_14 LT(2, KC_6)
-#define DUAL_FUNC_15 LT(15, KC_F6)
+#define DUAL_FUNC_0 LT(12, KC_B)
+#define DUAL_FUNC_1 LT(15, KC_F2)
+#define DUAL_FUNC_2 LT(14, KC_F13)
+#define DUAL_FUNC_3 LT(10, KC_F8)
+#define DUAL_FUNC_4 LT(4, KC_4)
+#define DUAL_FUNC_5 LT(3, KC_F21)
+#define DUAL_FUNC_6 LT(11, KC_4)
+#define DUAL_FUNC_7 LT(13, KC_F11)
+#define DUAL_FUNC_8 LT(7, KC_F13)
+#define DUAL_FUNC_9 LT(2, KC_F3)
+#define DUAL_FUNC_10 LT(14, KC_E)
+#define DUAL_FUNC_11 LT(7, KC_3)
+#define DUAL_FUNC_12 LT(4, KC_G)
+#define DUAL_FUNC_13 LT(9, KC_F5)
+#define DUAL_FUNC_14 LT(14, KC_F20)
+#define DUAL_FUNC_15 LT(9, KC_F2)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -272,14 +272,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TAB,         KC_ESCAPE,                                      KC_BSPC,        KC_ENTER
   ),
   [4] = LAYOUT_voyager(
-    CW_TOGG,        KC_TRANSPARENT, ST_MACRO_0,     ST_MACRO_1,     ST_MACRO_2,     KC_LPRN,                                        KC_RPRN,        KC_LBRC,        KC_LCBR,        KC_LABK,        KC_LPRN,        KC_TRANSPARENT, 
+    CW_TOGG,        KC_NO,          ST_MACRO_0,     ST_MACRO_1,     ST_MACRO_2,     KC_LPRN,                                        KC_RPRN,        KC_LBRC,        KC_LCBR,        KC_LABK,        KC_LPRN,        KC_TRANSPARENT, 
     KC_TRANSPARENT, ST_MACRO_3,     ST_MACRO_4,     ST_MACRO_5,     ST_MACRO_6,     KC_SCLN,                                        KC_COLN,        ST_MACRO_9,     ST_MACRO_10,    ST_MACRO_11,    ST_MACRO_12,    ST_MACRO_13,    
     KC_LEFT_CTRL,   DUAL_FUNC_8,    KC_QUES,        ST_MACRO_7,     ST_MACRO_8,     KC_UNDS,                                        KC_EXLM,        KC_RBRC,        KC_RCBR,        KC_RABK,        DUAL_FUNC_9,    KC_RIGHT_CTRL,  
     KC_TRANSPARENT, KC_LEFT_GUI,    KC_LEFT_ALT,    KC_TRANSPARENT, KC_SPACE,       KC_LANGUAGE_2,                                  KC_LANGUAGE_1,  KC_SPACE,       KC_TRANSPARENT, KC_RIGHT_ALT,   KC_RIGHT_GUI,   KC_TRANSPARENT, 
                                                     KC_TAB,         KC_ESCAPE,                                      KC_BSPC,        KC_ENTER
   ),
   [5] = LAYOUT_voyager(
-    CW_TOGG,        KC_TRANSPARENT, ST_MACRO_14,    ST_MACRO_15,    ST_MACRO_16,    JP_LPRN,                                        JP_RPRN,        JP_LBRC,        JP_LCBR,        JP_LT,          JP_LPRN,        KC_TRANSPARENT, 
+    CW_TOGG,        KC_NO,          ST_MACRO_14,    ST_MACRO_15,    ST_MACRO_16,    JP_LPRN,                                        JP_RPRN,        JP_LBRC,        JP_LCBR,        JP_LT,          JP_LPRN,        KC_TRANSPARENT, 
     KC_TRANSPARENT, ST_MACRO_17,    ST_MACRO_18,    ST_MACRO_19,    ST_MACRO_20,    JP_SCLN,                                        JP_COLN,        ST_MACRO_23,    ST_MACRO_24,    ST_MACRO_25,    ST_MACRO_26,    ST_MACRO_27,    
     KC_LEFT_CTRL,   DUAL_FUNC_10,   JP_QUES,        ST_MACRO_21,    ST_MACRO_22,    JP_UNDS,                                        JP_EXLM,        JP_RBRC,        JP_RCBR,        JP_GT,          DUAL_FUNC_11,   KC_RIGHT_CTRL,  
     KC_TRANSPARENT, KC_LEFT_GUI,    KC_LEFT_ALT,    KC_TRANSPARENT, KC_SPACE,       KC_LANGUAGE_2,                                  KC_LANGUAGE_1,  KC_SPACE,       KC_TRANSPARENT, KC_RIGHT_ALT,   KC_RIGHT_GUI,   KC_TRANSPARENT, 
@@ -294,7 +294,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [7] = LAYOUT_voyager(
     CW_TOGG,        DUAL_FUNC_12,   DUAL_FUNC_13,   KC_PAGE_UP,     KC_HOME,        LGUI(LCTL(KC_V)),                                KC_TAB,         LCTL(KC_LEFT),  KC_UP,          LCTL(KC_RIGHT), KC_ESCAPE,      KC_APPLICATION, 
-    KC_TRANSPARENT, DUAL_FUNC_14,   DUAL_FUNC_15,   LCTL(KC_C),     LCTL(KC_V),     LGUI(KC_V),                                     KC_BSPC,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_DELETE,      KC_TRANSPARENT, 
+    KC_TRANSPARENT, DUAL_FUNC_14,   DUAL_FUNC_15,   LCTL(KC_C),     LCTL(KC_V),     LGUI(KC_V),                                     KC_BSPC,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_DELETE,      KC_BSPC,        
     LCTL(KC_Y),     LCTL(KC_Z),     LCTL(KC_X),     KC_PGDN,        KC_END,         LGUI(LSFT(KC_V)),                                LGUI(LCTL(KC_T)),LCTL(LSFT(KC_P)),LALT(LGUI(KC_SPACE)),LGUI(LSFT(KC_M)),LGUI(LSFT(KC_C)),ST_MACRO_28,    
     QK_LLCK,        RGB_HUD,        RGB_HUI,        KC_TRANSPARENT, KC_SPACE,       KC_LANGUAGE_2,                                  KC_LANGUAGE_1,  KC_SPACE,       KC_TRANSPARENT, RGB_SAD,        RGB_SAI,        QK_LLCK,        
                                                     KC_TAB,         KC_ESCAPE,                                      KC_BSPC,        KC_ENTER
@@ -548,17 +548,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case ST_MACRO_14:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_GRAVE)SS_DELAY(100)  SS_TAP(X_GRAVE)SS_DELAY(100)  SS_TAP(X_LEFT));
+      SEND_STRING(SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_TAP(X_LEFT));
     }
     break;
     case ST_MACRO_15:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_QUOTE)SS_DELAY(100)  SS_TAP(X_QUOTE)SS_DELAY(100)  SS_TAP(X_LEFT));
+      SEND_STRING(SS_LSFT(SS_TAP(X_7))SS_DELAY(100)  SS_LSFT(SS_TAP(X_7))SS_DELAY(100)  SS_TAP(X_LEFT));
     }
     break;
     case ST_MACRO_16:
     if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_TAP(X_LEFT));
+      SEND_STRING(SS_LSFT(SS_TAP(X_2))SS_DELAY(100)  SS_LSFT(SS_TAP(X_2))SS_DELAY(100)  SS_TAP(X_LEFT));
     }
     break;
     case ST_MACRO_17:
@@ -573,12 +573,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case ST_MACRO_19:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_LSFT(SS_TAP(X_8)));
+      SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_LSFT(SS_TAP(X_QUOTE)));
     }
     break;
     case ST_MACRO_20:
     if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_8))SS_DELAY(100)  SS_TAP(X_SLASH));
+      SEND_STRING(SS_LSFT(SS_TAP(X_DOT))SS_DELAY(100)  SS_TAP(X_SLASH));
     }
     break;
     case ST_MACRO_21:
@@ -588,17 +588,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case ST_MACRO_22:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_BSLS)SS_DELAY(100)  SS_TAP(X_BSLS));
+      SEND_STRING(SS_TAP(X_INTERNATIONAL_1)SS_DELAY(100)  SS_TAP(X_INTERNATIONAL_1));
     }
     break;
     case ST_MACRO_23:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_LBRC)SS_DELAY(100)  SS_TAP(X_RBRC)SS_DELAY(100)  SS_TAP(X_LEFT));
+      SEND_STRING(SS_TAP(X_RBRC)SS_DELAY(100)  SS_TAP(X_BSLS)SS_DELAY(100)  SS_TAP(X_LEFT));
     }
     break;
     case ST_MACRO_24:
     if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(100)  SS_TAP(X_LEFT));
+      SEND_STRING(SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_BSLS))SS_DELAY(100)  SS_TAP(X_LEFT));
     }
     break;
     case ST_MACRO_25:
@@ -608,7 +608,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case ST_MACRO_26:
     if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_9))SS_DELAY(100)  SS_LSFT(SS_TAP(X_0))SS_DELAY(100)  SS_TAP(X_LEFT));
+      SEND_STRING(SS_LSFT(SS_TAP(X_8))SS_DELAY(100)  SS_LSFT(SS_TAP(X_9))SS_DELAY(100)  SS_TAP(X_LEFT));
     }
     break;
     case ST_MACRO_27:
