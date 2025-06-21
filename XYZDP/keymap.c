@@ -2200,13 +2200,13 @@ const key_override_t ko_ansi_base_SLSHs = ko_make_with_layers(MOD_MASK_SHIFT, KC
 
 const key_override_t ko_ansi_fn_a = ko_make_with_layers(0, KC_A, LCTL(KC_RBRC), 1 << 6);
 
-const key_override_t **key_overrides_ansi =
-(const key_override_t *[]){ &ko_com_LANG1s, &ko_com_LANG2s, 
-                            &ko_ansi_base_0,  &ko_ansi_base_1,  &ko_ansi_base_2,  &ko_ansi_base_3,  &ko_ansi_base_4,
-                            &ko_ansi_base_0s, &ko_ansi_base_1s, &ko_ansi_base_2s, &ko_ansi_base_3s, &ko_ansi_base_4s,
-                            &ko_ansi_base_QUOTs, &ko_ansi_base_COMMs, &ko_ansi_base_DOTs, &ko_ansi_base_SLSHs,
-                            &ko_ansi_fn_a,
-                            NULL, NULL, NULL};
+const key_override_t **key_overrides_ansi = (const key_override_t *[]){
+  &ko_com_LANG1s, &ko_com_LANG2s, 
+  &ko_ansi_base_0,  &ko_ansi_base_1,  &ko_ansi_base_2,  &ko_ansi_base_3,  &ko_ansi_base_4,
+  &ko_ansi_base_0s, &ko_ansi_base_1s, &ko_ansi_base_2s, &ko_ansi_base_3s, &ko_ansi_base_4s,
+  &ko_ansi_base_QUOTs, &ko_ansi_base_COMMs, &ko_ansi_base_DOTs, &ko_ansi_base_SLSHs,
+  &ko_ansi_fn_a,
+  NULL, NULL, NULL};
 
 // conflict to zsa code, copy manual
 //#include "keymap_japanese.h"
@@ -2229,13 +2229,13 @@ const key_override_t ko_jis_base_SLSHs = ko_make_with_layers(MOD_MASK_SHIFT, KC_
 
 const key_override_t ko_jis_fn_a = ko_make_with_layers(0, KC_A, LCTL(KC_NUHS), 1 << 6);
 
-const key_override_t **key_overrides_jis =
-(const key_override_t *[]){ &ko_com_LANG1s, &ko_com_LANG2s,
-                            &ko_jis_base_0,  &ko_jis_base_1,  &ko_jis_base_2,  &ko_jis_base_3,  &ko_jis_base_4, 
-                            &ko_jis_base_0s, &ko_jis_base_1s, &ko_jis_base_2s, &ko_jis_base_3s, &ko_jis_base_4s,
-                            &ko_jis_base_QUOTs, &ko_jis_base_COMMs, &ko_jis_base_DOTs, &ko_jis_base_SLSHs,
-                            &ko_jis_fn_a, 
-                            NULL, NULL, NULL};
+const key_override_t **key_overrides_jis = (const key_override_t *[]){
+  &ko_com_LANG1s, &ko_com_LANG2s,
+  &ko_jis_base_0,  &ko_jis_base_1,  &ko_jis_base_2,  &ko_jis_base_3,  &ko_jis_base_4, 
+  &ko_jis_base_0s, &ko_jis_base_1s, &ko_jis_base_2s, &ko_jis_base_3s, &ko_jis_base_4s,
+  &ko_jis_base_QUOTs, &ko_jis_base_COMMs, &ko_jis_base_DOTs, &ko_jis_base_SLSHs,
+  &ko_jis_fn_a, 
+  NULL, NULL, NULL};
 
 // declaration for qmk function
 static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t init_delay_ms);
@@ -2259,44 +2259,44 @@ static void set_layer_color_fwsys_map(void);
 
 // reverse sort order
 // hue value 6 * 8 like NCS
-static const uint8_t * const hue_tbl = 
-(uint8_t[]){250, 243, 236, 229, 222, 215,
-            207, 200, 193, 186, 179, 172,
-            163, 154, 146, 137, 129, 118,
-            111, 105,  98,  92,  86,  83,
-             79,  75,  71,  67,  63,  58,
-             55,  52,  49,  46,  43,  40,
-             35,  30,  25,  20,  15,  10,
-              9,   7,   5,   3,   1,   0};
-static const uint8_t * const sat_tbl = 
-(uint8_t[]){255, 252, 249, 246, 243, 240, 237, 234,
-            231, 228, 225, 222, 219, 216, 213, 210,
-            207, 204, 201, 198, 195, 192, 189, 186,
-            183, 180, 177, 174, 171, 168, 164, 160,
-            150, 140, 130, 120, 110, 100,  90,  80,
-             70,  60,  50,  40,  30,  20,  10,   0};
+static const uint8_t * const hue_tbl = (uint8_t[]){
+  250, 243, 236, 229, 222, 215,
+  207, 200, 193, 186, 179, 172,
+  163, 154, 146, 137, 129, 118,
+  111, 105,  98,  92,  86,  83,
+   79,  75,  71,  67,  63,  58,
+   55,  52,  49,  46,  43,  40,
+   35,  30,  25,  20,  15,  10,
+    9,   7,   5,   3,   1,   0};
+static const uint8_t * const sat_tbl = (uint8_t[]){
+  255, 252, 249, 246, 243, 240, 237, 234,
+  231, 228, 225, 222, 219, 216, 213, 210,
+  207, 204, 201, 198, 195, 192, 189, 186,
+  183, 180, 177, 174, 171, 168, 164, 160,
+  150, 140, 130, 120, 110, 100,  90,  80,
+   70,  60,  50,  40,  30,  20,  10,   0};
 // val value max limit 175
-static const uint8_t * const val_tbl = 
-(uint8_t[]){175, 165, 155, 145, 135, 128, 121, 119,
-            117, 115, 113, 111, 109, 107, 105, 103,
-            101,  99,  97,  95,  93,  91,  89,  87,
-             85,  83,  81,  79,  77,  75,  73,  71,
-             69,  67,  65,  63,  61,  59,  57,  55,
-             53,  51,  46,  41,  31,  21,  11,   1};
-static const uint8_t * const pos_tbl = 
-(uint8_t[]){ 49,  43,  37,  31,
-             48,  42,  36,  30,
-             47,  41,  35,  29,
-             46,  40,  34,  28,
-             45,  39,  33,  27,
-             44,  38,  32,  26,
-
-             23,  17,  11,   5,
-             22,  16,  10,   4,
-             21,  15,   9,   3,
-             20,  14,   8,   2,
-             19,  13,   7,   1,
-             18,  12,   6,   0};
+static const uint8_t * const val_tbl = (uint8_t[]){
+  175, 165, 155, 145, 135, 128, 121, 119,
+  117, 115, 113, 111, 109, 107, 105, 103,
+  101,  99,  97,  95,  93,  91,  89,  87,
+   85,  83,  81,  79,  77,  75,  73,  71,
+   69,  67,  65,  63,  61,  59,  57,  55,
+   53,  51,  46,  41,  31,  21,  11,   1};
+static const uint8_t * const pos_tbl = (uint8_t[]){
+   49,  43,  37,  31,
+   48,  42,  36,  30,
+   47,  41,  35,  29,
+   46,  40,  34,  28,
+   45,  39,  33,  27,
+   44,  38,  32,  26,
+   
+   23,  17,  11,   5,
+   22,  16,  10,   4,
+   21,  15,   9,   3,
+   20,  14,   8,   2,
+   19,  13,   7,   1,
+   18,  12,   6,   0};
 
 // access to system-side flag
 extern keyboard_config_t keyboard_config;
