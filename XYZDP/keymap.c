@@ -1713,7 +1713,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_43_255_101:
       if (record->event.pressed) {
-
+        key_overrides = key_overrides_jis;
       }
       return false;
     case HSV_43_255_102:
@@ -1738,7 +1738,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_43_255_106:
       if (record->event.pressed) {
-        key_overrides = key_overrides_jis;
+        
       }
       return false;
     case HSV_43_255_107:
@@ -2500,15 +2500,15 @@ static void set_layer_color_fwsys_map(void) {
   if (key_overrides == key_overrides_jis) {
     //JIS base enable
     rgb_matrix_set_color(0, o, 0, 0);
-    rgb_matrix_set_color(6, 0, f, 0);
+    rgb_matrix_set_color(1, 0, f, 0);
   } else if (key_overrides == key_overrides_ansi) {
     //ANSI base
     rgb_matrix_set_color(0, f, 0, 0);
-    rgb_matrix_set_color(6, 0, o, 0);
+    rgb_matrix_set_color(1, 0, o, 0);
   } else {
     // error
     rgb_matrix_set_color(0, o, 0, 0);
-    rgb_matrix_set_color(6, 0, o, 0);
+    rgb_matrix_set_color(1, 0, o, 0);
   }
 
   //OS detect
