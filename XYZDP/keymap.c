@@ -2146,8 +2146,8 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
       case LT(3, KC_SPACE):
         return 0;
 
-      case LT(6, KC_B):
-      case LT(7, KC_V):
+      case LT(7, KC_B):
+      case LT(8, KC_V):
         return 0;
 
       case MT(MOD_LCTL, KC_Z):
