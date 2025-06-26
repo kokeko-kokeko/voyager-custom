@@ -2089,6 +2089,144 @@ static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, UINT8_MA
 static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
+// access to system-side flag
+extern keyboard_config_t keyboard_config;
+extern bool is_launching;
+extern rgb_config_t rgb_matrix_config;
+
+// qmk callback function
+void keyboard_post_init_user(void) {
+  rgb_matrix_enable();
+  // override to ANSI
+  key_overrides = key_overrides_ansi;
+  layer_move(0);
+}
+
+bool rgb_matrix_indicators_user(void) {
+  if (rawhid_state.rgb_control) {
+      return false;
+  }
+  if (keyboard_config.disable_layer_led) { return false; }
+  switch (biton32(layer_state)) {
+    case 28:
+      set_layer_color_hue_map();
+      break;
+    case 29:
+      set_layer_color_sat_map();
+      break;
+    case 30:
+      set_layer_color_val_map();
+      break;
+    case 31:
+      set_layer_color_fwsys_map();
+      break;
+   default:
+    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
+      rgb_matrix_set_color_all(0, 0, 0);
+    break;
+  }
+  return true;
+}
+
+// tap flow control
+// bool is_flow_tap_key(uint16_t keycode) is default
+// disable (return 0)
+// thumb space LT 
+// pinkey outer col
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record, 
+                           uint16_t prev_keycode) {
+  if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+    switch (keycode) {
+      case LT(1, KC_SPACE):
+      case LT(3, KC_SPACE):
+        return 0;
+
+      case LT(6, KC_B):
+      case LT(7, KC_V):
+        return 0;
+
+      case MT(MOD_LCTL, KC_Z):
+      case MT(MOD_RCTL, KC_Q):
+        return 0;
+        
+      default:
+        return FLOW_TAP_TERM;  // Longer timeout otherwise.
+    }
+  }
+  return 0;  // Disable Flow Tap.
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+  //ANSI/JIS addiional enable
+  if (key_overrides == key_overrides_jis) {
+    if (layer_state_cmp(state, 1)) {
+      state |=  ((layer_state_t)1 << 2);
+    } else {
+      state &= ~((layer_state_t)1 << 2);
+    }
+    if (layer_state_cmp(state, 3)) {
+      state |=  ((layer_state_t)1 << 4);
+    } else {
+      state &= ~((layer_state_t)1 << 4);
+    }
+    if (layer_state_cmp(state, 5)) {
+      state |=  ((layer_state_t)1 << 6);
+    } else {
+      state &= ~((layer_state_t)1 << 6);
+    }
+  }
+
+  // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
+  if (is_launching || !keyboard_config.led_level) return state;
+  
+  uint8_t layer = get_highest_layer(state);
+  switch (layer) {
+    // Num
+    case 1:
+    case 2:
+      status_led(0b1100, NULL, 0);
+      status_led(0b0010, led_pattern_on, 0);
+      status_led(0b0001, led_pattern_blink, 0);
+      break;
+    // Bkt
+    case 3:
+    case 4:
+      status_led(0b1100, NULL, 0);
+      status_led(0b0001, led_pattern_on, 0);
+      status_led(0b0010, led_pattern_blink, 0);
+      break;
+    // Fn
+    case 5:
+    case 6:
+      status_led(0b1100, NULL, 0);
+      status_led(0b0011, led_pattern_on, 0);
+      break;
+    // Lcur
+    case 7:
+      status_led(0b0110, NULL, 0);
+      status_led(0b1000, led_pattern_on, 0);
+      status_led(0b0001, led_pattern_blink, 0);
+      break;
+    // Rcur
+    case 8:
+      status_led(0b1001, NULL, 0);
+      status_led(0b0100, led_pattern_on, 0);
+      status_led(0b0010, led_pattern_blink, 0);
+      break;
+    // FwSys
+    case 31:
+      status_led(0b1111, led_pattern_on, 0);
+      break;
+    default :
+      status_led(0b1111, NULL, 0);
+      break;
+  }
+  
+  return state;
+}
+
+// local function
+
 // LED pattern list, no const limit, terminate symbol
 // off -> on -> off ... (off start for no glitch)
 // reduce data x16 (4bit shift) 8bit
