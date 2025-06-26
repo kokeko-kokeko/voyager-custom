@@ -1209,7 +1209,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_0_255_151:
       if (record->event.pressed) {
-        rgblight_save_eeprom();
+        rgblight_load_preset();
       }
       return false;
     case HSV_86_255_100:
