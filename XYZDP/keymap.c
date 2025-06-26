@@ -2496,6 +2496,8 @@ static void set_layer_color_fwsys_map(void) {
   const uint8_t q = h >> 1;
   const uint8_t o = q >> 1;
 
+  rgb_matrix_set_color_all(0, 0, 0);
+  
   //ANSI/JIS
   if (key_overrides == key_overrides_jis) {
     //JIS base enable
