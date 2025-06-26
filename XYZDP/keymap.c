@@ -2583,5 +2583,5 @@ static void set_layer_color_fwsys_map(void) {
 
   //reset
   rgb_matrix_set_color(31, f, 0, 0);
-  rgb_matrix_set_color(37, f, h, 0);
+  rgb_matrix_set_color(30, f, h, 0);
 }
