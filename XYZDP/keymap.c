@@ -1868,8 +1868,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_43_255_137:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,137);
+        
       }
       return false;
     case HSV_43_255_138:
