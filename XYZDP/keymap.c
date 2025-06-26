@@ -967,6 +967,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_mode_noeeprom(1);
       }
       return false;
+    
     case HSV_0_255_100:
       if (record->event.pressed) {
         rgblight_set_hue(hue_tbl[pos2idx_tbl[0]]);
@@ -1212,6 +1213,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_load_preset();
       }
       return false;
+    
     case HSV_86_255_100:
       if (record->event.pressed) {
         rgblight_set_sat(sat_tbl[pos2idx_tbl[0]]);
@@ -1457,6 +1459,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_save_eeprom();
       }
       return false;
+    
     case HSV_172_255_100:
       if (record->event.pressed) {
         rgblight_set_val(val_tbl[pos2idx_tbl[0]]);
@@ -1707,6 +1710,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         key_overrides = key_overrides_ansi;
       }
       return false;
+    
     case HSV_43_255_101:
       if (record->event.pressed) {
 
@@ -1917,6 +1921,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       }
       return false;
+    
     //RGB inc/dec no eeprom over write
     // always return false (sometime use upedge)
     case RGB_HUI:
