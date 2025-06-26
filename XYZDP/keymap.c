@@ -1113,6 +1113,17 @@ static const uint8_t * const pos_tbl = (uint8_t[]){
    20,  14,   8,   2,
    19,  13,   7,   1,
    18,  12,   6,   0};
+static const uint8_t * const pos2idx_tbl = (uint8_t[]){
+   47,  43,  39,  35,  31,  27,
+   46,  42,  38,  34,  30,  26,
+   45,  41,  37,  33,  29,  25,
+   44,  40,  36,  32,  28,  24,
+    0,   0,
+   23,  19,  15,   11,  7,   3,
+   22,  18,  14,   10,  6,   2,
+   21,  17,  13,    9,  5,   1,
+   20,  16,  12,    8,  4,   0
+    0,   0};
 
 // access to system-side flag
 extern keyboard_config_t keyboard_config;
