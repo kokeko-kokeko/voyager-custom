@@ -587,7 +587,7 @@ static const uint8_t * const val_tbl = (uint8_t[]){
    85,  83,  81,  79,  77,  75,  73,  71,
    69,  67,  65,  63,  61,  59,  57,  55,
    53,  51,  46,  41,  31,  21,  11,   1};
-static const uint8_t * const pos_tbl = (uint8_t[]){
+static const uint8_t * const idx2pos_tbl = (uint8_t[]){
    49,  43,  37,  31,
    48,  42,  36,  30,
    47,  41,  35,  29,
@@ -2403,24 +2403,24 @@ static void set_layer_color_hue_map(void) {
   for (i = 0; i < 48; i++) {
     hsv.h = hue_tbl[i];
     if (hsv.v == 0) {
-      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
       continue;
     }
     if (hsv.h <= key) {
-      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
       break;
     }
     rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
   }
   for (i++; i < 48; i++) {
     hsv.h = hue_tbl[i];
     if (hsv.v == 0) {
-      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
       continue;
     }
     rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
   }
 }
 
@@ -2436,24 +2436,24 @@ static void set_layer_color_sat_map(void) {
   for (i = 0; i < 48; i++) {
     hsv.s = sat_tbl[i];
     if (hsv.v == 0) {
-      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
       continue;
     }
     if (hsv.s <= key) {
-      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
       break;
     }
     rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
   }
   for (i++; i < 48; i++) {
     hsv.s = sat_tbl[i];
     if (hsv.v == 0) {
-      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
       continue;
     }
     rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
   }
 }
 
@@ -2469,24 +2469,24 @@ static void set_layer_color_val_map(void) {
   for (i = 0; i < 48; i++) {
     hsv.v = val_tbl[i];
     if (hsv.v == 0) {
-      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
       continue;
     }
     if (hsv.v <= key) {
-      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
       break;
     }
     rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
   }
   for (i++; i < 48; i++) {
     hsv.v = val_tbl[i];
     if (hsv.v == 0) {
-      rgb_matrix_set_color(pos_tbl[i], 0, 0, 0);
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
       continue;
     }
     rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(pos_tbl[i], rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
   }
 }
 
