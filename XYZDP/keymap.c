@@ -1122,7 +1122,7 @@ static const uint8_t * const pos2idx_tbl = (uint8_t[]){
    23,  19,  15,   11,  7,   3,
    22,  18,  14,   10,  6,   2,
    21,  17,  13,    9,  5,   1,
-   20,  16,  12,    8,  4,   0
+   20,  16,  12,    8,  4,   0,
     0,   0};
 
 // access to system-side flag
