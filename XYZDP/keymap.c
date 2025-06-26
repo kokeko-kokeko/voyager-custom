@@ -474,8 +474,68 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
+static void rgblight_set_hue(uint8_t hue);
+static void rgblight_set_sat(uint8_t sat);
+static void rgblight_set_val(uint8_t val);
+static void rgblight_save_eeprom(void);
+static void rgblight_load_preset(void);
 
+static void set_layer_color_hue_map(void);
+static void set_layer_color_sat_map(void);
+static void set_layer_color_val_map(void);
+static void set_layer_color_fwsys_map(void);
 
+// reverse sort order
+// hue value 6 * 8 like NCS
+static const uint8_t * const hue_tbl = (uint8_t[]){
+  250, 243, 236, 229, 222, 215,
+  207, 200, 193, 186, 179, 172,
+  163, 154, 146, 137, 129, 118,
+  111, 105,  98,  92,  86,  83,
+   79,  75,  71,  67,  63,  58,
+   55,  52,  49,  46,  43,  40,
+   35,  30,  25,  20,  15,  10,
+    9,   7,   5,   3,   1,   0};
+static const uint8_t * const sat_tbl = (uint8_t[]){
+  255, 252, 249, 246, 243, 240, 237, 234,
+  231, 228, 225, 222, 219, 216, 213, 210,
+  207, 204, 201, 198, 195, 192, 189, 186,
+  183, 180, 177, 174, 171, 168, 164, 160,
+  150, 140, 130, 120, 110, 100,  90,  80,
+   70,  60,  50,  40,  30,  20,  10,   0};
+// val value max limit 175
+static const uint8_t * const val_tbl = (uint8_t[]){
+  175, 165, 155, 145, 135, 128, 121, 119,
+  117, 115, 113, 111, 109, 107, 105, 103,
+  101,  99,  97,  95,  93,  91,  89,  87,
+   85,  83,  81,  79,  77,  75,  73,  71,
+   69,  67,  65,  63,  61,  59,  57,  55,
+   53,  51,  46,  41,  31,  21,  11,   1};
+static const uint8_t * const pos_tbl = (uint8_t[]){
+   49,  43,  37,  31,
+   48,  42,  36,  30,
+   47,  41,  35,  29,
+   46,  40,  34,  28,
+   45,  39,  33,  27,
+   44,  38,  32,  26,
+   
+   23,  17,  11,   5,
+   22,  16,  10,   4,
+   21,  15,   9,   3,
+   20,  14,   8,   2,
+   19,  13,   7,   1,
+   18,  12,   6,   0};
+static const uint8_t * const pos2idx_tbl = (uint8_t[]){
+   47,  43,  39,  35,  31,  27,
+   46,  42,  38,  34,  30,  26,
+   45,  41,  37,  33,  29,  25,
+   44,  40,  36,  32,  28,  24,
+    0,   0,
+   23,  19,  15,   11,  7,   3,
+   22,  18,  14,   10,  6,   2,
+   21,  17,  13,    9,  5,   1,
+   20,  16,  12,    8,  4,   0,
+    0,   0};
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -833,26 +893,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_0_255_100:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,100);
+        rgblight_set_hue(hue_tbl[pos2idx_tbl[0]]);
       }
       return false;
     case HSV_0_255_101:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,101);
+        rgblight_set_hue(hue_tbl[pos2idx_tbl[1]]);
       }
       return false;
     case HSV_0_255_102:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,102);
+        rgblight_set_hue(hue_tbl[pos2idx_tbl[2]]);
       }
       return false;
     case HSV_0_255_103:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,103);
+        rgblight_set_hue(hue_tbl[pos2idx_tbl[3]]);
       }
       return false;
     case HSV_0_255_104:
