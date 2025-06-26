@@ -1705,12 +1705,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_save_eeprom();
       }
       return false;
+    
     case HSV_43_255_100:
       if (record->event.pressed) {
         key_overrides = key_overrides_ansi;
       }
       return false;
-    
     case HSV_43_255_101:
       if (record->event.pressed) {
 
