@@ -969,7 +969,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case HSV_0_255_100:
       if (record->event.pressed) {
-        rgblight_set_hue(hue_tbl[pos2idx_tbl[100]]);
+        rgblight_set_hue(hue_tbl[pos2idx_tbl[0]]);
       }
       return false;
     case HSV_0_255_101:
