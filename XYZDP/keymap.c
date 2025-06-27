@@ -563,7 +563,7 @@ static void set_layer_color_fwsys_map(void);
 
 // reverse sort order
 // hue value 6 * 8 like NCS
-static const uint8_t * const hue_tbl = (uint8_t[]){
+static const uint8_t hue_tbl[48] = {
   250, 243, 236, 229, 222, 215,
   207, 200, 193, 186, 179, 172,
   163, 154, 146, 137, 129, 118,
