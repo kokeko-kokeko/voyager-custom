@@ -571,8 +571,8 @@ static const uint8_t hue_tbl[48] = {
    79,  75,  71,  67,  63,  58,
    55,  52,  49,  46,  43,  40,
    35,  30,  25,  20,  15,  10,
-    9,   7,   5,   3,   1,   0,0,0};
-static const uint8_t * const sat_tbl = (uint8_t[]){
+    9,   7,   5,   3,   1,   0};
+static const uint8_t sat_tbl[48] = {
   255, 252, 249, 246, 243, 240, 237, 234,
   231, 228, 225, 222, 219, 216, 213, 210,
   207, 204, 201, 198, 195, 192, 189, 186,
@@ -580,14 +580,14 @@ static const uint8_t * const sat_tbl = (uint8_t[]){
   150, 140, 130, 120, 110, 100,  90,  80,
    70,  60,  50,  40,  30,  20,  10,   0};
 // val value max limit 175
-static const uint8_t * const val_tbl = (uint8_t[]){
+static const uint8_t val_tbl[48] = {
   175, 165, 155, 145, 135, 128, 121, 119,
   117, 115, 113, 111, 109, 107, 105, 103,
   101,  99,  97,  95,  93,  91,  89,  87,
    85,  83,  81,  79,  77,  75,  73,  71,
    69,  67,  65,  63,  61,  59,  57,  55,
    53,  51,  46,  41,  31,  21,  11,   1};
-static const uint8_t * const idx2pos_tbl = (uint8_t[]){
+static const uint8_t idx2pos_tbl[48] = {
    49,  43,  37,  31,
    48,  42,  36,  30,
    47,  41,  35,  29,
@@ -601,7 +601,7 @@ static const uint8_t * const idx2pos_tbl = (uint8_t[]){
    20,  14,   8,   2,
    19,  13,   7,   1,
    18,  12,   6,   0};
-static const uint8_t * const pos2idx_tbl = (uint8_t[]){
+static const uint8_t pos2idx_tbl[52] = {
    47,  43,  39,  35,  31,  27,
    46,  42,  38,  34,  30,  26,
    45,  41,  37,  33,  29,  25,
@@ -612,7 +612,6 @@ static const uint8_t * const pos2idx_tbl = (uint8_t[]){
    21,  17,  13,    9,  5,   1,
    20,  16,  12,    8,  4,   0,
     0,   0};
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
