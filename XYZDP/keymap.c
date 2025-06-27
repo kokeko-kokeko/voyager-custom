@@ -2145,8 +2145,8 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
       case LT(3, KC_SPACE):
         return 0;
 
-      case LT(7, KC_B):
-      case LT(8, KC_V):
+      case LT(6, KC_B):
+      case LT(7, KC_V):
         return 0;
 
       case MT(MOD_LCTL, KC_Z):
@@ -2173,11 +2173,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     } else {
       state &= ~((layer_state_t)1 << 4);
     }
-    if (layer_state_cmp(state, 5)) {
-      state |=  ((layer_state_t)1 << 6);
-    } else {
-      state &= ~((layer_state_t)1 << 6);
-    }
   }
 
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
@@ -2201,18 +2196,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       break;
     // Fn
     case 5:
-    case 6:
       status_led(0b1100, NULL, 0);
       status_led(0b0011, led_pattern_on, 0);
       break;
     // Lcur
-    case 7:
+    case 6:
       status_led(0b0110, NULL, 0);
       status_led(0b1000, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
       break;
     // Rcur
-    case 8:
+    case 7:
       status_led(0b1001, NULL, 0);
       status_led(0b0100, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
