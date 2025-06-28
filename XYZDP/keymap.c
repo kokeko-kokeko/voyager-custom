@@ -1972,16 +1972,16 @@ bool rgb_matrix_indicators_user(void) {
   }
   if (keyboard_config.disable_layer_led) { return false; }
   switch (biton32(layer_state)) {
-    case 28:
+    case 8:
       set_layer_color_hue_map();
       break;
-    case 29:
+    case 9:
       set_layer_color_sat_map();
       break;
-    case 30:
+    case 10:
       set_layer_color_val_map();
       break;
-    case 31:
+    case 11:
       set_layer_color_fwsys_map();
       break;
    default:
@@ -2072,7 +2072,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0010, led_pattern_blink, 0);
       break;
     // FwSys
-    case 31:
+    case 11:
       status_led(0b1111, led_pattern_on, 0);
       break;
     default :
@@ -2247,9 +2247,8 @@ static void rgblight_load_preset(void) {
 static void set_layer_color_hue_map(void) {
   HSV hsv = rgblight_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
-  //rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
-  //rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
-  rgb_matrix_set_color(50, 0, 0, 0 );
+
+  rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
   rgb_matrix_set_color(51, hsv.v, 0, 0 );
   uint8_t key = hsv.h;
   uint8_t i = 0;
@@ -2280,8 +2279,8 @@ static void set_layer_color_hue_map(void) {
 static void set_layer_color_sat_map(void) {
   HSV hsv = rgblight_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
-  //rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
-  //rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
+
+  rgb_matrix_set_color(24, hsv.v, hsv.v, hsv.v);
   rgb_matrix_set_color(50, 0, 0, 0);
   rgb_matrix_set_color(51, 0, hsv.v, 0);
   uint8_t key = hsv.s;
@@ -2313,8 +2312,8 @@ static void set_layer_color_sat_map(void) {
 static void set_layer_color_val_map(void) {
   HSV hsv = rgblight_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
-  //rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
-  //rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
+
+  rgb_matrix_set_color(25, hsv.v, hsv.v, hsv.v);
   rgb_matrix_set_color(50, 0, 0, 0);
   rgb_matrix_set_color(51, 0, 0, hsv.v);
   uint8_t key = hsv.v;
@@ -2350,7 +2349,8 @@ static void set_layer_color_fwsys_map(void) {
   const uint8_t o = q >> 1;
 
   rgb_matrix_set_color_all(0, 0, 0);
-  
+  rgb_matrix_set_color(25, f, f, f);
+
   //ANSI/JIS
   if (key_overrides == key_overrides_jis) {
     //JIS base enable
