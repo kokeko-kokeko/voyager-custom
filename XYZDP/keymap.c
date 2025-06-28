@@ -230,21 +230,21 @@ enum tap_dance_codes {
   DANCE_1,
 };
 
-#define DUAL_FUNC_0 LT(13, KC_M)
-#define DUAL_FUNC_1 LT(15, KC_4)
-#define DUAL_FUNC_2 LT(15, KC_0)
-#define DUAL_FUNC_3 LT(4, KC_R)
-#define DUAL_FUNC_4 LT(7, KC_P)
-#define DUAL_FUNC_5 LT(12, KC_O)
-#define DUAL_FUNC_6 LT(12, KC_E)
-#define DUAL_FUNC_7 LT(15, KC_B)
-#define DUAL_FUNC_8 LT(14, KC_F19)
-#define DUAL_FUNC_9 LT(13, KC_F3)
-#define DUAL_FUNC_10 LT(12, KC_4)
-#define DUAL_FUNC_11 LT(9, KC_F14)
-#define DUAL_FUNC_12 LT(8, KC_F6)
-#define DUAL_FUNC_13 LT(11, KC_7)
-#define DUAL_FUNC_14 LT(15, KC_F5)
+#define DUAL_FUNC_0 LT(3, KC_F9)
+#define DUAL_FUNC_1 LT(2, KC_D)
+#define DUAL_FUNC_2 LT(13, KC_M)
+#define DUAL_FUNC_3 LT(9, KC_F7)
+#define DUAL_FUNC_4 LT(3, KC_0)
+#define DUAL_FUNC_5 LT(6, KC_F12)
+#define DUAL_FUNC_6 LT(7, KC_F4)
+#define DUAL_FUNC_7 LT(9, KC_5)
+#define DUAL_FUNC_8 LT(14, KC_O)
+#define DUAL_FUNC_9 LT(4, KC_W)
+#define DUAL_FUNC_10 LT(13, KC_F17)
+#define DUAL_FUNC_11 LT(8, KC_Q)
+#define DUAL_FUNC_12 LT(3, KC_1)
+#define DUAL_FUNC_13 LT(10, KC_F6)
+#define DUAL_FUNC_14 LT(9, KC_F20)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -437,34 +437,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [27] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
-  ),
-  [28] = LAYOUT_voyager(
     HSV_0_255_100,  HSV_0_255_101,  HSV_0_255_102,  HSV_0_255_103,  HSV_0_255_104,  HSV_0_255_105,                                  HSV_0_255_126,  HSV_0_255_127,  HSV_0_255_128,  HSV_0_255_129,  HSV_0_255_130,  HSV_0_255_131,  
     HSV_0_255_106,  HSV_0_255_107,  HSV_0_255_108,  HSV_0_255_109,  HSV_0_255_110,  HSV_0_255_111,                                  HSV_0_255_132,  HSV_0_255_133,  HSV_0_255_134,  HSV_0_255_135,  HSV_0_255_136,  HSV_0_255_137,  
     HSV_0_255_112,  HSV_0_255_113,  HSV_0_255_114,  HSV_0_255_115,  HSV_0_255_116,  HSV_0_255_117,                                  HSV_0_255_138,  HSV_0_255_139,  HSV_0_255_140,  HSV_0_255_141,  HSV_0_255_142,  HSV_0_255_143,  
     HSV_0_255_118,  HSV_0_255_119,  HSV_0_255_120,  HSV_0_255_121,  HSV_0_255_122,  HSV_0_255_123,                                  HSV_0_255_144,  HSV_0_255_145,  HSV_0_255_146,  HSV_0_255_147,  HSV_0_255_148,  HSV_0_255_149,  
-                                                    MO(29),         MO(30),                                         KC_TRANSPARENT, HSV_0_255_151
+                                                    MO(28),         MO(29),                                         KC_TRANSPARENT, HSV_0_255_151
   ),
-  [29] = LAYOUT_voyager(
+  [28] = LAYOUT_voyager(
     HSV_86_255_100, HSV_86_255_101, HSV_86_255_102, HSV_86_255_103, HSV_86_255_104, HSV_86_255_105,                                 HSV_86_255_126, HSV_86_255_127, HSV_86_255_128, HSV_86_255_129, HSV_86_255_130, HSV_86_255_131, 
     HSV_86_255_106, HSV_86_255_107, HSV_86_255_108, HSV_86_255_109, HSV_86_255_110, HSV_86_255_111,                                 HSV_86_255_132, HSV_86_255_133, HSV_86_255_134, HSV_86_255_135, HSV_86_255_136, HSV_86_255_137, 
     HSV_86_255_112, HSV_86_255_113, HSV_86_255_114, HSV_86_255_115, HSV_86_255_116, HSV_86_255_117,                                 HSV_86_255_138, HSV_86_255_139, HSV_86_255_140, HSV_86_255_141, HSV_86_255_142, HSV_86_255_143, 
     HSV_86_255_118, HSV_86_255_119, HSV_86_255_120, HSV_86_255_121, HSV_86_255_122, HSV_86_255_123,                                 HSV_86_255_144, HSV_86_255_145, HSV_86_255_146, HSV_86_255_147, HSV_86_255_148, HSV_86_255_149, 
                                                     KC_TRANSPARENT, KC_NO,                                          KC_NO,          HSV_86_255_151
   ),
-  [30] = LAYOUT_voyager(
+  [29] = LAYOUT_voyager(
     HSV_172_255_100,HSV_172_255_101,HSV_172_255_102,HSV_172_255_103,HSV_172_255_104,HSV_172_255_105,                                HSV_172_255_126,HSV_172_255_127,HSV_172_255_128,HSV_172_255_129,HSV_172_255_130,HSV_172_255_131,
     HSV_172_255_106,HSV_172_255_107,HSV_172_255_108,HSV_172_255_109,HSV_172_255_110,HSV_172_255_111,                                HSV_172_255_132,HSV_172_255_133,HSV_172_255_134,HSV_172_255_135,HSV_172_255_136,HSV_172_255_137,
     HSV_172_255_112,HSV_172_255_113,HSV_172_255_114,HSV_172_255_115,HSV_172_255_116,HSV_172_255_117,                                HSV_172_255_138,HSV_172_255_139,HSV_172_255_140,HSV_172_255_141,HSV_172_255_142,HSV_172_255_143,
     HSV_172_255_118,HSV_172_255_119,HSV_172_255_120,HSV_172_255_121,HSV_172_255_122,HSV_172_255_123,                                HSV_172_255_144,HSV_172_255_145,HSV_172_255_146,HSV_172_255_147,HSV_172_255_148,HSV_172_255_149,
                                                     KC_NO,          KC_TRANSPARENT,                                 KC_NO,          HSV_172_255_151
   ),
-  [31] = LAYOUT_voyager(
+  [30] = LAYOUT_voyager(
     HSV_43_255_100, HSV_43_255_101, HSV_43_255_102, HSV_43_255_103, HSV_43_255_104, HSV_43_255_105,                                 HSV_43_255_126, HSV_43_255_127, HSV_43_255_128, HSV_43_255_129, EE_CLR,         QK_BOOT,        
     HSV_43_255_106, HSV_43_255_107, HSV_43_255_108, HSV_43_255_109, HSV_43_255_110, HSV_43_255_111,                                 HSV_43_255_132, HSV_43_255_133, HSV_43_255_134, HSV_43_255_135, HSV_43_255_136, HSV_43_255_137, 
     HSV_43_255_112, HSV_43_255_113, HSV_43_255_114, HSV_43_255_115, HSV_43_255_116, HSV_43_255_117,                                 HSV_43_255_138, HSV_43_255_139, HSV_43_255_140, HSV_43_255_141, HSV_43_255_142, HSV_43_255_143, 
@@ -2027,7 +2020,7 @@ void dance_0_finished(tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP: register_code16(KC_ESCAPE); break;
         case SINGLE_HOLD: layer_on(3); break;
         case DOUBLE_TAP: register_code16(KC_ESCAPE); register_code16(KC_ESCAPE); break;
-        case DOUBLE_HOLD: layer_on(31); break;
+        case DOUBLE_HOLD: layer_on(30); break;
         case DOUBLE_SINGLE_TAP: tap_code16(KC_ESCAPE); register_code16(KC_ESCAPE);
     }
 }
@@ -2043,8 +2036,8 @@ void dance_0_reset(tap_dance_state_t *state, void *user_data) {
         break;
         case DOUBLE_TAP: unregister_code16(KC_ESCAPE); break;
               case DOUBLE_HOLD: 
-                if(!is_layer_locked(31)) {
-                  layer_off(31);
+                if(!is_layer_locked(30)) {
+                  layer_off(30);
                 }
                 break;
         case DOUBLE_SINGLE_TAP: unregister_code16(KC_ESCAPE); break;
@@ -2072,7 +2065,7 @@ void dance_1_finished(tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP: register_code16(KC_BSPC); break;
         case SINGLE_HOLD: layer_on(1); break;
         case DOUBLE_TAP: register_code16(KC_BSPC); register_code16(KC_BSPC); break;
-        case DOUBLE_HOLD: layer_on(28); break;
+        case DOUBLE_HOLD: layer_on(27); break;
         case DOUBLE_SINGLE_TAP: tap_code16(KC_BSPC); register_code16(KC_BSPC);
     }
 }
@@ -2088,8 +2081,8 @@ void dance_1_reset(tap_dance_state_t *state, void *user_data) {
         break;
         case DOUBLE_TAP: unregister_code16(KC_BSPC); break;
               case DOUBLE_HOLD: 
-                if(!is_layer_locked(28)) {
-                  layer_off(28);
+                if(!is_layer_locked(27)) {
+                  layer_off(27);
                 }
                 break;
         case DOUBLE_SINGLE_TAP: unregister_code16(KC_BSPC); break;
