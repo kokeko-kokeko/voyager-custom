@@ -1770,16 +1770,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       }
       return false;
-    case HSV_43_255_150:
-      if (record->event.pressed) {
-
-      }
-      return false;
-    case HSV_43_255_151:
-      if (record->event.pressed) {
-
-      }
-      return false;
     
     //RGB inc/dec no eeprom over write
     // always return false (sometime use upedge)
