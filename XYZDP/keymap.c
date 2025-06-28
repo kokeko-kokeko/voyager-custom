@@ -408,9 +408,9 @@ const key_override_t **key_overrides_jis = (const key_override_t *[]){
   &ko_jis_base_6s, &ko_jis_base_7s, &ko_jis_base_8s, &ko_jis_base_9s,
   NULL, NULL, NULL};
 
-static void rgblight_set_hue(uint8_t hue);
-static void rgblight_set_sat(uint8_t sat);
-static void rgblight_set_val(uint8_t val);
+static void rgblight_set_hue(const uint8_t hue);
+static void rgblight_set_sat(const uint8_t sat);
+static void rgblight_set_val(const uint8_t val);
 static void rgblight_save_eeprom(void);
 static void rgblight_load_preset(void);
 
@@ -2203,17 +2203,17 @@ static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t ini
 }
 
 // HSV independent update code
-static void rgblight_set_hue(uint8_t hue) {
+static void rgblight_set_hue(const uint8_t hue) {
   HSV hsv = rgblight_get_hsv();
   rgblight_sethsv_noeeprom(hue, hsv.s, hsv.v);
 }
 
-static void rgblight_set_sat(uint8_t sat) {
+static void rgblight_set_sat(const uint8_t sat) {
   HSV hsv = rgblight_get_hsv();
   rgblight_sethsv_noeeprom(hsv.h, sat, hsv.v);
 }
 
-static void rgblight_set_val(uint8_t val) {
+static void rgblight_set_val(const uint8_t val) {
   HSV hsv = rgblight_get_hsv();
   rgblight_sethsv_noeeprom(hsv.h, hsv.s, val);
 }
@@ -2268,7 +2268,7 @@ static void set_layer_color_sat_map(void) {
   HSV hsv = rgblight_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
 
-  rgb_matrix_set_color(24, hsv.v, hsv.v, hsv.v);
+  rgb_matrix_set_color(24, 0, 0, 0);
   rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
   rgb_matrix_set_color(51, 0, hsv.v, 0);
   uint8_t key = hsv.s;
@@ -2301,7 +2301,7 @@ static void set_layer_color_val_map(void) {
   HSV hsv = rgblight_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
 
-  rgb_matrix_set_color(25, hsv.v, hsv.v, hsv.v);
+  rgb_matrix_set_color(25, 0, 0, 0);
   rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
   rgb_matrix_set_color(51, 0, 0, hsv.v);
   uint8_t key = hsv.v;
