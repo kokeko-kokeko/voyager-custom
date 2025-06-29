@@ -1699,7 +1699,7 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 
 // declaration for qmk function
-static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t init_delay_ms);
+static bool status_led(const uint8_t mask, const uint8_t * const pattern, const uint16_t init_delay_ms);
 
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_blink = (uint8_t[]){13, 50, UINT8_MAX, UINT8_MAX, UINT8_MAX};
@@ -1913,7 +1913,7 @@ static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
 // 2 -> Green Left
 // 4 -> Green Right
 // re-order bit position
-static bool status_led(uint8_t mask, const uint8_t * const pattern, uint16_t init_delay_ms) {
+static bool status_led(const uint8_t mask, const uint8_t * const pattern, const uint16_t init_delay_ms) {
   static deferred_token token_1 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
