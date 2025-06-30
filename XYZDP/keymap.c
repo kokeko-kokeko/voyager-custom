@@ -2127,6 +2127,7 @@ static void set_layer_color_fwsys_map(void) {
   }
 
   //OS detect
+  RGB rgb_os = {0, 0, 0}:
   switch (detected_host_os()) {
     case OS_WINDOWS:
       rgb_matrix_set_color( 5, 0, 0, f);
@@ -2177,6 +2178,12 @@ static void set_layer_color_fwsys_map(void) {
       rgb_matrix_set_color(38, f, f, f);
       break;
   }
+  rgb_matrix_set_color( 5, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(11, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(17, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(26, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(32, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(38, rgb_os.r, rgb_os.g, rgb_os.b);
 
   //tapping
   rgb_matrix_set_color(18, 0, 0, f);
