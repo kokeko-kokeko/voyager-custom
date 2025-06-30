@@ -332,14 +332,14 @@ const key_override_t ko_ansi_base_9s = ko_make_with_layers(MOD_MASK_SHIFT, KC_9,
 //const key_override_t ko_ansi_num_9s = ko_make_with_layers(MOD_MASK_SHIFT, KC_9, KC_PERC,  1 << 2);
 //const key_override_t ko_ansi_num_0s = ko_make_with_layers(MOD_MASK_SHIFT, KC_0, KC_ASTR,  1 << 2);
 
-const key_override_t **key_overrides_ansi = (const key_override_t *[]){
-  &ko_com_br_dn, &ko_com_br_up,
-  &ko_com_rev, &ko_com_ff, &ko_com_stop, &ko_com_play,
-  &ko_ansi_base_1,  &ko_ansi_base_2, &ko_ansi_base_3,
-  &ko_ansi_base_7,  &ko_ansi_base_9,
-  &ko_ansi_base_1s, &ko_ansi_base_2s, &ko_ansi_base_3s, &ko_ansi_base_4s, &ko_ansi_base_5s,
-  &ko_ansi_base_6s, &ko_ansi_base_7s, &ko_ansi_base_8s, &ko_ansi_base_9s,
-  NULL, NULL, NULL};
+//const key_override_t **key_overrides_ansi = (const key_override_t *[]){
+//  &ko_com_br_dn, &ko_com_br_up,
+//  &ko_com_rev, &ko_com_ff, &ko_com_stop, &ko_com_play,
+//  &ko_ansi_base_1,  &ko_ansi_base_2, &ko_ansi_base_3,
+//  &ko_ansi_base_7,  &ko_ansi_base_9,
+//  &ko_ansi_base_1s, &ko_ansi_base_2s, &ko_ansi_base_3s, &ko_ansi_base_4s, &ko_ansi_base_5s,
+//  &ko_ansi_base_6s, &ko_ansi_base_7s, &ko_ansi_base_8s, &ko_ansi_base_9s,
+//  NULL, NULL, NULL};
 
 #include "keymap_japanese.h"
 
@@ -360,23 +360,27 @@ const key_override_t ko_jis_base_7s = ko_make_with_layers(MOD_MASK_SHIFT, KC_7, 
 const key_override_t ko_jis_base_8s = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT,  JP_COLN, (layer_state_t)1 << 0);
 const key_override_t ko_jis_base_9s = ko_make_with_layers(MOD_MASK_SHIFT, KC_9,    JP_EXLM, (layer_state_t)1 << 0);
 
-const key_override_t **key_overrides_jis = (const key_override_t *[]){
-  &ko_com_br_dn, &ko_com_br_up,
-  &ko_com_rev, &ko_com_ff, &ko_com_stop, &ko_com_play,
-  &ko_jis_base_1,  &ko_jis_base_2,  &ko_jis_base_3,
-  &ko_jis_base_7,  &ko_jis_base_9, 
-  &ko_jis_base_1s, &ko_jis_base_2s, &ko_jis_base_3s, &ko_jis_base_4s, &ko_jis_base_5s,
-  &ko_jis_base_6s, &ko_jis_base_7s, &ko_jis_base_8s, &ko_jis_base_9s,
-  NULL, NULL, NULL};
+//const key_override_t **key_overrides_jis = (const key_override_t *[]){
+//  &ko_com_br_dn, &ko_com_br_up,
+//  &ko_com_rev, &ko_com_ff, &ko_com_stop, &ko_com_play,
+//  &ko_jis_base_1,  &ko_jis_base_2,  &ko_jis_base_3,
+//  &ko_jis_base_7,  &ko_jis_base_9, 
+//  &ko_jis_base_1s, &ko_jis_base_2s, &ko_jis_base_3s, &ko_jis_base_4s, &ko_jis_base_5s,
+//  &ko_jis_base_6s, &ko_jis_base_7s, &ko_jis_base_8s, &ko_jis_base_9s,
+//  NULL, NULL, NULL};
 
 const key_override_t *key_overrides[] = (const key_override_t *[]){
   &ko_com_br_dn, &ko_com_br_up,
   &ko_com_rev, &ko_com_ff, &ko_com_stop, &ko_com_play,
+  &ko_ansi_base_1,  &ko_ansi_base_2, &ko_ansi_base_3,
+  &ko_ansi_base_7,  &ko_ansi_base_9,
+  &ko_ansi_base_1s, &ko_ansi_base_2s, &ko_ansi_base_3s, &ko_ansi_base_4s, &ko_ansi_base_5s,
+  &ko_ansi_base_6s, &ko_ansi_base_7s, &ko_ansi_base_8s, &ko_ansi_base_9s,
   &ko_jis_base_1,  &ko_jis_base_2,  &ko_jis_base_3,
   &ko_jis_base_7,  &ko_jis_base_9, 
   &ko_jis_base_1s, &ko_jis_base_2s, &ko_jis_base_3s, &ko_jis_base_4s, &ko_jis_base_5s,
   &ko_jis_base_6s, &ko_jis_base_7s, &ko_jis_base_8s, &ko_jis_base_9s,
-  NULL, NULL, NULL};
+  };
 
 static void rgblight_set_hue(const uint8_t hue);
 static void rgblight_set_sat(const uint8_t sat);
@@ -1535,12 +1539,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case HSV_43_255_100:
       if (record->event.pressed) {
-        key_overrides = key_overrides_ansi;
+        //key_overrides = key_overrides_ansi;
       }
       return false;
     case HSV_43_255_101:
       if (record->event.pressed) {
-        key_overrides = key_overrides_jis;
+        //key_overrides = key_overrides_jis;
       }
       return false;
     
@@ -1725,7 +1729,7 @@ extern rgb_config_t rgb_matrix_config;
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
   // override to ANSI
-  key_overrides = key_overrides_ansi;
+  //key_overrides = key_overrides_ansi;
   layer_move(0);
 }
 
@@ -1785,7 +1789,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   //ANSI/JIS addiional enable
-  if (key_overrides == key_overrides_jis) {
+  //if (key_overrides == key_overrides_jis) {
     if (layer_state_cmp(state, 1)) {
       state |=  ((layer_state_t)1 << 2);
     } else {
@@ -1796,7 +1800,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     } else {
       state &= ~((layer_state_t)1 << 4);
     }
-  }
+  //}
 
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
