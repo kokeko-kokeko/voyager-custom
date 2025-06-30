@@ -1524,7 +1524,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case HSV_43_255_100:
       if (record->event.pressed) {
-        layer_off(1);
+        layer_move(0);
       }
       return false;
     case HSV_43_255_106:
