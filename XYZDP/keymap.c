@@ -352,12 +352,10 @@ const key_override_t ko_jis_base_9s = ko_make_with_layers(MOD_MASK_SHIFT, KC_9, 
 const key_override_t *key_overrides[] = {
   &ko_com_br_dn, &ko_com_br_up,
   &ko_com_rev, &ko_com_ff, &ko_com_stop, &ko_com_play,
-  &ko_ansi_base_1,  &ko_ansi_base_2,
-  &ko_ansi_base_7,  &ko_ansi_base_9,
+  &ko_ansi_base_1,  &ko_ansi_base_2, &ko_ansi_base_7,  &ko_ansi_base_9,
   &ko_ansi_base_1s, &ko_ansi_base_2s, &ko_ansi_base_3s, &ko_ansi_base_4s, &ko_ansi_base_5s,
   &ko_ansi_base_6s, &ko_ansi_base_7s, &ko_ansi_base_8s, &ko_ansi_base_9s,
-  &ko_jis_base_2,  &ko_jis_base_3,
-  &ko_jis_base_7,  &ko_jis_base_9, 
+  &ko_jis_base_2,  &ko_jis_base_3, &ko_jis_base_7,  &ko_jis_base_9, 
   &ko_jis_base_1s, &ko_jis_base_2s, &ko_jis_base_3s, &ko_jis_base_4s, &ko_jis_base_5s,
   &ko_jis_base_6s, &ko_jis_base_7s, &ko_jis_base_8s, &ko_jis_base_9s};
 
