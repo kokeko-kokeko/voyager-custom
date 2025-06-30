@@ -2134,19 +2134,19 @@ static void set_layer_color_fwsys_map(void) {
   rgb_matrix_set_color(25, f, f, 0);
 
   //ANSI/JIS
-  if (key_overrides == key_overrides_jis) {
+  //if (key_overrides == key_overrides_jis) {
     //JIS base enable
     rgb_matrix_set_color(0, o, 0, 0);
     rgb_matrix_set_color(1, 0, f, 0);
-  } else if (key_overrides == key_overrides_ansi) {
+  //} else if (key_overrides == key_overrides_ansi) {
     //ANSI base
     rgb_matrix_set_color(0, f, 0, 0);
     rgb_matrix_set_color(1, 0, o, 0);
-  } else {
+  //} else {
     // error
     rgb_matrix_set_color(0, o, 0, 0);
     rgb_matrix_set_color(1, 0, o, 0);
-  }
+  //}
 
   //OS detect
   RGB rgb_os = {0, 0, 0};
