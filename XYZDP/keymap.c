@@ -351,21 +351,21 @@ const key_override_t ko_ansi_base_9s = ko_make_with_layers(MOD_MASK_SHIFT, KC_9,
 #include "keymap_japanese.h"
 
 // base (x and xs pair is shifted symbol, xs only overwrite shift)
-const key_override_t ko_jis_base_1 = ko_make_with_layers_and_negmods(0, KC_1, JP_AT,   (layer_state_t)1 << 0, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_jis_base_2 = ko_make_with_layers_and_negmods(0, KC_2, JP_HASH, (layer_state_t)1 << 0, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_jis_base_3 = ko_make_with_layers_and_negmods(0, KC_3, JP_QUOT, (layer_state_t)1 << 0, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_jis_base_7 = ko_make_with_layers_and_negmods(0, KC_7, JP_DQUO, (layer_state_t)1 << 0, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_jis_base_9 = ko_make_with_layers_and_negmods(0, KC_9, JP_QUES, (layer_state_t)1 << 0, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_1 = ko_make_with_layers_and_negmods(0, KC_1, JP_AT,   (layer_state_t)1 << 1, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_2 = ko_make_with_layers_and_negmods(0, KC_2, JP_HASH, (layer_state_t)1 << 1, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_3 = ko_make_with_layers_and_negmods(0, KC_3, JP_QUOT, (layer_state_t)1 << 1, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_7 = ko_make_with_layers_and_negmods(0, KC_7, JP_DQUO, (layer_state_t)1 << 1, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_9 = ko_make_with_layers_and_negmods(0, KC_9, JP_QUES, (layer_state_t)1 << 1, (uint8_t) MOD_MASK_SHIFT);
 
-const key_override_t ko_jis_base_1s = ko_make_with_layers(MOD_MASK_SHIFT, KC_1,    JP_GRV,  (layer_state_t)1 << 0);
-const key_override_t ko_jis_base_2s = ko_make_with_layers(MOD_MASK_SHIFT, KC_2,    JP_DLR,  (layer_state_t)1 << 0);
-const key_override_t ko_jis_base_3s = ko_make_with_layers(MOD_MASK_SHIFT, KC_3,    JP_LPRN, (layer_state_t)1 << 0);
-const key_override_t ko_jis_base_4s = ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, JP_SCLN, (layer_state_t)1 << 0);
-const key_override_t ko_jis_base_5s = ko_make_with_layers(MOD_MASK_SHIFT, KC_MINS, JP_UNDS, (layer_state_t)1 << 0);
-const key_override_t ko_jis_base_6s = ko_make_with_layers(MOD_MASK_SHIFT, KC_SLSH, JP_BSLS, (layer_state_t)1 << 0);
-const key_override_t ko_jis_base_7s = ko_make_with_layers(MOD_MASK_SHIFT, KC_7,    JP_RPRN, (layer_state_t)1 << 0);
-const key_override_t ko_jis_base_8s = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT,  JP_COLN, (layer_state_t)1 << 0);
-const key_override_t ko_jis_base_9s = ko_make_with_layers(MOD_MASK_SHIFT, KC_9,    JP_EXLM, (layer_state_t)1 << 0);
+const key_override_t ko_jis_base_1s = ko_make_with_layers(MOD_MASK_SHIFT, KC_1,    JP_GRV,  (layer_state_t)1 << 1);
+const key_override_t ko_jis_base_2s = ko_make_with_layers(MOD_MASK_SHIFT, KC_2,    JP_DLR,  (layer_state_t)1 << 1);
+const key_override_t ko_jis_base_3s = ko_make_with_layers(MOD_MASK_SHIFT, KC_3,    JP_LPRN, (layer_state_t)1 << 1);
+const key_override_t ko_jis_base_4s = ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, JP_SCLN, (layer_state_t)1 << 1);
+const key_override_t ko_jis_base_5s = ko_make_with_layers(MOD_MASK_SHIFT, KC_MINS, JP_UNDS, (layer_state_t)1 << 1);
+const key_override_t ko_jis_base_6s = ko_make_with_layers(MOD_MASK_SHIFT, KC_SLSH, JP_BSLS, (layer_state_t)1 << 1);
+const key_override_t ko_jis_base_7s = ko_make_with_layers(MOD_MASK_SHIFT, KC_7,    JP_RPRN, (layer_state_t)1 << 1);
+const key_override_t ko_jis_base_8s = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT,  JP_COLN, (layer_state_t)1 << 1);
+const key_override_t ko_jis_base_9s = ko_make_with_layers(MOD_MASK_SHIFT, KC_9,    JP_EXLM, (layer_state_t)1 << 1);
 
 //const key_override_t **key_overrides_jis = (const key_override_t *[]){
 //  &ko_com_br_dn, &ko_com_br_up,
@@ -1748,16 +1748,16 @@ bool rgb_matrix_indicators_user(void) {
   }
   if (keyboard_config.disable_layer_led) { return false; }
   switch (biton32(layer_state)) {
-    case 8:
+    case 9:
       set_layer_color_hue_map();
       break;
-    case 9:
+    case 10:
       set_layer_color_sat_map();
       break;
-    case 10:
+    case 11:
       set_layer_color_val_map();
       break;
-    case 11:
+    case 12:
       set_layer_color_fwsys_map();
       break;
    default:
@@ -1822,53 +1822,53 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   uint8_t layer = get_highest_layer(state);
   switch (layer) {
     // Num
-    case 1:
     case 2:
+    case 3:
       status_led(0b1100, NULL, 0);
       status_led(0b0010, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
       break;
     // Bkt
-    case 3:
     case 4:
+    case 5:
       status_led(0b1100, NULL, 0);
       status_led(0b0001, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
       break;
     // Fn
-    case 5:
+    case 6:
       status_led(0b1100, NULL, 0);
       status_led(0b0011, led_pattern_on, 0);
       break;
     // Lcur
-    case 6:
+    case 7:
       status_led(0b0110, NULL, 0);
       status_led(0b1000, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
       break;
     // Rcur
-    case 7:
+    case 8:
       status_led(0b1001, NULL, 0);
       status_led(0b0100, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
       break;
     // Hue
-    case 8:
+    case 9:
       status_led(0b0011, NULL, 0);
       status_led(0b1100, led_pattern_on, 0);
       break;    
     // Sat
-    case 9:
+    case 10:
       status_led(0b0001, NULL, 0);
       status_led(0b1110, led_pattern_on, 0);
       break;
     // Val
-    case 10:
+    case 11:
       status_led(0b0010, NULL, 0);
       status_led(0b1101, led_pattern_on, 0);
       break;
     // FwSys
-    case 11:
+    case 12:
       status_led(0b1111, led_pattern_on, 0);
       break;
     default :
