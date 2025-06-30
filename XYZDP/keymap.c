@@ -2127,7 +2127,7 @@ static void set_layer_color_fwsys_map(void) {
   }
 
   //OS detect
-  RGB rgb_os = {0, 0, 0}:
+  RGB rgb_os = {0, 0, 0};
   switch (detected_host_os()) {
     case OS_WINDOWS:
       rgb_matrix_set_color( 5, 0, 0, f);
