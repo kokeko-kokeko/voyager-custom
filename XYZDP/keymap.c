@@ -313,13 +313,12 @@ const key_override_t ko_com_play = ko_make_with_layers_negmods_and_options(MOD_M
 // base (x and xs pair is shifted symbol, xs only overwrite shift)
 const key_override_t ko_ansi_base_1 = ko_make_with_layers_and_negmods(0, KC_1, KC_AT,   (layer_state_t)1 << 0, (uint8_t) MOD_MASK_SHIFT);
 const key_override_t ko_ansi_base_2 = ko_make_with_layers_and_negmods(0, KC_2, KC_HASH, (layer_state_t)1 << 0, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_ansi_base_3 = ko_make_with_layers_and_negmods(0, KC_3, KC_QUOT, (layer_state_t)1 << 0, (uint8_t) MOD_MASK_SHIFT);
 const key_override_t ko_ansi_base_7 = ko_make_with_layers_and_negmods(0, KC_7, KC_DQUO, (layer_state_t)1 << 0, (uint8_t) MOD_MASK_SHIFT);
 const key_override_t ko_ansi_base_9 = ko_make_with_layers_and_negmods(0, KC_9, KC_QUES, (layer_state_t)1 << 0, (uint8_t) MOD_MASK_SHIFT);
 
 const key_override_t ko_ansi_base_1s = ko_make_with_layers(MOD_MASK_SHIFT, KC_1,    KC_GRV,  (layer_state_t)1 << 0);
 const key_override_t ko_ansi_base_2s = ko_make_with_layers(MOD_MASK_SHIFT, KC_2,    KC_DLR,  (layer_state_t)1 << 0);
-const key_override_t ko_ansi_base_3s = ko_make_with_layers(MOD_MASK_SHIFT, KC_3,    KC_LPRN, (layer_state_t)1 << 0);
+const key_override_t ko_ansi_base_3s = ko_make_with_layers(MOD_MASK_SHIFT, KC_QUOT, KC_LPRN, (layer_state_t)1 << 0);
 const key_override_t ko_ansi_base_4s = ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, KC_SCLN, (layer_state_t)1 << 0);
 const key_override_t ko_ansi_base_5s = ko_make_with_layers(MOD_MASK_SHIFT, KC_MINS, KC_UNDS, (layer_state_t)1 << 0);
 const key_override_t ko_ansi_base_6s = ko_make_with_layers(MOD_MASK_SHIFT, KC_SLSH, KC_BSLS, (layer_state_t)1 << 0);
@@ -354,7 +353,7 @@ const key_override_t ko_jis_base_9s = ko_make_with_layers(MOD_MASK_SHIFT, KC_9, 
 const key_override_t *key_overrides[] = {
   &ko_com_br_dn, &ko_com_br_up,
   &ko_com_rev, &ko_com_ff, &ko_com_stop, &ko_com_play,
-  &ko_ansi_base_1,  &ko_ansi_base_2, &ko_ansi_base_3,
+  &ko_ansi_base_1,  &ko_ansi_base_2,
   &ko_ansi_base_7,  &ko_ansi_base_9,
   &ko_ansi_base_1s, &ko_ansi_base_2s, &ko_ansi_base_3s, &ko_ansi_base_4s, &ko_ansi_base_5s,
   &ko_ansi_base_6s, &ko_ansi_base_7s, &ko_ansi_base_8s, &ko_ansi_base_9s,
