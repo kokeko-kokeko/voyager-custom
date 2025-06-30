@@ -20,7 +20,7 @@
 #define LAYER_LOCK_IDLE_TIMEOUT 120000
 
 #undef DEBOUNCE
-#define DEBOUNCE 7
+#define DEBOUNCE 8
 
 #undef TAPPING_TERM
 #define TAPPING_TERM 300
