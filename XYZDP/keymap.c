@@ -361,7 +361,6 @@ const key_override_t *key_overrides[] = {
   &ko_jis_base_1s, &ko_jis_base_2s, &ko_jis_base_3s, &ko_jis_base_4s, &ko_jis_base_5s,
   &ko_jis_base_6s, &ko_jis_base_7s, &ko_jis_base_8s, &ko_jis_base_9s
 };
-bool is_jis = false;
 
 static void rgblight_set_hue(const uint8_t hue);
 static void rgblight_set_sat(const uint8_t sat);
@@ -1525,13 +1524,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case HSV_43_255_100:
       if (record->event.pressed) {
-        is_jis = false;
         layer_off(1);
       }
       return false;
     case HSV_43_255_106:
       if (record->event.pressed) {
-        is_jis = true;
         layer_on(1);
       }
       return false;
@@ -1809,7 +1806,6 @@ extern rgb_config_t rgb_matrix_config;
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
   // override to ANSI
-  is_jis = false;
   layer_move(0);
 }
 
