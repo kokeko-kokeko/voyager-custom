@@ -2129,52 +2129,52 @@ static void set_layer_color_fwsys_map(void) {
   //OS detect
   switch (detected_host_os()) {
     case OS_WINDOWS:
-      rgb_matrix_set_color( 3, 0, 0, f);
-      rgb_matrix_set_color( 4, 0, 0, f);
       rgb_matrix_set_color( 5, 0, 0, f);
+      rgb_matrix_set_color(11, 0, 0, f);
+      rgb_matrix_set_color(17, 0, 0, f);
       rgb_matrix_set_color(26, 0, 0, f);
-      rgb_matrix_set_color(27, 0, 0, f);
-      rgb_matrix_set_color(28, 0, 0, f);
+      rgb_matrix_set_color(32, 0, 0, f);
+      rgb_matrix_set_color(38, 0, 0, f);
       break;
     case OS_LINUX:
-      rgb_matrix_set_color( 3, 0, f, 0);
-      rgb_matrix_set_color( 4, 0, f, 0);
       rgb_matrix_set_color( 5, 0, f, 0);
+      rgb_matrix_set_color(11, 0, f, 0);
+      rgb_matrix_set_color(17, 0, f, 0);
       rgb_matrix_set_color(26, 0, f, 0);
-      rgb_matrix_set_color(27, 0, f, 0);
-      rgb_matrix_set_color(28, 0, f, 0);
+      rgb_matrix_set_color(32, 0, f, 0);
+      rgb_matrix_set_color(38, 0, f, 0);
       break;
     case OS_MACOS:
-      rgb_matrix_set_color( 3, f, 0, 0);
-      rgb_matrix_set_color( 4, f, 0, 0);
       rgb_matrix_set_color( 5, f, 0, 0);
+      rgb_matrix_set_color(11, f, 0, 0);
+      rgb_matrix_set_color(17, f, 0, 0);
       rgb_matrix_set_color(26, f, 0, 0);
-      rgb_matrix_set_color(27, f, 0, 0);
-      rgb_matrix_set_color(28, f, 0, 0);
+      rgb_matrix_set_color(32, f, 0, 0);
+      rgb_matrix_set_color(38, f, 0, 0);
       break;
     case OS_IOS:
-      rgb_matrix_set_color( 3, f, h, 0);
-      rgb_matrix_set_color( 4, f, h, 0);
       rgb_matrix_set_color( 5, f, h, 0);
+      rgb_matrix_set_color(11, f, h, 0);
+      rgb_matrix_set_color(17, f, h, 0);
       rgb_matrix_set_color(26, f, h, 0);
-      rgb_matrix_set_color(27, f, h, 0);
-      rgb_matrix_set_color(28, f, h, 0);
+      rgb_matrix_set_color(32, f, h, 0);
+      rgb_matrix_set_color(38, f, h, 0);
       break;    
     case OS_UNSURE:
-      rgb_matrix_set_color( 3, f, f, 0);
-      rgb_matrix_set_color( 4, f, f, 0);
       rgb_matrix_set_color( 5, f, f, 0);
+      rgb_matrix_set_color(11, f, f, 0);
+      rgb_matrix_set_color(17, f, f, 0);
       rgb_matrix_set_color(26, f, f, 0);
-      rgb_matrix_set_color(27, f, f, 0);
-      rgb_matrix_set_color(28, f, f, 0);
+      rgb_matrix_set_color(32, f, f, 0);
+      rgb_matrix_set_color(38, f, f, 0);
       break;
     default:
-      rgb_matrix_set_color( 3, f, f, f);
-      rgb_matrix_set_color( 4, f, f, f);
       rgb_matrix_set_color( 5, f, f, f);
+      rgb_matrix_set_color(11, f, f, f);
+      rgb_matrix_set_color(17, f, f, f);
       rgb_matrix_set_color(26, f, f, f);
-      rgb_matrix_set_color(27, f, f, f);
-      rgb_matrix_set_color(28, f, f, f);
+      rgb_matrix_set_color(32, f, f, f);
+      rgb_matrix_set_color(38, f, f, f);
       break;
   }
 
