@@ -2130,60 +2130,36 @@ static void set_layer_color_fwsys_map(void) {
   RGB rgb_os = {0, 0, 0};
   switch (detected_host_os()) {
     case OS_WINDOWS:
-      rgb_matrix_set_color( 5, 0, 0, f);
-      rgb_matrix_set_color(11, 0, 0, f);
-      rgb_matrix_set_color(17, 0, 0, f);
-      rgb_matrix_set_color(26, 0, 0, f);
-      rgb_matrix_set_color(32, 0, 0, f);
-      rgb_matrix_set_color(38, 0, 0, f);
+      rgb_os.b = f;
       break;
     case OS_LINUX:
-      rgb_matrix_set_color( 5, 0, f, 0);
-      rgb_matrix_set_color(11, 0, f, 0);
-      rgb_matrix_set_color(17, 0, f, 0);
-      rgb_matrix_set_color(26, 0, f, 0);
-      rgb_matrix_set_color(32, 0, f, 0);
-      rgb_matrix_set_color(38, 0, f, 0);
+      rgb_os.g = f;
       break;
     case OS_MACOS:
-      rgb_matrix_set_color( 5, f, 0, 0);
-      rgb_matrix_set_color(11, f, 0, 0);
-      rgb_matrix_set_color(17, f, 0, 0);
-      rgb_matrix_set_color(26, f, 0, 0);
-      rgb_matrix_set_color(32, f, 0, 0);
-      rgb_matrix_set_color(38, f, 0, 0);
+      rgb_os.r = f;
       break;
     case OS_IOS:
-      rgb_matrix_set_color( 5, f, h, 0);
-      rgb_matrix_set_color(11, f, h, 0);
-      rgb_matrix_set_color(17, f, h, 0);
-      rgb_matrix_set_color(26, f, h, 0);
-      rgb_matrix_set_color(32, f, h, 0);
-      rgb_matrix_set_color(38, f, h, 0);
+      rgb_os.r = f;
+      rgb_os.g = h;
       break;    
     case OS_UNSURE:
-      rgb_matrix_set_color( 5, f, f, 0);
-      rgb_matrix_set_color(11, f, f, 0);
-      rgb_matrix_set_color(17, f, f, 0);
-      rgb_matrix_set_color(26, f, f, 0);
-      rgb_matrix_set_color(32, f, f, 0);
-      rgb_matrix_set_color(38, f, f, 0);
+      rgb_os.r = f;
+      rgb_os.g = f;
       break;
     default:
-      rgb_matrix_set_color( 5, f, f, f);
-      rgb_matrix_set_color(11, f, f, f);
-      rgb_matrix_set_color(17, f, f, f);
-      rgb_matrix_set_color(26, f, f, f);
-      rgb_matrix_set_color(32, f, f, f);
-      rgb_matrix_set_color(38, f, f, f);
+      rgb_os.r = f;
+      rgb_os.g = f;
+      rgb_os.b = f;
       break;
   }
   rgb_matrix_set_color( 5, rgb_os.r, rgb_os.g, rgb_os.b);
   rgb_matrix_set_color(11, rgb_os.r, rgb_os.g, rgb_os.b);
   rgb_matrix_set_color(17, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(23, rgb_os.r, rgb_os.g, rgb_os.b);
   rgb_matrix_set_color(26, rgb_os.r, rgb_os.g, rgb_os.b);
   rgb_matrix_set_color(32, rgb_os.r, rgb_os.g, rgb_os.b);
   rgb_matrix_set_color(38, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(44, rgb_os.r, rgb_os.g, rgb_os.b);
 
   //tapping
   rgb_matrix_set_color(18, 0, 0, f);
