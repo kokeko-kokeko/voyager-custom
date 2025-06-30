@@ -360,6 +360,8 @@ const key_override_t *key_overrides[] = {
   &ko_jis_base_6s, &ko_jis_base_7s, &ko_jis_base_8s, &ko_jis_base_9s
 };
 
+bool is_jis = false;
+
 static void rgblight_set_hue(const uint8_t hue);
 static void rgblight_set_sat(const uint8_t sat);
 static void rgblight_set_val(const uint8_t val);
@@ -1522,12 +1524,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case HSV_43_255_100:
       if (record->event.pressed) {
-        layer_move(0);
+        is_jis = false;
       }
       return false;
     case HSV_43_255_106:
       if (record->event.pressed) {
-        layer_on(1);
+        is_jis = true;
       }
       return false;
     
@@ -1752,8 +1754,6 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
     switch (keycode) {
       case LT(2, KC_SPACE):
       case LT(4, KC_SPACE):
-      case LT(3, KC_SPACE):
-      case LT(5, KC_SPACE):
         return 0;
 
       case LT(7, KC_B):
@@ -1773,17 +1773,18 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   //ANSI/JIS addiional enable
-  if (layer_state_cmp(state, 3)) {
-    state |=  ((layer_state_t)1 << 2);
-  } else {
-    state &= ~((layer_state_t)1 << 2);
-  }
-  if (layer_state_cmp(state, 5)) {
-    state |=  ((layer_state_t)1 << 4);
-  } else {
-    state &= ~((layer_state_t)1 << 4);
-  }
-
+  state &= ~(((layer_state_t)1 << 1) |
+             ((layer_state_t)1 << 3) |
+             ((layer_state_t)1 << 5));
+  if (is_jis) {
+    state |=  ((layer_state_t)1 << 1);
+    if (layer_state_cmp(state, 2)) {
+      state |=  ((layer_state_t)1 << 3);
+    }
+    if (layer_state_cmp(state, 4)) {
+      state |=  ((layer_state_t)1 << 5);
+    }
+  }  
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
   
@@ -2116,7 +2117,7 @@ static void set_layer_color_fwsys_map(void) {
   rgb_matrix_set_color(25, f, f, 0);
 
   //ANSI/JIS
-  if (layer_state_is(1)) {
+  if (is_jis) {
     //JIS base enable
     rgb_matrix_set_color(0, o, 0, 0);
     rgb_matrix_set_color(6, 0, f, 0);
