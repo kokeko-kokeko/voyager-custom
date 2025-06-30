@@ -155,7 +155,7 @@ enum custom_keycodes {
   HSV_172_255_149,
   HSV_172_255_151,
   HSV_43_255_100,
-  HSV_43_255_101,
+  HSV_43_255_106,
   ST_MACRO_0,
   ST_MACRO_1,
   ST_MACRO_2,
@@ -189,21 +189,21 @@ enum tap_dance_codes {
   DANCE_1,
 };
 
-#define DUAL_FUNC_0 LT(2, KC_F1)
-#define DUAL_FUNC_1 LT(5, KC_D)
-#define DUAL_FUNC_2 LT(11, KC_5)
-#define DUAL_FUNC_3 LT(7, KC_V)
-#define DUAL_FUNC_4 LT(4, KC_4)
-#define DUAL_FUNC_5 LT(10, KC_E)
-#define DUAL_FUNC_6 LT(9, KC_0)
-#define DUAL_FUNC_7 LT(5, KC_B)
-#define DUAL_FUNC_8 LT(7, KC_G)
-#define DUAL_FUNC_9 LT(3, KC_W)
-#define DUAL_FUNC_10 LT(8, KC_Z)
-#define DUAL_FUNC_11 LT(5, KC_8)
-#define DUAL_FUNC_12 LT(2, KC_L)
-#define DUAL_FUNC_13 LT(2, KC_F10)
-#define DUAL_FUNC_14 LT(3, KC_F4)
+#define DUAL_FUNC_0 LT(1, KC_F20)
+#define DUAL_FUNC_1 LT(2, KC_W)
+#define DUAL_FUNC_2 LT(7, KC_F9)
+#define DUAL_FUNC_3 LT(8, KC_F9)
+#define DUAL_FUNC_4 LT(14, KC_V)
+#define DUAL_FUNC_5 LT(14, KC_F24)
+#define DUAL_FUNC_6 LT(5, KC_F17)
+#define DUAL_FUNC_7 LT(11, KC_Q)
+#define DUAL_FUNC_8 LT(11, KC_U)
+#define DUAL_FUNC_9 LT(14, KC_W)
+#define DUAL_FUNC_10 LT(6, KC_A)
+#define DUAL_FUNC_11 LT(5, KC_F23)
+#define DUAL_FUNC_12 LT(4, KC_R)
+#define DUAL_FUNC_13 LT(5, KC_2)
+#define DUAL_FUNC_14 LT(10, KC_6)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -292,7 +292,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [12] = LAYOUT_voyager(
     HSV_43_255_100, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          QK_BOOT,        
-    HSV_43_255_101, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          EE_CLR,         
+    HSV_43_255_106, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          EE_CLR,         
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     QK_DYNAMIC_TAPPING_TERM_PRINT,QK_DYNAMIC_TAPPING_TERM_DOWN,QK_DYNAMIC_TAPPING_TERM_UP,KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          RGB_SPD,        RGB_SPI,        RGB_SLD,        
                                                     KC_NO,          KC_TRANSPARENT,                                 KC_NO,          KC_NO
@@ -1545,10 +1545,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv(43,255,100);
       }
       return false;
-    case HSV_43_255_101:
+    case HSV_43_255_106:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(43,255,101);
+        rgblight_sethsv(43,255,106);
       }
       return false;
   }
