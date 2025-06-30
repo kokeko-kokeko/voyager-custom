@@ -1526,11 +1526,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_43_255_100:
       if (record->event.pressed) {
         is_jis = false;
+        layer_off(1);
       }
       return false;
     case HSV_43_255_106:
       if (record->event.pressed) {
         is_jis = true;
+        layer_on(1);
       }
       return false;
     
@@ -1848,6 +1850,8 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
     switch (keycode) {
       case LT(2, KC_SPACE):
       case LT(4, KC_SPACE):
+      case LT(3, KC_SPACE):
+      case LT(5, KC_SPACE):
         return 0;
 
       case LT(7, KC_B):
@@ -1867,17 +1871,15 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   //ANSI/JIS addiional enable
-  state &= ~(((layer_state_t)1 << 1) |
-             ((layer_state_t)1 << 3) |
-             ((layer_state_t)1 << 5));
-  if (is_jis) {
-    state |=  ((layer_state_t)1 << 1);
-    if (layer_state_cmp(state, 2)) {
-      state |=  ((layer_state_t)1 << 3);
-    }
-    if (layer_state_cmp(state, 4)) {
-      state |=  ((layer_state_t)1 << 5);
-    }
+  if (layer_state_cmp(state, 3)) {
+    state |=  ((layer_state_t)1 << 2);
+  } else {
+    state &= ~((layer_state_t)1 << 2);
+  }
+  if (layer_state_cmp(state, 5)) {
+    state |=  ((layer_state_t)1 << 4);
+  } else {
+    state &= ~((layer_state_t)1 << 4);
   }
 
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
@@ -2212,7 +2214,7 @@ static void set_layer_color_fwsys_map(void) {
   rgb_matrix_set_color(25, f, f, 0);
 
   //ANSI/JIS
-  if (is_jis) {
+  if (layer_state_is(1)) {
     //JIS base enable
     rgb_matrix_set_color(0, o, 0, 0);
     rgb_matrix_set_color(6, 0, f, 0);
