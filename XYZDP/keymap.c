@@ -189,21 +189,21 @@ enum tap_dance_codes {
   DANCE_1,
 };
 
-#define DUAL_FUNC_0 LT(10, KC_G)
-#define DUAL_FUNC_1 LT(12, KC_F23)
-#define DUAL_FUNC_2 LT(7, KC_F8)
-#define DUAL_FUNC_3 LT(9, KC_F17)
-#define DUAL_FUNC_4 LT(3, KC_0)
-#define DUAL_FUNC_5 LT(13, KC_F21)
-#define DUAL_FUNC_6 LT(3, KC_O)
-#define DUAL_FUNC_7 LT(11, KC_F9)
-#define DUAL_FUNC_8 LT(2, KC_4)
-#define DUAL_FUNC_9 LT(4, KC_0)
-#define DUAL_FUNC_10 LT(9, KC_X)
-#define DUAL_FUNC_11 LT(8, KC_F5)
-#define DUAL_FUNC_12 LT(14, KC_I)
-#define DUAL_FUNC_13 LT(15, KC_F18)
-#define DUAL_FUNC_14 LT(15, KC_U)
+#define DUAL_FUNC_0 LT(2, KC_F20)
+#define DUAL_FUNC_1 LT(7, KC_S)
+#define DUAL_FUNC_2 LT(12, KC_N)
+#define DUAL_FUNC_3 LT(1, KC_F20)
+#define DUAL_FUNC_4 LT(3, KC_4)
+#define DUAL_FUNC_5 LT(6, KC_F2)
+#define DUAL_FUNC_6 LT(2, KC_4)
+#define DUAL_FUNC_7 LT(15, KC_J)
+#define DUAL_FUNC_8 LT(10, KC_1)
+#define DUAL_FUNC_9 LT(13, KC_K)
+#define DUAL_FUNC_10 LT(6, KC_7)
+#define DUAL_FUNC_11 LT(4, KC_F3)
+#define DUAL_FUNC_12 LT(2, KC_F7)
+#define DUAL_FUNC_13 LT(11, KC_Y)
+#define DUAL_FUNC_14 LT(9, KC_H)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -214,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     LT(5, KC_TAB),  TD(DANCE_0),                                    TD(DANCE_1),    KC_ENTER
   ),
   [1] = LAYOUT_voyager(
-    CW_TOGG,        KC_TRANSPARENT, KC_COMMA,       KC_DOT,         KC_6,           KC_RABK,                                        KC_5,           KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    CW_TOGG,        KC_TRANSPARENT, KC_KP_COMMA,    KC_KP_DOT,      KC_6,           KC_RABK,                                        KC_5,           KC_KP_PLUS,     KC_KP_MINUS,    KC_KP_ASTERISK, KC_KP_SLASH,    KC_KP_EQUAL,    
     KC_LBRC,        MT(MOD_LGUI, KC_1),MT(MOD_LALT, KC_2),MT(MOD_LSFT, KC_3),MT(MOD_LCTL, KC_4),KC_5,                                           KC_6,           MT(MOD_RCTL, KC_7),MT(MOD_RSFT, KC_8),MT(MOD_RALT, KC_9),MT(MOD_RGUI, KC_0),KC_RBRC,        
     DUAL_FUNC_0,    DUAL_FUNC_1,    KC_EQUAL,       KC_TILD,        KC_PLUS,        KC_LABK,                                        KC_RABK,        KC_CIRC,        KC_AMPR,        KC_PERC,        DUAL_FUNC_2,    DUAL_FUNC_3,    
     KC_TRANSPARENT, KC_LEFT_GUI,    KC_LEFT_ALT,    KC_TRANSPARENT, KC_TRANSPARENT, KC_LANGUAGE_1,                                  KC_LANGUAGE_2,  KC_SPACE,       KC_TRANSPARENT, KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,  
