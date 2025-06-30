@@ -369,6 +369,15 @@ const key_override_t **key_overrides_jis = (const key_override_t *[]){
   &ko_jis_base_6s, &ko_jis_base_7s, &ko_jis_base_8s, &ko_jis_base_9s,
   NULL, NULL, NULL};
 
+const key_override_t **key_overrides = (const key_override_t *[]){
+  &ko_com_br_dn, &ko_com_br_up,
+  &ko_com_rev, &ko_com_ff, &ko_com_stop, &ko_com_play,
+  &ko_jis_base_1,  &ko_jis_base_2,  &ko_jis_base_3,
+  &ko_jis_base_7,  &ko_jis_base_9, 
+  &ko_jis_base_1s, &ko_jis_base_2s, &ko_jis_base_3s, &ko_jis_base_4s, &ko_jis_base_5s,
+  &ko_jis_base_6s, &ko_jis_base_7s, &ko_jis_base_8s, &ko_jis_base_9s,
+  NULL, NULL, NULL};
+
 static void rgblight_set_hue(const uint8_t hue);
 static void rgblight_set_sat(const uint8_t sat);
 static void rgblight_set_val(const uint8_t val);
