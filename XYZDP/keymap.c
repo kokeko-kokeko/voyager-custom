@@ -2121,11 +2121,11 @@ static void set_layer_color_fwsys_map(void) {
   if (is_jis) {
     //JIS base enable
     rgb_matrix_set_color(0, o, 0, 0);
-    rgb_matrix_set_color(1, 0, f, 0);
+    rgb_matrix_set_color(6, 0, f, 0);
   } else {
     //ANSI base
     rgb_matrix_set_color(0, f, 0, 0);
-    rgb_matrix_set_color(1, 0, o, 0);
+    rgb_matrix_set_color(6, 0, o, 0);
   }
 
   //OS detect
@@ -2168,12 +2168,6 @@ static void set_layer_color_fwsys_map(void) {
   rgb_matrix_set_color(19, o, 0, o);
   rgb_matrix_set_color(20, f, 0, f);
 
-  //thumb
-  //rgb_matrix_set_color(24, 0, f, 0);
-  //rgb_matrix_set_color(25, 0, 0, 0);
-  //rgb_matrix_set_color(50, f, 0, 0);
-  //rgb_matrix_set_color(51, 0, 0, f);
-
   //LED
   rgb_matrix_set_color(47, o, o, o);
   rgb_matrix_set_color(48, h, h, h);
@@ -2181,5 +2175,5 @@ static void set_layer_color_fwsys_map(void) {
 
   //reset
   rgb_matrix_set_color(31, f, 0, 0);
-  rgb_matrix_set_color(30, f, h, 0);
+  rgb_matrix_set_color(37, f, h, 0);
 }
