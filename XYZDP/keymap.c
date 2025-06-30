@@ -1825,6 +1825,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0100, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
       break;
+    case 8:
+    case 9:
+    case 10:
+      status_led(0b0011, NULL, 0);
+      status_led(0b1100, led_pattern_on, 0);
+      break;
     // FwSys
     case 11:
       status_led(0b1111, led_pattern_on, 0);
