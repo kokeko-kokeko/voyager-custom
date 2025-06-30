@@ -357,8 +357,8 @@ const key_override_t *key_overrides[] = {
   &ko_ansi_base_6s, &ko_ansi_base_7s, &ko_ansi_base_8s, &ko_ansi_base_9s,
   &ko_jis_base_2,  &ko_jis_base_3, &ko_jis_base_7,  &ko_jis_base_9, 
   &ko_jis_base_1s, &ko_jis_base_2s, &ko_jis_base_3s, &ko_jis_base_4s, &ko_jis_base_5s,
-  &ko_jis_base_6s, &ko_jis_base_7s, &ko_jis_base_8s, &ko_jis_base_9s};
-
+  &ko_jis_base_6s, &ko_jis_base_7s, &ko_jis_base_8s, &ko_jis_base_9s
+};
 bool is_jis = false;
 
 static void rgblight_set_hue(const uint8_t hue);
@@ -382,14 +382,16 @@ static const uint8_t hue_tbl[48] = {
    79,  75,  71,  67,  63,  58,
    55,  52,  49,  46,  43,  40,
    35,  30,  25,  20,  15,  10,
-    9,   7,   5,   3,   1,   0};
+    9,   7,   5,   3,   1,   0
+};
 static const uint8_t sat_tbl[48] = {
   255, 252, 249, 246, 243, 240, 237, 234,
   231, 228, 225, 222, 219, 216, 213, 210,
   207, 204, 201, 198, 195, 192, 189, 186,
   183, 180, 177, 174, 171, 168, 164, 160,
   150, 140, 130, 120, 110, 100,  90,  80,
-   70,  60,  50,  40,  30,  20,  10,   0};
+   70,  60,  50,  40,  30,  20,  10,   0
+};
 // val value max limit 175
 static const uint8_t val_tbl[48] = {
   175, 165, 155, 145, 135, 128, 121, 119,
@@ -397,7 +399,8 @@ static const uint8_t val_tbl[48] = {
   101,  99,  97,  95,  93,  91,  89,  87,
    85,  83,  81,  79,  77,  75,  73,  71,
    69,  67,  65,  63,  61,  59,  57,  55,
-   53,  51,  46,  41,  31,  21,  11,   1};
+   53,  51,  46,  41,  31,  21,  11,   1
+};
 static const uint8_t idx2pos_tbl[48] = {
    49,  43,  37,  31,
    48,  42,  36,  30,
@@ -411,7 +414,8 @@ static const uint8_t idx2pos_tbl[48] = {
    21,  15,   9,   3,
    20,  14,   8,   2,
    19,  13,   7,   1,
-   18,  12,   6,   0};
+   18,  12,   6,   0
+};
 static const uint8_t pos2idx_tbl[52] = {
    47,  43,  39,  35,  31,  27,
    46,  42,  38,  34,  30,  26,
@@ -422,7 +426,8 @@ static const uint8_t pos2idx_tbl[52] = {
    22,  18,  14,   10,  6,   2,
    21,  17,  13,    9,  5,   1,
    20,  16,  12,    8,  4,   0,
-    0,   0};
+    0,   0
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
