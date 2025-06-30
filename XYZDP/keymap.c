@@ -1713,7 +1713,8 @@ extern rgb_config_t rgb_matrix_config;
 // qmk callback function
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
-  // override to ANSI
+  //ANSI
+  is_jis = false;
   layer_move(0);
 }
 
