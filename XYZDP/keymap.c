@@ -2143,10 +2143,10 @@ static void set_layer_color_fwsys_map(void) {
       rgb_os.b = f;
       break;
   }
-  rgb_matrix_set_color( 5, rgb_os.r, rgb_os.g, rgb_os.b);
-  rgb_matrix_set_color(11, rgb_os.r, rgb_os.g, rgb_os.b);
-  rgb_matrix_set_color(26, rgb_os.r, rgb_os.g, rgb_os.b);
-  rgb_matrix_set_color(32, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(22, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(23, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(44, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(45, rgb_os.r, rgb_os.g, rgb_os.b);
 
   //tapping
   rgb_matrix_set_color(18, 0, 0, f);
