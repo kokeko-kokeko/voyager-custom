@@ -1778,12 +1778,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
              ((layer_state_t)1 << 3) |
              ((layer_state_t)1 << 5));
   if (is_jis) {
-    state |=  ((layer_state_t)1 << 1);
+    state |= ((layer_state_t)1 << 1);
     if (layer_state_cmp(state, 2)) {
-      state |=  ((layer_state_t)1 << 3);
+      state |= ((layer_state_t)1 << 3);
     }
     if (layer_state_cmp(state, 4)) {
-      state |=  ((layer_state_t)1 << 5);
+      state |= ((layer_state_t)1 << 5);
     }
   }  
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
