@@ -1771,6 +1771,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     if (layer_state_cmp(state, 2)) {
       state |= ((layer_state_t)1 << 3);
     }
+    // 0 is all time enable
     state |= ((layer_state_t)1 << 1);
   }  
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
