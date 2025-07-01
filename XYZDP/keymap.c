@@ -301,15 +301,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 // keymap ovverride (process Engram symbol and ANSI/JIS)
-// init on keyboard_post_init_user
-const key_override_t ko_com_br_dn = ko_make_with_layers_negmods_and_options(MOD_MASK_SHIFT, KC_AUDIO_VOL_DOWN, KC_BRIGHTNESS_DOWN, ~(layer_state_t)0, MOD_MASK_CAG, ko_option_no_reregister_trigger);
-const key_override_t ko_com_br_up = ko_make_with_layers_negmods_and_options(MOD_MASK_SHIFT, KC_AUDIO_VOL_UP,   KC_BRIGHTNESS_UP,   ~(layer_state_t)0, MOD_MASK_CAG, ko_option_no_reregister_trigger);
-
-const key_override_t ko_com_rev  = ko_make_with_layers_negmods_and_options(MOD_MASK_SHIFT, KC_MEDIA_PREV_TRACK, KC_MEDIA_REWIND,       ~(layer_state_t)0, MOD_MASK_CAG, ko_option_no_reregister_trigger);
-const key_override_t ko_com_ff   = ko_make_with_layers_negmods_and_options(MOD_MASK_SHIFT, KC_MEDIA_NEXT_TRACK, KC_MEDIA_FAST_FORWARD, ~(layer_state_t)0, MOD_MASK_CAG, ko_option_no_reregister_trigger);
-const key_override_t ko_com_stop = ko_make_with_layers_negmods_and_options(MOD_MASK_CTRL,  KC_MEDIA_PREV_TRACK, KC_MEDIA_STOP,         ~(layer_state_t)0, MOD_MASK_SAG, ko_option_no_reregister_trigger);
-const key_override_t ko_com_play = ko_make_with_layers_negmods_and_options(MOD_MASK_CTRL,  KC_MEDIA_NEXT_TRACK, KC_MEDIA_PLAY_PAUSE,   ~(layer_state_t)0, MOD_MASK_SAG, ko_option_no_reregister_trigger);
-
 // base (x and xs pair is shifted symbol, xs only overwrite shift)
 const key_override_t ko_ansi_base_1 = ko_make_with_layers_and_negmods(0, KC_1, KC_AT,   (layer_state_t)1 << 0, (uint8_t) MOD_MASK_SHIFT);
 const key_override_t ko_ansi_base_2 = ko_make_with_layers_and_negmods(0, KC_2, KC_HASH, (layer_state_t)1 << 0, (uint8_t) MOD_MASK_SHIFT);
@@ -350,8 +341,6 @@ const key_override_t ko_jis_base_8s = ko_make_with_layers(MOD_MASK_SHIFT, JP_DOT
 const key_override_t ko_jis_base_9s = ko_make_with_layers(MOD_MASK_SHIFT, JP_9,    JP_EXLM, (layer_state_t)1 << 1);
 
 const key_override_t *key_overrides[] = {
-  &ko_com_br_dn, &ko_com_br_up,
-  &ko_com_rev, &ko_com_ff, &ko_com_stop, &ko_com_play,
   &ko_ansi_base_1,  &ko_ansi_base_2, &ko_ansi_base_7,  &ko_ansi_base_9,
   &ko_ansi_base_1s, &ko_ansi_base_2s, &ko_ansi_base_3s, &ko_ansi_base_4s, &ko_ansi_base_5s,
   &ko_ansi_base_6s, &ko_ansi_base_7s, &ko_ansi_base_8s, &ko_ansi_base_9s,
