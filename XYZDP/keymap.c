@@ -1713,17 +1713,17 @@ bool rgb_matrix_indicators_user(void) {
   }
   if (keyboard_config.disable_layer_led) { return false; }
   switch (biton32(layer_state)) {
-    case 9:
-      set_layer_color_hue_map();
-      break;
-    case 10:
-      set_layer_color_sat_map();
+    case 12:
+      set_layer_color_fwsys_map();
       break;
     case 11:
       set_layer_color_val_map();
       break;
-    case 12:
-      set_layer_color_fwsys_map();
+    case 10:
+      set_layer_color_sat_map();
+      break;
+    case 9:
+      set_layer_color_hue_map();
       break;
    default:
     if (rgb_matrix_get_flags() == LED_FLAG_NONE)
@@ -1779,30 +1779,24 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   
   uint8_t layer = get_highest_layer(state);
   switch (layer) {
-    // Num
-    case 2:
-    case 3:
-      status_led(0b1100, NULL, 0);
-      status_led(0b0010, led_pattern_on, 0);
-      status_led(0b0001, led_pattern_blink, 0);
+    // FwSys
+    case 12:
+      status_led(0b1111, led_pattern_on, 0);
       break;
-    // Bkt
-    case 4:
-    case 5:
-      status_led(0b1100, NULL, 0);
-      status_led(0b0001, led_pattern_on, 0);
-      status_led(0b0010, led_pattern_blink, 0);
+    // Val
+    case 11:
+      status_led(0b0010, NULL, 0);
+      status_led(0b1101, led_pattern_on, 0);
       break;
-    // Fn
-    case 6:
-      status_led(0b1100, NULL, 0);
-      status_led(0b0011, led_pattern_on, 0);
+    // Sat
+    case 10:
+      status_led(0b0001, NULL, 0);
+      status_led(0b1110, led_pattern_on, 0);
       break;
-    // Lcur
-    case 7:
-      status_led(0b0110, NULL, 0);
-      status_led(0b1000, led_pattern_on, 0);
-      status_led(0b0001, led_pattern_blink, 0);
+    // Hue
+    case 9:
+      status_led(0b0011, NULL, 0);
+      status_led(0b1100, led_pattern_on, 0);
       break;
     // Rcur
     case 8:
@@ -1810,25 +1804,32 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0100, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
       break;
-    // Hue
-    case 9:
-      status_led(0b0011, NULL, 0);
-      status_led(0b1100, led_pattern_on, 0);
-      break;    
-    // Sat
-    case 10:
-      status_led(0b0001, NULL, 0);
-      status_led(0b1110, led_pattern_on, 0);
+    // Lcur
+    case 7:
+      status_led(0b0110, NULL, 0);
+      status_led(0b1000, led_pattern_on, 0);
+      status_led(0b0001, led_pattern_blink, 0);
       break;
-    // Val
-    case 11:
-      status_led(0b0010, NULL, 0);
-      status_led(0b1101, led_pattern_on, 0);
+    // Fn
+    case 6:
+      status_led(0b1100, NULL, 0);
+      status_led(0b0011, led_pattern_on, 0);
       break;
-    // FwSys
-    case 12:
-      status_led(0b1111, led_pattern_on, 0);
+    // Bkt
+    case 5:
+    case 4:
+      status_led(0b1100, NULL, 0);
+      status_led(0b0001, led_pattern_on, 0);
+      status_led(0b0010, led_pattern_blink, 0);
       break;
+    // Num
+    case 3:
+    case 2:
+      status_led(0b1100, NULL, 0);
+      status_led(0b0010, led_pattern_on, 0);
+      status_led(0b0001, led_pattern_blink, 0);
+      break;
+
     default :
       status_led(0b1111, NULL, 0);
       break;
