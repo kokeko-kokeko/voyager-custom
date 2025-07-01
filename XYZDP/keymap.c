@@ -349,7 +349,7 @@ const key_override_t *key_overrides[] = {
   &ko_jis_base_6s, &ko_jis_base_7s, &ko_jis_base_8s, &ko_jis_base_9s
 };
 
-bool is_jis = false;
+static bool is_jis = false;
 
 static void rgblight_set_hue(const uint8_t hue);
 static void rgblight_set_sat(const uint8_t sat);
