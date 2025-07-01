@@ -189,26 +189,26 @@ enum tap_dance_codes {
   DANCE_1,
 };
 
-#define DUAL_FUNC_0 LT(6, KC_M)
-#define DUAL_FUNC_1 LT(14, KC_F8)
-#define DUAL_FUNC_2 LT(8, KC_F19)
-#define DUAL_FUNC_3 LT(8, KC_V)
-#define DUAL_FUNC_4 LT(14, KC_F5)
-#define DUAL_FUNC_5 LT(13, KC_T)
-#define DUAL_FUNC_6 LT(9, KC_Y)
-#define DUAL_FUNC_7 LT(8, KC_F7)
-#define DUAL_FUNC_8 LT(6, KC_J)
-#define DUAL_FUNC_9 LT(1, KC_V)
-#define DUAL_FUNC_10 LT(4, KC_R)
-#define DUAL_FUNC_11 LT(7, KC_F18)
-#define DUAL_FUNC_12 LT(2, KC_X)
-#define DUAL_FUNC_13 LT(2, KC_F11)
-#define DUAL_FUNC_14 LT(10, KC_F3)
+#define DUAL_FUNC_0 LT(14, KC_F18)
+#define DUAL_FUNC_1 LT(12, KC_G)
+#define DUAL_FUNC_2 LT(8, KC_P)
+#define DUAL_FUNC_3 LT(8, KC_J)
+#define DUAL_FUNC_4 LT(3, KC_3)
+#define DUAL_FUNC_5 LT(11, KC_2)
+#define DUAL_FUNC_6 LT(1, KC_N)
+#define DUAL_FUNC_7 LT(12, KC_F12)
+#define DUAL_FUNC_8 LT(7, KC_0)
+#define DUAL_FUNC_9 LT(13, KC_Z)
+#define DUAL_FUNC_10 LT(10, KC_E)
+#define DUAL_FUNC_11 LT(12, KC_F18)
+#define DUAL_FUNC_12 LT(7, KC_F24)
+#define DUAL_FUNC_13 LT(3, KC_W)
+#define DUAL_FUNC_14 LT(5, KC_E)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     KC_1,           KC_2,           KC_Y,           KC_O,           KC_U,           KC_QUOTE,                                       KC_7,           KC_L,           KC_D,           KC_W,           KC_SLASH,       CW_TOGG,        
-    MT(MOD_LGUI, KC_B),MT(MOD_LALT, KC_C),LT(7, KC_I),    MT(MOD_LSFT, KC_E),MT(MOD_LCTL, KC_A),KC_COMMA,                                       KC_DOT,         MT(MOD_RCTL, KC_H),MT(MOD_RSFT, KC_T),LT(8, KC_S),    MT(MOD_RALT, KC_N),MT(MOD_RGUI, KC_V),
+    KC_B,           MT(MOD_LALT, KC_C),LT(7, KC_I),    MT(MOD_LSFT, KC_E),MT(MOD_LCTL, KC_A),KC_COMMA,                                       KC_DOT,         MT(MOD_RCTL, KC_H),MT(MOD_RSFT, KC_T),LT(8, KC_S),    MT(MOD_RALT, KC_N),MT(MOD_RGUI, KC_V),
     MT(MOD_LCTL, KC_Z),MT(MOD_LCTL, KC_G),KC_X,           KC_J,           KC_K,           KC_MINUS,                                       KC_9,           KC_R,           KC_M,           KC_F,           MT(MOD_RCTL, KC_P),MT(MOD_RCTL, KC_Q),
     KC_LEFT_SHIFT,  KC_LEFT,        KC_RIGHT,       KC_BSPC,        LT(2, KC_SPACE),KC_LANGUAGE_2,                                  LT(6, KC_LANGUAGE_1),LT(4, KC_SPACE),KC_DELETE,      KC_UP,          KC_DOWN,        KC_RIGHT_SHIFT, 
                                                     LT(6, KC_TAB),  TD(DANCE_0),                                    TD(DANCE_1),    KC_ENTER
