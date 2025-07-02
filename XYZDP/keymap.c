@@ -349,8 +349,6 @@ const key_override_t *key_overrides[] = {
   &ko_jis_base_6s, &ko_jis_base_7s, &ko_jis_base_8s, &ko_jis_base_9s
 };
 
-static bool is_jis = false;
-
 static void rgblight_set_hue(const uint8_t hue);
 static void rgblight_set_sat(const uint8_t sat);
 static void rgblight_set_val(const uint8_t val);
@@ -430,7 +428,6 @@ static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3,
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
   //ANSI
-  is_jis = false;
   layer_move(0);
 }
 
@@ -494,7 +491,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, 1, 2, 3);
   state = update_tri_layer_state(state, 1, 4, 5);
 
-  // call FwSys(9) with Fn(6) and Bkt(2)
+  // call FwSys(9) with Bkt(2) and Fn(6)
   state = update_tri_layer_state(state, 2, 6, 9);
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
@@ -916,13 +913,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case HSV_43_255_100:
       if (record->event.pressed) {
-        is_jis = false;
         layer_off(1);
       }
       return false;
     case HSV_43_255_106:
       if (record->event.pressed) {
-        is_jis = true;
         layer_on(1);
       }
       return false;
