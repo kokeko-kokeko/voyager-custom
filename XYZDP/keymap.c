@@ -449,7 +449,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
   if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
     switch (keycode) {
       case LT(2, KC_SPACE):
-      case LT(4, KC_SPACE):
+      case LT(5, KC_SPACE):
         return 0;
 
       case LT(7, KC_I):
