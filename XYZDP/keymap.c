@@ -355,10 +355,10 @@ static void rgblight_set_val(const uint8_t val);
 static void rgblight_save_eeprom(void);
 static void rgblight_load_preset(void);
 
+static void set_layer_color_fwsys_map(void);
 static void set_layer_color_hue_map(void);
 static void set_layer_color_sat_map(void);
 static void set_layer_color_val_map(void);
-static void set_layer_color_fwsys_map(void);
 
 // reverse sort order
 // hue value 6 * 8 like NCS
@@ -1859,6 +1859,76 @@ static void rgblight_load_preset(void) {
   status_led(0b1111, led_pattern_single, 0);
 }
 
+static void set_layer_color_fwsys_map(void) {
+  const uint8_t f = rgblight_get_val();
+  const uint8_t h = f >> 1;
+  const uint8_t q = h >> 1;
+  const uint8_t o = q >> 1;
+
+  rgb_matrix_set_color_all(0, 0, 0);
+
+  //layer indication
+  rgb_matrix_set_color(24, f, f, 0);
+  rgb_matrix_set_color(25, f, f, 0);
+  rgb_matrix_set_color(44, f, f, 0);
+  rgb_matrix_set_color(45, f, f, 0);
+  rgb_matrix_set_color(50, o, o, o);
+
+  //ANSI/JIS
+  if (layer_state_is(1)) {
+    //JIS base enable
+    rgb_matrix_set_color(0, o, 0, 0);
+    rgb_matrix_set_color(6, 0, f, 0);
+  } else {
+    //ANSI base
+    rgb_matrix_set_color(0, f, 0, 0);
+    rgb_matrix_set_color(6, 0, o, 0);
+  }
+
+  //OS detect
+  RGB rgb_os = {0, 0, 0};
+  switch (detected_host_os()) {
+    case OS_WINDOWS:
+      rgb_os.b = f;
+      break;
+    case OS_LINUX:
+      rgb_os.g = f;
+      break;
+    case OS_MACOS:
+      rgb_os.r = f;
+      break;
+    case OS_IOS:
+      rgb_os.r = f;
+      rgb_os.g = h;
+      break;    
+    case OS_UNSURE:
+      rgb_os.r = f;
+      rgb_os.g = f;
+      break;
+    default:
+      rgb_os.r = f;
+      rgb_os.g = f;
+      rgb_os.b = f;
+      break;
+  }
+  rgb_matrix_set_color(22, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(23, rgb_os.r, rgb_os.g, rgb_os.b);
+
+  //tapping
+  rgb_matrix_set_color(18, 0, 0, f);
+  rgb_matrix_set_color(19, o, 0, o);
+  rgb_matrix_set_color(20, f, 0, f);
+
+  //LED
+  rgb_matrix_set_color(47, o, o, o);
+  rgb_matrix_set_color(48, h, h, h);
+  rgb_matrix_set_color(49, f, 0, 0);
+
+  //reset
+  rgb_matrix_set_color(31, f, 0, 0);
+}
+
+
 static void set_layer_color_hue_map(void) {
   HSV hsv = rgblight_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
@@ -1957,69 +2027,5 @@ static void set_layer_color_val_map(void) {
   }
 }
 
-static void set_layer_color_fwsys_map(void) {
-  const uint8_t f = rgblight_get_val();
-  const uint8_t h = f >> 1;
-  const uint8_t q = h >> 1;
-  const uint8_t o = q >> 1;
-
-  rgb_matrix_set_color_all(0, 0, 0);
-  rgb_matrix_set_color(25, f, f, 0);
-
-  //ANSI/JIS
-  if (layer_state_is(1)) {
-    //JIS base enable
-    rgb_matrix_set_color(0, o, 0, 0);
-    rgb_matrix_set_color(6, 0, f, 0);
-  } else {
-    //ANSI base
-    rgb_matrix_set_color(0, f, 0, 0);
-    rgb_matrix_set_color(6, 0, o, 0);
-  }
-
-  //OS detect
-  RGB rgb_os = {0, 0, 0};
-  switch (detected_host_os()) {
-    case OS_WINDOWS:
-      rgb_os.b = f;
-      break;
-    case OS_LINUX:
-      rgb_os.g = f;
-      break;
-    case OS_MACOS:
-      rgb_os.r = f;
-      break;
-    case OS_IOS:
-      rgb_os.r = f;
-      rgb_os.g = h;
-      break;    
-    case OS_UNSURE:
-      rgb_os.r = f;
-      rgb_os.g = f;
-      break;
-    default:
-      rgb_os.r = f;
-      rgb_os.g = f;
-      rgb_os.b = f;
-      break;
-  }
-  rgb_matrix_set_color(22, rgb_os.r, rgb_os.g, rgb_os.b);
-  rgb_matrix_set_color(23, rgb_os.r, rgb_os.g, rgb_os.b);
-  rgb_matrix_set_color(44, rgb_os.r, rgb_os.g, rgb_os.b);
-  rgb_matrix_set_color(45, rgb_os.r, rgb_os.g, rgb_os.b);
-
-  //tapping
-  rgb_matrix_set_color(18, 0, 0, f);
-  rgb_matrix_set_color(19, o, 0, o);
-  rgb_matrix_set_color(20, f, 0, f);
-
-  //LED
-  rgb_matrix_set_color(47, o, o, o);
-  rgb_matrix_set_color(48, h, h, h);
-  rgb_matrix_set_color(49, f, 0, 0);
-
-  //reset
-  rgb_matrix_set_color(31, f, 0, 0);
-}
 
 
