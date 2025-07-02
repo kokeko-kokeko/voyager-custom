@@ -1710,3 +1710,331 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
+
+More actions
+
+// local function
+
+// LED pattern list, no const limit, terminate symbol
+// off -> on -> off ... (off start for no glitch)
+// reduce data x16 (4bit shift) 8bit
+// 0: terminate, output this area value
+// MAX: return to position 0 immediately, this cycle output position 0 value & wait
+// other: output current position value & wait
+// put reurn token for safety
+// max 16x255=4080ms 4sec
+// write NULL direct 
+static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
+  static uint8_t count = 0;
+  if (cb_arg == NULL) {
+    count = 0;
+    STATUS_LED_1(0);
+    return 0;
+  }
+  const uint8_t * const pattern = cb_arg;
+  if (pattern[count] == UINT8_MAX) {
+    count = 0;
+  }
+  STATUS_LED_1(count & 0b00000001);
+  return (((uint32_t)pattern[count++]) << 4);
+}
+
+static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
+  static uint8_t count = 0;
+  if (cb_arg == NULL) {
+    count = 0;
+    STATUS_LED_2(0);
+    return 0;
+  }
+  const uint8_t * const pattern = cb_arg;
+  if (pattern[count] == UINT8_MAX) {
+    count = 0;
+  }
+  STATUS_LED_2(count & 0b00000001);
+  return (((uint32_t)pattern[count++]) << 4);
+}
+
+static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
+  static uint8_t count = 0;
+  if (cb_arg == NULL) {
+    count = 0;
+    STATUS_LED_3(0);
+    return 0;
+  }
+  const uint8_t * const pattern = cb_arg;
+  if (pattern[count] == UINT8_MAX) {
+    count = 0;
+  }
+  STATUS_LED_3(count & 0b00000001);
+  return (((uint32_t)pattern[count++]) << 4);
+}
+
+static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
+  static uint8_t count = 0;
+  if (cb_arg == NULL) {
+    count = 0;
+    STATUS_LED_4(0);
+    return 0;
+  }
+  const uint8_t * const pattern = cb_arg;
+  if (pattern[count] == UINT8_MAX) {
+    count = 0;
+  }
+  STATUS_LED_4(count & 0b00000001);
+  return (((uint32_t)pattern[count++]) << 4);
+}
+
+// 1 -> Red Left
+// 3 -> Red Right
+// 2 -> Green Left
+// 4 -> Green Right
+// re-order bit position
+static bool status_led(const uint8_t mask, const uint8_t * const pattern, const uint16_t init_delay_ms) {
+  static deferred_token token_1 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
+  static deferred_token token_4 = INVALID_DEFERRED_TOKEN;
+  
+  if (mask & 0b1000) {
+    if (token_1 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(token_1);
+      token_1 = INVALID_DEFERRED_TOKEN;
+      status_led_task_1(0, NULL);
+    }
+  }
+  if (mask & 0b0100) {
+    if (token_3 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(token_3);
+      token_3 = INVALID_DEFERRED_TOKEN;
+      status_led_task_3(0, NULL);
+    }
+  }  
+  if (mask & 0b0010) {
+    if (token_2 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(token_2);
+      token_2 = INVALID_DEFERRED_TOKEN;
+      status_led_task_2(0, NULL);
+    }
+  }
+  if (mask & 0b0001) {
+    if (token_4 != INVALID_DEFERRED_TOKEN) {
+      cancel_deferred_exec(token_4);
+      token_4 = INVALID_DEFERRED_TOKEN;
+      status_led_task_4(0, NULL);
+    }
+  }
+
+  // skip task exec
+  if (pattern == NULL) return true;
+
+  // add pseudo rondom delay 
+  if (mask & 0b1000) {
+    token_1 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_1, (void *)pattern);
+  }
+  if (mask & 0b0100) {
+    token_3 = defer_exec((uint32_t)(init_delay_ms + 3), status_led_task_3, (void *)pattern);
+  }
+  if (mask & 0b0010) {
+    token_2 = defer_exec((uint32_t)(init_delay_ms + 5), status_led_task_2, (void *)pattern);
+  }
+  if (mask & 0b0001) {
+    token_4 = defer_exec((uint32_t)(init_delay_ms + 7), status_led_task_4, (void *)pattern);
+  }
+  
+  return true;
+}
+
+// HSV independent update code
+static void rgblight_set_hue(const uint8_t hue) {
+  HSV hsv = rgblight_get_hsv();
+  rgblight_sethsv_noeeprom(hue, hsv.s, hsv.v);
+}
+
+static void rgblight_set_sat(const uint8_t sat) {
+  HSV hsv = rgblight_get_hsv();
+  rgblight_sethsv_noeeprom(hsv.h, sat, hsv.v);
+}
+
+static void rgblight_set_val(const uint8_t val) {
+  HSV hsv = rgblight_get_hsv();
+  rgblight_sethsv_noeeprom(hsv.h, hsv.s, val);
+}
+
+static void rgblight_save_eeprom(void) {
+  HSV hsv = rgblight_get_hsv();
+  rgblight_sethsv(hsv.h, hsv.s, hsv.v);
+  //eeprom write once (write all value raw to eeprom)
+  
+  status_led(0b1111, led_pattern_single, 0);
+}
+
+static void rgblight_load_preset(void) {
+  rgblight_sethsv_noeeprom(250, 255, 109);
+  
+  status_led(0b1111, led_pattern_single, 0);
+}
+
+static void set_layer_color_hue_map(void) {
+  HSV hsv = rgblight_get_hsv();
+  RGB rgb = hsv_to_rgb(hsv);
+
+  rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
+  rgb_matrix_set_color(51, hsv.v, 0, 0 );
+  uint8_t key = hsv.h;
+  uint8_t i = 0;
+  for (i = 0; i < 48; i++) {
+    hsv.h = hue_tbl[i];
+    if (hsv.v == 0) {
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
+      continue;
+    }
+    if (hsv.h <= key) {
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
+      break;
+    }
+    rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
+  }
+  for (i++; i < 48; i++) {
+    hsv.h = hue_tbl[i];
+    if (hsv.v == 0) {
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
+      continue;
+    }
+    rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
+  }
+}
+
+static void set_layer_color_sat_map(void) {
+  HSV hsv = rgblight_get_hsv();
+  RGB rgb = hsv_to_rgb(hsv);
+
+  rgb_matrix_set_color(24, 0, 0, 0);
+  rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
+  rgb_matrix_set_color(51, 0, hsv.v, 0);
+  uint8_t key = hsv.s;
+  uint8_t i = 0;
+  for (i = 0; i < 48; i++) {
+    hsv.s = sat_tbl[i];
+    if (hsv.v == 0) {
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
+      continue;
+    }
+    if (hsv.s <= key) {
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
+      break;
+    }
+    rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
+  }
+  for (i++; i < 48; i++) {
+    hsv.s = sat_tbl[i];
+    if (hsv.v == 0) {
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
+      continue;
+    }
+    rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
+  }
+}
+
+static void set_layer_color_val_map(void) {
+  HSV hsv = rgblight_get_hsv();
+  RGB rgb = hsv_to_rgb(hsv);
+
+  rgb_matrix_set_color(25, 0, 0, 0);
+  rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
+  rgb_matrix_set_color(51, 0, 0, hsv.v);
+  uint8_t key = hsv.v;
+  uint8_t i = 0;
+  for (i = 0; i < 48; i++) {
+    hsv.v = val_tbl[i];
+    if (hsv.v == 0) {
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
+      continue;
+    }
+    if (hsv.v <= key) {
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
+      break;
+    }
+    rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
+  }
+  for (i++; i < 48; i++) {
+    hsv.v = val_tbl[i];
+    if (hsv.v == 0) {
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
+      continue;
+    }
+    rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
+  }
+}
+
+static void set_layer_color_fwsys_map(void) {
+  const uint8_t f = rgblight_get_val();
+  const uint8_t h = f >> 1;
+  const uint8_t q = h >> 1;
+  const uint8_t o = q >> 1;
+
+  rgb_matrix_set_color_all(0, 0, 0);
+  rgb_matrix_set_color(25, f, f, 0);
+
+  //ANSI/JIS
+  if (is_jis) {
+    //JIS base enable
+    rgb_matrix_set_color(0, o, 0, 0);
+    rgb_matrix_set_color(6, 0, f, 0);
+  } else {
+    //ANSI base
+    rgb_matrix_set_color(0, f, 0, 0);
+    rgb_matrix_set_color(6, 0, o, 0);
+  }
+
+  //OS detect
+  RGB rgb_os = {0, 0, 0};
+  switch (detected_host_os()) {
+    case OS_WINDOWS:
+      rgb_os.b = f;
+      break;
+    case OS_LINUX:
+      rgb_os.g = f;
+      break;
+    case OS_MACOS:
+      rgb_os.r = f;
+      break;
+    case OS_IOS:
+      rgb_os.r = f;
+      rgb_os.g = h;
+      break;    
+    case OS_UNSURE:
+      rgb_os.r = f;
+      rgb_os.g = f;
+      break;
+    default:
+      rgb_os.r = f;
+      rgb_os.g = f;
+      rgb_os.b = f;
+      break;
+  }
+  rgb_matrix_set_color(22, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(23, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(44, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(45, rgb_os.r, rgb_os.g, rgb_os.b);
+
+  //tapping
+  rgb_matrix_set_color(18, 0, 0, f);
+  rgb_matrix_set_color(19, o, 0, o);
+  rgb_matrix_set_color(20, f, 0, f);
+
+  //LED
+  rgb_matrix_set_color(47, o, o, o);
+  rgb_matrix_set_color(48, h, h, h);
+  rgb_matrix_set_color(49, f, 0, 0);
+
+  //reset
+  rgb_matrix_set_color(31, f, 0, 0);
+}
+
+
