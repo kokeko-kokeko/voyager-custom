@@ -432,6 +432,13 @@ extern keyboard_config_t keyboard_config;
 extern bool is_launching;
 extern rgb_config_t rgb_matrix_config;
 
+void keyboard_post_init_user(void) {
+  rgb_matrix_enable();
+  //ANSI
+  is_jis = false;
+  layer_move(0);
+}
+
 // tap flow control
 // bool is_flow_tap_key(uint16_t keycode) is default
 // disable (return 0)
@@ -460,13 +467,6 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
   return 0;  // Disable Flow Tap.
 }
 
-void keyboard_post_init_user(void) {
-  rgb_matrix_enable();
-  //ANSI
-  is_jis = false;
-  layer_move(0);
-}
-
 bool rgb_matrix_indicators_user(void) {
   if (rawhid_state.rgb_control) {
       return false;
@@ -491,6 +491,83 @@ bool rgb_matrix_indicators_user(void) {
     break;
   }
   return true;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+  //ANSI/JIS addiional enable
+  state &= ~(((layer_state_t)1 << 5) | ((layer_state_t)1 << 3) | ((layer_state_t)1 << 1));
+  if (is_jis) {
+    if (layer_state_cmp(state, 4)) {
+      state |= ((layer_state_t)1 << 5);
+    }
+    if (layer_state_cmp(state, 2)) {
+      state |= ((layer_state_t)1 << 3);
+    }
+    // 0 is all time enable
+    state |= ((layer_state_t)1 << 1);
+  }  
+  // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
+  if (is_launching || !keyboard_config.led_level) return state;
+  
+  uint8_t layer = get_highest_layer(state);
+  switch (layer) {
+    // FwSys
+    case 12:
+      status_led(0b1111, led_pattern_on, 0);
+      break;
+    // Val
+    case 11:
+      status_led(0b0010, NULL, 0);
+      status_led(0b1101, led_pattern_on, 0);
+      break;
+    // Sat
+    case 10:
+      status_led(0b0001, NULL, 0);
+      status_led(0b1110, led_pattern_on, 0);
+      break;
+    // Hue
+    case 9:
+      status_led(0b0011, NULL, 0);
+      status_led(0b1100, led_pattern_on, 0);
+      break;
+    // Rcur
+    case 8:
+      status_led(0b1001, NULL, 0);
+      status_led(0b0100, led_pattern_on, 0);
+      status_led(0b0010, led_pattern_blink, 0);
+      break;
+    // Lcur
+    case 7:
+      status_led(0b0110, NULL, 0);
+      status_led(0b1000, led_pattern_on, 0);
+      status_led(0b0001, led_pattern_blink, 0);
+      break;
+    // Fn
+    case 6:
+      status_led(0b1100, NULL, 0);
+      status_led(0b0011, led_pattern_on, 0);
+      break;
+    // Bkt
+    case 5:
+    case 4:
+      status_led(0b1100, NULL, 0);
+      status_led(0b0001, led_pattern_on, 0);
+      status_led(0b0010, led_pattern_blink, 0);
+      break;
+    // Num
+    case 3:
+    case 2:
+      status_led(0b1100, NULL, 0);
+      status_led(0b0010, led_pattern_on, 0);
+      status_led(0b0001, led_pattern_blink, 0);
+      break;
+
+    default :
+      status_led(0b1111, NULL, 0);
+      break;
+  }
+  
+  return state;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -1759,82 +1836,9 @@ tap_dance_action_t tap_dance_actions[] = {
         [DANCE_1] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_1, dance_1_finished, dance_1_reset),
 };
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-  //ANSI/JIS addiional enable
-  state &= ~(((layer_state_t)1 << 5) | ((layer_state_t)1 << 3) | ((layer_state_t)1 << 1));
-  if (is_jis) {
-    if (layer_state_cmp(state, 4)) {
-      state |= ((layer_state_t)1 << 5);
-    }
-    if (layer_state_cmp(state, 2)) {
-      state |= ((layer_state_t)1 << 3);
-    }
-    // 0 is all time enable
-    state |= ((layer_state_t)1 << 1);
-  }  
-  // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
-  if (is_launching || !keyboard_config.led_level) return state;
-  
-  uint8_t layer = get_highest_layer(state);
-  switch (layer) {
-    // FwSys
-    case 12:
-      status_led(0b1111, led_pattern_on, 0);
-      break;
-    // Val
-    case 11:
-      status_led(0b0010, NULL, 0);
-      status_led(0b1101, led_pattern_on, 0);
-      break;
-    // Sat
-    case 10:
-      status_led(0b0001, NULL, 0);
-      status_led(0b1110, led_pattern_on, 0);
-      break;
-    // Hue
-    case 9:
-      status_led(0b0011, NULL, 0);
-      status_led(0b1100, led_pattern_on, 0);
-      break;
-    // Rcur
-    case 8:
-      status_led(0b1001, NULL, 0);
-      status_led(0b0100, led_pattern_on, 0);
-      status_led(0b0010, led_pattern_blink, 0);
-      break;
-    // Lcur
-    case 7:
-      status_led(0b0110, NULL, 0);
-      status_led(0b1000, led_pattern_on, 0);
-      status_led(0b0001, led_pattern_blink, 0);
-      break;
-    // Fn
-    case 6:
-      status_led(0b1100, NULL, 0);
-      status_led(0b0011, led_pattern_on, 0);
-      break;
-    // Bkt
-    case 5:
-    case 4:
-      status_led(0b1100, NULL, 0);
-      status_led(0b0001, led_pattern_on, 0);
-      status_led(0b0010, led_pattern_blink, 0);
-      break;
-    // Num
-    case 3:
-    case 2:
-      status_led(0b1100, NULL, 0);
-      status_led(0b0010, led_pattern_on, 0);
-      status_led(0b0001, led_pattern_blink, 0);
-      break;
 
-    default :
-      status_led(0b1111, NULL, 0);
-      break;
-  }
-  
-  return state;
-}
+
+
 
 // local function
 
