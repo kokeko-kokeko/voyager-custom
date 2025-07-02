@@ -449,7 +449,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
   if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
     switch (keycode) {
       case LT(2, KC_SPACE):
-      case LT(5, KC_SPACE):
+      case LT(4, KC_SPACE):
         return 0;
 
       case LT(7, KC_I):
@@ -491,10 +491,10 @@ bool rgb_matrix_indicators_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   //ANSI/JIS addiional enable
-  state &= ~(((layer_state_t)1 << 6) | ((layer_state_t)1 << 3) | ((layer_state_t)1 << 1));
+  state &= ~(((layer_state_t)1 << 5) | ((layer_state_t)1 << 3) | ((layer_state_t)1 << 1));
   if (is_jis) {
-    if (layer_state_cmp(state, 5)) {
-      state |= ((layer_state_t)1 << 6);
+    if (layer_state_cmp(state, 4)) {
+      state |= ((layer_state_t)1 << 5);
     }
     if (layer_state_cmp(state, 2)) {
       state |= ((layer_state_t)1 << 3);
@@ -514,17 +514,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0001, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
       break;
-    // Fn
-    case 4:
-      status_led(0b1100, NULL, 0);
-      status_led(0b0011, led_pattern_on, 0);
-      break;
     // Num
+    case 4:
     case 5:
-    case 6:
       status_led(0b1100, NULL, 0);
       status_led(0b0010, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
+      break;
+    // Fn
+    case 6:
+      status_led(0b1100, NULL, 0);
+      status_led(0b0011, led_pattern_on, 0);
       break;
     // Lcur
     case 7:
