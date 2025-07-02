@@ -454,10 +454,11 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 
       case LT(7, KC_I):
       case LT(8, KC_S):
-      case LT(7, KC_2):
-      case LT(8, KC_9):
-      case LT(7, KC_F2):
-      case LT(8, KC_F9):
+      // flow tap only enable to letter
+      //case LT(7, KC_2):
+      //case LT(8, KC_9):
+      //case LT(7, KC_F2):
+      //case LT(8, KC_F9):
         return 0;
 
       default:
