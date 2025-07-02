@@ -1928,7 +1928,6 @@ static void set_layer_color_fwsys_map(void) {
   rgb_matrix_set_color(31, f, 0, 0);
 }
 
-
 static void set_layer_color_hue_map(void) {
   HSV hsv = rgblight_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
