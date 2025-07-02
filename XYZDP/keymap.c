@@ -1704,8 +1704,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RGB_MODE_FORWARD:
       if (record->event.pressed) rgblight_step_noeeprom();
       return false;   
-=======
->>>>>>> origin/oryx
+
   }
   return true;
 }
