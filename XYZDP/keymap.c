@@ -1710,8 +1710,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-
-
 // local function
 
 // LED pattern list, no const limit, terminate symbol
