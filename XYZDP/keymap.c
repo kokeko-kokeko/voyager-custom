@@ -299,6 +299,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+// access to voyager system-side flag
+extern keyboard_config_t keyboard_config;
+extern bool is_launching;
+extern rgb_config_t rgb_matrix_config;
 
 // keymap ovverride (process Engram symbol and ANSI/JIS)
 // base (x and xs pair is shifted symbol, xs only overwrite shift)
@@ -426,11 +430,6 @@ static const uint8_t * const led_pattern_blink = (uint8_t[]){13, 50, UINT8_MAX, 
 static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-
-// access to system-side flag
-extern keyboard_config_t keyboard_config;
-extern bool is_launching;
-extern rgb_config_t rgb_matrix_config;
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
