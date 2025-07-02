@@ -1983,7 +1983,7 @@ static void set_layer_color_fwsys_map(void) {
   rgb_matrix_set_color(25, f, f, 0);
 
   //ANSI/JIS
-  if (is_jis) {
+  if (layer_state_is(1)) {
     //JIS base enable
     rgb_matrix_set_color(0, o, 0, 0);
     rgb_matrix_set_color(6, 0, f, 0);
