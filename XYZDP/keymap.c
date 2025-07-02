@@ -7,6 +7,8 @@
 
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
+  HSV_43_255_100,
+  HSV_43_255_106,
   HSV_0_255_100,
   HSV_0_255_101,
   HSV_0_255_102,
@@ -154,8 +156,6 @@ enum custom_keycodes {
   HSV_172_255_148,
   HSV_172_255_149,
   HSV_172_255_151,
-  HSV_43_255_100,
-  HSV_43_255_106,
   ST_MACRO_0,
   ST_MACRO_1,
   ST_MACRO_2,
@@ -189,21 +189,21 @@ enum tap_dance_codes {
   DANCE_1,
 };
 
-#define DUAL_FUNC_0 LT(4, KC_A)
-#define DUAL_FUNC_1 LT(6, KC_F5)
-#define DUAL_FUNC_2 LT(9, KC_F17)
-#define DUAL_FUNC_3 LT(8, KC_W)
-#define DUAL_FUNC_4 LT(2, KC_F13)
-#define DUAL_FUNC_5 LT(10, KC_F22)
-#define DUAL_FUNC_6 LT(15, KC_H)
-#define DUAL_FUNC_7 LT(3, KC_G)
-#define DUAL_FUNC_8 LT(14, KC_T)
-#define DUAL_FUNC_9 LT(15, KC_F10)
-#define DUAL_FUNC_10 LT(13, KC_U)
-#define DUAL_FUNC_11 LT(1, KC_R)
-#define DUAL_FUNC_12 LT(6, KC_G)
-#define DUAL_FUNC_13 LT(2, KC_F4)
-#define DUAL_FUNC_14 LT(4, KC_F13)
+#define DUAL_FUNC_0 LT(4, KC_6)
+#define DUAL_FUNC_1 LT(12, KC_F11)
+#define DUAL_FUNC_2 LT(8, KC_H)
+#define DUAL_FUNC_3 LT(6, KC_9)
+#define DUAL_FUNC_4 LT(13, KC_F9)
+#define DUAL_FUNC_5 LT(4, KC_F18)
+#define DUAL_FUNC_6 LT(3, KC_T)
+#define DUAL_FUNC_7 LT(12, KC_F3)
+#define DUAL_FUNC_8 LT(1, KC_F24)
+#define DUAL_FUNC_9 LT(1, KC_F13)
+#define DUAL_FUNC_10 LT(12, KC_G)
+#define DUAL_FUNC_11 LT(11, KC_A)
+#define DUAL_FUNC_12 LT(13, KC_O)
+#define DUAL_FUNC_13 LT(6, KC_F6)
+#define DUAL_FUNC_14 LT(9, KC_F3)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -270,32 +270,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [9] = LAYOUT_voyager(
+    HSV_43_255_100, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          QK_BOOT,        
+    HSV_43_255_106, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    QK_DYNAMIC_TAPPING_TERM_PRINT,QK_DYNAMIC_TAPPING_TERM_DOWN,QK_DYNAMIC_TAPPING_TERM_UP,KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          RGB_SPD,        RGB_SPI,        RGB_SLD,        
+                                                    KC_NO,          KC_TRANSPARENT,                                 KC_NO,          KC_NO
+  ),
+  [10] = LAYOUT_voyager(
     HSV_0_255_100,  HSV_0_255_101,  HSV_0_255_102,  HSV_0_255_103,  HSV_0_255_104,  HSV_0_255_105,                                  HSV_0_255_126,  HSV_0_255_127,  HSV_0_255_128,  HSV_0_255_129,  HSV_0_255_130,  HSV_0_255_131,  
     HSV_0_255_106,  HSV_0_255_107,  HSV_0_255_108,  HSV_0_255_109,  HSV_0_255_110,  HSV_0_255_111,                                  HSV_0_255_132,  HSV_0_255_133,  HSV_0_255_134,  HSV_0_255_135,  HSV_0_255_136,  HSV_0_255_137,  
     HSV_0_255_112,  HSV_0_255_113,  HSV_0_255_114,  HSV_0_255_115,  HSV_0_255_116,  HSV_0_255_117,                                  HSV_0_255_138,  HSV_0_255_139,  HSV_0_255_140,  HSV_0_255_141,  HSV_0_255_142,  HSV_0_255_143,  
     HSV_0_255_118,  HSV_0_255_119,  HSV_0_255_120,  HSV_0_255_121,  HSV_0_255_122,  HSV_0_255_123,                                  HSV_0_255_144,  HSV_0_255_145,  HSV_0_255_146,  HSV_0_255_147,  HSV_0_255_148,  HSV_0_255_149,  
-                                                    MO(10),         MO(11),                                         KC_TRANSPARENT, HSV_0_255_151
+                                                    MO(11),         MO(12),                                         KC_TRANSPARENT, HSV_0_255_151
   ),
-  [10] = LAYOUT_voyager(
+  [11] = LAYOUT_voyager(
     HSV_86_255_100, HSV_86_255_101, HSV_86_255_102, HSV_86_255_103, HSV_86_255_104, HSV_86_255_105,                                 HSV_86_255_126, HSV_86_255_127, HSV_86_255_128, HSV_86_255_129, HSV_86_255_130, HSV_86_255_131, 
     HSV_86_255_106, HSV_86_255_107, HSV_86_255_108, HSV_86_255_109, HSV_86_255_110, HSV_86_255_111,                                 HSV_86_255_132, HSV_86_255_133, HSV_86_255_134, HSV_86_255_135, HSV_86_255_136, HSV_86_255_137, 
     HSV_86_255_112, HSV_86_255_113, HSV_86_255_114, HSV_86_255_115, HSV_86_255_116, HSV_86_255_117,                                 HSV_86_255_138, HSV_86_255_139, HSV_86_255_140, HSV_86_255_141, HSV_86_255_142, HSV_86_255_143, 
     HSV_86_255_118, HSV_86_255_119, HSV_86_255_120, HSV_86_255_121, HSV_86_255_122, HSV_86_255_123,                                 HSV_86_255_144, HSV_86_255_145, HSV_86_255_146, HSV_86_255_147, HSV_86_255_148, HSV_86_255_149, 
                                                     KC_TRANSPARENT, KC_NO,                                          KC_NO,          HSV_86_255_151
   ),
-  [11] = LAYOUT_voyager(
+  [12] = LAYOUT_voyager(
     HSV_172_255_100,HSV_172_255_101,HSV_172_255_102,HSV_172_255_103,HSV_172_255_104,HSV_172_255_105,                                HSV_172_255_126,HSV_172_255_127,HSV_172_255_128,HSV_172_255_129,HSV_172_255_130,HSV_172_255_131,
     HSV_172_255_106,HSV_172_255_107,HSV_172_255_108,HSV_172_255_109,HSV_172_255_110,HSV_172_255_111,                                HSV_172_255_132,HSV_172_255_133,HSV_172_255_134,HSV_172_255_135,HSV_172_255_136,HSV_172_255_137,
     HSV_172_255_112,HSV_172_255_113,HSV_172_255_114,HSV_172_255_115,HSV_172_255_116,HSV_172_255_117,                                HSV_172_255_138,HSV_172_255_139,HSV_172_255_140,HSV_172_255_141,HSV_172_255_142,HSV_172_255_143,
     HSV_172_255_118,HSV_172_255_119,HSV_172_255_120,HSV_172_255_121,HSV_172_255_122,HSV_172_255_123,                                HSV_172_255_144,HSV_172_255_145,HSV_172_255_146,HSV_172_255_147,HSV_172_255_148,HSV_172_255_149,
                                                     KC_NO,          KC_TRANSPARENT,                                 KC_NO,          HSV_172_255_151
-  ),
-  [12] = LAYOUT_voyager(
-    HSV_43_255_100, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          QK_BOOT,        
-    HSV_43_255_106, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    QK_DYNAMIC_TAPPING_TERM_PRINT,QK_DYNAMIC_TAPPING_TERM_DOWN,QK_DYNAMIC_TAPPING_TERM_UP,KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          RGB_SPD,        RGB_SPI,        RGB_SLD,        
-                                                    KC_NO,          KC_TRANSPARENT,                                 KC_NO,          KC_NO
   ),
 };
 
@@ -655,6 +655,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);
+      }
+      return false;
+    case HSV_43_255_100:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,100);
+      }
+      return false;
+    case HSV_43_255_106:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,106);
       }
       return false;
     case HSV_0_255_100:
@@ -1539,18 +1551,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv(172,255,151);
       }
       return false;
-    case HSV_43_255_100:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,100);
-      }
-      return false;
-    case HSV_43_255_106:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,106);
-      }
-      return false;
   }
   return true;
 }
@@ -1607,7 +1607,7 @@ void dance_0_finished(tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP: register_code16(KC_ESCAPE); break;
         case SINGLE_HOLD: layer_on(2); break;
         case DOUBLE_TAP: register_code16(KC_ESCAPE); register_code16(KC_ESCAPE); break;
-        case DOUBLE_HOLD: layer_on(12); break;
+        case DOUBLE_HOLD: layer_on(9); break;
         case DOUBLE_SINGLE_TAP: tap_code16(KC_ESCAPE); register_code16(KC_ESCAPE);
     }
 }
@@ -1623,8 +1623,8 @@ void dance_0_reset(tap_dance_state_t *state, void *user_data) {
         break;
         case DOUBLE_TAP: unregister_code16(KC_ESCAPE); break;
               case DOUBLE_HOLD: 
-                if(!is_layer_locked(12)) {
-                  layer_off(12);
+                if(!is_layer_locked(9)) {
+                  layer_off(9);
                 }
                 break;
         case DOUBLE_SINGLE_TAP: unregister_code16(KC_ESCAPE); break;
@@ -1652,7 +1652,7 @@ void dance_1_finished(tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP: register_code16(KC_BSPC); break;
         case SINGLE_HOLD: layer_on(4); break;
         case DOUBLE_TAP: register_code16(KC_BSPC); register_code16(KC_BSPC); break;
-        case DOUBLE_HOLD: layer_on(9); break;
+        case DOUBLE_HOLD: layer_on(10); break;
         case DOUBLE_SINGLE_TAP: tap_code16(KC_BSPC); register_code16(KC_BSPC);
     }
 }
@@ -1668,8 +1668,8 @@ void dance_1_reset(tap_dance_state_t *state, void *user_data) {
         break;
         case DOUBLE_TAP: unregister_code16(KC_BSPC); break;
               case DOUBLE_HOLD: 
-                if(!is_layer_locked(9)) {
-                  layer_off(9);
+                if(!is_layer_locked(10)) {
+                  layer_off(10);
                 }
                 break;
         case DOUBLE_SINGLE_TAP: unregister_code16(KC_BSPC); break;
