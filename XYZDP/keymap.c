@@ -1964,7 +1964,7 @@ static void set_layer_color_sat_map(void) {
   HSV hsv = rgblight_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
 
-  rgb_matrix_set_color(24, 0, 0, 0);
+  rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
   rgb_matrix_set_color(51, 0, hsv.v, 0);
   uint8_t key = hsv.s;
@@ -1997,7 +1997,7 @@ static void set_layer_color_val_map(void) {
   HSV hsv = rgblight_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
 
-  rgb_matrix_set_color(25, 0, 0, 0);
+  rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
   rgb_matrix_set_color(51, 0, 0, hsv.v);
   uint8_t key = hsv.v;
