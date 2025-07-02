@@ -299,6 +299,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+
+#include "keymap_japanese.h"
+
 // access to voyager system-side flag
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
@@ -325,8 +328,6 @@ const key_override_t ko_ansi_base_9s = ko_make_with_layers(MOD_MASK_SHIFT, KC_9,
 //const key_override_t ko_ansi_num_1s = ko_make_with_layers(MOD_MASK_SHIFT, KC_1, KC_PIPE,  1 << 2);
 //...
 //const key_override_t ko_ansi_num_0s = ko_make_with_layers(MOD_MASK_SHIFT, KC_0, KC_ASTR,  1 << 2);
-
-#include "keymap_japanese.h"
 
 // base (x and xs pair is shifted symbol, xs only overwrite shift)
 const key_override_t ko_jis_base_2 = ko_make_with_layers_and_negmods(0, JP_2, JP_HASH, (layer_state_t)1 << 1, (uint8_t) MOD_MASK_SHIFT);
