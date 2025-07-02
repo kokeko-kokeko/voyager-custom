@@ -491,20 +491,22 @@ bool rgb_matrix_indicators_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   //ANSI/JIS addiional enable
-  state &= ~(((layer_state_t)1 << 5) | ((layer_state_t)1 << 3) | ((layer_state_t)1 << 1));
-  if (is_jis) {
-    if (layer_state_cmp(state, 4)) {
-      state |= ((layer_state_t)1 << 5);
-    }
-    if (layer_state_cmp(state, 2)) {
-      state |= ((layer_state_t)1 << 3);
-    }
-    // 0 is all time enable
-    state |= ((layer_state_t)1 << 1);
-  }
+  //state &= ~(((layer_state_t)1 << 5) | ((layer_state_t)1 << 3) | ((layer_state_t)1 << 1));
+  //if (is_jis) {
+  //  if (layer_state_cmp(state, 4)) {
+  //    state |= ((layer_state_t)1 << 5);
+  //  }
+  //  if (layer_state_cmp(state, 2)) {
+  //    state |= ((layer_state_t)1 << 3);
+  //  }
+  //  // 0 is all time enable
+  //  state |= ((layer_state_t)1 << 1);
+  //}
+  state = update_tri_layer_state(state, 1, 2, 3);
+  state = update_tri_layer_state(state, 1, 4, 5);
 
   // call FwSys(9) with Fn(6) and Bkt(2)
-  state = update_tri_layer_state(state, 6, 2, 9);
+  state = update_tri_layer_state(state, 2, 6, 9);
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
@@ -926,11 +928,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_43_255_100:
       if (record->event.pressed) {
         is_jis = false;
+        layer_off(1);
       }
       return false;
     case HSV_43_255_106:
       if (record->event.pressed) {
         is_jis = true;
+        layer_on(1);
       }
       return false;
     
