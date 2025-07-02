@@ -419,6 +419,80 @@ static const uint8_t pos2idx_tbl[52] = {
     0,   0
 };
 
+static bool status_led(const uint8_t mask, const uint8_t * const pattern, const uint16_t init_delay_ms);
+
+static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_blink = (uint8_t[]){13, 50, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+//static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+
+// access to system-side flag
+extern keyboard_config_t keyboard_config;
+extern bool is_launching;
+extern rgb_config_t rgb_matrix_config;
+
+// tap flow control
+// bool is_flow_tap_key(uint16_t keycode) is default
+// disable (return 0)
+// thumb space LT 
+// pinkey outer col
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record, 
+                           uint16_t prev_keycode) {
+  if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+    switch (keycode) {
+      case LT(2, KC_SPACE):
+      case LT(4, KC_SPACE):
+        return 0;
+
+      case LT(7, KC_I):
+      case LT(8, KC_S):
+        return 0;
+
+      //case MT(MOD_LCTL, KC_Z):
+      //case MT(MOD_RCTL, KC_Q):
+      //  return 0;
+        
+      default:
+        return FLOW_TAP_TERM;  // Longer timeout otherwise.
+    }
+  }
+  return 0;  // Disable Flow Tap.
+}
+
+void keyboard_post_init_user(void) {
+  rgb_matrix_enable();
+  //ANSI
+  is_jis = false;
+  layer_move(0);
+}
+
+bool rgb_matrix_indicators_user(void) {
+  if (rawhid_state.rgb_control) {
+      return false;
+  }
+  if (keyboard_config.disable_layer_led) { return false; }
+  switch (biton32(layer_state)) {
+    case 12:
+      set_layer_color_fwsys_map();
+      break;
+    case 11:
+      set_layer_color_val_map();
+      break;
+    case 10:
+      set_layer_color_sat_map();
+      break;
+    case 9:
+      set_layer_color_hue_map();
+      break;
+   default:
+    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
+      rgb_matrix_set_color_all(0, 0, 0);
+    break;
+  }
+  return true;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case ST_MACRO_0:
@@ -1684,82 +1758,6 @@ tap_dance_action_t tap_dance_actions[] = {
         [DANCE_0] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_0, dance_0_finished, dance_0_reset),
         [DANCE_1] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_1, dance_1_finished, dance_1_reset),
 };
-
-// declaration for qmk function
-static bool status_led(const uint8_t mask, const uint8_t * const pattern, const uint16_t init_delay_ms);
-
-static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_blink = (uint8_t[]){13, 50, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-//static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-
-// access to system-side flag
-extern keyboard_config_t keyboard_config;
-extern bool is_launching;
-extern rgb_config_t rgb_matrix_config;
-
-// qmk callback function
-void keyboard_post_init_user(void) {
-  rgb_matrix_enable();
-  //ANSI
-  is_jis = false;
-  layer_move(0);
-}
-
-bool rgb_matrix_indicators_user(void) {
-  if (rawhid_state.rgb_control) {
-      return false;
-  }
-  if (keyboard_config.disable_layer_led) { return false; }
-  switch (biton32(layer_state)) {
-    case 12:
-      set_layer_color_fwsys_map();
-      break;
-    case 11:
-      set_layer_color_val_map();
-      break;
-    case 10:
-      set_layer_color_sat_map();
-      break;
-    case 9:
-      set_layer_color_hue_map();
-      break;
-   default:
-    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
-      rgb_matrix_set_color_all(0, 0, 0);
-    break;
-  }
-  return true;
-}
-
-// tap flow control
-// bool is_flow_tap_key(uint16_t keycode) is default
-// disable (return 0)
-// thumb space LT 
-// pinkey outer col
-uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record, 
-                           uint16_t prev_keycode) {
-  if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
-    switch (keycode) {
-      case LT(2, KC_SPACE):
-      case LT(4, KC_SPACE):
-        return 0;
-
-      case LT(7, KC_I):
-      case LT(8, KC_S):
-        return 0;
-
-      //case MT(MOD_LCTL, KC_Z):
-      //case MT(MOD_RCTL, KC_Q):
-      //  return 0;
-        
-      default:
-        return FLOW_TAP_TERM;  // Longer timeout otherwise.
-    }
-  }
-  return 0;  // Disable Flow Tap.
-}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   //ANSI/JIS addiional enable
