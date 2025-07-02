@@ -506,7 +506,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
     // 0 is all time enable
     state |= ((layer_state_t)1 << 1);
-  }  
+  }
+
+  // call FwSys(9) with Fn(6) and Bkt(2)
+  state = update_tri_layer_state(state, 6, 2, 9);
+  
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
   
