@@ -189,21 +189,21 @@ enum tap_dance_codes {
   DANCE_1,
 };
 
-#define DUAL_FUNC_0 LT(2, KC_F11)
-#define DUAL_FUNC_1 LT(11, KC_F13)
-#define DUAL_FUNC_2 LT(6, KC_Q)
-#define DUAL_FUNC_3 LT(10, KC_R)
-#define DUAL_FUNC_4 LT(10, KC_F16)
-#define DUAL_FUNC_5 LT(4, KC_4)
-#define DUAL_FUNC_6 LT(15, KC_F6)
-#define DUAL_FUNC_7 LT(2, KC_X)
-#define DUAL_FUNC_8 LT(5, KC_V)
-#define DUAL_FUNC_9 LT(10, KC_O)
-#define DUAL_FUNC_10 LT(11, KC_F14)
-#define DUAL_FUNC_11 LT(2, KC_F20)
-#define DUAL_FUNC_12 LT(1, KC_S)
-#define DUAL_FUNC_13 LT(5, KC_W)
-#define DUAL_FUNC_14 LT(13, KC_O)
+#define DUAL_FUNC_0 LT(7, KC_W)
+#define DUAL_FUNC_1 LT(2, KC_K)
+#define DUAL_FUNC_2 LT(2, KC_4)
+#define DUAL_FUNC_3 LT(7, KC_3)
+#define DUAL_FUNC_4 LT(14, KC_S)
+#define DUAL_FUNC_5 LT(11, KC_3)
+#define DUAL_FUNC_6 LT(12, KC_F16)
+#define DUAL_FUNC_7 LT(7, KC_Y)
+#define DUAL_FUNC_8 LT(3, KC_0)
+#define DUAL_FUNC_9 LT(11, KC_9)
+#define DUAL_FUNC_10 LT(10, KC_A)
+#define DUAL_FUNC_11 LT(2, KC_I)
+#define DUAL_FUNC_12 LT(11, KC_S)
+#define DUAL_FUNC_13 LT(6, KC_F12)
+#define DUAL_FUNC_14 LT(8, KC_F4)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -274,7 +274,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     HSV_43_255_106, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     QK_DYNAMIC_TAPPING_TERM_PRINT,QK_DYNAMIC_TAPPING_TERM_DOWN,QK_DYNAMIC_TAPPING_TERM_UP,KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          RGB_SPD,        RGB_SPI,        RGB_SLD,        
-                                                    KC_NO,          KC_TRANSPARENT,                                 KC_NO,          KC_NO
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 MO(10),         KC_NO
   ),
   [10] = LAYOUT_voyager(
     HSV_0_255_100,  HSV_0_255_101,  HSV_0_255_102,  HSV_0_255_103,  HSV_0_255_104,  HSV_0_255_105,                                  HSV_0_255_126,  HSV_0_255_127,  HSV_0_255_128,  HSV_0_255_129,  HSV_0_255_130,  HSV_0_255_131,  
