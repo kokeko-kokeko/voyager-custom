@@ -184,21 +184,21 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(8, KC_F24)
-#define DUAL_FUNC_1 LT(7, KC_W)
-#define DUAL_FUNC_2 LT(8, KC_Q)
-#define DUAL_FUNC_3 LT(10, KC_R)
-#define DUAL_FUNC_4 LT(1, KC_I)
-#define DUAL_FUNC_5 LT(3, KC_8)
-#define DUAL_FUNC_6 LT(12, KC_T)
-#define DUAL_FUNC_7 LT(15, KC_F8)
-#define DUAL_FUNC_8 LT(6, KC_U)
-#define DUAL_FUNC_9 LT(2, KC_P)
-#define DUAL_FUNC_10 LT(11, KC_F17)
-#define DUAL_FUNC_11 LT(4, KC_F3)
-#define DUAL_FUNC_12 LT(10, KC_1)
-#define DUAL_FUNC_13 LT(14, KC_F4)
-#define DUAL_FUNC_14 LT(13, KC_Z)
+#define DUAL_FUNC_0 LT(15, KC_N)
+#define DUAL_FUNC_1 LT(10, KC_F9)
+#define DUAL_FUNC_2 LT(11, KC_V)
+#define DUAL_FUNC_3 LT(3, KC_F24)
+#define DUAL_FUNC_4 LT(13, KC_F17)
+#define DUAL_FUNC_5 LT(11, KC_F1)
+#define DUAL_FUNC_6 LT(6, KC_F21)
+#define DUAL_FUNC_7 LT(4, KC_F13)
+#define DUAL_FUNC_8 LT(14, KC_Y)
+#define DUAL_FUNC_9 LT(13, KC_F21)
+#define DUAL_FUNC_10 LT(15, KC_F13)
+#define DUAL_FUNC_11 LT(13, KC_I)
+#define DUAL_FUNC_12 LT(5, KC_L)
+#define DUAL_FUNC_13 LT(4, KC_Q)
+#define DUAL_FUNC_14 LT(11, KC_B)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -268,7 +268,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     HSV_43_255_100, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          QK_BOOT,        
     HSV_43_255_106, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    QK_DYNAMIC_TAPPING_TERM_PRINT,QK_DYNAMIC_TAPPING_TERM_DOWN,QK_DYNAMIC_TAPPING_TERM_UP,KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          RGB_SPD,        RGB_SPI,        RGB_SLD,        
+    QK_DYNAMIC_TAPPING_TERM_PRINT,QK_DYNAMIC_TAPPING_TERM_DOWN,QK_DYNAMIC_TAPPING_TERM_UP,KC_NO,          KC_NO,          KC_NO,                                          KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          RGB_SPD,        RGB_SPI,        RGB_SLD,        
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 MO(10),         KC_NO
   ),
   [10] = LAYOUT_voyager(
@@ -283,14 +283,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     HSV_86_255_106, HSV_86_255_107, HSV_86_255_108, HSV_86_255_109, HSV_86_255_110, HSV_86_255_111,                                 HSV_86_255_132, HSV_86_255_133, HSV_86_255_134, HSV_86_255_135, HSV_86_255_136, HSV_86_255_137, 
     HSV_86_255_112, HSV_86_255_113, HSV_86_255_114, HSV_86_255_115, HSV_86_255_116, HSV_86_255_117,                                 HSV_86_255_138, HSV_86_255_139, HSV_86_255_140, HSV_86_255_141, HSV_86_255_142, HSV_86_255_143, 
     HSV_86_255_118, HSV_86_255_119, HSV_86_255_120, HSV_86_255_121, HSV_86_255_122, HSV_86_255_123,                                 HSV_86_255_144, HSV_86_255_145, HSV_86_255_146, HSV_86_255_147, HSV_86_255_148, HSV_86_255_149, 
-                                                    KC_TRANSPARENT, KC_NO,                                          KC_NO,          HSV_86_255_151
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, HSV_86_255_151
   ),
   [12] = LAYOUT_voyager(
     HSV_172_255_100,HSV_172_255_101,HSV_172_255_102,HSV_172_255_103,HSV_172_255_104,HSV_172_255_105,                                HSV_172_255_126,HSV_172_255_127,HSV_172_255_128,HSV_172_255_129,HSV_172_255_130,HSV_172_255_131,
     HSV_172_255_106,HSV_172_255_107,HSV_172_255_108,HSV_172_255_109,HSV_172_255_110,HSV_172_255_111,                                HSV_172_255_132,HSV_172_255_133,HSV_172_255_134,HSV_172_255_135,HSV_172_255_136,HSV_172_255_137,
     HSV_172_255_112,HSV_172_255_113,HSV_172_255_114,HSV_172_255_115,HSV_172_255_116,HSV_172_255_117,                                HSV_172_255_138,HSV_172_255_139,HSV_172_255_140,HSV_172_255_141,HSV_172_255_142,HSV_172_255_143,
     HSV_172_255_118,HSV_172_255_119,HSV_172_255_120,HSV_172_255_121,HSV_172_255_122,HSV_172_255_123,                                HSV_172_255_144,HSV_172_255_145,HSV_172_255_146,HSV_172_255_147,HSV_172_255_148,HSV_172_255_149,
-                                                    KC_NO,          KC_TRANSPARENT,                                 KC_NO,          HSV_172_255_151
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, HSV_172_255_151
   ),
 };
 
