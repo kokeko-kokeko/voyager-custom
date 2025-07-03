@@ -918,12 +918,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_43_255_100:
       if (record->event.pressed) {
         //ANSI
+        layer_on(L_Base);
         layer_off(L_BaseJIS);
       }
       return false;
     case HSV_43_255_106:
       if (record->event.pressed) {
         //JIS
+        layer_on(L_Base);
         layer_on(L_BaseJIS);
       }
       return false;
