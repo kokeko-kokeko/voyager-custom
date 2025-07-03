@@ -305,18 +305,18 @@ extern rgb_config_t rgb_matrix_config;
 // enum for layer define sync oryx side
 enum layer_number {
   L_Base = 0,
-  L_BaseJ,
+  L_BaseJIS,
   L_BktEx,
-  L_BktExJ,
+  L_BktExJIS,
   L_Num,
-  L_NumJ,
+  L_NumJIS,
   L_Fn,
   L_Rcur,
   L_Lcur,
   L_FwSys,
-  L_HueSet,
-  L_SatSet,
-  L_ValSet
+  L_SetHue,
+  L_SetSat,
+  L_SetVal
 };
 
 // keymap ovverride (process Engram symbol and ANSI/JIS)
@@ -342,20 +342,20 @@ const key_override_t ko_ansi_base_9s = ko_make_with_layers(MOD_MASK_SHIFT, KC_9,
 //const key_override_t ko_ansi_num_0s = ko_make_with_layers(MOD_MASK_SHIFT, KC_0, KC_ASTR,  1 << 2);
 
 // base (x and xs pair is shifted symbol, xs only overwrite shift)
-const key_override_t ko_jis_base_2 = ko_make_with_layers_and_negmods(0, JP_2, JP_HASH, (layer_state_t)1 << L_BaseJ, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_jis_base_3 = ko_make_with_layers_and_negmods(0, JP_3, JP_QUOT, (layer_state_t)1 << L_BaseJ, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_jis_base_7 = ko_make_with_layers_and_negmods(0, JP_7, JP_DQUO, (layer_state_t)1 << L_BaseJ, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_jis_base_9 = ko_make_with_layers_and_negmods(0, JP_9, JP_QUES, (layer_state_t)1 << L_BaseJ, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_2 = ko_make_with_layers_and_negmods(0, JP_2, JP_HASH, (layer_state_t)1 << L_BaseJIS, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_3 = ko_make_with_layers_and_negmods(0, JP_3, JP_QUOT, (layer_state_t)1 << L_BaseJIS, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_7 = ko_make_with_layers_and_negmods(0, JP_7, JP_DQUO, (layer_state_t)1 << L_BaseJIS, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_jis_base_9 = ko_make_with_layers_and_negmods(0, JP_9, JP_QUES, (layer_state_t)1 << L_BaseJIS, (uint8_t) MOD_MASK_SHIFT);
 
-const key_override_t ko_jis_base_1s = ko_make_with_layers(MOD_MASK_SHIFT, JP_AT,   JP_GRV,  (layer_state_t)1 << L_BaseJ);
-const key_override_t ko_jis_base_2s = ko_make_with_layers(MOD_MASK_SHIFT, JP_2,    JP_DLR,  (layer_state_t)1 << L_BaseJ);
-const key_override_t ko_jis_base_3s = ko_make_with_layers(MOD_MASK_SHIFT, JP_3,    JP_LPRN, (layer_state_t)1 << L_BaseJ);
-const key_override_t ko_jis_base_4s = ko_make_with_layers(MOD_MASK_SHIFT, JP_COMM, JP_SCLN, (layer_state_t)1 << L_BaseJ);
-const key_override_t ko_jis_base_5s = ko_make_with_layers(MOD_MASK_SHIFT, JP_MINS, JP_UNDS, (layer_state_t)1 << L_BaseJ);
-const key_override_t ko_jis_base_6s = ko_make_with_layers(MOD_MASK_SHIFT, JP_SLSH, JP_BSLS, (layer_state_t)1 << L_BaseJ);
-const key_override_t ko_jis_base_7s = ko_make_with_layers(MOD_MASK_SHIFT, JP_7,    JP_RPRN, (layer_state_t)1 << L_BaseJ);
-const key_override_t ko_jis_base_8s = ko_make_with_layers(MOD_MASK_SHIFT, JP_DOT,  JP_COLN, (layer_state_t)1 << L_BaseJ);
-const key_override_t ko_jis_base_9s = ko_make_with_layers(MOD_MASK_SHIFT, JP_9,    JP_EXLM, (layer_state_t)1 << L_BaseJ);
+const key_override_t ko_jis_base_1s = ko_make_with_layers(MOD_MASK_SHIFT, JP_AT,   JP_GRV,  (layer_state_t)1 << L_BaseJIS);
+const key_override_t ko_jis_base_2s = ko_make_with_layers(MOD_MASK_SHIFT, JP_2,    JP_DLR,  (layer_state_t)1 << L_BaseJIS);
+const key_override_t ko_jis_base_3s = ko_make_with_layers(MOD_MASK_SHIFT, JP_3,    JP_LPRN, (layer_state_t)1 << L_BaseJIS);
+const key_override_t ko_jis_base_4s = ko_make_with_layers(MOD_MASK_SHIFT, JP_COMM, JP_SCLN, (layer_state_t)1 << L_BaseJIS);
+const key_override_t ko_jis_base_5s = ko_make_with_layers(MOD_MASK_SHIFT, JP_MINS, JP_UNDS, (layer_state_t)1 << L_BaseJIS);
+const key_override_t ko_jis_base_6s = ko_make_with_layers(MOD_MASK_SHIFT, JP_SLSH, JP_BSLS, (layer_state_t)1 << L_BaseJIS);
+const key_override_t ko_jis_base_7s = ko_make_with_layers(MOD_MASK_SHIFT, JP_7,    JP_RPRN, (layer_state_t)1 << L_BaseJIS);
+const key_override_t ko_jis_base_8s = ko_make_with_layers(MOD_MASK_SHIFT, JP_DOT,  JP_COLN, (layer_state_t)1 << L_BaseJIS);
+const key_override_t ko_jis_base_9s = ko_make_with_layers(MOD_MASK_SHIFT, JP_9,    JP_EXLM, (layer_state_t)1 << L_BaseJIS);
 
 const key_override_t *key_overrides[] = {
   &ko_ansi_base_1,  &ko_ansi_base_2, &ko_ansi_base_7,  &ko_ansi_base_9,
@@ -482,13 +482,13 @@ bool rgb_matrix_indicators_user(void) {
     case L_FwSys:
       set_layer_color_fwsys_map();
       break;
-    case L_HueSet:
+    case L_SetHue:
       set_layer_color_hue_map();
       break;
-    case L_SatSet:
+    case L_SetSat:
       set_layer_color_sat_map();
       break;
-    case L_ValSet:
+    case L_SetVal:
       set_layer_color_val_map();
       break;
     default:
@@ -501,8 +501,8 @@ bool rgb_matrix_indicators_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   //ANSI/JIS addiional enable
-  state = update_tri_layer_state(state, L_BaseJ, L_Num, L_NumJ);
-  state = update_tri_layer_state(state, L_BaseJ, L_BktEx, L_BktExJ);
+  state = update_tri_layer_state(state, L_BaseJIS, L_Num, L_NumJIS);
+  state = update_tri_layer_state(state, L_BaseJIS, L_BktEx, L_BktExJIS);
 
   // call FwSys with Bkt and Fn
   state = update_tri_layer_state(state, L_Fn, L_BktEx, L_FwSys);
@@ -513,13 +513,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   uint8_t layer = get_highest_layer(state);
   switch (layer) {
     case L_Num:
-    case L_NumJ:
+    case L_NumJIS:
       status_led(0b1100, NULL, 0);
       status_led(0b0010, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
       break;
     case L_BktEx:
-    case L_BktExJ:
+    case L_BktExJIS:
       status_led(0b1100, NULL, 0);
       status_led(0b0001, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
@@ -541,15 +541,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_FwSys:
       status_led(0b1111, led_pattern_on, 0);
       break;
-    case L_HueSet:
+    case L_SetHue:
       status_led(0b0011, NULL, 0);
       status_led(0b1100, led_pattern_on, 0);
       break;
-    case L_SatSet:
+    case L_SetSat:
       status_led(0b0001, NULL, 0);
       status_led(0b1110, led_pattern_on, 0);
       break;
-    case L_ValSet:
+    case L_SetVal:
       status_led(0b0010, NULL, 0);
       status_led(0b1101, led_pattern_on, 0);
       break;
@@ -918,13 +918,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_43_255_100:
       if (record->event.pressed) {
         //ANSI
-        layer_off(L_BaseJ);
+        layer_off(L_BaseJIS);
       }
       return false;
     case HSV_43_255_106:
       if (record->event.pressed) {
         //JIS
-        layer_on(L_BaseJ);
+        layer_on(L_BaseJIS);
       }
       return false;
     
@@ -1881,7 +1881,7 @@ static void set_layer_color_fwsys_map(void) {
   rgb_matrix_set_color(50, o, o, o);
 
   //ANSI/JIS
-  if (layer_state_is(L_BaseJ)) {
+  if (layer_state_is(L_BaseJIS)) {
     //JIS base enable
     rgb_matrix_set_color(0, o, 0, 0);
     rgb_matrix_set_color(6, 0, f, 0);
