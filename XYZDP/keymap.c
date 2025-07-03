@@ -1716,16 +1716,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_LANGUAGE_1:
     case LT(L_Fn, KC_LANGUAGE_1):
       if (record->event.pressed) {
-        ime_on = true;
-        layer_on(L_Base);
+        if (!ime_on) {
+          ime_on = true;
+          layer_on(L_Base);
+        }
       }
       return true;
     
     case KC_LANGUAGE_2:
     case LT(L_Fn, KC_LANGUAGE_2):
       if (record->event.pressed) {
-        ime_on = false;
-        layer_on(L_Base);
+        if (ime_on) {
+          ime_on = false;
+          layer_on(L_Base);
+        }
       }
       return true;
     
