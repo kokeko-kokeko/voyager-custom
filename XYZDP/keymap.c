@@ -1715,26 +1715,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_LANGUAGE_1:
       if (record->event.pressed) {
         ime_on = true;
-        tatus_led(0b1000, led_pattern_on, 0);
+        status_led(0b1000, led_pattern_on, 0);
       }
       return true;
-    case KC_LANGUAGE_2:
-      if (record->event.pressed) {
-        ime_on = false;
-        tatus_led(0b1000, NULL, 0);
-      }
-      return true;
-
     case LT(L_Fn, KC_LANGUAGE_1):
       if (record->event.pressed) {
         ime_on = true;
-        tatus_led(0b1000, led_pattern_on, 0);
+        status_led(0b1000, led_pattern_on, 0);
       }
-      return true;    
+      return true;
+    
+    case KC_LANGUAGE_2:
+      if (record->event.pressed) {
+        ime_on = false;
+        status_led(0b1000, NULL, 0);
+      }
+      return true;
     case LT(L_Fn, KC_LANGUAGE_2):
       if (record->event.pressed) {
         ime_on = false;
-        tatus_led(0b1000, NULL, 0);
+        status_led(0b1000, NULL, 0);
       }
       return true;
   }
