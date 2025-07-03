@@ -434,6 +434,7 @@ static const uint8_t pos2idx_tbl[52] = {
     0,   0
 };
 
+// IME status indicator
 static bool ime_on = false;
 
 static bool status_led(const uint8_t mask, const uint8_t * const pattern, const uint16_t init_delay_ms);
@@ -1711,7 +1712,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) rgblight_step_noeeprom();
       return false;
 
-    //IME state display (only update flag)
+    //IME state display (update flag & re-calc led)
     case KC_LANGUAGE_1:
       if (record->event.pressed) {
         ime_on = true;
