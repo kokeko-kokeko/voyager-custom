@@ -434,6 +434,8 @@ static const uint8_t pos2idx_tbl[52] = {
     0,   0
 };
 
+static bool ime_on = false;
+
 static bool status_led(const uint8_t mask, const uint8_t * const pattern, const uint16_t init_delay_ms);
 
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
@@ -444,6 +446,7 @@ static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3,
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
+  ime_on = false;
   //ANSI
   layer_move(L_Base);
 }
@@ -512,6 +515,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   
   uint8_t layer = get_highest_layer(state);
   switch (layer) {
+    case L_Base :
+    case L_BaseJIS:
+      status_led(0b1111, NULL, 0);
+      if (ime_on) {
+        status_led(0b1000, led_pattern_on, 0);
+      }
+      break;
     case L_Num:
     case L_NumJIS:
       status_led(0b1100, NULL, 0);
@@ -1699,8 +1709,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case RGB_MODE_FORWARD:
       if (record->event.pressed) rgblight_step_noeeprom();
-      return false;   
+      return false;
 
+    //IME state display (only update flag)
+    case KC_LANGUAGE_1:
+      if (record->event.pressed) {
+        ime_on = true;
+      }
+      return true;
+    case KC_LANGUAGE_2:
+      if (record->event.pressed) {
+        ime_on = false;
+      }
+      return true;
+
+    case LT(L_Fn, KC_LANGUAGE_1):
+      if (record->event.pressed) {
+        ime_on = true;
+      }
+      return true;    
+    case LT(L_Fn, KC_LANGUAGE_2):
+      if (record->event.pressed) {
+        ime_on = false;
+      }
+      return true;
   }
   return true;
 }
