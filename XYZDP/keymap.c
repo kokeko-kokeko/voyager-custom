@@ -1714,11 +1714,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     //IME state display (update flag & re-calc led)
     case KC_LANGUAGE_1:
-      if (record->event.pressed) {
-        ime_on = true;
-        layer_on(L_Base);
-      }
-      return true;
     case LT(L_Fn, KC_LANGUAGE_1):
       if (record->event.pressed) {
         ime_on = true;
@@ -1727,17 +1722,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
     
     case KC_LANGUAGE_2:
-      if (record->event.pressed) {
-        ime_on = false;
-        layer_on(L_Base);
-      }
-      return true;
     case LT(L_Fn, KC_LANGUAGE_2):
       if (record->event.pressed) {
         ime_on = false;
         layer_on(L_Base);
       }
       return true;
+    
   }
   return true;
 }
