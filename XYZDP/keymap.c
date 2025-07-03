@@ -572,6 +572,32 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    //IME state display (update flag & re-calc status)
+    case KC_LANGUAGE_1:
+    case LT(L_Fn, KC_LANGUAGE_1):
+      if (record->event.pressed) {
+        if (!ime_on) {
+          ime_on = true;
+          layer_on(L_Base);
+        }
+      }
+      return;
+    
+    case KC_LANGUAGE_2:
+    case LT(L_Fn, KC_LANGUAGE_2):
+      if (record->event.pressed) {
+        if (ime_on) {
+          ime_on = false;
+          layer_on(L_Base);
+        }
+      }
+      return;
+  }
+  return;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case ST_MACRO_0:
@@ -1710,29 +1736,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case RGB_MODE_FORWARD:
       if (record->event.pressed) rgblight_step_noeeprom();
-      return false;
-
-    //IME state display (update flag & re-calc status)
-    case KC_LANGUAGE_1:
-    case LT(L_Fn, KC_LANGUAGE_1):
-      if (record->event.pressed) {
-        if (!ime_on) {
-          ime_on = true;
-          layer_on(L_Base);
-        }
-      }
-      return true;
-    
-    case KC_LANGUAGE_2:
-    case LT(L_Fn, KC_LANGUAGE_2):
-      if (record->event.pressed) {
-        if (ime_on) {
-          ime_on = false;
-          layer_on(L_Base);
-        }
-      }
-      return true;
-    
+      return false;    
   }
   return true;
 }
