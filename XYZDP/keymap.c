@@ -504,7 +504,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_BaseJ, L_Num, L_NumJ);
   state = update_tri_layer_state(state, L_BaseJ, L_BktEx, L_BktExJ);
 
-  // call FwSys(9) with Bkt(2) and Fn(6)
+  // call FwSys with Bkt and Fn
   state = update_tri_layer_state(state, L_Fn, L_BktEx, L_FwSys);
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
@@ -512,52 +512,43 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   
   uint8_t layer = get_highest_layer(state);
   switch (layer) {
-    // Num
     case L_Num:
     case L_NumJ:
       status_led(0b1100, NULL, 0);
       status_led(0b0010, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
       break;
-    // Bkt
     case L_BktEx:
     case L_BktExJ:
       status_led(0b1100, NULL, 0);
       status_led(0b0001, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
       break;
-    // Fn
     case L_Fn:
       status_led(0b1100, NULL, 0);
       status_led(0b0011, led_pattern_on, 0);
       break;
-    // Lcur
     case L_Lcur:
       status_led(0b0110, NULL, 0);
       status_led(0b1000, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
       break;
-    // Rcur
     case L_Rcur:
       status_led(0b1001, NULL, 0);
       status_led(0b0100, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
       break;
-    // FwSys
     case L_FwSys:
       status_led(0b1111, led_pattern_on, 0);
       break;
-    // Hue
     case L_HueSet:
       status_led(0b0011, NULL, 0);
       status_led(0b1100, led_pattern_on, 0);
       break;
-    // Sat
     case L_SatSet:
       status_led(0b0001, NULL, 0);
       status_led(0b1110, led_pattern_on, 0);
       break;
-    // Val
     case L_ValSet:
       status_led(0b0010, NULL, 0);
       status_led(0b1101, led_pattern_on, 0);
