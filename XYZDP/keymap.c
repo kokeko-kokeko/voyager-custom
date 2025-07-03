@@ -575,6 +575,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
+void caps_word_set_user(bool active) {
+  // re-calc status
+  layer_on(L_Base);
+}
+
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     //IME state display (update flag & re-calc status)
