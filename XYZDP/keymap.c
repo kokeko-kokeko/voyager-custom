@@ -522,6 +522,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       if (ime_on) {
         status_led(0b1000, led_pattern_on, 0);
       }
+      if (is_caps_word_on()) {
+        status_led(0b0100, led_pattern_on, 0);
+      }
       break;
     case L_Num:
     case L_NumJIS:
