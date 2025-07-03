@@ -302,28 +302,29 @@ extern keyboard_config_t keyboard_config;
 extern bool is_launching;
 extern rgb_config_t rgb_matrix_config;
 
+// enum for layer define sync oryx side
 enum layer_number {
-  _Base = 0,
-  _BaseJ,
-  _BktEx,
-  _BktExJ,
-  _Num,
-  _NumJ,
-  _Fn,
-  _Rcur,
-  _Lcur,
-  _FwSys,
-  L_Hue,
-  L_Sat,
-  L_Val
+  L_Base = 0,
+  L_BaseJ,
+  L_BktEx,
+  L_BktExJ,
+  L_Num,
+  L_NumJ,
+  L_Fn,
+  L_Rcur,
+  L_Lcur,
+  L_FwSys,
+  L_HueSel,
+  L_SatSel,
+  L_ValSel
 };
 
 // keymap ovverride (process Engram symbol and ANSI/JIS)
 // base (x and xs pair is shifted symbol, xs only overwrite shift)
-const key_override_t ko_ansi_base_1 = ko_make_with_layers_and_negmods(0, KC_1, KC_AT,   (layer_state_t)1 << _Base, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_ansi_base_2 = ko_make_with_layers_and_negmods(0, KC_2, KC_HASH, (layer_state_t)1 << _Base, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_ansi_base_7 = ko_make_with_layers_and_negmods(0, KC_7, KC_DQUO, (layer_state_t)1 << _Base, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_ansi_base_9 = ko_make_with_layers_and_negmods(0, KC_9, KC_QUES, (layer_state_t)1 << _Base, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_ansi_base_1 = ko_make_with_layers_and_negmods(0, KC_1, KC_AT,   (layer_state_t)1 << L_Base, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_ansi_base_2 = ko_make_with_layers_and_negmods(0, KC_2, KC_HASH, (layer_state_t)1 << L_Base, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_ansi_base_7 = ko_make_with_layers_and_negmods(0, KC_7, KC_DQUO, (layer_state_t)1 << L_Base, (uint8_t) MOD_MASK_SHIFT);
+const key_override_t ko_ansi_base_9 = ko_make_with_layers_and_negmods(0, KC_9, KC_QUES, (layer_state_t)1 << L_Base, (uint8_t) MOD_MASK_SHIFT);
 
 const key_override_t ko_ansi_base_1s = ko_make_with_layers(MOD_MASK_SHIFT, KC_1,    KC_GRV,  (layer_state_t)1 << 0);
 const key_override_t ko_ansi_base_2s = ko_make_with_layers(MOD_MASK_SHIFT, KC_2,    KC_DLR,  (layer_state_t)1 << 0);
