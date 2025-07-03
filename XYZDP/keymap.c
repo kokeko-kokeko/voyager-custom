@@ -517,10 +517,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     case L_Base :
     case L_BaseJIS:
-      //status_led(0b1111, NULL, 0);
-      //if (ime_on) {
-      //  status_led(0b1000, led_pattern_on, 0);
-      //}
+      status_led(0b1111, NULL, 0);
+      if (ime_on) {
+        status_led(0b1000, led_pattern_on, 0);
+      }
       break;
     case L_Num:
     case L_NumJIS:
@@ -1715,26 +1715,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_LANGUAGE_1:
       if (record->event.pressed) {
         ime_on = true;
-        status_led(0b1000, led_pattern_on, 0);
+        layer_on(L_Base);
       }
       return true;
     case LT(L_Fn, KC_LANGUAGE_1):
       if (record->event.pressed) {
         ime_on = true;
-        status_led(0b1000, led_pattern_on, 0);
+        layer_on(L_Base);
       }
       return true;
     
     case KC_LANGUAGE_2:
       if (record->event.pressed) {
         ime_on = false;
-        status_led(0b1000, NULL, 0);
+        layer_on(L_Base);
       }
       return true;
     case LT(L_Fn, KC_LANGUAGE_2):
       if (record->event.pressed) {
         ime_on = false;
-        status_led(0b1000, NULL, 0);
+        layer_on(L_Base);
       }
       return true;
   }
