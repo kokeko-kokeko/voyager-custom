@@ -434,9 +434,6 @@ static const uint8_t pos2idx_tbl[52] = {
     0,   0
 };
 
-// IME status indicator
-static bool ime_on = false;
-
 static bool status_led(const uint8_t mask, const uint8_t * const pattern, const uint16_t init_delay_ms);
 
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
@@ -444,6 +441,9 @@ static const uint8_t * const led_pattern_blink = (uint8_t[]){13, 50, UINT8_MAX, 
 static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+
+// IME status indicator
+static bool ime_on = false;
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
