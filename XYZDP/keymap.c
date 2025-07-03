@@ -1712,7 +1712,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) rgblight_step_noeeprom();
       return false;
 
-    //IME state display (update flag & re-calc led)
+    //IME state display (update flag & re-calc status)
     case KC_LANGUAGE_1:
     case LT(L_Fn, KC_LANGUAGE_1):
       if (record->event.pressed) {
