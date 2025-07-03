@@ -313,9 +313,9 @@ enum layer_number {
   _Rcur,
   _Lcur,
   _FwSys,
-  _Hue,
-  _Sat,
-  _Val
+  L_Hue,
+  L_Sat,
+  L_Val
 };
 
 // keymap ovverride (process Engram symbol and ANSI/JIS)
