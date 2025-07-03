@@ -501,64 +501,64 @@ bool rgb_matrix_indicators_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   //ANSI/JIS addiional enable
-  state = update_tri_layer_state(state, 1, 2, 3);
-  state = update_tri_layer_state(state, 1, 4, 5);
+  state = update_tri_layer_state(state, L_BaseJ, L_Num, L_NumJ);
+  state = update_tri_layer_state(state, L_BaseJ, L_BktEx, L_BktExJ);
 
   // call FwSys(9) with Bkt(2) and Fn(6)
-  state = update_tri_layer_state(state, 2, 6, 9);
+  state = update_tri_layer_state(state, L_Fn, L_BktEx, L_FwSys);
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
   
   uint8_t layer = get_highest_layer(state);
   switch (layer) {
-    // Bkt
-    case 2:
-    case 3:
-      status_led(0b1100, NULL, 0);
-      status_led(0b0001, led_pattern_on, 0);
-      status_led(0b0010, led_pattern_blink, 0);
-      break;
     // Num
-    case 4:
-    case 5:
+    case L_Num:
+    case L_NumJ:
       status_led(0b1100, NULL, 0);
       status_led(0b0010, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
       break;
+    // Bkt
+    case L_BktEx:
+    case L_BktExJ:
+      status_led(0b1100, NULL, 0);
+      status_led(0b0001, led_pattern_on, 0);
+      status_led(0b0010, led_pattern_blink, 0);
+      break;
     // Fn
-    case 6:
+    case L_Fn:
       status_led(0b1100, NULL, 0);
       status_led(0b0011, led_pattern_on, 0);
       break;
-    // Rcur
-    case 7:
-      status_led(0b1001, NULL, 0);
-      status_led(0b0100, led_pattern_on, 0);
-      status_led(0b0010, led_pattern_blink, 0);
-      break;
     // Lcur
-    case 8:
+    case L_Lcur:
       status_led(0b0110, NULL, 0);
       status_led(0b1000, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
       break;
+    // Rcur
+    case L_Rcur:
+      status_led(0b1001, NULL, 0);
+      status_led(0b0100, led_pattern_on, 0);
+      status_led(0b0010, led_pattern_blink, 0);
+      break;
     // FwSys
-    case 9:
+    case L_FwSys:
       status_led(0b1111, led_pattern_on, 0);
       break;
     // Hue
-    case 10:
+    case L_HueSet:
       status_led(0b0011, NULL, 0);
       status_led(0b1100, led_pattern_on, 0);
       break;
     // Sat
-    case 11:
+    case L_SatSet:
       status_led(0b0001, NULL, 0);
       status_led(0b1110, led_pattern_on, 0);
       break;
     // Val
-    case 12:
+    case L_ValSet:
       status_led(0b0010, NULL, 0);
       status_led(0b1101, led_pattern_on, 0);
       break;
@@ -927,13 +927,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_43_255_100:
       if (record->event.pressed) {
         //ANSI
-        layer_off(1);
+        layer_off(L_BaseJ);
       }
       return false;
     case HSV_43_255_106:
       if (record->event.pressed) {
         //JIS
-        layer_on(1);
+        layer_on(L_BaseJ);
       }
       return false;
     
