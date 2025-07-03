@@ -446,7 +446,7 @@ static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3,
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
-  ime_on = false;
+  ime_on = true;
   //ANSI
   layer_move(L_Base);
 }
