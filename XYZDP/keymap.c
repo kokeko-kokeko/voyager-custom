@@ -518,17 +518,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b1100, NULL, 0);
       status_led(0b0011, led_pattern_on, 0);
       break;
-    // Lcur
-    case 7:
-      status_led(0b0110, NULL, 0);
-      status_led(0b1000, led_pattern_on, 0);
-      status_led(0b0001, led_pattern_blink, 0);
-      break;
     // Rcur
-    case 8:
+    case 7:
       status_led(0b1001, NULL, 0);
       status_led(0b0100, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
+      break;
+    // Lcur
+    case 8:
+      status_led(0b0110, NULL, 0);
+      status_led(0b1000, led_pattern_on, 0);
+      status_led(0b0001, led_pattern_blink, 0);
       break;
     // FwSys
     case 9:
