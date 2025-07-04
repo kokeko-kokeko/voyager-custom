@@ -615,31 +615,60 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LT(L_Fn, KC_LANGUAGE_1):
       if (record->tap.count > 0) {
         if (record->event.pressed) {
-          if (!ime_on) {
-            ime_on = true;
-            layer_on(L_Base);
+          if ((get_mods() & MOD_MASK_CAG) == 0) {
+            if (!ime_on) {
+              ime_on = true;
+              layer_on(L_Base);
+            }
+            
+            if (get_mods() & MOD_MASK_SHIFT) {
+              if (!ime_kk) {
+                ime_kk = true;
+                layer_on(L_Base);
+              } 
+            } else {
+              if (ime_kk) {
+                ime_kk = false;
+                layer_on(L_Base);
+              } 
+            } 
           }
         }
       }
       return;
+    
     case KC_LANGUAGE_2:
       if (record->event.pressed) {
-        if (ime_on) {
-          ime_on = false;
-          layer_on(L_Base);
-        }
-      }
-      return;
-    case LT(L_Fn, KC_LANGUAGE_2):
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
+        if ((get_mods() & MOD_MASK_CSAG) == 0) {
           if (ime_on) {
             ime_on = false;
             layer_on(L_Base);
           }
+          if (ime_kk) {
+            ime_kk = false;
+            layer_on(L_Base);
+          }
         }
       }
       return;
+    
+    case LT(L_Fn, KC_LANGUAGE_2):
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          if ((get_mods() & MOD_MASK_CSAG) == 0) {
+            if (ime_on) {
+              ime_on = false;
+              layer_on(L_Base);
+            }
+            if (ime_kk) {
+              ime_kk = false;
+              layer_on(L_Base);
+            }
+          }
+        }
+      }
+      return;
+    
   }
   return;
 }
