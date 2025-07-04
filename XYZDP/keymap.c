@@ -444,11 +444,13 @@ static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3,
 
 // IME status indicator
 static bool ime_on = false;
+static bool ime_kk = false;  //KataKana
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
   //ANSI, IME off
   ime_on = false;
+  ime_kk = false; 
   layer_move(L_Base);
 }
 
@@ -520,7 +522,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_BaseJIS:
       status_led(0b1111, NULL, 0);
       if (ime_on) {
-        status_led(0b1000, led_pattern_on, 0);
+        if (ime_kk) {
+          status_led(0b1010, led_pattern_on, 0);
+        } else {
+          status_led(0b1000, led_pattern_on, 0);
+        }
       }
       if (is_caps_word_on()) {
         status_led(0b0100, led_pattern_on, 0);
@@ -585,12 +591,27 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     //IME state display (update flag & re-calc status)
     case KC_LANGUAGE_1:
       if (record->event.pressed) {
-        if (!ime_on) {
-          ime_on = true;
-          layer_on(L_Base);
+        if ((get_mods() & MOD_MASK_CAG) == 0) {
+          if (!ime_on) {
+            ime_on = true;
+            layer_on(L_Base);
+          }
+          
+          if (get_mods() & MOD_MASK_SHIFT) {
+            if (!ime_kk) {
+              ime_kk = true;
+              layer_on(L_Base);
+            } 
+          } else {
+            if (ime_kk) {
+              ime_kk = false;
+              layer_on(L_Base);
+            } 
+          } 
         }
       }
       return;
+    
     case LT(L_Fn, KC_LANGUAGE_1):
       if (record->tap.count > 0) {
         if (record->event.pressed) {
