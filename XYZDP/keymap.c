@@ -567,7 +567,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0100, led_pattern_blink, 0);
       break;
     case L_FwSys:
-      status_led(0b1111, led_pattern_on, 0);
+      status_led(0b1111, led_pattern_blink, 0);
       break;
     case L_SetHue:
       status_led(0b0011, NULL, 0);
@@ -575,11 +575,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       break;
     case L_SetSat:
       status_led(0b0001, NULL, 0);
-      status_led(0b1110, led_pattern_on, 0);
+      status_led(0b1100, led_pattern_on, 0);
+      status_led(0b0010, led_pattern_blink, 0);
       break;
     case L_SetVal:
       status_led(0b0010, NULL, 0);
-      status_led(0b1101, led_pattern_on, 0);
+      status_led(0b1100, led_pattern_on, 0);
+      status_led(0b0001, led_pattern_blink, 0);
       break;
 
     default :
