@@ -473,10 +473,6 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
     switch (keycode) {
       case LT(L_Num, KC_SPACE):
       case LT(L_Cur, KC_SPACE):
-        return 0;
-      
-      // flow tap only enable to letter
-      //case LT(L_Cur, KC_I):
       case LT(L_Rpin, KC_V):
         return 0;
 
@@ -514,16 +510,16 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  //both space to bkt
+  //both space LT to bkt
   state = update_tri_layer_state(state, L_Num, L_Cur, L_BktEx);
+
+  // call FwSys with Bkt and Fn
+  state = update_tri_layer_state(state, L_Fn, L_Cur, L_FwSys);  
   
   //ANSI/JIS addiional enable
   state = update_tri_layer_state(state, L_BaseJIS, L_Num, L_NumJIS);
   state = update_tri_layer_state(state, L_BaseJIS, L_Cur, L_CurJIS);
   state = update_tri_layer_state(state, L_BaseJIS, L_BktEx, L_BktExJIS);
-
-  // call FwSys with Bkt and Fn
-  state = update_tri_layer_state(state, L_Fn, L_Cur, L_FwSys);
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
@@ -547,29 +543,28 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Num:
     case L_NumJIS:
       status_led(0b1100, NULL, 0);
+      status_led(0b0001, led_pattern_on, 0);
+      status_led(0b0010, led_pattern_blink, 0);
+      break;
+    case L_Cur:
+    case L_CurJIS:
+      status_led(0b1100, NULL, 0);
       status_led(0b0010, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
       break;
     case L_BktEx:
     case L_BktExJIS:
       status_led(0b1100, NULL, 0);
-      status_led(0b0001, led_pattern_on, 0);
-      status_led(0b0010, led_pattern_blink, 0);
+      status_led(0b0011, led_pattern_blink, 0);
       break;
     case L_Fn:
       status_led(0b1100, NULL, 0);
       status_led(0b0011, led_pattern_on, 0);
       break;
-    case L_Cur:
-    case L_CurJIS:
-      status_led(0b0110, NULL, 0);
-      status_led(0b1000, led_pattern_on, 0);
-      status_led(0b0001, led_pattern_blink, 0);
-      break;
     case L_Rpin:
       status_led(0b1001, NULL, 0);
-      status_led(0b0100, led_pattern_on, 0);
-      status_led(0b0010, led_pattern_blink, 0);
+      status_led(0b0010, led_pattern_on, 0);
+      status_led(0b0100, led_pattern_blink, 0);
       break;
     case L_FwSys:
       status_led(0b1111, led_pattern_on, 0);
