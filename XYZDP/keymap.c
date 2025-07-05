@@ -523,7 +523,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_BaseJIS, L_BktEx, L_BktExJIS);
 
   // call FwSys with Bkt and Fn
-  state = update_tri_layer_state(state, L_Fn, L_Num, L_FwSys);
+  state = update_tri_layer_state(state, L_Fn, L_Cur, L_FwSys);
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
