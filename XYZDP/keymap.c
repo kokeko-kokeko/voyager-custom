@@ -1764,15 +1764,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LT(L_Fn, KC_LANGUAGE_1):
       if (record->tap.count > 0) {
         if (record->event.pressed) {
-          if ((get_mods() & MOD_MASK_CAG) == 0) {
-            ime_on = true;
-          
-            if (get_mods() & MOD_MASK_SHIFT) {
-              ime_kk = true;
-            } else {
-              ime_kk = false;
+          if (layer_state_is(L_Fn) |
+              layer_state_is(L_Rpin) |
+              layer_state_is(L_Num) |
+              layer_state_is(L_Cur)) {
+            // reverse side
+            if ((get_mods() & MOD_MASK_CSAG) == 0) {
+              ime_on = false;
+              layer_on(L_Base);
             }
-            layer_on(L_Base);
+            tap_code16(KC_LANGUAGE_2);
+            return false;
+          } else {
+            if ((get_mods() & MOD_MASK_CAG) == 0) {
+              ime_on = true;
+              if (get_mods() & MOD_MASK_SHIFT) {
+                ime_kk = true;
+              } else {
+                ime_kk = false;
+              }
+              layer_on(L_Base);
+            }
           }
         }
       }
@@ -1780,9 +1792,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case KC_LANGUAGE_2:
       if (record->event.pressed) {
-        if ((get_mods() & MOD_MASK_CSAG) == 0) {
-          ime_on = false;
-          layer_on(L_Base);
+        if (layer_state_is(L_Fn) |
+            layer_state_is(L_Rpin) |
+            layer_state_is(L_Num) |
+            layer_state_is(L_Cur)) {
+          // reverse side
+          if ((get_mods() & MOD_MASK_CAG) == 0) {
+            ime_on = true;
+            if (get_mods() & MOD_MASK_SHIFT) {
+              ime_kk = true;
+            } else {
+              ime_kk = false;
+            }
+            layer_on(L_Base);
+          }
+          tap_code16(KC_LANGUAGE_1);
+          return false;
+        } else {
+          if ((get_mods() & MOD_MASK_CSAG) == 0) {
+            ime_on = false;
+            layer_on(L_Base);
+          }
         }
       }
       return true;
