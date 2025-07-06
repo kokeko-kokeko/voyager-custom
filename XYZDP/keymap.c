@@ -453,12 +453,12 @@ static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3,
 // IME status indicator
 static bool ime_on = false;
 static bool ime_kk = false;  //KataKana
-static bool ime_timeout = false;
-static const uint32_t ime_sync_thd = 10000; //ms
+static bool ime_sync = false;
+static const uint32_t ime_sync_wait = 10000; //ms
 
-static deferred_token ime_timeout_token = INVALID_DEFERRED_TOKEN;
-uint32_t ime_timeout_task(uint32_t trigger_time, void *cb_arg) {
-  ime_timeout = true;
+static deferred_token ime_sync_token = INVALID_DEFERRED_TOKEN;
+uint32_t ime_sync_task(uint32_t trigger_time, void *cb_arg) {
+  ime_sync = true;
   layer_on(L_Base);
   return 0;
 }
@@ -468,7 +468,7 @@ void keyboard_post_init_user(void) {
   //ANSI, IME off
   ime_on = false;
   ime_kk = false; 
-  ime_timeout = false;
+  ime_sync = false;
   layer_move(L_Base);
 }
 
@@ -546,7 +546,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
           status_led(0b1000, led_pattern_on, 0);
         }
       }
-      if (ime_timeout) {
+      if (ime_sync) {
         status_led(0b0001, led_pattern_on, 0);
       }
       if (is_caps_word_on()) {
@@ -610,7 +610,7 @@ void caps_word_set_user(bool active) {
 }
 
 bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if(ime_timeout) {
+  if(ime_sync) {
     if (ime_on) {
       if (ime_kk) {
         tap_code16(LSFT(KC_LANGUAGE_1));
@@ -625,9 +625,9 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if(!extend_deferred_exec(ime_timeout_token, ime_sync_thd)) {
-    ime_timeout = false;
-    ime_timeout_token = defer_exec(ime_sync_thd, ime_timeout_task, NULL);
+  if(!extend_deferred_exec(ime_sync_token, ime_sync_wait)) {
+    ime_sync = false;
+    ime_sync_token = defer_exec(ime_sync_wait, ime_sync_task, NULL);
     layer_on(L_Base);
   }
   return;
