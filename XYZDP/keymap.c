@@ -453,12 +453,14 @@ static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3,
 // IME status indicator
 static bool ime_on = false;
 static bool ime_kk = false;  //KataKana
+static uint32_t ime_last;
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
   //ANSI, IME off
   ime_on = false;
   ime_kk = false; 
+  ime_last = timer_read32();
   layer_move(L_Base);
 }
 
@@ -597,6 +599,8 @@ void caps_word_set_user(bool active) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  ime_last = timer_read32();
+  
   switch (keycode) {
     //IME state display (update flag & re-calc status)
     case KC_LANGUAGE_1:
