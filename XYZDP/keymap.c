@@ -1991,8 +1991,6 @@ static void set_layer_color_fwsys_map(void) {
   //layer indication
   rgb_matrix_set_color(24, f, f, 0);
   rgb_matrix_set_color(25, f, f, 0);
-  rgb_matrix_set_color(44, f, f, 0);
-  rgb_matrix_set_color(45, f, f, 0);
   rgb_matrix_set_color(50, o, o, o);
 
   //ANSI/JIS
@@ -2034,6 +2032,8 @@ static void set_layer_color_fwsys_map(void) {
   }
   rgb_matrix_set_color(22, rgb_os.r, rgb_os.g, rgb_os.b);
   rgb_matrix_set_color(23, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(44, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(45, rgb_os.r, rgb_os.g, rgb_os.b);
 
   //tapping
   rgb_matrix_set_color(18, 0, 0, f);
