@@ -603,7 +603,7 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if(timer_elapsed32(ime_last) > ime_sync_thd) {
     if (ime_on) {
       if (ime_kk) {
-        tap_code16(KC_LANGUAGE_1);
+        tap_code16(LSFT(KC_LANGUAGE_1));
       } else {
         tap_code16(KC_LANGUAGE_1);
       }
