@@ -184,21 +184,21 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(11, KC_9)
-#define DUAL_FUNC_1 LT(6, KC_2)
-#define DUAL_FUNC_2 LT(11, KC_I)
-#define DUAL_FUNC_3 LT(11, KC_F15)
-#define DUAL_FUNC_4 LT(4, KC_F9)
-#define DUAL_FUNC_5 LT(11, KC_G)
-#define DUAL_FUNC_6 LT(7, KC_F22)
-#define DUAL_FUNC_7 LT(5, KC_4)
-#define DUAL_FUNC_8 LT(10, KC_F7)
-#define DUAL_FUNC_9 LT(1, KC_8)
-#define DUAL_FUNC_10 LT(8, KC_F13)
-#define DUAL_FUNC_11 LT(6, KC_F16)
-#define DUAL_FUNC_12 LT(14, KC_F7)
-#define DUAL_FUNC_13 LT(5, KC_E)
-#define DUAL_FUNC_14 LT(8, KC_F16)
+#define DUAL_FUNC_0 LT(10, KC_F23)
+#define DUAL_FUNC_1 LT(10, KC_F4)
+#define DUAL_FUNC_2 LT(11, KC_F12)
+#define DUAL_FUNC_3 LT(4, KC_C)
+#define DUAL_FUNC_4 LT(3, KC_L)
+#define DUAL_FUNC_5 LT(13, KC_B)
+#define DUAL_FUNC_6 LT(6, KC_F6)
+#define DUAL_FUNC_7 LT(5, KC_5)
+#define DUAL_FUNC_8 LT(13, KC_8)
+#define DUAL_FUNC_9 LT(12, KC_F6)
+#define DUAL_FUNC_10 LT(6, KC_5)
+#define DUAL_FUNC_11 LT(7, KC_F16)
+#define DUAL_FUNC_12 LT(6, KC_7)
+#define DUAL_FUNC_13 LT(11, KC_Q)
+#define DUAL_FUNC_14 LT(1, KC_F15)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -233,7 +233,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CW_TOGG,        KC_TRANSPARENT, KC_COMMA,       KC_DOT,         KC_6,           KC_RABK,                                        KC_5,           KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_LBRC,        MT(MOD_LGUI, KC_1),MT(MOD_LALT, KC_2),MT(MOD_LSFT, KC_3),MT(MOD_LCTL, KC_4),KC_5,                                           KC_6,           MT(MOD_RCTL, KC_7),MT(MOD_RSFT, KC_8),MT(MOD_RALT, KC_9),MT(MOD_RGUI, KC_0),KC_RBRC,        
     DUAL_FUNC_0,    DUAL_FUNC_1,    KC_EQUAL,       KC_TILD,        KC_PLUS,        KC_LABK,                                        KC_RABK,        KC_CIRC,        KC_AMPR,        KC_PERC,        DUAL_FUNC_2,    DUAL_FUNC_3,    
-    KC_TRANSPARENT, KC_MEDIA_STOP,  KC_MEDIA_PLAY_PAUSE,KC_TRANSPARENT, KC_TRANSPARENT, KC_LANGUAGE_1,                                  KC_LANGUAGE_2,  KC_TRANSPARENT, KC_TRANSPARENT, KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,  
+    KC_TRANSPARENT, KC_MEDIA_STOP,  KC_MEDIA_PLAY_PAUSE,KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,  
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [5] = LAYOUT_voyager(
@@ -247,7 +247,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CW_TOGG,        LCTL(KC_Q),     LCTL(KC_W),     LCTL(KC_E),     LCTL(KC_R),     KC_LPRN,                                        KC_RPRN,        KC_PAGE_UP,     KC_UP,          KC_PGDN,        KC_TAB,         KC_BSPC,        
     KC_TRANSPARENT, DUAL_FUNC_8,    DUAL_FUNC_9,    DUAL_FUNC_10,   DUAL_FUNC_11,   KC_SCLN,                                        KC_COLN,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_DELETE,      KC_APPLICATION, 
     LCTL(KC_Y),     LCTL(KC_Z),     LCTL(KC_X),     KC_HOME,        KC_END,         KC_UNDS,                                        KC_EXLM,        LCTL(LSFT(KC_P)),LALT(LGUI(KC_SPACE)),LGUI(LSFT(KC_M)),LGUI(LSFT(KC_C)),ST_MACRO_0,     
-    QK_LLCK,        KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_TRANSPARENT, KC_TRANSPARENT, KC_LANGUAGE_1,                                  KC_LANGUAGE_2,  KC_TRANSPARENT, KC_TRANSPARENT, KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,QK_LLCK,        
+    QK_LLCK,        KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,QK_LLCK,        
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [7] = LAYOUT_voyager(
