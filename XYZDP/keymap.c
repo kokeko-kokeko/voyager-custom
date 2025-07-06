@@ -453,7 +453,8 @@ static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3,
 // IME status indicator
 static bool ime_on = false;
 static bool ime_kk = false;  //KataKana
-static uint32_t ime_last;
+static uint32_t ime_last = 0;
+static const uint32_t ime_sync_thd = 30000; //ms
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
@@ -596,6 +597,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void caps_word_set_user(bool active) {
   // re-calc status
   layer_on(L_Base);
+}
+
+bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if(timer_elapsed32(ime_last) > ime_sync_thd) {
+    
+  }
+  return true;
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
