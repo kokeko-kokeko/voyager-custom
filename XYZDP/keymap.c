@@ -454,7 +454,7 @@ static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3,
 static bool ime_on = false;
 static bool ime_kk = false;  //KataKana
 static uint32_t ime_last = 0;
-static const uint32_t ime_sync_thd = 30000; //ms
+static const uint32_t ime_sync_thd = 10000; //ms
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
