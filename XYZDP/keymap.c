@@ -541,13 +541,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b1111, NULL, 0);
       if (ime_on) {
         if (ime_kk) {
-          status_led(0b1010, led_pattern_on, 0);
+          status_led(0b1001, led_pattern_on, 0);
         } else {
           status_led(0b1000, led_pattern_on, 0);
         }
       }
       if (ime_sync) {
-        status_led(0b0001, led_pattern_on, 0);
+        status_led(0b0010, led_pattern_on, 0);
       }
       if (is_caps_word_on()) {
         status_led(0b0100, led_pattern_on, 0);
