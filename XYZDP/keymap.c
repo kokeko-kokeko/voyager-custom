@@ -546,7 +546,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
           status_led(0b1000, led_pattern_on, 0);
         }
       }
-      if (ime_sync) {
+      if (!ime_sync) {
         status_led(0b0010, led_pattern_on, 0);
       }
       if (is_caps_word_on()) {
