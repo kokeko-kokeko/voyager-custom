@@ -540,6 +540,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         status_led(0b0100, led_pattern_on, 0);
       }
       break;
+    case L_Fn:
+      status_led(0b1100, NULL, 0);
+      status_led(0b0011, led_pattern_on, 0);
+      break;
+    case L_Rpin:
+      status_led(0b1001, NULL, 0);
+      status_led(0b0010, led_pattern_on, 0);
+      status_led(0b0100, led_pattern_blink, 0);
+      break;
     case L_Num:
     case L_NumJIS:
       status_led(0b1100, NULL, 0);
@@ -556,15 +565,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_BktExJIS:
       status_led(0b1100, NULL, 0);
       status_led(0b0011, led_pattern_blink, 0);
-      break;
-    case L_Fn:
-      status_led(0b1100, NULL, 0);
-      status_led(0b0011, led_pattern_on, 0);
-      break;
-    case L_Rpin:
-      status_led(0b1001, NULL, 0);
-      status_led(0b0010, led_pattern_on, 0);
-      status_led(0b0100, led_pattern_blink, 0);
       break;
     case L_FwSys:
       status_led(0b1111, led_pattern_blink, 0);
