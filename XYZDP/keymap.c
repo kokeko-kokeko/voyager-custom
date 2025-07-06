@@ -625,8 +625,8 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  ime_timeout = false;
   if(!extend_deferred_exec(ime_timeout_token, ime_sync_thd)) {
-    ime_timeout = false;
     ime_timeout_token = defer_exec(ime_sync_thd, ime_timeout_task, NULL);
   }
   return;
