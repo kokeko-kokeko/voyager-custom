@@ -619,21 +619,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   
   switch (keycode) {
     //IME state display (update flag & re-calc status)
-    case KC_LANGUAGE_1:
-      if (record->event.pressed) {
-        if ((get_mods() & MOD_MASK_CAG) == 0) {
-          ime_on = true;
-          
-          if (get_mods() & MOD_MASK_SHIFT) {
-            ime_kk = true;
-          } else {
-            ime_kk = false;
-          }
-          layer_on(L_Base);
-        }
-      }
-      return;
-    
     case LT(L_Fn, KC_LANGUAGE_1):
       if (record->tap.count > 0) {
         if (record->event.pressed) {
@@ -656,17 +641,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
         if ((get_mods() & MOD_MASK_CSAG) == 0) {
           ime_on = false;
           layer_on(L_Base);
-        }
-      }
-      return;
-    
-    case LT(L_Fn, KC_LANGUAGE_2):
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          if ((get_mods() & MOD_MASK_CSAG) == 0) {
-            ime_on = false;
-            layer_on(L_Base);
-          }
         }
       }
       return;
