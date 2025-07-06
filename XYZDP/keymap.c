@@ -1776,6 +1776,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(KC_LANGUAGE_2);
             return false;
           } else {
+            // normal side
             if ((get_mods() & MOD_MASK_CAG) == 0) {
               ime_on = true;
               if (get_mods() & MOD_MASK_SHIFT) {
@@ -1809,6 +1810,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           tap_code16(KC_LANGUAGE_1);
           return false;
         } else {
+          // normal side
           if ((get_mods() & MOD_MASK_CSAG) == 0) {
             ime_on = false;
             layer_on(L_Base);
