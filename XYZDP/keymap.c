@@ -450,25 +450,22 @@ static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, UINT8_MA
 static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
-// IME status indicator
-static bool ime_on = false;
-static bool ime_kk = false;  //KataKana
-static bool ime_sync = false;
-static const uint32_t ime_sync_wait = 10000; //ms
+// Ime State Sync system
+static bool iss_ime_on = false;
+static bool iss_ime_kk = false;  //KataKana
+static bool iss_sync = false;
+static const uint32_t iss_sync_wait = 10000; //ms
 
-static deferred_token ime_sync_token = INVALID_DEFERRED_TOKEN;
-uint32_t ime_sync_task(uint32_t trigger_time, void *cb_arg) {
-  ime_sync = true;
+static deferred_token iss_sync_token = INVALID_DEFERRED_TOKEN;
+uint32_t iss_sync_task(uint32_t trigger_time, void *cb_arg) {
+  iss_sync = true;
   layer_on(L_Base);
   return 0;
 }
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
-  //ANSI, IME off
-  ime_on = false;
-  ime_kk = false; 
-  ime_sync = false;
+  //ANSI
   layer_move(L_Base);
 }
 
@@ -539,14 +536,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Base :
     case L_BaseJIS:
       status_led(0b1111, NULL, 0);
-      if (ime_on) {
-        if (ime_kk) {
+      if (iss_ime_on) {
+        if (iss_ime_kk) {
           status_led(0b1001, led_pattern_on, 0);
         } else {
           status_led(0b1000, led_pattern_on, 0);
         }
       }
-      if (!ime_sync) {
+      if (!iss_sync) {
         status_led(0b0010, led_pattern_on, 0);
       }
       if (is_caps_word_on()) {
@@ -610,9 +607,9 @@ void caps_word_set_user(bool active) {
 }
 
 bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if(ime_sync) {
-    if (ime_on) {
-      if (ime_kk) {
+  if(iss_sync) {
+    if (iss_ime_on) {
+      if (iss_ime_kk) {
         tap_code16(LSFT(KC_LANGUAGE_1));
       } else {
         tap_code16(KC_LANGUAGE_1);
@@ -625,9 +622,9 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if(!extend_deferred_exec(ime_sync_token, ime_sync_wait)) {
-    ime_sync = false;
-    ime_sync_token = defer_exec(ime_sync_wait, ime_sync_task, NULL);
+  if(!extend_deferred_exec(iss_sync_token, iss_sync_wait)) {
+    iss_sync = false;
+    iss_sync_token = defer_exec(iss_sync_wait, iss_sync_task, NULL);
     layer_on(L_Base);
   }
   return;
@@ -1783,7 +1780,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               layer_state_is(L_Cur)) {
             // reverse side (upper layer)
             if ((get_mods() & MOD_MASK_CSAG) == 0) {
-              ime_on = false;
+              iss_ime_on = false;
               //layer_on(L_Base);
             }
             tap_code16(KC_LANGUAGE_2);
@@ -1791,11 +1788,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           } else {
             // normal side (base layer)
             if ((get_mods() & MOD_MASK_CAG) == 0) {
-              ime_on = true;
+              iss_ime_on = true;
               if (get_mods() & MOD_MASK_SHIFT) {
-                ime_kk = true;
+                iss_ime_kk = true;
               } else {
-                ime_kk = false;
+                iss_ime_kk = false;
               }
               layer_on(L_Base);
             }
@@ -1812,11 +1809,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_state_is(L_Cur)) {
           // reverse side (upper layer)
           if ((get_mods() & MOD_MASK_CAG) == 0) {
-            ime_on = true;
+            iss_ime_on = true;
             if (get_mods() & MOD_MASK_SHIFT) {
-              ime_kk = true;
+              iss_ime_kk = true;
             } else {
-              ime_kk = false;
+              iss_ime_kk = false;
             }
             //layer_on(L_Base);
           }
@@ -1825,7 +1822,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           // normal side (base layer)
           if ((get_mods() & MOD_MASK_CSAG) == 0) {
-            ime_on = false;
+            iss_ime_on = false;
             layer_on(L_Base);
           }
         }
