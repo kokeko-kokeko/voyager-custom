@@ -462,14 +462,14 @@ static bool iss_sync = false;
 
 static const uint32_t iss_sync_wait = 8000; //ms
 static deferred_token iss_sync_token = INVALID_DEFERRED_TOKEN;
-uint32_t iss_sync_task(uint32_t trigger_time, void *cb_arg) {
+static uint32_t iss_sync_task(uint32_t trigger_time, void *cb_arg) {
   iss_sync = true;
   layer_on(L_Base);
   return 0;
 }
 static const uint32_t iss_ime_off_wait = 600000; //ms
 static deferred_token iss_ime_off_token = INVALID_DEFERRED_TOKEN;
-uint32_t iss_ime_off_task(uint32_t trigger_time, void *cb_arg) {
+static uint32_t iss_ime_off_task(uint32_t trigger_time, void *cb_arg) {
   ime_on = false;
   layer_on(L_Base);
   return 0;
