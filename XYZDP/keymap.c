@@ -539,17 +539,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Base :
     case L_BaseJIS:
       status_led(0b1111, NULL, 0);
-      if (iss_enable) {
-        if (iss_ime_on) {
-          if (iss_ime_kk) {
-            status_led(0b0100, led_pattern_blink, 0);
-          } else {
-            status_led(0b0100, led_pattern_on, 0);
-          }
+      if (iss_ime_on) {
+        if (iss_ime_kk) {
+          status_led(0b0100, led_pattern_blink, 0);
+        } else {
+          status_led(0b0100, led_pattern_on, 0);
         }
-        if (iss_sync) {
-          status_led(0b1000, led_pattern_on, 0);
-        }
+      }
+      if (iss_sync) {
+        status_led(0b1000, led_pattern_on, 0);
       }
       if (is_caps_word_on()) {
         status_led(0b0001, led_pattern_on, 0);
@@ -612,19 +610,17 @@ void caps_word_set_user(bool active) {
 }
 
 bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (iss_enable) {
-    if(iss_sync) {
-      if (iss_ime_on) {
-        if (iss_ime_kk) {
-          tap_code16(LSFT(KC_LANGUAGE_1));
-        } else {
-          tap_code16(KC_LANGUAGE_1);
-        }
+  if(iss_sync) {
+    if (iss_ime_on) {
+      if (iss_ime_kk) {
+        tap_code16(LSFT(KC_LANGUAGE_1));
       } else {
-        tap_code16(KC_LANGUAGE_2);
+        tap_code16(KC_LANGUAGE_1);
       }
-      iss_sync = false;
+    } else {
+      tap_code16(KC_LANGUAGE_2);
     }
+    iss_sync = false;
   }
   return true;
 }
