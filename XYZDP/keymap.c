@@ -458,8 +458,8 @@ static bool iss_enable = true;
 static bool iss_ime_on = false;
 static bool iss_ime_kk = false;  //KataKana
 
-static bool iss_sync = false;  //initial state
-static const uint32_t iss_sync_wait = 5000; //ms
+static bool iss_sync = false;
+static const uint32_t iss_sync_wait = 15000; //ms
 static deferred_token iss_sync_token = INVALID_DEFERRED_TOKEN;
 uint32_t iss_sync_task(uint32_t trigger_time, void *cb_arg) {
   iss_sync = true;
