@@ -513,6 +513,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
     switch (keycode) {
       case LT(L_Num, KC_SPACE):
       case LT(L_Cur, KC_SPACE):
+      case LT(L_Lpin, KC_B):
       case LT(L_Rpin, KC_V):
         return 0;
 
@@ -553,6 +554,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   //both space LT to bkt
   state = update_tri_layer_state(state, L_Num, L_Cur, L_BktEx);
 
+  //both pin
+  state = update_tri_layer_state(state, L_Lpin, L_Rpin, L_LRpin);
+
   // call FwSys with Bkt and Fn
   state = update_tri_layer_state(state, L_Fn, L_Cur, L_FwSys);  
   
@@ -583,14 +587,23 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         status_led(0b0001, led_pattern_on, 0);
       }
       break;
-    case L_Fn:
-      status_led(0b1100, NULL, 0);
-      status_led(0b0011, led_pattern_on, 0);
+    case L_Lpin:
+      status_led(0b0110, NULL, 0);
+      status_led(0b0001, led_pattern_on, 0);
+      status_led(0b1000, led_pattern_blink, 0);
       break;
     case L_Rpin:
       status_led(0b1001, NULL, 0);
       status_led(0b0010, led_pattern_on, 0);
       status_led(0b0100, led_pattern_blink, 0);
+      break;
+    case L_LRpin:
+      status_led(0b0011, led_pattern_on, 0);
+      status_led(0b1100, led_pattern_blink, 0);
+      break;
+    case L_Fn:
+      status_led(0b1100, NULL, 0);
+      status_led(0b0011, led_pattern_on, 0);
       break;
     case L_Num:
     case L_NumJIS:
