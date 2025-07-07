@@ -454,7 +454,7 @@ static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3,
 static bool iss_ime_on = false;
 static bool iss_ime_kk = false;  //KataKana
 static bool iss_sync = true;  //initial state
-static const uint32_t iss_sync_wait = 3000; //ms
+static const uint32_t iss_sync_wait = 5000; //ms
 
 static deferred_token iss_sync_token = INVALID_DEFERRED_TOKEN;
 uint32_t iss_sync_task(uint32_t trigger_time, void *cb_arg) {
