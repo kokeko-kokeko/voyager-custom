@@ -474,7 +474,6 @@ uint32_t iss_ime_off_task(uint32_t trigger_time, void *cb_arg) {
   return 0;
 }
 
-
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
   iss_sync_token = defer_exec(iss_sync_wait, iss_sync_task, NULL);
