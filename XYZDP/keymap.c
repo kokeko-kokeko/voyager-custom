@@ -457,19 +457,28 @@ static bool iss_enable = true;
 
 static bool iss_ime_on = false;
 static bool iss_ime_kk = false;  //KataKana
-
 static bool iss_sync = false;
+
 static const uint32_t iss_sync_wait = 8000; //ms
 static deferred_token iss_sync_token = INVALID_DEFERRED_TOKEN;
 uint32_t iss_sync_task(uint32_t trigger_time, void *cb_arg) {
   iss_sync = true;
   layer_on(L_Base);
-  
+  return 0;
+}
+static const uint32_t iss_ime_off_wait = 600000; //ms
+static deferred_token iss_ime_off_token = INVALID_DEFERRED_TOKEN;
+uint32_t iss_ime_off_task(uint32_t trigger_time, void *cb_arg) {
+  iss_ime_on = false;
+  layer_on(L_Base);
   return 0;
 }
 
+
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
+  iss_sync_token = defer_exec(iss_sync_wait, iss_sync_task, NULL);
+  iss_ime_off_token = defer_exec(iss_ime_off_wait, iss_ime_off_task, NULL);
   //ANSI
   layer_move(L_Base);
 }
@@ -633,6 +642,9 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
       iss_sync_token = defer_exec(iss_sync_wait, iss_sync_task, NULL);
       // sync flag update on pre
       layer_on(L_Base);
+    }
+    if(!extend_deferred_exec(iss_ime_off_token, iss_ime_off_wait)) {
+      iss_ime_off_token = defer_exec(iss_ime_off_wait, iss_ime_off_task, NULL);
     }
   }
   return;
