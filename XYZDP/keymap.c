@@ -454,7 +454,7 @@ static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3,
 static bool iss_ime_on = false;
 static bool iss_ime_kk = false;  //KataKana
 static bool iss_sync = true;  //initial state
-static const uint32_t iss_sync_wait_init = 1250; //ms
+static const uint32_t iss_sync_wait_init = 3000; //ms
 static uint32_t iss_sync_wait = iss_sync_wait_init;
 
 static deferred_token iss_sync_token = INVALID_DEFERRED_TOKEN;
@@ -626,7 +626,7 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if(extend_deferred_exec(iss_sync_token, iss_sync_wait)) {
-    iss_sync_wait += iss_sync_wait_init; 
+    //iss_sync_wait += iss_sync_wait_init; 
   } else {
     iss_sync_wait = iss_sync_wait_init; 
     iss_sync_token = defer_exec(iss_sync_wait, iss_sync_task, NULL);
