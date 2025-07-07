@@ -626,7 +626,7 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if(extend_deferred_exec(iss_sync_token, iss_sync_wait)) {
-    iss_sync_wait *= 2; 
+    iss_sync_wait += iss_sync_wait_init; 
   } else {
     iss_sync_wait = iss_sync_wait_init; 
     iss_sync_token = defer_exec(iss_sync_wait, iss_sync_task, NULL);
