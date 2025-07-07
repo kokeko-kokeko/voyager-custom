@@ -2055,12 +2055,12 @@ static void set_layer_color_fwsys_map(void) {
 
   //ISS
   if (iss_enable) {
-    rgb_matrix_set_color(1, 0, f, 0);
-    rgb_matrix_set_color(7, o, o, o);
+    rgb_matrix_set_color(2, 0, f, 0);
+    rgb_matrix_set_color(8, o, o, o);
   } else {
     //ANSI base
-    rgb_matrix_set_color(1, o, o, o);
-    rgb_matrix_set_color(7, f, f, f);
+    rgb_matrix_set_color(2, o, o, o);
+    rgb_matrix_set_color(8, f, f, f);
   }
 
   //OS detect
