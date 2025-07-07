@@ -2055,7 +2055,7 @@ static void set_layer_color_fwsys_map(void) {
 
   //ISS
   if (iss_enable) {
-    rgb_matrix_set_color(2, f, 0, 0);
+    rgb_matrix_set_color(2, 0, f, 0);
     rgb_matrix_set_color(8, o, o, o);
   } else {
     //ANSI base
