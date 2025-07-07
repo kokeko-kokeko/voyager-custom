@@ -454,12 +454,15 @@ static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3,
 static bool iss_ime_on = false;
 static bool iss_ime_kk = false;  //KataKana
 static bool iss_sync = false;
-static const uint32_t iss_sync_wait = 10000; //ms
+static const uint32_t iss_sync_wait_init = 3000; //ms
+static uint32_t iss_sync_wait = iss_sync_wait_init; //ms
+
 
 static deferred_token iss_sync_token = INVALID_DEFERRED_TOKEN;
 uint32_t iss_sync_task(uint32_t trigger_time, void *cb_arg) {
   iss_sync = true;
   layer_on(L_Base);
+  
   return 0;
 }
 
@@ -617,14 +620,19 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
     } else {
       tap_code16(KC_LANGUAGE_2);
     }
+
+    iss_sync = false;
   }
   return true;
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if(!extend_deferred_exec(iss_sync_token, iss_sync_wait)) {
-    iss_sync = false;
+    iss_sync_wait *= 2; 
+  } else {
+    iss_sync_wait = iss_sync_wait_init; 
     iss_sync_token = defer_exec(iss_sync_wait, iss_sync_task, NULL);
+    // state change update
     layer_on(L_Base);
   }
   return;
