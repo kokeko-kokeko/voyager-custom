@@ -512,7 +512,7 @@ bool rgb_matrix_indicators_user(void) {
       return false;
   }
   if (keyboard_config.disable_layer_led) { return false; }
-  switch (biton32(layer_state)) {
+  switch (get_highest_layer(layer_state)) {
     case L_FwSys:
       set_layer_color_fwsys_map();
       break;
