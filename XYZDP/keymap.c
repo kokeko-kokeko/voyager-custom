@@ -453,9 +453,9 @@ static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3,
 // Ime State Sync system
 static bool iss_ime_on = false;
 static bool iss_ime_kk = false;  //KataKana
-static bool iss_sync = true;  //initial state
-static const uint32_t iss_sync_wait = 5000; //ms
 
+static bool iss_sync = false;  //initial state
+static const uint32_t iss_sync_wait = 5000; //ms
 static deferred_token iss_sync_token = INVALID_DEFERRED_TOKEN;
 uint32_t iss_sync_task(uint32_t trigger_time, void *cb_arg) {
   iss_sync = true;
@@ -544,7 +544,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
           status_led(0b1000, led_pattern_on, 0);
         }
       }
-      if (!iss_sync) {
+      if (iss_sync) {
         status_led(0b0010, led_pattern_on, 0);
       }
       if (is_caps_word_on()) {
