@@ -1001,8 +1001,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_43_255_101:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,101);
+        iss_enable = true;
+        layer_on(L_Base);
       }
       return false;
     case HSV_43_255_106:
@@ -1014,8 +1014,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_43_255_107:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,107);
+        iss_enable = false;
+        layer_on(L_Base);
       }
       return false;
     
@@ -2034,6 +2034,16 @@ static void set_layer_color_fwsys_map(void) {
     //ANSI base
     rgb_matrix_set_color(0, f, 0, 0);
     rgb_matrix_set_color(6, 0, o, 0);
+  }
+
+  //ISS
+  if (iss_enable) {
+    rgb_matrix_set_color(1, 0, f, 0);
+    rgb_matrix_set_color(7, o, o, o);
+  } else {
+    //ANSI base
+    rgb_matrix_set_color(1, o, o, o);
+    rgb_matrix_set_color(7, f, f, f);
   }
 
   //OS detect
