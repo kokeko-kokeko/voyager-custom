@@ -551,11 +551,11 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  //both space LT to bkt
-  state = update_tri_layer_state(state, L_Num, L_Cur, L_BktEx);
-
-  //both pin
+  //both outer pin
   state = update_tri_layer_state(state, L_Lpin, L_Rpin, L_LRpin);
+  
+  //both thumb
+  state = update_tri_layer_state(state, L_Num, L_Cur, L_BktEx);
 
   // call FwSys with Bkt and Fn
   state = update_tri_layer_state(state, L_Fn, L_Cur, L_FwSys);  
