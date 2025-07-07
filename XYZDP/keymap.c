@@ -457,7 +457,6 @@ static bool iss_sync = false;
 static const uint32_t iss_sync_wait_init = 3000; //ms
 static uint32_t iss_sync_wait = iss_sync_wait_init; //ms
 
-
 static deferred_token iss_sync_token = INVALID_DEFERRED_TOKEN;
 uint32_t iss_sync_task(uint32_t trigger_time, void *cb_arg) {
   iss_sync = true;
