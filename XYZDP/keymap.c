@@ -459,7 +459,7 @@ static bool iss_ime_on = false;
 static bool iss_ime_kk = false;  //KataKana
 
 static bool iss_sync = false;
-static const uint32_t iss_sync_wait = 15000; //ms
+static const uint32_t iss_sync_wait = 8000; //ms
 static deferred_token iss_sync_token = INVALID_DEFERRED_TOKEN;
 uint32_t iss_sync_task(uint32_t trigger_time, void *cb_arg) {
   iss_sync = true;
@@ -548,10 +548,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
           status_led(0b0100, led_pattern_on, 0);
         }
       }
-      if (iss_enable) {
-        if (!iss_sync) {
-          status_led(0b1000, led_pattern_on, 0);
-        }
+      if (iss_sync) {
+        status_led(0b1000, led_pattern_on, 0);
       }
       if (is_caps_word_on()) {
         status_led(0b0001, led_pattern_on, 0);
