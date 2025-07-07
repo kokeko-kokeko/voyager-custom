@@ -619,8 +619,6 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
     } else {
       tap_code16(KC_LANGUAGE_2);
     }
-
-    iss_sync = false;
   }
   return true;
 }
@@ -629,6 +627,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if(!extend_deferred_exec(iss_sync_token, iss_sync_wait)) {
     iss_sync_wait *= 2; 
   } else {
+    iss_sync = false;
     iss_sync_wait = iss_sync_wait_init; 
     iss_sync_token = defer_exec(iss_sync_wait, iss_sync_task, NULL);
     // state change update
