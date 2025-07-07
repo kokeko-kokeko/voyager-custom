@@ -452,11 +452,12 @@ static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, UINT8_MA
 static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
+// ime state from LANG1/LANG2 key
+static bool ime_on = false;
+static bool ime_kk = false;  //KataKana
+
 // Ime State Sync system
 static bool iss_enable = true; 
-
-static bool iss_ime_on = false;
-static bool iss_ime_kk = false;  //KataKana
 static bool iss_sync = false;
 
 static const uint32_t iss_sync_wait = 8000; //ms
@@ -469,10 +470,12 @@ uint32_t iss_sync_task(uint32_t trigger_time, void *cb_arg) {
 static const uint32_t iss_ime_off_wait = 600000; //ms
 static deferred_token iss_ime_off_token = INVALID_DEFERRED_TOKEN;
 uint32_t iss_ime_off_task(uint32_t trigger_time, void *cb_arg) {
-  iss_ime_on = false;
+  ime_on = false;
   layer_on(L_Base);
   return 0;
 }
+
+// Ime State Display system
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
@@ -550,8 +553,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Base :
     case L_BaseJIS:
       status_led(0b1111, NULL, 0);
-      if (iss_ime_on) {
-        if (iss_ime_kk) {
+      if (ime_on) {
+        if (ime_kk) {
           status_led(0b0100, led_pattern_blink, 0);
         } else {
           status_led(0b0100, led_pattern_on, 0);
@@ -622,8 +625,8 @@ void caps_word_set_user(bool active) {
 
 bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if(iss_sync) {
-    if (iss_ime_on) {
-      if (iss_ime_kk) {
+    if (ime_on) {
+      if (ime_kk) {
         tap_code16(LSFT(KC_LANGUAGE_1));
       } else {
         tap_code16(KC_LANGUAGE_1);
@@ -1814,7 +1817,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               layer_state_is(L_Cur)) {
             // reverse side (upper layer)
             if ((get_mods() & MOD_MASK_CSAG) == 0) {
-              iss_ime_on = false;
+              ime_on = false;
               //layer_on(L_Base);
             }
             tap_code16(KC_LANGUAGE_2);
@@ -1822,11 +1825,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           } else {
             // normal side (base layer)
             if ((get_mods() & MOD_MASK_CAG) == 0) {
-              iss_ime_on = true;
+              ime_on = true;
               if (get_mods() & MOD_MASK_SHIFT) {
-                iss_ime_kk = true;
+                ime_kk = true;
               } else {
-                iss_ime_kk = false;
+                ime_kk = false;
               }
               layer_on(L_Base);
             }
@@ -1841,11 +1844,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_state_is(L_Num) | layer_state_is(L_Cur)) {
           // reverse side (upper layer)
           if ((get_mods() & MOD_MASK_CAG) == 0) {
-            iss_ime_on = true;
+            ime_on = true;
             if (get_mods() & MOD_MASK_SHIFT) {
-              iss_ime_kk = true;
+              ime_kk = true;
             } else {
-              iss_ime_kk = false;
+              ime_kk = false;
             }
             //layer_on(L_Base);
           }
@@ -1854,7 +1857,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           // normal side (base layer)
           if ((get_mods() & MOD_MASK_CSAG) == 0) {
-            iss_ime_on = false;
+            ime_on = false;
             layer_on(L_Base);
           }
         }
