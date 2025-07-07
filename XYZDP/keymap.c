@@ -451,11 +451,13 @@ static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3,
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 // Ime State Sync system
+static bool iss_enable = true; 
+
 static bool iss_ime_on = false;
 static bool iss_ime_kk = false;  //KataKana
 
 static bool iss_sync = false;  //initial state
-static const uint32_t iss_sync_wait = 3000; //ms
+static const uint32_t iss_sync_wait = 5000; //ms
 static deferred_token iss_sync_token = INVALID_DEFERRED_TOKEN;
 uint32_t iss_sync_task(uint32_t trigger_time, void *cb_arg) {
   iss_sync = true;
@@ -537,16 +539,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Base :
     case L_BaseJIS:
       status_led(0b1111, NULL, 0);
-      if (iss_ime_on) {
-        if (iss_ime_kk) {
-          status_led(0b0100, led_pattern_blink, 0);
-        } else {
-          status_led(0b0100, led_pattern_on, 0);
+      if (iss_enable) {
+        if (iss_ime_on) {
+          if (iss_ime_kk) {
+            status_led(0b0100, led_pattern_blink, 0);
+          } else {
+            status_led(0b0100, led_pattern_on, 0);
+          }
+        }
+        if (iss_sync) {
+          status_led(0b1000, led_pattern_on, 0);
         }
       }
-      if (iss_sync) {
-        status_led(0b1000, led_pattern_on, 0);
-      } 
       if (is_caps_word_on()) {
         status_led(0b0001, led_pattern_on, 0);
       }
@@ -608,26 +612,30 @@ void caps_word_set_user(bool active) {
 }
 
 bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if(iss_sync) {
-    if (iss_ime_on) {
-      if (iss_ime_kk) {
-        tap_code16(LSFT(KC_LANGUAGE_1));
+  if (iss_enable) {
+    if(iss_sync) {
+      if (iss_ime_on) {
+        if (iss_ime_kk) {
+          tap_code16(LSFT(KC_LANGUAGE_1));
+        } else {
+          tap_code16(KC_LANGUAGE_1);
+        }
       } else {
-        tap_code16(KC_LANGUAGE_1);
+        tap_code16(KC_LANGUAGE_2);
       }
-    } else {
-      tap_code16(KC_LANGUAGE_2);
+      iss_sync = false;
     }
-    iss_sync = false;
   }
   return true;
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if(!extend_deferred_exec(iss_sync_token, iss_sync_wait)) {
-    iss_sync_token = defer_exec(iss_sync_wait, iss_sync_task, NULL);
-    // sync flag update on pre
-    layer_on(L_Base);
+  if (iss_enable) {
+    if(!extend_deferred_exec(iss_sync_token, iss_sync_wait)) {
+      iss_sync_token = defer_exec(iss_sync_wait, iss_sync_task, NULL);
+      // sync flag update on pre
+      layer_on(L_Base);
+    }
   }
   return;
 }
@@ -1805,10 +1813,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case KC_LANGUAGE_2:
       if (record->event.pressed) {
-        if (layer_state_is(L_Fn) |
-            layer_state_is(L_Rpin) |
-            layer_state_is(L_Num) |
-            layer_state_is(L_Cur)) {
+        if (layer_state_is(L_Fn) | layer_state_is(L_Rpin) |
+          layer_state_is(L_Num) | layer_state_is(L_Cur)) {
           // reverse side (upper layer)
           if ((get_mods() & MOD_MASK_CAG) == 0) {
             iss_ime_on = true;
