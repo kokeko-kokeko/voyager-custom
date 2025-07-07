@@ -326,11 +326,13 @@ extern bool is_launching;
 extern rgb_config_t rgb_matrix_config;
 
 // enum for layer define sync oryx side
-enum layer_number {
+enum layer_num {
   L_Base = 0,
   L_BaseJIS,
-  L_Fn,
+  L_Lpin,
   L_Rpin,
+  L_LRpin,
+  L_Fn,
   L_Num,
   L_NumJIS,
   L_Cur,
