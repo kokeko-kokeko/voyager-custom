@@ -1026,6 +1026,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_43_255_107:
       if (record->event.pressed) {
         iss_enable = false;
+        cancel_deferred_exec(iss_sync_token);
+        cancel_deferred_exec(iss_ime_off_token);
         layer_on(L_Base);
       }
       return false;
