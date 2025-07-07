@@ -453,7 +453,7 @@ static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3,
 // Ime State Sync system
 static bool iss_ime_on = false;
 static bool iss_ime_kk = false;  //KataKana
-static bool iss_sync = false;
+static bool iss_sync = true;  //initial state
 static const uint32_t iss_sync_wait_init = 1250; //ms
 static uint32_t iss_sync_wait = iss_sync_wait_init;
 
