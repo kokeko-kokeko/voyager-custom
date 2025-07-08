@@ -1881,21 +1881,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+// local functions
+// basic static 
 
-// local function
-
-// LED pattern list, no const limit, terminate symbol
-// off -> on -> off ... (off start for no glitch)
-// reduce data x16 (4bit shift) 8bit
-// 0: terminate, output this area value
-// MAX: return to position 0 immediately, this cycle output position 0 value & wait
-// other: output current position value & wait
-// put reurn token for safety
-// max 16x255=4080ms 4sec
-// write NULL direct 
 static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
   static const uint8_t * ptr = led_pattern_init;
-  static bool out_val = 0;
+  static bool out_val = false;
 
   if (*ptr == UINT8_MAX) {
     if (cb_arg == NULL) {
@@ -1917,7 +1908,7 @@ static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
 
 static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
   static const uint8_t * ptr = led_pattern_init;
-  static bool out_val = 0;
+  static bool out_val = false;
 
   if (*ptr == UINT8_MAX) {
     if (cb_arg == NULL) {
@@ -1939,7 +1930,7 @@ static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
 
 static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
   static const uint8_t * ptr = led_pattern_init;
-  static bool out_val = 0;
+  static bool out_val = false;
 
   if (*ptr == UINT8_MAX) {
     if (cb_arg == NULL) {
@@ -1961,7 +1952,7 @@ static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
 
 static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
   static const uint8_t * ptr = led_pattern_init;
-  static bool out_val = 0;
+  static bool out_val = false;
 
   if (*ptr == UINT8_MAX) {
     if (cb_arg == NULL) {
