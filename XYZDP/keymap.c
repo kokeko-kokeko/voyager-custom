@@ -1910,48 +1910,69 @@ static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
 }
 
 static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
-  static uint8_t count = 0;
-  if (cb_arg == NULL) {
-    count = 0;
-    STATUS_LED_2(0);
-    return 0;
+  static const uint8_t * ptr = led_pattern_init;
+  static bool out_val = 0;
+
+  if (*ptr == UINT8_MAX) {
+    if (cb_arg == NULL) {
+      return 0;
+    }
+    ptr = cb_arg;
+    out_val = *ptr;
+    ptr++;
   }
-  const uint8_t * const pattern = cb_arg;
-  if (pattern[count] == UINT8_MAX) {
-    count = 0;
-  }
-  STATUS_LED_2(count & 0b00000001);
-  return (((uint32_t)pattern[count++]) << 4);
+  
+  STATUS_LED_2(out_val);
+  out_val = !out_val;
+
+  uint32_t tmp = ((uint32_t)(*ptr)) << 4;
+  ptr++;
+  
+  return tmp;
 }
 
 static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
-  static uint8_t count = 0;
-  if (cb_arg == NULL) {
-    count = 0;
-    STATUS_LED_3(0);
-    return 0;
+  static const uint8_t * ptr = led_pattern_init;
+  static bool out_val = 0;
+
+  if (*ptr == UINT8_MAX) {
+    if (cb_arg == NULL) {
+      return 0;
+    }
+    ptr = cb_arg;
+    out_val = *ptr;
+    ptr++;
   }
-  const uint8_t * const pattern = cb_arg;
-  if (pattern[count] == UINT8_MAX) {
-    count = 0;
-  }
-  STATUS_LED_3(count & 0b00000001);
-  return (((uint32_t)pattern[count++]) << 4);
+  
+  STATUS_LED_3(out_val);
+  out_val = !out_val;
+
+  uint32_t tmp = ((uint32_t)(*ptr)) << 4;
+  ptr++;
+  
+  return tmp;
 }
 
 static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
-  static uint8_t count = 0;
-  if (cb_arg == NULL) {
-    count = 0;
-    STATUS_LED_4(0);
-    return 0;
+  static const uint8_t * ptr = led_pattern_init;
+  static bool out_val = 0;
+
+  if (*ptr == UINT8_MAX) {
+    if (cb_arg == NULL) {
+      return 0;
+    }
+    ptr = cb_arg;
+    out_val = *ptr;
+    ptr++;
   }
-  const uint8_t * const pattern = cb_arg;
-  if (pattern[count] == UINT8_MAX) {
-    count = 0;
-  }
-  STATUS_LED_4(count & 0b00000001);
-  return (((uint32_t)pattern[count++]) << 4);
+  
+  STATUS_LED_4(out_val);
+  out_val = !out_val;
+
+  uint32_t tmp = ((uint32_t)(*ptr)) << 4;
+  ptr++;
+  
+  return tmp;
 }
 
 // 1 -> Red Left
