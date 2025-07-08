@@ -331,7 +331,7 @@ enum layer_num {
   L_BaseJIS,
   L_Lpin,
   L_Rpin,
-  L_LRpin,
+  L_Bpin,
   L_Fn,
   L_Num,
   L_NumJIS,
@@ -553,7 +553,7 @@ bool rgb_matrix_indicators_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   //both outer pin
-  state = update_tri_layer_state(state, L_Lpin, L_Rpin, L_LRpin);
+  state = update_tri_layer_state(state, L_Lpin, L_Rpin, L_Bpin);
   
   //both thumb
   state = update_tri_layer_state(state, L_Num, L_Cur, L_BktEx);
@@ -598,7 +598,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0010, led_pattern_on, 0);
       status_led(0b0100, led_pattern_blink, 0);
       break;
-    case L_LRpin:
+    case L_Bpin:
       status_led(0b0011, led_pattern_on, 0);
       status_led(0b1100, led_pattern_blink, 0);
       break;
