@@ -1888,18 +1888,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // max 16x255=4080ms 4sec
 // write NULL direct 
 static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
-  static uint8_t count = 0;
-  if (cb_arg == NULL) {
-    count = 0;
-    STATUS_LED_1(0);
-    return 0;
+  static const uint8_t * ptr = led_pattern_init;
+  static uint8_t out_val = 0;
+
+  if (*ptr == UINT8_MAX) {
+    if (cb_arg == NULL) {
+      return 0;
+    }
+    ptr = cb_arg;
+    out_val = *ptr;
+    ptr++;
   }
-  const uint8_t * const pattern = cb_arg;
-  if (pattern[count] == UINT8_MAX) {
-    count = 0;
-  }
-  STATUS_LED_1(count & 0b00000001);
-  return (((uint32_t)pattern[count++]) << 4);
+  
+  STATUS_LED_1(out_val);
+  out_val = ~out_val;
+
+  uint32_t tmp = ((uint32_t)(*ptr)) << 4;
+  ptr++;
+  
+  return tmp;
 }
 
 static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
