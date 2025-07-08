@@ -580,7 +580,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     case L_Base :
     case L_BaseJIS:
-      status_led(0b1111, NULL, 0);
+      status_led(0b1111, led_pattern_off, 0);
       if (ime_on) {
         if (ime_kk) {
           status_led(0b0100, led_pattern_blink, 0);
