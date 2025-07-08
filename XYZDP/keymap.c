@@ -466,7 +466,13 @@ static bool status_led(const uint8_t mask, const uint8_t * const pattern, const 
 //static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
-// init, delay, delay, delay
+// LED pattern list, no const limit, terminate symbol
+// init out val, delay, delay, delay
+// reduce data x16 (4bit shift) 8bit
+// 0: terminate, stop exec
+// MAX: reload pattern list from task args, change 
+// other: output current position value & wait & advance
+// max 16x255=4080ms 4sec
 static const uint8_t * const led_pattern_init = (uint8_t[]){UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_off = (uint8_t[]){0, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
