@@ -596,12 +596,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       }
       break;
     case L_Lpin:
-      status_led(0b0110, NULL, 0);
+      status_led(0b0110, led_pattern_off, 0);
       status_led(0b0001, led_pattern_on, 0);
       status_led(0b1000, led_pattern_blink, 0);
       break;
     case L_Rpin:
-      status_led(0b1001, NULL, 0);
+      status_led(0b1001, led_pattern_off, 0);
       status_led(0b0010, led_pattern_on, 0);
       status_led(0b0100, led_pattern_blink, 0);
       break;
@@ -610,46 +610,46 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b1100, led_pattern_blink, 0);
       break;
     case L_Fn:
-      status_led(0b1100, NULL, 0);
+      status_led(0b1100, led_pattern_off, 0);
       status_led(0b0011, led_pattern_on, 0);
       break;
     case L_Num:
     case L_NumJIS:
-      status_led(0b1100, NULL, 0);
+      status_led(0b1100, led_pattern_off, 0);
       status_led(0b0001, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
       break;
     case L_Cur:
     case L_CurJIS:
-      status_led(0b1100, NULL, 0);
+      status_led(0b1100, led_pattern_off, 0);
       status_led(0b0010, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
       break;
     case L_BktEx:
     case L_BktExJIS:
-      status_led(0b1100, NULL, 0);
+      status_led(0b1100, led_pattern_off, 0);
       status_led(0b0011, led_pattern_blink, 0);
       break;
     case L_FwSys:
       status_led(0b1111, led_pattern_blink, 0);
       break;
     case L_SetHue:
-      status_led(0b0011, NULL, 0);
+      status_led(0b0011, led_pattern_off, 0);
       status_led(0b1100, led_pattern_on, 0);
       break;
     case L_SetSat:
-      status_led(0b0001, NULL, 0);
+      status_led(0b0001, led_pattern_off, 0);
       status_led(0b1100, led_pattern_on, 0);
       status_led(0b0010, led_pattern_blink, 0);
       break;
     case L_SetVal:
-      status_led(0b0010, NULL, 0);
+      status_led(0b0010, led_pattern_off, 0);
       status_led(0b1100, led_pattern_on, 0);
       status_led(0b0001, led_pattern_blink, 0);
       break;
 
     default :
-      status_led(0b1111, NULL, 0);
+      status_led(0b1111, led_pattern_off, 0);
       break;
   }  
   return state;
@@ -1985,50 +1985,25 @@ static bool status_led(const uint8_t mask, const uint8_t * const pattern, const 
   static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_4 = INVALID_DEFERRED_TOKEN;
-  
-  if (mask & 0b1000) {
-    if (token_1 != INVALID_DEFERRED_TOKEN) {
-      cancel_deferred_exec(token_1);
-      token_1 = INVALID_DEFERRED_TOKEN;
-      status_led_task_1(0, NULL);
-    }
-  }
-  if (mask & 0b0100) {
-    if (token_3 != INVALID_DEFERRED_TOKEN) {
-      cancel_deferred_exec(token_3);
-      token_3 = INVALID_DEFERRED_TOKEN;
-      status_led_task_3(0, NULL);
-    }
-  }  
-  if (mask & 0b0010) {
-    if (token_2 != INVALID_DEFERRED_TOKEN) {
-      cancel_deferred_exec(token_2);
-      token_2 = INVALID_DEFERRED_TOKEN;
-      status_led_task_2(0, NULL);
-    }
-  }
-  if (mask & 0b0001) {
-    if (token_4 != INVALID_DEFERRED_TOKEN) {
-      cancel_deferred_exec(token_4);
-      token_4 = INVALID_DEFERRED_TOKEN;
-      status_led_task_4(0, NULL);
-    }
-  }
-
-  // skip task exec
-  if (pattern == NULL) return true;
-
+    
   // add pseudo rondom delay 
   if (mask & 0b1000) {
+    cancel_deferred_exec(token_1);
     token_1 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_1, (void *)pattern);
   }
+  
   if (mask & 0b0100) {
+    cancel_deferred_exec(token_3);
     token_3 = defer_exec((uint32_t)(init_delay_ms + 3), status_led_task_3, (void *)pattern);
   }
+  
   if (mask & 0b0010) {
+    cancel_deferred_exec(token_2);
     token_2 = defer_exec((uint32_t)(init_delay_ms + 5), status_led_task_2, (void *)pattern);
   }
+  
   if (mask & 0b0001) {
+    cancel_deferred_exec(token_4);
     token_4 = defer_exec((uint32_t)(init_delay_ms + 7), status_led_task_4, (void *)pattern);
   }
   
