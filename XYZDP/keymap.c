@@ -483,10 +483,11 @@ static uint32_t iss_sync_task(uint32_t trigger_time, void *cb_arg) {
   layer_on(L_Base);
   return 0;
 }
-static const uint32_t iss_ime_off_wait = 600000; //ms
-static deferred_token iss_ime_off_token = INVALID_DEFERRED_TOKEN;
-static uint32_t iss_ime_off_task(uint32_t trigger_time, void *cb_arg) {
+static const uint32_t iss_timeout_wait = 600000; //ms
+static deferred_token iss_timeout_token = INVALID_DEFERRED_TOKEN;
+static uint32_t iss_timeout_task(uint32_t trigger_time, void *cb_arg) {
   ime_on = false;
+  iss_sync = false;
   layer_on(L_Base);
   return 0;
 }
@@ -497,7 +498,7 @@ void keyboard_post_init_user(void) {
   rgb_matrix_enable();
   //initial exec
   iss_sync_token = defer_exec(iss_sync_wait, iss_sync_task, NULL);
-  iss_ime_off_token = defer_exec(iss_ime_off_wait, iss_ime_off_task, NULL);
+  iss_timeout_token = defer_exec(iss_timeout_wait, iss_timeout_task, NULL);
   //ANSI
   layer_move(L_Base);
 }
@@ -675,8 +676,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
       // sync flag update on pre
       layer_on(L_Base);
     }
-    if(!extend_deferred_exec(iss_ime_off_token, iss_ime_off_wait)) {
-      iss_ime_off_token = defer_exec(iss_ime_off_wait, iss_ime_off_task, NULL);
+    if(!extend_deferred_exec(iss_timeout_token, iss_timeout_wait)) {
+      iss_timeout_token = defer_exec(iss_timeout_wait, iss_timeout_task, NULL);
     }
   }
   return;
@@ -1060,7 +1061,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         iss_enable = false;
         cancel_deferred_exec(iss_sync_token);
-        cancel_deferred_exec(iss_ime_off_token);
+        cancel_deferred_exec(iss_timeout_token);
         layer_on(L_Base);
       }
       return false;
