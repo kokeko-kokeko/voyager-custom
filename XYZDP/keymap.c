@@ -326,7 +326,7 @@ extern bool is_launching;
 extern rgb_config_t rgb_matrix_config;
 
 // enum for layer define sync oryx side
-enum layer_num : uint8_t {
+enum layer_num {
   L_Base = 0,
   L_BaseJIS,
   L_Lpin,
