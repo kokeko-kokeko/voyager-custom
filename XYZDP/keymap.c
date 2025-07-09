@@ -467,8 +467,8 @@ static const uint8_t pos2idx_tbl[52] = {
 static const uint8_t * const led_pattern_off = (uint8_t[]){0, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_blink_slow = (uint8_t[]){1, 50, 13, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_blink_fast = (uint8_t[]){1, 25, 13, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_blink_fast = (uint8_t[]){1, 30, 13, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_single = (uint8_t[]){1, 30, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
