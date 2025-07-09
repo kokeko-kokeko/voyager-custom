@@ -458,14 +458,6 @@ static const uint8_t pos2idx_tbl[52] = {
     0,   0
 };
 
-static bool status_led(const uint8_t mask, const uint8_t * const pattern);
-
-//static const uint8_t * const led_pattern_on = (uint8_t[]){20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-//static const uint8_t * const led_pattern_blink_slow = (uint8_t[]){13, 50, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-//static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-//static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-//static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-
 // LED pattern list, no const limit, terminate symbol
 // init value, delay, delay, ...
 // delay reduce data x16 (4bit shift) 8bit
@@ -479,6 +471,8 @@ static const uint8_t * const led_pattern_blink_fast = (uint8_t[]){1, 25, 13, UIN
 static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+
+static bool status_led(const uint8_t mask, const uint8_t * const pattern);
 
 // ime state from LANG1/LANG2 key
 static bool ime_on = false;
