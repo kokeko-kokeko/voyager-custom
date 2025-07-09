@@ -1907,23 +1907,18 @@ static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
 static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
-  static bool out_val = false;
 
   if (ptr_ori != cb_arg) {
     ptr_ori = cb_arg;
     ptr = cb_arg;
-    out_val = *ptr;
-    ptr++;
   }
   
   if (*ptr == UINT8_MAX) {
     ptr = ptr_ori;
-    out_val = *ptr;
-    ptr++;
   }
   
-  STATUS_LED_2(out_val);
-  out_val = !out_val;
+  STATUS_LED_2(*ptr);
+  ptr++;
 
   uint32_t tmp = ((uint32_t)(*ptr)) << 4;
   ptr++;
@@ -1934,23 +1929,18 @@ static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
 static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
-  static bool out_val = false;
 
   if (ptr_ori != cb_arg) {
     ptr_ori = cb_arg;
     ptr = cb_arg;
-    out_val = *ptr;
-    ptr++;
   }
   
   if (*ptr == UINT8_MAX) {
     ptr = ptr_ori;
-    out_val = *ptr;
-    ptr++;
   }
   
-  STATUS_LED_3(out_val);
-  out_val = !out_val;
+  STATUS_LED_3(*ptr);
+  ptr++;
 
   uint32_t tmp = ((uint32_t)(*ptr)) << 4;
   ptr++;
@@ -1961,23 +1951,18 @@ static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
 static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
-  static bool out_val = false;
 
   if (ptr_ori != cb_arg) {
     ptr_ori = cb_arg;
     ptr = cb_arg;
-    out_val = *ptr;
-    ptr++;
   }
   
   if (*ptr == UINT8_MAX) {
     ptr = ptr_ori;
-    out_val = *ptr;
-    ptr++;
   }
   
-  STATUS_LED_4(out_val);
-  out_val = !out_val;
+  STATUS_LED_4(*ptr);
+  ptr++;
 
   uint32_t tmp = ((uint32_t)(*ptr)) << 4;
   ptr++;
@@ -2019,19 +2004,19 @@ static bool status_led(const uint8_t mask, const uint8_t * const pattern) {
   
   // add pseudo rondom delay 
   if (mask & 0b1000) {
-    token_1 = defer_exec(1, status_led_task_1, (void *)pattern);
+    token_1 = defer_exec(3, status_led_task_1, (void *)pattern);
   }
   
   if (mask & 0b0100) {
-    token_3 = defer_exec(3, status_led_task_3, (void *)pattern);
+    token_3 = defer_exec(7, status_led_task_3, (void *)pattern);
   }
   
   if (mask & 0b0010) {
-    token_2 = defer_exec(5, status_led_task_2, (void *)pattern);
+    token_2 = defer_exec(11, status_led_task_2, (void *)pattern);
   }
   
   if (mask & 0b0001) {
-    token_4 = defer_exec(7, status_led_task_4, (void *)pattern);
+    token_4 = defer_exec(15, status_led_task_4, (void *)pattern);
   }
   
   return true;
