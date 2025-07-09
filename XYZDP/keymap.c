@@ -1983,6 +1983,10 @@ static bool status_led(const uint8_t mask, const uint8_t * const pattern, const 
   static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_4 = INVALID_DEFERRED_TOKEN;
 
+  if (pattern == NULL) {
+    return false;
+  }
+
   // split stop exec
   if (mask & 0b1000) {
     cancel_deferred_exec(token_1);
