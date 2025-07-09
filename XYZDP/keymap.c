@@ -2004,19 +2004,19 @@ static bool status_led(const uint8_t mask, const uint8_t * const pattern) {
   
   // add pseudo rondom delay 
   if (mask & 0b1000) {
-    token_1 = defer_exec(3, status_led_task_1, (void *)pattern);
+    token_1 = defer_exec(2, status_led_task_1, (void *)pattern);
   }
   
   if (mask & 0b0100) {
-    token_3 = defer_exec(7, status_led_task_3, (void *)pattern);
+    token_3 = defer_exec(6, status_led_task_3, (void *)pattern);
   }
   
   if (mask & 0b0010) {
-    token_2 = defer_exec(11, status_led_task_2, (void *)pattern);
+    token_2 = defer_exec(10, status_led_task_2, (void *)pattern);
   }
   
   if (mask & 0b0001) {
-    token_4 = defer_exec(15, status_led_task_4, (void *)pattern);
+    token_4 = defer_exec(14, status_led_task_4, (void *)pattern);
   }
   
   return true;
