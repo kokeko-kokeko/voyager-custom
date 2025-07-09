@@ -1897,13 +1897,12 @@ static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
   
   if (*ptr == UINT8_MAX) {
     ptr = ptr_ori;
-     out_val = *ptr;
+    out_val = *ptr;
     ptr++;
   }
   
   STATUS_LED_1(out_val);
   out_val = !out_val;
-  ptr++;
 
   uint32_t tmp = ((uint32_t)(*ptr)) << 4;
   ptr++;
@@ -1925,14 +1924,13 @@ static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
   
   if (*ptr == UINT8_MAX) {
     ptr = ptr_ori;
-     out_val = *ptr;
+    out_val = *ptr;
     ptr++;
   }
   
   STATUS_LED_2(out_val);
   out_val = !out_val;
-  ptr++;
-
+  
   uint32_t tmp = ((uint32_t)(*ptr)) << 4;
   ptr++;
   
@@ -1953,13 +1951,12 @@ static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
   
   if (*ptr == UINT8_MAX) {
     ptr = ptr_ori;
-     out_val = *ptr;
+    out_val = *ptr;
     ptr++;
   }
   
   STATUS_LED_3(out_val);
   out_val = !out_val;
-  ptr++;
 
   uint32_t tmp = ((uint32_t)(*ptr)) << 4;
   ptr++;
@@ -1981,13 +1978,12 @@ static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
   
   if (*ptr == UINT8_MAX) {
     ptr = ptr_ori;
-     out_val = *ptr;
+    out_val = *ptr;
     ptr++;
   }
   
   STATUS_LED_4(out_val);
   out_val = !out_val;
-  ptr++;
 
   uint32_t tmp = ((uint32_t)(*ptr)) << 4;
   ptr++;
