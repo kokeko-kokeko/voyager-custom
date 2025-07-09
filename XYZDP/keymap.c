@@ -467,17 +467,16 @@ static bool status_led(const uint8_t mask, const uint8_t * const pattern);
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 // LED pattern list, no const limit, terminate symbol
-// init out val, delay, delay, delay
-// reduce data x16 (4bit shift) 8bit
-// 0: terminate, stop exec
-// MAX: restart pattern 
-// other: output current value & wait & advance
+// value, delay, vulue, delay, ...
+// delay reduce data x16 (4bit shift) 8bit
+// delay=0: terminate, stop exec
+// value=MAX: restart pattern 
 // max 16x255=4080ms 4sec
-static const uint8_t * const led_pattern_off = (uint8_t[]){0, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_blink = (uint8_t[]){1, 50, 13, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_off = (uint8_t[]){0, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_blink = (uint8_t[]){1, 50, 0, 13, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 20, 0, 3, 1, 20, 0, 3, 1, 20, 0, 3, 1, 20, 0, 3, 1, 20, 0, 3, 1, 20, 0, 3, 1, 20, 0, 3, 1, 20, 0, 0, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 // ime state from LANG1/LANG2 key
@@ -1886,23 +1885,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
-  static bool out_val = false;
 
   if (ptr_ori != cb_arg) {
     ptr_ori = cb_arg;
     ptr = cb_arg;
-    out_val = *ptr;
-    ptr++;
   }
   
   if (*ptr == UINT8_MAX) {
     ptr = ptr_ori;
-    out_val = *ptr;
-    ptr++;
   }
   
-  STATUS_LED_1(out_val);
-  out_val = !out_val;
+  STATUS_LED_1(*ptr);
+  ptr++;
 
   uint32_t tmp = ((uint32_t)(*ptr)) << 4;
   ptr++;
