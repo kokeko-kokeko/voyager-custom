@@ -470,10 +470,9 @@ static bool status_led(const uint8_t mask, const uint8_t * const pattern, const 
 // init out val, delay, delay, delay
 // reduce data x16 (4bit shift) 8bit
 // 0: terminate, stop exec
-// MAX: reload pattern list from task args, change 
-// other: output current position value & wait & advance
+// MAX: restart pattern 
+// other: output current value & wait & advance
 // max 16x255=4080ms 4sec
-static const uint8_t * const led_pattern_init = (uint8_t[]){UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_off = (uint8_t[]){0, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_blink = (uint8_t[]){1, 50, 13, UINT8_MAX, UINT8_MAX, UINT8_MAX};
