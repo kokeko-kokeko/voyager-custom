@@ -502,6 +502,8 @@ static uint32_t iss_idle_to_task(uint32_t trigger_time, void *cb_arg) {
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
+
+  keymap_config.nkro = true;
   //initial exec
   iss_sync_token = defer_exec(iss_sync_wait, iss_sync_task, NULL);
   iss_idle_to_token = defer_exec(iss_idle_to_wait, iss_idle_to_task, NULL);
