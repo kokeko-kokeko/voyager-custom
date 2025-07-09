@@ -691,6 +691,10 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   return;
 }
 
+void housekeeping_task_user(void) {
+  return;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case ST_MACRO_0:
