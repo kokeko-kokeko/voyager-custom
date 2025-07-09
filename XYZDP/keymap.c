@@ -474,6 +474,10 @@ static const uint8_t led_pattern_oneshot[] = {1, 20, 3, 20, 3, 20, 3, 20, 3, 20,
 
 static bool status_led(const uint8_t mask, const uint8_t * const pattern);
 
+// housekeeping Throttle only exec unit time
+static fast_timer_t hk_last = 0;
+static const fast_timer_t hk_unit = 16;
+
 // ime state from LANG1/LANG2 key
 static bool ime_on = false;
 static bool ime_kk = false;  //KataKana
@@ -504,6 +508,9 @@ void keyboard_post_init_user(void) {
   rgb_matrix_enable();
 
   keymap_config.nkro = true;
+  
+  hk_last = timer_read_fast();
+  
   //initial exec
   iss_sync_token = defer_exec(iss_sync_wait, iss_sync_task, NULL);
   iss_idle_to_token = defer_exec(iss_idle_to_wait, iss_idle_to_task, NULL);
@@ -692,6 +699,12 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void housekeeping_task_user(void) {
+  if (timer_elapsed_fast(hk_last) < hk_unit) {
+    return;
+  } else {
+    hk_last = timer_read_fast();
+  }
+    
   return;
 }
 
