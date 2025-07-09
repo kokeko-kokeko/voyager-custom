@@ -465,11 +465,11 @@ static const uint8_t pos2idx_tbl[52] = {
 // MAX: restart pattern 
 // max 16x255=4080ms 4sec
 static const uint8_t led_pattern_off[] = {0, 0, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_blink_slow = (uint8_t[]){1, 50, 13, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_blink_fast = (uint8_t[]){1, 30, 13, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_single = (uint8_t[]){1, 30, 0, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t led_pattern_on[] = {1, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t led_pattern_blink_slow[] = {1, 50, 13, UINT8_MAX, UINT8_MAX};
+static const uint8_t led_pattern_blink_fast[] = {1, 30, 13, UINT8_MAX, UINT8_MAX};
+static const uint8_t led_pattern_single[] = {1, 30, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t led_pattern_oneshot[] = {1, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 static bool status_led(const uint8_t mask, const uint8_t * const pattern);
