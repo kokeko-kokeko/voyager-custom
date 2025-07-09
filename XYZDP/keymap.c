@@ -464,7 +464,7 @@ static const uint8_t pos2idx_tbl[52] = {
 // 0: terminate, stop exec
 // MAX: restart pattern 
 // max 16x255=4080ms 4sec
-static const uint8_t * const led_pattern_off = (uint8_t[]){0, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t led_pattern_off[] = {0, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_blink_slow = (uint8_t[]){1, 50, 13, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_blink_fast = (uint8_t[]){1, 30, 13, UINT8_MAX, UINT8_MAX};
