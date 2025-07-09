@@ -486,21 +486,9 @@ static bool ime_kk = false;  //KataKana
 static bool iss_enable = true; 
 static bool iss_sync = false;
 
-static const uint32_t iss_sync_wait = 8000; //ms
-static deferred_token iss_sync_token = INVALID_DEFERRED_TOKEN;
-static uint32_t iss_sync_task(uint32_t trigger_time, void *cb_arg) {
-  iss_sync = true;
-  layer_on(L_Base);
-  return 0;
-}
-static const uint32_t iss_idle_to_wait = 600000; //ms
-static deferred_token iss_idle_to_token = INVALID_DEFERRED_TOKEN;
-static uint32_t iss_idle_to_task(uint32_t trigger_time, void *cb_arg) {
-  ime_on = false;
-  iss_sync = false;
-  layer_on(L_Base);
-  return 0;
-}
+static fast_timer_t iss_key_last = 0;
+static const fast_timer_t iss_sync_wait = 8000; //ms
+static const fast_timer_t iss_idle_to_wait = 600000; //ms
 
 // Ime State Display system
 
@@ -508,12 +496,10 @@ void keyboard_post_init_user(void) {
   rgb_matrix_enable();
 
   keymap_config.nkro = true;
-  
+
   hk_last = timer_read_fast();
+  iss_key_last = timer_read_fast();
   
-  //initial exec
-  iss_sync_token = defer_exec(iss_sync_wait, iss_sync_task, NULL);
-  iss_idle_to_token = defer_exec(iss_idle_to_wait, iss_idle_to_task, NULL);
   //ANSI
   layer_move(L_Base);
 }
@@ -680,29 +666,31 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
       tap_code16(KC_LANGUAGE_2);
     }
     iss_sync = false;
+    layer_on(L_Base);
   }
   return true;
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (iss_enable) {
-    if(!extend_deferred_exec(iss_sync_token, iss_sync_wait)) {
-      iss_sync_token = defer_exec(iss_sync_wait, iss_sync_task, NULL);
-      // sync flag update on pre
-      layer_on(L_Base);
-    }
-    if(!extend_deferred_exec(iss_idle_to_token, iss_idle_to_wait)) {
-      iss_idle_to_token = defer_exec(iss_idle_to_wait, iss_idle_to_task, NULL);
-    }
-  }
+  iss_key_last = timer_read_fast();
   return;
 }
 
 void housekeeping_task_user(void) {
-  if (timer_elapsed_fast(hk_last) < hk_unit) {
-    return;
-  } else {
+  if (hk_unit <= timer_elapsed_fast(hk_last)) {
     hk_last = timer_read_fast();
+
+    if (iss_enable) {
+      if (iss_sync_wait <= timer_elapsed_fast(iss_key_last)) {
+        iss_sync = true;
+        layer_on(L_Base);      
+      }
+      if (iss_idle_to_wait <= timer_elapsed_fast(iss_key_last)) {
+        ime_on = false;
+        iss_sync = false;
+        layer_on(L_Base);  
+      }
+    }
   }
     
   return;
@@ -1056,8 +1044,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         iss_enable = false;
         iss_sync = false;
-        cancel_deferred_exec(iss_sync_token);
-        cancel_deferred_exec(iss_idle_to_token);
         layer_on(L_Base);
       }
       return false;
