@@ -1982,25 +1982,38 @@ static bool status_led(const uint8_t mask, const uint8_t * const pattern, const 
   static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
   static deferred_token token_4 = INVALID_DEFERRED_TOKEN;
-    
-  // add pseudo rondom delay 
+
+  // split stop exec
   if (mask & 0b1000) {
     cancel_deferred_exec(token_1);
-    token_1 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_1, (void *)pattern);
   }
   
   if (mask & 0b0100) {
     cancel_deferred_exec(token_3);
-    token_3 = defer_exec((uint32_t)(init_delay_ms + 3), status_led_task_3, (void *)pattern);
   }
   
   if (mask & 0b0010) {
     cancel_deferred_exec(token_2);
-    token_2 = defer_exec((uint32_t)(init_delay_ms + 5), status_led_task_2, (void *)pattern);
   }
   
   if (mask & 0b0001) {
     cancel_deferred_exec(token_4);
+  }
+  
+  // add pseudo rondom delay 
+  if (mask & 0b1000) {
+    token_1 = defer_exec((uint32_t)(init_delay_ms + 1), status_led_task_1, (void *)pattern);
+  }
+  
+  if (mask & 0b0100) {
+    token_3 = defer_exec((uint32_t)(init_delay_ms + 3), status_led_task_3, (void *)pattern);
+  }
+  
+  if (mask & 0b0010) {
+    token_2 = defer_exec((uint32_t)(init_delay_ms + 5), status_led_task_2, (void *)pattern);
+  }
+  
+  if (mask & 0b0001) {
     token_4 = defer_exec((uint32_t)(init_delay_ms + 7), status_led_task_4, (void *)pattern);
   }
   
