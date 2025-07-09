@@ -186,19 +186,19 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(9, KC_M)
-#define DUAL_FUNC_1 LT(1, KC_F2)
-#define DUAL_FUNC_2 LT(7, KC_Z)
-#define DUAL_FUNC_3 LT(1, KC_F22)
-#define DUAL_FUNC_4 LT(4, KC_3)
-#define DUAL_FUNC_5 LT(9, KC_V)
-#define DUAL_FUNC_6 LT(7, KC_W)
-#define DUAL_FUNC_7 LT(2, KC_H)
-#define DUAL_FUNC_8 LT(10, KC_O)
-#define DUAL_FUNC_9 LT(11, KC_7)
-#define DUAL_FUNC_10 LT(14, KC_W)
-#define DUAL_FUNC_11 LT(6, KC_F3)
-#define DUAL_FUNC_12 LT(6, KC_F8)
+#define DUAL_FUNC_0 LT(3, KC_F21)
+#define DUAL_FUNC_1 LT(11, KC_F21)
+#define DUAL_FUNC_2 LT(10, KC_F19)
+#define DUAL_FUNC_3 LT(4, KC_W)
+#define DUAL_FUNC_4 LT(1, KC_Q)
+#define DUAL_FUNC_5 LT(11, KC_I)
+#define DUAL_FUNC_6 LT(9, KC_P)
+#define DUAL_FUNC_7 LT(7, KC_F8)
+#define DUAL_FUNC_8 LT(2, KC_F18)
+#define DUAL_FUNC_9 LT(12, KC_F3)
+#define DUAL_FUNC_10 LT(11, KC_F4)
+#define DUAL_FUNC_11 LT(12, KC_C)
+#define DUAL_FUNC_12 LT(6, KC_N)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -286,7 +286,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [12] = LAYOUT_voyager(
-    HSV_43_255_100, KC_NO,          HSV_43_255_102, KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          QK_BOOT,        
+    HSV_43_255_100, KC_NO,          HSV_43_255_102, KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          MAGIC_TOGGLE_NKRO,KC_NO,          QK_BOOT,        
     HSV_43_255_106, KC_NO,          HSV_43_255_108, KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     QK_DYNAMIC_TAPPING_TERM_PRINT,QK_DYNAMIC_TAPPING_TERM_DOWN,QK_DYNAMIC_TAPPING_TERM_UP,KC_NO,          KC_NO,          KC_NO,                                          KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          RGB_SPD,        RGB_SPI,        RGB_SLD,        
