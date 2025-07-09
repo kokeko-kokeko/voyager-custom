@@ -474,7 +474,7 @@ static const uint8_t led_pattern_oneshot[] = {1, 20, 3, 20, 3, 20, 3, 20, 3, 20,
 
 static bool status_led(const uint8_t mask, const uint8_t * const pattern);
 
-// housekeeping Throttle only exec unit time
+// housekeeping Throttle, only exec every unit time
 static fast_timer_t hk_last = 0;
 static const fast_timer_t hk_unit = 16;
 
