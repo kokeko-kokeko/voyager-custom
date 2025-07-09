@@ -461,7 +461,7 @@ static const uint8_t pos2idx_tbl[52] = {
 static bool status_led(const uint8_t mask, const uint8_t * const pattern);
 
 //static const uint8_t * const led_pattern_on = (uint8_t[]){20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-//static const uint8_t * const led_pattern_blink = (uint8_t[]){13, 50, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+//static const uint8_t * const led_pattern_blink_slow = (uint8_t[]){13, 50, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_oneshot = (uint8_t[]){13, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
@@ -474,7 +474,7 @@ static bool status_led(const uint8_t mask, const uint8_t * const pattern);
 // max 16x255=4080ms 4sec
 static const uint8_t * const led_pattern_off = (uint8_t[]){0, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_on = (uint8_t[]){1, 0, UINT8_MAX, UINT8_MAX};
-static const uint8_t * const led_pattern_blink = (uint8_t[]){1, 50, 0, 13, UINT8_MAX, UINT8_MAX};
+static const uint8_t * const led_pattern_blink_slow = (uint8_t[]){1, 50, 0, 13, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_single = (uint8_t[]){1, 25, 0, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t * const led_pattern_oneshot = (uint8_t[]){1, 20, 0, 3, 1, 20, 0, 3, 1, 20, 0, 3, 1, 20, 0, 3, 1, 20, 0, 3, 1, 20, 0, 3, 1, 20, 0, 3, 1, 20, 0, 0, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
@@ -587,7 +587,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b1111, led_pattern_off);
       if (ime_on) {
         if (ime_kk) {
-          status_led(0b0100, led_pattern_blink);
+          status_led(0b0100, led_pattern_blink_slow);
         } else {
           status_led(0b0100, led_pattern_on);
         }
@@ -602,16 +602,16 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Lpin:
       status_led(0b0110, led_pattern_off);
       status_led(0b0001, led_pattern_on);
-      status_led(0b1000, led_pattern_blink);
+      status_led(0b1000, led_pattern_blink_slow);
       break;
     case L_Rpin:
       status_led(0b1001, led_pattern_off);
       status_led(0b0010, led_pattern_on);
-      status_led(0b0100, led_pattern_blink);
+      status_led(0b0100, led_pattern_blink_slow);
       break;
     case L_Bpin:
       status_led(0b0011, led_pattern_on);
-      status_led(0b1100, led_pattern_blink);
+      status_led(0b1100, led_pattern_blink_slow);
       break;
     case L_Fn:
       status_led(0b1100, led_pattern_off);
@@ -621,18 +621,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_NumJIS:
       status_led(0b1100, led_pattern_off);
       status_led(0b0001, led_pattern_on);
-      status_led(0b0010, led_pattern_blink);
+      status_led(0b0010, led_pattern_blink_slow);
       break;
     case L_Cur:
     case L_CurJIS:
       status_led(0b1100, led_pattern_off);
       status_led(0b0010, led_pattern_on);
-      status_led(0b0001, led_pattern_blink);
+      status_led(0b0001, led_pattern_blink_slow);
       break;
     case L_BktEx:
     case L_BktExJIS:
       status_led(0b1100, led_pattern_off);
-      status_led(0b0011, led_pattern_blink);
+      status_led(0b0011, led_pattern_blink_slow);
       break;
     case L_FwSys:
       status_led(0b1111, led_pattern_on);
@@ -644,12 +644,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_SetSat:
       status_led(0b0001, led_pattern_off);
       status_led(0b1100, led_pattern_on);
-      status_led(0b0010, led_pattern_blink);
+      status_led(0b0010, led_pattern_blink_slow);
       break;
     case L_SetVal:
       status_led(0b0010, led_pattern_off);
       status_led(0b1100, led_pattern_on);
-      status_led(0b0001, led_pattern_blink);
+      status_led(0b0001, led_pattern_blink_slow);
       break;
 
     default :
