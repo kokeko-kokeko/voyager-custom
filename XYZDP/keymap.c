@@ -474,7 +474,7 @@ static const uint8_t led_pattern_oneshot[] = {1, 20, 3, 20, 3, 20, 3, 20, 3, 20,
 
 static bool status_led(const uint8_t mask, const uint8_t * const pattern);
 
-// housekeeping Throttle, only exec every unit time
+// housekeeping throttle, only exec every unit time
 static fast_timer_t hk_last = 0;
 static const fast_timer_t hk_unit = 16;
 
@@ -672,24 +672,27 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  iss_key_last = timer_read_fast();
+  if (record->event.pressed) {
+    iss_key_last = timer_read_fast();
+  }
   return;
 }
 
 void housekeeping_task_user(void) {
-  if (hk_unit <= timer_elapsed_fast(hk_last)) {
-    hk_last = timer_read_fast();
+  // early return to throttle
+  if (timer_elapsed_fast(hk_last) < hk_unit) return;
+  
+  hk_last = timer_read_fast();
 
-    if (iss_enable) {
-      if (iss_sync_wait <= timer_elapsed_fast(iss_key_last)) {
-        iss_sync = true;
-        layer_on(L_Base);      
-      }
-      if (iss_idle_to_wait <= timer_elapsed_fast(iss_key_last)) {
-        ime_on = false;
-        iss_sync = false;
-        layer_on(L_Base);  
-      }
+  if (iss_enable) {
+    if (iss_sync_wait <= timer_elapsed_fast(iss_key_last)) {
+      iss_sync = true;
+      layer_on(L_Base);      
+    }
+    if (iss_idle_to_wait <= timer_elapsed_fast(iss_key_last)) {
+      me_on = false;
+      iss_sync = false;
+      layer_on(L_Base);  
     }
   }
     
