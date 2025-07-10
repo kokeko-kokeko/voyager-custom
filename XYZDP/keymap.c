@@ -476,7 +476,7 @@ static const uint8_t led_pattern_oneshot[] = {1, 10, 2, 10, 2, 10, 2, 10, 2, 10,
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 static void status_led(const uint8_t mask, const uint8_t * const pattern);
-static void housekeeping_task_status_led(void);
+static void update_status_led(const fast_timer_t now);
 
 // housekeeping throttle, only exec every unit time
 static fast_timer_t hk_last = 0;
@@ -685,12 +685,14 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void housekeeping_task_user(void) {
+  fast_timer_t now = timer_read_fast();
+  
   // early return to throttle
   if (timer_elapsed_fast(hk_last) < hk_unit) return;
   
   hk_last = timer_read_fast();
 
-  housekeeping_task_status_led();
+  update_status_led(now);
 
   if (iss_enable) {
     if (iss_sync_wait <= timer_elapsed_fast(iss_key_last)) {
@@ -2123,8 +2125,7 @@ static void status_led(const uint8_t mask, const uint8_t * const pattern) {
   return;
 }
 
-static void housekeeping_task_status_led(void) {
-  fast_timer_t now = timer_read_fast();
+static void update_status_led(const fast_timer_t now) {
   status_led_task_1(NULL, now);
   status_led_task_3(NULL, now);
   status_led_task_2(NULL, now);
