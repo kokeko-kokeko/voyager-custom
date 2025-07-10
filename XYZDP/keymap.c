@@ -479,8 +479,8 @@ static void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t
 static void update_status_led(const fast_timer_t now);
 
 // housekeeping throttle, only exec every unit time
-static fast_timer_t hk_last = 0;
-static const fast_timer_t hk_unit = 33;  // 1/3 base
+static fast_timer_t hk_trigger = 0;
+static const fast_timer_t hk_delay = 33;  // 1/3 base
 
 // ime state from LANG1/LANG2 key
 static bool ime_on = false;
@@ -490,9 +490,10 @@ static bool ime_kk = false;  //KataKana
 static bool iss_enable = true; 
 static bool iss_sync = false;
 
-static fast_timer_t iss_key_last = 0;
-static const fast_timer_t iss_sync_wait = 15000; //ms
-static const fast_timer_t iss_idle_to_wait = 600000; //ms
+static fast_timer_t iss_sync_trigger = 0;
+static fast_timer_t iss_idle_to_trigger = 0;
+static const fast_timer_t iss_sync_delay = 15000; //ms
+static const fast_timer_t iss_idle_to_delay = 600000; //ms
 
 // Ime State Display system
 
@@ -501,8 +502,8 @@ void keyboard_post_init_user(void) {
 
   keymap_config.nkro = true;
 
-  hk_last = timer_read_fast();
-  iss_key_last = timer_read_fast();
+  hk_trigger = timer_read_fast();
+  iss_sync_trigger = timer_read_fast();
   
   //ANSI
   layer_move(L_Base);
@@ -679,7 +680,7 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (iss_enable) {
     if (record->event.pressed) {
-      iss_key_last = timer_read_fast();
+      iss_sync_trigger = timer_read_fast();
     }
   }
   return;
@@ -689,18 +690,18 @@ void housekeeping_task_user(void) {
   fast_timer_t now = timer_read_fast();
   
   // early return to throttle
-  if (timer_elapsed_fast(hk_last) < hk_unit) return;
+  if (timer_elapsed_fast(hk_trigger) < hk_delay) return;
   
-  hk_last = timer_read_fast();
+  hk_trigger = timer_read_fast();
 
   update_status_led(now);
 
   if (iss_enable) {
-    if (iss_sync_wait <= timer_elapsed_fast(iss_key_last)) {
+    if (iss_sync_delay <= timer_elapsed_fast(iss_sync_trigger)) {
       iss_sync = true;
       layer_on(L_Base);      
     }
-    if (iss_idle_to_wait <= timer_elapsed_fast(iss_key_last)) {
+    if (iss_idle_to_delay <= timer_elapsed_fast(iss_sync_trigger)) {
       ime_on = false;
       iss_sync = false;
       layer_on(L_Base);  
