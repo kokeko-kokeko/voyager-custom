@@ -703,15 +703,18 @@ void housekeeping_task_user(void) {
   update_status_led(now);
 
   if (iss_enable) {
-    if (timer_expired_fast(now, iss_sync_trigger)) {
-      iss_sync = true;
-      layer_on(L_Base);      
+    if (iss_sync == false) {
+      if (timer_expired_fast(now, iss_sync_trigger)) {
+        iss_sync = true;
+        layer_on(L_Base);      
+      }
     }
-    if (timer_expired_fast(now, iss_idle_to_trigger)) {
-      ime_on = false;
-      iss_sync = false;
-      layer_on(L_Base);  
-    }
+    
+    //if (timer_expired_fast(now, iss_idle_to_trigger)) {
+     // ime_on = false;
+     // iss_sync = false;
+     // layer_on(L_Base);  
+    //}
   }
   return;
 }
