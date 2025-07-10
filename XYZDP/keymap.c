@@ -502,8 +502,11 @@ void keyboard_post_init_user(void) {
 
   keymap_config.nkro = true;
 
-  hk_trigger = timer_read_fast();
-  iss_sync_trigger = timer_read_fast();
+  fast_timer_t now = timer_read_fast();
+
+  hk_trigger = now + hk_delay;
+  iss_sync_trigger = now + iss_sync_delay;
+  iss_idle_to_trigger = now + iss_idle_to_delay;
   
   //ANSI
   layer_move(L_Base);
@@ -680,7 +683,10 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (iss_enable) {
     if (record->event.pressed) {
-      iss_sync_trigger = timer_read_fast();
+      fast_timer_t now = timer_read_fast();
+      
+      iss_sync_trigger = now + iss_sync_delay;
+      iss_idle_to_trigger = now + iss_idle_to_delay;
     }
   }
   return;
@@ -690,20 +696,22 @@ void housekeeping_task_user(void) {
   fast_timer_t now = timer_read_fast();
   
   // early return to throttle
-  if (timer_elapsed_fast(hk_trigger) < hk_delay) return;
+  if (timer_expired_fast(hk_trigger, now)) return;
   
-  hk_trigger = timer_read_fast();
+  hk_trigger = now + hk_delay;
 
   update_status_led(now);
 
   if (iss_enable) {
-    if (iss_sync_delay <= timer_elapsed_fast(iss_sync_trigger)) {
+    if (timer_expired_fast(now, iss_sync_trigger)) {
       iss_sync = true;
+      iss_sync_trigger = now + iss_sync_delay;
       layer_on(L_Base);      
     }
-    if (iss_idle_to_delay <= timer_elapsed_fast(iss_sync_trigger)) {
+    if (timer_expired_fast(now, iss_idle_to_trigger)) {
       ime_on = false;
       iss_sync = false;
+      iss_idle_to_trigger = now + iss_idle_to_delay;
       layer_on(L_Base);  
     }
   }
