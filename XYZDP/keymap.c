@@ -472,11 +472,11 @@ static const uint8_t led_pattern_single[] = {1, 30, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t led_pattern_oneshot[] = {1, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
-static bool status_led(const uint8_t mask, const uint8_t * const pattern);
 static void status_led_task_1(const uint8_t * const pattern);
 static void status_led_task_2(const uint8_t * const pattern);
 static void status_led_task_3(const uint8_t * const pattern);
 static void status_led_task_4(const uint8_t * const pattern);
+static void status_led(const uint8_t mask, const uint8_t * const pattern);
 
 // housekeeping throttle, only exec every unit time
 static fast_timer_t hk_last = 0;
@@ -699,6 +699,11 @@ void housekeeping_task_user(void) {
       layer_on(L_Base);  
     }
   }
+
+  status_led_task_1(NULL);
+  status_led_task_3(NULL);
+  status_led_task_2(NULL);
+  status_led_task_4(NULL);
     
   return;
 }
@@ -1889,14 +1894,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // local functions
 // basic static 
 
-static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
+static void status_led_task_1(const uint8_t * const pattern) {
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
+  static fast_timer_t last = 0;
+  static fast_timer_t wait = 0;
 
-  if (ptr_ori != cb_arg) {
-    ptr_ori = cb_arg;
-    ptr = cb_arg;
+  if (pattern == NULL) {
+    // normal operation
+    if (wait == 0) return;
+    if (timer_elapsed_fast(last) < wait) return;
+  } else {
+    // update operation
+    ptr_ori = pattern;
+    ptr = pattern;
     out_val = *ptr;
     ptr++;
   }
@@ -1909,21 +1921,29 @@ static uint32_t status_led_task_1(uint32_t trigger_time, void *cb_arg) {
   
   STATUS_LED_1(out_val);
   out_val = !out_val;
-
-  uint32_t tmp = ((uint32_t)(*ptr)) << 4;
+  
+  last = timer_read_fast();
+  wait = ((fast_timer_t)(*ptr)) << 4;
   ptr++;
   
-  return tmp;
+  return;
 }
 
-static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
+static void status_led_task_2(const uint8_t * const pattern) {
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
+  static fast_timer_t last = 0;
+  static fast_timer_t wait = 0;
 
-  if (ptr_ori != cb_arg) {
-    ptr_ori = cb_arg;
-    ptr = cb_arg;
+  if (pattern == NULL) {
+    // normal operation
+    if (wait == 0) return;
+    if (timer_elapsed_fast(last) < wait) return;
+  } else {
+    // update operation
+    ptr_ori = pattern;
+    ptr = pattern;
     out_val = *ptr;
     ptr++;
   }
@@ -1937,20 +1957,28 @@ static uint32_t status_led_task_2(uint32_t trigger_time, void *cb_arg) {
   STATUS_LED_2(out_val);
   out_val = !out_val;
   
-  uint32_t tmp = ((uint32_t)(*ptr)) << 4;
+  last = timer_read_fast();
+  wait = ((fast_timer_t)(*ptr)) << 4;
   ptr++;
   
-  return tmp;
+  return;
 }
 
-static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
+static void status_led_task_3(const uint8_t * const pattern) {
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
+  static fast_timer_t last = 0;
+  static fast_timer_t wait = 0;
 
-  if (ptr_ori != cb_arg) {
-    ptr_ori = cb_arg;
-    ptr = cb_arg;
+  if (pattern == NULL) {
+    // normal operation
+    if (wait == 0) return;
+    if (timer_elapsed_fast(last) < wait) return;
+  } else {
+    // update operation
+    ptr_ori = pattern;
+    ptr = pattern;
     out_val = *ptr;
     ptr++;
   }
@@ -1963,21 +1991,29 @@ static uint32_t status_led_task_3(uint32_t trigger_time, void *cb_arg) {
   
   STATUS_LED_3(out_val);
   out_val = !out_val;
-
-  uint32_t tmp = ((uint32_t)(*ptr)) << 4;
+  
+  last = timer_read_fast();
+  wait = ((fast_timer_t)(*ptr)) << 4;
   ptr++;
   
-  return tmp;
+  return;
 }
 
-static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
+static void status_led_task_4(const uint8_t * const pattern) {
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
+  static fast_timer_t last = 0;
+  static fast_timer_t wait = 0;
 
-  if (ptr_ori != cb_arg) {
-    ptr_ori = cb_arg;
-    ptr = cb_arg;
+  if (pattern == NULL) {
+    // normal operation
+    if (wait == 0) return;
+    if (timer_elapsed_fast(last) < wait) return;
+  } else {
+    // update operation
+    ptr_ori = pattern;
+    ptr = pattern;
     out_val = *ptr;
     ptr++;
   }
@@ -1990,11 +2026,12 @@ static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
   
   STATUS_LED_4(out_val);
   out_val = !out_val;
-
-  uint32_t tmp = ((uint32_t)(*ptr)) << 4;
+  
+  last = timer_read_fast();
+  wait = ((fast_timer_t)(*ptr)) << 4;
   ptr++;
   
-  return tmp;
+  return;
 }
 
 // 1 -> Red Left
@@ -2002,51 +2039,29 @@ static uint32_t status_led_task_4(uint32_t trigger_time, void *cb_arg) {
 // 2 -> Green Left
 // 4 -> Green Right
 // re-order bit position
-static bool status_led(const uint8_t mask, const uint8_t * const pattern) {
-  static deferred_token token_1 = INVALID_DEFERRED_TOKEN;
-  static deferred_token token_3 = INVALID_DEFERRED_TOKEN;
-  static deferred_token token_2 = INVALID_DEFERRED_TOKEN;
-  static deferred_token token_4 = INVALID_DEFERRED_TOKEN;
-
+static void status_led(const uint8_t mask, const uint8_t * const pattern) {
   if (pattern == NULL) {
-    return false;
+    return;
   }
 
   // split stop exec
   if (mask & 0b1000) {
-    cancel_deferred_exec(token_1);
+    status_led_task_1(pattern);
   }
   
   if (mask & 0b0100) {
-    cancel_deferred_exec(token_3);
+    status_led_task_3(pattern);
   }
   
   if (mask & 0b0010) {
-    cancel_deferred_exec(token_2);
+    status_led_task_2(pattern);
   }
   
   if (mask & 0b0001) {
-    cancel_deferred_exec(token_4);
+    status_led_task_4(pattern);
   }
   
-  // add pseudo rondom delay 
-  if (mask & 0b1000) {
-    token_1 = defer_exec(2, status_led_task_1, (void *)pattern);
-  }
-  
-  if (mask & 0b0100) {
-    token_3 = defer_exec(6, status_led_task_3, (void *)pattern);
-  }
-  
-  if (mask & 0b0010) {
-    token_2 = defer_exec(10, status_led_task_2, (void *)pattern);
-  }
-  
-  if (mask & 0b0001) {
-    token_4 = defer_exec(14, status_led_task_4, (void *)pattern);
-  }
-  
-  return true;
+  return;
 }
 
 // HSV independent update code
