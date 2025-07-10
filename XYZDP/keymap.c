@@ -672,8 +672,10 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    iss_key_last = timer_read_fast();
+  if (iss_enable) {
+    if (record->event.pressed) {
+      iss_key_last = timer_read_fast();
+    }
   }
   return;
 }
@@ -683,6 +685,8 @@ void housekeeping_task_user(void) {
   if (timer_elapsed_fast(hk_last) < hk_unit) return;
   
   hk_last = timer_read_fast();
+
+  status_led_housekeeping();
 
   if (iss_enable) {
     if (iss_sync_wait <= timer_elapsed_fast(iss_key_last)) {
@@ -695,9 +699,6 @@ void housekeeping_task_user(void) {
       layer_on(L_Base);  
     }
   }
-
-  status_led_housekeeping();
-    
   return;
 }
 
