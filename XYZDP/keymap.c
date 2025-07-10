@@ -705,13 +705,11 @@ void housekeeping_task_user(void) {
   if (iss_enable) {
     if (timer_expired_fast(now, iss_sync_trigger)) {
       iss_sync = true;
-      iss_sync_trigger = now + iss_sync_delay;
       layer_on(L_Base);      
     }
     if (timer_expired_fast(now, iss_idle_to_trigger)) {
       ime_on = false;
       iss_sync = false;
-      iss_idle_to_trigger = now + iss_idle_to_delay;
       layer_on(L_Base);  
     }
   }
