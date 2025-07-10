@@ -480,7 +480,7 @@ static void update_status_led(const fast_timer_t now);
 
 // housekeeping throttle, only exec every unit time
 static fast_timer_t hk_trigger = 0;
-static const fast_timer_t hk_delay = 33;  // 1/3 base
+static const fast_timer_t hk_delay = 33;  // typ 30fps
 
 // ime state from LANG1/LANG2 key
 static bool ime_on = false;
