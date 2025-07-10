@@ -1954,12 +1954,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // local functions
 // basic static 
 
-static void status_led_task_1(const uint8_t * const pattern, const fast_timer_t now) {
+static void status_led_task_1(const fast_timer_t now, const uint8_t * const pattern) {
+  static fast_timer_t delay = 0;
+  static fast_timer_t trigger = 0;
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
-  static fast_timer_t delay = 0;
-  static fast_timer_t trigger = 0;
 
   if (pattern == NULL) {
     // normal operation
@@ -1967,9 +1967,9 @@ static void status_led_task_1(const uint8_t * const pattern, const fast_timer_t 
     if (timer_expired_fast(trigger, now)) return;
   } else {
     // update operation
+    trigger = now;
     ptr_ori = pattern;
     ptr = pattern;
-    trigger = now;
     out_val = *ptr;
     ptr++;
   }
@@ -1987,15 +1987,15 @@ static void status_led_task_1(const uint8_t * const pattern, const fast_timer_t 
   trigger += delay;
   ptr++; 
   
-  return;
+  return; 
 }
 
-static void status_led_task_2(const uint8_t * const pattern, const fast_timer_t now) {
+static void status_led_task_2(const fast_timer_t now, const uint8_t * const pattern) {
+  static fast_timer_t delay = 0;
+  static fast_timer_t trigger = 0;
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
-  static fast_timer_t delay = 0;
-  static fast_timer_t trigger = 0;
 
   if (pattern == NULL) {
     // normal operation
@@ -2003,9 +2003,9 @@ static void status_led_task_2(const uint8_t * const pattern, const fast_timer_t 
     if (timer_expired_fast(trigger, now)) return;
   } else {
     // update operation
+    trigger = now;
     ptr_ori = pattern;
     ptr = pattern;
-    trigger = now;
     out_val = *ptr;
     ptr++;
   }
@@ -2026,12 +2026,12 @@ static void status_led_task_2(const uint8_t * const pattern, const fast_timer_t 
   return;
 }
 
-static void status_led_task_3(const uint8_t * const pattern, const fast_timer_t now) {
+static void status_led_task_3(const fast_timer_t now, const uint8_t * const pattern) {
+  static fast_timer_t delay = 0;
+  static fast_timer_t trigger = 0;
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
-  static fast_timer_t delay = 0;
-  static fast_timer_t trigger = 0;
 
   if (pattern == NULL) {
     // normal operation
@@ -2039,9 +2039,9 @@ static void status_led_task_3(const uint8_t * const pattern, const fast_timer_t 
     if (timer_expired_fast(trigger, now)) return;
   } else {
     // update operation
+    trigger = now;
     ptr_ori = pattern;
     ptr = pattern;
-    trigger = now;
     out_val = *ptr;
     ptr++;
   }
@@ -2062,12 +2062,12 @@ static void status_led_task_3(const uint8_t * const pattern, const fast_timer_t 
   return;
 }
 
-static void status_led_task_4(const uint8_t * const pattern, const fast_timer_t now) {
+static void status_led_task_4(const fast_timer_t now, const uint8_t * const pattern) {
+  static fast_timer_t delay = 0;
+  static fast_timer_t trigger = 0;
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
-  static fast_timer_t delay = 0;
-  static fast_timer_t trigger = 0;
 
   if (pattern == NULL) {
     // normal operation
@@ -2075,9 +2075,9 @@ static void status_led_task_4(const uint8_t * const pattern, const fast_timer_t 
     if (timer_expired_fast(trigger, now)) return;
   } else {
     // update operation
+    trigger = now;
     ptr_ori = pattern;
     ptr = pattern;
-    trigger = now;
     out_val = *ptr;
     ptr++;
   }
@@ -2107,29 +2107,29 @@ static void status_led(const uint8_t mask, const uint8_t * const pattern) {
   fast_timer_t now = timer_read_fast();
   
   if (mask & 0b1000) {
-    status_led_task_1(pattern, now);
+    status_led_task_1(now, pattern);
   }
   
   if (mask & 0b0100) {
-    status_led_task_3(pattern, now);
+    status_led_task_3(now, pattern);
   }
   
   if (mask & 0b0010) {
-    status_led_task_2(pattern, now);
+    status_led_task_2(now, pattern);
   }
   
   if (mask & 0b0001) {
-    status_led_task_4(pattern, now);
+    status_led_task_4(now, pattern);
   }
   
   return;
 }
 
 static void update_status_led(const fast_timer_t now) {
-  status_led_task_1(NULL, now);
-  status_led_task_3(NULL, now);
-  status_led_task_2(NULL, now);
-  status_led_task_4(NULL, now);
+  status_led_task_1(now, NULL);
+  status_led_task_3(now, NULL);
+  status_led_task_2(now, NULL);
+  status_led_task_4(now, NULL);
   
   return;
 }
