@@ -2099,7 +2099,7 @@ static void status_led_task_4(const uint8_t * const pattern) {
 // 4 -> Green Right
 // re-order bit position
 static void status_led(const uint8_t mask, const uint8_t * const pattern) {
-  fast_timer_t now = last = timer_read_fast();
+  fast_timer_t now = timer_read_fast();
   
   if (mask & 0b1000) {
     status_led_task_1(pattern, now);
@@ -2121,7 +2121,7 @@ static void status_led(const uint8_t mask, const uint8_t * const pattern) {
 }
 
 static void housekeeping_task_status_led(void) {
-  fast_timer_t now = last = timer_read_fast();
+  fast_timer_t now = timer_read_fast();
   status_led_task_1(NULL, now);
   status_led_task_3(NULL);
   status_led_task_2(NULL);
