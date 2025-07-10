@@ -694,7 +694,7 @@ void housekeeping_task_user(void) {
       layer_on(L_Base);      
     }
     if (iss_idle_to_wait <= timer_elapsed_fast(iss_key_last)) {
-      me_on = false;
+      ime_on = false;
       iss_sync = false;
       layer_on(L_Base);  
     }
