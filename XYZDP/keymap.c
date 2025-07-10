@@ -1952,21 +1952,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // local functions
 // basic static 
 
-static void status_led_task_1(const uint8_t * const pattern) {
+static void status_led_task_1(const uint8_t * const pattern, const fast_timer_t now) {
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
-  static fast_timer_t last = 0;
   static fast_timer_t wait = 0;
+  static fast_timer_t next = 0;
 
   if (pattern == NULL) {
     // normal operation
     if (wait == 0) return;
-    if (timer_elapsed_fast(last) < wait) return;
+    if (timer_expired_fast(next, now)) return;
   } else {
     // update operation
     ptr_ori = pattern;
     ptr = pattern;
+    next = now;
     out_val = *ptr;
     ptr++;
   }
@@ -1980,9 +1981,9 @@ static void status_led_task_1(const uint8_t * const pattern) {
   STATUS_LED_1(out_val);
   out_val = !out_val;
   
-  last = timer_read_fast();
   wait = ((fast_timer_t)(*ptr)) << 5;
-  ptr++;
+  next += wait;
+  ptr++; 
   
   return;
 }
@@ -2098,8 +2099,10 @@ static void status_led_task_4(const uint8_t * const pattern) {
 // 4 -> Green Right
 // re-order bit position
 static void status_led(const uint8_t mask, const uint8_t * const pattern) {
+  fast_timer_t now = last = timer_read_fast();
+  
   if (mask & 0b1000) {
-    status_led_task_1(pattern);
+    status_led_task_1(pattern, now);
   }
   
   if (mask & 0b0100) {
@@ -2118,7 +2121,8 @@ static void status_led(const uint8_t mask, const uint8_t * const pattern) {
 }
 
 static void housekeeping_task_status_led(void) {
-  status_led_task_1(NULL);
+  fast_timer_t now = last = timer_read_fast();
+  status_led_task_1(NULL, now);
   status_led_task_3(NULL);
   status_led_task_2(NULL);
   status_led_task_4(NULL);
