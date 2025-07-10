@@ -471,11 +471,8 @@ static const uint8_t led_pattern_single[] = {1, 30, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t led_pattern_oneshot[] = {1, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
-static void status_led_task_1(const uint8_t * const pattern);
-static void status_led_task_2(const uint8_t * const pattern);
-static void status_led_task_3(const uint8_t * const pattern);
-static void status_led_task_4(const uint8_t * const pattern);
 static void status_led(const uint8_t mask, const uint8_t * const pattern);
+static void status_led_housekeeping(void);
 
 // housekeeping throttle, only exec every unit time
 static fast_timer_t hk_last = 0;
@@ -699,11 +696,7 @@ void housekeeping_task_user(void) {
     }
   }
 
-  // status LED update
-  status_led_task_1(NULL);
-  status_led_task_3(NULL);
-  status_led_task_2(NULL);
-  status_led_task_4(NULL);
+  status_led_housekeeping();
     
   return;
 }
@@ -2044,7 +2037,6 @@ static void status_led(const uint8_t mask, const uint8_t * const pattern) {
     return;
   }
 
-  // split stop exec
   if (mask & 0b1000) {
     status_led_task_1(pattern);
   }
@@ -2060,6 +2052,15 @@ static void status_led(const uint8_t mask, const uint8_t * const pattern) {
   if (mask & 0b0001) {
     status_led_task_4(pattern);
   }
+  
+  return;
+}
+
+static void status_led_housekeeping(void) {
+  status_led_task_1(NULL);
+  status_led_task_3(NULL);
+  status_led_task_2(NULL);
+  status_led_task_4(NULL);
   
   return;
 }
