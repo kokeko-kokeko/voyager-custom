@@ -1956,18 +1956,18 @@ static void status_led_task_1(const uint8_t * const pattern, const fast_timer_t 
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
-  static fast_timer_t wait = 0;
-  static fast_timer_t next = 0;
+  static fast_timer_t delay = 0;
+  static fast_timer_t trigger = 0;
 
   if (pattern == NULL) {
     // normal operation
-    if (wait == 0) return;
-    if (timer_expired_fast(next, now)) return;
+    if (delay == 0) return;
+    if (timer_expired_fast(trigger, now)) return;
   } else {
     // update operation
     ptr_ori = pattern;
     ptr = pattern;
-    next = now;
+    trigger = now;
     out_val = *ptr;
     ptr++;
   }
@@ -1981,8 +1981,8 @@ static void status_led_task_1(const uint8_t * const pattern, const fast_timer_t 
   STATUS_LED_1(out_val);
   out_val = !out_val;
   
-  wait = ((fast_timer_t)(*ptr)) << 5;
-  next += wait;
+  delay = ((fast_timer_t)(*ptr)) << 5;
+  trigger += delay;
   ptr++; 
   
   return;
