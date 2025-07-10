@@ -464,15 +464,15 @@ static const uint8_t pos2idx_tbl[52] = {
 
 // LED pattern list, no const limit, terminate symbol
 // init value, delay, delay, ...
-// delay reduce data x16 (4bit shift) 8bit
+// delay reduce data x32 (5bit shift) 8bit
 // 0: terminate, stop exec
 // MAX: restart pattern 
 // max 16x255=4080ms 4sec
 static const uint8_t led_pattern_off[] = {0, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t led_pattern_on[] = {1, 0, UINT8_MAX, UINT8_MAX};
-static const uint8_t led_pattern_blink[] = {1, 40, 13, UINT8_MAX, UINT8_MAX};
-static const uint8_t led_pattern_single[] = {1, 30, 0, UINT8_MAX, UINT8_MAX};
-static const uint8_t led_pattern_oneshot[] = {1, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 3, 20, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t led_pattern_blink[] = {1, 20, 7, UINT8_MAX, UINT8_MAX};
+static const uint8_t led_pattern_single[] = {1, 15, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t led_pattern_oneshot[] = {1, 10, 2, 10, 2, 10, 2, 10, 2, 10, 2, 10, 2, 10, 2, 10, 0, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 static void status_led(const uint8_t mask, const uint8_t * const pattern);
@@ -480,7 +480,7 @@ static void housekeeping_task_status_led(void);
 
 // housekeeping throttle, only exec every unit time
 static fast_timer_t hk_last = 0;
-static const fast_timer_t hk_unit = 16;
+static const fast_timer_t hk_unit = 33;  // 1/3 base
 
 // ime state from LANG1/LANG2 key
 static bool ime_on = false;
@@ -491,7 +491,7 @@ static bool iss_enable = true;
 static bool iss_sync = false;
 
 static fast_timer_t iss_key_last = 0;
-static const fast_timer_t iss_sync_wait = 8000; //ms
+static const fast_timer_t iss_sync_wait = 15000; //ms
 static const fast_timer_t iss_idle_to_wait = 600000; //ms
 
 // Ime State Display system
@@ -1981,7 +1981,7 @@ static void status_led_task_1(const uint8_t * const pattern) {
   out_val = !out_val;
   
   last = timer_read_fast();
-  wait = ((fast_timer_t)(*ptr)) << 4;
+  wait = ((fast_timer_t)(*ptr)) << 5;
   ptr++;
   
   return;
@@ -2016,7 +2016,7 @@ static void status_led_task_2(const uint8_t * const pattern) {
   out_val = !out_val;
   
   last = timer_read_fast();
-  wait = ((fast_timer_t)(*ptr)) << 4;
+  wait = ((fast_timer_t)(*ptr)) << 5;
   ptr++;
   
   return;
@@ -2051,7 +2051,7 @@ static void status_led_task_3(const uint8_t * const pattern) {
   out_val = !out_val;
   
   last = timer_read_fast();
-  wait = ((fast_timer_t)(*ptr)) << 4;
+  wait = ((fast_timer_t)(*ptr)) << 5;
   ptr++;
   
   return;
@@ -2086,7 +2086,7 @@ static void status_led_task_4(const uint8_t * const pattern) {
   out_val = !out_val;
   
   last = timer_read_fast();
-  wait = ((fast_timer_t)(*ptr)) << 4;
+  wait = ((fast_timer_t)(*ptr)) << 5;
   ptr++;
   
   return;
