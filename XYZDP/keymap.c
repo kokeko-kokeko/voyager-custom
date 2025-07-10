@@ -475,7 +475,7 @@ static const uint8_t led_pattern_single[] = {1, 15, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t led_pattern_oneshot[] = {1, 10, 2, 10, 2, 10, 2, 10, 2, 10, 2, 10, 2, 10, 2, 10, 0, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
-static void status_led(const uint8_t mask, const uint8_t * const pattern);
+static void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t * const pattern);
 static void update_status_led(const fast_timer_t now);
 
 // housekeeping throttle, only exec every unit time
@@ -575,79 +575,80 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   if (is_launching || !keyboard_config.led_level) return state;
   
   uint8_t layer = get_highest_layer(state);
+  fast_timer_t now = timer_read_fast();
   switch (layer) {
     case L_Base :
     case L_BaseJIS:
-      status_led(0b1111, led_pattern_off);
+      status_led(now, 0b1111, led_pattern_off);
       if (ime_on) {
         if (ime_kk) {
-          status_led(0b0100, led_pattern_blink);
+          status_led(now, 0b0100, led_pattern_blink);
         } else {
-          status_led(0b0100, led_pattern_on);
+          status_led(now, 0b0100, led_pattern_on);
         }
       }
       if (iss_sync) {
-        status_led(0b1000, led_pattern_on);
+        status_led(now, 0b1000, led_pattern_on);
       }
       if (is_caps_word_on()) {
-        status_led(0b0001, led_pattern_on);
+        status_led(now, 0b0001, led_pattern_on);
       }
       break;
     case L_Lpin:
-      status_led(0b0110, led_pattern_off);
-      status_led(0b0001, led_pattern_on);
-      status_led(0b1000, led_pattern_blink);
+      status_led(now, 0b0110, led_pattern_off);
+      status_led(now, 0b0001, led_pattern_on);
+      status_led(now, 0b1000, led_pattern_blink);
       break;
     case L_Rpin:
-      status_led(0b1001, led_pattern_off);
-      status_led(0b0010, led_pattern_on);
-      status_led(0b0100, led_pattern_blink);
+      status_led(now, 0b1001, led_pattern_off);
+      status_led(now, 0b0010, led_pattern_on);
+      status_led(now, 0b0100, led_pattern_blink);
       break;
     case L_Bpin:
-      status_led(0b0011, led_pattern_on);
-      status_led(0b1100, led_pattern_blink);
+      status_led(now, 0b0011, led_pattern_on);
+      status_led(now, 0b1100, led_pattern_blink);
       break;
     case L_Fn:
-      status_led(0b1100, led_pattern_off);
-      status_led(0b0011, led_pattern_on);
+      status_led(now, 0b1100, led_pattern_off);
+      status_led(now, 0b0011, led_pattern_on);
       break;
     case L_Num:
     case L_NumJIS:
-      status_led(0b1100, led_pattern_off);
-      status_led(0b0001, led_pattern_on);
-      status_led(0b0010, led_pattern_blink);
+      status_led(now, 0b1100, led_pattern_off);
+      status_led(now, 0b0001, led_pattern_on);
+      status_led(now, 0b0010, led_pattern_blink);
       break;
     case L_Cur:
     case L_CurJIS:
-      status_led(0b1100, led_pattern_off);
-      status_led(0b0010, led_pattern_on);
-      status_led(0b0001, led_pattern_blink);
+      status_led(now, 0b1100, led_pattern_off);
+      status_led(now, 0b0010, led_pattern_on);
+      status_led(now, 0b0001, led_pattern_blink);
       break;
     case L_BktEx:
     case L_BktExJIS:
-      status_led(0b1100, led_pattern_off);
-      status_led(0b0011, led_pattern_blink);
+      status_led(now, 0b1100, led_pattern_off);
+      status_led(now, 0b0011, led_pattern_blink);
       break;
     case L_FwSys:
-      status_led(0b1111, led_pattern_blink);
+      status_led(now, 0b1111, led_pattern_blink);
       break;
     case L_SetHue:
-      status_led(0b0011, led_pattern_off);
-      status_led(0b1100, led_pattern_on);
+      status_led(now, 0b0011, led_pattern_off);
+      status_led(now, 0b1100, led_pattern_on);
       break;
     case L_SetSat:
-      status_led(0b0001, led_pattern_off);
-      status_led(0b1100, led_pattern_on);
-      status_led(0b0010, led_pattern_blink);
+      status_led(now, 0b0001, led_pattern_off);
+      status_led(now, 0b1100, led_pattern_on);
+      status_led(now, 0b0010, led_pattern_blink);
       break;
     case L_SetVal:
-      status_led(0b0010, led_pattern_off);
-      status_led(0b1100, led_pattern_on);
-      status_led(0b0001, led_pattern_blink);
+      status_led(now, 0b0010, led_pattern_off);
+      status_led(now, 0b1100, led_pattern_on);
+      status_led(now, 0b0001, led_pattern_blink);
       break;
 
     default :
-      status_led(0b1111, led_pattern_off);
+      status_led(now, 0b1111, led_pattern_off);
       break;
   }  
   return state;
@@ -2103,9 +2104,7 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
 // 2 -> Green Left
 // 4 -> Green Right
 // re-order bit position
-static void status_led(const uint8_t mask, const uint8_t * const pattern) {
-  fast_timer_t now = timer_read_fast();
-  
+static void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t * const pattern) {  
   if (mask & 0b1000) {
     status_led_task_1(now, pattern);
   }
@@ -2154,14 +2153,16 @@ static void rgblight_save_eeprom(void) {
   HSV hsv = rgblight_get_hsv();
   rgblight_sethsv(hsv.h, hsv.s, hsv.v);
   //eeprom write once (write all value raw to eeprom)
-  
-  status_led(0b1111, led_pattern_single);
+
+  fast_timer_t now = timer_read_fast();
+  status_led(now, 0b1111, led_pattern_single);
 }
 
 static void rgblight_load_preset(void) {
   rgblight_sethsv_noeeprom(250, 255, 109);
-  
-  status_led(0b1111, led_pattern_single);
+
+  fast_timer_t now = timer_read_fast();
+  status_led(now, 0b1111, led_pattern_single);
 }
 
 static void set_layer_color_fwsys_map(void) {
