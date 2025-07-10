@@ -2033,10 +2033,6 @@ static void status_led_task_4(const uint8_t * const pattern) {
 // 4 -> Green Right
 // re-order bit position
 static void status_led(const uint8_t mask, const uint8_t * const pattern) {
-  if (pattern == NULL) {
-    return;
-  }
-
   if (mask & 0b1000) {
     status_led_task_1(pattern);
   }
