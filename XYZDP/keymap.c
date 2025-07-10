@@ -462,7 +462,7 @@ static const uint8_t pos2idx_tbl[52] = {
     0,   0
 };
 
-// LED pattern list, no const limit, terminate symbol
+// status LED pattern list, no const limit, terminate symbol
 // init value, delay, delay, ...
 // delay reduce data x32 (5bit shift) 8bit
 // 0: terminate, stop exec
