@@ -1988,21 +1988,22 @@ static void status_led_task_1(const uint8_t * const pattern, const fast_timer_t 
   return;
 }
 
-static void status_led_task_2(const uint8_t * const pattern) {
+static void status_led_task_2(const uint8_t * const pattern, const fast_timer_t now) {
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
-  static fast_timer_t last = 0;
-  static fast_timer_t wait = 0;
+  static fast_timer_t delay = 0;
+  static fast_timer_t trigger = 0;
 
   if (pattern == NULL) {
     // normal operation
-    if (wait == 0) return;
-    if (timer_elapsed_fast(last) < wait) return;
+    if (delay == 0) return;
+    if (timer_expired_fast(trigger, now)) return;
   } else {
     // update operation
     ptr_ori = pattern;
     ptr = pattern;
+    trigger = now;
     out_val = *ptr;
     ptr++;
   }
@@ -2016,28 +2017,29 @@ static void status_led_task_2(const uint8_t * const pattern) {
   STATUS_LED_2(out_val);
   out_val = !out_val;
   
-  last = timer_read_fast();
-  wait = ((fast_timer_t)(*ptr)) << 5;
-  ptr++;
+  delay = ((fast_timer_t)(*ptr)) << 5;
+  trigger += delay;
+  ptr++; 
   
   return;
 }
 
-static void status_led_task_3(const uint8_t * const pattern) {
+static void status_led_task_3(const uint8_t * const pattern, const fast_timer_t now) {
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
-  static fast_timer_t last = 0;
-  static fast_timer_t wait = 0;
+  static fast_timer_t delay = 0;
+  static fast_timer_t trigger = 0;
 
   if (pattern == NULL) {
     // normal operation
-    if (wait == 0) return;
-    if (timer_elapsed_fast(last) < wait) return;
+    if (delay == 0) return;
+    if (timer_expired_fast(trigger, now)) return;
   } else {
     // update operation
     ptr_ori = pattern;
     ptr = pattern;
+    trigger = now;
     out_val = *ptr;
     ptr++;
   }
@@ -2051,28 +2053,29 @@ static void status_led_task_3(const uint8_t * const pattern) {
   STATUS_LED_3(out_val);
   out_val = !out_val;
   
-  last = timer_read_fast();
-  wait = ((fast_timer_t)(*ptr)) << 5;
-  ptr++;
+  delay = ((fast_timer_t)(*ptr)) << 5;
+  trigger += delay;
+  ptr++; 
   
   return;
 }
 
-static void status_led_task_4(const uint8_t * const pattern) {
+static void status_led_task_4(const uint8_t * const pattern, const fast_timer_t now) {
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
-  static fast_timer_t last = 0;
-  static fast_timer_t wait = 0;
+  static fast_timer_t delay = 0;
+  static fast_timer_t trigger = 0;
 
   if (pattern == NULL) {
     // normal operation
-    if (wait == 0) return;
-    if (timer_elapsed_fast(last) < wait) return;
+    if (delay == 0) return;
+    if (timer_expired_fast(trigger, now)) return;
   } else {
     // update operation
     ptr_ori = pattern;
     ptr = pattern;
+    trigger = now;
     out_val = *ptr;
     ptr++;
   }
@@ -2086,9 +2089,9 @@ static void status_led_task_4(const uint8_t * const pattern) {
   STATUS_LED_4(out_val);
   out_val = !out_val;
   
-  last = timer_read_fast();
-  wait = ((fast_timer_t)(*ptr)) << 5;
-  ptr++;
+  delay = ((fast_timer_t)(*ptr)) << 5;
+  trigger += delay;
+  ptr++; 
   
   return;
 }
@@ -2106,15 +2109,15 @@ static void status_led(const uint8_t mask, const uint8_t * const pattern) {
   }
   
   if (mask & 0b0100) {
-    status_led_task_3(pattern);
+    status_led_task_3(pattern, now);
   }
   
   if (mask & 0b0010) {
-    status_led_task_2(pattern);
+    status_led_task_2(pattern, now);
   }
   
   if (mask & 0b0001) {
-    status_led_task_4(pattern);
+    status_led_task_4(pattern, now);
   }
   
   return;
@@ -2123,9 +2126,9 @@ static void status_led(const uint8_t mask, const uint8_t * const pattern) {
 static void housekeeping_task_status_led(void) {
   fast_timer_t now = timer_read_fast();
   status_led_task_1(NULL, now);
-  status_led_task_3(NULL);
-  status_led_task_2(NULL);
-  status_led_task_4(NULL);
+  status_led_task_3(NULL, now);
+  status_led_task_2(NULL, now);
+  status_led_task_4(NULL, now);
   
   return;
 }
