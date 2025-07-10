@@ -473,6 +473,10 @@ static const uint8_t led_pattern_oneshot[] = {1, 20, 3, 20, 3, 20, 3, 20, 3, 20,
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 static bool status_led(const uint8_t mask, const uint8_t * const pattern);
+static void status_led_task_1(const uint8_t * const pattern);
+static void status_led_task_2(const uint8_t * const pattern);
+static void status_led_task_3(const uint8_t * const pattern);
+static void status_led_task_4(const uint8_t * const pattern);
 
 // housekeeping throttle, only exec every unit time
 static fast_timer_t hk_last = 0;
