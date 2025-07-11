@@ -707,12 +707,12 @@ void housekeeping_task_user(void) {
   fast_timer_t now = timer_read_fast();
   
   // early return to throttle
-  if (!timer_expired_fast(now, hk_fast_trigger)) return;
+  if (!(timer_expired_fast(now, hk_fast_trigger))) return;
   hk_fast_trigger = now + hk_fast_delay;
 
   update_status_led(now);
 
-  if (!timer_expired_fast(now, hk_mid_trigger)) return;
+  if (!(timer_expired_fast(now, hk_mid_trigger))) return;
   hk_mid_trigger = now + hk_mid_delay;
 
   if (iss_sync_to_run) {
@@ -723,7 +723,7 @@ void housekeeping_task_user(void) {
     }
   }
 
-  if (!timer_expired_fast(now, hk_slow_trigger)) return;
+  if (!(timer_expired_fast(now, hk_slow_trigger))) return;
   hk_slow_trigger = now + hk_slow_delay;
   
   if (iss_idle_to_run) {
@@ -1996,7 +1996,7 @@ static void status_led_task_1(const fast_timer_t now, const uint8_t * const patt
   if (pattern == NULL) {
     // normal operation
     if (delay == 0) return;
-    if (!timer_expired_fast(now, trigger)) return;
+    if (!(timer_expired_fast(now, trigger))) return;
   } else {
     // update operation
     trigger = now;
@@ -2032,7 +2032,7 @@ static void status_led_task_2(const fast_timer_t now, const uint8_t * const patt
   if (pattern == NULL) {
     // normal operation
     if (delay == 0) return;
-    if (!timer_expired_fast(now, trigger)) return;
+    if (!(timer_expired_fast(now, trigger))) return;
   } else {
     // update operation
     trigger = now;
@@ -2068,7 +2068,7 @@ static void status_led_task_3(const fast_timer_t now, const uint8_t * const patt
   if (pattern == NULL) {
     // normal operation
     if (delay == 0) return;
-    if (!timer_expired_fast(now, trigger)) return;
+    if (!(timer_expired_fast(now, trigger))) return;
   } else {
     // update operation
     trigger = now;
@@ -2104,7 +2104,7 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
   if (pattern == NULL) {
     // normal operation
     if (delay == 0) return;
-    if (!timer_expired_fast(now, trigger)) return;
+    if (!(timer_expired_fast(now, trigger))) return;
   } else {
     // update operation
     trigger = now;
@@ -2139,19 +2139,15 @@ static void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t
   if (mask & 0b1000) {
     status_led_task_1(now, pattern);
   }
-  
   if (mask & 0b0100) {
     status_led_task_3(now, pattern);
   }
-  
   if (mask & 0b0010) {
     status_led_task_2(now, pattern);
   }
-  
   if (mask & 0b0001) {
     status_led_task_4(now, pattern);
   }
-  
   return;
 }
 
@@ -2160,7 +2156,6 @@ static void update_status_led(const fast_timer_t now) {
   status_led_task_3(now, NULL);
   status_led_task_2(now, NULL);
   status_led_task_4(now, NULL);
-  
   return;
 }
 
