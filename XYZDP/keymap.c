@@ -490,9 +490,9 @@ static bool ime_kk = false;  //KataKana
 static bool iss_enable = true; 
 static bool iss_sync = false;
 
-static bool iss_sync_run = false;
-static fast_timer_t iss_sync_trigger = 0;
-static const fast_timer_t iss_sync_delay = 15000; //ms
+static bool iss_sync_to_run = false;
+static fast_timer_t iss_sync_to_trigger = 0;
+static const fast_timer_t iss_sync_to_delay = 15000; //ms
 
 static bool iss_idle_to_run = false;
 static fast_timer_t iss_idle_to_trigger = 0;
@@ -686,8 +686,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       fast_timer_t now = timer_read_fast();
       
-      iss_sync_run = true;
-      iss_sync_trigger = now + iss_sync_delay;
+      iss_sync_to_run = true;
+      iss_sync_to_trigger = now + iss_sync_to_delay;
       
       iss_idle_to_run = true;
       iss_idle_to_trigger = now + iss_idle_to_delay;
@@ -707,9 +707,9 @@ void housekeeping_task_user(void) {
   update_status_led(now);
 
   if (iss_enable) {
-    if (iss_sync_run) {
-      if (timer_expired_fast(now, iss_sync_trigger)) {
-        iss_sync_run = false;
+    if (iss_sync_to_run) {
+      if (timer_expired_fast(now, iss_sync_to_trigger)) {
+        iss_sync_to_run = false;
         iss_sync = true;
         layer_on(L_Base);      
       }
