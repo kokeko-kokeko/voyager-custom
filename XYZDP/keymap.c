@@ -673,6 +673,7 @@ void caps_word_set_user(bool active) {
 
 bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if(iss_sync) {
+    iss_sync = false;
     if (ime_on) {
       if (ime_kk) {
         tap_code16(LSFT(KC_LANGUAGE_1));
@@ -682,7 +683,6 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
     } else {
       tap_code16(KC_LANGUAGE_2);
     }
-    iss_sync = false;
     layer_on(L_Base);
   }
   return true;
@@ -729,8 +729,8 @@ void housekeeping_task_user(void) {
   if (iss_idle_to_run) {
     if (timer_expired_fast(now, iss_idle_to_trigger)) {
       iss_idle_to_run = false;
-      ime_on = false;
       iss_sync = false;
+      ime_on = false;
       layer_on(L_Base);
     }
   }
