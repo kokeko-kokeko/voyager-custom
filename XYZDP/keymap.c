@@ -482,6 +482,12 @@ static void update_status_led(const fast_timer_t now);
 static fast_timer_t hk_fast_trigger = 0;
 static const fast_timer_t hk_fast_delay = 33;  // typ 30fps
 
+static fast_timer_t hk_mid_trigger = 0;
+static const fast_timer_t hk_mid_delay = 333;
+
+static fast_timer_t hk_slow_trigger = 0;
+static const fast_timer_t hk_slow_delay = 3333;
+
 // ime state from LANG1/LANG2 key
 static bool ime_on = false;
 static bool ime_kk = false;  //KataKana
@@ -508,6 +514,8 @@ void keyboard_post_init_user(void) {
   fast_timer_t now = timer_read_fast();
 
   hk_fast_trigger = now + hk_fast_delay;
+  hk_mid_trigger = now + hk_mid_delay;
+  hk_slow_trigger = now + hk_slow_delay;
   
   //ANSI
   layer_move(L_Base);
@@ -701,28 +709,33 @@ void housekeeping_task_user(void) {
   
   // early return to throttle
   if (timer_expired_fast(hk_fast_trigger, now)) return;
-  
   hk_fast_trigger = now + hk_fast_delay;
 
   update_status_led(now);
 
-  if (iss_enable) {
-    if (iss_sync_to_run) {
-      if (timer_expired_fast(now, iss_sync_to_trigger)) {
-        iss_sync_to_run = false;
-        iss_sync = true;
-        layer_on(L_Base);      
-      }
-    }
-    if (iss_idle_to_run) {
-      if (timer_expired_fast(now, iss_idle_to_trigger)) {
-        iss_idle_to_run = false;
-        ime_on = false;
-        iss_sync = false;
-        layer_on(L_Base);
-      }
+  if (timer_expired_fast(hk_mid_trigger, now)) return;
+  hk_mid_trigger = now + hk_mid_delay;
+
+  if (iss_sync_to_run) {
+    if (timer_expired_fast(now, iss_sync_to_trigger)) {
+      iss_sync_to_run = false;
+      iss_sync = true;
+      layer_on(L_Base);      
     }
   }
+
+  if (timer_expired_fast(hk_slow_trigger, now)) return;
+  hk_slow_trigger = now + hk_slow_delay;
+  
+  if (iss_idle_to_run) {
+    if (timer_expired_fast(now, iss_idle_to_trigger)) {
+      iss_idle_to_run = false;
+      ime_on = false;
+      iss_sync = false;
+      layer_on(L_Base);
+    }
+  }
+  
   return;
 }
 
@@ -1134,6 +1147,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         iss_enable = false;
         iss_sync = false;
+        iss_sync_to_run = false;
+        iss_idle_to_run = false;
         layer_on(L_Base);
       }
       return false;
