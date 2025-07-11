@@ -588,6 +588,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   
   uint8_t layer = get_highest_layer(state);
   fast_timer_t now = timer_read_fast();
+  
   switch (layer) {
     case L_Base :
     case L_BaseJIS:
