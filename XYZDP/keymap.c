@@ -512,7 +512,6 @@ void keyboard_post_init_user(void) {
   keymap_config.nkro = true;
 
   fast_timer_t now = timer_read_fast();
-
   hk_fast_trigger = now + hk_fast_delay;
   hk_mid_trigger = now + hk_mid_delay;
   hk_slow_trigger = now + hk_slow_delay;
