@@ -707,12 +707,12 @@ void housekeeping_task_user(void) {
   fast_timer_t now = timer_read_fast();
   
   // early return to throttle
-  if (timer_expired_fast(hk_fast_trigger, now)) return;
+  if (!timer_expired_fast(now, hk_fast_trigger)) return;
   hk_fast_trigger = now + hk_fast_delay;
 
   update_status_led(now);
 
-  if (timer_expired_fast(hk_mid_trigger, now)) return;
+  if (!timer_expired_fast(now, hk_mid_trigger)) return;
   hk_mid_trigger = now + hk_mid_delay;
 
   if (iss_sync_to_run) {
@@ -723,7 +723,7 @@ void housekeeping_task_user(void) {
     }
   }
 
-  if (timer_expired_fast(hk_slow_trigger, now)) return;
+  if (!timer_expired_fast(now, hk_slow_trigger)) return;
   hk_slow_trigger = now + hk_slow_delay;
   
   if (iss_idle_to_run) {
