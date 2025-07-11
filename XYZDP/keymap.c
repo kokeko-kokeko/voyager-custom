@@ -479,8 +479,8 @@ static void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t
 static void update_status_led(const fast_timer_t now);
 
 // housekeeping throttle, only exec every unit time
-static fast_timer_t hk_trigger = 0;
-static const fast_timer_t hk_delay = 33;  // typ 30fps
+static fast_timer_t hk_fast_trigger = 0;
+static const fast_timer_t hk_fast_delay = 33;  // typ 30fps
 
 // ime state from LANG1/LANG2 key
 static bool ime_on = false;
@@ -507,7 +507,7 @@ void keyboard_post_init_user(void) {
 
   fast_timer_t now = timer_read_fast();
 
-  hk_trigger = now + hk_delay;
+  hk_fast_trigger = now + hk_fast_delay;
   
   //ANSI
   layer_move(L_Base);
@@ -700,9 +700,9 @@ void housekeeping_task_user(void) {
   fast_timer_t now = timer_read_fast();
   
   // early return to throttle
-  if (timer_expired_fast(hk_trigger, now)) return;
+  if (timer_expired_fast(hk_fast_trigger, now)) return;
   
-  hk_trigger = now + hk_delay;
+  hk_fast_trigger = now + hk_fast_delay;
 
   update_status_led(now);
 
