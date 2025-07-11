@@ -1996,7 +1996,7 @@ static void status_led_task_1(const fast_timer_t now, const uint8_t * const patt
   if (pattern == NULL) {
     // normal operation
     if (delay == 0) return;
-    if (timer_expired_fast(trigger, now)) return;
+    if (!timer_expired_fast(now, trigger)) return;
   } else {
     // update operation
     trigger = now;
@@ -2032,7 +2032,7 @@ static void status_led_task_2(const fast_timer_t now, const uint8_t * const patt
   if (pattern == NULL) {
     // normal operation
     if (delay == 0) return;
-    if (timer_expired_fast(trigger, now)) return;
+    if (!timer_expired_fast(now, trigger)) return;
   } else {
     // update operation
     trigger = now;
@@ -2068,7 +2068,7 @@ static void status_led_task_3(const fast_timer_t now, const uint8_t * const patt
   if (pattern == NULL) {
     // normal operation
     if (delay == 0) return;
-    if (timer_expired_fast(trigger, now)) return;
+    if (!timer_expired_fast(now, trigger)) return;
   } else {
     // update operation
     trigger = now;
@@ -2104,7 +2104,7 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
   if (pattern == NULL) {
     // normal operation
     if (delay == 0) return;
-    if (timer_expired_fast(trigger, now)) return;
+    if (!timer_expired_fast(now, trigger)) return;
   } else {
     // update operation
     trigger = now;
