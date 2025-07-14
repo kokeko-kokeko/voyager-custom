@@ -2019,8 +2019,8 @@ static void status_led_task_1(const fast_timer_t now, const uint8_t * const patt
   out_val = !out_val;
   
   delay = ((fast_timer_t)(*ptr)) << scale;
+  ptr++;
   trigger += delay;
-  ptr++; 
   
   return;
 }
@@ -2060,8 +2060,8 @@ static void status_led_task_2(const fast_timer_t now, const uint8_t * const patt
   out_val = !out_val;
   
   delay = ((fast_timer_t)(*ptr)) << scale;
+  ptr++;
   trigger += delay;
-  ptr++; 
   
   return;
 }
@@ -2101,8 +2101,8 @@ static void status_led_task_3(const fast_timer_t now, const uint8_t * const patt
   out_val = !out_val;
   
   delay = ((fast_timer_t)(*ptr)) << scale;
-  trigger += delay;
   ptr++; 
+  trigger += delay;
   
   return;
 }
@@ -2142,8 +2142,8 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
   out_val = !out_val;
   
   delay = ((fast_timer_t)(*ptr)) << scale;
+  ptr++;
   trigger += delay;
-  ptr++; 
   
   return;
 }
