@@ -385,10 +385,10 @@ const key_override_t ko_jis_base_DOTs  = ko_make_with_layers(MOD_MASK_SHIFT, JP_
 const key_override_t *key_overrides[] = {
   &ko_ansi_base_1,  &ko_ansi_base_2,  &ko_ansi_base_3,  &ko_ansi_base_4,
   &ko_ansi_base_1s, &ko_ansi_base_2s, &ko_ansi_base_3s, &ko_ansi_base_4s,
-  &ko_ansi_base_QUOTs, &ko_ansi_base_COMMs, &ko_ansi_base_MINSs, &ko_ansi_base_SLSHs,  &ko_ansi_base_DOTs,
+  &ko_ansi_base_QUOTs, &ko_ansi_base_COMMs, &ko_ansi_base_MINSs, &ko_ansi_base_SLSHs, &ko_ansi_base_DOTs,
   &ko_jis_base_1,  &ko_jis_base_2,
   &ko_jis_base_1s, &ko_jis_base_2s,
-  &ko_jis_base_ATs, &ko_jis_base_MINSs, &ko_jis_base_SLSHs,  &ko_jis_base_DOTs
+  &ko_jis_base_ATs, &ko_jis_base_MINSs, &ko_jis_base_SLSHs, &ko_jis_base_DOTs
 };
 
 static void rgblight_set_hue(const uint8_t hue);
@@ -432,31 +432,31 @@ static const uint8_t val_tbl[48] = {
    53,  51,  46,  41,  31,  21,  11,   1
 };
 static const uint8_t idx2pos_tbl[48] = {
-   49,  43,  37,  31,
-   48,  42,  36,  30,
-   47,  41,  35,  29,
-   46,  40,  34,  28,
-   45,  39,  33,  27,
-   44,  38,  32,  26,
+   49, 43, 37, 31,
+   48, 42, 36, 30,
+   47, 41, 35, 29,
+   46, 40, 34, 28,
+   45, 39, 33, 27,
+   44, 38, 32, 26,
    
-   23,  17,  11,   5,
-   22,  16,  10,   4,
-   21,  15,   9,   3,
-   20,  14,   8,   2,
-   19,  13,   7,   1,
-   18,  12,   6,   0
+   23, 17, 11,  5,
+   22, 16, 10,  4,
+   21, 15,  9,  3,
+   20, 14,  8,  2,
+   19, 13,  7,  1,
+   18, 12,  6,  0
 };
 static const uint8_t pos2idx_tbl[52] = {
-   47,  43,  39,  35,  31,  27,
-   46,  42,  38,  34,  30,  26,
-   45,  41,  37,  33,  29,  25,
-   44,  40,  36,  32,  28,  24,
-    0,   0,
-   23,  19,  15,   11,  7,   3,
-   22,  18,  14,   10,  6,   2,
-   21,  17,  13,    9,  5,   1,
-   20,  16,  12,    8,  4,   0,
-    0,   0
+   47, 43, 39, 35, 31, 27,
+   46, 42, 38, 34, 30, 26,
+   45, 41, 37, 33, 29, 25,
+   44, 40, 36, 32, 28, 24,
+    0,  0,
+   23, 19, 15, 11,  7,  3,
+   22, 18, 14, 10,  6,  2,
+   21, 17, 13,  9,  5,  1,
+   20, 16, 12,  8,  4,  0,
+    0,  0
 };
 
 // status LED pattern list, no const limit, terminate symbol
