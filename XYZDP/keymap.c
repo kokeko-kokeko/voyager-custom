@@ -468,11 +468,11 @@ static const uint8_t pos2idx_tbl[52] = {
 // 0: terminate, stop exec
 // MAX: restart pattern 
 // max 32x255=8192ms 8sec
-static const uint8_t led_pattern_off[] = {0, 0, UINT8_MAX, UINT8_MAX};
-static const uint8_t led_pattern_on[] = {1, 0, UINT8_MAX, UINT8_MAX};
-static const uint8_t led_pattern_blink[] = {1, 20, 7, UINT8_MAX, UINT8_MAX};
-static const uint8_t led_pattern_single[] = {1, 15, 0, UINT8_MAX, UINT8_MAX};
-static const uint8_t led_pattern_oneshot[] = {1, 10, 2, 10, 2, 10, 2, 10, 2, 10, 2, 10, 2, 10, 2, 10, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t led_pattern_off[] = {0, 0, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t led_pattern_on[] = {1, 0, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t led_pattern_blink[] = {1, 5, 20, 7, UINT8_MAX, UINT8_MAX};
+static const uint8_t led_pattern_single[] = {1, 5, 15, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t led_pattern_oneshot[] = {1, 5, 10, 2, 10, 2, 10, 2, 10, 2, 10, 2, 10, 2, 10, 2, 10, 0, UINT8_MAX, UINT8_MAX};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 static void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t * const pattern);
@@ -1991,6 +1991,7 @@ static void status_led_task_1(const fast_timer_t now, const uint8_t * const patt
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
+  static uint8_t scale = 0;
 
   if (pattern == NULL) {
     // normal operation
@@ -2003,22 +2004,26 @@ static void status_led_task_1(const fast_timer_t now, const uint8_t * const patt
     ptr = pattern;
     out_val = *ptr;
     ptr++;
+    scale = *ptr;
+    ptr++;
   }
   
   if (*ptr == UINT8_MAX) {
     ptr = ptr_ori;
     out_val = *ptr;
     ptr++;
+    scale = *ptr;
+    ptr++;
   }
   
   STATUS_LED_1(out_val);
   out_val = !out_val;
   
-  delay = ((fast_timer_t)(*ptr)) << 5;
+  delay = ((fast_timer_t)(*ptr)) << scale;
   trigger += delay;
   ptr++; 
   
-  return; 
+  return;
 }
 
 static void status_led_task_2(const fast_timer_t now, const uint8_t * const pattern) {
@@ -2027,6 +2032,7 @@ static void status_led_task_2(const fast_timer_t now, const uint8_t * const patt
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
+  static uint8_t scale = 0;
 
   if (pattern == NULL) {
     // normal operation
@@ -2039,18 +2045,22 @@ static void status_led_task_2(const fast_timer_t now, const uint8_t * const patt
     ptr = pattern;
     out_val = *ptr;
     ptr++;
+    scale = *ptr;
+    ptr++;
   }
   
   if (*ptr == UINT8_MAX) {
     ptr = ptr_ori;
     out_val = *ptr;
     ptr++;
+    scale = *ptr;
+    ptr++;
   }
   
   STATUS_LED_2(out_val);
   out_val = !out_val;
   
-  delay = ((fast_timer_t)(*ptr)) << 5;
+  delay = ((fast_timer_t)(*ptr)) << scale;
   trigger += delay;
   ptr++; 
   
@@ -2063,6 +2073,7 @@ static void status_led_task_3(const fast_timer_t now, const uint8_t * const patt
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
+  static uint8_t scale = 0;
 
   if (pattern == NULL) {
     // normal operation
@@ -2075,18 +2086,22 @@ static void status_led_task_3(const fast_timer_t now, const uint8_t * const patt
     ptr = pattern;
     out_val = *ptr;
     ptr++;
+    scale = *ptr;
+    ptr++;
   }
   
   if (*ptr == UINT8_MAX) {
     ptr = ptr_ori;
     out_val = *ptr;
     ptr++;
+    scale = *ptr;
+    ptr++;
   }
   
   STATUS_LED_3(out_val);
   out_val = !out_val;
   
-  delay = ((fast_timer_t)(*ptr)) << 5;
+  delay = ((fast_timer_t)(*ptr)) << scale;
   trigger += delay;
   ptr++; 
   
@@ -2099,6 +2114,7 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
   static const uint8_t * ptr_ori = NULL;
   static const uint8_t * ptr = NULL;
   static bool out_val = false;
+  static uint8_t scale = 0;
 
   if (pattern == NULL) {
     // normal operation
@@ -2111,18 +2127,22 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
     ptr = pattern;
     out_val = *ptr;
     ptr++;
+    scale = *ptr;
+    ptr++;
   }
   
   if (*ptr == UINT8_MAX) {
     ptr = ptr_ori;
     out_val = *ptr;
     ptr++;
+    scale = *ptr;
+    ptr++;
   }
   
   STATUS_LED_4(out_val);
   out_val = !out_val;
   
-  delay = ((fast_timer_t)(*ptr)) << 5;
+  delay = ((fast_timer_t)(*ptr)) << scale;
   trigger += delay;
   ptr++; 
   
