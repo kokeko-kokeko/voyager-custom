@@ -463,11 +463,10 @@ static const uint8_t pos2idx_tbl[52] = {
 };
 
 // status LED pattern list, no const limit, terminate symbol
-// init value, delay, delay, ...
-// delay reduce data x32 (5bit shift) 8bit
+// init value, scale, delay, delay, ...
+// delay reduce data with shift by scale value
 // 0: terminate, stop exec
 // MAX: restart pattern 
-// max 32x255=8192ms 8sec
 static const uint8_t led_pattern_off[] = {0, 0, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t led_pattern_on[] = {1, 0, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t led_pattern_blink[] = {1, 2, 160, 60, UINT8_MAX, UINT8_MAX};
