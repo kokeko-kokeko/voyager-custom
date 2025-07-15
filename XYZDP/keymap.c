@@ -1997,7 +1997,8 @@ static void status_led_task_1(const fast_timer_t now, const uint8_t * const patt
     // update operation
     trigger = now;
     ptr_ori = pattern;
-    ptr = pattern;
+    
+    ptr = ptr_ori;
     out_val = *(ptr++);
     scale = *(ptr++);
   }
@@ -2033,7 +2034,8 @@ static void status_led_task_2(const fast_timer_t now, const uint8_t * const patt
     // update operation
     trigger = now;
     ptr_ori = pattern;
-    ptr = pattern;
+    
+    ptr = ptr_ori;
     out_val = *(ptr++);
     scale = *(ptr++);
   }
@@ -2069,7 +2071,8 @@ static void status_led_task_3(const fast_timer_t now, const uint8_t * const patt
     // update operation
     trigger = now;
     ptr_ori = pattern;
-    ptr = pattern;
+    
+    ptr = ptr_ori;
     out_val = *(ptr++);
     scale = *(ptr++);
   }
@@ -2105,7 +2108,8 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
     // update operation
     trigger = now;
     ptr_ori = pattern;
-    ptr = pattern;
+    
+    ptr = ptr_ori;
     out_val = *(ptr++);
     scale = *(ptr++);
   }
