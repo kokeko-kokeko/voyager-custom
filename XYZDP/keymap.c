@@ -2260,11 +2260,6 @@ static void set_layer_color_fwsys_map(void) {
   rgb_matrix_set_color(19, o, 0, o);
   rgb_matrix_set_color(20, f, 0, f);
 
-  //LED
-  rgb_matrix_set_color(47, o, o, o);
-  rgb_matrix_set_color(48, h, h, h);
-  rgb_matrix_set_color(49, f, 0, 0);
-
   //reset
   rgb_matrix_set_color(31, f, 0, 0);
 }
