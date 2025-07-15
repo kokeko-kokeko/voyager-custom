@@ -1998,25 +1998,20 @@ static void status_led_task_1(const fast_timer_t now, const uint8_t * const patt
     trigger = now;
     ptr_ori = pattern;
     ptr = pattern;
-    out_val = *ptr;
-    ptr++;
-    scale = *ptr;
-    ptr++;
+    out_val = *(ptr++);
+    scale = *(ptr++);
   }
   
   if (*ptr == UINT8_MAX) {
     ptr = ptr_ori;
-    out_val = *ptr;
-    ptr++;
-    scale = *ptr;
-    ptr++;
+    out_val = *(ptr++);
+    scale = *(ptr++);
   }
   
   STATUS_LED_1(out_val);
   out_val = !out_val;
   
-  delay = ((fast_timer_t)(*ptr)) << scale;
-  ptr++;
+  delay = ((fast_timer_t)(*(ptr++))) << scale;
   trigger += delay;
   
   return;
