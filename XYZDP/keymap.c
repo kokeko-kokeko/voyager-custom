@@ -389,18 +389,18 @@ enum layer_num {
   L_Number_JIS,
   L_Cursor,
   L_Cursor_JIS,
-  L_Lt_Rt,
-  L_Lt_Rt_JIS,
-  L_Lp,
-  L_Rp,
-  L_Lp_Rp,
-  L_Lp_Lt,
-  L_Rp_Rt,
-  L_Lp_Lt_Rt,
-  L_Rp_Lt_Rt,
-  L_Lp_Rp_Lt,
-  L_Lp_Rp_Rt,
-  L_Lp_Rp_Lt_Rt,
+  L_BothThumb,
+  L_BothThumb_JIS,
+  L_LeftPinky,
+  L_RightPinky,
+  L_BothPinky,
+  L_LeftPinky_LeftThumb,
+  L_RightPinky_RightThumb,
+  L_LeftPinky_BothThumb,
+  L_RightPinky_BothThumb,
+  L_BothPinky_LeftThumb,
+  L_BothPinky_RightThumb,
+  L_BothPinky_BothThumb,
   L_FwSys,
   L_SetHue,
   L_SetSat,
@@ -587,8 +587,8 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
     switch (keycode) {
       case LT(L_Number, KC_SPACE):
       case LT(L_Cursor, KC_SPACE):
-      case LT(L_Lp, KC_B):
-      case LT(L_Rp, KC_V):
+      case LT(L_LeftPinky, KC_B):
+      case LT(L_RightPinky, KC_V):
         return 0;
 
       default:
@@ -626,25 +626,25 @@ bool rgb_matrix_indicators_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   //both thumb
-  state = update_tri_layer_state(state, L_Number, L_Cursor, L_Lt_Rt);
+  state = update_tri_layer_state(state, L_Number, L_Cursor, L_BothThumb);
   
   //tumb and outer pin
-  state = update_tri_layer_state(state, L_Lp, L_Number, L_Lp_Lt);
-  state = update_tri_layer_state(state, L_Rp, L_Cursor, L_Rp_Rt);
+  state = update_tri_layer_state(state, L_LeftPinky, L_Number, L_LeftPinky_LeftThumb);
+  state = update_tri_layer_state(state, L_RightPinky, L_Cursor, L_RightPinky_RightThumb);
   
   //both outer pin
-  state = update_tri_layer_state(state, L_Lp, L_Rp, L_Lp_Rp);
+  state = update_tri_layer_state(state, L_LeftPinky, L_RightPinky, L_BothPinky);
 
   //both thumb and each pin
-  state = update_tri_layer_state(state, L_Lp, L_Lt_Rt, L_Lp_Lt_Rt);
-  state = update_tri_layer_state(state, L_Rp, L_Lt_Rt, L_Rp_Lt_Rt);
+  state = update_tri_layer_state(state, L_LeftPinky, L_BothThumb, L_LeftPinky_BothThumb);
+  state = update_tri_layer_state(state, L_RightPinky, L_BothThumb, L_RightPinky_BothThumb);
 
   //both pin and each thumb
-  state = update_tri_layer_state(state, L_Lp_Rp, L_Number, L_Lp_Rp_Lt);
-  state = update_tri_layer_state(state, L_Lp_Rp, L_Cursor, L_Lp_Rp_Rt);
+  state = update_tri_layer_state(state, L_BothPinky, L_Number, L_BothPinky_LeftThumb);
+  state = update_tri_layer_state(state, L_BothPinky, L_Cursor, L_BothPinky_RightThumb);
   
   // both thumb and pin
-  state = update_tri_layer_state(state, L_Lp_Rp, L_Lt_Rt, L_Lp_Rp_Lt_Rt);
+  state = update_tri_layer_state(state, L_BothPinky, L_BothThumb, L_BothPinky_BothThumb);
 
   // call FwSys with Bkt and Fn
   state = update_tri_layer_state(state, L_Function, L_Cursor, L_FwSys);  
@@ -652,7 +652,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   //ANSI/JIS addiional enable
   state = update_tri_layer_state(state, L_Base_JIS, L_Number, L_Number_JIS);
   state = update_tri_layer_state(state, L_Base_JIS, L_Cursor, L_Cursor_JIS);
-  state = update_tri_layer_state(state, L_Base_JIS, L_Lt_Rt, L_Lt_Rt_JIS);
+  state = update_tri_layer_state(state, L_Base_JIS, L_BothThumb, L_BothThumb_JIS);
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
@@ -694,52 +694,52 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b0010, led_pattern_on);
       status_led(now, 0b0001, led_pattern_blink);
       break;
-    case L_Lt_Rt:
-    case L_Lt_Rt_JIS:
+    case L_BothThumb:
+    case L_BothThumb_JIS:
       status_led(now, 0b1100, led_pattern_off);
       status_led(now, 0b0011, led_pattern_blink);
       break;
-    case L_Lp:
+    case L_LeftPinky:
       status_led(now, 0b0110, led_pattern_off);
       status_led(now, 0b0001, led_pattern_on);
       status_led(now, 0b1000, led_pattern_blink);
       break;
-    case L_Rp:
+    case L_RightPinky:
       status_led(now, 0b1001, led_pattern_off);
       status_led(now, 0b0010, led_pattern_on);
       status_led(now, 0b0100, led_pattern_blink);
       break;
-    case L_Lp_Rp:
+    case L_BothPinky:
       status_led(now, 0b0011, led_pattern_on);
       status_led(now, 0b1100, led_pattern_blink);
       break;
-    case L_Lp_Lt:
+    case L_LeftPinky_LeftThumb:
       status_led(now, 0b0100, led_pattern_off);
       status_led(now, 0b0001, led_pattern_on);
       status_led(now, 0b1010, led_pattern_blink);
       break;
-    case L_Rp_Rt:
+    case L_RightPinky_RightThumb:
       status_led(now, 0b1000, led_pattern_off);
       status_led(now, 0b0010, led_pattern_on);
       status_led(now, 0b0101, led_pattern_blink);
       break;
-    case L_Lp_Lt_Rt:
+    case L_LeftPinky_BothThumb:
       status_led(now, 0b0100, led_pattern_off);
       status_led(now, 0b1011, led_pattern_blink);
       break;
-    case L_Rp_Lt_Rt:
+    case L_RightPinky_BothThumb:
       status_led(now, 0b1000, led_pattern_off);
       status_led(now, 0b0111, led_pattern_blink);
       break;
-    case L_Lp_Rp_Lt:
+    case L_BothPinky_LeftThumb:
       status_led(now, 0b0001, led_pattern_on);
       status_led(now, 0b1110, led_pattern_blink);
       break;
-    case L_Lp_Rp_Rt:
+    case L_BothPinky_RightThumb:
       status_led(now, 0b0010, led_pattern_on);
       status_led(now, 0b1101, led_pattern_blink);
       break;
-    case L_Lp_Rp_Lt_Rt:
+    case L_BothPinky_BothThumb:
       status_led(now, 0b1111, led_pattern_blink);
       break;
     case L_FwSys:
@@ -2098,7 +2098,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LT(L_Function, KC_LANGUAGE_1):
       if (record->tap.count > 0) {
         if (record->event.pressed) {
-          if (layer_state_is(L_Lp) | layer_state_is(L_Rp) | layer_state_is(L_Function) |
+          if (layer_state_is(L_LeftPinky) | layer_state_is(L_RightPinky) | layer_state_is(L_Function) |
             layer_state_is(L_Number) | layer_state_is(L_Cursor)) {
             // reverse side (upper layer)
             if ((get_mods() & MOD_MASK_CSAG) == 0) {
@@ -2125,7 +2125,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case KC_LANGUAGE_2:
       if (record->event.pressed) {
-        if (layer_state_is(L_Lp) | layer_state_is(L_Rp) | layer_state_is(L_Function) |
+        if (layer_state_is(L_LeftPinky) | layer_state_is(L_RightPinky) | layer_state_is(L_Function) |
           layer_state_is(L_Number) | layer_state_is(L_Cursor)) {
           // reverse side (upper layer)
           if ((get_mods() & MOD_MASK_CAG) == 0) {
