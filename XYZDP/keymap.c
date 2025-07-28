@@ -389,16 +389,18 @@ enum layer_num {
   L_NumJIS,
   L_Cur,
   L_CurJIS,
-  L_Bt,
-  L_BtJIS,
+  L_LRt,
+  L_LRtJIS,
   L_Lp,
   L_Rp,
-  L_Bp,
+  L_LRp,
   L_LpLt,
   L_RpRt,
-  L_LpBt,
-  L_RpBt,
-  L_BpBt,
+  L_LpLRt,
+  L_RpLRt,
+  L_LRpLt,
+  L_LRpRt,
+  L_LRpLRt,
   L_FwSys,
   L_SetHue,
   L_SetSat,
@@ -624,21 +626,25 @@ bool rgb_matrix_indicators_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   //both thumb
-  state = update_tri_layer_state(state, L_Num, L_Cur, L_Bt);
+  state = update_tri_layer_state(state, L_Num, L_Cur, L_LRt);
   
   //tumb and outer pin
   state = update_tri_layer_state(state, L_Lp, L_Num, L_LpLt);
   state = update_tri_layer_state(state, L_Rp, L_Cur, L_RpRt);
   
   //both outer pin
-  state = update_tri_layer_state(state, L_Lp, L_Rp, L_Bp);
+  state = update_tri_layer_state(state, L_Lp, L_Rp, L_LRp);
 
   //both thumb and each pin
-  state = update_tri_layer_state(state, L_Lp, L_Bt, L_LpBt);
-  state = update_tri_layer_state(state, L_Rp, L_Bt, L_RpBt);
+  state = update_tri_layer_state(state, L_Lp, L_LRt, L_LpLRt);
+  state = update_tri_layer_state(state, L_Rp, L_LRt, L_RpLRt);
 
+  //both pin and each thumb
+  state = update_tri_layer_state(state, L_LRp, L_Num, L_LRpLt);
+  state = update_tri_layer_state(state, L_LRp, L_Cur, L_LRpRt);
+  
   // both thumb and pin
-  state = update_tri_layer_state(state, L_Bp, L_Bt, L_BpBt);
+  state = update_tri_layer_state(state, L_LRp, L_LRt, L_LRpLRt);
 
   // call FwSys with Bkt and Fn
   state = update_tri_layer_state(state, L_Fn, L_Cur, L_FwSys);  
@@ -646,7 +652,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   //ANSI/JIS addiional enable
   state = update_tri_layer_state(state, L_BaseJIS, L_Num, L_NumJIS);
   state = update_tri_layer_state(state, L_BaseJIS, L_Cur, L_CurJIS);
-  state = update_tri_layer_state(state, L_BaseJIS, L_Bt, L_BtJIS);
+  state = update_tri_layer_state(state, L_BaseJIS, L_LRt, L_LRtJIS);
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
@@ -688,8 +694,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b0010, led_pattern_on);
       status_led(now, 0b0001, led_pattern_blink);
       break;
-    case L_Bt:
-    case L_BtJIS:
+    case L_LRt:
+    case L_LRtJIS:
       status_led(now, 0b1100, led_pattern_off);
       status_led(now, 0b0011, led_pattern_blink);
       break;
@@ -703,7 +709,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b0010, led_pattern_on);
       status_led(now, 0b0100, led_pattern_blink);
       break;
-    case L_Bp:
+    case L_LRp:
       status_led(now, 0b0011, led_pattern_on);
       status_led(now, 0b1100, led_pattern_blink);
       break;
@@ -717,15 +723,23 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b0010, led_pattern_on);
       status_led(now, 0b0101, led_pattern_blink);
       break;
-    case L_LpBt:
+    case L_LpLRt:
       status_led(now, 0b0100, led_pattern_off);
       status_led(now, 0b1011, led_pattern_blink);
       break;
-    case L_RpBt:
+    case L_RpLRt:
       status_led(now, 0b1000, led_pattern_off);
       status_led(now, 0b0111, led_pattern_blink);
       break;
-    case L_BpBt:
+    case L_LRpLt:
+      status_led(now, 0b0001, led_pattern_on);
+      status_led(now, 0b1110, led_pattern_blink);
+      break;
+    case L_LRpRt:
+      status_led(now, 0b0010, led_pattern_on);
+      status_led(now, 0b1101, led_pattern_blink);
+      break;
+    case L_LRpLRt:
       status_led(now, 0b1111, led_pattern_blink);
       break;
     case L_FwSys:
