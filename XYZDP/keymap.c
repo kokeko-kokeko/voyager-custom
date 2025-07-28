@@ -366,13 +366,9 @@ enum layer_num {
   L_LeftPinky,
   L_RightPinky,
   L_BothPinky,
-  L_LeftPinky_LeftThumb,
-  L_RightPinky_RightThumb,
-  L_LeftPinky_BothThumb,
-  L_RightPinky_BothThumb,
-  L_BothPinky_LeftThumb,
-  L_BothPinky_RightThumb,
-  L_BothPinky_BothThumb,
+  L_LeftPinkyThumb,
+  L_RightPinkyThumb,
+  L_BothPinkyThumb,
   L_Firmware,
   L_Set_Hue,
   L_Set_Sat,
@@ -607,22 +603,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Number, L_Cursor, L_BothThumb);
   
   //tumb and outer pin
-  state = update_tri_layer_state(state, L_LeftPinky, L_Number, L_LeftPinky_LeftThumb);
-  state = update_tri_layer_state(state, L_RightPinky, L_Cursor, L_RightPinky_RightThumb);
+  state = update_tri_layer_state(state, L_LeftPinky, L_Number, L_LeftPinkyThumb);
+  state = update_tri_layer_state(state, L_RightPinky, L_Cursor, L_RightPinkyThumb);
   
   //both outer pin
   state = update_tri_layer_state(state, L_LeftPinky, L_RightPinky, L_BothPinky);
 
-  //both thumb and each pin
-  state = update_tri_layer_state(state, L_LeftPinky, L_BothThumb, L_LeftPinky_BothThumb);
-  state = update_tri_layer_state(state, L_RightPinky, L_BothThumb, L_RightPinky_BothThumb);
-
-  //both pin and each thumb
-  state = update_tri_layer_state(state, L_BothPinky, L_Number, L_BothPinky_LeftThumb);
-  state = update_tri_layer_state(state, L_BothPinky, L_Cursor, L_BothPinky_RightThumb);
-  
   // both thumb and pin
-  state = update_tri_layer_state(state, L_BothPinky, L_BothThumb, L_BothPinky_BothThumb);
+  state = update_tri_layer_state(state, L_LeftPinkyThumb, L_RightPinkyThumb, L_BothPinkyThumb);
 
   // call FwSys with Bkt and Fn
   state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware);  
@@ -691,33 +679,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b0011, led_pattern_on);
       status_led(now, 0b1100, led_pattern_blink);
       break;
-    case L_LeftPinky_LeftThumb:
+    case L_LeftPinkyThumb:
       status_led(now, 0b0100, led_pattern_off);
       status_led(now, 0b0001, led_pattern_on);
       status_led(now, 0b1010, led_pattern_blink);
       break;
-    case L_RightPinky_RightThumb:
+    case L_RightPinkyThumb:
       status_led(now, 0b1000, led_pattern_off);
       status_led(now, 0b0010, led_pattern_on);
       status_led(now, 0b0101, led_pattern_blink);
       break;
-    case L_LeftPinky_BothThumb:
-      status_led(now, 0b0100, led_pattern_off);
-      status_led(now, 0b1011, led_pattern_blink);
-      break;
-    case L_RightPinky_BothThumb:
-      status_led(now, 0b1000, led_pattern_off);
-      status_led(now, 0b0111, led_pattern_blink);
-      break;
-    case L_BothPinky_LeftThumb:
-      status_led(now, 0b0001, led_pattern_on);
-      status_led(now, 0b1110, led_pattern_blink);
-      break;
-    case L_BothPinky_RightThumb:
-      status_led(now, 0b0010, led_pattern_on);
-      status_led(now, 0b1101, led_pattern_blink);
-      break;
-    case L_BothPinky_BothThumb:
+    case L_BothPinkyThumb:
       status_led(now, 0b1111, led_pattern_blink);
       break;
     case L_Firmware:
