@@ -379,9 +379,9 @@ enum layer_num {
   L_BtJIS,
   L_Lp,
   L_Rp,
+  L_Bp,
   L_Ltp,
   L_Rtp,
-  L_Bpin,
   L_LpBt,
   L_RpBt,
   L_Btp,
@@ -617,14 +617,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Rp, L_Cur, L_Rtp);
   
   //both outer pin
-  state = update_tri_layer_state(state, L_Lp, L_Rp, L_Bpin);
+  state = update_tri_layer_state(state, L_Lp, L_Rp, L_Bp);
 
   //both thumb and each pin
   state = update_tri_layer_state(state, L_Lp, L_Bt, L_LpBt);
   state = update_tri_layer_state(state, L_Rp, L_Bt, L_RpBt);
 
   // both thumb and pin
-  state = update_tri_layer_state(state, L_Bpin, L_Bt, L_Btp);
+  state = update_tri_layer_state(state, L_Bp, L_Bt, L_Btp);
 
   // call FwSys with Bkt and Fn
   state = update_tri_layer_state(state, L_Fn, L_Cur, L_FwSys);  
@@ -689,6 +689,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b0010, led_pattern_on);
       status_led(now, 0b0100, led_pattern_blink);
       break;
+    case L_Bp:
+      status_led(now, 0b0011, led_pattern_on);
+      status_led(now, 0b1100, led_pattern_blink);
+      break;
     case L_Ltp:
       status_led(now, 0b0100, led_pattern_off);
       status_led(now, 0b0001, led_pattern_on);
@@ -698,10 +702,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b1000, led_pattern_off);
       status_led(now, 0b0010, led_pattern_on);
       status_led(now, 0b0101, led_pattern_blink);
-      break;
-    case L_Bpin:
-      status_led(now, 0b0011, led_pattern_on);
-      status_led(now, 0b1100, led_pattern_blink);
       break;
     case L_LpBt:
       status_led(now, 0b0100, led_pattern_off);
