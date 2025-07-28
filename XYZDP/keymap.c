@@ -349,13 +349,13 @@ extern rgb_config_t rgb_matrix_config;
 enum layer_num {
   L_Base = 0,
   L_BaseJIS,
+  L_Fn,
   L_Num,
   L_NumJIS,
   L_Cur,
   L_CurJIS,
   L_BktEx,
   L_BktExJIS,
-  L_Fn,
   L_Lpin,
   L_Rpin,
   L_Ltp,
@@ -627,6 +627,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         status_led(now, 0b0001, led_pattern_on);
       }
       break;
+    case L_Fn:
+      status_led(now, 0b1100, led_pattern_off);
+      status_led(now, 0b0011, led_pattern_on);
+      break;
     case L_Num:
     case L_NumJIS:
       status_led(now, 0b1100, led_pattern_off);
@@ -643,10 +647,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_BktExJIS:
       status_led(now, 0b1100, led_pattern_off);
       status_led(now, 0b0011, led_pattern_blink);
-      break;
-    case L_Fn:
-      status_led(now, 0b1100, led_pattern_off);
-      status_led(now, 0b0011, led_pattern_on);
       break;
     case L_Lpin:
       status_led(now, 0b0110, led_pattern_off);
