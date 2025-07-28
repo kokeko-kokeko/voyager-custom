@@ -375,10 +375,10 @@ enum layer_num {
   L_NumJIS,
   L_Cur,
   L_CurJIS,
-  L_BktEx,
-  L_BktExJIS,
-  L_Lpin,
-  L_Rpin,
+  L_Bt,
+  L_BtJIS,
+  L_Lp,
+  L_Rp,
   L_Ltp,
   L_Rtp,
   L_Bpin,
@@ -571,8 +571,8 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
     switch (keycode) {
       case LT(L_Num, KC_SPACE):
       case LT(L_Cur, KC_SPACE):
-      case LT(L_Lpin, KC_B):
-      case LT(L_Rpin, KC_V):
+      case LT(L_Lp, KC_B):
+      case LT(L_Rp, KC_V):
         return 0;
 
       default:
@@ -610,21 +610,21 @@ bool rgb_matrix_indicators_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   //both thumb
-  state = update_tri_layer_state(state, L_Num, L_Cur, L_BktEx);
+  state = update_tri_layer_state(state, L_Num, L_Cur, L_Bt);
   
   //tumb and outer pin
-  state = update_tri_layer_state(state, L_Lpin, L_Num, L_Ltp);
-  state = update_tri_layer_state(state, L_Rpin, L_Cur, L_Rtp);
+  state = update_tri_layer_state(state, L_Lp, L_Num, L_Ltp);
+  state = update_tri_layer_state(state, L_Rp, L_Cur, L_Rtp);
   
   //both outer pin
-  state = update_tri_layer_state(state, L_Lpin, L_Rpin, L_Bpin);
+  state = update_tri_layer_state(state, L_Lp, L_Rp, L_Bpin);
 
   //both thumb and each pin
-  state = update_tri_layer_state(state, L_Lpin, L_BktEx, L_LpBt);
-  state = update_tri_layer_state(state, L_Rpin, L_BktEx, L_RpBt);
+  state = update_tri_layer_state(state, L_Lp, L_Bt, L_LpBt);
+  state = update_tri_layer_state(state, L_Rp, L_Bt, L_RpBt);
 
   // both thumb and pin
-  state = update_tri_layer_state(state, L_Bpin, L_BktEx, L_Btp);
+  state = update_tri_layer_state(state, L_Bpin, L_Bt, L_Btp);
 
   // call FwSys with Bkt and Fn
   state = update_tri_layer_state(state, L_Fn, L_Cur, L_FwSys);  
@@ -632,7 +632,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   //ANSI/JIS addiional enable
   state = update_tri_layer_state(state, L_BaseJIS, L_Num, L_NumJIS);
   state = update_tri_layer_state(state, L_BaseJIS, L_Cur, L_CurJIS);
-  state = update_tri_layer_state(state, L_BaseJIS, L_BktEx, L_BktExJIS);
+  state = update_tri_layer_state(state, L_BaseJIS, L_Bt, L_BtJIS);
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
@@ -674,17 +674,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b0010, led_pattern_on);
       status_led(now, 0b0001, led_pattern_blink);
       break;
-    case L_BktEx:
-    case L_BktExJIS:
+    case L_Bt:
+    case L_BtJIS:
       status_led(now, 0b1100, led_pattern_off);
       status_led(now, 0b0011, led_pattern_blink);
       break;
-    case L_Lpin:
+    case L_Lp:
       status_led(now, 0b0110, led_pattern_off);
       status_led(now, 0b0001, led_pattern_on);
       status_led(now, 0b1000, led_pattern_blink);
       break;
-    case L_Rpin:
+    case L_Rp:
       status_led(now, 0b1001, led_pattern_off);
       status_led(now, 0b0010, led_pattern_on);
       status_led(now, 0b0100, led_pattern_blink);
@@ -2070,7 +2070,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LT(L_Fn, KC_LANGUAGE_1):
       if (record->tap.count > 0) {
         if (record->event.pressed) {
-          if (layer_state_is(L_Lpin) | layer_state_is(L_Rpin) | layer_state_is(L_Fn) |
+          if (layer_state_is(L_Lp) | layer_state_is(L_Rp) | layer_state_is(L_Fn) |
             layer_state_is(L_Num) | layer_state_is(L_Cur)) {
             // reverse side (upper layer)
             if ((get_mods() & MOD_MASK_CSAG) == 0) {
@@ -2097,7 +2097,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case KC_LANGUAGE_2:
       if (record->event.pressed) {
-        if (layer_state_is(L_Lpin) | layer_state_is(L_Rpin) | layer_state_is(L_Fn) |
+        if (layer_state_is(L_Lp) | layer_state_is(L_Rp) | layer_state_is(L_Fn) |
           layer_state_is(L_Num) | layer_state_is(L_Cur)) {
           // reverse side (upper layer)
           if ((get_mods() & MOD_MASK_CAG) == 0) {
