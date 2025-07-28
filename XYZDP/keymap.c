@@ -585,15 +585,15 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  //both outer pin
-  state = update_tri_layer_state(state, L_Lpin, L_Rpin, L_Bpin);
-
+  //both thumb
+  state = update_tri_layer_state(state, L_Num, L_Cur, L_BktEx);
+  
   //tumb and outer pin
   state = update_tri_layer_state(state, L_Lpin, L_Num, L_Ltp);
   state = update_tri_layer_state(state, L_Rpin, L_Cur, L_Rtp);
   
-  //both thumb
-  state = update_tri_layer_state(state, L_Num, L_Cur, L_BktEx);
+  //both outer pin
+  state = update_tri_layer_state(state, L_Lpin, L_Rpin, L_Bpin);
 
   // call FwSys with Bkt and Fn
   state = update_tri_layer_state(state, L_Fn, L_Cur, L_FwSys);  
