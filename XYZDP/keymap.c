@@ -401,10 +401,10 @@ enum layer_num {
   L_BothPinky_LeftThumb,
   L_BothPinky_RightThumb,
   L_BothPinky_BothThumb,
-  L_FwSys,
-  L_SetHue,
-  L_SetSat,
-  L_SetVal
+  L_Firmware,
+  L_Set_Hue,
+  L_Set_Sat,
+  L_Set_Val
 };
 
 // keymap ovverride (process Engram symbol and ANSI/JIS)
@@ -604,16 +604,16 @@ bool rgb_matrix_indicators_user(void) {
   }
   if (keyboard_config.disable_layer_led) { return false; }
   switch (get_highest_layer(layer_state)) {
-    case L_FwSys:
+    case L_Firmware:
       set_layer_color_fwsys_map();
       break;
-    case L_SetHue:
+    case L_Set_Hue:
       set_layer_color_hue_map();
       break;
-    case L_SetSat:
+    case L_Set_Sat:
       set_layer_color_sat_map();
       break;
-    case L_SetVal:
+    case L_Set_Val:
       set_layer_color_val_map();
       break;
     default:
@@ -647,7 +647,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_BothPinky, L_BothThumb, L_BothPinky_BothThumb);
 
   // call FwSys with Bkt and Fn
-  state = update_tri_layer_state(state, L_Function, L_Cursor, L_FwSys);  
+  state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware);  
   
   //ANSI/JIS addiional enable
   state = update_tri_layer_state(state, L_Base_JIS, L_Number, L_Number_JIS);
@@ -742,19 +742,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_BothPinky_BothThumb:
       status_led(now, 0b1111, led_pattern_blink);
       break;
-    case L_FwSys:
+    case L_Firmware:
       status_led(now, 0b1111, led_pattern_blink);
       break;
-    case L_SetHue:
+    case L_Set_Hue:
       status_led(now, 0b0011, led_pattern_off);
       status_led(now, 0b1100, led_pattern_on);
       break;
-    case L_SetSat:
+    case L_Set_Sat:
       status_led(now, 0b0001, led_pattern_off);
       status_led(now, 0b1100, led_pattern_on);
       status_led(now, 0b0010, led_pattern_blink);
       break;
-    case L_SetVal:
+    case L_Set_Val:
       status_led(now, 0b0010, led_pattern_off);
       status_led(now, 0b1100, led_pattern_on);
       status_led(now, 0b0001, led_pattern_blink);
