@@ -622,24 +622,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         status_led(now, 0b0001, led_pattern_on);
       }
       break;
-    case L_Lpin:
-      status_led(now, 0b0110, led_pattern_off);
-      status_led(now, 0b0001, led_pattern_on);
-      status_led(now, 0b1000, led_pattern_blink);
-      break;
-    case L_Rpin:
-      status_led(now, 0b1001, led_pattern_off);
-      status_led(now, 0b0010, led_pattern_on);
-      status_led(now, 0b0100, led_pattern_blink);
-      break;
-    case L_Bpin:
-      status_led(now, 0b0011, led_pattern_on);
-      status_led(now, 0b1100, led_pattern_blink);
-      break;
-    case L_Fn:
-      status_led(now, 0b1100, led_pattern_off);
-      status_led(now, 0b0011, led_pattern_on);
-      break;
     case L_Num:
     case L_NumJIS:
       status_led(now, 0b1100, led_pattern_off);
@@ -656,6 +638,34 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_BktExJIS:
       status_led(now, 0b1100, led_pattern_off);
       status_led(now, 0b0011, led_pattern_blink);
+      break;
+    case L_Fn:
+      status_led(now, 0b1100, led_pattern_off);
+      status_led(now, 0b0011, led_pattern_on);
+      break;
+    case L_Lpin:
+      status_led(now, 0b0110, led_pattern_off);
+      status_led(now, 0b0001, led_pattern_on);
+      status_led(now, 0b1000, led_pattern_blink);
+      break;
+    case L_Rpin:
+      status_led(now, 0b1001, led_pattern_off);
+      status_led(now, 0b0010, led_pattern_on);
+      status_led(now, 0b0100, led_pattern_blink);
+      break;
+    case L_Ltp:
+      status_led(now, 0b0100, led_pattern_off);
+      status_led(now, 0b0001, led_pattern_on);
+      status_led(now, 0b1010, led_pattern_blink);
+      break;
+    case L_Rtp:
+      status_led(now, 0b1000, led_pattern_off);
+      status_led(now, 0b0010, led_pattern_on);
+      status_led(now, 0b0101, led_pattern_blink);
+      break;
+    case L_Bpin:
+      status_led(now, 0b0011, led_pattern_on);
+      status_led(now, 0b1100, led_pattern_blink);
       break;
     case L_FwSys:
       status_led(now, 0b1111, led_pattern_blink);
