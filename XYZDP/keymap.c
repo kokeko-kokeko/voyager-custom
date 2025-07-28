@@ -457,7 +457,7 @@ static void rgblight_set_val(const uint8_t val);
 static void rgblight_save_eeprom(void);
 static void rgblight_load_preset(void);
 
-static void set_layer_color_fwsys_map(void);
+static void set_layer_color_firmware_map(void);
 static void set_layer_color_hue_map(void);
 static void set_layer_color_sat_map(void);
 static void set_layer_color_val_map(void);
@@ -605,7 +605,7 @@ bool rgb_matrix_indicators_user(void) {
   if (keyboard_config.disable_layer_led) { return false; }
   switch (get_highest_layer(layer_state)) {
     case L_Firmware:
-      set_layer_color_fwsys_map();
+      set_layer_color_firmware_map();
       break;
     case L_Set_Hue:
       set_layer_color_hue_map();
@@ -2364,7 +2364,7 @@ static void rgblight_load_preset(void) {
   status_led(now, 0b1111, led_pattern_single);
 }
 
-static void set_layer_color_fwsys_map(void) {
+static void set_layer_color_firmware_map(void) {
   const uint8_t f = rgblight_get_val();
   const uint8_t h = f >> 1;
   const uint8_t q = h >> 1;
