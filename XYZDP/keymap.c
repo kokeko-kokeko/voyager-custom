@@ -704,8 +704,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b1100, led_pattern_blink);
       break;
     case L_LpBt:
-      status_led(now, 0b0010, led_pattern_off);
-      status_led(now, 0b1101, led_pattern_blink);
+      status_led(now, 0b0100, led_pattern_off);
+      status_led(now, 0b1011, led_pattern_blink);
       break;
     case L_RpBt:
       status_led(now, 0b1000, led_pattern_off);
