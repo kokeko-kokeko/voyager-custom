@@ -2306,8 +2306,7 @@ static void rgblight_load_preset(void) {
 static void set_layer_color_overlay(void) {
   // blink control
   uint32_t local_timer = g_rgb_timer; //1ms
-  local_timer >>= 7;  //128ms
-  bool blink_off = ((local_timer & (uint32_t)0b0111) == 0); // 1/8 off
+  bool blink_off = ((local_timer & (uint32_t)0x03FF) < 100); // 1024ms cycle
   
   HSV hsv = rgblight_get_hsv();
 
