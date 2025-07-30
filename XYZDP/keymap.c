@@ -2304,11 +2304,14 @@ static void rgblight_load_preset(void) {
 }
 
 static void set_layer_color_overlay(void) {
+  // blink control
   uint32_t local_timer = g_rgb_timer; //1ms
   local_timer >>= 7;  //128ms
   bool blink_off = ((local_timer & (uint32_t)0b0111) == 0); // 1/8 off
   
   HSV hsv = rgblight_get_hsv();
+
+  // CAPS WORD inidication
   if (is_caps_word_on()) {
     hsv.h += 128;
     if (blink_off) {
@@ -2320,7 +2323,8 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(31, rgb.r, rgb.g, rgb.b);
     hsv = rgblight_get_hsv();
   }
-  
+
+  // IME state sync syntem state
   if (ime_on) {
     if (ime_kk) {
       hsv.h += 172;
@@ -2338,7 +2342,10 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(44, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(17, 0, 0, 0);
     rgb_matrix_set_color(38, 0, 0, 0);
-  } 
+  }
+
+  // mod display
+  // layer display
 }
 
 static void set_layer_color_firmware_map(void) {
