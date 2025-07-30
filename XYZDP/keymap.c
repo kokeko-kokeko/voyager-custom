@@ -2336,6 +2336,8 @@ static void set_layer_color_overlay(void) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(23, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(44, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(17, 0, 0, 0);
+    rgb_matrix_set_color(38, 0, 0, 0);
   } 
 }
 
