@@ -2294,8 +2294,7 @@ static void rgblight_load_preset(void) {
 
 // use animation logic
 #include "rgb_matrix.h"
-#include "quantum/color.h"  // For scale8, scale16by8
-#include "util.h"          // Additional utility functions
+#include "lib/lib8tion/lib8tion.h"
 
 static void set_layer_color_overlay(void) {
   // blink control
