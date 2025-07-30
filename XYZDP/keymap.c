@@ -637,19 +637,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Base :
     case L_Base_JIS:
       status_led(now, 0b1111, led_pattern_off);
-      if (ime_on) {
-        if (ime_kk) {
-          status_led(now, 0b0100, led_pattern_blink);
-        } else {
-          status_led(now, 0b0100, led_pattern_on);
-        }
-      }
-      if (iss_sync) {
-        status_led(now, 0b1000, led_pattern_on);
-      }
-      if (is_caps_word_on()) {
-        status_led(now, 0b0001, led_pattern_on);
-      }
       break;
     case L_Function:
       status_led(now, 0b1100, led_pattern_off);
@@ -722,11 +709,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       break;
   }  
   return state;
-}
-
-void caps_word_set_user(bool active) {
-  // re-calc status
-  layer_on(L_Base);
 }
 
 bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -2322,17 +2304,33 @@ static void rgblight_load_preset(void) {
 }
 
 static void set_layer_color_overlay(void) {
+  HSV hsv = rgblight_get_hsv();
   if (is_caps_word_on()) {
-    HSV hsv = rgblight_get_hsv();
-    hsv.h += 128;
+    hsv.h += 96;
+    
     RGB rgb = hsv_to_rgb(hsv);
-
     rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(31, rgb.r, rgb.g, rgb.b);
+    hsv = rgblight_get_hsv();
   }
   
-  rgb_matrix_set_color(23, 0, 0, 0);
-  rgb_matrix_set_color(44, 0, 0, 0);
+  if (ime_on) {
+    if (ime_kk) {
+      hsv.h -= 96;
+    } else {
+      hsv.h += 96;
+    }
+  } else (
+    hsv.s = 0;
+  )
+  
+  if (!iss_sync) {
+    hsv.v >>= 2;
+  }
+
+  RGB rgb = hsv_to_rgb(hsv);
+  rgb_matrix_set_color(23, rgb.r, rgb.g, rgb.b);
+  rgb_matrix_set_color(44, rgb.r, rgb.g, rgb.b);
 }
 
 static void set_layer_color_firmware_map(void) {
