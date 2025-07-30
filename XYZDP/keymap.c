@@ -2306,7 +2306,7 @@ static void rgblight_load_preset(void) {
 static void set_layer_color_overlay(void) {
   HSV hsv = rgblight_get_hsv();
   if (is_caps_word_on()) {
-    hsv.h += 96;
+    hsv.s = 0;
     
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
@@ -2316,15 +2316,15 @@ static void set_layer_color_overlay(void) {
   
   if (ime_on) {
     if (ime_kk) {
-      hsv.h -= 96;
+      hsv.h = 86;
     } else {
-      hsv.h += 96;
+      hsv.h = 0;
     }
   } else {
     hsv.s = 0;
   }
   
-  if (!iss_sync) {
+  if (iss_sync) {
     hsv.v >>= 2;
   }
 
