@@ -2296,15 +2296,20 @@ static void set_layer_color_overlay(void) {
   // blink control
   uint32_t local_timer = g_rgb_timer; //1ms
   bool blink_off = ((local_timer & (uint32_t)0x03FF) < 100); // 1024ms cycle
-  
+
   HSV hsv = rgblight_get_hsv();
 
+  //copy logic from breathing_anim.h
+  uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
+  uint8_t b_val = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
+  
   // CAPS WORD inidication
   if (is_caps_word_on()) {
     hsv.h += 128;
-    if (blink_off) {
-      hsv.v = 0;
-    }
+    //if (blink_off) {
+    //  hsv.v = 0;
+    //}
+    hsv.v = b_val;
     
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
