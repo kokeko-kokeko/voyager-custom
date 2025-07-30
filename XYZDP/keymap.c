@@ -2297,10 +2297,6 @@ static void rgblight_load_preset(void) {
 #include "lib/lib8tion/lib8tion.h"
 
 static void set_layer_color_overlay(void) {
-  // blink control
-  uint32_t local_timer = g_rgb_timer; //1ms
-  bool blink_off = ((local_timer & (uint32_t)0x03FF) < 100); // 1024ms cycle
-
   HSV hsv = rgblight_get_hsv();
 
   //copy logic from breathing_anim.h
@@ -2329,9 +2325,7 @@ static void set_layer_color_overlay(void) {
       hsv.h += 86;
     }
     if (iss_sync) {
-      if (blink_off) {
-        hsv.v = 0;
-      }
+      hsv.v = b_val;
     }
     
     RGB rgb = hsv_to_rgb(hsv);
