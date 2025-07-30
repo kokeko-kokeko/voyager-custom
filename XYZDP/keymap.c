@@ -2345,8 +2345,8 @@ static void set_layer_color_overlay(void) {
     hsv = rgblight_get_hsv();
   }
 
-  // mod display
-  hsv.h += 28;
+  // mods display
+  hsv.h += 51;
   if (get_mods() & MOD_BIT_LCTRL) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(4, rgb.r, rgb.g, rgb.b);
@@ -2354,30 +2354,6 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(12, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(13, rgb.r, rgb.g, rgb.b);
   }
-
-  hsv.h += 28;
-  if (get_mods() & MOD_BIT_LSHIFT) {
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(3, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(9, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(14, rgb.r, rgb.g, rgb.b);
-  }
-  
-  hsv.h += 28;
-  if (get_mods() & MOD_BIT_LALT) {
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(2, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
-  }
-  
-  hsv.h += 28;
-  if (get_mods() & MOD_BIT_LGUI) {
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(1, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(7, rgb.r, rgb.g, rgb.b);
-  }
-
-  hsv.h += 28;
   if (get_mods() & MOD_BIT_RCTRL) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(27, rgb.r, rgb.g, rgb.b);
@@ -2385,8 +2361,14 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(42, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(43, rgb.r, rgb.g, rgb.b);
   }
-
-  hsv.h += 28;
+  
+  hsv.h += 51;
+  if (get_mods() & MOD_BIT_LSHIFT) {
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(3, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(9, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(14, rgb.r, rgb.g, rgb.b);
+  }
   if (get_mods() & MOD_BIT_RSHIFT) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(28, rgb.r, rgb.g, rgb.b);
@@ -2394,14 +2376,24 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(41, rgb.r, rgb.g, rgb.b);
   }
   
-  hsv.h += 28;
+  hsv.h += 51;
+  if (get_mods() & MOD_BIT_LALT) {
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(2, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
+  }
   if (get_mods() & MOD_BIT_RALT) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(29, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(35, rgb.r, rgb.g, rgb.b);
   }
   
-  hsv.h += 28;
+  hsv.h += 51;
+  if (get_mods() & MOD_BIT_LGUI) {
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(1, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(7, rgb.r, rgb.g, rgb.b);
+  }
   if (get_mods() & MOD_BIT_RGUI) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(30, rgb.r, rgb.g, rgb.b);
