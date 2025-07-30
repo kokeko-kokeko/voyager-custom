@@ -2293,8 +2293,8 @@ static void rgblight_load_preset(void) {
 }
 
 // use animation logic
-#include "rgb_matrix.h"
-#include "lib/lib8tion/lib8tion.h"
+//#include "lib/lib8tion/lib8tion.h"
+#include "lib8tion.h"
 
 static void set_layer_color_overlay(void) {
   // blink control
