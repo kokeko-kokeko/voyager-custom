@@ -2322,6 +2322,15 @@ static void rgblight_load_preset(void) {
 }
 
 static void set_layer_color_overlay(void) {
+  if (is_caps_word_on()) {
+    HSV hsv = rgblight_get_hsv();
+    hsv.h += 128;
+    RGB rgb = hsv_to_rgb(hsv);
+
+    rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(31, rgb.r, rgb.g, rgb.b);
+  }
+  
   rgb_matrix_set_color(23, 0, 0, 0);
   rgb_matrix_set_color(44, 0, 0, 0);
 }
