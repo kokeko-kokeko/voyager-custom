@@ -372,8 +372,13 @@ enum layer_num {
   L_Firmware,
   L_Set_Hue,
   L_Set_Sat,
-  L_Set_Val
+  L_Set_Val,
+  C_LAYER_COUNT 
 };
+
+#define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
+
+_Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "layer count missmatch!!");
 
 // keymap ovverride (process Engram symbol and ANSI/JIS)
 // base (x and xs pair is shifted symbol, xs only overwrite shift)
