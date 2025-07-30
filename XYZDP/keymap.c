@@ -2346,44 +2346,64 @@ static void set_layer_color_overlay(void) {
   }
 
   // mod display
-  hsv.h += 51;
-  if (get_mods() & MOD_MASK_CTRL) {
+  hsv.h += 28;
+  if (get_mods() & MOD_MASK_LCTRL) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(4, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(10, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(12, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(13, rgb.r, rgb.g, rgb.b);
+  }
+
+  hsv.h += 28;
+  if (get_mods() & MOD_MASK_LSHIFT) {
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(3, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(9, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(14, rgb.r, rgb.g, rgb.b);
+  }
+  
+  hsv.h += 28;
+  if (get_mods() & MOD_MASK_LALT) {
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(2, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
+  }
+  
+  hsv.h += 28;
+  if (get_mods() & MOD_MASK_LGUI) {
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(1, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(7, rgb.r, rgb.g, rgb.b);
+  }
+
+  hsv.h += 28;
+  if (get_mods() & MOD_MASK_RCTRL) {
+    RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(27, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(33, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(42, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(43, rgb.r, rgb.g, rgb.b);
   }
 
-  hsv.h += 51;
-  if (get_mods() & MOD_MASK_SHIFT) {
+  hsv.h += 28;
+  if (get_mods() & MOD_MASK_RSHIFT) {
     RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(3, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(9, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(14, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(28, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(34, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(41, rgb.r, rgb.g, rgb.b);
   }
   
-  hsv.h += 51;
-  if (get_mods() & MOD_MASK_ALT) {
+  hsv.h += 28;
+  if (get_mods() & MOD_MASK_RALT) {
     RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(2, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(29, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(35, rgb.r, rgb.g, rgb.b);
   }
   
-  hsv.h += 51;
-  if (get_mods() & MOD_MASK_GUI) {
+  hsv.h += 28;
+  if (get_mods() & MOD_MASK_RGUI) {
     RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(1, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(7, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(30, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(36, rgb.r, rgb.g, rgb.b);
   }
