@@ -2350,24 +2350,28 @@ static void set_layer_color_overlay(void) {
   if (get_mods() & MOD_MASK_CTRL) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(4, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(27, rgb.r, rgb.g, rgb.b);
   }
 
   hsv.h += 51;
   if (get_mods() & MOD_MASK_SHIFT) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(3, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(28, rgb.r, rgb.g, rgb.b);
   }
   
   hsv.h += 51;
   if (get_mods() & MOD_MASK_ALT) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(2, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(29, rgb.r, rgb.g, rgb.b);
   }
   
   hsv.h += 51;
   if (get_mods() & MOD_MASK_GUI) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(1, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(30, rgb.r, rgb.g, rgb.b);
   }
   
   hsv = rgblight_get_hsv();
