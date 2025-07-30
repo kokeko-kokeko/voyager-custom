@@ -536,7 +536,7 @@ static const fast_timer_t iss_idle_to_delay = 600000; //ms
 // Ime State Display system
 
 void keyboard_post_init_user(void) {
-  rgb_matrix_enable();
+  rgb_matrix_enable_noeeprom();
 
   keymap_config.nkro = true;
 
