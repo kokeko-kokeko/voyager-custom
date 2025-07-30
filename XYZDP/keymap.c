@@ -2351,8 +2351,12 @@ static void set_layer_color_overlay(void) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(4, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(10, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(12, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(13, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(27, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(33, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(42, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(43, rgb.r, rgb.g, rgb.b);
   }
 
   hsv.h += 51;
@@ -2360,8 +2364,10 @@ static void set_layer_color_overlay(void) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(3, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(9, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(14, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(28, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(34, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(41, rgb.r, rgb.g, rgb.b);
   }
   
   hsv.h += 51;
