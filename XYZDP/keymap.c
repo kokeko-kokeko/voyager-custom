@@ -2320,9 +2320,9 @@ static void set_layer_color_overlay(void) {
     } else {
       hsv.h += 96;
     }
-  } else (
+  } else {
     hsv.s = 0;
-  )
+  }
   
   if (!iss_sync) {
     hsv.v >>= 2;
