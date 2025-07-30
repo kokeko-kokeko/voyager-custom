@@ -2305,8 +2305,8 @@ static void rgblight_load_preset(void) {
 
 static void set_layer_color_overlay(void) {
   uint32_t local_timer = g_rgb_timer; //1ms
-  local_timer >>= 9;  //512ms
-  bool blink = local_timer & (uint32_t)(0b01);
+  local_timer >>= 8;  //256ms
+  bool blink = ((local_timer & (uint32_t)0b011) == 0) ? 0 : 1; // 1/4 off, 3/4 on
   
   HSV hsv = rgblight_get_hsv();
   if (is_caps_word_on()) {
