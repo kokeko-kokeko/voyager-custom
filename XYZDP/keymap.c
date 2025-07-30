@@ -2316,12 +2316,12 @@ static void set_layer_color_overlay(void) {
   
   if (ime_on) {
     if (ime_kk) {
-      hsv.h += 86;
-    } else {
       hsv.h += 172;
+    } else {
+      hsv.h += 86;
     }
     if (iss_sync) {
-      hsv.v >>= 1;
+      hsv.s >>= 1;
     }
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(23, rgb.r, rgb.g, rgb.b);
