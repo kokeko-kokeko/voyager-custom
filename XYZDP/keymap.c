@@ -723,7 +723,6 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
     } else {
       tap_code16(KC_LANGUAGE_2);
     }
-    layer_on(L_Base);
   }
   return true;
 }
@@ -758,8 +757,7 @@ void housekeeping_task_user(void) {
   if (iss_sync_to_run) {
     if (timer_expired_fast(now, iss_sync_to_trigger)) {
       iss_sync_to_run = false;
-      iss_sync = true;
-      layer_on(L_Base);      
+      iss_sync = true;   
     }
   }
 
@@ -771,7 +769,6 @@ void housekeeping_task_user(void) {
       iss_idle_to_run = false;
       iss_sync = false;
       ime_on = false;
-      layer_on(L_Base);
     }
   }
   
@@ -1236,20 +1233,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         //ANSI
         layer_off(L_Base_JIS);
-        layer_on(L_Base);
       }
       return false;
     case HSV_43_255_102:
       if (record->event.pressed) {
         iss_enable = true;
-        layer_on(L_Base);
       }
       return false;
     case HSV_43_255_106:
       if (record->event.pressed) {
         //JIS
         layer_on(L_Base_JIS);
-        layer_on(L_Base);
       }
       return false;
     case HSV_43_255_108:
@@ -1258,7 +1252,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         iss_sync = false;
         iss_sync_to_run = false;
         iss_idle_to_run = false;
-        layer_on(L_Base);
       }
       return false;
     
@@ -2042,7 +2035,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // reverse side (upper layer)
             if ((get_mods() & MOD_MASK_CSAG) == 0) {
               ime_on = false;
-              //layer_on(L_Base);
             }
             tap_code16(KC_LANGUAGE_2);
             return false;
@@ -2055,7 +2047,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               } else {
                 ime_kk = false;
               }
-              layer_on(L_Base);
             }
           }
         }
@@ -2074,7 +2065,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else {
               ime_kk = false;
             }
-            //layer_on(L_Base);
           }
           tap_code16(KC_LANGUAGE_1);
           return false;
@@ -2082,7 +2072,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           // normal side (base layer)
           if ((get_mods() & MOD_MASK_CSAG) == 0) {
             ime_on = false;
-            layer_on(L_Base);
           }
         }
       }
