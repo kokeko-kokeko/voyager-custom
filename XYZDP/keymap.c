@@ -2306,7 +2306,7 @@ static void rgblight_load_preset(void) {
 static void set_layer_color_overlay(void) {
   HSV hsv = rgblight_get_hsv();
   if (is_caps_word_on()) {
-    hsv.h = 43;
+    hsv.h += 128;
     
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
@@ -2316,24 +2316,17 @@ static void set_layer_color_overlay(void) {
   
   if (ime_on) {
     if (ime_kk) {
-      hsv.h = 86;
+      hsv.h += 86;
     } else {
-      hsv.h = 0;
+      hsv.h += 172;
     }
     if (iss_sync) {
       hsv.v >>= 1;
     }
-  } else {
-    hsv.s = 0;
-    hsv.v >>= 1;
-    if (iss_sync) {
-      hsv.v >>= 1;
-    }
-  }
-  
-  RGB rgb = hsv_to_rgb(hsv);
-  rgb_matrix_set_color(23, rgb.r, rgb.g, rgb.b);
-  rgb_matrix_set_color(44, rgb.r, rgb.g, rgb.b);
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(23, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(44, rgb.r, rgb.g, rgb.b);
+  } 
 }
 
 static void set_layer_color_firmware_map(void) {
