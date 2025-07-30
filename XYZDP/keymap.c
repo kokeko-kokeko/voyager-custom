@@ -429,6 +429,7 @@ static void rgblight_set_val(const uint8_t val);
 static void rgblight_save_eeprom(void);
 static void rgblight_load_preset(void);
 
+static void set_layer_color_overlay(void);
 static void set_layer_color_firmware_map(void);
 static void set_layer_color_hue_map(void);
 static void set_layer_color_sat_map(void);
@@ -597,6 +598,8 @@ bool rgb_matrix_indicators_user(void) {
     default:
       if (rgb_matrix_get_flags() == LED_FLAG_NONE)
         rgb_matrix_set_color_all(0, 0, 0);
+      else
+        set_layer_color_overlay();
       break;
   }
   return true;
@@ -2316,6 +2319,11 @@ static void rgblight_load_preset(void) {
 
   fast_timer_t now = timer_read_fast();
   status_led(now, 0b1111, led_pattern_single);
+}
+
+static void set_layer_color_overlay(void) {
+  rgb_matrix_set_color(23, 0, 0, 0);
+  rgb_matrix_set_color(44, 0, 0, 0);
 }
 
 static void set_layer_color_firmware_map(void) {
