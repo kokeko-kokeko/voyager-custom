@@ -2304,9 +2304,16 @@ static void rgblight_load_preset(void) {
 }
 
 static void set_layer_color_overlay(void) {
+  uint32_t local_timer = g_rgb_timer; //1ms
+  local_timer >>= 8;  //256ms
+  bool blink = local_timer & (uint32_t)(0b01);
+  
   HSV hsv = rgblight_get_hsv();
   if (is_caps_word_on()) {
     hsv.h += 128;
+    if (blink) {
+      hsv.v = 0;
+    }
     
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
