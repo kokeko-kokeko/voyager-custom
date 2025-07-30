@@ -2294,6 +2294,7 @@ static void rgblight_load_preset(void) {
 
 // use animation logic
 #include "util.h"
+#include "color.h"
 
 static void set_layer_color_overlay(void) {
   // blink control
