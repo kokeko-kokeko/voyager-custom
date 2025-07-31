@@ -425,7 +425,6 @@ const key_override_t *key_overrides[] = {
 static void rgb_matrix_set_hue(const uint8_t hue);
 static void rgb_matrix_set_sat(const uint8_t sat);
 static void rgb_matrix_set_val(const uint8_t val);
-static void rgb_matrix_save_eeprom(void);
 static void rgb_matrix_load_preset(void);
 
 static void set_layer_color_overlay(void);
@@ -1743,7 +1742,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_86_255_151:
       if (record->event.pressed) {
-        rgb_matrix_save_eeprom();
+        
       }
       return false;
     
@@ -1989,7 +1988,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_172_255_151:
       if (record->event.pressed) {
-        rgb_matrix_save_eeprom();
+        
       }
       return false;
     
@@ -2274,15 +2273,6 @@ static void rgb_matrix_set_sat(const uint8_t sat) {
 static void rgb_matrix_set_val(const uint8_t val) {
   HSV hsv = rgb_matrix_get_hsv();
   rgb_matrix_sethsv_noeeprom(hsv.h, hsv.s, val);
-}
-
-static void rgb_matrix_save_eeprom(void) {
-  HSV hsv = rgb_matrix_get_hsv();
-  rgb_matrix_sethsv(hsv.h, hsv.s, hsv.v);
-  //eeprom write once (write all value raw to eeprom)
-
-  fast_timer_t now = timer_read_fast();
-  status_led(now, 0b1111, led_pattern_single);
 }
 
 static void rgb_matrix_load_preset(void) {
