@@ -2292,15 +2292,13 @@ static void set_layer_color_overlay(void) {
   // use different speed divide
   uint8_t speed = rgb_matrix_get_speed(); 
   uint16_t time = 0;
-  uint8_t b_val = 0;
   
   // CAPS WORD inidication
   if (is_caps_word_on()) {
     hsv = rgb_matrix_get_hsv();
     time = scale16by8(g_rgb_timer, speed / 3);
-    b_val = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
+    hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
     hsv.h += 128;
-    hsv.v = b_val;
     
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
@@ -2317,8 +2315,7 @@ static void set_layer_color_overlay(void) {
     }
     if (iss_sync) {
       time = scale16by8(g_rgb_timer, speed / 7);
-      b_val = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
-      hsv.v = b_val;
+      hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
     }
     
     RGB rgb = hsv_to_rgb(hsv);
@@ -2332,10 +2329,9 @@ static void set_layer_color_overlay(void) {
   if (get_mods() & MOD_MASK_CSAG) {
     hsv = rgb_matrix_get_hsv();
     time = scale16by8(g_rgb_timer, speed / 5);
-    b_val = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
+    hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
   }
   hsv.h += 51;
-  hsv.v = b_val;
   if (get_mods() & MOD_BIT_LCTRL) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(4, rgb.r, rgb.g, rgb.b);
