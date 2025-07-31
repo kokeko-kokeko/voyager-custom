@@ -2286,34 +2286,39 @@ static void rgb_matrix_load_preset(void) {
 #include "lib/lib8tion/lib8tion.h"
 
 static void set_layer_color_overlay(void) {
-  HSV hsv = rgb_matrix_get_hsv();
+  HSV hsv;
 
   // copy logic from breathing_anim.h 
   uint8_t speed = rgb_matrix_get_speed();
 
  // more fast speed (8/5)
-  uint16_t time = scale16by8(g_rgb_timer, speed / 5);
-  uint8_t b_val = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
+  uint16_t time = 0;
+  uint8_t b_val = 0;
   
- // CAPS WORD inidication
+  // CAPS WORD inidication
   if (is_caps_word_on()) {
+    hsv = rgb_matrix_get_hsv();
+    time = scale16by8(g_rgb_timer, speed / 3);
+    b_val = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
     hsv.h += 128;
     hsv.v = b_val;
     
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(31, rgb.r, rgb.g, rgb.b);
-    hsv = rgb_matrix_get_hsv();
   }
 
   // IME state sync syntem state
   if (ime_on) {
+    hsv = rgb_matrix_get_hsv();
     if (ime_kk) {
       hsv.h += 172;
     } else {
       hsv.h += 86;
     }
     if (iss_sync) {
+      time = scale16by8(g_rgb_timer, speed / 7);
+      b_val = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
       hsv.v = b_val;
     }
     
@@ -2322,10 +2327,14 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(44, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(17, 0, 0, 0);
     rgb_matrix_set_color(38, 0, 0, 0);
-    hsv = rgb_matrix_get_hsv();
   }
  
   // mods display
+  if (get_mods() & MOD_MASK_CSAG) {
+    hsv = rgb_matrix_get_hsv();
+    time = scale16by8(g_rgb_timer, speed / 5);
+    b_val = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
+  }
   hsv.h += 51;
   hsv.v = b_val;
   if (get_mods() & MOD_BIT_LCTRL) {
@@ -2380,8 +2389,6 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(30, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(36, rgb.r, rgb.g, rgb.b);
   }
-  
-  hsv = rgb_matrix_get_hsv();
   
  // layer display
 }
