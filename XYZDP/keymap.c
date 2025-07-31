@@ -2287,7 +2287,7 @@ static void rgb_matrix_save_eeprom(void) {
 
 static void rgb_matrix_load_preset(void) {
   rgb_matrix_sethsv_noeeprom(250, 255, 109);
-  rgb_matrix_set_speed_noeeprom(60);
+  rgb_matrix_set_speed_noeeprom(127);
   rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
 
   //fast_timer_t now = timer_read_fast();
