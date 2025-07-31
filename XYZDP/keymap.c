@@ -2277,7 +2277,7 @@ static void rgb_matrix_set_val(const uint8_t val) {
 
 static void rgb_matrix_load_preset(void) {
   rgb_matrix_sethsv_noeeprom(250, 255, 109);
-  rgb_matrix_set_speed_noeeprom(140);
+  rgb_matrix_set_speed_noeeprom(144);
   rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
 }
 
@@ -2295,12 +2295,9 @@ static void set_layer_color_overlay(void) {
   uint16_t time = scale16by8(g_rgb_timer, speed / 5);
   uint8_t b_val = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
   
-  // CAPS WORD inidication
+ // CAPS WORD inidication
   if (is_caps_word_on()) {
     hsv.h += 128;
-    //if (blink_off) {
-    //  hsv.v = 0;
-    //}
     hsv.v = b_val;
     
     RGB rgb = hsv_to_rgb(hsv);
@@ -2327,9 +2324,10 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(38, 0, 0, 0);
     hsv = rgb_matrix_get_hsv();
   }
-
+ 
   // mods display
   hsv.h += 51;
+  hsv.v = b_val;
   if (get_mods() & MOD_BIT_LCTRL) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(4, rgb.r, rgb.g, rgb.b);
