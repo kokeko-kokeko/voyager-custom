@@ -2277,7 +2277,7 @@ static void rgb_matrix_set_val(const uint8_t val) {
 
 static void rgb_matrix_load_preset(void) {
   rgb_matrix_sethsv_noeeprom(250, 255, 109);
-  rgb_matrix_set_speed_noeeprom(144);
+  rgb_matrix_set_speed_noeeprom(136);
   rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
 }
 
@@ -2291,8 +2291,8 @@ static void set_layer_color_overlay(void) {
   // copy logic from breathing_anim.h 
   uint8_t speed = rgb_matrix_get_speed();
 
- // more fast speed (8/5)
-  uint16_t time = scale16by8(g_rgb_timer, speed / 5);
+ // more fast speed (8/3)
+  uint16_t time = scale16by8(g_rgb_timer, speed / 3);
   uint8_t b_val = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
   
  // CAPS WORD inidication
