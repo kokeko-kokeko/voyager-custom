@@ -2289,7 +2289,7 @@ static void set_layer_color_overlay(void) {
   HSV hsv;
 
   // copy logic from breathing_anim.h 
-  // more fast speed (8/5)
+  // use different speed divide
   uint8_t speed = rgb_matrix_get_speed(); 
   uint16_t time = 0;
   uint8_t b_val = 0;
