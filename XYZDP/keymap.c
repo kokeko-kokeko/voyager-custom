@@ -2277,7 +2277,7 @@ static void rgb_matrix_set_val(const uint8_t val) {
 
 static void rgb_matrix_load_preset(void) {
   rgb_matrix_sethsv_noeeprom(250, 255, 109);
-  rgb_matrix_set_speed_noeeprom(144);
+  rgb_matrix_set_speed_noeeprom(140);
   rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
 }
 
@@ -2290,7 +2290,7 @@ static void set_layer_color_overlay(void) {
 
   // copy logic from breathing_anim.h
   // more fast speed
-  uint8_t speed = 200;
+  uint8_t speed = 140;
   uint16_t time = scale16by8(g_rgb_timer, speed / 8);
   uint8_t b_val = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
   
