@@ -536,6 +536,7 @@ static const fast_timer_t iss_idle_to_delay = 600000; //ms
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable_noeeprom();
+  rgb_matrix_load_preset();
 
   keymap_config.nkro = true;
 
@@ -2286,9 +2287,11 @@ static void rgb_matrix_save_eeprom(void) {
 
 static void rgb_matrix_load_preset(void) {
   rgb_matrix_sethsv_noeeprom(250, 255, 109);
+  rgb_matrix_set_speed_noeeprom(60);
+  rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
 
-  fast_timer_t now = timer_read_fast();
-  status_led(now, 0b1111, led_pattern_single);
+  //fast_timer_t now = timer_read_fast();
+  //status_led(now, 0b1111, led_pattern_single);
 }
 
 // use animation logic
