@@ -1,4 +1,4 @@
- #include QMK_KEYBOARD_H
+#include QMK_KEYBOARD_H
 #include "version.h"
 #define MOON_LED_LEVEL LED_LEVEL
 #ifndef ZSA_SAFE_RANGE
@@ -2390,17 +2390,19 @@ static void set_layer_color_overlay(void) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(11, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(22, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(50, rgb.r, rgb.g, rgb.b);
   }
 
   hsv.h += 52;
   if (layer_state_is(L_RightPinky)) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(26, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(38, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(37, rgb.r, rgb.g, rgb.b);
   }
   hsv.h += 51;
   if (layer_state_is(L_Cursor)) {
     RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(32, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(45, rgb.r, rgb.g, rgb.b);
   }
