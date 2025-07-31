@@ -2287,7 +2287,7 @@ static void rgb_matrix_load_preset(void) {
 
 static void set_layer_color_overlay(void) {
   HSV hsv;
-
+ 
   // copy logic from breathing_anim.h 
   // use different speed divide
   uint8_t speed = rgb_matrix_get_speed(); 
@@ -2305,6 +2305,72 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(31, rgb.r, rgb.g, rgb.b);
   }
 
+  // mods display
+  if (get_mods() & MOD_MASK_CSAG) {
+    hsv = rgb_matrix_get_hsv();
+    time = scale16by8(g_rgb_timer, speed / 5);
+    hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
+  }
+  hsv.h += 28;
+  if (get_mods() & MOD_BIT_LCTRL) {
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(4, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(10, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(12, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(13, rgb.r, rgb.g, rgb.b);
+  }
+  hsv.h += 29;
+  if (get_mods() & MOD_BIT_RCTRL) {
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(27, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(33, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(42, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(43, rgb.r, rgb.g, rgb.b);
+  }
+  
+  hsv.h += 28;
+  if (get_mods() & MOD_BIT_LSHIFT) {
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(3, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(9, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(14, rgb.r, rgb.g, rgb.b);
+  }
+  hsv.h += 29;
+  if (get_mods() & MOD_BIT_RSHIFT) {
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(28, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(34, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(41, rgb.r, rgb.g, rgb.b);
+  }
+  
+  hsv.h += 28;
+  if (get_mods() & MOD_BIT_LALT) {
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(2, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
+  }
+  hsv.h += 29;
+  if (get_mods() & MOD_BIT_RALT) {
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(29, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(35, rgb.r, rgb.g, rgb.b);
+  }
+  
+  hsv.h += 28;
+  if (get_mods() & MOD_BIT_LGUI) {
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(1, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(7, rgb.r, rgb.g, rgb.b);
+  }
+  hsv.h += 29;
+  if (get_mods() & MOD_BIT_RGUI) {
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(30, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(36, rgb.r, rgb.g, rgb.b);
+  }
+  
+ // layer display
+
   // IME state sync syntem state
   if (ime_on) {
     hsv = rgb_matrix_get_hsv();
@@ -2314,7 +2380,7 @@ static void set_layer_color_overlay(void) {
       hsv.h += 86;
     }
     if (iss_sync) {
-      time = scale16by8(g_rgb_timer, speed / 7);
+      time = scale16by8(g_rgb_timer, speed / 9);
       hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
     }
     
@@ -2324,68 +2390,6 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(17, 0, 0, 0);
     rgb_matrix_set_color(38, 0, 0, 0);
   }
- 
-  // mods display
-  if (get_mods() & MOD_MASK_CSAG) {
-    hsv = rgb_matrix_get_hsv();
-    time = scale16by8(g_rgb_timer, speed / 5);
-    hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
-  }
-  hsv.h += 51;
-  if (get_mods() & MOD_BIT_LCTRL) {
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(4, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(10, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(12, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(13, rgb.r, rgb.g, rgb.b);
-  }
-  if (get_mods() & MOD_BIT_RCTRL) {
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(27, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(33, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(42, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(43, rgb.r, rgb.g, rgb.b);
-  }
-  
-  hsv.h += 51;
-  if (get_mods() & MOD_BIT_LSHIFT) {
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(3, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(9, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(14, rgb.r, rgb.g, rgb.b);
-  }
-  if (get_mods() & MOD_BIT_RSHIFT) {
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(28, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(34, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(41, rgb.r, rgb.g, rgb.b);
-  }
-  
-  hsv.h += 51;
-  if (get_mods() & MOD_BIT_LALT) {
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(2, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
-  }
-  if (get_mods() & MOD_BIT_RALT) {
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(29, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(35, rgb.r, rgb.g, rgb.b);
-  }
-  
-  hsv.h += 51;
-  if (get_mods() & MOD_BIT_LGUI) {
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(1, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(7, rgb.r, rgb.g, rgb.b);
-  }
-  if (get_mods() & MOD_BIT_RGUI) {
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(30, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(36, rgb.r, rgb.g, rgb.b);
-  }
-  
- // layer display
 }
 
 static void set_layer_color_firmware_map(void) {
