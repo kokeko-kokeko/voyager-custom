@@ -2288,10 +2288,11 @@ static void rgb_matrix_load_preset(void) {
 static void set_layer_color_overlay(void) {
   HSV hsv = rgb_matrix_get_hsv();
 
-  // copy logic from breathing_anim.h
-  // more fast speed
-  uint8_t speed = 140;
-  uint16_t time = scale16by8(g_rgb_timer, speed / 8);
+  // copy logic from breathing_anim.h 
+  uint8_t speed = rgb_matrix_get_speed();
+
+ // more fast speed (8/5)
+  uint16_t time = scale16by8(g_rgb_timer, speed / 5);
   uint8_t b_val = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
   
   // CAPS WORD inidication
