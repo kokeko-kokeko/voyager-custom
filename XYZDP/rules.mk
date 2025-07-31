@@ -10,6 +10,7 @@ LAYER_LOCK_ENABLE = yes
 
 RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = yes
+EEPROM_DRIVER = transient
 
 DEBOUNCE_TYPE = asym_eager_defer_pk
 OS_DETECTION_ENABLE = yes
