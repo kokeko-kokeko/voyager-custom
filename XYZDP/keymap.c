@@ -2286,30 +2286,23 @@ static void rgb_matrix_load_preset(void) {
 #include "lib/lib8tion/lib8tion.h"
 
 static void set_layer_color_overlay(void) {
-  HSV hsv = rgb_matrix_get_hsv();;
-  uint8_t val = hsv.v;
+  HSV hsv = rgb_matrix_get_hsv();
   
   // copy logic from breathing_anim.h 
   // use different speed divide
   uint8_t speed = rgb_matrix_get_speed(); 
-  uint16_t time = 0;
-  
+  uint16_t time = scale16by8(g_rgb_timer, speed / 3);
+  hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
+
   // CAPS WORD inidication
+  hsv.h = 43;
   if (is_caps_word_on()) {
-    hsv.h = 43;
-    time = scale16by8(g_rgb_timer, speed / 3);
-    hsv.v = scale8(abs8(sin8(time) - 128) * 2, val);
-    
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(31, rgb.r, rgb.g, rgb.b);
   }
 
   // mods display
-  if (get_mods() & MOD_MASK_CSAG) {
-    time = scale16by8(g_rgb_timer, speed / 5);
-    hsv.v = scale8(abs8(sin8(time) - 128) * 2, val);
-  }
   hsv.h = 0;
   if (get_mods() & MOD_BIT_LCTRL) {
     RGB rgb = hsv_to_rgb(hsv);
@@ -2365,14 +2358,6 @@ static void set_layer_color_overlay(void) {
   }
   
   // layer display
-  if (layer_state_is(L_LeftPinky) ||
-      layer_state_is(L_Number) ||
-      layer_state_is(L_RightPinky) ||
-      layer_state_is(L_Cursor)) {
-    time = scale16by8(g_rgb_timer, speed / 7);
-    hsv.v = scale8(abs8(sin8(time) - 128) * 2, val);
-  }
-
   hsv.h = 0;
   if (layer_state_is(L_LeftPinky)) {
     RGB rgb = hsv_to_rgb(hsv);
@@ -2410,8 +2395,9 @@ static void set_layer_color_overlay(void) {
       hsv.h = 86;
     }
     if (iss_sync) {
-      time = scale16by8(g_rgb_timer, speed / 9);
-      hsv.v = scale8(abs8(sin8(time) - 128) * 2, val);
+
+    } else {
+      hsv.v = rgb_matrix_get_val();
     }
     
     RGB rgb = hsv_to_rgb(hsv);
