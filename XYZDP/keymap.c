@@ -2394,9 +2394,7 @@ static void set_layer_color_overlay(void) {
     } else {
       hsv.h = 86;
     }
-    if (iss_sync) {
-
-    } else {
+    if (!iss_sync) {
       hsv.v = rgb_matrix_get_val();
     }
     
