@@ -2388,13 +2388,12 @@ static void set_layer_color_overlay(void) {
   
   // IME state sync syntem state
   if (ime_on) {
-    hsv = rgb_matrix_get_hsv();
     if (ime_kk) {
       hsv.h = 172;
     } else {
       hsv.h = 86;
     }
-    if (!iss_sync) {
+    if (iss_sync == false) {
       hsv.v = rgb_matrix_get_val();
     }
     
