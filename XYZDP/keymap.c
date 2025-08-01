@@ -2286,8 +2286,9 @@ static void rgb_matrix_load_preset(void) {
 #include "lib/lib8tion/lib8tion.h"
 
 static void set_layer_color_overlay(void) {
-  HSV hsv;
- 
+  HSV hsv = rgb_matrix_get_hsv();;
+  uint8_t val = hsv.v;
+  
   // copy logic from breathing_anim.h 
   // use different speed divide
   uint8_t speed = rgb_matrix_get_speed(); 
@@ -2295,10 +2296,9 @@ static void set_layer_color_overlay(void) {
   
   // CAPS WORD inidication
   if (is_caps_word_on()) {
-    hsv = rgb_matrix_get_hsv();
+    hsv.h = 43;
     time = scale16by8(g_rgb_timer, speed / 3);
-    hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
-    hsv.h += 128;
+    hsv.v = scale8(abs8(sin8(time) - 128) * 2, val);
     
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
@@ -2307,11 +2307,10 @@ static void set_layer_color_overlay(void) {
 
   // mods display
   if (get_mods() & MOD_MASK_CSAG) {
-    hsv = rgb_matrix_get_hsv();
     time = scale16by8(g_rgb_timer, speed / 5);
-    hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
+    hsv.v = scale8(abs8(sin8(time) - 128) * 2, val);
   }
-  hsv.h += 28;
+  hsv.h = 0;
   if (get_mods() & MOD_BIT_LCTRL) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(4, rgb.r, rgb.g, rgb.b);
@@ -2319,7 +2318,6 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(12, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(13, rgb.r, rgb.g, rgb.b);
   }
-  hsv.h += 29;
   if (get_mods() & MOD_BIT_RCTRL) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(27, rgb.r, rgb.g, rgb.b);
@@ -2328,14 +2326,13 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(43, rgb.r, rgb.g, rgb.b);
   }
   
-  hsv.h += 28;
+  hsv.h = 172;
   if (get_mods() & MOD_BIT_LSHIFT) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(3, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(9, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(14, rgb.r, rgb.g, rgb.b);
   }
-  hsv.h += 29;
   if (get_mods() & MOD_BIT_RSHIFT) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(28, rgb.r, rgb.g, rgb.b);
@@ -2343,26 +2340,24 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(41, rgb.r, rgb.g, rgb.b);
   }
   
-  hsv.h += 28;
+  hsv.h = 46;
   if (get_mods() & MOD_BIT_LALT) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(2, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
   }
-  hsv.h += 29;
   if (get_mods() & MOD_BIT_RALT) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(29, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(35, rgb.r, rgb.g, rgb.b);
   }
   
-  hsv.h += 28;
+  hsv.h = 86;
   if (get_mods() & MOD_BIT_LGUI) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(1, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(7, rgb.r, rgb.g, rgb.b);
   }
-  hsv.h += 29;
   if (get_mods() & MOD_BIT_RGUI) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(30, rgb.r, rgb.g, rgb.b);
@@ -2374,18 +2369,17 @@ static void set_layer_color_overlay(void) {
       layer_state_is(L_Number) ||
       layer_state_is(L_RightPinky) ||
       layer_state_is(L_Cursor)) {
-    hsv = rgb_matrix_get_hsv();
     time = scale16by8(g_rgb_timer, speed / 7);
-    hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
+    hsv.v = scale8(abs8(sin8(time) - 128) * 2, val);
   }
 
-  hsv.h += 51;
+  hsv.h = 0;
   if (layer_state_is(L_LeftPinky)) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(5, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(6, rgb.r, rgb.g, rgb.b);
   }
-  hsv.h += 51;
+  hsv.h  = 172;
   if (layer_state_is(L_Number)) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(11, rgb.r, rgb.g, rgb.b);
@@ -2393,13 +2387,13 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(50, rgb.r, rgb.g, rgb.b);
   }
 
-  hsv.h += 52;
+  hsv.h = 43;
   if (layer_state_is(L_RightPinky)) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(26, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(37, rgb.r, rgb.g, rgb.b);
   }
-  hsv.h += 51;
+  hsv.h = 86;
   if (layer_state_is(L_Cursor)) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
@@ -2411,13 +2405,13 @@ static void set_layer_color_overlay(void) {
   if (ime_on) {
     hsv = rgb_matrix_get_hsv();
     if (ime_kk) {
-      hsv.h += 172;
+      hsv.h = 172;
     } else {
-      hsv.h += 86;
+      hsv.h = 86;
     }
     if (iss_sync) {
       time = scale16by8(g_rgb_timer, speed / 9);
-      hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
+      hsv.v = scale8(abs8(sin8(time) - 128) * 2, val);
     }
     
     RGB rgb = hsv_to_rgb(hsv);
