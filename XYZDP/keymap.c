@@ -2287,6 +2287,7 @@ static void rgb_matrix_load_preset(void) {
 
 static void set_layer_color_overlay(void) {
   HSV hsv = rgb_matrix_get_hsv();
+  hsv.h = g_rgb_timer >> 8;
   hsv.s = 255;
   
   // copy logic from breathing_anim.h 
