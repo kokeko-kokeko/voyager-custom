@@ -2286,6 +2286,7 @@ static void rgb_matrix_load_preset(void) {
 #include "lib/lib8tion/lib8tion.h"
 
 static void set_layer_color_overlay(void) {
+  // 47 is good prime number
   HSV hsv = rgb_matrix_get_hsv();
   hsv.h = g_rgb_timer >> 4;
   hsv.s = 255;
