@@ -2287,6 +2287,7 @@ static void rgb_matrix_load_preset(void) {
 
 static void set_layer_color_overlay(void) {
   HSV hsv = rgb_matrix_get_hsv();
+  hsv.s = 255;
   
   // copy logic from breathing_anim.h 
   // use different speed divide
@@ -2295,7 +2296,7 @@ static void set_layer_color_overlay(void) {
   hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
 
   // CAPS WORD inidication
-  hsv.h = 43;
+  hsv.h += 16;
   if (is_caps_word_on()) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
@@ -2303,7 +2304,7 @@ static void set_layer_color_overlay(void) {
   }
 
   // mods display
-  hsv.h = 0;
+  hsv.h += 16;
   if (get_mods() & MOD_BIT_LCTRL) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(4, rgb.r, rgb.g, rgb.b);
@@ -2319,7 +2320,6 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(43, rgb.r, rgb.g, rgb.b);
   }
   
-  hsv.h = 172;
   if (get_mods() & MOD_BIT_LSHIFT) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(3, rgb.r, rgb.g, rgb.b);
@@ -2333,7 +2333,6 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(41, rgb.r, rgb.g, rgb.b);
   }
   
-  hsv.h = 46;
   if (get_mods() & MOD_BIT_LALT) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(2, rgb.r, rgb.g, rgb.b);
@@ -2345,7 +2344,6 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(35, rgb.r, rgb.g, rgb.b);
   }
   
-  hsv.h = 86;
   if (get_mods() & MOD_BIT_LGUI) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(1, rgb.r, rgb.g, rgb.b);
@@ -2358,27 +2356,23 @@ static void set_layer_color_overlay(void) {
   }
   
   // layer display
-  hsv.h = 0;
+  hsv.h += 16;
   if (layer_state_is(L_LeftPinky)) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(5, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(6, rgb.r, rgb.g, rgb.b);
-  }
-  hsv.h  = 172;
+  }  
   if (layer_state_is(L_Number)) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(11, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(22, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(50, rgb.r, rgb.g, rgb.b);
   }
-
-  hsv.h = 43;
   if (layer_state_is(L_RightPinky)) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(26, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(37, rgb.r, rgb.g, rgb.b);
   }
-  hsv.h = 86;
   if (layer_state_is(L_Cursor)) {
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
@@ -2389,9 +2383,9 @@ static void set_layer_color_overlay(void) {
   // IME state sync syntem state
   if (ime_on) {
     if (ime_kk) {
-      hsv.h = 172;
+      hsv.h += 32;
     } else {
-      hsv.h = 86;
+      hsv.h += 16;
     }
     if (iss_sync == false) {
       hsv.v = rgb_matrix_get_val();
