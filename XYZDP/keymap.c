@@ -2368,6 +2368,26 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(30, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(36, rgb.r, rgb.g, rgb.b);
   }
+
+  // IME state sync syntem state
+  if (ime_on) {
+    hsv.h -= h_diff;
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(44, rgb.r, rgb.g, rgb.b);
+    
+    if (ime_kk) {
+      rgb_matrix_set_color(38, rgb.r, rgb.g, rgb.b);
+    } else {
+      rgb_matrix_set_color(38, 0, 0, 0);
+    }
+    
+    if (iss_sync) {
+      rgb_matrix_set_color(23, rgb.r, rgb.g, rgb.b);
+    } else {
+      rgb_matrix_set_color(23, 0, 0, 0);
+    }
+    rgb_matrix_set_color(17, 0, 0, 0);
+  }
   
   // layer display
   if (layer_state_is(L_LeftPinky)) {
@@ -2396,26 +2416,6 @@ static void set_layer_color_overlay(void) {
     rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(32, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(45, rgb.r, rgb.g, rgb.b);
-  }
-  
-  // IME state sync syntem state
-  if (ime_on) {
-    hsv.h -= h_diff;
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(44, rgb.r, rgb.g, rgb.b);
-    
-    if (ime_kk) {
-      rgb_matrix_set_color(38, rgb.r, rgb.g, rgb.b);
-    } else {
-      rgb_matrix_set_color(38, 0, 0, 0);
-    }
-    
-    if (iss_sync) {
-      rgb_matrix_set_color(23, rgb.r, rgb.g, rgb.b);
-    } else {
-      rgb_matrix_set_color(23, 0, 0, 0);
-    }
-    rgb_matrix_set_color(17, 0, 0, 0);
   }
 }
 
