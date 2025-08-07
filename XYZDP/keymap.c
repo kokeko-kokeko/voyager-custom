@@ -2277,9 +2277,12 @@ static void rgb_matrix_set_val(const uint8_t val) {
 }
 
 static void rgb_matrix_load_preset(void) {
-  rgb_matrix_sethsv_noeeprom(250, 255, 109);
+  //rgb_matrix_sethsv_noeeprom(250, 255, 109);
+  //rgb_matrix_set_speed_noeeprom(128);
+  //rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+  rgb_matrix_sethsv_noeeprom(0, 255, 109);
   rgb_matrix_set_speed_noeeprom(128);
-  rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+  rgb_matrix_mode_noeeprom(RGB_MATRIX_JELLYBEAN_RAINDROPS);
 }
 
 // use animation logic
