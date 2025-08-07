@@ -2291,7 +2291,7 @@ static void set_layer_color_overlay(void) {
   const uint8_t h_diff = 47;
   
   HSV hsv = rgb_matrix_get_hsv();
-  hsv.h -= g_rgb_timer >> 3;
+  hsv.h -= g_rgb_timer >> 5;
   hsv.s = 255;
   
   // copy logic from breathing_anim.h 
@@ -2409,6 +2409,8 @@ static void set_layer_color_overlay(void) {
     
     if (iss_sync) {
       rgb_matrix_set_color(23, rgb.r, rgb.g, rgb.b);
+    } else {
+      rgb_matrix_set_color(23, 0, 0, 0);
     }
     rgb_matrix_set_color(17, 0, 0, 0);
   }
