@@ -638,30 +638,30 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b1111, led_pattern_off);
       break;
     case L_Function:
-      status_led(now, 0b1100, led_pattern_off);
-      status_led(now, 0b0011, led_pattern_on);
+      //status_led(now, 0b1100, led_pattern_off);
+      //status_led(now, 0b0011, led_pattern_on);
       break;
     case L_Number:
     case L_Number_JIS:
-      status_led(now, 0b1100, led_pattern_off);
-      status_led(now, 0b0001, led_pattern_on);
-      status_led(now, 0b0010, led_pattern_blink);
+      //status_led(now, 0b1100, led_pattern_off);
+      //status_led(now, 0b0001, led_pattern_on);
+      //status_led(now, 0b0010, led_pattern_blink);
       break;
     case L_Cursor:
     case L_Cursor_JIS:
-      status_led(now, 0b1100, led_pattern_off);
-      status_led(now, 0b0010, led_pattern_on);
-      status_led(now, 0b0001, led_pattern_blink);
+      //status_led(now, 0b1100, led_pattern_off);
+      //status_led(now, 0b0010, led_pattern_on);
+      //status_led(now, 0b0001, led_pattern_blink);
       break;
     case L_LeftPinky:
-      status_led(now, 0b0110, led_pattern_off);
-      status_led(now, 0b0001, led_pattern_on);
-      status_led(now, 0b1000, led_pattern_blink);
+      //status_led(now, 0b0110, led_pattern_off);
+      //status_led(now, 0b0001, led_pattern_on);
+      //status_led(now, 0b1000, led_pattern_blink);
       break;
     case L_RightPinky:
-      status_led(now, 0b1001, led_pattern_off);
-      status_led(now, 0b0010, led_pattern_on);
-      status_led(now, 0b0100, led_pattern_blink);
+      //status_led(now, 0b1001, led_pattern_off);
+      //status_led(now, 0b0010, led_pattern_on);
+      //status_led(now, 0b0100, led_pattern_blink);
       break;
     case L_LeftPinkyThumb:
       status_led(now, 0b0100, led_pattern_off);
