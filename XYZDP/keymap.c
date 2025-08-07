@@ -638,8 +638,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b1111, led_pattern_off);
       break;
     case L_Function:
-      //status_led(now, 0b1100, led_pattern_off);
-      //status_led(now, 0b0011, led_pattern_on);
+      status_led(now, 0b1100, led_pattern_off);
+      status_led(now, 0b0011, led_pattern_on);
       break;
     case L_Number:
     case L_Number_JIS:
