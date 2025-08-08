@@ -691,8 +691,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // call FwSys with Bkt and Fn
   state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware); 
 
+  // call color settng
+  state = update_tri_layer_state(state, L_Function, L_Set_Val, L_Set_Sat); 
+  state = update_tri_layer_state(state, L_Cursor, L_Set_Val, L_Set_Speed); 
+
   // call Hue with Sat and Speed
-  state = update_tri_layer_state(state, L_Set_Sat, L_Set_Speed, L_Set_Hue); 
+  state = update_tri_layer_state(state, L_Set_Sat, L_Set_Speed, L_Set_Hue);
   
   //ANSI/JIS addiional enable
   state = update_tri_layer_state(state, L_Base_JIS, L_Number, L_Number_JIS);
