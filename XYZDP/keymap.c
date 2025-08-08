@@ -1450,12 +1450,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgb_matrix_set_val(val_tbl[pos2idx_tbl[22]]);
       }
       return false;
-    case HSV_0_255_122:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,122);
-      }
-      return false;
     case HSV_0_255_123:
       if (record->event.pressed) {
         rgb_matrix_set_val(val_tbl[pos2idx_tbl[23]]);
