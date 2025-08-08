@@ -2095,6 +2095,79 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv(43,255,111);
       }
       return false;
+    case HSV_43_255_112:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,112);
+      }
+      return false;
+    case HSV_43_255_113:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,113);
+      }
+      return false;
+    case HSV_43_255_114:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,114);
+      }
+      return false;
+    case HSV_43_255_115:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,115);
+      }
+      return false;
+    case HSV_43_255_116:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,116);
+      }
+      return false;
+    case HSV_43_255_117:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,117);
+      }
+      return false;
+    case HSV_43_255_118:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,118);
+      }
+      return false;
+    case HSV_43_255_119:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,119);
+      }
+      return false;
+    case HSV_43_255_120:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,120);
+      }
+      return false;
+    case HSV_43_255_121:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,121);
+      }
+      return false;
+    case HSV_43_255_122:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,122);
+      }
+      return false;
+    case HSV_43_255_123:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,123);
+      }
+      return false;
+    
     
     //RGB inc/dec no eeprom over write
     // always return false (sometime use upedge)
