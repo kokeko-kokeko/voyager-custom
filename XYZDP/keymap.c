@@ -651,18 +651,19 @@ bool rgb_matrix_indicators_user(void) {
     case L_Firmware:
       set_layer_color_firmware_map();
       break;
-    case L_Set_Hue:
-      set_layer_color_hue_map();
-      break;
-    case L_Set_Sat:
-      set_layer_color_sat_map();
-      break;
     case L_Set_Val:
       set_layer_color_val_map();
       break;
+    case L_Set_Sat:
+      set_layer_color_sat_map();
+      break;  
     case L_Set_Speed:
       set_layer_color_speed_map();
       break;
+    case L_Set_Hue:
+      set_layer_color_hue_map();
+      break;
+    
     default:
       if (rgb_matrix_get_flags() == LED_FLAG_NONE)
         rgb_matrix_set_color_all(0, 0, 0);
@@ -761,7 +762,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b0011, led_pattern_off);
       status_led(now, 0b1100, led_pattern_blink);
       break;
-    case L_Set_Hue:
+    case L_Set_Val:
       status_led(now, 0b0011, led_pattern_off);
       status_led(now, 0b1100, led_pattern_on);
       break;
@@ -770,12 +771,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b1100, led_pattern_on);
       status_led(now, 0b0010, led_pattern_blink);
       break;
-    case L_Set_Val:
+    case L_Set_Speed:
       status_led(now, 0b0010, led_pattern_off);
       status_led(now, 0b1100, led_pattern_on);
       status_led(now, 0b0001, led_pattern_blink);
       break;
-    case L_Set_Speed:
+    case L_Set_Hue:
       status_led(now, 0b1100, led_pattern_on);
       status_led(now, 0b0011, led_pattern_blink);
       break;
@@ -2884,8 +2885,10 @@ static void set_layer_color_hue_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
 
+  rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
+  rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
-  rgb_matrix_set_color(51, hsv.v, 0, 0 );
+  rgb_matrix_set_color(51, 0, hsv.v, 0);
   uint8_t key = hsv.h;
   uint8_t i = 0;
   for (i = 0; i < 48; i++) {
@@ -2918,7 +2921,7 @@ static void set_layer_color_sat_map(void) {
 
   rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
-  rgb_matrix_set_color(51, 0, hsv.v, 0);
+  rgb_matrix_set_color(51, 0, 0, hsv.v);
   uint8_t key = hsv.s;
   uint8_t i = 0;
   for (i = 0; i < 48; i++) {
@@ -2949,9 +2952,8 @@ static void set_layer_color_val_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
 
-  rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
-  rgb_matrix_set_color(51, 0, 0, hsv.v);
+  rgb_matrix_set_color(51, hsv.v, 0, 0);
   uint8_t key = hsv.v;
   uint8_t i = 0;
   for (i = 0; i < 48; i++) {
@@ -3003,7 +3005,6 @@ static void set_layer_color_speed_map(void) {
   
   hsv.v = val;
   rgb = hsv_to_rgb(hsv);
-  rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
   rgb_matrix_set_color(51, hsv.v, hsv.v, 0);
