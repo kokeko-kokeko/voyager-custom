@@ -440,6 +440,7 @@ static void set_layer_color_firmware_map(void);
 static void set_layer_color_hue_map(void);
 static void set_layer_color_sat_map(void);
 static void set_layer_color_val_map(void);
+static void set_layer_color_speed_map(void);
 
 // reverse sort order
 // hue value 6 * 8 like NCS
@@ -627,7 +628,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_LeftPinkyThumb, L_RightPinkyThumb, L_BothPinkyThumb);
 
   // call FwSys with Bkt and Fn
-  state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware);  
+  state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware); 
+
+  // call speed with Sat and Val
+  state = update_tri_layer_state(state, L_Set_Sat, L_Set_Val, L_Set_Speed); 
   
   //ANSI/JIS addiional enable
   state = update_tri_layer_state(state, L_Base_JIS, L_Number, L_Number_JIS);
@@ -694,7 +698,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       //status_led(now, 0b1111, led_pattern_blink);
       break;
     case L_Firmware:
-      status_led(now, 0b1111, led_pattern_blink);
+      status_led(now, 0b1100, led_pattern_on);
+      status_led(now, 0b0011, led_pattern_blink);
       break;
     case L_Set_Hue:
       status_led(now, 0b0011, led_pattern_off);
@@ -709,6 +714,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b0010, led_pattern_off);
       status_led(now, 0b1100, led_pattern_on);
       status_led(now, 0b0001, led_pattern_blink);
+      break;
+    case L_Set_Speed:
+      status_led(now, 0b1100, led_pattern_on);
+      status_led(now, 0b0011, led_pattern_blink);
       break;
 
     default :
@@ -2661,6 +2670,10 @@ static void set_layer_color_val_map(void) {
     rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
   }
+}
+
+static void set_layer_color_speed_map(void) {
+  
 }
 
 
