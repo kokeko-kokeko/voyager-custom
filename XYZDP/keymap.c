@@ -3028,9 +3028,13 @@ static void set_layer_color_val_map(void) {
 }
 
 static void set_layer_color_speed_map(void) {
-
-  rgb_matrix_set_color_all(0, 0, 0);
+  // copy logic from breathing_anim.h 
+  HSV      hsv  = rgb_matrix_config.hsv;
+  uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
+  hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
+  RGB rgb       = rgb_matrix_hsv_to_rgb(hsv);
   
+  rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
 }
 
 
