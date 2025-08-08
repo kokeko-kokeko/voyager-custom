@@ -3038,7 +3038,17 @@ static void set_layer_color_speed_map(void) {
   RGB rgb = hsv_to_rgb(hsv);
   rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
 
-  //uint8_t key = rgb_matrix_get_speed();
+  uint8_t key = rgb_matrix_get_speed();
+  uint8_t i = 0;
+  uint8_t spd = 0;
+  
+  for (i = 0; i < 48; i++) {
+    spd = spd_tbl[i];
+    if (spd <= key) {
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
+      break;
+    }
+  }
   
   hsv.v = val;
   rgb = hsv_to_rgb(hsv);
