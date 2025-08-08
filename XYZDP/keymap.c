@@ -425,10 +425,10 @@ enum layer_num {
   L_BothPinky,
   L_BothPinkyThumb,
   L_Firmware,
-  L_Set_Hue,
-  L_Set_Sat,
   L_Set_Val,
   L_Set_Speed,
+  L_Set_Sat,
+  L_Set_Hue,
   C_LAYER_COUNT 
 };
 
