@@ -379,6 +379,7 @@ enum layer_num {
   L_Set_Hue,
   L_Set_Sat,
   L_Set_Val,
+  L_Set_Speed,
   C_LAYER_COUNT 
 };
 
