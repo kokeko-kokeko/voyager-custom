@@ -1575,498 +1575,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgb_matrix_load_preset();
       }
       return false;
-    
-    case HSV_86_255_100:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[0]]);
-      }
-      return false;
-    case HSV_86_255_101:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[1]]);
-      }
-      return false;
-    case HSV_86_255_102:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[2]]);
-      }
-      return false;
-    case HSV_86_255_103:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[3]]);
-      }
-      return false;
-    case HSV_86_255_104:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[4]]);
-      }
-      return false;
-    case HSV_86_255_105:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[5]]);
-      }
-      return false;
-    case HSV_86_255_106:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[6]]);
-      }
-      return false;
-    case HSV_86_255_107:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[7]]);
-      }
-      return false;
-    case HSV_86_255_108:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[8]]);
-      }
-      return false;
-    case HSV_86_255_109:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[9]]);
-      }
-      return false;
-    case HSV_86_255_110:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[10]]);
-      }
-      return false;
-    case HSV_86_255_111:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[11]]);
-      }
-      return false;
-    case HSV_86_255_112:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[12]]);
-      }
-      return false;
-    case HSV_86_255_113:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[13]]);
-      }
-      return false;
-    case HSV_86_255_114:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[14]]);
-      }
-      return false;
-    case HSV_86_255_115:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[15]]);
-      }
-      return false;
-    case HSV_86_255_116:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[16]]);
-      }
-      return false;
-    case HSV_86_255_117:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[17]]);
-      }
-      return false;
-    case HSV_86_255_118:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[18]]);
-      }
-      return false;
-    case HSV_86_255_119:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[19]]);
-      }
-      return false;
-    case HSV_86_255_120:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[20]]);
-      }
-      return false;
-    case HSV_86_255_121:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[21]]);
-      }
-      return false;
-    case HSV_86_255_122:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[22]]);
-      }
-      return false;
-    case HSV_86_255_123:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[23]]);
-      }
-      return false;
-    case HSV_86_255_126:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[26]]);
-      }
-      return false;
-    case HSV_86_255_127:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[27]]);
-      }
-      return false;
-    case HSV_86_255_128:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[28]]);
-      }
-      return false;
-    case HSV_86_255_129:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[29]]);
-      }
-      return false;
-    case HSV_86_255_130:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[30]]);
-      }
-      return false;
-    case HSV_86_255_131:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[31]]);
-      }
-      return false;
-    case HSV_86_255_132:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[32]]);
-      }
-      return false;
-    case HSV_86_255_133:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[33]]);
-      }
-      return false;
-    case HSV_86_255_134:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[34]]);
-      }
-      return false;
-    case HSV_86_255_135:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[35]]);
-      }
-      return false;
-    case HSV_86_255_136:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[36]]);
-      }
-      return false;
-    case HSV_86_255_137:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[37]]);
-      }
-      return false;
-    case HSV_86_255_138:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[38]]);
-      }
-      return false;
-    case HSV_86_255_139:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[39]]);
-      }
-      return false;
-    case HSV_86_255_140:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[40]]);
-      }
-      return false;
-    case HSV_86_255_141:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[41]]);
-      }
-      return false;
-    case HSV_86_255_142:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[42]]);
-      }
-      return false;
-    case HSV_86_255_143:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[43]]);
-      }
-      return false;
-    case HSV_86_255_144:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[44]]);
-      }
-      return false;
-    case HSV_86_255_145:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[45]]);
-      }
-      return false;
-    case HSV_86_255_146:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[46]]);
-      }
-      return false;
-    case HSV_86_255_147:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[47]]);
-      }
-      return false;
-    case HSV_86_255_148:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[48]]);
-      }
-      return false;
-    case HSV_86_255_149:
-      if (record->event.pressed) {
-        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[49]]);
-      }
-      return false;
-    case HSV_86_255_151:
-      if (record->event.pressed) {
-        
-      }
-      return false;
-    
-    case HSV_172_255_100:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[0]]);
-      }
-      return false;
-    case HSV_172_255_101:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[1]]);
-      }
-      return false;
-    case HSV_172_255_102:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[2]]);
-      }
-      return false;
-    case HSV_172_255_103:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[3]]);
-      }
-      return false;
-    case HSV_172_255_104:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[4]]);
-      }
-      return false;
-    case HSV_172_255_105:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[5]]);
-      }
-      return false;
-    case HSV_172_255_106:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[6]]);
-      }
-      return false;
-    case HSV_172_255_107:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[7]]);
-      }
-      return false;
-    case HSV_172_255_108:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[8]]);
-      }
-      return false;
-    case HSV_172_255_109:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[9]]);
-      }
-      return false;
-    case HSV_172_255_110:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[10]]);
-      }
-      return false;
-    case HSV_172_255_111:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[11]]);
-      }
-      return false;
-    case HSV_172_255_112:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[12]]);
-      }
-      return false;
-    case HSV_172_255_113:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[13]]);
-      }
-      return false;
-    case HSV_172_255_114:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[14]]);
-      }
-      return false;
-    case HSV_172_255_115:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[15]]);
-      }
-      return false;
-    case HSV_172_255_116:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[16]]);
-      }
-      return false;
-    case HSV_172_255_117:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[17]]);
-      }
-      return false;
-    case HSV_172_255_118:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[18]]);
-      }
-      return false;
-    case HSV_172_255_119:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[19]]);
-      }
-      return false;
-    case HSV_172_255_120:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[20]]);
-      }
-      return false;
-    case HSV_172_255_121:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[21]]);
-      }
-      return false;
-    case HSV_172_255_122:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[22]]);
-      }
-      return false;
-    case HSV_172_255_123:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[23]]);
-      }
-      return false;
-    case HSV_172_255_126:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[26]]);
-      }
-      return false;
-    case HSV_172_255_127:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[27]]);
-      }
-      return false;
-    case HSV_172_255_128:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[28]]);
-      }
-      return false;
-    case HSV_172_255_129:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[29]]);
-      }
-      return false;
-    case HSV_172_255_130:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[30]]);
-      }
-      return false;
-    case HSV_172_255_131:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[31]]);
-      }
-      return false;
-    case HSV_172_255_132:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[32]]);
-      }
-      return false;
-    case HSV_172_255_133:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[33]]);
-      }
-      return false;
-    case HSV_172_255_134:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[34]]);
-      }
-      return false;
-    case HSV_172_255_135:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[35]]);
-      }
-      return false;
-    case HSV_172_255_136:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[36]]);
-      }
-      return false;
-    case HSV_172_255_137:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[37]]);
-      }
-      return false;
-    case HSV_172_255_138:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[38]]);
-      }
-      return false;
-    case HSV_172_255_139:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[39]]);
-      }
-      return false;
-    case HSV_172_255_140:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[40]]);
-      }
-      return false;
-    case HSV_172_255_141:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[41]]);
-      }
-      return false;
-    case HSV_172_255_142:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[42]]);
-      }
-      return false;
-    case HSV_172_255_143:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[43]]);
-      }
-      return false;
-    case HSV_172_255_144:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[44]]);
-      }
-      return false;
-    case HSV_172_255_145:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[45]]);
-      }
-      return false;
-    case HSV_172_255_146:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[46]]);
-      }
-      return false;
-    case HSV_172_255_147:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[47]]);
-      }
-      return false;
-    case HSV_172_255_148:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[48]]);
-      }
-      return false;
-    case HSV_172_255_149:
-      if (record->event.pressed) {
-        rgb_matrix_set_val(val_tbl[pos2idx_tbl[49]]);
-      }
-      return false;
-    case HSV_172_255_151:
-      if (record->event.pressed) {
-        
-      }
-      return false;
 
     case HSV_43_255_100:
       if (record->event.pressed) {
@@ -2314,6 +1822,498 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
     
+    case HSV_86_255_100:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[0]]);
+      }
+      return false;
+    case HSV_86_255_101:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[1]]);
+      }
+      return false;
+    case HSV_86_255_102:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[2]]);
+      }
+      return false;
+    case HSV_86_255_103:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[3]]);
+      }
+      return false;
+    case HSV_86_255_104:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[4]]);
+      }
+      return false;
+    case HSV_86_255_105:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[5]]);
+      }
+      return false;
+    case HSV_86_255_106:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[6]]);
+      }
+      return false;
+    case HSV_86_255_107:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[7]]);
+      }
+      return false;
+    case HSV_86_255_108:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[8]]);
+      }
+      return false;
+    case HSV_86_255_109:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[9]]);
+      }
+      return false;
+    case HSV_86_255_110:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[10]]);
+      }
+      return false;
+    case HSV_86_255_111:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[11]]);
+      }
+      return false;
+    case HSV_86_255_112:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[12]]);
+      }
+      return false;
+    case HSV_86_255_113:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[13]]);
+      }
+      return false;
+    case HSV_86_255_114:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[14]]);
+      }
+      return false;
+    case HSV_86_255_115:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[15]]);
+      }
+      return false;
+    case HSV_86_255_116:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[16]]);
+      }
+      return false;
+    case HSV_86_255_117:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[17]]);
+      }
+      return false;
+    case HSV_86_255_118:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[18]]);
+      }
+      return false;
+    case HSV_86_255_119:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[19]]);
+      }
+      return false;
+    case HSV_86_255_120:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[20]]);
+      }
+      return false;
+    case HSV_86_255_121:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[21]]);
+      }
+      return false;
+    case HSV_86_255_122:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[22]]);
+      }
+      return false;
+    case HSV_86_255_123:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[23]]);
+      }
+      return false;
+    case HSV_86_255_126:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[26]]);
+      }
+      return false;
+    case HSV_86_255_127:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[27]]);
+      }
+      return false;
+    case HSV_86_255_128:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[28]]);
+      }
+      return false;
+    case HSV_86_255_129:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[29]]);
+      }
+      return false;
+    case HSV_86_255_130:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[30]]);
+      }
+      return false;
+    case HSV_86_255_131:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[31]]);
+      }
+      return false;
+    case HSV_86_255_132:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[32]]);
+      }
+      return false;
+    case HSV_86_255_133:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[33]]);
+      }
+      return false;
+    case HSV_86_255_134:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[34]]);
+      }
+      return false;
+    case HSV_86_255_135:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[35]]);
+      }
+      return false;
+    case HSV_86_255_136:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[36]]);
+      }
+      return false;
+    case HSV_86_255_137:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[37]]);
+      }
+      return false;
+    case HSV_86_255_138:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[38]]);
+      }
+      return false;
+    case HSV_86_255_139:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[39]]);
+      }
+      return false;
+    case HSV_86_255_140:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[40]]);
+      }
+      return false;
+    case HSV_86_255_141:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[41]]);
+      }
+      return false;
+    case HSV_86_255_142:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[42]]);
+      }
+      return false;
+    case HSV_86_255_143:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[43]]);
+      }
+      return false;
+    case HSV_86_255_144:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[44]]);
+      }
+      return false;
+    case HSV_86_255_145:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[45]]);
+      }
+      return false;
+    case HSV_86_255_146:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[46]]);
+      }
+      return false;
+    case HSV_86_255_147:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[47]]);
+      }
+      return false;
+    case HSV_86_255_148:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[48]]);
+      }
+      return false;
+    case HSV_86_255_149:
+      if (record->event.pressed) {
+        rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[49]]);
+      }
+      return false;
+    case HSV_86_255_151:
+      if (record->event.pressed) {
+        
+      }
+      return false;
+    
+    case HSV_129_255_100:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[0]]);
+      }
+      return false;
+    case HSV_129_255_101:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[1]]);
+      }
+      return false;
+    case HSV_129_255_102:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[2]]);
+      }
+      return false;
+    case HSV_129_255_103:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[3]]);
+      }
+      return false;
+    case HSV_129_255_104:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[4]]);
+      }
+      return false;
+    case HSV_129_255_105:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[5]]);
+      }
+      return false;
+    case HSV_129_255_106:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[6]]);
+      }
+      return false;
+    case HSV_129_255_107:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[7]]);
+      }
+      return false;
+    case HSV_129_255_108:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[8]]);
+      }
+      return false;
+    case HSV_129_255_109:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[9]]);
+      }
+      return false;
+    case HSV_129_255_110:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[10]]);
+      }
+      return false;
+    case HSV_129_255_111:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[11]]);
+      }
+      return false;
+    case HSV_129_255_112:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[12]]);
+      }
+      return false;
+    case HSV_129_255_113:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[13]]);
+      }
+      return false;
+    case HSV_129_255_114:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[14]]);
+      }
+      return false;
+    case HSV_129_255_115:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[15]]);
+      }
+      return false;
+    case HSV_129_255_116:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[16]]);
+      }
+      return false;
+    case HSV_129_255_117:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[17]]);
+      }
+      return false;
+    case HSV_129_255_118:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[18]]);
+      }
+      return false;
+    case HSV_129_255_119:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[19]]);
+      }
+      return false;
+    case HSV_129_255_120:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[20]]);
+      }
+      return false;
+    case HSV_129_255_121:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[21]]);
+      }
+      return false;
+    case HSV_129_255_122:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[22]]);
+      }
+      return false;
+    case HSV_129_255_123:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[23]]);
+      }
+      return false;
+    case HSV_129_255_126:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[26]]);
+      }
+      return false;
+    case HSV_129_255_127:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[27]]);
+      }
+      return false;
+    case HSV_129_255_128:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[28]]);
+      }
+      return false;
+    case HSV_129_255_129:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[29]]);
+      }
+      return false;
+    case HSV_129_255_130:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[30]]);
+      }
+      return false;
+    case HSV_129_255_131:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[31]]);
+      }
+      return false;
+    case HSV_129_255_132:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[32]]);
+      }
+      return false;
+    case HSV_129_255_133:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[33]]);
+      }
+      return false;
+    case HSV_129_255_134:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[34]]);
+      }
+      return false;
+    case HSV_129_255_135:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[35]]);
+      }
+      return false;
+    case HSV_129_255_136:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[36]]);
+      }
+      return false;
+    case HSV_129_255_137:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[37]]);
+      }
+      return false;
+    case HSV_129_255_138:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[38]]);
+      }
+      return false;
+    case HSV_129_255_139:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[39]]);
+      }
+      return false;
+    case HSV_129_255_140:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[40]]);
+      }
+      return false;
+    case HSV_129_255_141:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[41]]);
+      }
+      return false;
+    case HSV_129_255_142:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[42]]);
+      }
+      return false;
+    case HSV_129_255_143:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[43]]);
+      }
+      return false;
+    case HSV_129_255_144:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[44]]);
+      }
+      return false;
+    case HSV_129_255_145:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[45]]);
+      }
+      return false;
+    case HSV_129_255_146:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[46]]);
+      }
+      return false;
+    case HSV_129_255_147:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[47]]);
+      }
+      return false;
+    case HSV_129_255_148:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[48]]);
+      }
+      return false;
+    case HSV_129_255_149:
+      if (record->event.pressed) {
+        rgb_matrix_set_val(val_tbl[pos2idx_tbl[49]]);
+      }
+      return false;
+    case HSV_129_255_151:
+      if (record->event.pressed) {
+        
+      }
+      return false;
+
     //RGB inc/dec no eeprom over write
     // always return false (sometime use upedge)
     case RGB_HUI:
