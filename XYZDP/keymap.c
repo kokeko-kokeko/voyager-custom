@@ -2676,6 +2676,8 @@ static void set_layer_color_val_map(void) {
 }
 
 static void set_layer_color_speed_map(void) {
+
+  rgb_matrix_set_color_all(0, 0, 0);
   
 }
 
