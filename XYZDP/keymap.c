@@ -603,6 +603,9 @@ bool rgb_matrix_indicators_user(void) {
     case L_Set_Val:
       set_layer_color_val_map();
       break;
+    case L_Set_Speed:
+      set_layer_color_speed_map();
+      break;
     default:
       if (rgb_matrix_get_flags() == LED_FLAG_NONE)
         rgb_matrix_set_color_all(0, 0, 0);
