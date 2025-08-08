@@ -3041,7 +3041,7 @@ static void set_layer_color_speed_map(void) {
   //uint8_t key = rgb_matrix_get_speed();
   
   hsv.v = val;
-  RGB rgb = hsv_to_rgb(hsv);
+  rgb = hsv_to_rgb(hsv);
   rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
