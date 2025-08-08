@@ -3030,7 +3030,7 @@ static void set_layer_color_val_map(void) {
 static void set_layer_color_speed_map(void) {
   // copy logic from breathing_anim.h 
   HSV hsv = rgb_matrix_config.hsv;
-  uist8_t val = hsv.v;
+  uint8_t val = hsv.v;
   
   uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
   hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
