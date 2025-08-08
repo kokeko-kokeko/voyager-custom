@@ -170,6 +170,18 @@ enum custom_keycodes {
   HSV_43_255_109,
   HSV_43_255_110,
   HSV_43_255_111,
+  HSV_43_255_112,
+  HSV_43_255_113,
+  HSV_43_255_114,
+  HSV_43_255_115,
+  HSV_43_255_116,
+  HSV_43_255_117,
+  HSV_43_255_118,
+  HSV_43_255_119,
+  HSV_43_255_120,
+  HSV_43_255_121,
+  HSV_43_255_122,
+  HSV_43_255_123,
   ST_MACRO_0,
   ST_MACRO_1,
   ST_MACRO_2,
@@ -197,28 +209,28 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(4, KC_O)
-#define DUAL_FUNC_1 LT(6, KC_J)
-#define DUAL_FUNC_2 LT(1, KC_C)
-#define DUAL_FUNC_3 LT(4, KC_7)
-#define DUAL_FUNC_4 LT(14, KC_F15)
-#define DUAL_FUNC_5 LT(12, KC_F1)
-#define DUAL_FUNC_6 LT(1, KC_F19)
-#define DUAL_FUNC_7 LT(13, KC_F12)
-#define DUAL_FUNC_8 LT(12, KC_Z)
-#define DUAL_FUNC_9 LT(14, KC_F11)
-#define DUAL_FUNC_10 LT(8, KC_G)
-#define DUAL_FUNC_11 LT(9, KC_F12)
-#define DUAL_FUNC_12 LT(7, KC_F19)
-#define DUAL_FUNC_13 LT(10, KC_8)
-#define DUAL_FUNC_14 LT(9, KC_F4)
-#define DUAL_FUNC_15 LT(3, KC_6)
-#define DUAL_FUNC_16 LT(13, KC_F18)
-#define DUAL_FUNC_17 LT(5, KC_D)
-#define DUAL_FUNC_18 LT(10, KC_F17)
-#define DUAL_FUNC_19 LT(13, KC_F8)
-#define DUAL_FUNC_20 LT(6, KC_6)
-#define DUAL_FUNC_21 LT(15, KC_F9)
+#define DUAL_FUNC_0 LT(5, KC_F4)
+#define DUAL_FUNC_1 LT(11, KC_L)
+#define DUAL_FUNC_2 LT(1, KC_U)
+#define DUAL_FUNC_3 LT(6, KC_F)
+#define DUAL_FUNC_4 LT(9, KC_Q)
+#define DUAL_FUNC_5 LT(7, KC_F9)
+#define DUAL_FUNC_6 LT(11, KC_F16)
+#define DUAL_FUNC_7 LT(9, KC_F12)
+#define DUAL_FUNC_8 LT(1, KC_F4)
+#define DUAL_FUNC_9 LT(6, KC_F13)
+#define DUAL_FUNC_10 LT(14, KC_E)
+#define DUAL_FUNC_11 LT(5, KC_B)
+#define DUAL_FUNC_12 LT(12, KC_F21)
+#define DUAL_FUNC_13 LT(6, KC_F22)
+#define DUAL_FUNC_14 LT(8, KC_7)
+#define DUAL_FUNC_15 LT(13, KC_Z)
+#define DUAL_FUNC_16 LT(11, KC_F10)
+#define DUAL_FUNC_17 LT(13, KC_F2)
+#define DUAL_FUNC_18 LT(6, KC_F15)
+#define DUAL_FUNC_19 LT(4, KC_3)
+#define DUAL_FUNC_20 LT(9, KC_F11)
+#define DUAL_FUNC_21 LT(6, KC_F12)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -357,8 +369,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [19] = LAYOUT_voyager(
     HSV_43_255_100, HSV_43_255_101, HSV_43_255_102, HSV_43_255_103, HSV_43_255_104, HSV_43_255_105,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     HSV_43_255_106, HSV_43_255_107, HSV_43_255_108, HSV_43_255_109, HSV_43_255_110, HSV_43_255_111,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    HSV_43_255_112, HSV_43_255_113, HSV_43_255_114, HSV_43_255_115, HSV_43_255_116, HSV_43_255_117,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    HSV_43_255_118, HSV_43_255_119, HSV_43_255_120, HSV_43_255_121, HSV_43_255_122, HSV_43_255_123,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
 };
@@ -1798,6 +1810,78 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_mode(1);
         rgblight_sethsv(43,255,111);
+      }
+      return false;
+    case HSV_43_255_112:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,112);
+      }
+      return false;
+    case HSV_43_255_113:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,113);
+      }
+      return false;
+    case HSV_43_255_114:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,114);
+      }
+      return false;
+    case HSV_43_255_115:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,115);
+      }
+      return false;
+    case HSV_43_255_116:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,116);
+      }
+      return false;
+    case HSV_43_255_117:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,117);
+      }
+      return false;
+    case HSV_43_255_118:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,118);
+      }
+      return false;
+    case HSV_43_255_119:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,119);
+      }
+      return false;
+    case HSV_43_255_120:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,120);
+      }
+      return false;
+    case HSV_43_255_121:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,121);
+      }
+      return false;
+    case HSV_43_255_122:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,122);
+      }
+      return false;
+    case HSV_43_255_123:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,123);
       }
       return false;
   }
