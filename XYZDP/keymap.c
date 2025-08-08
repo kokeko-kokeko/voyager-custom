@@ -2010,6 +2010,79 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
       }
       return false;
+
+    case HSV_43_255_100:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,100);
+      }
+      return false;
+    case HSV_43_255_101:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,101);
+      }
+      return false;
+    case HSV_43_255_102:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,102);
+      }
+      return false;
+    case HSV_43_255_103:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,103);
+      }
+      return false;
+    case HSV_43_255_104:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,104);
+      }
+      return false;
+    case HSV_43_255_105:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,105);
+      }
+      return false;
+    case HSV_43_255_106:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,106);
+      }
+      return false;
+    case HSV_43_255_107:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,107);
+      }
+      return false;
+    case HSV_43_255_108:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,108);
+      }
+      return false;
+    case HSV_43_255_109:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,109);
+      }
+      return false;
+    case HSV_43_255_110:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,110);
+      }
+      return false;
+    case HSV_43_255_111:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(43,255,111);
+      }
+      return false;
     
     //RGB inc/dec no eeprom over write
     // always return false (sometime use upedge)
