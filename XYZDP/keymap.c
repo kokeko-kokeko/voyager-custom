@@ -2070,296 +2070,247 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case HSV_43_255_100:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,100);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[0]]);
       }
       return false;
     case HSV_43_255_101:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,101);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[1]]);
       }
       return false;
     case HSV_43_255_102:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,102);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[2]]);
       }
       return false;
     case HSV_43_255_103:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,103);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[3]]);
       }
       return false;
     case HSV_43_255_104:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,104);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[4]]);
       }
       return false;
     case HSV_43_255_105:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,105);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[5]]);
       }
       return false;
     case HSV_43_255_106:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,106);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[6]]);
       }
       return false;
     case HSV_43_255_107:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,107);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[7]]);
       }
       return false;
     case HSV_43_255_108:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,108);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[8]]);
       }
       return false;
     case HSV_43_255_109:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,109);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[9]]);
       }
       return false;
     case HSV_43_255_110:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,110);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[10]]);
       }
       return false;
     case HSV_43_255_111:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,111);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[11]]);
       }
       return false;
     case HSV_43_255_112:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,112);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[12]]);
       }
       return false;
     case HSV_43_255_113:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,113);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[13]]);
       }
       return false;
     case HSV_43_255_114:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,114);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[14]]);
       }
       return false;
     case HSV_43_255_115:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,115);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[15]]);
       }
       return false;
     case HSV_43_255_116:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,116);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[16]]);
       }
       return false;
     case HSV_43_255_117:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,117);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[17]]);
       }
       return false;
     case HSV_43_255_118:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,118);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[18]]);
       }
       return false;
     case HSV_43_255_119:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,119);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[19]]);
       }
       return false;
     case HSV_43_255_120:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,120);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[20]]);
       }
       return false;
     case HSV_43_255_121:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,121);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[21]]);
       }
       return false;
     case HSV_43_255_122:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,122);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[22]]);
       }
       return false;
     case HSV_43_255_123:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,123);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[23]]);
       }
       return false;
     case HSV_43_255_126:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,126);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[26]]);
       }
       return false;
     case HSV_43_255_127:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,127);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[27]]);
       }
       return false;
     case HSV_43_255_128:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,128);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[28]]);
       }
       return false;
     case HSV_43_255_129:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,129);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[29]]);
       }
       return false;
     case HSV_43_255_130:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,130);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[30]]);
       }
       return false;
     case HSV_43_255_131:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,131);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[31]]);
       }
       return false;
     case HSV_43_255_132:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,132);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[32]]);
       }
       return false;
     case HSV_43_255_133:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,133);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[33]]);
       }
       return false;
     case HSV_43_255_134:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,134);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[34]]);
       }
       return false;
     case HSV_43_255_135:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,135);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[35]]);
       }
       return false;
     case HSV_43_255_136:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,136);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[36]]);
       }
       return false;
     case HSV_43_255_137:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,137);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[37]]);
       }
       return false;
     case HSV_43_255_138:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,138);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[38]]);
       }
       return false;
     case HSV_43_255_139:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,139);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[39]]);
       }
       return false;
     case HSV_43_255_140:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,140);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[40]]);
       }
       return false;
     case HSV_43_255_141:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,141);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[41]]);
       }
       return false;
     case HSV_43_255_142:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,142);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[42]]);
       }
       return false;
     case HSV_43_255_143:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,143);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[43]]);
       }
       return false;
     case HSV_43_255_144:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,144);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[44]]);
       }
       return false;
     case HSV_43_255_145:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,145);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[45]]);
       }
       return false;
     case HSV_43_255_146:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,146);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[46]]);
       }
       return false;
     case HSV_43_255_147:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,147);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[47]]);
       }
       return false;
     case HSV_43_255_148:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,148);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[48]]);
       }
       return false;
     case HSV_43_255_149:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,149);
+        led_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[49]]);
       }
       return false;
     case HSV_43_255_151:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,151);
+        
       }
       return false;
     
