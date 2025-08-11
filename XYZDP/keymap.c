@@ -2713,7 +2713,11 @@ static void set_layer_color_overlay(void) {
     } else {
       rgb_matrix_set_color(23, 0, 0, 0);
     }
+    rgb_matrix_set_color(5, 0, 0, 0);
+    rgb_matrix_set_color(11, 0, 0, 0);
     rgb_matrix_set_color(17, 0, 0, 0);
+    rgb_matrix_set_color(26, 0, 0, 0);
+    rgb_matrix_set_color(32, 0, 0, 0);
   }
   
   // layer display with priority
