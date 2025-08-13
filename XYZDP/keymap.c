@@ -59,7 +59,6 @@ enum custom_keycodes {
   HSV_0_255_147,
   HSV_0_255_148,
   HSV_0_255_149,
-  HSV_0_255_151,
   HSV_43_255_100,
   HSV_43_255_101,
   HSV_43_255_102,
@@ -108,7 +107,6 @@ enum custom_keycodes {
   HSV_43_255_147,
   HSV_43_255_148,
   HSV_43_255_149,
-  HSV_43_255_151,
   HSV_86_255_100,
   HSV_86_255_101,
   HSV_86_255_102,
@@ -157,7 +155,6 @@ enum custom_keycodes {
   HSV_86_255_147,
   HSV_86_255_148,
   HSV_86_255_149,
-  HSV_86_255_151,
   HSV_129_255_100,
   HSV_129_255_101,
   HSV_129_255_102,
@@ -234,28 +231,28 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(9, KC_S)
-#define DUAL_FUNC_1 LT(14, KC_F16)
-#define DUAL_FUNC_2 LT(11, KC_F14)
-#define DUAL_FUNC_3 LT(9, KC_N)
-#define DUAL_FUNC_4 LT(3, KC_U)
-#define DUAL_FUNC_5 LT(4, KC_J)
-#define DUAL_FUNC_6 LT(5, KC_E)
-#define DUAL_FUNC_7 LT(14, KC_P)
-#define DUAL_FUNC_8 LT(14, KC_8)
-#define DUAL_FUNC_9 LT(8, KC_F20)
-#define DUAL_FUNC_10 LT(8, KC_5)
-#define DUAL_FUNC_11 LT(11, KC_G)
-#define DUAL_FUNC_12 LT(4, KC_B)
-#define DUAL_FUNC_13 LT(2, KC_J)
-#define DUAL_FUNC_14 LT(4, KC_Z)
-#define DUAL_FUNC_15 LT(8, KC_V)
-#define DUAL_FUNC_16 LT(4, KC_F2)
-#define DUAL_FUNC_17 LT(2, KC_R)
-#define DUAL_FUNC_18 LT(7, KC_F13)
-#define DUAL_FUNC_19 LT(10, KC_G)
-#define DUAL_FUNC_20 LT(7, KC_D)
-#define DUAL_FUNC_21 LT(11, KC_Q)
+#define DUAL_FUNC_0 LT(5, KC_W)
+#define DUAL_FUNC_1 LT(13, KC_6)
+#define DUAL_FUNC_2 LT(7, KC_F7)
+#define DUAL_FUNC_3 LT(4, KC_F19)
+#define DUAL_FUNC_4 LT(2, KC_0)
+#define DUAL_FUNC_5 LT(14, KC_F22)
+#define DUAL_FUNC_6 LT(12, KC_1)
+#define DUAL_FUNC_7 LT(11, KC_Y)
+#define DUAL_FUNC_8 LT(15, KC_S)
+#define DUAL_FUNC_9 LT(2, KC_X)
+#define DUAL_FUNC_10 LT(2, KC_F15)
+#define DUAL_FUNC_11 LT(10, KC_V)
+#define DUAL_FUNC_12 LT(5, KC_F13)
+#define DUAL_FUNC_13 LT(12, KC_F12)
+#define DUAL_FUNC_14 LT(15, KC_Q)
+#define DUAL_FUNC_15 LT(8, KC_Q)
+#define DUAL_FUNC_16 LT(5, KC_F14)
+#define DUAL_FUNC_17 LT(8, KC_Z)
+#define DUAL_FUNC_18 LT(6, KC_G)
+#define DUAL_FUNC_19 LT(5, KC_5)
+#define DUAL_FUNC_20 LT(1, KC_F16)
+#define DUAL_FUNC_21 LT(4, KC_F5)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -382,21 +379,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     HSV_0_255_106,  HSV_0_255_107,  HSV_0_255_108,  HSV_0_255_109,  HSV_0_255_110,  HSV_0_255_111,                                  HSV_0_255_132,  HSV_0_255_133,  HSV_0_255_134,  HSV_0_255_135,  HSV_0_255_136,  HSV_0_255_137,  
     HSV_0_255_112,  HSV_0_255_113,  HSV_0_255_114,  HSV_0_255_115,  HSV_0_255_116,  HSV_0_255_117,                                  HSV_0_255_138,  HSV_0_255_139,  HSV_0_255_140,  HSV_0_255_141,  HSV_0_255_142,  HSV_0_255_143,  
     HSV_0_255_118,  HSV_0_255_119,  HSV_0_255_120,  HSV_0_255_121,  HSV_0_255_122,  HSV_0_255_123,                                  HSV_0_255_144,  HSV_0_255_145,  HSV_0_255_146,  HSV_0_255_147,  HSV_0_255_148,  HSV_0_255_149,  
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, HSV_0_255_151
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO
   ),
   [18] = LAYOUT_voyager(
     HSV_43_255_100, HSV_43_255_101, HSV_43_255_102, HSV_43_255_103, HSV_43_255_104, HSV_43_255_105,                                 HSV_43_255_126, HSV_43_255_127, HSV_43_255_128, HSV_43_255_129, HSV_43_255_130, HSV_43_255_131, 
     HSV_43_255_106, HSV_43_255_107, HSV_43_255_108, HSV_43_255_109, HSV_43_255_110, HSV_43_255_111,                                 HSV_43_255_132, HSV_43_255_133, HSV_43_255_134, HSV_43_255_135, HSV_43_255_136, HSV_43_255_137, 
     HSV_43_255_112, HSV_43_255_113, HSV_43_255_114, HSV_43_255_115, HSV_43_255_116, HSV_43_255_117,                                 HSV_43_255_138, HSV_43_255_139, HSV_43_255_140, HSV_43_255_141, HSV_43_255_142, HSV_43_255_143, 
     HSV_43_255_118, HSV_43_255_119, HSV_43_255_120, HSV_43_255_121, HSV_43_255_122, HSV_43_255_123,                                 HSV_43_255_144, HSV_43_255_145, HSV_43_255_146, HSV_43_255_147, HSV_43_255_148, HSV_43_255_149, 
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, HSV_43_255_151
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO
   ),
   [19] = LAYOUT_voyager(
     HSV_86_255_100, HSV_86_255_101, HSV_86_255_102, HSV_86_255_103, HSV_86_255_104, HSV_86_255_105,                                 HSV_86_255_126, HSV_86_255_127, HSV_86_255_128, HSV_86_255_129, HSV_86_255_130, HSV_86_255_131, 
     HSV_86_255_106, HSV_86_255_107, HSV_86_255_108, HSV_86_255_109, HSV_86_255_110, HSV_86_255_111,                                 HSV_86_255_132, HSV_86_255_133, HSV_86_255_134, HSV_86_255_135, HSV_86_255_136, HSV_86_255_137, 
     HSV_86_255_112, HSV_86_255_113, HSV_86_255_114, HSV_86_255_115, HSV_86_255_116, HSV_86_255_117,                                 HSV_86_255_138, HSV_86_255_139, HSV_86_255_140, HSV_86_255_141, HSV_86_255_142, HSV_86_255_143, 
     HSV_86_255_118, HSV_86_255_119, HSV_86_255_120, HSV_86_255_121, HSV_86_255_122, HSV_86_255_123,                                 HSV_86_255_144, HSV_86_255_145, HSV_86_255_146, HSV_86_255_147, HSV_86_255_148, HSV_86_255_149, 
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, HSV_86_255_151
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO
   ),
   [20] = LAYOUT_voyager(
     HSV_129_255_100,HSV_129_255_101,HSV_129_255_102,HSV_129_255_103,HSV_129_255_104,HSV_129_255_105,                                HSV_129_255_126,HSV_129_255_127,HSV_129_255_128,HSV_129_255_129,HSV_129_255_130,HSV_129_255_131,
@@ -1178,12 +1175,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv(0,255,149);
       }
       return false;
-    case HSV_0_255_151:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,151);
-      }
-      return false;
     case HSV_43_255_100:
       if (record->event.pressed) {
         rgblight_mode(1);
@@ -1472,12 +1463,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv(43,255,149);
       }
       return false;
-    case HSV_43_255_151:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,151);
-      }
-      return false;
     case HSV_86_255_100:
       if (record->event.pressed) {
         rgblight_mode(1);
@@ -1764,12 +1749,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_mode(1);
         rgblight_sethsv(86,255,149);
-      }
-      return false;
-    case HSV_86_255_151:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,255,151);
       }
       return false;
     case HSV_129_255_100:
