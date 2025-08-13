@@ -3001,32 +3001,39 @@ static void set_layer_color_val_map(void) {
 }
 
 static void set_layer_color_speed_map(void) {
-  // copy logic from breathing_anim.h 
-  HSV hsv = rgb_matrix_config.hsv;
-  uint8_t val = hsv.v;
+  HSV hsv = rgb_matrix_get_hsv();
+  RGB rgb = hsv_to_rgb(hsv);
+
+  rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
+  rgb_matrix_set_color(51, hsv.v, hsv.v, 0);
   
+  // copy logic from breathing_anim.h   
   uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
   hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
-  
-  RGB rgb = hsv_to_rgb(hsv);
-  rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+  rgb = hsv_to_rgb(hsv);
 
   uint8_t key = rgb_matrix_get_speed();
   uint8_t i = 0;
   uint8_t spd = 0;
-  
   for (i = 0; i < 48; i++) {
     spd = spd_tbl[i];
+    if (hsv.v == 0) {
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
+      continue;
+    }
     if (spd <= key) {
       rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
       break;
     }
+    rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
   }
-  
-  hsv.v = val;
-  rgb = hsv_to_rgb(hsv);
-  rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
-  rgb_matrix_set_color(51, hsv.v, hsv.v, 0);
+  for (i++; i < 48; i++) {
+    if (hsv.v == 0) {
+      rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
+      continue;
+    }
+    rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
+  }
 }
 
 
