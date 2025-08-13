@@ -1585,12 +1585,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgb_matrix_set_speed_noeeprom(spd_tbl[pos2idx_tbl[49]]);
       }
       return false;
-    case HSV_0_255_151:
-      if (record->event.pressed) {
-        rgb_matrix_load_preset();
-      }
-      return false;
-
     
     case HSV_43_255_100:
       if (record->event.pressed) {
@@ -1832,11 +1826,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgb_matrix_set_val(val_tbl[pos2idx_tbl[49]]);
       }
       return false;
-    case HSV_43_255_151:
-      if (record->event.pressed) {
-        
-      }
-      return false;
 
     case HSV_86_255_100:
       if (record->event.pressed) {
@@ -2076,11 +2065,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_86_255_149:
       if (record->event.pressed) {
         rgb_matrix_set_sat(sat_tbl[pos2idx_tbl[49]]);
-      }
-      return false;
-    case HSV_86_255_151:
-      if (record->event.pressed) {
-        
       }
       return false;
     
@@ -2326,7 +2310,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_129_255_151:
       if (record->event.pressed) {
-        
+        rgb_matrix_load_preset();
       }
       return false;
 
