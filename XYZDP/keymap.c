@@ -2927,9 +2927,9 @@ static void set_layer_color_sat_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
 
-  rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
+  rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
-    rgb_matrix_set_color(51, 0, hsv.v, 0);
+  rgb_matrix_set_color(51, 0, hsv.v, 0);
   uint8_t key = hsv.s;
   uint8_t i = 0;
   for (i = 0; i < 48; i++) {
@@ -2960,6 +2960,7 @@ static void set_layer_color_val_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
 
+  rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
   rgb_matrix_set_color(51, 0, 0, hsv.v);
   uint8_t key = hsv.v;
@@ -3013,7 +3014,6 @@ static void set_layer_color_speed_map(void) {
   
   hsv.v = val;
   rgb = hsv_to_rgb(hsv);
-  rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
   rgb_matrix_set_color(51, hsv.v, hsv.v, 0);
 }
