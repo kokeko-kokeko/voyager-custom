@@ -418,6 +418,7 @@ extern bool is_launching;
 enum layer_num {
   L_Base = 0,
   L_Base_JIS,
+  L_MO_Guard,
   L_Function,
   L_Number,
   L_Number_JIS,
