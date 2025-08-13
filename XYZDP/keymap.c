@@ -698,6 +698,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // call FwSys with Bkt and Fn
   state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware); 
 
+  // if speed layer active, MO guard, block base tap tap side
+  state = update_tri_layer_state(state, L_Set_Speed, L_Set_Speed, L_MO_Guard); 
+  
   // call color settng
   state = update_tri_layer_state(state, L_Function, L_Set_Speed, L_Set_Val); 
   state = update_tri_layer_state(state, L_Cursor, L_Set_Speed, L_Set_Sat); 
