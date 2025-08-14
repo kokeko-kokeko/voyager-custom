@@ -606,7 +606,11 @@ static const fast_timer_t iss_idle_to_delay = 600000; //ms
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable_noeeprom();
-  rgb_matrix_load_preset();
+  
+  //rgb_matrix_load_preset();
+  rgb_matrix_sethsv_noeeprom(0, 0, 0);
+  rgb_matrix_set_speed_noeeprom(0);
+  rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
 
   keymap_config.nkro = true;
 
@@ -620,23 +624,26 @@ void keyboard_post_init_user(void) {
 }
 
 bool process_detected_host_os_user(os_variant_t detected_os) {
-    switch (detected_os) {
-        case OS_MACOS:
-        case OS_IOS:
-            //rgb_matrix_set_color_all(RGB_WHITE);
-            break;
-        case OS_WINDOWS:
+  switch (detected_os) {
+    case OS_MACOS:
+
+      break;
+    case OS_IOS:
+      //rgb_matrix_set_color_all(RGB_WHITE);
+      break;
+    case OS_WINDOWS:
+      rgb_matrix_load_preset();
             //rgb_matrix_set_color_all(RGB_BLUE);
-            break;
-        case OS_LINUX:
-            //rgb_matrix_set_color_all(RGB_ORANGE);
-            break;
-        case OS_UNSURE:
-            //rgb_matrix_set_color_all(RGB_RED);
-            break;
-    }
+      break;
+    case OS_LINUX:
+      //rgb_matrix_set_color_all(RGB_ORANGE);
+      break;
+    case OS_UNSURE:
+      //rgb_matrix_set_color_all(RGB_RED);
+      break;
+  }
     
-    return true;
+  return true;
 }
 
 // tap flow control
