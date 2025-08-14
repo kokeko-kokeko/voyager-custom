@@ -628,6 +628,7 @@ void keyboard_post_init_user(void) {
 bool process_detected_host_os_user(os_variant_t detected_os) {
   switch (detected_os) {
     case OS_MACOS:
+      rgb_matrix_load_preset();
       break;
     case OS_IOS:
        rgb_matrix_load_preset_powersave();
@@ -636,7 +637,7 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
       rgb_matrix_load_preset();
       break;
     case OS_LINUX:
-      //rgb_matrix_set_color_all(RGB_ORANGE);
+      rgb_matrix_load_preset_powersave();
       break;
     case OS_UNSURE:
       //rgb_matrix_set_color_all(RGB_RED);
@@ -2633,9 +2634,9 @@ static void rgb_matrix_load_preset(void) {
 }
 
 static void rgb_matrix_load_preset_powersave(void) {
-  rgb_matrix_sethsv_noeeprom(250, 255, 63);
+  rgb_matrix_sethsv_noeeprom(250, 0, 63);
   rgb_matrix_set_speed_noeeprom(128);
-  rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+  rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
 }
 
 // use animation logic
