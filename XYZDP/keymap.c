@@ -489,6 +489,7 @@ static void rgb_matrix_set_hue(const uint8_t hue);
 static void rgb_matrix_set_sat(const uint8_t sat);
 static void rgb_matrix_set_val(const uint8_t val);
 static void rgb_matrix_load_preset(void);
+static void rgb_matrix_load_preset_powersave(void);
 
 static void set_layer_color_overlay(void);
 static void set_layer_color_firmware_map(void);
@@ -627,14 +628,12 @@ void keyboard_post_init_user(void) {
 bool process_detected_host_os_user(os_variant_t detected_os) {
   switch (detected_os) {
     case OS_MACOS:
-
       break;
     case OS_IOS:
-      //rgb_matrix_set_color_all(RGB_WHITE);
+       rgb_matrix_load_preset_powersave();
       break;
     case OS_WINDOWS:
       rgb_matrix_load_preset();
-            //rgb_matrix_set_color_all(RGB_BLUE);
       break;
     case OS_LINUX:
       //rgb_matrix_set_color_all(RGB_ORANGE);
@@ -1612,8 +1611,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_0_255_151:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,151);
+        rgb_matrix_load_preset_powersave();
       }
       return false;
     
@@ -2629,12 +2627,15 @@ static void rgb_matrix_set_val(const uint8_t val) {
 }
 
 static void rgb_matrix_load_preset(void) {
-  //rgb_matrix_sethsv_noeeprom(250, 255, 109);
-  //rgb_matrix_set_speed_noeeprom(128);
-  //rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
   rgb_matrix_sethsv_noeeprom(0, 255, 109);
   rgb_matrix_set_speed_noeeprom(100);
   rgb_matrix_mode_noeeprom(RGB_MATRIX_FLOWER_BLOOMING);
+}
+
+static void rgb_matrix_load_preset_powersave(void) {
+  rgb_matrix_sethsv_noeeprom(250, 255, 63);
+  rgb_matrix_set_speed_noeeprom(128);
+  rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
 }
 
 // use animation logic
@@ -3018,6 +3019,7 @@ static void set_layer_color_speed_map(void) {
   RGB rgb = hsv_to_rgb(hsv);
 
   rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
+  rgb_matrix_set_color(51, 0, 0, hsv.v);
   
   // copy logic from breathing_anim.h   
   uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
