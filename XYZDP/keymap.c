@@ -2634,7 +2634,7 @@ static void rgb_matrix_load_preset(void) {
 }
 
 static void rgb_matrix_load_preset_powersave(void) {
-  rgb_matrix_sethsv_noeeprom(250, 0, 31);
+  rgb_matrix_sethsv_noeeprom(250, 0, 21);
   rgb_matrix_set_speed_noeeprom(128);
   rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
 }
