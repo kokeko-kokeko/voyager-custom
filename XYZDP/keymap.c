@@ -2957,6 +2957,7 @@ static void set_layer_color_sat_map(void) {
 
   rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
+  rgb_matrix_set_color(51, 0, 0, 0);
   uint8_t key = hsv.s;
   uint8_t i = 0;
   for (i = 0; i < 48; i++) {
@@ -2989,6 +2990,7 @@ static void set_layer_color_val_map(void) {
 
   rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
+  rgb_matrix_set_color(51, 0, 0, 0);
   uint8_t key = hsv.v;
   uint8_t i = 0;
   for (i = 0; i < 48; i++) {
