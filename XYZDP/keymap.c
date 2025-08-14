@@ -619,6 +619,26 @@ void keyboard_post_init_user(void) {
   layer_move(L_Base);
 }
 
+bool process_detected_host_os_user(os_variant_t detected_os) {
+    switch (detected_os) {
+        case OS_MACOS:
+        case OS_IOS:
+            //rgb_matrix_set_color_all(RGB_WHITE);
+            break;
+        case OS_WINDOWS:
+            //rgb_matrix_set_color_all(RGB_BLUE);
+            break;
+        case OS_LINUX:
+            //rgb_matrix_set_color_all(RGB_ORANGE);
+            break;
+        case OS_UNSURE:
+            //rgb_matrix_set_color_all(RGB_RED);
+            break;
+    }
+    
+    return true;
+}
+
 // tap flow control
 // bool is_flow_tap_key(uint16_t keycode) is default
 // disable (return 0)
@@ -702,7 +722,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Function, L_Set_Speed, L_Set_Val); 
   state = update_tri_layer_state(state, L_Cursor, L_Set_Speed, L_Set_Sat); 
 
-  // call Hue with Sat and Speed
+  // call Hue with Sat and Val
   state = update_tri_layer_state(state, L_Set_Val, L_Set_Sat, L_Set_Hue);
   
   //ANSI/JIS addiional enable
