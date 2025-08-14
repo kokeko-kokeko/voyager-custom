@@ -2628,13 +2628,13 @@ static void rgb_matrix_set_val(const uint8_t val) {
 }
 
 static void rgb_matrix_load_preset(void) {
-  rgb_matrix_sethsv_noeeprom(0, 255, 109);
+  rgb_matrix_sethsv_noeeprom(250, 255, 109);
   rgb_matrix_set_speed_noeeprom(100);
   rgb_matrix_mode_noeeprom(RGB_MATRIX_FLOWER_BLOOMING);
 }
 
 static void rgb_matrix_load_preset_powersave(void) {
-  rgb_matrix_sethsv_noeeprom(250, 0, 21);
+  rgb_matrix_sethsv_noeeprom(0, 0, 21);
   rgb_matrix_set_speed_noeeprom(128);
   rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
 }
