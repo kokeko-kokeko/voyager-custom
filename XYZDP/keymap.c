@@ -3020,7 +3020,7 @@ static void set_layer_color_speed_map(void) {
   RGB rgb = hsv_to_rgb(hsv);
 
   rgb_matrix_set_color(50, hsv.v, hsv.v, hsv.v);
-  rgb_matrix_set_color(51, 0, 0, hsv.v);
+  rgb_matrix_set_color(51, 0, hsv.v, 0);
   
   // copy logic from breathing_anim.h   
   uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
