@@ -635,9 +635,11 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
       status_led(now, 0b1000, led_pattern_oneshot);
       status_led(now, 0b1000, led_pattern_oneshot);
       status_led(now, 0b1000, led_pattern_oneshot);
+      status_led(now, 0b1000, led_pattern_oneshot);
       break;
     case OS_IOS:
       rgb_matrix_load_preset_powersave();
+      status_led(now, 0b0100, led_pattern_oneshot);
       status_led(now, 0b0100, led_pattern_oneshot);
       status_led(now, 0b0100, led_pattern_oneshot);
       status_led(now, 0b0100, led_pattern_oneshot);
@@ -647,14 +649,17 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
       status_led(now, 0b0010, led_pattern_oneshot);
       status_led(now, 0b0010, led_pattern_oneshot);
       status_led(now, 0b0010, led_pattern_oneshot);
+      status_led(now, 0b0010, led_pattern_oneshot);
       break;
     case OS_LINUX:
       rgb_matrix_load_preset_powersave();
       status_led(now, 0b0001, led_pattern_oneshot);
       status_led(now, 0b0001, led_pattern_oneshot);
       status_led(now, 0b0001, led_pattern_oneshot);
+      status_led(now, 0b0001, led_pattern_oneshot);
       break;
     case OS_UNSURE:
+      status_led(now, 0b1111, led_pattern_oneshot);
       status_led(now, 0b1111, led_pattern_oneshot);
       status_led(now, 0b1111, led_pattern_oneshot);
       status_led(now, 0b1111, led_pattern_oneshot);
