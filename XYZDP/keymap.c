@@ -573,7 +573,7 @@ static const uint8_t led_pattern_off[] = {0, 0, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t led_pattern_on[] = {1, 0, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t led_pattern_blink[] = {1, 2, 125, 62, UINT8_MAX, UINT8_MAX};
 static const uint8_t led_pattern_single[] = {1, 2, 125, 0, UINT8_MAX, UINT8_MAX};
-static const uint8_t led_pattern_oneshot[] = {1, 1, 125, 25, 125, 50, 125, 50, 125, 50, 125, 50, 125, 50, 125, 50, 125, UINT8_MAX - 1 , UINT8_MAX - 1};
+static const uint8_t led_pattern_oneshot[] = {1, 1, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, UINT8_MAX - 1 , UINT8_MAX - 1};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 static void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t * const pattern);
