@@ -568,11 +568,12 @@ static const uint8_t pos2idx_tbl[52] = {
 // delay reduce data with shift by scale value
 // 0: terminate, stop exec
 // MAX: restart pattern 
+// MAX - 1: move to before patten (stack)
 static const uint8_t led_pattern_off[] = {0, 0, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t led_pattern_on[] = {1, 0, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t led_pattern_blink[] = {1, 2, 125, 62, UINT8_MAX, UINT8_MAX};
 static const uint8_t led_pattern_single[] = {1, 2, 125, 0, UINT8_MAX, UINT8_MAX};
-static const uint8_t led_pattern_oneshot[] = {1, 1, 160, 40, 160, 40, 160, 40, 160, 40, 160, 40, 160, 40, 160, 40, 160, 0, UINT8_MAX, UINT8_MAX};
+static const uint8_t led_pattern_oneshot[] = {1, 1, 160, 40, 160, 40, 160, 40, 160, 40, 160, 40, 160, 40, 160, 40, 160, UINT8_MAX - 1 , UINT8_MAX - 1};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 static void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t * const pattern);
@@ -626,6 +627,7 @@ void keyboard_post_init_user(void) {
 }
 
 bool process_detected_host_os_user(os_variant_t detected_os) {
+  status_led(now, 0b1111, led_pattern_oneshot);
   switch (detected_os) {
     case OS_MACOS:
       rgb_matrix_load_preset();
