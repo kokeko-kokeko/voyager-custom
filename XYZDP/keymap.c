@@ -2644,8 +2644,8 @@ static void rgb_matrix_load_preset_powersave(void) {
 #include "lib/lib8tion/lib8tion.h"
 
 static void set_layer_color_overlay(void) {
-  // 47 is good prime number
-  const uint8_t h_diff = 47;
+  // use golden angle 255 * phi
+  const uint8_t h_diff = 97;
   
   HSV hsv = rgb_matrix_get_hsv();
   hsv.h -= g_rgb_timer >> 4;
