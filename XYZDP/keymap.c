@@ -2548,8 +2548,10 @@ static void status_led_task_3(const fast_timer_t now, const uint8_t * const patt
 static void status_led_task_4(const fast_timer_t now, const uint8_t * const pattern) {
   static fast_timer_t delay = 0;
   static fast_timer_t trigger = 0;
-  static const uint8_t * ptr_ori = NULL;
-  static const uint8_t * ptr = NULL;
+  static const uint8_t * ptr_2 = led_pattern_off;
+  static const uint8_t * ptr_1 = led_pattern_off;
+  static const uint8_t * ptr_0 = led_pattern_off;
+  static const uint8_t * ptr = led_pattern_off;
   static bool out_val = false;
   static uint8_t scale = 0;
 
@@ -2560,15 +2562,25 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
   } else {
     // update operation
     trigger = now;
-    ptr_ori = pattern;
+    ptr_2 = ptr_1;
+    ptr_1 = ptr_0;
+    ptr_0 = pattern;
     
-    ptr = ptr_ori;
+    ptr = ptr_0;
     out_val = *(ptr++);
     scale = *(ptr++);
   }
   
   if (*ptr == UINT8_MAX) {
-    ptr = ptr_ori;
+    ptr = ptr_0;
+    out_val = *(ptr++);
+    scale = *(ptr++);
+  } else if (*ptr == UINT8_MAX - 1) {
+    ptr_0 = ptr_1;
+    ptr_1 = ptr_2;
+    ptr_2 = led_pattern_off;
+
+    ptr = ptr_0;
     out_val = *(ptr++);
     scale = *(ptr++);
   }
