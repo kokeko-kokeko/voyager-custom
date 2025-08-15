@@ -573,7 +573,7 @@ static const uint8_t led_pattern_off[] = {0, 0, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t led_pattern_on[] = {1, 0, 0, UINT8_MAX, UINT8_MAX};
 static const uint8_t led_pattern_blink[] = {1, 2, 125, 62, UINT8_MAX, UINT8_MAX};
 static const uint8_t led_pattern_single[] = {1, 2, 125, 0, UINT8_MAX, UINT8_MAX};
-static const uint8_t led_pattern_oneshot[] = {1, 1, 160, 40, 160, 40, 160, 40, 160, 40, 160, 40, 160, 40, 160, 40, 160, UINT8_MAX - 1 , UINT8_MAX - 1};
+static const uint8_t led_pattern_oneshot[] = {1, 2, 125, 50, 125, 50, 125, 50, 125, 50, 125, 50, 125, 50, 125, 50, 125, UINT8_MAX - 1 , UINT8_MAX - 1};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 static void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t * const pattern);
@@ -628,22 +628,25 @@ void keyboard_post_init_user(void) {
 
 bool process_detected_host_os_user(os_variant_t detected_os) {
   fast_timer_t now = timer_read_fast();
-  status_led(now, 0b1111, led_pattern_oneshot);
   switch (detected_os) {
     case OS_MACOS:
       rgb_matrix_load_preset();
+      status_led(now, 0b1000, led_pattern_oneshot);
       break;
     case OS_IOS:
-       rgb_matrix_load_preset_powersave();
+      rgb_matrix_load_preset_powersave();
+      status_led(now, 0b0100, led_pattern_oneshot);
       break;
     case OS_WINDOWS:
       rgb_matrix_load_preset();
+      status_led(now, 0b0010, led_pattern_oneshot);
       break;
     case OS_LINUX:
       rgb_matrix_load_preset_powersave();
+      status_led(now, 0b0001, led_pattern_oneshot);
       break;
     case OS_UNSURE:
-      //rgb_matrix_set_color_all(RGB_RED);
+      status_led(now, 0b1111, led_pattern_oneshot);
       break;
   }
     
@@ -1616,6 +1619,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_0_255_151:
       if (record->event.pressed) {
         rgb_matrix_load_preset_powersave();
+        fast_timer_t now = timer_read_fast();
+        status_led(now, 0b0001, led_pattern_oneshot);
       }
       return false;
     
@@ -2344,6 +2349,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_129_255_151:
       if (record->event.pressed) {
         rgb_matrix_load_preset();
+        fast_timer_t now = timer_read_fast();
+        status_led(now, 0b0001, led_pattern_oneshot);
       }
       return false;
 
