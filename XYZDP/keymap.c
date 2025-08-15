@@ -627,6 +627,7 @@ void keyboard_post_init_user(void) {
 }
 
 bool process_detected_host_os_user(os_variant_t detected_os) {
+  fast_timer_t now = timer_read_fast();
   status_led(now, 0b1111, led_pattern_oneshot);
   switch (detected_os) {
     case OS_MACOS:
