@@ -11,6 +11,7 @@ enum custom_keycodes {
   HSV_215_255_102,
   HSV_215_255_106,
   HSV_215_255_108,
+  HSV_215_255_131,
   HSV_215_255_149,
   HSV_0_255_100,
   HSV_0_255_101,
@@ -233,28 +234,28 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(13, KC_F4)
-#define DUAL_FUNC_1 LT(15, KC_F10)
-#define DUAL_FUNC_2 LT(12, KC_L)
-#define DUAL_FUNC_3 LT(1, KC_T)
-#define DUAL_FUNC_4 LT(9, KC_F22)
-#define DUAL_FUNC_5 LT(8, KC_F)
-#define DUAL_FUNC_6 LT(3, KC_C)
-#define DUAL_FUNC_7 LT(3, KC_Q)
-#define DUAL_FUNC_8 LT(15, KC_F21)
-#define DUAL_FUNC_9 LT(8, KC_F17)
-#define DUAL_FUNC_10 LT(5, KC_F18)
-#define DUAL_FUNC_11 LT(3, KC_F2)
-#define DUAL_FUNC_12 LT(1, KC_B)
-#define DUAL_FUNC_13 LT(2, KC_F1)
-#define DUAL_FUNC_14 LT(4, KC_F8)
-#define DUAL_FUNC_15 LT(14, KC_F18)
-#define DUAL_FUNC_16 LT(13, KC_W)
-#define DUAL_FUNC_17 LT(10, KC_F)
-#define DUAL_FUNC_18 LT(11, KC_6)
-#define DUAL_FUNC_19 LT(7, KC_F23)
-#define DUAL_FUNC_20 LT(4, KC_F6)
-#define DUAL_FUNC_21 LT(2, KC_V)
+#define DUAL_FUNC_0 LT(2, KC_Z)
+#define DUAL_FUNC_1 LT(6, KC_2)
+#define DUAL_FUNC_2 LT(14, KC_S)
+#define DUAL_FUNC_3 LT(14, KC_F19)
+#define DUAL_FUNC_4 LT(5, KC_0)
+#define DUAL_FUNC_5 LT(11, KC_F6)
+#define DUAL_FUNC_6 LT(11, KC_O)
+#define DUAL_FUNC_7 LT(14, KC_F18)
+#define DUAL_FUNC_8 LT(6, KC_9)
+#define DUAL_FUNC_9 LT(14, KC_F20)
+#define DUAL_FUNC_10 LT(1, KC_F9)
+#define DUAL_FUNC_11 LT(15, KC_F24)
+#define DUAL_FUNC_12 LT(7, KC_F14)
+#define DUAL_FUNC_13 LT(13, KC_L)
+#define DUAL_FUNC_14 LT(6, KC_J)
+#define DUAL_FUNC_15 LT(5, KC_F24)
+#define DUAL_FUNC_16 LT(4, KC_P)
+#define DUAL_FUNC_17 LT(13, KC_1)
+#define DUAL_FUNC_18 LT(8, KC_V)
+#define DUAL_FUNC_19 LT(10, KC_R)
+#define DUAL_FUNC_20 LT(15, KC_7)
+#define DUAL_FUNC_21 LT(13, KC_4)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -370,7 +371,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [16] = LAYOUT_voyager(
-    HSV_215_255_100,KC_NO,          HSV_215_255_102,KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          QK_BOOT,        
+    HSV_215_255_100,KC_NO,          HSV_215_255_102,KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          HSV_215_255_131,
     HSV_215_255_106,KC_NO,          HSV_215_255_108,KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     QK_DYNAMIC_TAPPING_TERM_PRINT,QK_DYNAMIC_TAPPING_TERM_DOWN,QK_DYNAMIC_TAPPING_TERM_UP,KC_NO,          KC_NO,          KC_NO,                                          KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          HSV_215_255_149,
@@ -887,6 +888,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_mode(1);
         rgblight_sethsv(215,255,108);
+      }
+      return false;
+    case HSV_215_255_131:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(215,255,131);
       }
       return false;
     case HSV_215_255_149:
