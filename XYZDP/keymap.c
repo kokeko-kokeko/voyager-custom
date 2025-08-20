@@ -498,7 +498,8 @@ static const fast_timer_t maximum_delay = (UINT32_MAX / 2) - 14400000;
 
 // fade color system
 static const fast_timer_t fade_matrix_poll_delay = 1009; // use prime
-static const fast_timer_t fade_matrix_repeat_delay = 17; // typ 50fps
+static const fast_timer_t fade_matrix_poll_long_delay = 6007; // use prime
+static const fast_timer_t fade_matrix_repeat_delay = 17; // typ 60fps
 
 static HSV fade_matrix_color_set = {0, 0, 0};
 static uint8_t fade_matrix_speed_set = 0;
@@ -2765,6 +2766,7 @@ static void update_fade_matrix(const fast_timer_t now) {
   uint8_t mode = rgb_matrix_get_mode();
 
   if (fade_matrix_enable_set) {
+    // rgb to enable
     rgb_matrix_enable_noeeprom();
     if ((speed != fade_matrix_speed_set) || (mode != fade_matrix_mode_set)) {
       if (color.v != 0) {
@@ -2802,6 +2804,7 @@ static void update_fade_matrix(const fast_timer_t now) {
       trigger = now + fade_matrix_poll_delay;
     }
   } else {
+    // rgb to disable
     if (color.s != 0) {
       color.s--;
       rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
@@ -2811,7 +2814,7 @@ static void update_fade_matrix(const fast_timer_t now) {
     } else {
       rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
       rgb_matrix_disable_noeeprom();
-      trigger = now + fade_matrix_poll_delay;
+      trigger = now + fade_matrix_poll_long_delay;
     }
   }
 }
