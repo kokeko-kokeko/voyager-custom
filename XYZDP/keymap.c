@@ -497,8 +497,8 @@ const key_override_t *key_overrides[] = {
 static const fast_timer_t maximum_delay = (UINT32_MAX / 2) - 14400000;
 
 // fade color system
-static const fast_timer_t fade_matrix_poll_delay = 1000;
-static const fast_timer_t fade_matrix_repeat_delay = 33; //30fps
+static const fast_timer_t fade_matrix_poll_delay = 1009; // use prime
+static const fast_timer_t fade_matrix_repeat_delay = 19; // typ 50fps
 
 static HSV fade_matrix_color_set = {0, 0, 0};
 static uint8_t fade_matrix_speed_set = 0;
@@ -507,7 +507,7 @@ static bool fade_matrix_enable_set = false;
 static bool fade_matrix_enable_config = false;
 
 static fast_timer_t fade_matrix_idle_trigger = 0;
-static fast_timer_t fade_matrix_idle_delay = 30000; // valiable
+static fast_timer_t fade_matrix_idle_delay = 30011; // valiable
 
 static void rgb_matrix_load_preset(void) {
   fade_matrix_color_set.h = 250;
@@ -518,7 +518,7 @@ static void rgb_matrix_load_preset(void) {
   fade_matrix_enable_config = true;
   fade_matrix_enable_set = fade_matrix_enable_config;
 
-  fade_matrix_idle_delay = 180000;
+  fade_matrix_idle_delay = 180001; // use prime
   fade_matrix_idle_trigger = timer_read_fast() + fade_matrix_idle_delay;
 }
 
@@ -531,7 +531,7 @@ static void rgb_matrix_load_preset_powersave(void) {
   fade_matrix_enable_config = true;
   fade_matrix_enable_set = fade_matrix_enable_config;
 
-  fade_matrix_idle_delay = 10000;
+  fade_matrix_idle_delay = 10007; // use prime
   fade_matrix_idle_trigger = timer_read_fast() + fade_matrix_idle_delay;
 }
 
@@ -634,10 +634,10 @@ static bool iss_enable = true;
 static bool iss_sync = false;
 
 static fast_timer_t iss_sync_trigger = 0;
-static const fast_timer_t iss_sync_delay = 15000; //ms
+static const fast_timer_t iss_sync_delay = 15013; //ms
 
 static fast_timer_t iss_idle_trigger = 0;
-static const fast_timer_t iss_idle_delay = 600000; //ms
+static const fast_timer_t iss_idle_delay = 600011; //ms
 
 // Ime State Display system
 
@@ -2529,7 +2529,7 @@ static void status_led_task_1(const fast_timer_t now, const uint8_t * const patt
     if (!(timer_expired_fast(now, trigger))) return;
   } else {
     // update operation
-    trigger = now;
+    trigger = now + 1; //pseudo rendom
     ptr_2 = ptr_1;
     ptr_1 = ptr_0;
     ptr_0 = pattern;
@@ -2582,7 +2582,7 @@ static void status_led_task_2(const fast_timer_t now, const uint8_t * const patt
     if (!(timer_expired_fast(now, trigger))) return;
   } else {
     // update operation
-    trigger = now;
+    trigger = now + 2;
     ptr_2 = ptr_1;
     ptr_1 = ptr_0;
     ptr_0 = pattern;
@@ -2635,7 +2635,7 @@ static void status_led_task_3(const fast_timer_t now, const uint8_t * const patt
     if (!(timer_expired_fast(now, trigger))) return;
   } else {
     // update operation
-    trigger = now;
+    trigger = now + 3;
     ptr_2 = ptr_1;
     ptr_1 = ptr_0;
     ptr_0 = pattern;
@@ -2688,7 +2688,7 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
     if (!(timer_expired_fast(now, trigger))) return;
   } else {
     // update operation
-    trigger = now;
+    trigger = now + 4;
     ptr_2 = ptr_1;
     ptr_1 = ptr_0;
     ptr_0 = pattern;
