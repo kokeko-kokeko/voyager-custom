@@ -497,8 +497,8 @@ const key_override_t *key_overrides[] = {
 static const fast_timer_t maximum_delay = (UINT32_MAX / 2) - 14400000;
 
 // fade color system
-static const fast_timer_t fade_matrix_poll_delay = 400;
-static const fast_timer_t fade_matrix_repeat_delay = 12; //255 * 12 = 3060
+static const fast_timer_t fade_matrix_poll_delay = 1000;
+static const fast_timer_t fade_matrix_repeat_delay = 33; //30fps
 
 static HSV fade_matrix_color_set = {0, 0, 0};
 static uint8_t fade_matrix_speed_set = 0;
