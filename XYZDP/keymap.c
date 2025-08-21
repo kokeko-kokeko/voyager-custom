@@ -2560,7 +2560,7 @@ static void status_led_task_1(const fast_timer_t now, const uint8_t * const patt
   if (delay == 0) {
     delay = maximum_delay;
   } else {
-    delay = delay << scale + 3; //add prime pseudo rendom
+    delay = (delay << scale) + 3; //add prime pseudo rendom
   }
   trigger += delay;
   
@@ -2613,7 +2613,7 @@ static void status_led_task_2(const fast_timer_t now, const uint8_t * const patt
   if (delay == 0) {
     delay = maximum_delay;
   } else {
-    delay = delay << scale + 5; //add prime pseudo rendom
+    delay = (delay << scale) + 5; //add prime pseudo rendom
   }
   trigger += delay;
   
@@ -2666,7 +2666,7 @@ static void status_led_task_3(const fast_timer_t now, const uint8_t * const patt
   if (delay == 0) {
     delay = maximum_delay;
   } else {
-    delay = delay << scale + 7; //add prime pseudo rendom
+    delay = (delay << scale) + 7; //add prime pseudo rendom
   }
   trigger += delay;
   
@@ -2719,7 +2719,7 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
   if (delay == 0) {
     delay = maximum_delay;
   } else {
-    delay = delay << scale + 11; //add prime pseudo rendom
+    delay = (delay << scale) + 11; //add prime pseudo rendom
   }
   trigger += delay;
   
