@@ -30,4 +30,4 @@ EXTRAFLAGS += -mfloat-abi=hard
 EXTRAFLAGS += -mthumb 
 EXTRAFLAGS += -Wfloat-conversion
 EXTRAFLAGS += -Wdouble-promotion
-EXTRAFLAGS += -Wunsuffixed-float-constants
+EXTRAFLAGS += -fsingle-precision-constant
