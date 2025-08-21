@@ -22,3 +22,4 @@ GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
 
 LTO_ENABLE = yes
+EXTRAFLAGS += -flto -O3
