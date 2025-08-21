@@ -28,3 +28,6 @@ EXTRAFLAGS += -march=armv7e-m
 EXTRAFLAGS += -mfpu=fpv4-sp-d16
 EXTRAFLAGS += -mfloat-abi=hard
 EXTRAFLAGS += -mthumb 
+EXTRAFLAGS += -Wfloat-conversion
+EXTRAFLAGS += -Wdouble-promotion
+EXTRAFLAGS += -Wunsuffixed-float-constants
