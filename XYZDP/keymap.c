@@ -2530,7 +2530,7 @@ static void status_led_task_1(const fast_timer_t now, const uint8_t * const patt
     if (!(timer_expired_fast(now, trigger))) return;
   } else {
     // update operation
-    trigger = now + 1; //pseudo rendom
+    trigger = now;
     ptr_2 = ptr_1;
     ptr_1 = ptr_0;
     ptr_0 = pattern;
@@ -2583,7 +2583,7 @@ static void status_led_task_2(const fast_timer_t now, const uint8_t * const patt
     if (!(timer_expired_fast(now, trigger))) return;
   } else {
     // update operation
-    trigger = now + 2;
+    trigger = now;
     ptr_2 = ptr_1;
     ptr_1 = ptr_0;
     ptr_0 = pattern;
@@ -2636,7 +2636,7 @@ static void status_led_task_3(const fast_timer_t now, const uint8_t * const patt
     if (!(timer_expired_fast(now, trigger))) return;
   } else {
     // update operation
-    trigger = now + 3;
+    trigger = now;
     ptr_2 = ptr_1;
     ptr_1 = ptr_0;
     ptr_0 = pattern;
@@ -2689,7 +2689,7 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
     if (!(timer_expired_fast(now, trigger))) return;
   } else {
     // update operation
-    trigger = now + 4;
+    trigger = now;
     ptr_2 = ptr_1;
     ptr_1 = ptr_0;
     ptr_0 = pattern;
@@ -2732,18 +2732,19 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
 // 2 -> Green Left
 // 4 -> Green Right
 // re-order bit position
-static void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t * const pattern) {  
+static void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t * const pattern) {
+  //add prime pseudo rendom
   if (mask & 0b1000) {
-    status_led_task_1(now, pattern);
+    status_led_task_1(now + 2, pattern);
   }
   if (mask & 0b0100) {
-    status_led_task_3(now, pattern);
+    status_led_task_3(now + 3, pattern);
   }
   if (mask & 0b0010) {
-    status_led_task_2(now, pattern);
+    status_led_task_2(now + 5, pattern);
   }
   if (mask & 0b0001) {
-    status_led_task_4(now, pattern);
+    status_led_task_4(now + 7, pattern);
   }
   return;
 }
