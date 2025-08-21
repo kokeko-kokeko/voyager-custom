@@ -28,6 +28,8 @@ EXTRAFLAGS += -march=armv7e-m
 EXTRAFLAGS += -mfpu=fpv4-sp-d16
 EXTRAFLAGS += -mfloat-abi=hard
 EXTRAFLAGS += -mthumb 
+EXTRAFLAGS += -mtpcs-frame
+EXTRAFLAGS += -mtpcs-leaf-frame
 EXTRAFLAGS += -fsingle-precision-constant 
 
 
