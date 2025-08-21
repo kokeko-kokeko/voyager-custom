@@ -2560,7 +2560,7 @@ static void status_led_task_1(const fast_timer_t now, const uint8_t * const patt
   if (delay == 0) {
     delay = maximum_delay;
   } else {
-    delay = (delay << scale) + 3; //add prime pseudo rendom
+    delay <<= scale;
   }
   trigger += delay;
   
@@ -2613,7 +2613,7 @@ static void status_led_task_2(const fast_timer_t now, const uint8_t * const patt
   if (delay == 0) {
     delay = maximum_delay;
   } else {
-    delay = (delay << scale) + 5; //add prime pseudo rendom
+    delay <<= scale;
   }
   trigger += delay;
   
@@ -2666,7 +2666,7 @@ static void status_led_task_3(const fast_timer_t now, const uint8_t * const patt
   if (delay == 0) {
     delay = maximum_delay;
   } else {
-    delay = (delay << scale) + 7; //add prime pseudo rendom
+    delay <<= scale;
   }
   trigger += delay;
   
@@ -2719,7 +2719,7 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
   if (delay == 0) {
     delay = maximum_delay;
   } else {
-    delay = (delay << scale) + 11; //add prime pseudo rendom
+    delay <<= scale;
   }
   trigger += delay;
   
@@ -2732,17 +2732,18 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
 // 4 -> Green Right
 // re-order bit position
 static void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t * const pattern) {
+  //add prime pseudo rendom start
   if (mask & 0b1000) {
-    status_led_task_1(now, pattern);
+    status_led_task_1(now + 3, pattern);
   }
   if (mask & 0b0100) {
-    status_led_task_3(now, pattern);
+    status_led_task_3(now + 5, pattern);
   }
   if (mask & 0b0010) {
-    status_led_task_2(now, pattern);
+    status_led_task_2(now + 7, pattern);
   }
   if (mask & 0b0001) {
-    status_led_task_4(now, pattern);
+    status_led_task_4(now + 11, pattern);
   }
   return;
 }
@@ -2760,23 +2761,15 @@ static void update_fade_matrix(const fast_timer_t now) {
   if (!(timer_expired_fast(now, trigger))) return;
   trigger += fade_matrix_repeat_delay;
 
-  //HSV color = rgb_matrix_get_hsv();
-  //uint8_t speed = rgb_matrix_get_speed();
-  //uint8_t mode = rgb_matrix_get_mode();
-
   if (fade_matrix_target.enable) {
     // rgb to enable
     rgb_matrix_enable_noeeprom();
     if ((rgb_matrix_config.speed != fade_matrix_target.speed) || (rgb_matrix_config.mode != fade_matrix_target.mode)) {
       if (rgb_matrix_config.hsv.v != 0) {
         rgb_matrix_config.hsv.v >>= 1;
-        //rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
       } else {
         // set sat 0 color
-        //rgb_matrix_sethsv_noeeprom(color.h, 0, color.v);
         rgb_matrix_config.hsv.s = 0;
-        
-        //rgb_matrix_set_speed_noeeprom(fade_matrix_target.speed);
         rgb_matrix_config.speed = fade_matrix_target.speed;
 
         // req additional func
@@ -2788,7 +2781,6 @@ static void update_fade_matrix(const fast_timer_t now) {
       } else {
         rgb_matrix_config.hsv.v--;
       }
-      //rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
     } else if (rgb_matrix_config.hsv.h != fade_matrix_target.hsv.h) {
       // search near direction
       if ((uint8_t)(fade_matrix_target.hsv.h - rgb_matrix_config.hsv.h) < (uint8_t)(rgb_matrix_config.hsv.h - fade_matrix_target.hsv.h)) {
@@ -2796,14 +2788,12 @@ static void update_fade_matrix(const fast_timer_t now) {
       } else {
         rgb_matrix_config.hsv.h--;
       }
-      //rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
     } else if (rgb_matrix_config.hsv.s != fade_matrix_target.hsv.s) {
       if (rgb_matrix_config.hsv.s < fade_matrix_target.hsv.s) {
         rgb_matrix_config.hsv.s++;
       } else {
         rgb_matrix_config.hsv.s--;
       }
-      //rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
     } else {
       trigger = now + fade_matrix_poll_delay;
     }
@@ -2811,10 +2801,8 @@ static void update_fade_matrix(const fast_timer_t now) {
     // rgb to disable
     if (rgb_matrix_config.hsv.s != 0) {
       rgb_matrix_config.hsv.s--;
-      //rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
     } else if (rgb_matrix_config.hsv.v != 0) {
       rgb_matrix_config.hsv.v--;
-      //rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
     } else {
       rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
       rgb_matrix_disable_noeeprom();
