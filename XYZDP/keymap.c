@@ -897,9 +897,13 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     fast_timer_t now = timer_read_fast();
-    
-    fade_matrix_idle_trigger = now + fade_matrix_idle_delay;
-    fade_matrix_target.enable = fade_matrix_enable_user;
+
+    if (fade_matrix_target.enable) {
+      fade_matrix_idle_trigger = now + fade_matrix_idle_delay;
+    } else {
+      fade_matrix_target.enable = fade_matrix_enable_user;
+      status_led(now, 0b1100, led_pattern_oneshot);
+    }
     
     if (iss_enable) {
       iss_sync_trigger = now + iss_sync_delay;
@@ -2766,7 +2770,7 @@ static void update_fade_matrix(const fast_timer_t now) {
     rgb_matrix_enable_noeeprom();
     if ((rgb_matrix_config.speed != fade_matrix_target.speed) || (rgb_matrix_config.mode != fade_matrix_target.mode)) {
       if (rgb_matrix_config.hsv.v != 0) {
-        rgb_matrix_config.hsv.v >>= 1;
+        rgb_matrix_config.hsv.v--;
       } else {
         // set sat 0 color
         rgb_matrix_config.hsv.s = 0;
