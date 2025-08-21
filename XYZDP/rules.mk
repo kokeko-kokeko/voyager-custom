@@ -23,10 +23,10 @@ MAGIC_ENABLE = no
 
 LTO_ENABLE = yes
 EXTRAFLAGS += -flto -O3
-EXTRAFLAGS += -mcpu=cortex-m4
 EXTRAFLAGS += -march=armv7e-m
-EXTRAFLAGS += -mfpu=fpv4-sp-d16
+EXTRAFLAGS += -mcpu=cortex-m4
 EXTRAFLAGS += -mfloat-abi=hard
+EXTRAFLAGS += -mfpu=fpv4-sp-d16
 EXTRAFLAGS += -mthumb 
 EXTRAFLAGS += -fsingle-precision-constant 
 
