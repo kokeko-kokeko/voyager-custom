@@ -501,6 +501,7 @@ static const fast_timer_t fade_matrix_poll_delay = 1009; // use prime
 static const fast_timer_t fade_matrix_poll_long_delay = 6007; // use prime
 static const fast_timer_t fade_matrix_repeat_delay = 11; // use prime
 
+// system side rgb
 extern rgb_config_t rgb_matrix_config;
 
 static rgb_config_t fade_matrix_target;
