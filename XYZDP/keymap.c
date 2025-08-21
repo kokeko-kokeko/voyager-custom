@@ -2565,7 +2565,7 @@ static void status_led_task_1(const fast_timer_t now, const uint8_t * const patt
   if (delay == 0) {
     delay = maximum_delay;
   } else {
-    delay <<= scale;
+    delay = delay << scale + 3; //add prime pseudo rendom
   }
   trigger += delay;
   
@@ -2618,7 +2618,7 @@ static void status_led_task_2(const fast_timer_t now, const uint8_t * const patt
   if (delay == 0) {
     delay = maximum_delay;
   } else {
-    delay <<= scale;
+    delay = delay << scale + 5; //add prime pseudo rendom
   }
   trigger += delay;
   
@@ -2671,7 +2671,7 @@ static void status_led_task_3(const fast_timer_t now, const uint8_t * const patt
   if (delay == 0) {
     delay = maximum_delay;
   } else {
-    delay <<= scale;
+    delay = delay << scale + 7; //add prime pseudo rendom
   }
   trigger += delay;
   
@@ -2724,7 +2724,7 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
   if (delay == 0) {
     delay = maximum_delay;
   } else {
-    delay <<= scale;
+    delay = delay << scale + 11; //add prime pseudo rendom
   }
   trigger += delay;
   
@@ -2737,18 +2737,17 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
 // 4 -> Green Right
 // re-order bit position
 static void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t * const pattern) {
-  //add prime pseudo rendom
   if (mask & 0b1000) {
-    status_led_task_1(now + 3, pattern);
+    status_led_task_1(now, pattern);
   }
   if (mask & 0b0100) {
-    status_led_task_3(now + 5, pattern);
+    status_led_task_3(now, pattern);
   }
   if (mask & 0b0010) {
-    status_led_task_2(now + 7, pattern);
+    status_led_task_2(now, pattern);
   }
   if (mask & 0b0001) {
-    status_led_task_4(now + 11, pattern);
+    status_led_task_4(now, pattern);
   }
   return;
 }
