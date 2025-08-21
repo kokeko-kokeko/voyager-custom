@@ -898,12 +898,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     fast_timer_t now = timer_read_fast();
 
-    if (fade_matrix_target.enable) {
-      fade_matrix_idle_trigger = now + fade_matrix_idle_delay;
-    } else {
-      fade_matrix_target.enable = fade_matrix_enable_user;
-      status_led(now, 0b1100, led_pattern_oneshot);
-    }
+    fade_matrix_idle_trigger = now + fade_matrix_idle_delay;
+    fade_matrix_target.enable = fade_matrix_enable_user;
     
     if (iss_enable) {
       iss_sync_trigger = now + iss_sync_delay;
