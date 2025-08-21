@@ -2760,56 +2760,61 @@ static void update_fade_matrix(const fast_timer_t now) {
   if (!(timer_expired_fast(now, trigger))) return;
   trigger += fade_matrix_repeat_delay;
 
-  HSV color = rgb_matrix_get_hsv();
-  uint8_t speed = rgb_matrix_get_speed();
-  uint8_t mode = rgb_matrix_get_mode();
+  //HSV color = rgb_matrix_get_hsv();
+  //uint8_t speed = rgb_matrix_get_speed();
+  //uint8_t mode = rgb_matrix_get_mode();
 
   if (fade_matrix_target.enable) {
     // rgb to enable
     rgb_matrix_enable_noeeprom();
-    if ((speed != fade_matrix_target.speed) || (mode != fade_matrix_target.mode)) {
-      if (color.v != 0) {
-        color.v >>= 1;
-        rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
+    if ((rgb_matrix_config.speed != fade_matrix_target.speed) || (rgb_matrix_config.mode != fade_matrix_target.mode)) {
+      if (rgb_matrix_config.hsv.v != 0) {
+        rgb_matrix_config.hsv.v >>= 1;
+        //rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
       } else {
         // set sat 0 color
-        rgb_matrix_sethsv_noeeprom(color.h, 0, color.v);
-        rgb_matrix_set_speed_noeeprom(fade_matrix_target.speed);
+        //rgb_matrix_sethsv_noeeprom(color.h, 0, color.v);
+        rgb_matrix_config.hsv.s = 0;
+        
+        //rgb_matrix_set_speed_noeeprom(fade_matrix_target.speed);
+        rgb_matrix_config.speed = fade_matrix_target.speed;
+
+        // req additional func
         rgb_matrix_mode_noeeprom(fade_matrix_target.mode);
       }
-    } else if (color.v != fade_matrix_target.hsv.v) {
-      if (color.v < fade_matrix_target.hsv.v) {
-        color.v++;
+    } else if (rgb_matrix_config.hsv.v != fade_matrix_target.hsv.v) {
+      if (rgb_matrix_config.hsv.v < fade_matrix_target.hsv.v) {
+        rgb_matrix_config.hsv.v++;
       } else {
-        color.v--;
+        rgb_matrix_config.hsv.v--;
       }
-      rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
-    } else if (color.h != fade_matrix_target.hsv.h) {
+      //rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
+    } else if (rgb_matrix_config.hsv.h != fade_matrix_target.hsv.h) {
       // search near direction
-      if ((uint8_t)(fade_matrix_target.hsv.h - color.h) < (uint8_t)(color.h - fade_matrix_target.hsv.h)) {
-        color.h++;
+      if ((uint8_t)(fade_matrix_target.hsv.h - rgb_matrix_config.hsv.h) < (uint8_t)(rgb_matrix_config.hsv.h - fade_matrix_target.hsv.h)) {
+        rgb_matrix_config.hsv.h++;
       } else {
-        color.h--;
+        rgb_matrix_config.hsv.h--;
       }
-      rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
-    } else if (color.s != fade_matrix_target.hsv.s) {
-      if (color.s < fade_matrix_target.hsv.s) {
-        color.s++;
+      //rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
+    } else if (rgb_matrix_config.hsv.s != fade_matrix_target.hsv.s) {
+      if (rgb_matrix_config.hsv.s < fade_matrix_target.hsv.s) {
+        rgb_matrix_config.hsv.s++;
       } else {
-        color.s--;
+        rgb_matrix_config.hsv.s--;
       }
-      rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
+      //rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
     } else {
       trigger = now + fade_matrix_poll_delay;
     }
   } else {
     // rgb to disable
-    if (color.s != 0) {
-      color.s--;
-      rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
-    } else if (color.v != 0) {
-      color.v--;
-      rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
+    if (rgb_matrix_config.hsv.s != 0) {
+      rgb_matrix_config.hsv.s--;
+      //rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
+    } else if (rgb_matrix_config.hsv.v != 0) {
+      rgb_matrix_config.hsv.v--;
+      //rgb_matrix_sethsv_noeeprom(color.h, color.s, color.v);
     } else {
       rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
       rgb_matrix_disable_noeeprom();
