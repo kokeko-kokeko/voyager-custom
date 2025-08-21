@@ -499,7 +499,7 @@ static const fast_timer_t maximum_delay = (UINT32_MAX / 2) - 14400000;
 // fade color system
 static const fast_timer_t fade_matrix_poll_delay = 1009; // use prime
 static const fast_timer_t fade_matrix_poll_long_delay = 6007; // use prime
-static const fast_timer_t fade_matrix_repeat_delay = 13; // typ 75fps
+static const fast_timer_t fade_matrix_repeat_delay = 11; // 90fps
 
 extern rgb_config_t rgb_matrix_config;
 
@@ -2734,16 +2734,16 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
 static void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t * const pattern) {
   //add prime pseudo rendom start
   if (mask & 0b1000) {
-    status_led_task_1(now + 3, pattern);
+    status_led_task_1(now + 2, pattern);
   }
   if (mask & 0b0100) {
-    status_led_task_3(now + 5, pattern);
+    status_led_task_3(now + 3, pattern);
   }
   if (mask & 0b0010) {
-    status_led_task_2(now + 7, pattern);
+    status_led_task_2(now + 5, pattern);
   }
   if (mask & 0b0001) {
-    status_led_task_4(now + 11, pattern);
+    status_led_task_4(now + 7, pattern);
   }
   return;
 }
