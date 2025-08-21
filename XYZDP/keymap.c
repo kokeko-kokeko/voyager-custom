@@ -499,7 +499,7 @@ static const fast_timer_t maximum_delay = (UINT32_MAX / 2) - 14400000;
 // fade color system
 static const fast_timer_t fade_matrix_poll_delay = 1009; // use prime
 static const fast_timer_t fade_matrix_poll_long_delay = 6007; // use prime
-static const fast_timer_t fade_matrix_repeat_delay = 11; // 90fps
+static const fast_timer_t fade_matrix_repeat_delay = 11; // use prime
 
 extern rgb_config_t rgb_matrix_config;
 
