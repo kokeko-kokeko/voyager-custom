@@ -504,11 +504,6 @@ static const fast_timer_t fade_matrix_repeat_delay = 17; // typ 60fps
 extern rgb_config_t rgb_matrix_config;
 
 static rgb_config_t fade_matrix_target;
-
-//static HSV fade_matrix_target.hsv = {0, 0, 0};
-//static uint8_t fade_matrix_target.speed = 0;
-//static uint8_t fade_matrix_target.mode = RGB_MATRIX_NONE;
-//static bool fade_matrix_target.enable = false;
 static bool fade_matrix_enable_user = false;
 
 static fast_timer_t fade_matrix_idle_trigger = 0;
