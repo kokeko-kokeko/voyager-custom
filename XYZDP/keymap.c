@@ -407,6 +407,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+#include "layer_num.h"
+// enum for layer define sync oryx side
+#define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
+_Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
 
 #include "keymap_japanese.h"
 
@@ -418,11 +422,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
 
-// enum for layer define sync oryx side
-
-
-#define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
-_Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
 
 // keymap ovverride (process Engram symbol and ANSI/JIS)
 // base (x and xs pair is shifted symbol, xs only overwrite shift)
