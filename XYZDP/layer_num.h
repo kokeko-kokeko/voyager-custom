@@ -1,3 +1,5 @@
+#pragma once
+
 // layer 
 enum layer_num {
   L_Base = 0,
