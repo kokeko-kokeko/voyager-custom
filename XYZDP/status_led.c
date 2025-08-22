@@ -37,17 +37,17 @@ typedef struct PACKED {
   uint8_t scale;
 } status_led_state_t;
 
-static void out_func_status_1(bool out_val) { STATUS_LED_1(out_val); }
-static void out_func_status_2(bool out_val) { STATUS_LED_2(out_val); }
-static void out_func_status_3(bool out_val) { STATUS_LED_3(out_val); }
-static void out_func_status_4(bool out_val) { STATUS_LED_4(out_val); }
+static void status_led_out_func_1(bool out_val) { STATUS_LED_1(out_val); }
+static void status_led_out_func_2(bool out_val) { STATUS_LED_2(out_val); }
+static void status_led_out_func_3(bool out_val) { STATUS_LED_3(out_val); }
+static void status_led_out_func_4(bool out_val) { STATUS_LED_4(out_val); }
 
-static status_led_state_t status_led_state_1 = {maximum_delay, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, out_func_status_1, false, 0};
-static status_led_state_t status_led_state_2 = {maximum_delay, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, out_func_status_2, false, 0};
-static status_led_state_t status_led_state_3 = {maximum_delay, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, out_func_status_3, false, 0};
-static status_led_state_t status_led_state_4 = {maximum_delay, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, out_func_status_4, false, 0};
+static status_led_state_t status_led_state_1 = {maximum_delay, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, status_led_out_func_1, false, 0};
+static status_led_state_t status_led_state_2 = {maximum_delay, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, status_led_out_func_2, false, 0};
+static status_led_state_t status_led_state_3 = {maximum_delay, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, status_led_out_func_3, false, 0};
+static status_led_state_t status_led_state_4 = {maximum_delay, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, status_led_out_func_4, false, 0};
 
-static void status_led_set_task(status_led_state_t * const state, const fast_timer_t now, const uint8_t * const pattern) {
+static void status_led_set_func(status_led_state_t * const state, const fast_timer_t now, const uint8_t * const pattern) {
   state->trigger = now;
   state->ptr_2 = state->ptr_1;
   state->ptr_1 = state->ptr_0;
@@ -60,7 +60,7 @@ static void status_led_set_task(status_led_state_t * const state, const fast_tim
   return;
 }
 
-static void status_led_update_task(status_led_state_t * const state, const fast_timer_t now) {
+static void status_led_update_func(status_led_state_t * const state, const fast_timer_t now) {
   if (!(timer_expired_fast(now, state->trigger))) return;
 
   if (*(state->ptr) == UINT8_MAX) {
@@ -101,24 +101,24 @@ void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t * cons
   
   //add prime pseudo rendom start
   if (mask & 0b1000) {
-    status_led_set_task(&status_led_state_1, now + 2, pattern);
+    status_led_set_func(&status_led_state_1, now + 2, pattern);
   }
   if (mask & 0b0100) {
-    status_led_set_task(&status_led_state_3, now + 3, pattern);
+    status_led_set_func(&status_led_state_3, now + 3, pattern);
   }
   if (mask & 0b0010) {
-    status_led_set_task(&status_led_state_2, now + 5, pattern);
+    status_led_set_func(&status_led_state_2, now + 5, pattern);
   }
   if (mask & 0b0001) {
-    status_led_set_task(&status_led_state_4, now + 7, pattern);
+    status_led_set_func(&status_led_state_4, now + 7, pattern);
   }
   return;
 }
 
 void update_status_led(const fast_timer_t now) {
-  status_led_update_task(&status_led_state_1, now);
-  status_led_update_task(&status_led_state_3, now);
-  status_led_update_task(&status_led_state_2, now);
-  status_led_update_task(&status_led_state_4, now);
+  status_led_update_func(&status_led_state_1, now);
+  status_led_update_func(&status_led_state_3, now);
+  status_led_update_func(&status_led_state_2, now);
+  status_led_update_func(&status_led_state_4, now);
   return;
 }
