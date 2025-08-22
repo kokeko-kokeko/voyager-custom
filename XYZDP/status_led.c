@@ -7,6 +7,9 @@
 
 #include "status_led.h"
 
+// timer maximum delay
+// #define timer_expired32(current, future) ((uint32_t)(current - future) < UINT32_MAX / 2)
+// sub safety 14400000 ms (14400 sec = 240 min = 4 hour)
 static const fast_timer_t maximum_delay = (UINT32_MAX / 2) - 14400000;
 
 // status LED pattern list, no const limit, terminate symbol
