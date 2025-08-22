@@ -491,6 +491,8 @@ const key_override_t *key_overrides[] = {
   &ko_jis_base_ATs, &ko_jis_base_MINSs, &ko_jis_base_SLSHs, &ko_jis_base_DOTs
 };
 
+#include "status_led.h"
+
 // timer maximum delay
 // #define timer_expired32(current, future) ((uint32_t)(current - future) < UINT32_MAX / 2)
 // sub safety 14400000 ms (14400 sec = 240 min = 4 hour)
