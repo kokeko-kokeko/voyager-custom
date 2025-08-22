@@ -56,12 +56,12 @@ static void status_led_update_task(status_led_state_t * const state, const fast_
     state->ptr_1 = state->ptr_2;
     state->ptr_2 = led_pattern_off;
 
-    state->ptr = pstate->ptr_0;
+    state->ptr = state->ptr_0;
     state->out_val = *(state->ptr++);
     state->scale = *(state->ptr++);
   }
   
-  state->out_func(out_val);
+  state->out_func(state->out_val);
   state->out_val = !(state->out_val);
 
   fast_timer_t delay = *(state->ptr++);
@@ -81,7 +81,7 @@ static void status_led_set_task(status_led_state_t * const state, const fast_tim
   state->ptr_1 = state->ptr_0;
   state->ptr_0 = pattern;
     
-  state->ptr = ptr_0;
+  state->ptr = state->ptr_0;
   state->out_val = *(state->ptr++);
   state->scale = *(state->ptr++);
 
