@@ -21,6 +21,8 @@ SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no 
 MAGIC_ENABLE = no
 
+SRCS += status_led.c
+
 LTO_ENABLE = yes
 EXTRAFLAGS += -flto -O3
 EXTRAFLAGS += -march=armv7e-m
