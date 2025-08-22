@@ -22,6 +22,17 @@ const uint8_t led_pattern_single[] = {1, 2, 125, 0, UINT8_MAX, UINT8_MAX};
 const uint8_t led_pattern_oneshot[] = {1, 1, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, UINT8_MAX - 1 , UINT8_MAX - 1};
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
+typedef struct PACKED {
+  // 3-level pattern stack
+  const uint8_t * ptr_2;
+  const uint8_t * ptr_1;
+  const uint8_t * ptr_0;
+  const uint8_t * ptr;
+  fast_timer_t trigger;
+  bool out_val;
+  uint8_t scale;
+} status_led_state_t;
+
 static void status_led_task_1(const fast_timer_t now, const uint8_t * const pattern) {
   static fast_timer_t trigger = 0;
   // 3-level pattern stack
