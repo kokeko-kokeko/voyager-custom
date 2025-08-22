@@ -29,7 +29,7 @@ typedef struct PACKED {
   const uint8_t * ptr_0;
   const uint8_t * ptr_1;
   const uint8_t * ptr_2;
-  void (*out_func)(bool);
+  void (*const out_func)(bool);
   bool out_val;
   uint8_t scale;
 } status_led_state_t;
