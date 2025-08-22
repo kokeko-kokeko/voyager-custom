@@ -21,7 +21,6 @@ SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no 
 MAGIC_ENABLE = no
 
-SRC += engram_key_overrides.c
 SRC += status_led.c
 
 LTO_ENABLE = yes
