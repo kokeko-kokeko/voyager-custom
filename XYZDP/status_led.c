@@ -50,7 +50,7 @@ static void out_func_status_4(bool out_val) {
   STATUS_LED_4(out_val);
 }
 
-static status_led_state_t status_led_state_1 = {led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, maximum_delay, out_func_status_1, false, 0}
+static status_led_state_t status_led_state_1 = {led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, maximum_delay, out_func_status_1, false, 0};
 
 static void status_led_task_1(const fast_timer_t now, const uint8_t * const pattern) {
   static fast_timer_t trigger = 0;
