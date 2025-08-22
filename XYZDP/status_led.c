@@ -29,9 +29,28 @@ typedef struct PACKED {
   const uint8_t * ptr_0;
   const uint8_t * ptr;
   fast_timer_t trigger;
+  void (*out_func)(bool);
   bool out_val;
   uint8_t scale;
 } status_led_state_t;
+
+static void out_func_status_1(bool out_val) {
+  STATUS_LED_1(out_val);
+}
+
+static void out_func_status_2(bool out_val) {
+  STATUS_LED_2(out_val);
+}
+
+static void out_func_status_3(bool out_val) {
+  STATUS_LED_3(out_val);
+}
+
+static void out_func_status_4(bool out_val) {
+  STATUS_LED_4(out_val);
+}
+
+static status_led_state_t status_led_state_1 = {led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, maximum_delay, out_func_status_1, false, 0}
 
 static void status_led_task_1(const fast_timer_t now, const uint8_t * const pattern) {
   static fast_timer_t trigger = 0;
