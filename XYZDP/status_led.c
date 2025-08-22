@@ -44,215 +44,47 @@ static status_led_state_t status_led_state_2 = {maximum_delay, led_pattern_off, 
 static status_led_state_t status_led_state_3 = {maximum_delay, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, out_func_status_3, false, 0};
 static status_led_state_t status_led_state_4 = {maximum_delay, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, out_func_status_4, false, 0};
 
-static void status_led_task_1(const fast_timer_t now, const uint8_t * const pattern) {
-  static fast_timer_t trigger = 0;
-  // 3-level pattern stack
-  static const uint8_t * ptr_2 = led_pattern_off;
-  static const uint8_t * ptr_1 = led_pattern_off;
-  static const uint8_t * ptr_0 = led_pattern_off;
-  static const uint8_t * ptr = led_pattern_off;
-  static bool out_val = false;
-  static uint8_t scale = 0;
+static void status_led_update_task(status_led_state_t * const state, const fast_timer_t now) {
+  if (!(timer_expired_fast(now, state->trigger))) return;
 
-  if (pattern == NULL) {
-    // normal operation
-    if (!(timer_expired_fast(now, trigger))) return;
-  } else {
-    // update operation
-    trigger = now;
-    ptr_2 = ptr_1;
-    ptr_1 = ptr_0;
-    ptr_0 = pattern;
-    
-    ptr = ptr_0;
-    out_val = *(ptr++);
-    scale = *(ptr++);
+  if (*(state->ptr) == UINT8_MAX) {
+    state->ptr = state->ptr_0;
+    state->out_val = *(state->ptr++);
+    state->scale = *(state->ptr++);
+  } else if (*(state->ptr) == UINT8_MAX - 1) {
+    state->ptr_0 = state->ptr_1;
+    state->ptr_1 = state->ptr_2;
+    state->ptr_2 = led_pattern_off;
+
+    state->ptr = pstate->ptr_0;
+    state->out_val = *(state->ptr++);
+    state->scale = *(state->ptr++);
   }
   
-  if (*ptr == UINT8_MAX) {
-    ptr = ptr_0;
-    out_val = *(ptr++);
-    scale = *(ptr++);
-  } else if (*ptr == UINT8_MAX - 1) {
-    ptr_0 = ptr_1;
-    ptr_1 = ptr_2;
-    ptr_2 = led_pattern_off;
+  state->out_func(out_val);
+  state->out_val = !(state->out_val);
 
-    ptr = ptr_0;
-    out_val = *(ptr++);
-    scale = *(ptr++);
-  }
-  
-  STATUS_LED_1(out_val);
-  out_val = !out_val;
-
-  fast_timer_t delay = *(ptr++);
+  fast_timer_t delay = *(state->ptr++);
   if (delay == 0) {
     delay = maximum_delay;
   } else {
-    delay <<= scale;
+    delay <<= state->scale;
   }
-  trigger += delay;
+  state->trigger += delay;
   
   return;
 }
 
-static void status_led_task_2(const fast_timer_t now, const uint8_t * const pattern) {
-  static fast_timer_t trigger = 0;
-  // 3-level pattern stack
-  static const uint8_t * ptr_2 = led_pattern_off;
-  static const uint8_t * ptr_1 = led_pattern_off;
-  static const uint8_t * ptr_0 = led_pattern_off;
-  static const uint8_t * ptr = led_pattern_off;
-  static bool out_val = false;
-  static uint8_t scale = 0;
-
-  if (pattern == NULL) {
-    // normal operation
-    if (!(timer_expired_fast(now, trigger))) return;
-  } else {
-    // update operation
-    trigger = now;
-    ptr_2 = ptr_1;
-    ptr_1 = ptr_0;
-    ptr_0 = pattern;
+static void status_led_set_task(status_led_state_t * const state, const fast_timer_t now, const uint8_t * const pattern) {
+  state->trigger = now;
+  state->ptr_2 = state->ptr_1;
+  state->ptr_1 = state->ptr_0;
+  state->ptr_0 = pattern;
     
-    ptr = ptr_0;
-    out_val = *(ptr++);
-    scale = *(ptr++);
-  }
-  
-  if (*ptr == UINT8_MAX) {
-    ptr = ptr_0;
-    out_val = *(ptr++);
-    scale = *(ptr++);
-  } else if (*ptr == UINT8_MAX - 1) {
-    ptr_0 = ptr_1;
-    ptr_1 = ptr_2;
-    ptr_2 = led_pattern_off;
+  state->ptr = ptr_0;
+  state->out_val = *(state->ptr++);
+  state->scale = *(state->ptr++);
 
-    ptr = ptr_0;
-    out_val = *(ptr++);
-    scale = *(ptr++);
-  }
-  
-  STATUS_LED_2(out_val);
-  out_val = !out_val;
-
-  fast_timer_t delay = *(ptr++);
-  if (delay == 0) {
-    delay = maximum_delay;
-  } else {
-    delay <<= scale;
-  }
-  trigger += delay;
-  
-  return;
-}
-
-static void status_led_task_3(const fast_timer_t now, const uint8_t * const pattern) {
-  static fast_timer_t trigger = 0;
-  // 3-level pattern stack
-  static const uint8_t * ptr_2 = led_pattern_off;
-  static const uint8_t * ptr_1 = led_pattern_off;
-  static const uint8_t * ptr_0 = led_pattern_off;
-  static const uint8_t * ptr = led_pattern_off;
-  static bool out_val = false;
-  static uint8_t scale = 0;
-
-  if (pattern == NULL) {
-    // normal operation
-    if (!(timer_expired_fast(now, trigger))) return;
-  } else {
-    // update operation
-    trigger = now;
-    ptr_2 = ptr_1;
-    ptr_1 = ptr_0;
-    ptr_0 = pattern;
-    
-    ptr = ptr_0;
-    out_val = *(ptr++);
-    scale = *(ptr++);
-  }
-  
-  if (*ptr == UINT8_MAX) {
-    ptr = ptr_0;
-    out_val = *(ptr++);
-    scale = *(ptr++);
-  } else if (*ptr == UINT8_MAX - 1) {
-    ptr_0 = ptr_1;
-    ptr_1 = ptr_2;
-    ptr_2 = led_pattern_off;
-
-    ptr = ptr_0;
-    out_val = *(ptr++);
-    scale = *(ptr++);
-  }
-  
-  STATUS_LED_3(out_val);
-  out_val = !out_val;
-
-  fast_timer_t delay = *(ptr++);
-  if (delay == 0) {
-    delay = maximum_delay;
-  } else {
-    delay <<= scale;
-  }
-  trigger += delay;
-  
-  return;
-}
-
-static void status_led_task_4(const fast_timer_t now, const uint8_t * const pattern) {
-  static fast_timer_t trigger = 0;
-  // 3-level pattern stack
-  static const uint8_t * ptr_2 = led_pattern_off;
-  static const uint8_t * ptr_1 = led_pattern_off;
-  static const uint8_t * ptr_0 = led_pattern_off;
-  static const uint8_t * ptr = led_pattern_off;
-  static bool out_val = false;
-  static uint8_t scale = 0;
-
-  if (pattern == NULL) {
-    // normal operation
-    if (!(timer_expired_fast(now, trigger))) return;
-  } else {
-    // update operation
-    trigger = now;
-    ptr_2 = ptr_1;
-    ptr_1 = ptr_0;
-    ptr_0 = pattern;
-    
-    ptr = ptr_0;
-    out_val = *(ptr++);
-    scale = *(ptr++);
-  }
-  
-  if (*ptr == UINT8_MAX) {
-    ptr = ptr_0;
-    out_val = *(ptr++);
-    scale = *(ptr++);
-  } else if (*ptr == UINT8_MAX - 1) {
-    ptr_0 = ptr_1;
-    ptr_1 = ptr_2;
-    ptr_2 = led_pattern_off;
-
-    ptr = ptr_0;
-    out_val = *(ptr++);
-    scale = *(ptr++);
-  }
-  
-  STATUS_LED_4(out_val);
-  out_val = !out_val;
-
-  fast_timer_t delay = *(ptr++);
-  if (delay == 0) {
-    delay = maximum_delay;
-  } else {
-    delay <<= scale;
-  }
-  trigger += delay;
-  
   return;
 }
 
@@ -262,26 +94,28 @@ static void status_led_task_4(const fast_timer_t now, const uint8_t * const patt
 // 4 -> Green Right
 // re-order bit position
 void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t * const pattern) {
+  if (pattern == NULL) return;
+  
   //add prime pseudo rendom start
   if (mask & 0b1000) {
-    status_led_task_1(now + 2, pattern);
+    status_led_set_task(&status_led_state_1, now + 2, pattern);
   }
   if (mask & 0b0100) {
-    status_led_task_3(now + 3, pattern);
+    status_led_set_task(&status_led_state_3, now + 3, pattern);
   }
   if (mask & 0b0010) {
-    status_led_task_2(now + 5, pattern);
+    status_led_set_task(&status_led_state_2, now + 5, pattern);
   }
   if (mask & 0b0001) {
-    status_led_task_4(now + 7, pattern);
+    status_led_set_task(&status_led_state_4, now + 7, pattern);
   }
   return;
 }
 
 void update_status_led(const fast_timer_t now) {
-  status_led_task_1(now, NULL);
-  status_led_task_3(now, NULL);
-  status_led_task_2(now, NULL);
-  status_led_task_4(now, NULL);
+  status_led_update_task(&status_led_state_1, now);
+  status_led_update_task(&status_led_state_3, now);
+  status_led_update_task(&status_led_state_2, now);
+  status_led_update_task(&status_led_state_4, now);
   return;
 }
