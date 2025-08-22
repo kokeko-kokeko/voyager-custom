@@ -23,34 +23,26 @@ const uint8_t led_pattern_oneshot[] = {1, 1, 200, 50, 200, 50, 200, 50, 200, 50,
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 typedef struct PACKED {
-  // 3-level pattern stack
-  const uint8_t * ptr_2;
-  const uint8_t * ptr_1;
-  const uint8_t * ptr_0;
-  const uint8_t * ptr;
   fast_timer_t trigger;
+  const uint8_t * ptr;
+  // 3-level pattern stack
+  const uint8_t * ptr_0;
+  const uint8_t * ptr_1;
+  const uint8_t * ptr_2;
   void (*out_func)(bool);
   bool out_val;
   uint8_t scale;
 } status_led_state_t;
 
-static void out_func_status_1(bool out_val) {
-  STATUS_LED_1(out_val);
-}
+static void out_func_status_1(bool out_val) { STATUS_LED_1(out_val); }
+static void out_func_status_2(bool out_val) { STATUS_LED_2(out_val); }
+static void out_func_status_3(bool out_val) { STATUS_LED_3(out_val); }
+static void out_func_status_4(bool out_val) { STATUS_LED_4(out_val); }
 
-static void out_func_status_2(bool out_val) {
-  STATUS_LED_2(out_val);
-}
-
-static void out_func_status_3(bool out_val) {
-  STATUS_LED_3(out_val);
-}
-
-static void out_func_status_4(bool out_val) {
-  STATUS_LED_4(out_val);
-}
-
-static status_led_state_t status_led_state_1 = {led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, maximum_delay, out_func_status_1, false, 0};
+static status_led_state_t status_led_state_1 = {maximum_delay, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, out_func_status_1, false, 0};
+static status_led_state_t status_led_state_2 = {maximum_delay, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, out_func_status_2, false, 0};
+static status_led_state_t status_led_state_3 = {maximum_delay, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, out_func_status_3, false, 0};
+static status_led_state_t status_led_state_4 = {maximum_delay, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, out_func_status_4, false, 0};
 
 static void status_led_task_1(const fast_timer_t now, const uint8_t * const pattern) {
   static fast_timer_t trigger = 0;
