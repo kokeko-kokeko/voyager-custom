@@ -44,6 +44,19 @@ static status_led_state_t status_led_state_2 = {maximum_delay, led_pattern_off, 
 static status_led_state_t status_led_state_3 = {maximum_delay, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, out_func_status_3, false, 0};
 static status_led_state_t status_led_state_4 = {maximum_delay, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, out_func_status_4, false, 0};
 
+static void status_led_set_task(status_led_state_t * const state, const fast_timer_t now, const uint8_t * const pattern) {
+  state->trigger = now;
+  state->ptr_2 = state->ptr_1;
+  state->ptr_1 = state->ptr_0;
+  state->ptr_0 = pattern;
+    
+  state->ptr = state->ptr_0;
+  state->out_val = *(state->ptr++);
+  state->scale = *(state->ptr++);
+
+  return;
+}
+
 static void status_led_update_task(status_led_state_t * const state, const fast_timer_t now) {
   if (!(timer_expired_fast(now, state->trigger))) return;
 
@@ -72,19 +85,6 @@ static void status_led_update_task(status_led_state_t * const state, const fast_
   }
   state->trigger += delay;
   
-  return;
-}
-
-static void status_led_set_task(status_led_state_t * const state, const fast_timer_t now, const uint8_t * const pattern) {
-  state->trigger = now;
-  state->ptr_2 = state->ptr_1;
-  state->ptr_1 = state->ptr_0;
-  state->ptr_0 = pattern;
-    
-  state->ptr = state->ptr_0;
-  state->out_val = *(state->ptr++);
-  state->scale = *(state->ptr++);
-
   return;
 }
 
