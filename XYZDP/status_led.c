@@ -7,6 +7,8 @@
 
 #include "status_led.h"
 
+static const fast_timer_t maximum_delay = (UINT32_MAX / 2) - 14400000;
+
 // status LED pattern list, no const limit, terminate symbol
 // init value, scale, delay, delay, ...
 // delay reduce data with shift by scale value
