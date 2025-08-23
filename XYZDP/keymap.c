@@ -412,51 +412,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
 _Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
 
-#include "keymap_japanese.h"
-
-// keymap ovverride (process Engram symbol and ANSI/JIS)
-// base (x and xs pair is shifted symbol, xs only overwrite shift)
-const key_override_t ko_ansi_base_1 = ko_make_with_layers_and_negmods(0, KC_1, KC_AT,   (layer_state_t)1 << L_Base, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_ansi_base_2 = ko_make_with_layers_and_negmods(0, KC_2, KC_HASH, (layer_state_t)1 << L_Base, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_ansi_base_3 = ko_make_with_layers_and_negmods(0, KC_3, KC_DQUO, (layer_state_t)1 << L_Base, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_ansi_base_4 = ko_make_with_layers_and_negmods(0, KC_4, KC_QUES, (layer_state_t)1 << L_Base, (uint8_t) MOD_MASK_SHIFT);
-
-const key_override_t ko_ansi_base_1s = ko_make_with_layers(MOD_MASK_SHIFT, KC_1, KC_GRV,  (layer_state_t)1 << L_Base);
-const key_override_t ko_ansi_base_2s = ko_make_with_layers(MOD_MASK_SHIFT, KC_2, KC_DLR,  (layer_state_t)1 << L_Base);
-const key_override_t ko_ansi_base_3s = ko_make_with_layers(MOD_MASK_SHIFT, KC_3, KC_RPRN, (layer_state_t)1 << L_Base);
-const key_override_t ko_ansi_base_4s = ko_make_with_layers(MOD_MASK_SHIFT, KC_4, KC_EXLM, (layer_state_t)1 << L_Base);
-
-const key_override_t ko_ansi_base_QUOTs = ko_make_with_layers(MOD_MASK_SHIFT, KC_QUOT, KC_LPRN, (layer_state_t)1 << L_Base);
-const key_override_t ko_ansi_base_COMMs = ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, KC_SCLN, (layer_state_t)1 << L_Base);
-const key_override_t ko_ansi_base_MINSs = ko_make_with_layers(MOD_MASK_SHIFT, KC_MINS, KC_UNDS, (layer_state_t)1 << L_Base);
-const key_override_t ko_ansi_base_SLSHs = ko_make_with_layers(MOD_MASK_SHIFT, KC_SLSH, KC_BSLS, (layer_state_t)1 << L_Base);
-const key_override_t ko_ansi_base_DOTs  = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT,  KC_COLN, (layer_state_t)1 << L_Base);
-
-// not work, disable, guess with mod-tap race condition
-//const key_override_t ko_ansi_num_1s = ko_make_with_layers(MOD_MASK_SHIFT, KC_1, KC_PIPE,  1 << 2);
-//...
-//const key_override_t ko_ansi_num_0s = ko_make_with_layers(MOD_MASK_SHIFT, KC_0, KC_ASTR,  1 << 2);
-
-// base (x and xs pair is shifted symbol, xs only overwrite shift)
-const key_override_t ko_jis_base_1 = ko_make_with_layers_and_negmods(0, JP_1, JP_QUOT, (layer_state_t)1 << L_Base_JIS, (uint8_t) MOD_MASK_SHIFT);
-const key_override_t ko_jis_base_2 = ko_make_with_layers_and_negmods(0, JP_2, JP_DQUO, (layer_state_t)1 << L_Base_JIS, (uint8_t) MOD_MASK_SHIFT);
-
-const key_override_t ko_jis_base_1s = ko_make_with_layers(MOD_MASK_SHIFT, JP_1, JP_LPRN, (layer_state_t)1 << L_Base_JIS);
-const key_override_t ko_jis_base_2s = ko_make_with_layers(MOD_MASK_SHIFT, JP_2, JP_RPRN, (layer_state_t)1 << L_Base_JIS);
-
-const key_override_t ko_jis_base_ATs   = ko_make_with_layers(MOD_MASK_SHIFT, JP_AT,   JP_GRV,  (layer_state_t)1 << L_Base_JIS);
-const key_override_t ko_jis_base_MINSs = ko_make_with_layers(MOD_MASK_SHIFT, JP_MINS, JP_UNDS, (layer_state_t)1 << L_Base_JIS);
-const key_override_t ko_jis_base_SLSHs = ko_make_with_layers(MOD_MASK_SHIFT, JP_SLSH, JP_BSLS, (layer_state_t)1 << L_Base_JIS);
-const key_override_t ko_jis_base_DOTs  = ko_make_with_layers(MOD_MASK_SHIFT, JP_DOT,  JP_COLN, (layer_state_t)1 << L_Base_JIS);
-
-const key_override_t *key_overrides[] = {
-  &ko_ansi_base_1,  &ko_ansi_base_2,  &ko_ansi_base_3,  &ko_ansi_base_4,
-  &ko_ansi_base_1s, &ko_ansi_base_2s, &ko_ansi_base_3s, &ko_ansi_base_4s,
-  &ko_ansi_base_QUOTs, &ko_ansi_base_COMMs, &ko_ansi_base_MINSs, &ko_ansi_base_SLSHs, &ko_ansi_base_DOTs,
-  &ko_jis_base_1,  &ko_jis_base_2,
-  &ko_jis_base_1s, &ko_jis_base_2s,
-  &ko_jis_base_ATs, &ko_jis_base_MINSs, &ko_jis_base_SLSHs, &ko_jis_base_DOTs
-};
+#include "engram_key_overrides.inc"
 
 // use animation logic
 // use abs path
