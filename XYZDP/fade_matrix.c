@@ -140,7 +140,6 @@ void init_fade_matrix(const fast_timer_t now) {
 
   keymap_config.nkro = true;
 
-  fast_timer_t now = timer_read_fast();
   fade_matrix_idle_trigger = now + fade_matrix_idle_delay;
 }
 
