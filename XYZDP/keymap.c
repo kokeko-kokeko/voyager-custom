@@ -414,10 +414,6 @@ _Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missma
 
 #include "engram_key_overrides.inc"
 
-// use animation logic
-// use abs path
-#include "lib/lib8tion/lib8tion.h"
-
 // access to voyager system-side flag
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
