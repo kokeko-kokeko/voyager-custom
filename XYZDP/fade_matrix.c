@@ -213,6 +213,7 @@ void init_fade_matrix(const fast_timer_t now) {
 
 void activate_fade_matrix(const fast_timer_t now) {
   fade_tamrix_trigger = now + fade_matrix_repeat_delay;
+  // transfer target to active, set rgb_matrix_config.enacle by api
   fade_matrix_active = fade_matrix_target.enable;
 }
 
@@ -231,7 +232,7 @@ void update_fade_matrix(const fast_timer_t now) {
         rgb_matrix_config.hsv.s = 0;
         rgb_matrix_config.speed = fade_matrix_target.speed;
 
-        // req additional func
+        // req additional func use api
         rgb_matrix_mode_noeeprom(fade_matrix_target.mode);
       }
     } else if (rgb_matrix_config.hsv.v != fade_matrix_target.hsv.v) {
