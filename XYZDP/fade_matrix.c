@@ -266,7 +266,7 @@ void update_fade_matrix(const fast_timer_t now) {
     } else if (rgb_matrix_config.hsv.v != 0) {
       rgb_matrix_config.hsv.v--;
     } else {
-      fade_tamrix_trigger += (UINT32_MAX / 2) - 1;
+      fade_tamrix_trigger = now + (UINT32_MAX / 2) - 1;
       rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
       rgb_matrix_disable_noeeprom();
     }
