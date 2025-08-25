@@ -21,6 +21,7 @@ SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no 
 MAGIC_ENABLE = no
 
+SRC += fade_matrix.c
 SRC += status_led.c
 
 LTO_ENABLE = yes
