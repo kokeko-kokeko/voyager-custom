@@ -141,6 +141,48 @@ void fade_matrix_set_speed_pos(uint8_t pos) {
   fade_matrix_target.speed = spd_tbl[pos2idx_tbl[pos]];
 }
 
+void fade_matrix_increase_hue(void) {
+  fade_matrix_target.hsv.h++;
+}
+
+void fade_matrix_decrease_hue(void) {
+  fade_matrix_target.hsv.h--;
+}
+
+void fade_matrix_increase_sat(void) {
+  fade_matrix_target.hsv.s = qadd8(fade_matrix_target.hsv.s, 1);
+}
+
+void fade_matrix_decrease_sat(void) {
+  fade_matrix_target.hsv.s = qsub8(fade_matrix_target.hsv.s, 1);
+}
+
+void fade_matrix_increase_val(void) {
+  fade_matrix_target.hsv.v = qadd8(fade_matrix_target.hsv.v, 1);
+}
+
+void fade_matrix_decrease_val(void) {
+  fade_matrix_target.hsv.v = qsub8(fade_matrix_target.hsv.v, 1);
+}
+
+void fade_matrix_increase_speed(void) {
+  fade_matrix_target.speed = qadd8(fade_matrix_target.speed, 1);
+}
+
+void fade_matrix_decrease_speed(void) {
+  fade_matrix_target.speed = qsub8(fade_matrix_target.speed, 1);
+}
+
+void fade_matrix_toggle(void) {
+  fade_matrix_enable_user = !(fade_matrix_enable_user);
+  fade_matrix_target.enable = fade_matrix_enable_user;
+}
+
+void fade_matrix_step(void) {
+  fade_matrix_target.mode++;
+  if (!(fade_matrix_target.mode < RGB_MATRIX_EFFECT_MAX)) fade_matrix_target.mode = 1;
+}
+
 void init_fade_matrix(const fast_timer_t now) {
   rgb_matrix_enable_noeeprom();
   
