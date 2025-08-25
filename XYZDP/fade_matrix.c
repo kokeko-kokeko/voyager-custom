@@ -29,7 +29,6 @@ extern rgb_config_t rgb_matrix_config;
 // target setting
 static rgb_config_t fade_matrix_target;
 
-
 // reverse sort order
 // hue value 6 * 8 like NCS
 static const uint8_t hue_tbl[48] = {
@@ -238,7 +237,7 @@ void update_fade_matrix(const fast_timer_t now) {
         rgb_matrix_config.hsv.s--;
       }
     } else {
-      fade_tamrix_trigger = now + fade_matrix_poll_delay;
+      //fade_tamrix_trigger = now + fade_matrix_poll_delay;
     }
   } else {
     // rgb to disable
@@ -249,7 +248,7 @@ void update_fade_matrix(const fast_timer_t now) {
     } else {
       rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
       rgb_matrix_disable_noeeprom();
-      fade_tamrix_trigger = now + fade_matrix_poll_long_delay;
+      //fade_tamrix_trigger = now + fade_matrix_poll_long_delay;
     }
   }
 }
