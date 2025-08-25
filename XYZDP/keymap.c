@@ -1225,247 +1225,247 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case HSV_0_255_100:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[0]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_101:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[1]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_102:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[2]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_103:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[3]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_104:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[4]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_105:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[5]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_106:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[6]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_107:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[7]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_108:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[8]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_109:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[9]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_110:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[10]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_111:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[11]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_112:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[12]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_113:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[13]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_114:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[14]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_115:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[15]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_116:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[16]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_117:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[17]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_118:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[18]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_119:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[19]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_120:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[20]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_121:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[21]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_122:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[22]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_123:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[23]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_126:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[26]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_127:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[27]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_128:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[28]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_129:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[29]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_130:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[30]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_131:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[31]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_132:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[32]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_133:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[33]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_134:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[34]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_135:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[35]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_136:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[36]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_137:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[37]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_138:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[38]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_139:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[39]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_140:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[40]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_141:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[41]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_142:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[42]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_143:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[43]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_144:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[44]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_145:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[45]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_146:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[46]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_147:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[47]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_148:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[48]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_149:
       if (record->event.pressed) {
-        fade_matrix_target.speed = spd_tbl[pos2idx_tbl[49]];
+        fade_matrix_set_speed_pos(0);
       }
       return false;
     case HSV_0_255_151:
       if (record->event.pressed) {
-        rgb_matrix_load_preset_powersave();
+        fade_matrix_load_preset_powersave();
         fast_timer_t now = timer_read_fast();
         status_led(now, 0b0101, led_pattern_oneshot);
       }
@@ -1473,729 +1473,729 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case HSV_43_255_100:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[0]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_101:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[1]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_102:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[2]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_103:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[3]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_104:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[4]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_105:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[5]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_106:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[6]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_107:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[7]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_108:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[8]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_109:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[9]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_110:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[10]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_111:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[11]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_112:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[12]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_113:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[13]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_114:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[14]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_115:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[15]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_116:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[16]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_117:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[17]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_118:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[18]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_119:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[19]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_120:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[20]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_121:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[21]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_122:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[22]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_123:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[23]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_126:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[26]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_127:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[27]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_128:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[28]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_129:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[29]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_130:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[30]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_131:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[31]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_132:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[32]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_133:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[33]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_134:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[34]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_135:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[35]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_136:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[36]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_137:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[37]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_138:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[38]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_139:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[39]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_140:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[40]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_141:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[41]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_142:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[42]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_143:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[43]];
+        fade_matrix_set_val_pos(0);
       } 
       return false;
     case HSV_43_255_144:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[44]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_145:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[45]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_146:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[46]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_147:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[47]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_148:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[48]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
     case HSV_43_255_149:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[49]];
+        fade_matrix_set_val_pos(0);
       }
       return false;
 
     case HSV_86_255_100:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[0]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_101:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[1]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_102:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[2]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_103:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[3]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_104:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[4]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_105:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[5]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_106:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[6]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_107:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[7]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_108:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[8]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_109:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[9]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_110:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[10]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_111:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[11]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_112:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[12]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_113:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[13]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_114:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[14]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_115:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[15]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_116:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[16]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_117:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[17]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_118:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[18]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_119:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[19]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_120:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[20]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_121:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[21]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_122:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[22]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_123:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[23]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_126:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[26]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_127:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[27]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_128:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[28]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_129:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[29]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_130:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[30]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_131:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[31]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_132:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[32]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_133:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[33]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_134:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[34]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_135:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[35]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_136:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[36]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_137:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[37]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_138:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[38]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_139:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[39]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_140:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[40]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_141:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[41]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_142:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[42]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_143:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[43]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_144:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[44]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_145:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[45]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_146:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[46]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_147:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[47]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_148:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[48]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     case HSV_86_255_149:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[49]];
+        fade_matrix_set_sat_pos(0);
       }
       return false;
     
     case HSV_129_255_100:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[0]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_101:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[1]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_102:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[2]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_103:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[3]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_104:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[4]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_105:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[5]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_106:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[6]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_107:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[7]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_108:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[8]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_109:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[9]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_110:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[10]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_111:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[11]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_112:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[12]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_113:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[13]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_114:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[14]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_115:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[15]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_116:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[16]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_117:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[17]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_118:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[18]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_119:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[19]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_120:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[20]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_121:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[21]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_122:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[22]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_123:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[23]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_126:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[26]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_127:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[27]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_128:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[28]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_129:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[29]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_130:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[30]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_131:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[31]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_132:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[32]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_133:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[33]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_134:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[34]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_135:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[35]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_136:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[36]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_137:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[37]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_138:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[38]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_139:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[39]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_140:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[40]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_141:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[41]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_142:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[42]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_143:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[43]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_144:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[44]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_145:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[45]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_146:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[46]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_147:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[47]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_148:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[48]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_149:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[49]];
+        fade_matrix_set_hue_pos(0);
       }
       return false;
     case HSV_129_255_151:
       if (record->event.pressed) {
-        rgb_matrix_load_preset();
+        fade_matrix_load_preset();
         fast_timer_t now = timer_read_fast();
         status_led(now, 0b1010, led_pattern_oneshot);
       }
