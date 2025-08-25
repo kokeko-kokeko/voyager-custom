@@ -20,15 +20,14 @@
 static const fast_timer_t fade_matrix_poll_delay = 1009; // use prime
 static const fast_timer_t fade_matrix_poll_long_delay = 6007; // use prime
 static const fast_timer_t fade_matrix_repeat_delay = 11; // use prime
+static fast_timer_t fade_matrix_idle_delay = 30011; // valiable
 
 // system side rgb
 extern rgb_config_t rgb_matrix_config;
 
+// target setting
 static rgb_config_t fade_matrix_target;
-static bool fade_matrix_enable_user = false;
 
-static fast_timer_t fade_matrix_idle_trigger = 0;
-static fast_timer_t fade_matrix_idle_delay = 30011; // valiable
 
 // reverse sort order
 // hue value 6 * 8 like NCS
@@ -96,29 +95,25 @@ static const uint8_t pos2idx_tbl[52] = {
 };
 
 void fade_matrix_load_preset(void) {
+  fade_matrix_target.enable = true;
   fade_matrix_target.hsv.h = 250;
   fade_matrix_target.hsv.s = 255;
   fade_matrix_target.hsv.v = 109;
   fade_matrix_target.speed = 100;
   fade_matrix_target.mode = RGB_MATRIX_FLOWER_BLOOMING;
-  fade_matrix_enable_user = true;
-  fade_matrix_target.enable = fade_matrix_enable_user;
-
+  
   fade_matrix_idle_delay = 180001; // use prime
-  fade_matrix_idle_trigger = timer_read_fast() + fade_matrix_idle_delay;
 }
 
 void fade_matrix_load_preset_powersave(void) {
+  fade_matrix_target.enable = true;
   //fade_matrix_target.hsv.h = 0;
   fade_matrix_target.hsv.s = 0;
   fade_matrix_target.hsv.v = 21;
   //fade_matrix_target.speed = 128;
   fade_matrix_target.mode = RGB_MATRIX_SOLID_COLOR;
-  fade_matrix_enable_user = true;
-  fade_matrix_target.enable = fade_matrix_enable_user;
 
   fade_matrix_idle_delay = 10007; // use prime
-  fade_matrix_idle_trigger = timer_read_fast() + fade_matrix_idle_delay;
 }
 
 void fade_matrix_set_mode(uint8_t mode) {
@@ -199,8 +194,6 @@ void init_fade_matrix(const fast_timer_t now) {
   fade_matrix_target.enable = fade_matrix_enable_user;
 
   keymap_config.nkro = true;
-
-  fade_matrix_idle_trigger = now + fade_matrix_idle_delay;
 }
 
 void activate_fade_matrix(const fast_timer_t now) {
