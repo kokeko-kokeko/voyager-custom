@@ -197,7 +197,7 @@ void fade_matrix_load_preset_powersave(void) {
 }
 
 void init_fade_matrix(const fast_timer_t now) {
-  rgb_matrix_enable_noeeprom();
+  //rgb_matrix_enable_noeeprom();
   
   rgb_matrix_sethsv_noeeprom(0, 0, 0);
   rgb_matrix_set_speed_noeeprom(0);
