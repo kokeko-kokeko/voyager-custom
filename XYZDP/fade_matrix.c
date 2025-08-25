@@ -7,6 +7,10 @@
 
 #include "fade_matrix.h"
 
+// use animation logic
+// use abs path
+#include "lib/lib8tion/lib8tion.h"
+
 // timer maximum delay
 // #define timer_expired32(current, future) ((uint32_t)(current - future) < UINT32_MAX / 2)
 // sub safety 14400000 ms (14400 sec = 240 min = 4 hour)
@@ -16,7 +20,6 @@ static const fast_timer_t maximum_delay = (UINT32_MAX / 2) - 14400000;
 static const fast_timer_t fade_matrix_poll_delay = 1009; // use prime
 static const fast_timer_t fade_matrix_poll_long_delay = 6007; // use prime
 static const fast_timer_t fade_matrix_repeat_delay = 11; // use prime
-
 
 // system side rgb
 extern rgb_config_t rgb_matrix_config;
