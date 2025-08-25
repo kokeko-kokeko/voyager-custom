@@ -17,6 +17,7 @@
 //static const fast_timer_t maximum_delay = (UINT32_MAX / 2) - 14400000;
 
 // fade color system
+static fast_timer_t fade_tamrix_trigger = 0;
 static const fast_timer_t fade_matrix_poll_delay = 1009; // use prime
 static const fast_timer_t fade_matrix_poll_long_delay = 6007; // use prime
 static const fast_timer_t fade_matrix_repeat_delay = 11; // use prime
@@ -200,9 +201,8 @@ void activate_fade_matrix(const fast_timer_t now) {
 }
 
 void update_fade_matrix(const fast_timer_t now) {
-  static fast_timer_t trigger = 0;
-  if (!(timer_expired_fast(now, trigger))) return;
-  trigger += fade_matrix_repeat_delay;
+  if (!(timer_expired_fast(now, fade_tamrix_trigger))) return;
+  fade_tamrix_trigger += fade_matrix_repeat_delay;
 
   if (fade_matrix_target.enable) {
     // rgb to enable
@@ -238,7 +238,7 @@ void update_fade_matrix(const fast_timer_t now) {
         rgb_matrix_config.hsv.s--;
       }
     } else {
-      trigger = now + fade_matrix_poll_delay;
+      fade_tamrix_trigger = now + fade_matrix_poll_delay;
     }
   } else {
     // rgb to disable
@@ -249,7 +249,7 @@ void update_fade_matrix(const fast_timer_t now) {
     } else {
       rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
       rgb_matrix_disable_noeeprom();
-      trigger = now + fade_matrix_poll_long_delay;
+      fade_tamrix_trigger = now + fade_matrix_poll_long_delay;
     }
   }
 }
