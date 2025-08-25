@@ -11,11 +11,6 @@
 // use abs path
 #include "lib/lib8tion/lib8tion.h"
 
-// timer maximum delay
-// #define timer_expired32(current, future) ((uint32_t)(current - future) < UINT32_MAX / 2)
-// sub safety 14400000 ms (14400 sec = 240 min = 4 hour)
-//static const fast_timer_t maximum_delay = (UINT32_MAX / 2) - 14400000;
-
 // fade color system
 static fast_timer_t fade_tamrix_trigger = (UINT32_MAX / 2) - 1;
 static const fast_timer_t fade_matrix_repeat_delay = 11; // use prime
@@ -267,7 +262,6 @@ void update_fade_matrix(const fast_timer_t now) {
       } else {
         fade_tamrix_trigger += (UINT32_MAX / 2) - 1;
       }
-      //fade_tamrix_trigger = now + fade_matrix_poll_delay;
     }
   } else {
     // rgb to disable
@@ -284,7 +278,6 @@ void update_fade_matrix(const fast_timer_t now) {
         rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
         rgb_matrix_disable_noeeprom();
       }
-      //fade_tamrix_trigger = now + fade_matrix_poll_long_delay;
     }
   }
 }
