@@ -2,6 +2,7 @@
 
 extern void fade_matrix_load_preset(void);
 extern void fade_matrix_load_preset_powersave(void);
+extern void fade_matrix_set_mode(uint8_t mode);
 extern void fade_matrix_set_hue_pos(uint8_t pos);
 extern void fade_matrix_set_sat_pos(uint8_t pos);
 extern void fade_matrix_set_val_pos(uint8_t pos);
