@@ -169,8 +169,7 @@ void fade_matrix_decrease_speed(void) {
 }
 
 void fade_matrix_toggle(void) {
-  fade_matrix_enable_user = !(fade_matrix_enable_user);
-  fade_matrix_target.enable = fade_matrix_enable_user;
+  fade_matrix_target.enable = !(fade_matrix_target.enable);
 }
 
 void fade_matrix_step(void) {
@@ -190,8 +189,7 @@ void init_fade_matrix(const fast_timer_t now) {
   fade_matrix_target.hsv.v = 0;
   fade_matrix_target.speed = 0;
   fade_matrix_target.mode = RGB_MATRIX_NONE;
-  fade_matrix_enable_user = false;
-  fade_matrix_target.enable = fade_matrix_enable_user;
+  fade_matrix_target.enable = false;
 
   keymap_config.nkro = true;
 }
