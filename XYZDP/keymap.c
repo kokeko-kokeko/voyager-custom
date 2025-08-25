@@ -431,7 +431,7 @@ extern bool is_launching;
 static const fast_timer_t maximum_delay = (UINT32_MAX / 2) - 14400000;
 
 static void set_layer_color_overlay(void);
-extern void set_layer_color_firmware_map(void);
+static void set_layer_color_firmware_map(void);
 
 // ime state from LANG1/LANG2 key
 static bool ime_on = false;
