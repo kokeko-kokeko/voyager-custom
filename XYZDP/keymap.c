@@ -459,20 +459,19 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
   fast_timer_t now = timer_read_fast();
   switch (detected_os) {
     case OS_MACOS:
-      rgb_matrix_load_preset();
-      // push full stack
+      fade_matrix_load_preset();
       status_led(now, 0b1000, led_pattern_oneshot);
       break;
     case OS_IOS:
-      rgb_matrix_load_preset_powersave();
+      fade_matrix_load_preset_powersave();
       status_led(now, 0b0100, led_pattern_oneshot);
       break;
     case OS_WINDOWS:
-      rgb_matrix_load_preset();
+      fade_matrix_load_preset();
       status_led(now, 0b0010, led_pattern_oneshot);
       break;
     case OS_LINUX:
-      rgb_matrix_load_preset_powersave();
+      fade_matrix_load_preset_powersave();
       status_led(now, 0b0001, led_pattern_oneshot);
       break;
     case OS_UNSURE:
