@@ -1187,7 +1187,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case RGB_SLD:
       if (record->event.pressed) {
-        fade_matrix_target.mode = RGB_MATRIX_SOLID_COLOR;
+        fade_matrix_set_mode(RGB_MATRIX_SOLID_COLOR);
       }
       return false;
     
@@ -1230,237 +1230,237 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_0_255_101:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(1);
       }
       return false;
     case HSV_0_255_102:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(2);
       }
       return false;
     case HSV_0_255_103:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(3);
       }
       return false;
     case HSV_0_255_104:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(4);
       }
       return false;
     case HSV_0_255_105:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(5);
       }
       return false;
     case HSV_0_255_106:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(6);
       }
       return false;
     case HSV_0_255_107:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(7);
       }
       return false;
     case HSV_0_255_108:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(8);
       }
       return false;
     case HSV_0_255_109:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(9);
       }
       return false;
     case HSV_0_255_110:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(10);
       }
       return false;
     case HSV_0_255_111:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(11);
       }
       return false;
     case HSV_0_255_112:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(12);
       }
       return false;
     case HSV_0_255_113:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(13);
       }
       return false;
     case HSV_0_255_114:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(14);
       }
       return false;
     case HSV_0_255_115:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(15);
       }
       return false;
     case HSV_0_255_116:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(16);
       }
       return false;
     case HSV_0_255_117:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(17);
       }
       return false;
     case HSV_0_255_118:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(18);
       }
       return false;
     case HSV_0_255_119:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(19);
       }
       return false;
     case HSV_0_255_120:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(20);
       }
       return false;
     case HSV_0_255_121:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(21);
       }
       return false;
     case HSV_0_255_122:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(22);
       }
       return false;
     case HSV_0_255_123:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(23);
       }
       return false;
     case HSV_0_255_126:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(26);
       }
       return false;
     case HSV_0_255_127:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(27);
       }
       return false;
     case HSV_0_255_128:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(28);
       }
       return false;
     case HSV_0_255_129:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(29);
       }
       return false;
     case HSV_0_255_130:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(30);
       }
       return false;
     case HSV_0_255_131:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(31);
       }
       return false;
     case HSV_0_255_132:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(32);
       }
       return false;
     case HSV_0_255_133:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(33);
       }
       return false;
     case HSV_0_255_134:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(34);
       }
       return false;
     case HSV_0_255_135:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(35);
       }
       return false;
     case HSV_0_255_136:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(36);
       }
       return false;
     case HSV_0_255_137:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(37);
       }
       return false;
     case HSV_0_255_138:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(38);
       }
       return false;
     case HSV_0_255_139:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(39);
       }
       return false;
     case HSV_0_255_140:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(40);
       }
       return false;
     case HSV_0_255_141:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(41);
       }
       return false;
     case HSV_0_255_142:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(42);
       }
       return false;
     case HSV_0_255_143:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(43);
       }
       return false;
     case HSV_0_255_144:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(44);
       }
       return false;
     case HSV_0_255_145:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(45);
       }
       return false;
     case HSV_0_255_146:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(46);
       }
       return false;
     case HSV_0_255_147:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(47);
       }
       return false;
     case HSV_0_255_148:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(48);
       }
       return false;
     case HSV_0_255_149:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
+        fade_matrix_set_speed_pos(49);
       }
       return false;
     case HSV_0_255_151:
@@ -1478,237 +1478,237 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_43_255_101:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(1);
       }
       return false;
     case HSV_43_255_102:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(2);
       }
       return false;
     case HSV_43_255_103:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(3);
       }
       return false;
     case HSV_43_255_104:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(4);
       }
       return false;
     case HSV_43_255_105:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(5);
       }
       return false;
     case HSV_43_255_106:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(6);
       }
       return false;
     case HSV_43_255_107:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(7);
       }
       return false;
     case HSV_43_255_108:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(8);
       }
       return false;
     case HSV_43_255_109:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(9);
       }
       return false;
     case HSV_43_255_110:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(10);
       }
       return false;
     case HSV_43_255_111:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(11);
       }
       return false;
     case HSV_43_255_112:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(12);
       }
       return false;
     case HSV_43_255_113:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(13);
       }
       return false;
     case HSV_43_255_114:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(14);
       }
       return false;
     case HSV_43_255_115:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(15);
       }
       return false;
     case HSV_43_255_116:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(16);
       }
       return false;
     case HSV_43_255_117:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(17);
       }
       return false;
     case HSV_43_255_118:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(18);
       }
       return false;
     case HSV_43_255_119:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(19);
       }
       return false;
     case HSV_43_255_120:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(20);
       }
       return false;
     case HSV_43_255_121:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(21);
       }
       return false;
     case HSV_43_255_122:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(22);
       }
       return false;
     case HSV_43_255_123:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(23);
       }
       return false;
     case HSV_43_255_126:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(26);
       }
       return false;
     case HSV_43_255_127:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(27);
       }
       return false;
     case HSV_43_255_128:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(28);
       }
       return false;
     case HSV_43_255_129:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(29);
       }
       return false;
     case HSV_43_255_130:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(39);
       }
       return false;
     case HSV_43_255_131:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(31);
       }
       return false;
     case HSV_43_255_132:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(32);
       }
       return false;
     case HSV_43_255_133:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(33);
       }
       return false;
     case HSV_43_255_134:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(34);
       }
       return false;
     case HSV_43_255_135:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(35);
       }
       return false;
     case HSV_43_255_136:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(36);
       }
       return false;
     case HSV_43_255_137:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(37);
       }
       return false;
     case HSV_43_255_138:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(38);
       }
       return false;
     case HSV_43_255_139:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(39);
       }
       return false;
     case HSV_43_255_140:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(40);
       }
       return false;
     case HSV_43_255_141:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(41);
       }
       return false;
     case HSV_43_255_142:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(42);
       }
       return false;
     case HSV_43_255_143:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(43);
       } 
       return false;
     case HSV_43_255_144:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(44);
       }
       return false;
     case HSV_43_255_145:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(45);
       }
       return false;
     case HSV_43_255_146:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(46);
       }
       return false;
     case HSV_43_255_147:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(47);
       }
       return false;
     case HSV_43_255_148:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(48);
       }
       return false;
     case HSV_43_255_149:
       if (record->event.pressed) {
-        fade_matrix_set_val_pos(0);
+        fade_matrix_set_val_pos(49);
       }
       return false;
 
@@ -1719,237 +1719,237 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_86_255_101:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(1);
       }
       return false;
     case HSV_86_255_102:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(2);
       }
       return false;
     case HSV_86_255_103:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(3);
       }
       return false;
     case HSV_86_255_104:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(4);
       }
       return false;
     case HSV_86_255_105:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(5);
       }
       return false;
     case HSV_86_255_106:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(6);
       }
       return false;
     case HSV_86_255_107:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(7);
       }
       return false;
     case HSV_86_255_108:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(8);
       }
       return false;
     case HSV_86_255_109:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(9);
       }
       return false;
     case HSV_86_255_110:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(10);
       }
       return false;
     case HSV_86_255_111:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(11);
       }
       return false;
     case HSV_86_255_112:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(12);
       }
       return false;
     case HSV_86_255_113:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(13);
       }
       return false;
     case HSV_86_255_114:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(14);
       }
       return false;
     case HSV_86_255_115:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(15);
       }
       return false;
     case HSV_86_255_116:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(16);
       }
       return false;
     case HSV_86_255_117:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(17);
       }
       return false;
     case HSV_86_255_118:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(18);
       }
       return false;
     case HSV_86_255_119:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(19);
       }
       return false;
     case HSV_86_255_120:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(20);
       }
       return false;
     case HSV_86_255_121:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(21);
       }
       return false;
     case HSV_86_255_122:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(22);
       }
       return false;
     case HSV_86_255_123:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(23);
       }
       return false;
     case HSV_86_255_126:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(26);
       }
       return false;
     case HSV_86_255_127:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(27);
       }
       return false;
     case HSV_86_255_128:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(28);
       }
       return false;
     case HSV_86_255_129:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(29);
       }
       return false;
     case HSV_86_255_130:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(30);
       }
       return false;
     case HSV_86_255_131:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(31);
       }
       return false;
     case HSV_86_255_132:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(32);
       }
       return false;
     case HSV_86_255_133:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(33);
       }
       return false;
     case HSV_86_255_134:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(34);
       }
       return false;
     case HSV_86_255_135:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(35);
       }
       return false;
     case HSV_86_255_136:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(36);
       }
       return false;
     case HSV_86_255_137:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(37);
       }
       return false;
     case HSV_86_255_138:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(38);
       }
       return false;
     case HSV_86_255_139:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(39);
       }
       return false;
     case HSV_86_255_140:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(40);
       }
       return false;
     case HSV_86_255_141:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(41);
       }
       return false;
     case HSV_86_255_142:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(42);
       }
       return false;
     case HSV_86_255_143:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(43);
       }
       return false;
     case HSV_86_255_144:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(44);
       }
       return false;
     case HSV_86_255_145:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(45);
       }
       return false;
     case HSV_86_255_146:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(46);
       }
       return false;
     case HSV_86_255_147:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(47);
       }
       return false;
     case HSV_86_255_148:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(48);
       }
       return false;
     case HSV_86_255_149:
       if (record->event.pressed) {
-        fade_matrix_set_sat_pos(0);
+        fade_matrix_set_sat_pos(49);
       }
       return false;
     
@@ -1960,237 +1960,237 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_129_255_101:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(1);
       }
       return false;
     case HSV_129_255_102:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(2);
       }
       return false;
     case HSV_129_255_103:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(3);
       }
       return false;
     case HSV_129_255_104:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(4);
       }
       return false;
     case HSV_129_255_105:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(5);
       }
       return false;
     case HSV_129_255_106:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(6);
       }
       return false;
     case HSV_129_255_107:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(7);
       }
       return false;
     case HSV_129_255_108:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(8);
       }
       return false;
     case HSV_129_255_109:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(9);
       }
       return false;
     case HSV_129_255_110:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(10);
       }
       return false;
     case HSV_129_255_111:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(11);
       }
       return false;
     case HSV_129_255_112:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(12);
       }
       return false;
     case HSV_129_255_113:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(13);
       }
       return false;
     case HSV_129_255_114:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(14);
       }
       return false;
     case HSV_129_255_115:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(15);
       }
       return false;
     case HSV_129_255_116:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(16);
       }
       return false;
     case HSV_129_255_117:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(17);
       }
       return false;
     case HSV_129_255_118:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(18);
       }
       return false;
     case HSV_129_255_119:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(19);
       }
       return false;
     case HSV_129_255_120:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(20);
       }
       return false;
     case HSV_129_255_121:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(21);
       }
       return false;
     case HSV_129_255_122:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(22);
       }
       return false;
     case HSV_129_255_123:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(23);
       }
       return false;
     case HSV_129_255_126:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(26);
       }
       return false;
     case HSV_129_255_127:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(27);
       }
       return false;
     case HSV_129_255_128:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(28);
       }
       return false;
     case HSV_129_255_129:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(29);
       }
       return false;
     case HSV_129_255_130:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(30);
       }
       return false;
     case HSV_129_255_131:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(31);
       }
       return false;
     case HSV_129_255_132:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(32);
       }
       return false;
     case HSV_129_255_133:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(33);
       }
       return false;
     case HSV_129_255_134:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(34);
       }
       return false;
     case HSV_129_255_135:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(35);
       }
       return false;
     case HSV_129_255_136:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(36);
       }
       return false;
     case HSV_129_255_137:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(37);
       }
       return false;
     case HSV_129_255_138:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(38);
       }
       return false;
     case HSV_129_255_139:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(39);
       }
       return false;
     case HSV_129_255_140:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(40);
       }
       return false;
     case HSV_129_255_141:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(41);
       }
       return false;
     case HSV_129_255_142:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(42);
       }
       return false;
     case HSV_129_255_143:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(43);
       }
       return false;
     case HSV_129_255_144:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(44);
       }
       return false;
     case HSV_129_255_145:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(45);
       }
       return false;
     case HSV_129_255_146:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(46);
       }
       return false;
     case HSV_129_255_147:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(47);
       }
       return false;
     case HSV_129_255_148:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(48);
       }
       return false;
     case HSV_129_255_149:
       if (record->event.pressed) {
-        fade_matrix_set_hue_pos(0);
+        fade_matrix_set_hue_pos(49);
       }
       return false;
     case HSV_129_255_151:
@@ -2205,54 +2205,52 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // always return false (sometime use upedge)
     case RGB_HUI:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h++;
+        fade_matrix_increase_hue();
       }
       return false;
     case RGB_HUD:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.h--;
+        fade_matrix_decrease_hue();
       }
       return false;
     case RGB_SAI:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = qadd8(fade_matrix_target.hsv.s, 1);
+        fade_matrix_increase_sat();
       }
       return false;
     case RGB_SAD:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.s = qsub8(fade_matrix_target.hsv.s, 1);
+        fade_matrix_decrease_sat();
       }
       return false;
     case RGB_VAI:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = qadd8(fade_matrix_target.hsv.v, 1);
+        fade_matrix_increase_val();
       }
       return false;
     case RGB_VAD:
       if (record->event.pressed) {
-        fade_matrix_target.hsv.v = qsub8(fade_matrix_target.hsv.v, 1);
+        fade_matrix_decrease_val();
       }
       return false;
     case RGB_SPI:
       if (record->event.pressed) {
-        fade_matrix_target.speed = qadd8(fade_matrix_target.speed, 1);
+        fade_matrix_increase_speed();
       }
       return false;
     case RGB_SPD:
       if (record->event.pressed) {
-        fade_matrix_target.speed = qsub8(fade_matrix_target.speed, 1);
+        fade_matrix_decrease_speed();
       }
       return false;
     case RGB_TOG:
       if (record->event.pressed) {
-        fade_matrix_enable_user = !(fade_matrix_enable_user);
-        fade_matrix_target.enable = fade_matrix_enable_user;
+        fade_matrix_toggle();
       }
       return false;
     case RGB_MODE_FORWARD:
       if (record->event.pressed) {
-        fade_matrix_target.mode++;
-        if (!(fade_matrix_target.mode < RGB_MATRIX_EFFECT_MAX)) fade_matrix_target.mode = 1;
+        fade_matrix_step();
       }
       return false;
 
