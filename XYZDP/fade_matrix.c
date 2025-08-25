@@ -203,6 +203,11 @@ void init_fade_matrix(const fast_timer_t now) {
   fade_matrix_idle_trigger = now + fade_matrix_idle_delay;
 }
 
+void activate_fade_matrix(const fast_timer_t now) {
+
+  return;
+}
+
 void update_fade_matrix(const fast_timer_t now) {
   static fast_timer_t trigger = 0;
   if (!(timer_expired_fast(now, trigger))) return;
