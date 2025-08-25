@@ -94,28 +94,6 @@ static const uint8_t pos2idx_tbl[52] = {
     0,  0
 };
 
-void fade_matrix_load_preset(void) {
-  fade_matrix_target.enable = true;
-  fade_matrix_target.hsv.h = 250;
-  fade_matrix_target.hsv.s = 255;
-  fade_matrix_target.hsv.v = 109;
-  fade_matrix_target.speed = 100;
-  fade_matrix_target.mode = RGB_MATRIX_FLOWER_BLOOMING;
-  
-  fade_matrix_idle_delay = 180001; // use prime
-}
-
-void fade_matrix_load_preset_powersave(void) {
-  fade_matrix_target.enable = true;
-  //fade_matrix_target.hsv.h = 0;
-  fade_matrix_target.hsv.s = 0;
-  fade_matrix_target.hsv.v = 21;
-  //fade_matrix_target.speed = 128;
-  fade_matrix_target.mode = RGB_MATRIX_SOLID_COLOR;
-
-  fade_matrix_idle_delay = 10007; // use prime
-}
-
 void fade_matrix_set_mode(uint8_t mode) {
   fade_matrix_target.mode = mode;
 }
@@ -177,6 +155,28 @@ void fade_matrix_step(void) {
   if (!(fade_matrix_target.mode < RGB_MATRIX_EFFECT_MAX)) fade_matrix_target.mode = 1;
 }
 
+void fade_matrix_load_preset(void) {
+  fade_matrix_target.enable = true;
+  fade_matrix_target.hsv.h = 250;
+  fade_matrix_target.hsv.s = 255;
+  fade_matrix_target.hsv.v = 109;
+  fade_matrix_target.speed = 100;
+  fade_matrix_target.mode = RGB_MATRIX_FLOWER_BLOOMING;
+  
+  fade_matrix_idle_delay = 180001; // use prime
+}
+
+void fade_matrix_load_preset_powersave(void) {
+  fade_matrix_target.enable = true;
+  //fade_matrix_target.hsv.h = 0;
+  fade_matrix_target.hsv.s = 0;
+  fade_matrix_target.hsv.v = 21;
+  //fade_matrix_target.speed = 128;
+  fade_matrix_target.mode = RGB_MATRIX_SOLID_COLOR;
+
+  fade_matrix_idle_delay = 10007; // use prime
+}
+
 void init_fade_matrix(const fast_timer_t now) {
   rgb_matrix_enable_noeeprom();
   
@@ -184,14 +184,12 @@ void init_fade_matrix(const fast_timer_t now) {
   rgb_matrix_set_speed_noeeprom(0);
   rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
 
+  fade_matrix_target.enable = false;
   fade_matrix_target.hsv.h = 0;
   fade_matrix_target.hsv.s = 0;
   fade_matrix_target.hsv.v = 0;
   fade_matrix_target.speed = 0;
   fade_matrix_target.mode = RGB_MATRIX_NONE;
-  fade_matrix_target.enable = false;
-
-  keymap_config.nkro = true;
 }
 
 void activate_fade_matrix(const fast_timer_t now) {
