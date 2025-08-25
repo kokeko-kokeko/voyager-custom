@@ -215,14 +215,14 @@ void init_fade_matrix(const fast_timer_t now) {
 
 void activate_fade_matrix(const fast_timer_t now) {
   fade_tamrix_trigger = now + fade_matrix_repeat_delay;
-  fade_matrix_active = true;
+  fade_matrix_active = fade_matrix_target.enable;
 }
 
 void update_fade_matrix(const fast_timer_t now) {
   if (!(timer_expired_fast(now, fade_tamrix_trigger))) return;
   fade_tamrix_trigger += fade_matrix_repeat_delay;
 
-  if (fade_matrix_target.enable) {
+  if (fade_matrix_active) {
     // rgb to enable
     rgb_matrix_enable_noeeprom();
     if ((rgb_matrix_config.speed != fade_matrix_target.speed) || (rgb_matrix_config.mode != fade_matrix_target.mode)) {
@@ -256,12 +256,8 @@ void update_fade_matrix(const fast_timer_t now) {
         rgb_matrix_config.hsv.s--;
       }
     } else {
-      if (fade_matrix_active) {
-        fade_matrix_active = false;
-        fade_tamrix_trigger += fade_matrix_idle_delay;
-      } else {
-        fade_tamrix_trigger += (UINT32_MAX / 2) - 1;
-      }
+      fade_matrix_active = false;
+      fade_tamrix_trigger += fade_matrix_idle_delay;
     }
   } else {
     // rgb to disable
@@ -270,14 +266,9 @@ void update_fade_matrix(const fast_timer_t now) {
     } else if (rgb_matrix_config.hsv.v != 0) {
       rgb_matrix_config.hsv.v--;
     } else {
-      if (fade_matrix_active) {
-        fade_matrix_active = false;
-        fade_tamrix_trigger += fade_matrix_idle_delay;
-      } else { 
-        fade_tamrix_trigger += (UINT32_MAX / 2) - 1;
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
-        rgb_matrix_disable_noeeprom();
-      }
+      fade_tamrix_trigger += (UINT32_MAX / 2) - 1;
+      rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
+      rgb_matrix_disable_noeeprom();
     }
   }
 }
