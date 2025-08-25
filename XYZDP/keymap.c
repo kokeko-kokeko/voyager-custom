@@ -439,6 +439,9 @@ static bool iss_sync = false;
 static fast_timer_t iss_sync_trigger = 0;
 static const fast_timer_t iss_sync_delay = 15013; //ms
 
+static fast_timer_t iss_idle_trigger = 0;
+static const fast_timer_t iss_idle_delay = 600011; //ms
+
 // Ime State Display system
 
 void keyboard_post_init_user(void) {
