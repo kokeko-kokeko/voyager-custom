@@ -703,11 +703,6 @@ void housekeeping_task_user(void) {
   update_fade_matrix(now);
   update_status_led(now);
   
-  if (timer_expired_fast(now, fade_matrix_idle_trigger)) {
-    fade_matrix_idle_trigger += maximum_delay;
-    fade_matrix_target.enable = false;
-  }
-  
   if (timer_expired_fast(now, iss_sync_trigger)) {
     iss_sync_trigger += maximum_delay;
     iss_sync = true;   
