@@ -439,30 +439,13 @@ static bool iss_sync = false;
 static fast_timer_t iss_sync_trigger = 0;
 static const fast_timer_t iss_sync_delay = 15013; //ms
 
-static fast_timer_t iss_idle_trigger = 0;
-static const fast_timer_t iss_idle_delay = 600011; //ms
-
 // Ime State Display system
 
 void keyboard_post_init_user(void) {
-  rgb_matrix_enable_noeeprom();
-  
-  rgb_matrix_sethsv_noeeprom(0, 0, 0);
-  rgb_matrix_set_speed_noeeprom(0);
-  rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
-
-  fade_matrix_target.hsv.h = 0;
-  fade_matrix_target.hsv.s = 0;
-  fade_matrix_target.hsv.v = 0;
-  fade_matrix_target.speed = 0;
-  fade_matrix_target.mode = RGB_MATRIX_NONE;
-  fade_matrix_enable_user = false;
-  fade_matrix_target.enable = fade_matrix_enable_user;
-
   keymap_config.nkro = true;
 
   fast_timer_t now = timer_read_fast();
-  fade_matrix_idle_trigger = now + fade_matrix_idle_delay;
+  init_fade_matrix(now);
   status_led(now, 0b1111, led_pattern_off);
   
   //ANSI
@@ -701,8 +684,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     fast_timer_t now = timer_read_fast();
 
-    fade_matrix_idle_trigger = now + fade_matrix_idle_delay;
-    fade_matrix_target.enable = fade_matrix_enable_user;
+    activate_fade_matrix(now);
     
     if (iss_enable) {
       iss_sync_trigger = now + iss_sync_delay;
