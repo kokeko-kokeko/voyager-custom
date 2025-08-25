@@ -1,6 +1,5 @@
 #pragma once
 
-extern void fade_matrix_set_enable(bool enable);
 extern void fade_matrix_set_mode(uint8_t mode);
 extern void fade_matrix_set_hue_pos(uint8_t pos);
 extern void fade_matrix_set_sat_pos(uint8_t pos);
