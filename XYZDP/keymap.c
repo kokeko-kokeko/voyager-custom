@@ -422,6 +422,7 @@ _Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missma
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
 
+#include "fade_matrix.h"
 #include "status_led.h"
 
 // timer maximum delay
