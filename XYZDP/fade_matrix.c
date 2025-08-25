@@ -121,23 +121,23 @@ void fade_matrix_load_preset_powersave(void) {
   fade_matrix_idle_trigger = timer_read_fast() + fade_matrix_idle_delay;
 }
 
-void fade_matrix_set_hue_pos(unit8_t mode) {
+void fade_matrix_set_mode(uint8_t mode) {
   fade_matrix_target.mode = mode;
 }
 
-void fade_matrix_set_hue_pos(unit8_t pos) {
+void fade_matrix_set_hue_pos(uint8_t pos) {
   fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[pos]];
 }
 
-void fade_matrix_set_sat_pos(unit8_t pos) {
+void fade_matrix_set_sat_pos(uint8_t pos) {
   fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[pos]];
 }
 
-void fade_matrix_set_val_pos(unit8_t pos) {
+void fade_matrix_set_val_pos(uint8_t pos) {
   fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[pos]];
 }
 
-void fade_matrix_set_speed_pos(unit8_t pos) {
+void fade_matrix_set_speed_pos(uint8_t pos) {
   fade_matrix_target.speed = spd_tbl[pos2idx_tbl[pos]];
 }
 
