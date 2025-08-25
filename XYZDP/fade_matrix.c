@@ -17,9 +17,7 @@
 //static const fast_timer_t maximum_delay = (UINT32_MAX / 2) - 14400000;
 
 // fade color system
-static fast_timer_t fade_tamrix_trigger = 0;
-static const fast_timer_t fade_matrix_poll_delay = 1009; // use prime
-static const fast_timer_t fade_matrix_poll_long_delay = 6007; // use prime
+static fast_timer_t fade_tamrix_trigger = (UINT32_MAX / 2) - 1;
 static const fast_timer_t fade_matrix_repeat_delay = 11; // use prime
 static fast_timer_t fade_matrix_idle_delay = 30011; // valiable
 
@@ -28,6 +26,8 @@ extern rgb_config_t rgb_matrix_config;
 
 // target setting
 static rgb_config_t fade_matrix_target;
+
+static bool fade_matrix_active = false;
 
 // reverse sort order
 // hue value 6 * 8 like NCS
