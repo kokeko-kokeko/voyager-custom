@@ -41,6 +41,7 @@ static const uint8_t hue_tbl[48] = {
    35,  30,  25,  20,  15,  10,
     9,   7,   5,   3,   1,   0
 };
+
 static const uint8_t sat_tbl[48] = {
   255, 252, 249, 246, 243, 240, 237, 234,
   231, 228, 225, 222, 219, 216, 213, 210,
@@ -49,6 +50,7 @@ static const uint8_t sat_tbl[48] = {
   150, 140, 130, 120, 110, 100,  90,  80,
    70,  60,  50,  40,  30,  20,  10,   0
 };
+
 // val value max limit 175
 static const uint8_t val_tbl[48] = {
   175, 165, 155, 145, 135, 128, 121, 119,
@@ -58,6 +60,7 @@ static const uint8_t val_tbl[48] = {
    69,  67,  65,  63,  61,  59,  57,  55,
    53,  51,  46,  41,  31,  21,  11,   1
 };
+
 static const uint8_t spd_tbl[48] = {
   255, 250, 245, 240, 235, 230, 225, 220,
   215, 210, 205, 200, 195, 190, 185, 180,
@@ -66,6 +69,7 @@ static const uint8_t spd_tbl[48] = {
    95,  90,  85,  80,  75,  70,  65,  60,
    55,  50,  45,  40,  35,  30,  25,  20
 };
+
 static const uint8_t idx2pos_tbl[48] = {
    49, 43, 37, 31,
    48, 42, 36, 30,
@@ -81,6 +85,7 @@ static const uint8_t idx2pos_tbl[48] = {
    19, 13,  7,  1,
    18, 12,  6,  0
 };
+
 static const uint8_t pos2idx_tbl[52] = {
    47, 43, 39, 35, 31, 27,
    46, 42, 38, 34, 30, 26,
@@ -96,63 +101,78 @@ static const uint8_t pos2idx_tbl[52] = {
 
 void fade_matrix_set_mode(uint8_t mode) {
   fade_matrix_target.mode = mode;
+  activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_set_hue_pos(uint8_t pos) {
   fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[pos]];
+  activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_set_sat_pos(uint8_t pos) {
   fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[pos]];
+  activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_set_val_pos(uint8_t pos) {
   fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[pos]];
+  activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_set_speed_pos(uint8_t pos) {
   fade_matrix_target.speed = spd_tbl[pos2idx_tbl[pos]];
+  activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_increase_hue(void) {
   fade_matrix_target.hsv.h++;
+  activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_decrease_hue(void) {
   fade_matrix_target.hsv.h--;
+  activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_increase_sat(void) {
   fade_matrix_target.hsv.s = qadd8(fade_matrix_target.hsv.s, 1);
+  activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_decrease_sat(void) {
   fade_matrix_target.hsv.s = qsub8(fade_matrix_target.hsv.s, 1);
+  activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_increase_val(void) {
   fade_matrix_target.hsv.v = qadd8(fade_matrix_target.hsv.v, 1);
+  activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_decrease_val(void) {
   fade_matrix_target.hsv.v = qsub8(fade_matrix_target.hsv.v, 1);
+  activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_increase_speed(void) {
   fade_matrix_target.speed = qadd8(fade_matrix_target.speed, 1);
+  activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_decrease_speed(void) {
   fade_matrix_target.speed = qsub8(fade_matrix_target.speed, 1);
+  activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_toggle(void) {
   fade_matrix_target.enable = !(fade_matrix_target.enable);
+  activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_step(void) {
   fade_matrix_target.mode++;
   if (!(fade_matrix_target.mode < RGB_MATRIX_EFFECT_MAX)) fade_matrix_target.mode = 1;
+  activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_load_preset(void) {
@@ -164,6 +184,8 @@ void fade_matrix_load_preset(void) {
   fade_matrix_target.mode = RGB_MATRIX_FLOWER_BLOOMING;
   
   fade_matrix_idle_delay = 180001; // use prime
+
+  activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_load_preset_powersave(void) {
@@ -175,6 +197,8 @@ void fade_matrix_load_preset_powersave(void) {
   fade_matrix_target.mode = RGB_MATRIX_SOLID_COLOR;
 
   fade_matrix_idle_delay = 10007; // use prime
+
+  activate_fade_matrix(timer_read_fast());
 }
 
 void init_fade_matrix(const fast_timer_t now) {
@@ -190,11 +214,13 @@ void init_fade_matrix(const fast_timer_t now) {
   fade_matrix_target.hsv.v = 0;
   fade_matrix_target.speed = 0;
   fade_matrix_target.mode = RGB_MATRIX_NONE;
+
+  activate_fade_matrix(now);
 }
 
 void activate_fade_matrix(const fast_timer_t now) {
-
-  return;
+  fade_tamrix_trigger = now + fade_matrix_repeat_delay;
+  fade_matrix_active = true;
 }
 
 void update_fade_matrix(const fast_timer_t now) {
@@ -235,6 +261,12 @@ void update_fade_matrix(const fast_timer_t now) {
         rgb_matrix_config.hsv.s--;
       }
     } else {
+      if (fade_matrix_active) {
+        fade_matrix_active = false;
+        fade_tamrix_trigger += fade_matrix_idle_delay;
+      } else {
+        fade_tamrix_trigger += (UINT32_MAX / 2) - 1;
+      }
       //fade_tamrix_trigger = now + fade_matrix_poll_delay;
     }
   } else {
@@ -244,8 +276,14 @@ void update_fade_matrix(const fast_timer_t now) {
     } else if (rgb_matrix_config.hsv.v != 0) {
       rgb_matrix_config.hsv.v--;
     } else {
-      rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
-      rgb_matrix_disable_noeeprom();
+      if (fade_matrix_active) {
+        fade_matrix_active = false;
+        fade_tamrix_trigger += fade_matrix_idle_delay;
+      } else { 
+        fade_tamrix_trigger += (UINT32_MAX / 2) - 1;
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
+        rgb_matrix_disable_noeeprom();
+      }
       //fade_tamrix_trigger = now + fade_matrix_poll_long_delay;
     }
   }
