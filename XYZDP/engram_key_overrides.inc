@@ -1,3 +1,5 @@
+#pragma once
+
 #include "keymap_japanese.h"
 
 // keymap ovverride (process Engram symbol and ANSI/JIS)
