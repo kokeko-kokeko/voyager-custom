@@ -1,10 +1,10 @@
 #pragma once
 
-extern void fade_matrix_set_mode(uint8_t mode);
-extern void fade_matrix_set_hue_pos(uint8_t pos);
-extern void fade_matrix_set_sat_pos(uint8_t pos);
-extern void fade_matrix_set_val_pos(uint8_t pos);
-extern void fade_matrix_set_speed_pos(uint8_t pos);
+extern void fade_matrix_set_mode(const uint8_t mode);
+extern void fade_matrix_set_hue_pos(const uint8_t pos);
+extern void fade_matrix_set_sat_pos(const uint8_t pos);
+extern void fade_matrix_set_val_pos(const uint8_t pos);
+extern void fade_matrix_set_speed_pos(const uint8_t pos);
 
 extern void fade_matrix_increase_hue(void);
 extern void fade_matrix_decrease_hue(void);
