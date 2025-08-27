@@ -230,32 +230,38 @@ enum custom_keycodes {
   ST_MACRO_20,
   ST_MACRO_21,
   ST_MACRO_22,
+  DRAG_SCROLL,
+  TOGGLE_SCROLL,
+  NAVIGATOR_INC_CPI,
+  NAVIGATOR_DEC_CPI,
+  NAVIGATOR_TURBO,
+  NAVIGATOR_AIM
 };
 
 
 
-#define DUAL_FUNC_0 LT(4, KC_5)
-#define DUAL_FUNC_1 LT(10, KC_C)
-#define DUAL_FUNC_2 LT(13, KC_F22)
-#define DUAL_FUNC_3 LT(1, KC_K)
-#define DUAL_FUNC_4 LT(11, KC_U)
-#define DUAL_FUNC_5 LT(2, KC_F3)
-#define DUAL_FUNC_6 LT(9, KC_6)
-#define DUAL_FUNC_7 LT(7, KC_F21)
-#define DUAL_FUNC_8 LT(4, KC_J)
-#define DUAL_FUNC_9 LT(3, KC_F21)
-#define DUAL_FUNC_10 LT(10, KC_A)
-#define DUAL_FUNC_11 LT(1, KC_W)
-#define DUAL_FUNC_12 LT(11, KC_R)
-#define DUAL_FUNC_13 LT(13, KC_R)
-#define DUAL_FUNC_14 LT(15, KC_3)
-#define DUAL_FUNC_15 LT(8, KC_Z)
-#define DUAL_FUNC_16 LT(9, KC_F21)
-#define DUAL_FUNC_17 LT(11, KC_D)
-#define DUAL_FUNC_18 LT(8, KC_F15)
-#define DUAL_FUNC_19 LT(13, KC_F12)
-#define DUAL_FUNC_20 LT(5, KC_F9)
-#define DUAL_FUNC_21 LT(14, KC_7)
+#define DUAL_FUNC_0 LT(6, KC_5)
+#define DUAL_FUNC_1 LT(2, KC_F17)
+#define DUAL_FUNC_2 LT(11, KC_F16)
+#define DUAL_FUNC_3 LT(5, KC_Q)
+#define DUAL_FUNC_4 LT(12, KC_4)
+#define DUAL_FUNC_5 LT(1, KC_F7)
+#define DUAL_FUNC_6 LT(14, KC_F12)
+#define DUAL_FUNC_7 LT(12, KC_F12)
+#define DUAL_FUNC_8 LT(4, KC_F)
+#define DUAL_FUNC_9 LT(6, KC_D)
+#define DUAL_FUNC_10 LT(7, KC_9)
+#define DUAL_FUNC_11 LT(4, KC_Q)
+#define DUAL_FUNC_12 LT(2, KC_J)
+#define DUAL_FUNC_13 LT(9, KC_F23)
+#define DUAL_FUNC_14 LT(7, KC_F6)
+#define DUAL_FUNC_15 LT(4, KC_F12)
+#define DUAL_FUNC_16 LT(13, KC_0)
+#define DUAL_FUNC_17 LT(1, KC_F11)
+#define DUAL_FUNC_18 LT(11, KC_F20)
+#define DUAL_FUNC_19 LT(9, KC_F15)
+#define DUAL_FUNC_20 LT(3, KC_0)
+#define DUAL_FUNC_21 LT(3, KC_F19)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -405,6 +411,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     HSV_129_255_118,HSV_129_255_119,HSV_129_255_120,HSV_129_255_121,HSV_129_255_122,HSV_129_255_123,                                HSV_129_255_144,HSV_129_255_145,HSV_129_255_146,HSV_129_255_147,HSV_129_255_148,HSV_129_255_149,
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, HSV_129_255_151
   ),
+  [21] = LAYOUT_voyager(
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 QK_LLCK,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, NAVIGATOR_INC_CPI,NAVIGATOR_DEC_CPI,
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 TOGGLE_SCROLL,  KC_MS_BTN3,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 DRAG_SCROLL,    KC_MS_BTN1,     KC_MS_BTN2,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
+  ),
 };
 
 
@@ -412,6 +425,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
+extern bool set_scrolling;
+extern bool navigator_turbo;
+extern bool navigator_aim;
+void pointing_device_init_user(void) {
+    set_auto_mouse_enable(true);
+}
 
 
 
@@ -864,6 +883,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }  
       }  
       return false;
+    case DRAG_SCROLL:
+      if (record->event.pressed) {
+        set_scrolling = true;
+      } else {
+        set_scrolling = false;
+      }
+      return false;
+    case TOGGLE_SCROLL:
+      if (record->event.pressed) {
+        set_scrolling = !set_scrolling;
+      }
+      return false;
+    break;
+  case NAVIGATOR_TURBO:
+    if (record->event.pressed) {
+      navigator_turbo = true;
+    } else {
+      navigator_turbo = false;
+    }
+    return false;
+  case NAVIGATOR_AIM:
+    if (record->event.pressed) {
+      navigator_aim = true;
+    } else {
+      navigator_aim = false;
+    }
+    return false;
+  case NAVIGATOR_INC_CPI:
+    if (record->event.pressed) {
+        pointing_device_set_cpi(1);
+        keyboard_config.navigator_cpi = pointing_device_get_cpi();
+        eeconfig_update_kb(keyboard_config.raw);
+    }
+    return false;
+  case NAVIGATOR_DEC_CPI:
+    if (record->event.pressed) {
+        pointing_device_set_cpi(0);
+        keyboard_config.navigator_cpi = pointing_device_get_cpi();
+        eeconfig_update_kb(keyboard_config.raw);
+    }
+    return false;
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);
