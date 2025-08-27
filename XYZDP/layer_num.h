@@ -23,6 +23,7 @@ enum layer_num {
   L_Set_Val,
   L_Set_Sat,
   L_Set_Hue,
+  L_Mouse,
   C_LAYER_COUNT 
 };
 
