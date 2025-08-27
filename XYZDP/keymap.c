@@ -553,10 +553,13 @@ bool rgb_matrix_indicators_user(void) {
       set_layer_color_hue_map();
       break;
     default:
-      if (rgb_matrix_get_flags() == LED_FLAG_NONE)
+      if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
         rgb_matrix_set_color_all(0, 0, 0);
-      else
+      } else {
+        set_layer_color_overlay_mod();
+        set_layer_color_overlay_layer();
         set_layer_color_overlay_base();
+      }
       break;
   }
   return true;
