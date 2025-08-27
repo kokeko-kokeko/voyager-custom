@@ -23,6 +23,7 @@ GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
 
 SRC += fade_matrix.c
+SRC += overlay_layer_mod.c
 SRC += status_led.c
 
 LTO_ENABLE = yes
