@@ -444,8 +444,8 @@ extern bool is_launching;
 // sub safety 14400000 ms (14400 sec = 240 min = 4 hour)
 static const fast_timer_t maximum_delay = (UINT32_MAX / 2) - 14400000;
 
-static void set_layer_color_overlay(void);
-static void set_layer_color_firmware_map(void);
+static void set_layer_color_overlay_base(void);
+static void set_layer_color_firmware_map_base(void);
 
 // ime state from LANG1/LANG2 key
 static bool ime_on = false;
@@ -538,7 +538,7 @@ bool rgb_matrix_indicators_user(void) {
   if (keyboard_config.disable_layer_led) { return false; }
   switch (get_highest_layer(layer_state)) {
     case L_Firmware:
-      set_layer_color_firmware_map();
+      set_layer_color_firmware_map_base();
       break;
     case L_Set_Speed:
       set_layer_color_speed_map();
@@ -556,7 +556,7 @@ bool rgb_matrix_indicators_user(void) {
       if (rgb_matrix_get_flags() == LED_FLAG_NONE)
         rgb_matrix_set_color_all(0, 0, 0);
       else
-        set_layer_color_overlay();
+        set_layer_color_overlay_base();
       break;
   }
   return true;
@@ -2358,7 +2358,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // local functions
 // basic static 
-static void set_layer_color_overlay(void) {
+static void set_layer_color_overlay_base(void) {
   // use golden angle 255 * phi
   const uint8_t h_diff = 97;
   
@@ -2558,7 +2558,7 @@ static void set_layer_color_overlay(void) {
   }
 }
 
-void set_layer_color_firmware_map(void) {
+void set_layer_color_firmware_map_base(void) {
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
   const uint8_t q = h >> 1;
