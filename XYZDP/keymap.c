@@ -438,7 +438,6 @@ extern bool is_launching;
 #include "fade_matrix.h"
 #include "status_led.h"
 
-<<<<<<< HEAD
 // timer maximum delay
 // #define timer_expired32(current, future) ((uint32_t)(current - future) < UINT32_MAX / 2)
 // sub safety 14400000 ms (14400 sec = 240 min = 4 hour)
@@ -734,16 +733,14 @@ void housekeeping_task_user(void) {
   }
   
   return;
-=======
+}
+
 extern bool set_scrolling;
 extern bool navigator_turbo;
 extern bool navigator_aim;
 void pointing_device_init_user(void) {
     set_auto_mouse_enable(true);
->>>>>>> origin/oryx
 }
-
-
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
