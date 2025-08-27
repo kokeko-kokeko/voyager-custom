@@ -436,6 +436,7 @@ extern keyboard_config_t keyboard_config;
 extern bool is_launching;
 
 #include "fade_matrix.h"
+#include "overlay_layer_mod.h"
 #include "status_led.h"
 
 // timer maximum delay
