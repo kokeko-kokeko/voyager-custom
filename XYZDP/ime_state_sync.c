@@ -128,6 +128,7 @@ void update_ime_state_sync(const fast_timer_t now) {
     iss_sync = true;
     iss_trigger += iss_idle_delay;
   } else {
+    ime_on = false;
     iss_sync = false;
     iss_trigger += (UINT32_MAX / 2) - 1;
   }
