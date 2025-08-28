@@ -24,6 +24,7 @@ extern void init_fade_matrix(const fast_timer_t now);
 extern void activate_fade_matrix(const fast_timer_t now);
 extern void update_fade_matrix(const fast_timer_t now);
 
+extern void set_layer_color_firmware_map(void);
 extern void set_layer_color_hue_map(void);
 extern void set_layer_color_sat_map(void);
 extern void set_layer_color_val_map(void);
