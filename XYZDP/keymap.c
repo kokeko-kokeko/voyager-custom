@@ -420,10 +420,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-// use animation logic
-// use abs path
-#include "lib/lib8tion/lib8tion.h"
-
 #include "layer_num.h"
 // enum for layer define sync oryx side
 #define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
@@ -440,8 +436,6 @@ extern bool is_launching;
 #include "ime_state_sync.h"
 #include "overlay_layer_mod.h"
 #include "status_led.h"
-
-// Ime State Display system
 
 void keyboard_post_init_user(void) {
   keymap_config.nkro = true;
