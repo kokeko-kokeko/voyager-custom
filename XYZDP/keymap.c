@@ -2017,8 +2017,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
+// ------------------------------------------------
+//
+// GitHub C impl additional
+//
+// ------------------------------------------------
 
-// C impl additional
 void keyboard_post_init_user(void) {
   keymap_config.nkro = true;
 
