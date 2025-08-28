@@ -545,7 +545,7 @@ bool rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color_all(0, 0, 0);
       } else {
         set_layer_color_overlay_mod();
-        set_layer_color_overlay_iss_state_sync();
+        set_layer_color_overlay_ime_state_sync();
         set_layer_color_overlay_layer();
       }
       break;
