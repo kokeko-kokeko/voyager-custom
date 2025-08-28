@@ -435,8 +435,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
 _Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
 
-#include "engram_key_overrides.inc"
-
 // access to voyager system-side flag
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
@@ -446,6 +444,8 @@ extern bool is_launching;
 #include "ime_state_sync.h"
 #include "overlay_layer_mod.h"
 #include "status_led.h"
+
+#include "engram_key_overrides.inc"
 
 // -----------------------------------------------------------------------------
 //
