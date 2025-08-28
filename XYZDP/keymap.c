@@ -437,257 +437,7 @@ extern bool is_launching;
 #include "overlay_layer_mod.h"
 #include "status_led.h"
 
-void keyboard_post_init_user(void) {
-  keymap_config.nkro = true;
 
-  fast_timer_t now = timer_read_fast();
-  init_fade_matrix(now);
-  status_led(now, 0b1111, led_pattern_off);
-  
-  //ANSI
-  layer_move(L_Base);
-}
-
-bool process_detected_host_os_user(os_variant_t detected_os) {
-  fast_timer_t now = timer_read_fast();
-  switch (detected_os) {
-    case OS_MACOS:
-      fade_matrix_load_preset();
-      status_led(now, 0b1000, led_pattern_oneshot);
-      break;
-    case OS_IOS:
-      fade_matrix_load_preset_powersave();
-      status_led(now, 0b0100, led_pattern_oneshot);
-      break;
-    case OS_WINDOWS:
-      fade_matrix_load_preset();
-      status_led(now, 0b0010, led_pattern_oneshot);
-      break;
-    case OS_LINUX:
-      fade_matrix_load_preset_powersave();
-      status_led(now, 0b0001, led_pattern_oneshot);
-      break;
-    case OS_UNSURE:
-      status_led(now, 0b1111, led_pattern_oneshot);
-      status_led(now, 0b1111, led_pattern_oneshot);
-      status_led(now, 0b1111, led_pattern_oneshot);
-      break;
-  }
-    
-  return true;
-}
-
-// tap flow control
-// bool is_flow_tap_key(uint16_t keycode) is default
-// disable (return 0)
-// thumb space LT 
-// cursor LT
-uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record, 
-                           uint16_t prev_keycode) {
-  if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
-    switch (keycode) {
-      case LT(L_Number, KC_SPACE):
-      case LT(L_Cursor, KC_SPACE):
-      case LT(L_LeftPinky, KC_B):
-      case LT(L_LeftPinky, KC_F11):
-      case LT(L_LeftPinky, KC_LBRC):
-      case LT(L_LeftPinky, KC_RBRC):
-      case LT(L_RightPinky, KC_V):
-      case LT(L_RightPinky, KC_F12):
-      case LT(L_RightPinky, KC_RBRC):
-      case LT(L_RightPinky, KC_BSLS):
-        return 0;
-
-      default:
-        return FLOW_TAP_TERM;  // Longer timeout otherwise.
-    }
-  }
-  return 0;  // Disable Flow Tap.
-}
-
-bool rgb_matrix_indicators_user(void) {
-  if (rawhid_state.rgb_control) {
-      return false;
-  }
-  if (keyboard_config.disable_layer_led) { return false; }
-  switch (get_highest_layer(layer_state)) {
-    case L_Firmware:
-      set_layer_color_firmware_map();
-      set_layer_color_firmware_map_ime_state_sync();
-      break;
-    case L_Set_Speed:
-      set_layer_color_speed_map();
-      break;    
-    case L_Set_Val:
-      set_layer_color_val_map();
-      break;
-    case L_Set_Sat:
-      set_layer_color_sat_map();
-      break;
-    case L_Set_Hue:
-      set_layer_color_hue_map();
-      break;
-    default:
-      if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
-        rgb_matrix_set_color_all(0, 0, 0);
-      } else {
-        set_layer_color_overlay_mod();
-        set_layer_color_overlay_ime_state_sync();
-        set_layer_color_overlay_layer();
-      }
-      break;
-  }
-  return true;
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-  //both thumb
-  state = update_tri_layer_state(state, L_Number, L_Cursor, L_BothThumb);
-  
-  //tumb and outer pin
-  state = update_tri_layer_state(state, L_LeftPinky, L_Number, L_LeftPinkyThumb);
-  state = update_tri_layer_state(state, L_RightPinky, L_Cursor, L_RightPinkyThumb);
-  
-  //both outer pin
-  state = update_tri_layer_state(state, L_LeftPinky, L_RightPinky, L_BothPinky);
-
-  // both thumb and pin
-  state = update_tri_layer_state(state, L_LeftPinkyThumb, L_RightPinkyThumb, L_BothPinkyThumb);
-
-  // call FwSys with Bkt and Fn
-  state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware); 
-
-  // if speed layer active, MO guard, block base tap tap side
-  state = update_tri_layer_state(state, L_Set_Speed, L_Set_Speed, L_MO_Guard); 
-  
-  // call color settng
-  state = update_tri_layer_state(state, L_Function, L_Set_Speed, L_Set_Val); 
-  state = update_tri_layer_state(state, L_Cursor, L_Set_Speed, L_Set_Sat); 
-
-  // call Hue with Sat and Val
-  state = update_tri_layer_state(state, L_Set_Val, L_Set_Sat, L_Set_Hue);
-  
-  //ANSI/JIS addiional enable
-  state = update_tri_layer_state(state, L_Base_JIS, L_Number, L_Number_JIS);
-  state = update_tri_layer_state(state, L_Base_JIS, L_Cursor, L_Cursor_JIS);
-  state = update_tri_layer_state(state, L_Base_JIS, L_BothThumb, L_BothThumb_JIS);
-  
-  // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
-  if (is_launching || !keyboard_config.led_level) return state;
-  
-  uint8_t layer = get_highest_layer(state);
-  fast_timer_t now = timer_read_fast();
-  
-  switch (layer) {
-    case L_Base :
-    case L_Base_JIS:
-      status_led(now, 0b1111, led_pattern_off);
-      break;
-    case L_Function:
-      status_led(now, 0b1100, led_pattern_off);
-      status_led(now, 0b0011, led_pattern_on);
-      break;
-    case L_Number:
-    case L_Number_JIS:
-      //status_led(now, 0b1100, led_pattern_off);
-      //status_led(now, 0b0001, led_pattern_on);
-      //status_led(now, 0b0010, led_pattern_blink);
-      break;
-    case L_Cursor:
-    case L_Cursor_JIS:
-      //status_led(now, 0b1100, led_pattern_off);
-      //status_led(now, 0b0010, led_pattern_on);
-      //status_led(now, 0b0001, led_pattern_blink);
-      break;
-    case L_LeftPinky:
-      //status_led(now, 0b0110, led_pattern_off);
-      //status_led(now, 0b0001, led_pattern_on);
-      //status_led(now, 0b1000, led_pattern_blink);
-      break;
-    case L_RightPinky:
-      //status_led(now, 0b1001, led_pattern_off);
-      //status_led(now, 0b0010, led_pattern_on);
-      //status_led(now, 0b0100, led_pattern_blink);
-      break;
-    case L_LeftPinkyThumb:
-      //status_led(now, 0b0100, led_pattern_off);
-      //status_led(now, 0b0001, led_pattern_on);
-      //status_led(now, 0b1010, led_pattern_blink);
-      break;
-    case L_RightPinkyThumb:
-      //status_led(now, 0b1000, led_pattern_off);
-      //status_led(now, 0b0010, led_pattern_on);
-      //status_led(now, 0b0101, led_pattern_blink);
-      break;
-    case L_BothThumb:
-    case L_BothThumb_JIS:
-      //status_led(now, 0b1100, led_pattern_off);
-      //status_led(now, 0b0011, led_pattern_blink);
-      break;
-    case L_BothPinky:
-      //status_led(now, 0b0011, led_pattern_on);
-      //status_led(now, 0b1100, led_pattern_blink);
-      break;
-    case L_BothPinkyThumb:
-      //status_led(now, 0b1111, led_pattern_blink);
-      break;
-    case L_Firmware:
-      status_led(now, 0b0011, led_pattern_off);
-      status_led(now, 0b1100, led_pattern_blink);
-      break;
-    case L_Set_Speed:
-      status_led(now, 0b0011, led_pattern_off);
-      status_led(now, 0b1100, led_pattern_on);
-      break;    
-    case L_Set_Val:
-      status_led(now, 0b0001, led_pattern_off);
-      status_led(now, 0b1100, led_pattern_on);
-      status_led(now, 0b0010, led_pattern_blink);
-      break;
-    case L_Set_Sat:
-      status_led(now, 0b0010, led_pattern_off);
-      status_led(now, 0b1100, led_pattern_on);
-      status_led(now, 0b0001, led_pattern_blink);
-      break;
-    case L_Set_Hue:
-      status_led(now, 0b1100, led_pattern_on);
-      status_led(now, 0b0011, led_pattern_blink);
-      break;
-
-    default :
-      status_led(now, 0b1111, led_pattern_off);
-      break;
-  }  
-  return state;
-}
-
-bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (pre_process_record_ime_state_sync(keycode, record) == false) {
-    return false;
-  }
-  return true;
-}
-
-void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    fast_timer_t now = timer_read_fast();
-
-    activate_fade_matrix(now);
-    activate_ime_state_sync(now);
-  }
-  
-  return;
-}
-
-void housekeeping_task_user(void) {
-  fast_timer_t now = timer_read_fast();
-
-  update_fade_matrix(now);
-  update_status_led(now);
-  update_ime_state_sync(now);
-  
-  return;
-}
 
 extern bool set_scrolling;
 extern bool navigator_turbo;
@@ -695,6 +445,8 @@ extern bool navigator_aim;
 void pointing_device_init_user(void) {
     set_auto_mouse_enable(true);
 }
+
+
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -2260,4 +2012,259 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   
   return true;
+}
+
+
+
+// C impl additional
+void keyboard_post_init_user(void) {
+  keymap_config.nkro = true;
+
+  fast_timer_t now = timer_read_fast();
+  init_fade_matrix(now);
+  status_led(now, 0b1111, led_pattern_off);
+  
+  //ANSI
+  layer_move(L_Base);
+}
+
+bool process_detected_host_os_user(os_variant_t detected_os) {
+  fast_timer_t now = timer_read_fast();
+  switch (detected_os) {
+    case OS_MACOS:
+      fade_matrix_load_preset();
+      status_led(now, 0b1000, led_pattern_oneshot);
+      break;
+    case OS_IOS:
+      fade_matrix_load_preset_powersave();
+      status_led(now, 0b0100, led_pattern_oneshot);
+      break;
+    case OS_WINDOWS:
+      fade_matrix_load_preset();
+      status_led(now, 0b0010, led_pattern_oneshot);
+      break;
+    case OS_LINUX:
+      fade_matrix_load_preset_powersave();
+      status_led(now, 0b0001, led_pattern_oneshot);
+      break;
+    case OS_UNSURE:
+      status_led(now, 0b1111, led_pattern_oneshot);
+      status_led(now, 0b1111, led_pattern_oneshot);
+      status_led(now, 0b1111, led_pattern_oneshot);
+      break;
+  }
+    
+  return true;
+}
+
+// tap flow control
+// bool is_flow_tap_key(uint16_t keycode) is default
+// disable (return 0)
+// thumb space LT 
+// cursor LT
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record, 
+                           uint16_t prev_keycode) {
+  if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+    switch (keycode) {
+      case LT(L_Number, KC_SPACE):
+      case LT(L_Cursor, KC_SPACE):
+      case LT(L_LeftPinky, KC_B):
+      case LT(L_LeftPinky, KC_F11):
+      case LT(L_LeftPinky, KC_LBRC):
+      case LT(L_LeftPinky, KC_RBRC):
+      case LT(L_RightPinky, KC_V):
+      case LT(L_RightPinky, KC_F12):
+      case LT(L_RightPinky, KC_RBRC):
+      case LT(L_RightPinky, KC_BSLS):
+        return 0;
+
+      default:
+        return FLOW_TAP_TERM;  // Longer timeout otherwise.
+    }
+  }
+  return 0;  // Disable Flow Tap.
+}
+
+bool rgb_matrix_indicators_user(void) {
+  if (rawhid_state.rgb_control) {
+      return false;
+  }
+  if (keyboard_config.disable_layer_led) { return false; }
+  switch (get_highest_layer(layer_state)) {
+    case L_Firmware:
+      set_layer_color_firmware_map();
+      set_layer_color_firmware_map_ime_state_sync();
+      break;
+    case L_Set_Speed:
+      set_layer_color_speed_map();
+      break;    
+    case L_Set_Val:
+      set_layer_color_val_map();
+      break;
+    case L_Set_Sat:
+      set_layer_color_sat_map();
+      break;
+    case L_Set_Hue:
+      set_layer_color_hue_map();
+      break;
+    default:
+      if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
+        rgb_matrix_set_color_all(0, 0, 0);
+      } else {
+        set_layer_color_overlay_mod();
+        set_layer_color_overlay_ime_state_sync();
+        set_layer_color_overlay_layer();
+      }
+      break;
+  }
+  return true;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+  //both thumb
+  state = update_tri_layer_state(state, L_Number, L_Cursor, L_BothThumb);
+  
+  //tumb and outer pin
+  state = update_tri_layer_state(state, L_LeftPinky, L_Number, L_LeftPinkyThumb);
+  state = update_tri_layer_state(state, L_RightPinky, L_Cursor, L_RightPinkyThumb);
+  
+  //both outer pin
+  state = update_tri_layer_state(state, L_LeftPinky, L_RightPinky, L_BothPinky);
+
+  // both thumb and pin
+  state = update_tri_layer_state(state, L_LeftPinkyThumb, L_RightPinkyThumb, L_BothPinkyThumb);
+
+  // call FwSys with Bkt and Fn
+  state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware); 
+
+  // if speed layer active, MO guard, block base tap tap side
+  state = update_tri_layer_state(state, L_Set_Speed, L_Set_Speed, L_MO_Guard); 
+  
+  // call color settng
+  state = update_tri_layer_state(state, L_Function, L_Set_Speed, L_Set_Val); 
+  state = update_tri_layer_state(state, L_Cursor, L_Set_Speed, L_Set_Sat); 
+
+  // call Hue with Sat and Val
+  state = update_tri_layer_state(state, L_Set_Val, L_Set_Sat, L_Set_Hue);
+  
+  //ANSI/JIS addiional enable
+  state = update_tri_layer_state(state, L_Base_JIS, L_Number, L_Number_JIS);
+  state = update_tri_layer_state(state, L_Base_JIS, L_Cursor, L_Cursor_JIS);
+  state = update_tri_layer_state(state, L_Base_JIS, L_BothThumb, L_BothThumb_JIS);
+  
+  // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
+  if (is_launching || !keyboard_config.led_level) return state;
+  
+  uint8_t layer = get_highest_layer(state);
+  fast_timer_t now = timer_read_fast();
+  
+  switch (layer) {
+    case L_Base :
+    case L_Base_JIS:
+      status_led(now, 0b1111, led_pattern_off);
+      break;
+    case L_Function:
+      status_led(now, 0b1100, led_pattern_off);
+      status_led(now, 0b0011, led_pattern_on);
+      break;
+    case L_Number:
+    case L_Number_JIS:
+      //status_led(now, 0b1100, led_pattern_off);
+      //status_led(now, 0b0001, led_pattern_on);
+      //status_led(now, 0b0010, led_pattern_blink);
+      break;
+    case L_Cursor:
+    case L_Cursor_JIS:
+      //status_led(now, 0b1100, led_pattern_off);
+      //status_led(now, 0b0010, led_pattern_on);
+      //status_led(now, 0b0001, led_pattern_blink);
+      break;
+    case L_LeftPinky:
+      //status_led(now, 0b0110, led_pattern_off);
+      //status_led(now, 0b0001, led_pattern_on);
+      //status_led(now, 0b1000, led_pattern_blink);
+      break;
+    case L_RightPinky:
+      //status_led(now, 0b1001, led_pattern_off);
+      //status_led(now, 0b0010, led_pattern_on);
+      //status_led(now, 0b0100, led_pattern_blink);
+      break;
+    case L_LeftPinkyThumb:
+      //status_led(now, 0b0100, led_pattern_off);
+      //status_led(now, 0b0001, led_pattern_on);
+      //status_led(now, 0b1010, led_pattern_blink);
+      break;
+    case L_RightPinkyThumb:
+      //status_led(now, 0b1000, led_pattern_off);
+      //status_led(now, 0b0010, led_pattern_on);
+      //status_led(now, 0b0101, led_pattern_blink);
+      break;
+    case L_BothThumb:
+    case L_BothThumb_JIS:
+      //status_led(now, 0b1100, led_pattern_off);
+      //status_led(now, 0b0011, led_pattern_blink);
+      break;
+    case L_BothPinky:
+      //status_led(now, 0b0011, led_pattern_on);
+      //status_led(now, 0b1100, led_pattern_blink);
+      break;
+    case L_BothPinkyThumb:
+      //status_led(now, 0b1111, led_pattern_blink);
+      break;
+    case L_Firmware:
+      status_led(now, 0b0011, led_pattern_off);
+      status_led(now, 0b1100, led_pattern_blink);
+      break;
+    case L_Set_Speed:
+      status_led(now, 0b0011, led_pattern_off);
+      status_led(now, 0b1100, led_pattern_on);
+      break;    
+    case L_Set_Val:
+      status_led(now, 0b0001, led_pattern_off);
+      status_led(now, 0b1100, led_pattern_on);
+      status_led(now, 0b0010, led_pattern_blink);
+      break;
+    case L_Set_Sat:
+      status_led(now, 0b0010, led_pattern_off);
+      status_led(now, 0b1100, led_pattern_on);
+      status_led(now, 0b0001, led_pattern_blink);
+      break;
+    case L_Set_Hue:
+      status_led(now, 0b1100, led_pattern_on);
+      status_led(now, 0b0011, led_pattern_blink);
+      break;
+
+    default :
+      status_led(now, 0b1111, led_pattern_off);
+      break;
+  }  
+  return state;
+}
+
+bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (pre_process_record_ime_state_sync(keycode, record) == false) {
+    return false;
+  }
+  return true;
+}
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    fast_timer_t now = timer_read_fast();
+
+    activate_fade_matrix(now);
+    activate_ime_state_sync(now);
+  }
+  
+  return;
+}
+
+void housekeeping_task_user(void) {
+  fast_timer_t now = timer_read_fast();
+
+  update_fade_matrix(now);
+  update_status_led(now);
+  update_ime_state_sync(now);
+  
+  return;
 }
