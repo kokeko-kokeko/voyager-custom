@@ -2223,8 +2223,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b1100, led_pattern_on);
       status_led(now, 0b0011, led_pattern_blink);
       break;
+    case L_Mouse:
+      status_led(now, 0b1111, led_pattern_on);
+      break;
 
-    default :
+    default:
       status_led(now, 0b1111, led_pattern_off);
       break;
   }  
@@ -2253,6 +2256,10 @@ bool rgb_matrix_indicators_user(void) {
     case L_Set_Hue:
       set_layer_color_hue_map();
       break;
+    case L_Mouse:
+      
+      break;
+    
     default:
       if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
         rgb_matrix_set_color_all(0, 0, 0);
