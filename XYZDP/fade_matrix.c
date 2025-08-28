@@ -221,7 +221,7 @@ void activate_fade_matrix(const fast_timer_t now) {
 }
 
 void update_fade_matrix(const fast_timer_t now) {
-  if (!(timer_expired_fast(now, fade_tamrix_trigger))) return;
+  if (timer_expired_fast(now, fade_tamrix_trigger) == false) return;
   fade_tamrix_trigger += fade_matrix_repeat_delay;
 
   if (fade_matrix_active) {
