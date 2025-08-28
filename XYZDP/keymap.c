@@ -518,7 +518,7 @@ bool rgb_matrix_indicators_user(void) {
   if (keyboard_config.disable_layer_led) { return false; }
   switch (get_highest_layer(layer_state)) {
     case L_Firmware:
-      set_layer_color_firmware_map_base();
+      set_layer_color_firmware_map();
       set_layer_color_firmware_map_ime_state_sync();
       break;
     case L_Set_Speed:
@@ -2266,71 +2266,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   
   return true;
-}
-
-// local functions
-// basic static 
-void set_layer_color_firmware_map_base(void) {
-  const uint8_t f = rgb_matrix_get_val();
-  const uint8_t h = f >> 1;
-  const uint8_t q = h >> 1;
-  const uint8_t o = q >> 1;
-
-  rgb_matrix_set_color_all(0, 0, 0);
-
-  //layer indication
-  rgb_matrix_set_color(24, f, f, 0);
-  rgb_matrix_set_color(25, f, f, 0);
-  rgb_matrix_set_color(44, f, f, 0);
-  rgb_matrix_set_color(45, f, f, 0);
-  rgb_matrix_set_color(50, o, o, o);
-
-  //ANSI/JIS
-  if (layer_state_is(L_Base_JIS)) {
-    //JIS base enable
-    rgb_matrix_set_color(0, o, 0, 0);
-    rgb_matrix_set_color(6, 0, f, 0);
-  } else {
-    //ANSI base
-    rgb_matrix_set_color(0, f, 0, 0);
-    rgb_matrix_set_color(6, 0, o, 0);
-  }
-
-  //OS detect
-  RGB rgb_os = {0, 0, 0};
-  switch (detected_host_os()) {
-    case OS_WINDOWS:
-      rgb_os.b = f;
-      break;
-    case OS_LINUX:
-      rgb_os.g = f;
-      break;
-    case OS_MACOS:
-      rgb_os.r = f;
-      break;
-    case OS_IOS:
-      rgb_os.r = f;
-      rgb_os.g = h;
-      break;    
-    case OS_UNSURE:
-      rgb_os.r = f;
-      rgb_os.g = f;
-      break;
-    default:
-      rgb_os.r = f;
-      rgb_os.g = f;
-      rgb_os.b = f;
-      break;
-  }
-  rgb_matrix_set_color(22, rgb_os.r, rgb_os.g, rgb_os.b);
-  rgb_matrix_set_color(23, rgb_os.r, rgb_os.g, rgb_os.b);
-
-  //tapping
-  rgb_matrix_set_color(18, 0, 0, f);
-  rgb_matrix_set_color(19, o, 0, o);
-  rgb_matrix_set_color(20, f, 0, f);
-
-  //reset
-  rgb_matrix_set_color(31, f, 0, 0);
-  rgb_matrix_set_color(49, f, 0, 0);
 }
