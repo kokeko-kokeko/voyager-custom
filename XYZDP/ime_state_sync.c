@@ -122,7 +122,7 @@ void activate_ime_state_sync(const fast_timer_t now) {
 }
 
 void update_ime_state_sync(const fast_timer_t now) {
-  if (!(timer_expired_fast(now, iss_trigger))) return;
+  if (timer_expired_fast(now, iss_trigger) == false) return;
 
   if (iss_sync == false) {
     iss_sync = true;
