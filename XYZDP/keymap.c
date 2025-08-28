@@ -2109,41 +2109,6 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
   return 0;  // Disable Flow Tap.
 }
 
-bool rgb_matrix_indicators_user(void) {
-  if (rawhid_state.rgb_control) {
-      return false;
-  }
-  if (keyboard_config.disable_layer_led) { return false; }
-  switch (get_highest_layer(layer_state)) {
-    case L_Firmware:
-      set_layer_color_firmware_map();
-      set_layer_color_firmware_map_ime_state_sync();
-      break;
-    case L_Set_Speed:
-      set_layer_color_speed_map();
-      break;    
-    case L_Set_Val:
-      set_layer_color_val_map();
-      break;
-    case L_Set_Sat:
-      set_layer_color_sat_map();
-      break;
-    case L_Set_Hue:
-      set_layer_color_hue_map();
-      break;
-    default:
-      if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
-        rgb_matrix_set_color_all(0, 0, 0);
-      } else {
-        set_layer_color_overlay_mod();
-        set_layer_color_overlay_ime_state_sync();
-        set_layer_color_overlay_layer();
-      }
-      break;
-  }
-  return true;
-}
-
 layer_state_t layer_state_set_user(layer_state_t state) {
   //both thumb
   state = update_tri_layer_state(state, L_Number, L_Cursor, L_BothThumb);
@@ -2265,6 +2230,41 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
+bool rgb_matrix_indicators_user(void) {
+  if (rawhid_state.rgb_control) {
+      return false;
+  }
+  if (keyboard_config.disable_layer_led) { return false; }
+  switch (get_highest_layer(layer_state)) {
+    case L_Firmware:
+      set_layer_color_firmware_map();
+      set_layer_color_firmware_map_ime_state_sync();
+      break;
+    case L_Set_Speed:
+      set_layer_color_speed_map();
+      break;    
+    case L_Set_Val:
+      set_layer_color_val_map();
+      break;
+    case L_Set_Sat:
+      set_layer_color_sat_map();
+      break;
+    case L_Set_Hue:
+      set_layer_color_hue_map();
+      break;
+    default:
+      if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
+        rgb_matrix_set_color_all(0, 0, 0);
+      } else {
+        set_layer_color_overlay_mod();
+        set_layer_color_overlay_ime_state_sync();
+        set_layer_color_overlay_layer();
+      }
+      break;
+  }
+  return true;
+}
+
 bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (pre_process_record_ime_state_sync(keycode, record) == false) {
     return false;
@@ -2287,8 +2287,8 @@ void housekeeping_task_user(void) {
   fast_timer_t now = timer_read_fast();
 
   update_fade_matrix(now);
-  update_status_led(now);
   update_ime_state_sync(now);
+  update_status_led(now);
   
   return;
 }
