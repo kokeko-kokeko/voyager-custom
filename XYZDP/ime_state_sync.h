@@ -2,7 +2,6 @@
 
 extern void ime_state_sync_enable(void);
 extern void ime_state_sync_disable(void);
-extern bool is_ime_state_sync_enable(void);
 
 extern bool pre_process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record);
 extern bool process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record);
