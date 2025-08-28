@@ -160,6 +160,7 @@ void set_layer_color_overlay_mod(void) {
     rgb_matrix_set_color(3, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(9, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(14, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(18, rgb.r, rgb.g, rgb.b);
   }
   if (get_mods() & MOD_BIT_LALT) {
     hsv.h -= h_diff;
@@ -188,6 +189,7 @@ void set_layer_color_overlay_mod(void) {
     rgb_matrix_set_color(28, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(34, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(41, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(49, rgb.r, rgb.g, rgb.b);
   }
   if (get_mods() & MOD_BIT_RALT) {
     hsv.h -= h_diff;
