@@ -60,7 +60,7 @@ static void status_led_set_func(status_led_state_t * const state, const fast_tim
 }
 
 static void status_led_update_func(status_led_state_t * const state, const fast_timer_t now) {
-  if (!(timer_expired_fast(now, state->trigger))) return;
+  if (timer_expired_fast(now, state->trigger) == false) return;
 
   if (*(state->ptr) == UINT8_MAX) {
     state->ptr = state->ptr_0;
