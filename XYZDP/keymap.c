@@ -441,8 +441,6 @@ extern bool is_launching;
 #include "overlay_layer_mod.h"
 #include "status_led.h"
 
-static void set_layer_color_firmware_map_base(void);
-
 // Ime State Display system
 
 void keyboard_post_init_user(void) {
