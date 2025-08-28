@@ -39,10 +39,6 @@ void ime_state_sync_disable(void) {
   iss_trigger = now +  (UINT32_MAX / 2) - 1;
 }
 
-bool is_ime_state_sync_enable(void) {
-  return iss_enable;
-}
-
 bool pre_process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     if(iss_sync) {
