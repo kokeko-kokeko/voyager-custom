@@ -2257,7 +2257,7 @@ bool rgb_matrix_indicators_user(void) {
       set_layer_color_hue_map();
       break;
     case L_Mouse:
-      
+      set_layer_color_mouse_map();
       break;
     
     default:
