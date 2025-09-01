@@ -484,7 +484,12 @@ void set_layer_color_mouse_map(void) {
 
   rgb_matrix_set_color_all(0, 0, 0);
 
-  //mouse
+  // mode
   rgb_matrix_set_color(5, 0, f, 0);
   rgb_matrix_set_color(26, 0, f, 0);
+
+  // mouse
+  rgb_matrix_set_color(33, f, 0, 0);
+  rgb_matrix_set_color(34, 0, f, 0);
+  rgb_matrix_set_color(28, 0, 0, f);
 }
