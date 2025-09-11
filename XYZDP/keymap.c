@@ -943,6 +943,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case NAVIGATOR_INC_CPI:
     return false;
   case NAVIGATOR_DEC_CPI:
+    return false;
     case RGB_SLD:
       if (record->event.pressed) {
         fade_matrix_set_mode(RGB_MATRIX_SOLID_COLOR);
