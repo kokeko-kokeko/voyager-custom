@@ -33,7 +33,7 @@ SRC += overlay_layer_mod.c
 SRC += status_led.c
 
 LTO_ENABLE = yes
-EXTRAFLAGS += -flto -Ofast
+EXTRAFLAGS += -flto -O3
 EXTRAFLAGS += -march=armv7e-m
 EXTRAFLAGS += -mcpu=cortex-m4
 EXTRAFLAGS += -mfloat-abi=hard
