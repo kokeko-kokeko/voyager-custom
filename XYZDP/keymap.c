@@ -2127,6 +2127,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Base_JIS, L_Number, L_Number_JIS);
   state = update_tri_layer_state(state, L_Base_JIS, L_Cursor, L_Cursor_JIS);
   state = update_tri_layer_state(state, L_Base_JIS, L_BothThumb, L_BothThumb_JIS);
+
+  // mouse scroll control
+  if (layer_state_cmp(state, L_Mouse)) {
+    set_scrolling = false;
+  } else {
+    set_scrolling = true;
+  }
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
