@@ -240,28 +240,28 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(3, KC_4)
-#define DUAL_FUNC_1 LT(14, KC_F16)
-#define DUAL_FUNC_2 LT(15, KC_E)
-#define DUAL_FUNC_3 LT(4, KC_F22)
-#define DUAL_FUNC_4 LT(1, KC_N)
-#define DUAL_FUNC_5 LT(2, KC_F15)
-#define DUAL_FUNC_6 LT(13, KC_N)
-#define DUAL_FUNC_7 LT(2, KC_R)
-#define DUAL_FUNC_8 LT(15, KC_F13)
-#define DUAL_FUNC_9 LT(13, KC_A)
-#define DUAL_FUNC_10 LT(6, KC_F4)
-#define DUAL_FUNC_11 LT(3, KC_O)
-#define DUAL_FUNC_12 LT(12, KC_F12)
-#define DUAL_FUNC_13 LT(14, KC_F5)
-#define DUAL_FUNC_14 LT(15, KC_F9)
-#define DUAL_FUNC_15 LT(15, KC_8)
-#define DUAL_FUNC_16 LT(12, KC_F17)
-#define DUAL_FUNC_17 LT(10, KC_6)
-#define DUAL_FUNC_18 LT(1, KC_F1)
-#define DUAL_FUNC_19 LT(4, KC_5)
-#define DUAL_FUNC_20 LT(12, KC_S)
-#define DUAL_FUNC_21 LT(12, KC_8)
+#define DUAL_FUNC_0 LT(6, KC_F6)
+#define DUAL_FUNC_1 LT(8, KC_F5)
+#define DUAL_FUNC_2 LT(9, KC_K)
+#define DUAL_FUNC_3 LT(2, KC_W)
+#define DUAL_FUNC_4 LT(13, KC_6)
+#define DUAL_FUNC_5 LT(7, KC_F7)
+#define DUAL_FUNC_6 LT(7, KC_B)
+#define DUAL_FUNC_7 LT(3, KC_F19)
+#define DUAL_FUNC_8 LT(5, KC_F21)
+#define DUAL_FUNC_9 LT(7, KC_2)
+#define DUAL_FUNC_10 LT(15, KC_3)
+#define DUAL_FUNC_11 LT(3, KC_Q)
+#define DUAL_FUNC_12 LT(10, KC_Q)
+#define DUAL_FUNC_13 LT(8, KC_O)
+#define DUAL_FUNC_14 LT(5, KC_N)
+#define DUAL_FUNC_15 LT(9, KC_X)
+#define DUAL_FUNC_16 LT(1, KC_E)
+#define DUAL_FUNC_17 LT(10, KC_N)
+#define DUAL_FUNC_18 LT(3, KC_F1)
+#define DUAL_FUNC_19 LT(9, KC_F7)
+#define DUAL_FUNC_20 LT(6, KC_F4)
+#define DUAL_FUNC_21 LT(6, KC_L)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -479,6 +479,21 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+  case QK_MODS ... QK_MODS_MAX: 
+    // Mouse keys with modifiers work inconsistently across operating systems, this makes sure that modifiers are always
+    // applied to the mouse key that was pressed.
+    if (IS_MOUSE_KEYCODE(QK_MODS_GET_BASIC_KEYCODE(keycode))) {
+    if (record->event.pressed) {
+        add_mods(QK_MODS_GET_MODS(keycode));
+        send_keyboard_report();
+        wait_ms(1);
+        register_code(QK_MODS_GET_BASIC_KEYCODE(keycode));
+        return false;
+      } else {
+        del_mods(QK_MODS_GET_MODS(keycode));
+      }
+    }
+    break;
     case ST_MACRO_0:
     if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_GRAVE)SS_DELAY(100)  SS_TAP(X_GRAVE)SS_DELAY(100)  SS_TAP(X_LEFT));
