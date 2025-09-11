@@ -429,12 +429,12 @@ void set_layer_color_firmware_map(void) {
   //ANSI/JIS
   if (layer_state_is(L_Base_JIS)) {
     //JIS base enable
-    rgb_matrix_set_color(0, o, 0, 0);
+    rgb_matrix_set_color(0, o, o, o);
     rgb_matrix_set_color(6, 0, f, 0);
   } else {
     //ANSI base
     rgb_matrix_set_color(0, f, 0, 0);
-    rgb_matrix_set_color(6, 0, o, 0);
+    rgb_matrix_set_color(6, o, o, o);
   }
 
   //OS detect
