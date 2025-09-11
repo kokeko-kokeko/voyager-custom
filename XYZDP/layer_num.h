@@ -8,6 +8,7 @@ enum layer_num {
   L_Function,
   L_Number,
   L_Number_JIS,
+  L_Mouse,
   L_Cursor,
   L_Cursor_JIS,
   L_LeftPinky,
@@ -23,7 +24,6 @@ enum layer_num {
   L_Set_Val,
   L_Set_Sat,
   L_Set_Hue,
-  L_Mouse,
   C_LAYER_COUNT 
 };
 
