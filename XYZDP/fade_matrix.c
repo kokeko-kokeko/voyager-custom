@@ -478,9 +478,9 @@ void set_layer_color_firmware_map(void) {
 
 void set_layer_color_mouse_map(void) {
   const uint8_t f = rgb_matrix_get_val();
-  //const uint8_t h = f >> 1;
-  //const uint8_t q = h >> 1;
-  //const uint8_t o = q >> 1;
+  const uint8_t h = f >> 1;
+  const uint8_t q = h >> 1;
+  const uint8_t o = q >> 1;
 
   rgb_matrix_set_color_all(0, 0, 0);
 
@@ -494,6 +494,13 @@ void set_layer_color_mouse_map(void) {
   rgb_matrix_set_color(11, 0, 0, f);
   rgb_matrix_set_color(17, f, 0, 0);
   rgb_matrix_set_color(23, 0, f, 0);
+
+  // CPI
+  rgb_matrix_set_color(18, f, f, 0);
+  rgb_matrix_set_color(19, o, 0, o);
+  rgb_matrix_set_color(20, f, 0, f);
+
+  rgb_matrix_set_color(32, o, o, o);
   
   rgb_matrix_set_color(33, f, 0, 0);
   rgb_matrix_set_color(34, 0, f, 0);
@@ -502,4 +509,9 @@ void set_layer_color_mouse_map(void) {
   rgb_matrix_set_color(39, 0, 0, f);
   
   rgb_matrix_set_color(45, f, 0, 0);
+
+  // CPI
+  rgb_matrix_set_color(47, o, 0, o);
+  rgb_matrix_set_color(48, f, 0, f);
+  rgb_matrix_set_color(49, f, f, 0);
 }
