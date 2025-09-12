@@ -2188,6 +2188,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b1100, led_pattern_off);
       status_led(now, 0b0011, led_pattern_on);
       break;
+    case L_Mouse:
+      status_led(now, 0b1111, led_pattern_on);
+      break;
     case L_Number:
     case L_Number_JIS:
       //status_led(now, 0b1100, led_pattern_off);
@@ -2254,9 +2257,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b1100, led_pattern_on);
       status_led(now, 0b0011, led_pattern_blink);
       break;
-    case L_Mouse:
-      status_led(now, 0b1111, led_pattern_on);
-      break;
 
     default:
       status_led(now, 0b1111, led_pattern_off);
@@ -2271,6 +2271,9 @@ bool rgb_matrix_indicators_user(void) {
   }
   if (keyboard_config.disable_layer_led) { return false; }
   switch (get_highest_layer(layer_state)) {
+    case L_Mouse:
+      set_layer_color_mouse_map();
+      break;    
     case L_Firmware:
       set_layer_color_firmware_map();
       set_layer_color_firmware_map_ime_state_sync();
@@ -2286,9 +2289,6 @@ bool rgb_matrix_indicators_user(void) {
       break;
     case L_Set_Hue:
       set_layer_color_hue_map();
-      break;
-    case L_Mouse:
-      set_layer_color_mouse_map();
       break;
     
     default:
