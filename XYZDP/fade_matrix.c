@@ -422,8 +422,8 @@ void set_layer_color_firmware_map(void) {
   //layer indication
   rgb_matrix_set_color(24, f, f, 0);
   rgb_matrix_set_color(25, f, f, 0);
-  rgb_matrix_set_color(44, f, f, 0);
-  rgb_matrix_set_color(45, f, f, 0);
+  //rgb_matrix_set_color(44, f, f, 0);
+  //rgb_matrix_set_color(45, f, f, 0);
   rgb_matrix_set_color(50, o, o, o);
 
   //ANSI/JIS
@@ -496,7 +496,7 @@ void set_layer_color_mouse_map(void) {
   rgb_matrix_set_color(23, 0, f, 0);
 
   // CPI
-  rgb_matrix_set_color(18, f, f, 0);
+  rgb_matrix_set_color(18, o, o, 0);
   rgb_matrix_set_color(19, o, 0, o);
   rgb_matrix_set_color(20, f, 0, f);
 
@@ -513,5 +513,5 @@ void set_layer_color_mouse_map(void) {
   // CPI
   rgb_matrix_set_color(47, o, 0, o);
   rgb_matrix_set_color(48, f, 0, f);
-  rgb_matrix_set_color(49, f, f, 0);
+  rgb_matrix_set_color(49, o, o, 0);
 }
