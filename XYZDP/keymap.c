@@ -425,7 +425,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // -----------------------------------------------------------------------------
 //
 //
-// GitHub C declaration additional
+// GitHub C additional
 //
 //
 // -----------------------------------------------------------------------------
@@ -448,14 +448,6 @@ extern bool is_launching;
 
 #include "engram_key_overrides.inc"
 
-// -----------------------------------------------------------------------------
-//
-//
-// End of GitHub C declaration additional
-//
-//
-// -----------------------------------------------------------------------------
-
 extern bool set_scrolling;
 extern bool navigator_turbo;
 extern bool navigator_aim;
@@ -476,6 +468,13 @@ void pointing_device_init_user(void) {
 //  return is_mouse_record_user(keycode, record);
 //}
 
+// -----------------------------------------------------------------------------
+//
+//
+// End of GitHub C additional
+//
+//
+// -----------------------------------------------------------------------------
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
