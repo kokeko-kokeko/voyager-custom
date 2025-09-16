@@ -2167,15 +2167,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Base_JIS, L_BothThumb, L_BothThumb_JIS);
 
   // mouse scroll, aim, turbo control
-  if (layer_state_cmp(state, L_Function)) {
+  if (layer_state_cmp(state, L_Cursor)) {
     set_scrolling = true;
   } else {
     set_scrolling = false;
   }
   
-  if (layer_state_cmp(state, L_Number)) {
-    navigator_turbo = true;
-  } else if (layer_state_cmp(state, L_Cursor)) {
+  if (layer_state_cmp(state, L_Function)) {
     navigator_turbo = true;
   } else {
     navigator_turbo = false;
