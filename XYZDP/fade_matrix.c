@@ -491,9 +491,9 @@ void set_layer_color_mouse_map(void) {
   // mouse 
   rgb_matrix_set_color(25, f, f, 0);
 
-  rgb_matrix_set_color(11, 0, 0, f);
+  rgb_matrix_set_color(11, 0, f, 0);
   rgb_matrix_set_color(17, f, 0, 0);
-  rgb_matrix_set_color(23, 0, f, 0);
+  rgb_matrix_set_color(23, 0, 0, f);
 
   // CPI
   rgb_matrix_set_color(18, o, o, 0);
