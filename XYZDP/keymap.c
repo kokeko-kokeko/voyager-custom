@@ -452,7 +452,7 @@ extern bool set_scrolling;
 extern bool navigator_turbo;
 extern bool navigator_aim;
 void pointing_device_init_user(void) {
-  set_scrolling = true;
+  set_scrolling = false;
   navigator_turbo = false;
   navigator_aim = false;
   //set_auto_mouse_enable(false);
@@ -2166,11 +2166,25 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Base_JIS, L_Cursor, L_Cursor_JIS);
   state = update_tri_layer_state(state, L_Base_JIS, L_BothThumb, L_BothThumb_JIS);
 
-  // mouse scroll control
-  if (layer_state_cmp(state, L_Mouse)) {
-    set_scrolling = false;
-  } else {
+  // mouse scroll, aim, turbo control
+  if (layer_state_cmp(state, L_Function)) {
     set_scrolling = true;
+  } else {
+    set_scrolling = false;
+  }
+  
+  if (layer_state_cmp(state, L_Number)) {
+    navigator_turbo = true;
+  } else if (layer_state_cmp(state, L_Cursor)) {
+    navigator_turbo = true;
+  } else {
+    navigator_turbo = false;
+  }
+
+  if (layer_state_cmp(state, L_Mouse)) {
+    navigator_aim = true;
+  } else {
+    navigator_aim = false;
   }
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
