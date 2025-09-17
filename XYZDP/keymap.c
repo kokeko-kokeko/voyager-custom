@@ -2164,7 +2164,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_LeftPinkyThumb, L_RightPinkyThumb, L_BothPinkyThumb);
 
   // call FwSys with Bkt and Fn
-  state = update_tri_layer_state(state, L_Function, L_Mouse, L_Firmware); 
+  state = update_tri_layer_state(state, L_Function, L_Aim, L_Firmware); 
 
   // if speed layer active, MO guard, block base tap tap side
   state = update_tri_layer_state(state, L_Set_Speed, L_Set_Speed, L_MO_Guard); 
