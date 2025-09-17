@@ -2054,6 +2054,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         fade_matrix_step();
       }
       return false;
+
+    // auto mouse cancel
+    case LT(L_Aim, KC_ESCAPE):
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          auto_mouse_layer_off();
+        }
+      }
+      return true;
   }
 
   if (process_record_ime_state_sync(keycode, record) == false) {
@@ -2174,8 +2183,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
   // mouse scroll, aim, turbo control
   if (layer_state_cmp(state, L_Cursor)) {
+    set_auto_mouse_enable(false);
     set_scrolling = true;
   } else {
+    set_auto_mouse_enable(true);
     set_scrolling = false;
   }
   
@@ -2185,7 +2196,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     navigator_turbo = false;
   }
 
-  if (layer_state_cmp(state, L_Mouse)) {
+  if (layer_state_cmp(state, L_Aim)) {
     navigator_aim = true;
   } else {
     navigator_aim = false;
