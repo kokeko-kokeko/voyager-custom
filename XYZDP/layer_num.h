@@ -6,7 +6,7 @@ enum layer_num {
   L_Base_JIS,
   L_MO_Guard,
   L_Function,
-  L_Aim,
+  L_Turbo,
   L_Number,
   L_Number_JIS,
   L_Cursor,
