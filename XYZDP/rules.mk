@@ -10,9 +10,6 @@ POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = navigator_trackball
 
 
-
-
-
 RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = yes
 EEPROM_DRIVER = transient
