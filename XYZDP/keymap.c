@@ -2056,7 +2056,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
 
     // auto mouse cancel
-    case LT(L_Aim, KC_ESCAPE):
+    case LT(L_Turbo, KC_ESCAPE):
       if (record->tap.count > 0) {
         if (record->event.pressed) {
           auto_mouse_layer_off();
@@ -2164,14 +2164,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_LeftPinkyThumb, L_RightPinkyThumb, L_BothPinkyThumb);
 
   // call FwSys with Bkt and Fn
-  state = update_tri_layer_state(state, L_Function, L_Aim, L_Firmware); 
+  state = update_tri_layer_state(state, L_Function, L_Turbo, L_Firmware); 
 
   // if speed layer active, MO guard, block base tap tap side
   state = update_tri_layer_state(state, L_Set_Speed, L_Set_Speed, L_MO_Guard); 
   
   // call color settng
   state = update_tri_layer_state(state, L_Function, L_Set_Speed, L_Set_Val); 
-  state = update_tri_layer_state(state, L_Aim, L_Set_Speed, L_Set_Sat); 
+  state = update_tri_layer_state(state, L_Turbo, L_Set_Speed, L_Set_Sat); 
 
   // call Hue with Sat and Val
   state = update_tri_layer_state(state, L_Set_Val, L_Set_Sat, L_Set_Hue);
@@ -2191,15 +2191,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   }
   
   if (layer_state_cmp(state, L_Function)) {
-    navigator_turbo = true;
-  } else {
-    navigator_turbo = false;
-  }
-
-  if (layer_state_cmp(state, L_Aim)) {
     navigator_aim = true;
   } else {
     navigator_aim = false;
+  }
+
+  if (layer_state_cmp(state, L_Turbo)) {
+    navigator_turbo = true;
+  } else {
+    navigator_turbo = false;
   }
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
