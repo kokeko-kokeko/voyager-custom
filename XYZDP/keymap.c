@@ -2171,7 +2171,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   
   // call color settng
   state = update_tri_layer_state(state, L_Function, L_Set_Speed, L_Set_Val); 
-  state = update_tri_layer_state(state, L_Mouse, L_Set_Speed, L_Set_Sat); 
+  state = update_tri_layer_state(state, L_Aim, L_Set_Speed, L_Set_Sat); 
 
   // call Hue with Sat and Val
   state = update_tri_layer_state(state, L_Set_Val, L_Set_Sat, L_Set_Hue);
