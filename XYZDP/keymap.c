@@ -448,26 +448,6 @@ extern bool is_launching;
 
 #include "engram_key_overrides.inc"
 
-extern bool set_scrolling;
-extern bool navigator_turbo;
-extern bool navigator_aim;
-void pointing_device_init_user(void) {
-  set_scrolling = false;
-  navigator_turbo = false;
-  navigator_aim = false;
-  //set_auto_mouse_enable(false);
-}
-
-//bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
-//  switch (keycode) {
-//    case NAVIGATOR_INC_CPI ... NAVIGATOR_AIM:
-//    case DRAG_SCROLL:
-//    case TOGGLE_SCROLL:
-//      return true;
-//  }
-//  return is_mouse_record_user(keycode, record);
-//}
-
 // -----------------------------------------------------------------------------
 //
 //
@@ -475,6 +455,27 @@ void pointing_device_init_user(void) {
 //
 //
 // -----------------------------------------------------------------------------
+extern bool set_scrolling;
+extern bool navigator_turbo;
+extern bool navigator_aim;
+void pointing_device_init_user(void) {
+    set_auto_mouse_enable(true);
+}
+bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
+  switch (keycode) {
+    case NAVIGATOR_INC_CPI ... NAVIGATOR_AIM:
+    case DRAG_SCROLL:
+    case TOGGLE_SCROLL:
+    case KC_MS_BTN3:
+    case KC_MS_BTN1:
+    case KC_MS_BTN2:
+      return true;
+  }
+  return is_mouse_record_user(keycode, record);
+}
+
+
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -940,9 +941,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }  
       }  
       return false;
-    
-    //remove dummy mouse code
-    
+    case DRAG_SCROLL:
+      if (record->event.pressed) {
+        set_scrolling = true;
+      } else {
+        set_scrolling = false;
+      }
+      return false;
+    case TOGGLE_SCROLL:
+      if (record->event.pressed) {
+        set_scrolling = !set_scrolling;
+      }
+      return false;
+    break;
+  case NAVIGATOR_TURBO:
+    if (record->event.pressed) {
+      navigator_turbo = true;
+    } else {
+      navigator_turbo = false;
+    }
+    return false;
+  case NAVIGATOR_AIM:
+    if (record->event.pressed) {
+      navigator_aim = true;
+    } else {
+      navigator_aim = false;
+    }
+    return false;
+  case NAVIGATOR_INC_CPI:
+    if (record->event.pressed) {
+        pointing_device_set_cpi(1);
+    }
+    return false;
+  case NAVIGATOR_DEC_CPI:
+    if (record->event.pressed) {
+        pointing_device_set_cpi(0);
+    }
+    return false;
     case RGB_SLD:
       if (record->event.pressed) {
         fade_matrix_set_mode(RGB_MATRIX_SOLID_COLOR);
@@ -2008,44 +2043,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RGB_MODE_FORWARD:
       if (record->event.pressed) {
         fade_matrix_step();
-      }
-      return false;
-
-    // mouse code
-    case DRAG_SCROLL:
-      if (record->event.pressed) {
-        set_scrolling = true;
-      } else {
-        set_scrolling = false;
-      }
-      return false;
-    case TOGGLE_SCROLL:
-      if (record->event.pressed) {
-        set_scrolling = !set_scrolling;
-      }
-      return false;
-    case NAVIGATOR_TURBO:
-      if (record->event.pressed) {
-        navigator_turbo = true;
-      } else {
-        navigator_turbo = false;
-      }
-      return false;
-    case NAVIGATOR_AIM:
-      if (record->event.pressed) {
-        navigator_aim = true;
-      } else {
-        navigator_aim = false;
-      }
-      return false;
-    case NAVIGATOR_INC_CPI:
-      if (record->event.pressed) {
-        pointing_device_set_cpi(1);
-      }
-      return false;
-    case NAVIGATOR_DEC_CPI:
-      if (record->event.pressed) {
-        pointing_device_set_cpi(0);
       }
       return false;
   }
