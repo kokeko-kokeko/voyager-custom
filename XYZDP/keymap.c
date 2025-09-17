@@ -436,7 +436,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // enum for layer define sync oryx side
 _Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
 
-<<<<<<< HEAD
 // access to voyager system-side flag
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
