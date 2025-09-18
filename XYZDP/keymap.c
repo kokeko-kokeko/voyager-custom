@@ -459,7 +459,7 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
   // dummy LANG 9 is exit mouse mode
   if (keycode == KC_LANGUAGE_9) return false;
 
-  return true;
+  return false;
 }
 
 // -----------------------------------------------------------------------------
