@@ -965,6 +965,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TOGGLE_SCROLL:
       if (record->event.pressed) {
         set_scrolling = !set_scrolling;
+
+        if (set_scrolling) {
+          fast_timer_t now = timer_read_fast();
+          status_led(now, 0b0100, led_pattern_on);
+        } else {
+          fast_timer_t now = timer_read_fast();
+          status_led(now, 0b0100, led_pattern_off);
+        }
       }
       return false;
     break;
