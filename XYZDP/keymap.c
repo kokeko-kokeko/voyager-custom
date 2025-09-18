@@ -2186,18 +2186,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     set_scrolling = false;
   }
   
-  if (layer_state_cmp(state, L_Function)) {
-    navigator_aim = true;
-  } else {
-    navigator_aim = false;
-  }
-
-  if (layer_state_cmp(state, L_Turbo)) {
-    navigator_turbo = true;
-  } else {
-    navigator_turbo = false;
-  }
-  
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
   
@@ -2212,9 +2200,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Function:
       status_led(now, 0b1100, led_pattern_off);
       status_led(now, 0b0011, led_pattern_on);
-      break;
-    case L_Mouse:
-      status_led(now, 0b1111, led_pattern_on);
       break;
     case L_Number:
     case L_Number_JIS:
@@ -2259,6 +2244,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       break;
     case L_BothPinkyThumb:
       //status_led(now, 0b1111, led_pattern_blink);
+      break;
+    case L_Mouse:
+      status_led(now, 0b1000, led_pattern_on);
       break;
     case L_Firmware:
       status_led(now, 0b0011, led_pattern_off);
