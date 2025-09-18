@@ -949,17 +949,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }  
       }  
       return false;
-    case DRAG_SCROLL:
-      if (record->event.pressed) {
-        set_scrolling = true;
-        fast_timer_t now = timer_read_fast();
-        status_led(now, 0b0100, led_pattern_on);
-      } else {
-        set_scrolling = false;
-        fast_timer_t now = timer_read_fast();
-        status_led(now, 0b0100, led_pattern_off);
-      }
-      return false;
   case NAVIGATOR_TURBO:
     if (record->event.pressed) {
       navigator_turbo = true;
