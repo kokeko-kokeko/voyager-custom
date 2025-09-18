@@ -2268,6 +2268,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       //status_led(now, 0b1111, led_pattern_blink);
       break;
     case L_Mouse:
+      // wakeup RGB
+      activate_fade_matrix(now);
       status_led(now, 0b1000, led_pattern_on);
       break;
     case L_Firmware:
@@ -2357,13 +2359,13 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   return;
 }
 
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-  fast_timer_t now = timer_read_fast();
-  
-  activate_fade_matrix(now);
-  
-  return mouse_report;
-}
+//report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+//  fast_timer_t now = timer_read_fast();
+//  
+//  activate_fade_matrix(now);
+//  
+//  return mouse_report;
+//}
 
 void housekeeping_task_user(void) {
   fast_timer_t now = timer_read_fast();
