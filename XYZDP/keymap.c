@@ -231,6 +231,7 @@ enum custom_keycodes {
   ST_MACRO_21,
   ST_MACRO_22,
   DRAG_SCROLL,
+  TOGGLE_SCROLL,
   NAVIGATOR_INC_CPI,
   NAVIGATOR_DEC_CPI,
   NAVIGATOR_TURBO,
@@ -239,28 +240,28 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(11, KC_O)
-#define DUAL_FUNC_1 LT(14, KC_F15)
-#define DUAL_FUNC_2 LT(3, KC_F12)
-#define DUAL_FUNC_3 LT(2, KC_2)
-#define DUAL_FUNC_4 LT(3, KC_B)
-#define DUAL_FUNC_5 LT(7, KC_F3)
-#define DUAL_FUNC_6 LT(11, KC_J)
-#define DUAL_FUNC_7 LT(14, KC_F10)
-#define DUAL_FUNC_8 LT(15, KC_F15)
-#define DUAL_FUNC_9 LT(1, KC_S)
-#define DUAL_FUNC_10 LT(1, KC_L)
-#define DUAL_FUNC_11 LT(13, KC_Q)
-#define DUAL_FUNC_12 LT(9, KC_1)
-#define DUAL_FUNC_13 LT(7, KC_F7)
-#define DUAL_FUNC_14 LT(6, KC_9)
-#define DUAL_FUNC_15 LT(3, KC_U)
-#define DUAL_FUNC_16 LT(3, KC_G)
-#define DUAL_FUNC_17 LT(5, KC_F4)
-#define DUAL_FUNC_18 LT(3, KC_F23)
-#define DUAL_FUNC_19 LT(12, KC_G)
-#define DUAL_FUNC_20 LT(3, KC_M)
-#define DUAL_FUNC_21 LT(7, KC_9)
+#define DUAL_FUNC_0 LT(9, KC_M)
+#define DUAL_FUNC_1 LT(3, KC_W)
+#define DUAL_FUNC_2 LT(1, KC_F2)
+#define DUAL_FUNC_3 LT(11, KC_V)
+#define DUAL_FUNC_4 LT(4, KC_8)
+#define DUAL_FUNC_5 LT(12, KC_F18)
+#define DUAL_FUNC_6 LT(13, KC_F2)
+#define DUAL_FUNC_7 LT(1, KC_E)
+#define DUAL_FUNC_8 LT(9, KC_F17)
+#define DUAL_FUNC_9 LT(11, KC_F6)
+#define DUAL_FUNC_10 LT(15, KC_F2)
+#define DUAL_FUNC_11 LT(3, KC_R)
+#define DUAL_FUNC_12 LT(9, KC_E)
+#define DUAL_FUNC_13 LT(13, KC_O)
+#define DUAL_FUNC_14 LT(4, KC_A)
+#define DUAL_FUNC_15 LT(4, KC_7)
+#define DUAL_FUNC_16 LT(7, KC_B)
+#define DUAL_FUNC_17 LT(13, KC_2)
+#define DUAL_FUNC_18 LT(8, KC_O)
+#define DUAL_FUNC_19 LT(15, KC_6)
+#define DUAL_FUNC_20 LT(7, KC_Z)
+#define DUAL_FUNC_21 LT(15, KC_F21)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -383,7 +384,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [17] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_LANGUAGE_9,                                  KC_LANGUAGE_9,  KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_LANGUAGE_9,                                  TOGGLE_SCROLL,  KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_BTN4,                                     KC_MS_BTN4,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, DRAG_SCROLL,                                    DRAG_SCROLL,    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     QK_LLCK,        NAVIGATOR_DEC_CPI,NAVIGATOR_INC_CPI,KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_BTN3,                                     KC_MS_BTN3,     KC_TRANSPARENT, KC_TRANSPARENT, NAVIGATOR_AIM,  NAVIGATOR_TURBO,QK_LLCK,        
@@ -473,6 +474,7 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
   switch (keycode) {
     case NAVIGATOR_INC_CPI ... NAVIGATOR_AIM:
     case DRAG_SCROLL:
+    case TOGGLE_SCROLL:
     case KC_MS_BTN4:
     case KC_MS_BTN3:
     case KC_MS_BTN2:
@@ -956,6 +958,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_scrolling = false;
       }
       return false;
+    case TOGGLE_SCROLL:
+      if (record->event.pressed) {
+        set_scrolling = !set_scrolling;
+      }
+      return false;
+    break;
   case NAVIGATOR_TURBO:
     if (record->event.pressed) {
       navigator_turbo = true;
