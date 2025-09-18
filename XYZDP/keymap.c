@@ -238,28 +238,28 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(13, KC_F5)
-#define DUAL_FUNC_1 LT(8, KC_X)
-#define DUAL_FUNC_2 LT(8, KC_F4)
-#define DUAL_FUNC_3 LT(12, KC_N)
-#define DUAL_FUNC_4 LT(13, KC_F22)
-#define DUAL_FUNC_5 LT(7, KC_F11)
-#define DUAL_FUNC_6 LT(5, KC_F21)
-#define DUAL_FUNC_7 LT(9, KC_5)
-#define DUAL_FUNC_8 LT(9, KC_F9)
-#define DUAL_FUNC_9 LT(10, KC_H)
-#define DUAL_FUNC_10 LT(1, KC_L)
-#define DUAL_FUNC_11 LT(10, KC_F8)
-#define DUAL_FUNC_12 LT(13, KC_N)
-#define DUAL_FUNC_13 LT(2, KC_Y)
-#define DUAL_FUNC_14 LT(15, KC_F14)
-#define DUAL_FUNC_15 LT(9, KC_F20)
-#define DUAL_FUNC_16 LT(14, KC_F6)
-#define DUAL_FUNC_17 LT(5, KC_F15)
-#define DUAL_FUNC_18 LT(9, KC_Z)
-#define DUAL_FUNC_19 LT(1, KC_F2)
-#define DUAL_FUNC_20 LT(12, KC_D)
-#define DUAL_FUNC_21 LT(8, KC_F14)
+#define DUAL_FUNC_0 LT(9, KC_F)
+#define DUAL_FUNC_1 LT(3, KC_F16)
+#define DUAL_FUNC_2 LT(3, KC_F12)
+#define DUAL_FUNC_3 LT(3, KC_F11)
+#define DUAL_FUNC_4 LT(5, KC_N)
+#define DUAL_FUNC_5 LT(3, KC_F9)
+#define DUAL_FUNC_6 LT(3, KC_O)
+#define DUAL_FUNC_7 LT(14, KC_F6)
+#define DUAL_FUNC_8 LT(12, KC_F3)
+#define DUAL_FUNC_9 LT(13, KC_T)
+#define DUAL_FUNC_10 LT(1, KC_9)
+#define DUAL_FUNC_11 LT(11, KC_F13)
+#define DUAL_FUNC_12 LT(6, KC_E)
+#define DUAL_FUNC_13 LT(5, KC_O)
+#define DUAL_FUNC_14 LT(6, KC_F20)
+#define DUAL_FUNC_15 LT(13, KC_2)
+#define DUAL_FUNC_16 LT(5, KC_P)
+#define DUAL_FUNC_17 LT(1, KC_F18)
+#define DUAL_FUNC_18 LT(1, KC_3)
+#define DUAL_FUNC_19 LT(1, KC_2)
+#define DUAL_FUNC_20 LT(4, KC_1)
+#define DUAL_FUNC_21 LT(4, KC_F3)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -382,9 +382,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [17] = LAYOUT_voyager(
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_BTN5,                                     KC_MS_BTN5,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_BTN4,                                     KC_MS_BTN4,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_BTN3,                                     KC_MS_BTN3,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,                                          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     QK_LLCK,        NAVIGATOR_DEC_CPI,NAVIGATOR_INC_CPI,KC_TRANSPARENT, KC_TRANSPARENT, KC_LANGUAGE_9,                                  KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT, NAVIGATOR_AIM,  NAVIGATOR_TURBO,QK_LLCK,        
                                                     KC_MS_BTN2,     KC_MS_BTN1,                                     KC_TRANSPARENT, KC_TRANSPARENT
   ),
@@ -471,6 +471,7 @@ void pointing_device_init_user(void) {
 bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
   switch (keycode) {
     case NAVIGATOR_INC_CPI ... NAVIGATOR_AIM:
+    case KC_MS_BTN5:
     case KC_MS_BTN4:
     case KC_MS_BTN3:
     case KC_MS_BTN2:
