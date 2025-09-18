@@ -455,13 +455,6 @@ extern bool is_launching;
 
 #include "engram_key_overrides.inc"
 
-bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
-  // dummy LANG 9 is exit mouse mode
-  if (keycode == KC_LANGUAGE_9) return false;
-
-  return false;
-}
-
 // -----------------------------------------------------------------------------
 //
 //
@@ -2062,7 +2055,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
     
-    // dummy LANG 9 is exit mouse mode (cancel normal key operation)
+    // dummy LANG 9 is exit auto mouse mode (cancel normal key operation)
     case KC_LANGUAGE_9:
       return false;
   }
