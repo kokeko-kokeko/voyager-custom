@@ -455,14 +455,6 @@ extern bool is_launching;
 
 #include "engram_key_overrides.inc"
 
-bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
-  switch (keycode) {
-    case LT(L_Cursor, KC_SPACE):
-      return true;
-  }
-  return false;
-}
-
 // -----------------------------------------------------------------------------
 //
 //
