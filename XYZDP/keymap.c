@@ -455,6 +455,13 @@ extern bool is_launching;
 
 #include "engram_key_overrides.inc"
 
+bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
+  // dummy LANG 9 is exit mouse mode
+  if (keycode == KC_LANGUAGE_9) return false;
+
+  return true;
+}
+
 // -----------------------------------------------------------------------------
 //
 //
@@ -2054,15 +2061,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         fade_matrix_step();
       }
       return false;
-
-    // auto mouse cancel
-    case LT(L_Turbo, KC_ESCAPE):
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          auto_mouse_layer_off();
-        }
-      }
-      return true;
+    
+    // dummy LANG 9 is exit mouse mode (cancel normal key operation)
+    case KC_LANGUAGE_9:
+      return false;
   }
 
   if (process_record_ime_state_sync(keycode, record) == false) {
