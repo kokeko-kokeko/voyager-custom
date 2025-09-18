@@ -2357,6 +2357,14 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   return;
 }
 
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+  fast_timer_t now = timer_read_fast();
+  
+  activate_fade_matrix(now);
+  
+  return mouse_report;
+}
+
 void housekeeping_task_user(void) {
   fast_timer_t now = timer_read_fast();
 
