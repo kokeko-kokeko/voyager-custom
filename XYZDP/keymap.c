@@ -2152,7 +2152,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_LeftPinkyThumb, L_RightPinkyThumb, L_BothPinkyThumb);
 
   // call FwSys with Bkt and Fn
-  state = update_tri_layer_state(state, L_Function, L_Dummy, L_Firmware); 
+  state = update_tri_layer_state(state, L_Dummy, L_Function, L_Firmware); 
 
   // if speed layer active, MO guard, block base tap tap side
   state = update_tri_layer_state(state, L_Set_Speed, L_Set_Speed, L_MO_Guard); 
@@ -2190,15 +2190,16 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     case L_Base :
     case L_Base_JIS:
+    case L_MO_Guard:
+      status_led(now, 0b1111, led_pattern_off);
+      break;    
+    case L_Dummy:  
       status_led(now, 0b1111, led_pattern_off);
       break;
     case L_Function:
       status_led(now, 0b1100, led_pattern_off);
       status_led(now, 0b0011, led_pattern_on);
-      break;
-    case L_Dummy:
-      
-      break;
+      break; 
     case L_Number:
     case L_Number_JIS:
       status_led(now, 0b0011, led_pattern_off);
