@@ -2248,7 +2248,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       break;
     case L_Mouse:
       // only add on
-      status_led(now, 0b0011, led_pattern_on);
+      status_led(now, 0b0011, led_pattern_blink);
 
       // mouse scroll
       if (layer_state_cmp(state, L_Number)) {
