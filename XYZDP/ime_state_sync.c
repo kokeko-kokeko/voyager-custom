@@ -62,8 +62,8 @@ bool process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record) {
     case LT(L_Function, KC_LANGUAGE_1):
       if (record->tap.count > 0) {
         if (record->event.pressed) {
-          if (layer_state_is(L_LeftPinky) | layer_state_is(L_RightPinky) | layer_state_is(L_Function) |
-            layer_state_is(L_Number) | layer_state_is(L_Cursor)) {
+          if (layer_state_is(L_Function) | layer_state_is(L_Number) | layer_state_is(L_Cursor) |
+            layer_state_is(L_LeftPinky) | layer_state_is(L_RightPinky)) {
             // reverse side (upper layer)
             if ((get_mods() & MOD_MASK_CSAG) == 0) {
               ime_on = false;
@@ -88,8 +88,8 @@ bool process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record) {
     case LT(L_Cursor, KC_LANGUAGE_2):
       if (record->tap.count > 0) {
         if (record->event.pressed) {
-          if (layer_state_is(L_LeftPinky) | layer_state_is(L_RightPinky) | layer_state_is(L_Function) |
-            layer_state_is(L_Number) | layer_state_is(L_Cursor)) {
+          if (layer_state_is(L_Function) | layer_state_is(L_Number) | layer_state_is(L_Cursor) |
+            layer_state_is(L_LeftPinky) | layer_state_is(L_RightPinky)) {
             // reverse side (upper layer)
             if ((get_mods() & MOD_MASK_CAG) == 0) {
               ime_on = true;
