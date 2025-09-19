@@ -2200,18 +2200,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b1111, led_pattern_off);
       break;    
     case L_Dummy:  
-      status_led(now, 0b1100, led_pattern_on);
+      status_led(now, 0b1100, led_pattern_blink);
       break;
     case L_Function:
-      status_led(now, 0b1111, led_pattern_on);
+      status_led(now, 0b1100, led_pattern_blink);
+      status_led(now, 0b0011, led_pattern_on);
       break; 
     case L_Number:
     case L_Number_JIS:
-      status_led(now, 0b1100, led_pattern_on);
+      status_led(now, 0b1100, led_pattern_blink);
       break;
     case L_Cursor:
     case L_Cursor_JIS:
-      status_led(now, 0b1100, led_pattern_on);
+      status_led(now, 0b1100, led_pattern_blink);
       break;
     case L_LeftPinky:
       //status_led(now, 0b0110, led_pattern_off);
@@ -2247,15 +2248,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       break;
     case L_Mouse:
       // only add on
-      status_led(now, 0b1000, led_pattern_on);
+      status_led(now, 0b0011, led_pattern_on);
 
       // mouse scroll
       if (layer_state_cmp(state, L_Number)) {
-        status_led(now, 0b0100, led_pattern_on);
+        status_led(now, 0b1100, led_pattern_blink);
       } else if (layer_state_cmp(state, L_Cursor)) {
-        status_led(now, 0b0100, led_pattern_on);
+        status_led(now, 0b1100, led_pattern_blink);
       } else {
-        status_led(now, 0b0100, led_pattern_off);
+        status_led(now, 0b1100, led_pattern_off);
       }
       
       // wakeup RGB
