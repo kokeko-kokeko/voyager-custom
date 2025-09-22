@@ -2344,12 +2344,16 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
       switch (keycode) {
         case KC_MS_BTN1:
         case KC_MS_BTN3:
-          //set_auto_mouse_timeout(AUTO_MOUSE_TIME_SHORT);
+          set_auto_mouse_timeout(AUTO_MOUSE_TIME_SHORT);
+          auto_mouse_keyevent(true);
+          auto_mouse_keyevent(false);
           break;
         case KC_MS_BTN2:
         case KC_MS_BTN4:
         case KC_MS_BTN5:
-          //set_auto_mouse_timeout(AUTO_MOUSE_TIME);
+          set_auto_mouse_timeout(AUTO_MOUSE_TIME);
+          auto_mouse_keyevent(true);
+          auto_mouse_keyevent(false);
           break;
       }
     }
