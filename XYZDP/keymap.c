@@ -2344,16 +2344,16 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
       switch (keycode) {
         case KC_MS_BTN1:
         case KC_MS_BTN3:
-          set_auto_mouse_timeout(AUTO_MOUSE_TIME_SHORT);
-          auto_mouse_keyevent(true);
-          auto_mouse_keyevent(false);
+          //set_auto_mouse_timeout(AUTO_MOUSE_TIME_SHORT);
+          //auto_mouse_keyevent(true);
+          //auto_mouse_keyevent(false);
           break;
         case KC_MS_BTN2:
         case KC_MS_BTN4:
         case KC_MS_BTN5:
-          set_auto_mouse_timeout(AUTO_MOUSE_TIME);
-          auto_mouse_keyevent(true);
-          auto_mouse_keyevent(false);
+          //set_auto_mouse_timeout(AUTO_MOUSE_TIME);
+          //auto_mouse_keyevent(true);
+          //auto_mouse_keyevent(false);
           break;
       }
     }
@@ -2364,9 +2364,9 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void housekeeping_task_user(void) {
   // reset auto mouse timeout
-  if (is_auto_mouse_active() == false) {
-    set_auto_mouse_timeout(AUTO_MOUSE_TIME);
-  }
+  //if (is_auto_mouse_active() == false) {
+  //  set_auto_mouse_timeout(AUTO_MOUSE_TIME);
+  //}
   
   fast_timer_t now = timer_read_fast();
 
