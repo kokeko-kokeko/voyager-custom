@@ -29,14 +29,14 @@ void ime_state_sync_enable(void) {
   iss_enable = true;
   iss_sync = false;
   fast_timer_t now = timer_read_fast();
-  iss_trigger = now +  (UINT32_MAX / 2) - 1;
+  iss_trigger = now + (UINT32_MAX / 2) - 1;
 }
 
 void ime_state_sync_disable(void) {
   iss_enable = false;
   iss_sync = false;
   fast_timer_t now = timer_read_fast();
-  iss_trigger = now +  (UINT32_MAX / 2) - 1;
+  iss_trigger = now + (UINT32_MAX / 2) - 1;
 }
 
 bool pre_process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record) {
