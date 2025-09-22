@@ -453,6 +453,8 @@ extern bool is_launching;
 
 #include "engram_key_overrides.inc"
 
+static fast_timer_t auto_mouse_short_trigger = 0;
+
 // -----------------------------------------------------------------------------
 //
 //
@@ -2075,6 +2077,8 @@ void keyboard_post_init_user(void) {
   fast_timer_t now = timer_read_fast();
   init_fade_matrix(now);
   status_led(now, 0b1111, led_pattern_off);
+
+  auto_mouse_short_trigger = now + (UINT32_MAX / 2) - 1;
   
   //ANSI
   layer_move(L_Base);
@@ -2344,16 +2348,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
       switch (keycode) {
         case KC_MS_BTN1:
         case KC_MS_BTN3:
-          //set_auto_mouse_timeout(AUTO_MOUSE_TIME_SHORT);
-          //auto_mouse_keyevent(true);
-          //auto_mouse_keyevent(false);
-          break;
-        case KC_MS_BTN2:
-        case KC_MS_BTN4:
-        case KC_MS_BTN5:
-          //set_auto_mouse_timeout(AUTO_MOUSE_TIME);
-          //auto_mouse_keyevent(true);
-          //auto_mouse_keyevent(false);
+          fast_timer_t now = timer_read_fast();
+          auto_mouse_short_trigger = now + AUTO_MOUSE_TIME_SHORT;
           break;
       }
     }
@@ -2363,13 +2359,13 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void housekeeping_task_user(void) {
-  // reset auto mouse timeout
-  //if (is_auto_mouse_active() == false) {
-  //  set_auto_mouse_timeout(AUTO_MOUSE_TIME);
-  //}
-  
   fast_timer_t now = timer_read_fast();
-
+  
+  if (timer_expired_fast(now, auto_mouse_short_trigger)) {
+    auto_mouse_layer_off();
+    auto_mouse_short_trigger = now + (UINT32_MAX / 2) - 1;
+  }
+  
   update_fade_matrix(now);
   update_ime_state_sync(now);
   update_status_led(now);
