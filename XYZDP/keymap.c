@@ -453,7 +453,7 @@ extern bool is_launching;
 
 #include "engram_key_overrides.inc"
 
-static fast_timer_t auto_mouse_short_trigger = 0;
+static fast_timer_t auto_mouse_early_trigger = 0;
 
 // -----------------------------------------------------------------------------
 //
@@ -2078,7 +2078,7 @@ void keyboard_post_init_user(void) {
   init_fade_matrix(now);
   status_led(now, 0b1111, led_pattern_off);
 
-  auto_mouse_short_trigger = now + (UINT32_MAX / 2) - 1;
+  auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
   
   //ANSI
   layer_move(L_Base);
@@ -2349,14 +2349,14 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
       case KC_MS_BTN3:
         fast_timer_t now = timer_read_fast();
         if (record->event.pressed) {
-          auto_mouse_short_trigger = now + (UINT32_MAX / 2) - 1;
+          auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
         } else {
-          auto_mouse_short_trigger = now + AUTO_MOUSE_TIME_SHORT;
+          auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_SHORT;
         }
         break;
       
       default:
-        auto_mouse_short_trigger = now + (UINT32_MAX / 2) - 1;
+        auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
         break;
     }
   }
@@ -2367,9 +2367,9 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 void housekeeping_task_user(void) {
   fast_timer_t now = timer_read_fast();
   
-  if (timer_expired_fast(now, auto_mouse_short_trigger)) {
+  if (timer_expired_fast(now, auto_mouse_early_trigger)) {
     auto_mouse_layer_off();
-    auto_mouse_short_trigger = now + (UINT32_MAX / 2) - 1;
+    auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
   }
   
   update_fade_matrix(now);
