@@ -2348,10 +2348,11 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // short auto mouse timeout
   if (is_auto_mouse_active()) {
+    fast_timer_t now = timer_read_fast();
+    
     switch (keycode) {
       case KC_MS_BTN1:
       case KC_MS_BTN3:
-        fast_timer_t now = timer_read_fast();
         if (record->event.pressed) {
           auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
         } else {
