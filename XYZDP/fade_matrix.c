@@ -496,9 +496,9 @@ void set_layer_color_mouse_map(void) {
   rgb_matrix_set_color(25, f, 0, 0);
 
   // CPI
-  rgb_matrix_set_color(18, o, o, 0);
-  rgb_matrix_set_color(19, o, 0, o);
-  rgb_matrix_set_color(20, f, 0, f);
+  //rgb_matrix_set_color(18, o, o, 0);
+  //rgb_matrix_set_color(19, o, 0, o);
+  //rgb_matrix_set_color(20, f, 0, f);
 
   // right side
   rgb_matrix_set_color(26, 0, f, f);
@@ -509,7 +509,7 @@ void set_layer_color_mouse_map(void) {
   rgb_matrix_set_color(50, f, f, f);
   
   // Aim Turbo
-  rgb_matrix_set_color(47, 0, o, o);
-  rgb_matrix_set_color(48, 0, f, f);
+  rgb_matrix_set_color(47, o, 0, o);
+  rgb_matrix_set_color(48, f, 0, f);
   rgb_matrix_set_color(49, o, o, 0);
 }
