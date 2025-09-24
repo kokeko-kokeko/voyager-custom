@@ -2156,14 +2156,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_LeftPinkyThumb, L_RightPinkyThumb, L_BothPinkyThumb);
 
   // call FwSys with Bkt and Fn
-  state = update_tri_layer_state(state, L_Dummy, L_Function, L_Firmware); 
+  state = update_tri_layer_state(state, L_Mouse_Setting, L_Function, L_Firmware); 
 
   // if speed layer active, MO guard, block base tap tap side
   state = update_tri_layer_state(state, L_Set_Speed, L_Set_Speed, L_MO_Guard); 
   
   // call color settng
   state = update_tri_layer_state(state, L_Function, L_Set_Speed, L_Set_Val); 
-  state = update_tri_layer_state(state, L_Dummy, L_Set_Speed, L_Set_Sat); 
+  state = update_tri_layer_state(state, L_Mouse_Setting, L_Set_Speed, L_Set_Sat); 
 
   // call Hue with Sat and Val
   state = update_tri_layer_state(state, L_Set_Val, L_Set_Sat, L_Set_Hue);
@@ -2199,7 +2199,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Base :
     case L_Base_JIS:
     case L_MO_Guard:
-    case L_Dummy:  
+    case L_Mouse_Setting:  
       status_led(now, 0b1111, led_pattern_off);
       break;    
     case L_Function:
