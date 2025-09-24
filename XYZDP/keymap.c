@@ -2175,10 +2175,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
   // mouse scroll
   if (layer_state_cmp(state, L_Number)) {
-    set_auto_mouse_enable(false);
+    if (is_auto_mouse_active() == false) {
+      set_auto_mouse_enable(false);
+    }
     set_scrolling = true;
   } else if (layer_state_cmp(state, L_Cursor)) {
-    set_auto_mouse_enable(false);
+    if (is_auto_mouse_active() == false) {
+      set_auto_mouse_enable(false);
+    }
     set_scrolling = true;
   } else {
     set_auto_mouse_enable(true);
