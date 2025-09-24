@@ -2173,8 +2173,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Base_JIS, L_Cursor, L_Cursor_JIS);
   state = update_tri_layer_state(state, L_Base_JIS, L_BothThumb, L_BothThumb_JIS);
 
-  // mouse scroll
-  if (layer_state_cmp(state, L_Number)) {
+  // mouse control scroll
+  if (layer_state_cmp(state, L_Mouse_Setting) {
+    if (is_auto_mouse_active() == false) {
+      set_auto_mouse_enable(false);
+    }
+  } else if (layer_state_cmp(state, L_Number)) {
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
@@ -2250,7 +2254,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       // only add on
       status_led(now, 0b0011, led_pattern_blink);
 
-      // mouse scroll
+      // mouse control scroll
       if (layer_state_cmp(state, L_Number)) {
         status_led(now, 0b1100, led_pattern_blink);
       } else if (layer_state_cmp(state, L_Cursor)) {
