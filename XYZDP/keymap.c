@@ -2375,6 +2375,26 @@ void housekeeping_task_user(void) {
     auto_mouse_layer_off();
     auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
   }
+
+  report_mouse_t m_rpt = pointing_device_get_report();
+
+  if (m_rpt.buttons == 0) {
+    if (m_rpt.x != 0) {
+      auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
+    }
+    
+    if (m_rpt.y != 0) {
+      auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
+    }
+    
+    if (m_rpt.h != 0) {
+      auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
+    }
+    
+    if (m_rpt.v != 0) {
+      auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
+    }
+  }
   
   update_fade_matrix(now);
   update_ime_state_sync(now);
