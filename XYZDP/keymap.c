@@ -2349,7 +2349,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   // short auto mouse timeout
   if (is_auto_mouse_active()) {
     fast_timer_t now = timer_read_fast();
-    
     switch (keycode) {
       case KC_MS_BTN1:
       case KC_MS_BTN3:
@@ -2364,21 +2363,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
         auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
         break;
     }
-    
-    report_mouse_t m_rpt = pointing_device_get_report();
-    
-    if (m_rpt.x != 0) {
-      auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
-    }
-    if (m_rpt.y != 0) {
-      auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
-    }
-    if (m_rpt.h != 0) {
-      auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
-    }
-    if (m_rpt.v != 0) {
-      auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
-    }
   }
   
   return;
@@ -2389,6 +2373,21 @@ void housekeeping_task_user(void) {
   
   if (timer_expired_fast(now, auto_mouse_early_trigger)) {
     auto_mouse_layer_off();
+    auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
+  }
+
+  report_mouse_t m_rpt = pointing_device_get_report();
+    
+  if (m_rpt.x != 0) {
+    auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
+  }
+  if (m_rpt.y != 0) {
+    auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
+  }
+  if (m_rpt.h != 0) {
+    auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
+  }
+  if (m_rpt.v != 0) {
     auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
   }
 
