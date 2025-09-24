@@ -2174,7 +2174,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Base_JIS, L_BothThumb, L_BothThumb_JIS);
 
   // mouse control scroll
-  if (layer_state_cmp(state, L_Mouse_Setting) {
+  if (layer_state_cmp(state, L_Mouse_Setting)) {
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
