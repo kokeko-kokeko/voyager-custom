@@ -2369,6 +2369,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+  fast_timer_t now = timer_read_fast();
+
   if (mouse_report.x != 0) {
     auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
   }
