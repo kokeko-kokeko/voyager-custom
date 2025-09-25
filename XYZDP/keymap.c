@@ -2365,6 +2365,10 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // copy & mod from pointing_device_auto_mouse.c
 static auto_mouse_context_t auto_mouse_context_custom = {
+  .total_mouse_movement.x = 0,
+  .total_mouse_movement.y = 0,
+  .total_mouse_movement.h = 0,
+  .total_mouse_movement.v = 0,
   .config.layer    = (uint8_t)(AUTO_MOUSE_DEFAULT_LAYER),
   .config.timeout  = (uint16_t)(AUTO_MOUSE_TIME),
   .config.debounce = (uint8_t)(AUTO_MOUSE_DEBOUNCE),
