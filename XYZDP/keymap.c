@@ -2341,22 +2341,17 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     activate_ime_state_sync(now);
   }
 
-  // short auto mouse timeout
+  // early auto mouse timeout
   if (is_auto_mouse_active()) {
-    fast_timer_t now = timer_read_fast();
     switch (keycode) {
       case KC_MS_BTN1:
       case KC_MS_BTN3:
-        if (record->event.pressed) {
-          //auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
-        } else {
+        if (record->event.pressed == false) {
+          // mouse button release
+          fast_timer_t now = timer_read_fast();
           auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_SHORT;
         }
         break;
-      
-      //default:
-      //  auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
-      //  break;
     }
   }
   
