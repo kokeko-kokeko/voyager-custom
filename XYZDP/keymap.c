@@ -453,8 +453,6 @@ extern bool is_launching;
 
 #include "engram_key_overrides.inc"
 
-static fast_timer_t auto_mouse_early_trigger = 0;
-
 // -----------------------------------------------------------------------------
 //
 //
@@ -2061,6 +2059,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //
 //
 // -----------------------------------------------------------------------------
+
+static fast_timer_t auto_mouse_early_trigger = 0;
 
 void keyboard_post_init_user(void) {
   keymap_config.nkro = true;
