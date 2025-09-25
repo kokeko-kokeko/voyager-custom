@@ -51,7 +51,7 @@
 #undef TAPPING_TERM
 #define TAPPING_TERM 331
 
-#define FLOW_TAP_TERM 199
+#define FLOW_TAP_TERM 211
 
 #ifndef USE_CIE1931_CURVE
   #define USE_CIE1931_CURVE
