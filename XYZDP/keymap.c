@@ -2396,25 +2396,6 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
   return active;    
 }
 
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-  fast_timer_t now = timer_read_fast();
-
-  if (mouse_report.x != 0) {
-    auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
-  }
-  if (mouse_report.y != 0) {
-    auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
-  }
-  if (mouse_report.h != 0) {
-    auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
-  }
-  if (mouse_report.v != 0) {
-    auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
-  }
-  
-  return mouse_report;
-}
-
 void housekeeping_task_user(void) {
   fast_timer_t now = timer_read_fast();
   
