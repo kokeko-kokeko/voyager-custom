@@ -2363,6 +2363,35 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   return;
 }
 
+// copy & mod from pointing_device_auto_mouse.c
+static auto_mouse_context_t auto_mouse_context_custom = {
+  .config.layer    = (uint8_t)(AUTO_MOUSE_DEFAULT_LAYER),
+  .config.timeout  = (uint16_t)(AUTO_MOUSE_TIME),
+  .config.debounce = (uint8_t)(AUTO_MOUSE_DEBOUNCE),
+};
+
+bool auto_mouse_activation(report_mouse_t mouse_report) {
+  auto_mouse_context_custom.total_mouse_movement.x += mouse_report.x;
+  auto_mouse_context_custom.total_mouse_movement.y += mouse_report.y;
+  auto_mouse_context_custom.total_mouse_movement.h += mouse_report.h;
+  auto_mouse_context_custom.total_mouse_movement.v += mouse_report.v;
+
+  bool active = abs(auto_mouse_context_custom.total_mouse_movement.x) > AUTO_MOUSE_THRESHOLD;
+  active = active || abs(auto_mouse_context_custom.total_mouse_movement.y) > AUTO_MOUSE_THRESHOLD;
+  active = active || abs(auto_mouse_context_custom.total_mouse_movement.h) > AUTO_MOUSE_SCROLL_THRESHOLD;
+  active = active || abs(auto_mouse_context_custom.total_mouse_movement.v) > AUTO_MOUSE_SCROLL_THRESHOLD;
+  active = active || mouse_report.buttons;
+
+  if (active) {
+    auto_mouse_context_custom.total_mouse_movement.x = 0;
+    auto_mouse_context_custom.total_mouse_movement.y = 0;
+    auto_mouse_context_custom.total_mouse_movement.h = 0;
+    auto_mouse_context_custom.total_mouse_movement.v = 0;
+  }
+  
+  return active;    
+}
+
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
   fast_timer_t now = timer_read_fast();
 
