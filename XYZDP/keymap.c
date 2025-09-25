@@ -2363,7 +2363,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   return;
 }
 
-// copy & mod from pointing_device_auto_mouse.c
+// copy & custom from pointing_device_auto_mouse.c
 static total_mouse_movement_t auto_mouse_move_custom = {
   .x = 0,
   .y = 0,
@@ -2372,22 +2372,25 @@ static total_mouse_movement_t auto_mouse_move_custom = {
 };
 
 bool auto_mouse_activation(report_mouse_t mouse_report) {
-  auto_mouse_context_custom.total_mouse_movement.x += mouse_report.x;
-  auto_mouse_context_custom.total_mouse_movement.y += mouse_report.y;
-  auto_mouse_context_custom.total_mouse_movement.h += mouse_report.h;
-  auto_mouse_context_custom.total_mouse_movement.v += mouse_report.v;
+  auto_mouse_move_custom.x += mouse_report.x;
+  auto_mouse_move_custom.y += mouse_report.y;
+  auto_mouse_move_custom.h += mouse_report.h;
+  auto_mouse_move_custom.v += mouse_report.v;
 
-  bool active = abs(auto_mouse_context_custom.total_mouse_movement.x) > AUTO_MOUSE_THRESHOLD;
-  active = active || abs(auto_mouse_context_custom.total_mouse_movement.y) > AUTO_MOUSE_THRESHOLD;
-  active = active || abs(auto_mouse_context_custom.total_mouse_movement.h) > AUTO_MOUSE_SCROLL_THRESHOLD;
-  active = active || abs(auto_mouse_context_custom.total_mouse_movement.v) > AUTO_MOUSE_SCROLL_THRESHOLD;
+  bool active = abs(auto_mouse_move_custom.x) > AUTO_MOUSE_THRESHOLD;
+  active = active || abs(auto_mouse_move_custom.y) > AUTO_MOUSE_THRESHOLD;
+  active = active || abs(auto_mouse_move_custom.h) > AUTO_MOUSE_SCROLL_THRESHOLD;
+  active = active || abs(auto_mouse_move_custom.v) > AUTO_MOUSE_SCROLL_THRESHOLD;
   active = active || mouse_report.buttons;
 
   if (active) {
-    auto_mouse_context_custom.total_mouse_movement.x = 0;
-    auto_mouse_context_custom.total_mouse_movement.y = 0;
-    auto_mouse_context_custom.total_mouse_movement.h = 0;
-    auto_mouse_context_custom.total_mouse_movement.v = 0;
+    fast_timer_t now = timer_read_fast();
+    auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
+    
+    auto_mouse_move_custom.x = 0;
+    auto_mouse_move_custom.y = 0;
+    auto_mouse_move_custom.h = 0;
+    auto_mouse_move_custom.v = 0;
   }
   
   return active;    
