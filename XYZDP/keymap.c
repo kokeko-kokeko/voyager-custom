@@ -2364,36 +2364,36 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 // copy & custom from pointing_device_auto_mouse.c
-static total_mouse_movement_t auto_mouse_move_custom = {
-  .x = 0,
-  .y = 0,
-  .h = 0,
-  .v = 0,
-};
-
 bool auto_mouse_activation(report_mouse_t mouse_report) {
-  auto_mouse_move_custom.x += mouse_report.x;
-  auto_mouse_move_custom.y += mouse_report.y;
-  auto_mouse_move_custom.h += mouse_report.h;
-  auto_mouse_move_custom.v += mouse_report.v;
+  static total_mouse_movement_t total_move_local = {
+    .x = 0,
+    .y = 0,
+    .h = 0,
+    .v = 0,
+  };
 
-  bool active = abs(auto_mouse_move_custom.x) > AUTO_MOUSE_THRESHOLD;
-  active = active || abs(auto_mouse_move_custom.y) > AUTO_MOUSE_THRESHOLD;
-  active = active || abs(auto_mouse_move_custom.h) > AUTO_MOUSE_SCROLL_THRESHOLD;
-  active = active || abs(auto_mouse_move_custom.v) > AUTO_MOUSE_SCROLL_THRESHOLD;
-  active = active || mouse_report.buttons;
+  total_move_local.x += mouse_report.x;
+  total_move_local.y += mouse_report.y;
+  total_move_local.h += mouse_report.h;
+  total_move_local.v += mouse_report.v;
 
-  if (active) {
+  bool activate = abs(total_move_local.x) > AUTO_MOUSE_THRESHOLD;
+  activate = activate || abs(total_move_local.y) > AUTO_MOUSE_THRESHOLD;
+  activate = activate || abs(total_move_local.h) > AUTO_MOUSE_SCROLL_THRESHOLD;
+  activate = activate || abs(total_move_local.v) > AUTO_MOUSE_SCROLL_THRESHOLD;
+  activate = activate || mouse_report.buttons;
+
+  if (activate) {
     fast_timer_t now = timer_read_fast();
     auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
     
-    auto_mouse_move_custom.x = 0;
-    auto_mouse_move_custom.y = 0;
-    auto_mouse_move_custom.h = 0;
-    auto_mouse_move_custom.v = 0;
+    total_move_local.x = 0;
+    total_move_local.y = 0;
+    total_move_local.h = 0;
+    total_move_local.v = 0;
   }
   
-  return active;    
+  return activate;    
 }
 
 void housekeeping_task_user(void) {
