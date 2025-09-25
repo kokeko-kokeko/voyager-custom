@@ -2348,15 +2348,15 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
       case KC_MS_BTN1:
       case KC_MS_BTN3:
         if (record->event.pressed) {
-          auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
+          //auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
         } else {
           auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_SHORT;
         }
         break;
       
-      default:
-        auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
-        break;
+      //default:
+      //  auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
+      //  break;
     }
   }
   
