@@ -2042,6 +2042,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         fade_matrix_step();
       }
       return false;
+
+    // auto mouse EXIT key (dummy)
+    case KC_LANGUAGE_9:
+      return false;
   }
 
   if (process_record_ime_state_sync(keycode, record) == false) {
