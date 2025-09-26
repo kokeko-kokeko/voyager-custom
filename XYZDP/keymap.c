@@ -2257,9 +2257,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       } else {
         status_led(now, 0b1100, led_pattern_off);
       }
-      
-      // wakeup RGB
-      activate_fade_matrix(now);
       break;
     case L_Firmware:
       status_led(now, 0b0011, led_pattern_off);
@@ -2385,6 +2382,9 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
   if (activate) {
     fast_timer_t now = timer_read_fast();
     auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
+      
+    // wakeup RGB
+    activate_fade_matrix(now);
     
     total_move_local.x = 0;
     total_move_local.y = 0;
