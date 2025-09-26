@@ -500,12 +500,12 @@ void set_layer_color_mouse_map(void) {
   rgb_matrix_set_color(33, f, 0, 0);
   rgb_matrix_set_color(38, 0, f, f);
   rgb_matrix_set_color(39, 0, f, 0);
-  rgb_matrix_set_color(44, o, o, o);
+  rgb_matrix_set_color(44, q, q, q);
   rgb_matrix_set_color(45, f, f, f);
   rgb_matrix_set_color(50, f, f, f);
   
   // Aim Turbo
   rgb_matrix_set_color(47, q, o, 0);
   rgb_matrix_set_color(48, f, h, 0);
-  rgb_matrix_set_color(49, o, o, 0);
+  rgb_matrix_set_color(49, q, q, 0);
 }
