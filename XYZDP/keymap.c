@@ -2346,7 +2346,11 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (is_auto_mouse_active()) {
     switch (keycode) {
       case KC_MS_BTN1:
+      case KC_MS_BTN2:
       case KC_MS_BTN3:
+      case KC_MS_BTN4:
+      case KC_MS_BTN5:
+      case KC_MS_BTN6:
         if (record->event.pressed == false) {
           if (record->event.key.row < MATRIX_ROWS / 2) {
             // left side mouse button release
