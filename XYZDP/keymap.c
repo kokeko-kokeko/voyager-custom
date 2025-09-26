@@ -2348,9 +2348,11 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
       case KC_MS_BTN1:
       case KC_MS_BTN3:
         if (record->event.pressed == false) {
-          // mouse button release
-          fast_timer_t now = timer_read_fast();
-          auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_SHORT;
+          if (record->event.key.row < MATRIX_ROWS / 2) {
+            // left side mouse button release
+            fast_timer_t now = timer_read_fast();
+            auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_SHORT;
+          }
         }
         break;
     }
