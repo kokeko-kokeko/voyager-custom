@@ -2342,6 +2342,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     activate_ime_state_sync(now);
   }
 
+  static uint16_t mouse_button_press_time = 0;
+
   // early auto mouse timeout
   if (is_auto_mouse_active()) {
     switch (keycode) {
@@ -2351,11 +2353,17 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
       case KC_MS_BTN4:
       case KC_MS_BTN5:
       case KC_MS_BTN6:
-        if (record->event.pressed == false) {
-          if (record->event.key.row < MATRIX_ROWS / 2) {
-            // left side mouse button release
-            fast_timer_t now = timer_read_fast();
-            auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_SHORT;
+        if (record->event.key.row < MATRIX_ROWS / 2) {
+          // left side mouse button
+          if (record->event.pressed) {
+            mouse_button_press_time = record->event.time;
+          } else {
+            uint16_t mouse_button_duration = record->event.time - mouse_button_press_time;
+
+            if (mouse_button_duration < AUTO_MOUSE_DRAG_THRESHOLD) {
+              fast_timer_t now = timer_read_fast();
+              auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_SHORT;
+            }
           }
         }
         break;
