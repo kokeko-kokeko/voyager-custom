@@ -2353,6 +2353,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
       case KC_MS_BTN4:
       case KC_MS_BTN5:
       case KC_MS_BTN6:
+      case KC_MS_BTN7:
+      case KC_MS_BTN8:
         if (record->event.key.row < MATRIX_ROWS / 2) {
           // left side mouse button
           if (record->event.pressed) {
