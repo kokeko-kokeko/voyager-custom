@@ -2360,6 +2360,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
           // left side mouse button
           if (record->event.pressed) {
             mouse_button_press_time[keycode - KC_MS_BTN1] = record->event.time;
+            // early trigger reset on auto_mouse_activation
           } else {
             uint16_t mouse_button_duration = record->event.time - mouse_button_press_time[keycode - KC_MS_BTN1];
             if (mouse_button_duration < AUTO_MOUSE_DRAG_THRESHOLD) {
@@ -2371,6 +2372,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
           // right side mouse button
           if (record->event.pressed) {
             mouse_button_press_time[keycode - KC_MS_BTN1 + 8] = record->event.time;
+            // early trigger reset on auto_mouse_activation
           } else {
             uint16_t mouse_button_duration = record->event.time - mouse_button_press_time[keycode - KC_MS_BTN1 + 8];
             if (mouse_button_duration < AUTO_MOUSE_DRAG_THRESHOLD) {
