@@ -946,23 +946,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case NAVIGATOR_TURBO:
     if (record->event.pressed) {
       navigator_turbo = true;
-      fast_timer_t now = timer_read_fast();
-      status_led(now, 0b0001, led_pattern_on);
     } else {
       navigator_turbo = false;
-      fast_timer_t now = timer_read_fast();
-      status_led(now, 0b0001, led_pattern_off);
     }
     return false;
   case NAVIGATOR_AIM:
     if (record->event.pressed) {
       navigator_aim = true;
-      fast_timer_t now = timer_read_fast();
-      status_led(now, 0b0010, led_pattern_on);
     } else {
       navigator_aim = false;
-      fast_timer_t now = timer_read_fast();
-      status_led(now, 0b0010, led_pattern_off);
     }
     return false;
   case NAVIGATOR_INC_CPI:
