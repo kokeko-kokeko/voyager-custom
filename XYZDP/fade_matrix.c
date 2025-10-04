@@ -509,5 +509,9 @@ void set_layer_color_mouse_map(void) {
   rgb_matrix_set_color(50, f, f, f);
   
   // lock
-  rgb_matrix_set_color(49, h, q, 0);
+  if (is_layer_locked(L_Mouse)) {
+    rgb_matrix_set_color(49, f, h, 0);
+  } else {
+    rgb_matrix_set_color(49, h, q, 0);
+  }
 }
