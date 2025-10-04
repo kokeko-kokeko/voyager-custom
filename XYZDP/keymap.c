@@ -2037,6 +2037,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // auto mouse EXIT key (dummy)
     case KC_LANGUAGE_9:
+      if (record->event.pressed) {
+        if (is_layer_locked(L_Mouse)) {
+          layer_lock_off(L_Mouse);
+        }
+      }
       return false;
   }
 
