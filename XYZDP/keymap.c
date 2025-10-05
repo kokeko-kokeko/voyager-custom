@@ -2398,16 +2398,22 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
     .v = 0,
   };
 
+  // in non-active check only xy move
   total_move_local.x += mouse_report.x;
   total_move_local.y += mouse_report.y;
-  total_move_local.h += mouse_report.h;
-  total_move_local.v += mouse_report.v;
 
   bool activate = abs(total_move_local.x) > AUTO_MOUSE_THRESHOLD;
   activate = activate || abs(total_move_local.y) > AUTO_MOUSE_THRESHOLD;
-  activate = activate || abs(total_move_local.h) > AUTO_MOUSE_SCROLL_THRESHOLD;
-  activate = activate || abs(total_move_local.v) > AUTO_MOUSE_SCROLL_THRESHOLD;
-  activate = activate || mouse_report.buttons;
+
+  if (is_auto_mouse_active()) {
+    // in active check wheel and button
+    total_move_local.h += mouse_report.h;
+    total_move_local.v += mouse_report.v;
+    
+    activate = activate || abs(total_move_local.h) > AUTO_MOUSE_SCROLL_THRESHOLD;
+    activate = activate || abs(total_move_local.v) > AUTO_MOUSE_SCROLL_THRESHOLD;
+    activate = activate || mouse_report.buttons;
+  }
 
   if (activate) {
     fast_timer_t now = timer_read_fast();
