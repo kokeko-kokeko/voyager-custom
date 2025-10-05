@@ -2402,7 +2402,8 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
   total_move_local.x += mouse_report.x;
   total_move_local.y += mouse_report.y;
 
-  bool activate = abs(total_move_local.x) > AUTO_MOUSE_THRESHOLD;
+  bool activate = false;
+  activate = activate || abs(total_move_local.x) > AUTO_MOUSE_THRESHOLD;
   activate = activate || abs(total_move_local.y) > AUTO_MOUSE_THRESHOLD;
 
   if (is_auto_mouse_active()) {
