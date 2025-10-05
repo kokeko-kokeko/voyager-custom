@@ -2204,11 +2204,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       break; 
     case L_Number:
     case L_Number_JIS:
-      status_led(now, 0b1100, led_pattern_blink);
+      //status_led(now, 0b1100, led_pattern_blink);
       break;
     case L_Cursor:
     case L_Cursor_JIS:
-      status_led(now, 0b1100, led_pattern_blink);
+      //status_led(now, 0b1100, led_pattern_blink);
       break;
     case L_LeftPinky:
       //status_led(now, 0b0110, led_pattern_off);
