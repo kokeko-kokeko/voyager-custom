@@ -2165,6 +2165,21 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Base_JIS, L_Cursor, L_Cursor_JIS);
   state = update_tri_layer_state(state, L_Base_JIS, L_BothThumb, L_BothThumb_JIS);
 
+  // base layer scroll lock
+  static bool mouse_setting_on = false;
+  static bool base_scrolling = false;
+
+  if (mouse_setting_on != layer_state_cmp(state, L_Mouse_Setting)) {
+    mouse_setting_on = !mouse_setting_on;
+    if (mouse_setting_on) {  
+      // Just entered
+      base_scrolling = !base_scrolling;
+    } else {
+      // Just exited
+      //PLAY_SONG(GOODBYE_SONG);
+    }
+  }
+
   // mouse control scroll
   if (layer_state_cmp(state, L_Mouse_Setting)) {
     if (is_auto_mouse_active() == false) {
@@ -2182,7 +2197,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     set_scrolling = true;
   } else {
     set_auto_mouse_enable(true);
-    set_scrolling = false;
+    set_scrolling = base_scrolling;
   }
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
@@ -2196,7 +2211,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Base_JIS:
     case L_MO_Guard:
     case L_Mouse_Setting:  
-      status_led(now, 0b1111, led_pattern_off);
+      status_led(now, 0b0111, led_pattern_off);
+
+      if (set_scrolling) {
+        status_led(now, 0b1000, led_pattern_on);
+      } else {
+        status_led(now, 0b1000, led_pattern_off);
+      }
       break;    
     case L_Function:
       status_led(now, 0b1100, led_pattern_off);
