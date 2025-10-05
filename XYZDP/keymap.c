@@ -2174,9 +2174,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     if (mouse_setting_on) {  
       // Just entered
       base_scrolling = !base_scrolling;
+      set_scrolling = base_scrolling;
     } else {
       // Just exited
-      //PLAY_SONG(GOODBYE_SONG);
+      //
     }
   }
 
@@ -2212,13 +2213,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_MO_Guard:
     case L_Mouse_Setting:  
       status_led(now, 0b0111, led_pattern_off);
-
+      
       if (set_scrolling) {
         status_led(now, 0b1000, led_pattern_on);
       } else {
         status_led(now, 0b1000, led_pattern_off);
       }
-      break;    
+      break;
     case L_Function:
       status_led(now, 0b1100, led_pattern_off);
       status_led(now, 0b0011, led_pattern_on);
@@ -2265,6 +2266,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       break;
     case L_Mouse:
       // mouse indication
+      status_led(now, 0b0011, led_pattern_off);
       status_led(now, 0b0100, led_pattern_on);
 
       if (set_scrolling) {
