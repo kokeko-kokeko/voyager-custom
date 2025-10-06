@@ -2352,11 +2352,11 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.key.row < MATRIX_ROWS / 2) {
           // left side mouse button
           if (record->event.pressed) {
-            navigator_aim = true;
+            //navigator_aim = true;
             mouse_button_press_time[keycode - KC_MS_BTN1] = record->event.time;
             // early trigger reset on auto_mouse_activation
           } else {
-            navigator_aim = false;
+            //navigator_aim = false;
             uint16_t mouse_button_duration = record->event.time - mouse_button_press_time[keycode - KC_MS_BTN1];
             if (mouse_button_duration < AUTO_MOUSE_DRAG_THRESHOLD) {
               fast_timer_t now = timer_read_fast();
