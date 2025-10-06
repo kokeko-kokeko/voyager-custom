@@ -946,15 +946,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case NAVIGATOR_TURBO:
     if (record->event.pressed) {
       navigator_turbo = true;
+      fast_timer_t now = timer_read_fast();
+      status_led(now, 0b0001, led_pattern_on);
     } else {
       navigator_turbo = false;
+      fast_timer_t now = timer_read_fast();
+      status_led(now, 0b0001, led_pattern_off);
     }
     return false;
   case NAVIGATOR_AIM:
     if (record->event.pressed) {
       navigator_aim = true;
+      fast_timer_t now = timer_read_fast();
+      status_led(now, 0b0010, led_pattern_on);
     } else {
       navigator_aim = false;
+      fast_timer_t now = timer_read_fast();
+      status_led(now, 0b0010, led_pattern_off);
     }
     return false;
   case NAVIGATOR_INC_CPI:
@@ -2242,6 +2250,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       break;
     case L_Mouse:
       // mouse indication
+      status_led(now, 0b0011, led_pattern_off);
       status_led(now, 0b0100, led_pattern_on);
 
       if (set_scrolling) {
@@ -2250,17 +2259,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         status_led(now, 0b1000, led_pattern_off);
       }
 
-      if (navigator_aim) {
-        status_led(now, 0b0010, led_pattern_on);
-      } else {
-        status_led(now, 0b0010, led_pattern_off);
-      }
-
-      if (navigator_turbo) {
-        status_led(now, 0b0001, led_pattern_on);
-      } else {
-        status_led(now, 0b0001, led_pattern_off);
-      }
       break;
     case L_Firmware:
       status_led(now, 0b0011, led_pattern_off);
