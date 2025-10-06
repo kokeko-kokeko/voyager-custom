@@ -2430,7 +2430,7 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
     .v = 0,
   };
 
-  // in non-active check only xy move
+  // both state check xy move
   total_move_local.x += mouse_report.x;
   total_move_local.y += mouse_report.y;
 
@@ -2439,7 +2439,7 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
   activate = activate || abs(total_move_local.y) > AUTO_MOUSE_THRESHOLD;
 
   if (is_auto_mouse_active()) {
-    // in active check wheel and button
+    // in active additional check wheel and button
     total_move_local.h += mouse_report.h;
     total_move_local.v += mouse_report.v;
     
