@@ -2167,6 +2167,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
   // base layer scroll lock
   static bool mouse_setting_on = false;
+  static bool firmware_on = false;
   static bool base_scrolling = false;
 
   if (mouse_setting_on != layer_state_cmp(state, L_Mouse_Setting)) {
@@ -2181,19 +2182,30 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
   }
 
+  if (firmware_on != layer_state_cmp(state, L_Mouse_Setting)) {
+    firmware_on = !firmware_on;
+    if (firmware_on) {  
+      // Just entered
+    } else {
+      // Just exited
+      base_scrolling = false;
+      set_scrolling = base_scrolling;
+    }
+  }
+
   // mouse control scroll
   if (layer_state_cmp(state, L_Mouse_Setting)) {
     if (is_auto_mouse_active() == false) {
-      set_auto_mouse_enable(false);
+    //  set_auto_mouse_enable(false);
     }
   } else if (layer_state_cmp(state, L_Number)) {
     if (is_auto_mouse_active() == false) {
-      set_auto_mouse_enable(false);
+      //set_auto_mouse_enable(false);
     }
     set_scrolling = true;
   } else if (layer_state_cmp(state, L_Cursor)) {
     if (is_auto_mouse_active() == false) {
-      set_auto_mouse_enable(false);
+      //set_auto_mouse_enable(false);
     }
     set_scrolling = true;
   } else {
