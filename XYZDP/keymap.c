@@ -2259,6 +2259,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         status_led(now, 0b1000, led_pattern_off);
       }
 
+      // aim/turbo change without layer, direct write on process_record
       break;
     case L_Firmware:
       status_led(now, 0b0011, led_pattern_off);
