@@ -502,19 +502,19 @@ void set_layer_color_mouse_map(void) {
   rgb_matrix_set_color(29, h, 0, f);
   rgb_matrix_set_color(32, 0, 0, f);
   rgb_matrix_set_color(33, f, 0, 0);
+  rgb_matrix_set_color(37, f, h, 0);
   rgb_matrix_set_color(38, 0, f, h);
   rgb_matrix_set_color(39, 0, f, 0);
   
   rgb_matrix_set_color(45, f, f, f);
-  rgb_matrix_set_color(49, f, h, 0);
   rgb_matrix_set_color(50, f, f, f);
   
   // lock
   if (is_layer_locked(L_Mouse)) {
-    rgb_matrix_set_color(18, f, f, 0);
+    rgb_matrix_set_color( 6, f, f, 0);
     rgb_matrix_set_color(44, f, f, 0);
   } else {
-    rgb_matrix_set_color(18, q, q, q);
+    rgb_matrix_set_color( 6, q, q, q);
     rgb_matrix_set_color(44, q, q, q);
   }
 }
