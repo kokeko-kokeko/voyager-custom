@@ -2182,7 +2182,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
   }
 
-  if (firmware_on != layer_state_cmp(state, L_Mouse_Setting)) {
+  if (firmware_on != layer_state_cmp(state, L_Firmware)) {
     firmware_on = !firmware_on;
     if (firmware_on) {  
       // Just entered
@@ -2194,22 +2194,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   }
 
   // mouse control scroll
-  if (layer_state_cmp(state, L_Mouse_Setting)) {
-    if (is_auto_mouse_active() == false) {
-    //  set_auto_mouse_enable(false);
-    }
-  } else if (layer_state_cmp(state, L_Number)) {
-    if (is_auto_mouse_active() == false) {
-      //set_auto_mouse_enable(false);
-    }
+  if (layer_state_cmp(state, L_Number)) {
     set_scrolling = true;
   } else if (layer_state_cmp(state, L_Cursor)) {
-    if (is_auto_mouse_active() == false) {
-      //set_auto_mouse_enable(false);
-    }
     set_scrolling = true;
   } else {
-    set_auto_mouse_enable(true);
     set_scrolling = base_scrolling;
   }
   
