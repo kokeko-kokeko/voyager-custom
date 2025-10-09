@@ -948,8 +948,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DRAG_SCROLL:
       if (record->event.pressed) {
         set_scrolling = true;
+        fast_timer_t now = timer_read_fast();
+        status_led(now, 0b1000, led_pattern_on);
       } else {
         set_scrolling = false;
+        fast_timer_t now = timer_read_fast();
+        status_led(now, 0b1000, led_pattern_off);
       }
       return false;
   case NAVIGATOR_TURBO:
@@ -2267,6 +2271,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       } else {
         status_led(now, 0b1000, led_pattern_off);
       }
+      // DRAG_SCROLL add on key event
 
       // aim/turbo change without layer, direct write on process_record
       break;
