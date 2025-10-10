@@ -476,6 +476,8 @@ void set_layer_color_firmware_map(void) {
   rgb_matrix_set_color(49, f, 0, 0);
 }
 
+extern bool set_scrolling;
+
 void set_layer_color_mouse_map(void) {
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
@@ -490,7 +492,6 @@ void set_layer_color_mouse_map(void) {
   rgb_matrix_set_color( 4, f, f, 0);
   rgb_matrix_set_color( 5, f, 0, h);
   rgb_matrix_set_color(11, 0, f, h);
-  rgb_matrix_set_color(17, f, f, f);
   rgb_matrix_set_color(23, 0, 0, f);
   
   rgb_matrix_set_color(24, 0, f, 0);
@@ -510,8 +511,16 @@ void set_layer_color_mouse_map(void) {
   rgb_matrix_set_color(40, q, q, q);
   rgb_matrix_set_color(41, f, f, f);
   
-  rgb_matrix_set_color(45, f, f, f);
-  rgb_matrix_set_color(50, f, f, f);
+  // scroll
+  if (set_scrolling) {
+    rgb_matrix_set_color(17, f, 0, 0);
+    rgb_matrix_set_color(45, f, 0, 0);
+    rgb_matrix_set_color(50, f, 0, 0);
+  } else {
+    rgb_matrix_set_color(17, f, f, f);
+    rgb_matrix_set_color(45, f, f, f);
+    rgb_matrix_set_color(50, f, f, f);
+  }
   
   // lock
   if (is_layer_locked(L_Mouse)) {
