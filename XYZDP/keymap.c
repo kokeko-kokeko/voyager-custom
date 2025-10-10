@@ -2423,11 +2423,17 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
   total_move_local.y += mouse_report.y;
 
   bool activate = false;
-  activate = activate || abs(total_move_local.x) > AUTO_MOUSE_THRESHOLD;
-  activate = activate || abs(total_move_local.y) > AUTO_MOUSE_THRESHOLD;
 
-  if (is_auto_mouse_active()) {
-    // in active additional check wheel and button
+  if (is_auto_mouse_active() == false) {
+    // non active
+    activate = activate || abs(total_move_local.x) > AUTO_MOUSE_THRESHOLD;
+    activate = activate || abs(total_move_local.y) > AUTO_MOUSE_THRESHOLD;
+  } else {
+    // active
+    activate = activate || abs(total_move_local.x) > AUTO_MOUSE_CONT_THRESHOLD;
+    activate = activate || abs(total_move_local.y) > AUTO_MOUSE_CONT_THRESHOLD;  
+    
+    // active, additional check wheel and button
     total_move_local.h += mouse_report.h;
     total_move_local.v += mouse_report.v;
     
