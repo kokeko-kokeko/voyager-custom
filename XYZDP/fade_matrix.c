@@ -415,7 +415,7 @@ void set_layer_color_firmware_map(void) {
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
   const uint8_t q = h >> 1;
-  const uint8_t o = q >> 1;
+  //const uint8_t o = q >> 1;
 
   rgb_matrix_set_color_all(0, 0, 0);
 
@@ -424,17 +424,17 @@ void set_layer_color_firmware_map(void) {
   rgb_matrix_set_color(25, f, f, 0);
   //rgb_matrix_set_color(44, f, f, 0);
   //rgb_matrix_set_color(45, f, f, 0);
-  rgb_matrix_set_color(50, o, o, o);
+  rgb_matrix_set_color(50, q, q, q);
 
   //ANSI/JIS
   if (layer_state_is(L_Base_JIS)) {
     //JIS base enable
-    rgb_matrix_set_color(0, o, o, o);
+    rgb_matrix_set_color(0, q, q, q);
     rgb_matrix_set_color(6, 0, f, 0);
   } else {
     //ANSI base
     rgb_matrix_set_color(0, f, 0, 0);
-    rgb_matrix_set_color(6, o, o, o);
+    rgb_matrix_set_color(6, q, q, q);
   }
 
   //OS detect
@@ -468,7 +468,7 @@ void set_layer_color_firmware_map(void) {
 
   //tapping
   rgb_matrix_set_color(18, 0, 0, f);
-  rgb_matrix_set_color(19, o, 0, o);
+  rgb_matrix_set_color(19, q, 0, q);
   rgb_matrix_set_color(20, f, 0, f);
 
   //reset
