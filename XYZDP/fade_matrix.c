@@ -504,12 +504,12 @@ void set_layer_color_mouse_map(void) {
   rgb_matrix_set_color(29, h, 0, f);
   rgb_matrix_set_color(32, 0, 0, f);
   rgb_matrix_set_color(33, f, 0, 0);
-  rgb_matrix_set_color(34, q, o, 0);
-  rgb_matrix_set_color(35, f, h, 0);
+  rgb_matrix_set_color(35, q, o, 0);
+  rgb_matrix_set_color(36, f, h, 0);
   rgb_matrix_set_color(38, 0, f, h);
   rgb_matrix_set_color(39, 0, f, 0);
-  rgb_matrix_set_color(40, q, q, q);
-  rgb_matrix_set_color(41, f, f, f);
+  rgb_matrix_set_color(41, q, q, q);
+  rgb_matrix_set_color(42, f, f, f);
   
   // scroll
   if (set_scrolling) {
@@ -526,12 +526,12 @@ void set_layer_color_mouse_map(void) {
   if (is_layer_locked(L_Mouse)) {
     rgb_matrix_set_color( 6, f, f, 0);
     rgb_matrix_set_color(22, f, f, 0);
-    rgb_matrix_set_color(36, f, f, 0);
+    rgb_matrix_set_color(34, f, f, 0);
     rgb_matrix_set_color(44, f, f, 0);
   } else {
     rgb_matrix_set_color( 6, q, q, q);
     rgb_matrix_set_color(22, q, q, q);
-    rgb_matrix_set_color(36, q, q, q);
+    rgb_matrix_set_color(34, q, q, q);
     rgb_matrix_set_color(44, q, q, q);
   }
 }
