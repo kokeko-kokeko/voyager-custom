@@ -2066,7 +2066,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         // add non-base keys for fast edit
         if (layer_state_is(L_Cursor)) {
-          tap_code16(KLCTL(KC_C));
+          tap_code16(LCTL(KC_C));
         }
       }
       return false;
