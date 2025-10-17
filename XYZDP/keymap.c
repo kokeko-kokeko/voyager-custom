@@ -2107,6 +2107,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
+
+    // mouse button patch
+    case KC_MS_BTN7:
+      if (record->event.key.row < MATRIX_ROWS / 2) {
+        // left side mouse button
+        if (record->event.pressed) {
+          if (layer_state_is(L_Cursor)) {
+            tap_code16(LCTL(KC_C));
+            return false;
+          }  
+        } 
+      } else {
+        // right side mouse button
+      }
+      return true;
+    
+    case KC_MS_BTN2:
+      if (record->event.key.row < MATRIX_ROWS / 2) {
+        // left side mouse button
+      } else {
+        // right side mouse button
+        if (record->event.pressed) {
+          if (layer_state_is(L_Cursor)) {
+            tap_code16(KC_LEFT);
+            return false;
+          }  
+        } 
+      }
+      return true;
+    
   }
 
   if (process_record_ime_state_sync(keycode, record) == false) {
