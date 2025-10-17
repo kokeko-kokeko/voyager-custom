@@ -972,6 +972,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       navigator_aim = true;
       fast_timer_t now = timer_read_fast();
       status_led(now, 0b0010, led_pattern_on);
+      // mouse button patch
+      if (layer_state_is(L_Cursor)) {
+        tap_code16(KC_RIGHT);
+      } 
     } else {
       navigator_aim = false;
       fast_timer_t now = timer_read_fast();
