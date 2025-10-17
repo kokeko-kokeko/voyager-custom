@@ -2077,6 +2077,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (is_layer_locked(L_Mouse)) {
           layer_lock_off(L_Mouse);
         }
+        
+        // patch for fast transition
+        if (layer_state_is(L_Cursor)) {
+          tap_code16(KC_SPACE);
+        }
       }
       return false;
     
