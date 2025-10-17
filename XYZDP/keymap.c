@@ -987,10 +987,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       navigator_aim = true;
       fast_timer_t now = timer_read_fast();
       status_led(now, 0b0010, led_pattern_on);
-      // mouse button patch
-      if (layer_state_is(L_Cursor)) {
-        tap_code16(KC_RIGHT);
-      } 
     } else {
       navigator_aim = false;
       fast_timer_t now = timer_read_fast();
@@ -2078,15 +2074,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // auto mouse EXIT key (dummy keycode)
     case KC_LANGUAGE_6:
       if (record->event.pressed) {
-        // middle finger patch
-        if (layer_state_is(L_Cursor)) {
-          tap_code16(LCTL(KC_C));
-        } else {
-           // only exit without layer
-          auto_mouse_layer_off();
-          if (is_layer_locked(L_Mouse)) {
-            layer_lock_off(L_Mouse);
-          }
+        auto_mouse_layer_off();
+        if (is_layer_locked(L_Mouse)) {
+          layer_lock_off(L_Mouse);
         }
       }
       return false;
@@ -2097,25 +2087,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (is_layer_locked(L_Mouse)) {
           layer_lock_off(L_Mouse);
         }
-        
-        // patch for fast transition
-        if (layer_state_is(L_Cursor)) {
-          tap_code16(KC_SPACE);
-        }
       }
       return false;
     
     case KC_LANGUAGE_8:
       if (record->event.pressed) {
-        // middle finger patch
-        if (layer_state_is(L_Cursor)) {
-          tap_code16(KC_DOWN);
-        } else {
-          // only exit without layer
-          auto_mouse_layer_off();
-          if (is_layer_locked(L_Mouse)) {
-            layer_lock_off(L_Mouse);
-          }
+        auto_mouse_layer_off();
+        if (is_layer_locked(L_Mouse)) {
+          layer_lock_off(L_Mouse);
         }
       }
       return false;
@@ -2127,51 +2106,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_lock_off(L_Mouse);
         }
       }
-      return false;
-
-    // mouse button patch
-    case KC_MS_BTN2:
-      if (record->event.key.row < MATRIX_ROWS / 2) {
-        // left side mouse button
-      } else {
-        // right side mouse button
-        if (record->event.pressed) {
-          if (layer_state_is(L_Cursor)) {
-            tap_code16(KC_LEFT);
-            return false;
-          }  
-        } 
-      }
-      return true;
-    
-    case KC_MS_BTN6:
-      if (record->event.key.row < MATRIX_ROWS / 2) {
-        // left side mouse button
-      } else {
-        // right side mouse button
-        if (record->event.pressed) {
-          if (layer_state_is(L_Cursor)) {
-            tap_code16(KC_UP);
-            return false;
-          }  
-        } 
-      }
-      return true;
-    
-    case KC_MS_BTN7:
-      if (record->event.key.row < MATRIX_ROWS / 2) {
-        // left side mouse button
-        if (record->event.pressed) {
-          if (layer_state_is(L_Cursor)) {
-            tap_code16(LCTL(KC_V));
-            return false;
-          }  
-        } 
-      } else {
-        // right side mouse button
-      }
-      return true;
-    
+      return false;    
   }
 
   if (process_record_ime_state_sync(keycode, record) == false) {
