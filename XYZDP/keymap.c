@@ -461,6 +461,14 @@ extern bool is_launching;
 
 #include "engram_key_overrides.inc"
 
+bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
+  // self-hold 
+  if (layer_state_is(L_Cursor_Mouse_Override)) {
+    return true;
+  }
+  return false;
+}
+
 // -----------------------------------------------------------------------------
 //
 //
