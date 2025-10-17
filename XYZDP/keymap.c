@@ -2089,7 +2089,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         // patch for fast transition
         if (layer_state_is(L_Cursor)) {
-          tap_code16(LCTL(KC_DOWN);
+          tap_code16(KC_DOWN);
         }
       }
       return false;
