@@ -463,7 +463,7 @@ extern bool is_launching;
 
 bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
   // self-hold 
-  if (layer_state_is(L_Cursor_Mouse_Override)) {
+  if (layer_state_is(L_Mouse_Cursor_Override)) {
     return true;
   }
   return false;
@@ -2294,8 +2294,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Base_JIS, L_Cursor, L_Cursor_JIS);
   state = update_tri_layer_state(state, L_Base_JIS, L_BothThumb, L_BothThumb_JIS);
 
-  // cursor & mouse override
-  state = update_tri_layer_state(state, L_Cursor, L_Mouse, L_Cursor_Mouse_Override);
+  // on mouse, cursor override
+  state = update_tri_layer_state(state, L_Mouse, L_Cursor, L_Mouse_Cursor_Override);
 
   // base layer scroll lock
   static bool mouse_setting_on = false;
@@ -2373,7 +2373,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_BothPinkyThumb:
       break;
     case L_Mouse:
-    case L_Cursor_Mouse_Override:
+    case L_Mouse_Cursor_Override:
       // mouse indication
       status_led(now, 0b0011, led_pattern_off);
       status_led(now, 0b0100, led_pattern_on);
@@ -2424,7 +2424,7 @@ bool rgb_matrix_indicators_user(void) {
   if (keyboard_config.disable_layer_led) { return false; }
   switch (get_highest_layer(layer_state)) {
     case L_Mouse:
-    case L_Cursor_Mouse_Override:
+    case L_Mouse_Cursor_Override:
       set_layer_color_mouse_map();
       break;    
     case L_Firmware:
