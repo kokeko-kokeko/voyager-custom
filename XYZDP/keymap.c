@@ -2406,10 +2406,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     activate_fade_matrix(now);
     activate_ime_state_sync(now);
   }
-
-  // button max count
-  //static uint16_t mouse_button_press_time[16];
-
+  
   // early auto mouse timeout
   if (is_auto_mouse_active()) {
     switch (keycode) {
