@@ -2448,30 +2448,30 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
       case KC_MS_BTN8:
         if (record->event.key.row < MATRIX_ROWS / 2) {
           // left side mouse button
-          static uint16_t mouse_button_press_time[8];
+          static uint16_t button_press_time[8];
           if (record->event.pressed) {
             //navigator_aim = true;
-            mouse_button_press_time[keycode - KC_MS_BTN1] = record->event.time;
+            button_press_time[keycode - KC_MS_BTN1] = record->event.time;
             // early trigger reset on auto_mouse_activation
           } else {
             //navigator_aim = false;
-            uint16_t mouse_button_duration = record->event.time - mouse_button_press_time[keycode - KC_MS_BTN1];
-            if (mouse_button_duration < AUTO_MOUSE_DRAG_THRESHOLD) {
+            uint16_t duration = record->event.time - button_press_time[keycode - KC_MS_BTN1];
+            if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
               fast_timer_t now = timer_read_fast();
               auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_LEFT_SIDE;
             }
           }
         } else {
           // right side mouse button
-          static uint16_t mouse_button_press_time[8];
+          static uint16_t button_press_time[8];
           if (record->event.pressed) {
             //navigator_turbo = true;
-            mouse_button_press_time[keycode - KC_MS_BTN1] = record->event.time;
+            button_press_time[keycode - KC_MS_BTN1] = record->event.time;
             // early trigger reset on auto_mouse_activation
           } else {
             //navigator_turbo = false;
-            uint16_t mouse_button_duration = record->event.time - mouse_button_press_time[keycode - KC_MS_BTN1];
-            if (mouse_button_duration < AUTO_MOUSE_DRAG_THRESHOLD) {
+            uint16_t duration = record->event.time - button_press_time[keycode - KC_MS_BTN1];
+            if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
               fast_timer_t now = timer_read_fast();
               auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_RIGHT_SIDE;
             }
