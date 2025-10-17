@@ -2064,7 +2064,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_lock_off(L_Mouse);
         }
 
-        // add non-base keys for fast edit
+        // patch for fast edit
         if (layer_state_is(L_Cursor)) {
           tap_code16(LCTL(KC_C));
         }
@@ -2085,6 +2085,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         auto_mouse_layer_off();
         if (is_layer_locked(L_Mouse)) {
           layer_lock_off(L_Mouse);
+        }
+
+        // patch for fast transition
+        if (layer_state_is(L_Cursor)) {
+          tap_code16(LCTL(KC_DOWN);
         }
       }
       return false;
