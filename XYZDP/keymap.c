@@ -2062,6 +2062,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (is_layer_locked(L_Mouse)) {
           layer_lock_off(L_Mouse);
         }
+        auto_mouse_layer_off();
       }
       return false;
     
@@ -2070,6 +2071,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (is_layer_locked(L_Mouse)) {
           layer_lock_off(L_Mouse);
         }
+        auto_mouse_layer_off();
       }
       return false;
     
@@ -2078,6 +2080,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (is_layer_locked(L_Mouse)) {
           layer_lock_off(L_Mouse);
         }
+        auto_mouse_layer_off();
       }
       return false;
 
@@ -2086,6 +2089,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (is_layer_locked(L_Mouse)) {
           layer_lock_off(L_Mouse);
         }
+        auto_mouse_layer_off();
       }
       return false;
   }
