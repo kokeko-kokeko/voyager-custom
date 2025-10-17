@@ -20,7 +20,7 @@ enum layer_num {
   L_BothPinky,
   L_BothPinkyThumb,
   L_Mouse,
-  L_Cursor_Mouse_Override,
+  L_Mouse_Cursor_Override,
   L_Firmware,
   L_Set_Speed,
   L_Set_Val,
