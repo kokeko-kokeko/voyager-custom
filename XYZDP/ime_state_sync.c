@@ -184,6 +184,6 @@ void set_layer_color_firmware_map_ime_state_sync(void) {
   } else {
     //ANSI base
     rgb_matrix_set_color(2, o, o, o);
-    rgb_matrix_set_color(8, f, f, f);
+    rgb_matrix_set_color(8, f, f, 0);
   }
 }
