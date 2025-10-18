@@ -463,6 +463,7 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
 }
 
 static bool lock_scrolling = false;
+static fast_timer_t auto_mouse_early_trigger = 0;
 
 // -----------------------------------------------------------------------------
 //
@@ -2116,8 +2117,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //
 //
 // -----------------------------------------------------------------------------
-
-static fast_timer_t auto_mouse_early_trigger = 0;
 
 void keyboard_post_init_user(void) {
   keymap_config.nkro = true;
