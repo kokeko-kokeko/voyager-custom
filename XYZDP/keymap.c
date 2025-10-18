@@ -964,7 +964,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           press_time = record->event.time;
           set_scrolling = true;
           fast_timer_t now = timer_read_fast();
-          status_led(now, 0b1000, led_pattern_on);
+          status_led(now, 0b0100, led_pattern_on);
         } else {
           uint16_t duration = record->event.time - press_time;
           if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
@@ -973,20 +973,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               // if locked release lock
               set_scrolling = false;
               fast_timer_t now = timer_read_fast();
-              status_led(now, 0b1000, led_pattern_off);
+              status_led(now, 0b0100, led_pattern_off);
               lock_scrolling = false;
             } else {
               // keep scroll
               //set_scrolling = true;
               //fast_timer_t now = timer_read_fast();
-              //status_led(now, 0b1000, led_pattern_on);
+              //status_led(now, 0b0100, led_pattern_on);
               lock_scrolling = true;
             }
           } else {
             // drag, must disable scroll lock
             set_scrolling = false;
             fast_timer_t now = timer_read_fast();
-            status_led(now, 0b1000, led_pattern_off);
+            status_led(now, 0b0100, led_pattern_off);
             lock_scrolling = false;
           }
         }
@@ -2261,12 +2261,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Base :
     case L_Base_JIS:
     case L_MO_Guard:
-      status_led(now, 0b0111, led_pattern_off);
+      status_led(now, 0b1011, led_pattern_off);
       
       if (set_scrolling) {
-        status_led(now, 0b1000, led_pattern_on);
+        status_led(now, 0b0100, led_pattern_on);
       } else {
-        status_led(now, 0b1000, led_pattern_off);
+        status_led(now, 0b0100, led_pattern_off);
       }
       break;
     case L_Function:
@@ -2292,12 +2292,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Mouse_Cursor_Override:
       // mouse indication
       status_led(now, 0b0011, led_pattern_off);
-      status_led(now, 0b0100, led_pattern_on);
+      status_led(now, 0b1000, led_pattern_on);
 
       if (set_scrolling) {
-        status_led(now, 0b1000, led_pattern_on);
+        status_led(now, 0b0100, led_pattern_on);
       } else {
-        status_led(now, 0b1000, led_pattern_off);
+        status_led(now, 0b0100, led_pattern_off);
       }
       // DRAG_SCROLL add on key event
 
