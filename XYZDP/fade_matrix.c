@@ -467,9 +467,9 @@ void set_layer_color_firmware_map(void) {
   rgb_matrix_set_color(23, rgb_os.r, rgb_os.g, rgb_os.b);
 
   //tapping
-  rgb_matrix_set_color(18, 0, 0, f);
-  rgb_matrix_set_color(19, q, 0, q);
-  rgb_matrix_set_color(20, f, 0, f);
+  //rgb_matrix_set_color(18, 0, 0, f);
+  //rgb_matrix_set_color(19, q, 0, q);
+  //rgb_matrix_set_color(20, f, 0, f);
 
   //reset
   rgb_matrix_set_color(31, f, 0, 0);
