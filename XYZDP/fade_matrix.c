@@ -532,9 +532,9 @@ void set_layer_color_mouse_map(void) {
   // lock
   if (is_layer_locked(L_Mouse)) {
     rgb_matrix_set_color( 6, q, q, q);
-    rgb_matrix_set_color( 9, q, 0, o);
+    //rgb_matrix_set_color( 9, q, 0, o);
     rgb_matrix_set_color(22, q, 0, o);
-    rgb_matrix_set_color(34, q, 0, o);
+    //rgb_matrix_set_color(34, q, 0, o);
     rgb_matrix_set_color(37, q, q, q);
     rgb_matrix_set_color(44, q, 0, o);
   } else {
