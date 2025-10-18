@@ -2103,9 +2103,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_LANGUAGE_6:
       if (record->event.pressed) {
         auto_mouse_layer_off();
-        if (is_layer_locked(L_Mouse)) {
-          layer_lock_off(L_Mouse);
-        }
+        //if (is_layer_locked(L_Mouse)) {
+        //  layer_lock_off(L_Mouse);
+        //}
       }
       return false;
     
@@ -2117,24 +2117,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
-    
-    case KC_LANGUAGE_8:
-      if (record->event.pressed) {
-        auto_mouse_layer_off();
-        if (is_layer_locked(L_Mouse)) {
-          layer_lock_off(L_Mouse);
-        }
-      }
-      return false;
-
-    case KC_LANGUAGE_9:
-      if (record->event.pressed) {
-        auto_mouse_layer_off();
-        if (is_layer_locked(L_Mouse)) {
-          layer_lock_off(L_Mouse);
-        }
-      }
-      return false;    
   }
 
   if (process_record_ime_state_sync(keycode, record) == false) {
