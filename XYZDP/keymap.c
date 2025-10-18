@@ -2287,8 +2287,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       set_scrolling = base_scrolling;
     }
   }
-
-  // mouse control scroll
+  
+  // drag scroll lock release
+  if (layer_state_cmp(state, L_Mouse) == false) {
+    drag_scroll_locked = false;
+  }
+  
+  // mouse scroll by layer
   if (layer_state_cmp(state, L_Number)) {
     set_scrolling = true;
     drag_scroll_locked = false;
@@ -2299,11 +2304,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     set_scrolling = base_scrolling;
   }
 
-  // drag scroll lock release
-  if (layer_state_cmp(state, L_Mouse) == false) {
-    drag_scroll_locked = false;
-  }
-  
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
   
