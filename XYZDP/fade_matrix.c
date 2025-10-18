@@ -474,6 +474,23 @@ void set_layer_color_firmware_map(void) {
   //reset
   rgb_matrix_set_color(31, f, 0, 0);
   rgb_matrix_set_color(49, f, 0, 0);
+
+  //color test
+  rgb_matrix_set_color(26, f, 0, 0);
+  rgb_matrix_set_color(27, f, h, 0);
+  rgb_matrix_set_color(28, f, f, 0);
+
+  rgb_matrix_set_color(32, h, f, 0);
+  rgb_matrix_set_color(33, 0, f, 0);
+  rgb_matrix_set_color(34, 0, f, h);
+
+  rgb_matrix_set_color(38, 0, f, f);
+  rgb_matrix_set_color(39, 0, h, f);
+  rgb_matrix_set_color(40, 0, 0, f);
+
+  rgb_matrix_set_color(44, h, 0, f);
+  rgb_matrix_set_color(45, f, 0, f);
+  rgb_matrix_set_color(46, f, 0, h);
 }
 
 extern bool set_scrolling;
