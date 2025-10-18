@@ -957,7 +957,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case DRAG_SCROLL:
       {
-        // lobal scope for keep press time value
+        // local scope for keep press time value
         static uint16_t press_time = 0;
 
         if (record->event.pressed) {
