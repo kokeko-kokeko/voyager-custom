@@ -461,6 +461,8 @@ extern bool is_launching;
 
 #include "engram_key_overrides.inc"
 
+static bool drag_scroll_locked = false;
+
 bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
   // self-hold 
   if (layer_state_is(L_Mouse_Cursor_Override)) {
@@ -963,17 +965,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DRAG_SCROLL:
       {
         // lobal scope for keep press time value
+        static uint16_t press_time = 0;
+
         if (record->event.pressed) {
+          press_time = record->event.time;
           set_scrolling = true;
           fast_timer_t now = timer_read_fast();
           status_led(now, 0b1000, led_pattern_on);
         } else {
-          set_scrolling = false;
-          fast_timer_t now = timer_read_fast();
-          status_led(now, 0b1000, led_pattern_off);
+          uint16_t duration = record->event.time - press_time;
+          if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
+            // tap
+            if (drag_scroll_locked) {
+              // if locked release lock
+              set_scrolling = false;
+              fast_timer_t now = timer_read_fast();
+              status_led(now, 0b1000, led_pattern_off);
+              drag_scroll_locked = false;
+            } else {
+              // keep scroll
+              set_scrolling = true;
+              fast_timer_t now = timer_read_fast();
+              status_led(now, 0b1000, led_pattern_on);
+              drag_scroll_locked = true;
+            }
+          } else {
+            // drag, must disable scroll lock
+            set_scrolling = false;
+            fast_timer_t now = timer_read_fast();
+            status_led(now, 0b1000, led_pattern_off);
+            drag_scroll_locked = false;
+          }
         }
-        return false;
       }
+      return false;
   case NAVIGATOR_TURBO:
     if (record->event.pressed) {
       navigator_turbo = true;
@@ -2270,6 +2295,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     set_scrolling = true;
   } else {
     set_scrolling = base_scrolling;
+  }
+
+  // drag scroll lock release
+  if (layer_state_cmp(state, L_Mouse)) == false {
+    drag_scroll_locked = false;
   }
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
