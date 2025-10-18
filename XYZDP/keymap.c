@@ -2215,14 +2215,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_LeftPinkyThumb, L_RightPinkyThumb, L_BothPinkyThumb);
 
   // call FwSys with Bkt and Fn
-  state = update_tri_layer_state(state, L_Mouse_Setting, L_Function, L_Firmware); 
+  state = update_tri_layer_state(state, L_Cursor, L_Function, L_Firmware); 
 
   // if speed layer active, MO guard, block base tap tap side
   state = update_tri_layer_state(state, L_Set_Speed, L_Set_Speed, L_MO_Guard); 
   
   // call color settng
   state = update_tri_layer_state(state, L_Function, L_Set_Speed, L_Set_Val); 
-  state = update_tri_layer_state(state, L_Mouse_Setting, L_Set_Speed, L_Set_Sat); 
+  state = update_tri_layer_state(state, L_Cursor, L_Set_Speed, L_Set_Sat); 
   
   // call Hue with Sat and Val
   state = update_tri_layer_state(state, L_Set_Val, L_Set_Sat, L_Set_Hue);
@@ -2234,34 +2234,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Base_JIS, L_Number, L_Number_JIS);
   state = update_tri_layer_state(state, L_Base_JIS, L_Cursor, L_Cursor_JIS);
   state = update_tri_layer_state(state, L_Base_JIS, L_BothThumb, L_BothThumb_JIS);
-  
-  // base layer scroll lock
-  static bool mouse_setting_on = false;
-  static bool firmware_on = false;
-  static bool base_scrolling = false;
-
-  if (mouse_setting_on != layer_state_cmp(state, L_Mouse_Setting)) {
-    mouse_setting_on = !mouse_setting_on;
-    if (mouse_setting_on) {  
-      // Just entered
-      base_scrolling = !base_scrolling;
-      set_scrolling = base_scrolling;
-    } else {
-      // Just exited
-      //
-    }
-  }
-
-  if (firmware_on != layer_state_cmp(state, L_Firmware)) {
-    firmware_on = !firmware_on;
-    if (firmware_on) {  
-      // Just entered
-    } else {
-      // Just exited
-      base_scrolling = false;
-      set_scrolling = base_scrolling;
-    }
-  }
   
   // drag scroll lock release
   if (layer_state_cmp(state, L_Mouse) == false) {
@@ -2276,7 +2248,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     set_scrolling = true;
     drag_scroll_locked = false;
   } else {
-    set_scrolling = base_scrolling;
+    set_scrolling = false;
   }
 
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
@@ -2289,7 +2261,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Base :
     case L_Base_JIS:
     case L_MO_Guard:
-    case L_Mouse_Setting:  
       status_led(now, 0b0111, led_pattern_off);
       
       if (set_scrolling) {
