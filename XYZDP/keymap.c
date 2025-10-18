@@ -2298,7 +2298,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   }
 
   // drag scroll lock release
-  if (layer_state_cmp(state, L_Mouse)) == false {
+  if (layer_state_cmp(state, L_Mouse) == false) {
     drag_scroll_locked = false;
   }
   
