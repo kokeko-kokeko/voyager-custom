@@ -454,8 +454,6 @@ extern bool is_launching;
 
 #include "engram_key_overrides.inc"
 
-static bool drag_scroll_locked = false;
-
 bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
   // self-hold 
   if (layer_state_is(L_Mouse_Cursor_Override)) {
@@ -463,6 +461,8 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
   }
   return false;
 }
+
+static bool lock_scrolling = false;
 
 // -----------------------------------------------------------------------------
 //
@@ -969,25 +969,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           uint16_t duration = record->event.time - press_time;
           if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
             // tap
-            if (drag_scroll_locked) {
+            if (lock_scrolling) {
               // if locked release lock
               set_scrolling = false;
               fast_timer_t now = timer_read_fast();
               status_led(now, 0b1000, led_pattern_off);
-              drag_scroll_locked = false;
+              lock_scrolling = false;
             } else {
               // keep scroll
-              set_scrolling = true;
-              fast_timer_t now = timer_read_fast();
-              status_led(now, 0b1000, led_pattern_on);
-              drag_scroll_locked = true;
+              //set_scrolling = true;
+              //fast_timer_t now = timer_read_fast();
+              //status_led(now, 0b1000, led_pattern_on);
+              lock_scrolling = true;
             }
           } else {
             // drag, must disable scroll lock
             set_scrolling = false;
             fast_timer_t now = timer_read_fast();
             status_led(now, 0b1000, led_pattern_off);
-            drag_scroll_locked = false;
+            lock_scrolling = false;
           }
         }
       }
@@ -2236,19 +2236,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Base_JIS, L_BothThumb, L_BothThumb_JIS);
   
   // drag scroll lock release
-  if (layer_state_cmp(state, L_Mouse) == false) {
-    drag_scroll_locked = false;
-  }
+  //if (layer_state_cmp(state, L_Mouse) == false) {
+  //  lock_scrolling = false;
+  //}
   
   // mouse scroll by layer
   if (layer_state_cmp(state, L_Number)) {
     set_scrolling = true;
-    drag_scroll_locked = false;
+    lock_scrolling = false;
   } else if (layer_state_cmp(state, L_Cursor)) {
     set_scrolling = true;
-    drag_scroll_locked = false;
+    lock_scrolling = false;
   } else {
-    set_scrolling = false;
+    set_scrolling = lock_scrolling;
   }
 
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
