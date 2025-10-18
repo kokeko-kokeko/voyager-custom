@@ -58,30 +58,6 @@ bool pre_process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record) {
 
 bool process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case KC_LANGUAGE_1:
-      if (record->event.pressed) {
-        if (layer_state_is(L_Function) | layer_state_is(L_Number) | layer_state_is(L_Cursor) |
-          layer_state_is(L_LeftPinky) | layer_state_is(L_RightPinky)) {
-          // reverse side (upper layer)
-          if ((get_mods() & MOD_MASK_CSAG) == 0) {
-            ime_on = false;
-          }
-          tap_code16(KC_LANGUAGE_2);
-          return false;
-        } else {
-          // normal side (base layer)
-          if ((get_mods() & MOD_MASK_CAG) == 0) {
-            ime_on = true;
-            if (get_mods() & MOD_MASK_SHIFT) {
-              ime_kk = true;
-            } else {
-              ime_kk = false;
-            }
-          }
-        }
-      }
-      return true;
-    
     case LT(L_Function, KC_LANGUAGE_1):
       if (record->tap.count > 0) {
         if (record->event.pressed) {
@@ -127,32 +103,6 @@ bool process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record) {
           // normal side (base layer)
           if ((get_mods() & MOD_MASK_CSAG) == 0) {
             ime_on = false;
-          }
-        }
-      }
-      return true;
-    
-    case LT(L_Cursor, KC_LANGUAGE_2):
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          if (layer_state_is(L_Function) | layer_state_is(L_Number) | layer_state_is(L_Cursor) |
-            layer_state_is(L_LeftPinky) | layer_state_is(L_RightPinky)) {
-            // reverse side (upper layer)
-            if ((get_mods() & MOD_MASK_CAG) == 0) {
-              ime_on = true;
-              if (get_mods() & MOD_MASK_SHIFT) {
-                ime_kk = true;
-              } else {
-                ime_kk = false;
-              }
-            }
-            tap_code16(KC_LANGUAGE_1);
-            return false;
-          } else {
-            // normal side (base layer)
-            if ((get_mods() & MOD_MASK_CSAG) == 0) {
-              ime_on = false;
-            }
           }
         }
       }
