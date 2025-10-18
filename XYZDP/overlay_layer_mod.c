@@ -41,7 +41,7 @@ void set_layer_color_overlay_layer(void) {
     rgb_matrix_set_color(22, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(50, rgb.r, rgb.g, rgb.b);
 
-    //rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(32, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(45, rgb.r, rgb.g, rgb.b);
     return;
@@ -63,7 +63,7 @@ void set_layer_color_overlay_layer(void) {
     rgb_matrix_set_color(22, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(50, rgb.r, rgb.g, rgb.b);
 
-    //rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(32, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(45, rgb.r, rgb.g, rgb.b);
     return;
@@ -74,7 +74,7 @@ void set_layer_color_overlay_layer(void) {
     rgb_matrix_set_color(26, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(37, rgb.r, rgb.g, rgb.b);
     
-    //rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(32, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(45, rgb.r, rgb.g, rgb.b);
 
@@ -108,7 +108,7 @@ void set_layer_color_overlay_layer(void) {
   if (layer_state_is(L_Cursor)) {
     hsv.h -= h_diff;
     RGB rgb = hsv_to_rgb(hsv);
-    //rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(32, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color(45, rgb.r, rgb.g, rgb.b);
     return;
