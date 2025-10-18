@@ -2291,8 +2291,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // mouse control scroll
   if (layer_state_cmp(state, L_Number)) {
     set_scrolling = true;
+    drag_scroll_locked = false;
   } else if (layer_state_cmp(state, L_Cursor)) {
     set_scrolling = true;
+    drag_scroll_locked = false;
   } else {
     set_scrolling = base_scrolling;
   }
