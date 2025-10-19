@@ -2096,8 +2096,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // auto mouse EXIT keys (dummy keycode)
     case KC_LANGUAGE_6:
       if (record->event.pressed) {
-        fast_timer_t now = timer_read_fast();
-        auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_EXIT;
+        auto_mouse_layer_off();
       }
       return false;
     
