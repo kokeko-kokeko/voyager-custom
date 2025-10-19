@@ -2092,7 +2092,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         fade_matrix_step();
       }
       return false;
-
+    
     // auto mouse EXIT keys (dummy keycode)
     case KC_LANGUAGE_6:
       if (record->event.pressed) {
@@ -2100,6 +2100,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_EXIT;
       }
       return false;
+    
+    case KC_MS_BTN1:
+    case KC_MS_BTN2:
+    case KC_MS_BTN3:
+    case KC_MS_BTN4:
+    case KC_MS_BTN5:
+    case KC_MS_BTN6:
+    case KC_MS_BTN7:
+    case KC_MS_BTN8:
+      {
+        if (record->event.key.row < MATRIX_ROWS / 2) {
+          // left side mouse button
+          static uint16_t press_time[8];
+          if (record->event.pressed) {
+            press_time[keycode - KC_MS_BTN1] = record->event.time;
+            // early trigger reset on auto_mouse_activation
+          } else {
+            uint16_t duration = record->event.time - press_time[keycode - KC_MS_BTN1];
+            if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
+              fast_timer_t now = timer_read_fast();
+              auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_LEFT_SIDE;
+            }
+          }
+        } else {
+          // right side mouse button
+          static uint16_t press_time[8];
+          if (record->event.pressed) {
+            press_time[keycode - KC_MS_BTN1] = record->event.time;
+            // early trigger reset on auto_mouse_activation
+          } else {
+            uint16_t duration = record->event.time - press_time[keycode - KC_MS_BTN1];
+            if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
+              fast_timer_t now = timer_read_fast();
+              auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_RIGHT_SIDE;
+            }
+          }
+        }
+      }
+      // pass to main process
+      return true; 
   }
 
   if (process_record_ime_state_sync(keycode, record) == false) {
@@ -2375,50 +2415,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     activate_fade_matrix(now);
     activate_ime_state_sync(now);
-  }
-  
-  // early auto mouse timeout
-  if (is_auto_mouse_active()) {
-    switch (keycode) {
-      case KC_MS_BTN1:
-      case KC_MS_BTN2:
-      case KC_MS_BTN3:
-      case KC_MS_BTN4:
-      case KC_MS_BTN5:
-      case KC_MS_BTN6:
-      case KC_MS_BTN7:
-      case KC_MS_BTN8:
-        {
-          if (record->event.key.row < MATRIX_ROWS / 2) {
-            // left side mouse button
-            static uint16_t press_time[8];
-            if (record->event.pressed) {
-              press_time[keycode - KC_MS_BTN1] = record->event.time;
-              // early trigger reset on auto_mouse_activation
-            } else {
-              uint16_t duration = record->event.time - press_time[keycode - KC_MS_BTN1];
-              if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
-                fast_timer_t now = timer_read_fast();
-                auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_LEFT_SIDE;
-              }
-            }
-          } else {
-            // right side mouse button
-            static uint16_t press_time[8];
-            if (record->event.pressed) {
-              press_time[keycode - KC_MS_BTN1] = record->event.time;
-              // early trigger reset on auto_mouse_activation
-            } else {
-              uint16_t duration = record->event.time - press_time[keycode - KC_MS_BTN1];
-              if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
-                fast_timer_t now = timer_read_fast();
-                auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_RIGHT_SIDE;
-              }
-            }
-          }
-        }
-        break; 
-    }
   }
   
   return;
