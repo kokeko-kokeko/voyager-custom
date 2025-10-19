@@ -2396,7 +2396,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
               press_time[keycode - KC_MS_BTN1] = record->event.time;
               // early trigger reset on auto_mouse_activation
             } else {
-              //navigator_aim = false;
               uint16_t duration = record->event.time - press_time[keycode - KC_MS_BTN1];
               if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
                 fast_timer_t now = timer_read_fast();
@@ -2407,11 +2406,9 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
             // right side mouse button
             static uint16_t press_time[8];
             if (record->event.pressed) {
-              //navigator_turbo = true;
               press_time[keycode - KC_MS_BTN1] = record->event.time;
               // early trigger reset on auto_mouse_activation
             } else {
-              //navigator_turbo = false;
               uint16_t duration = record->event.time - press_time[keycode - KC_MS_BTN1];
               if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
                 fast_timer_t now = timer_read_fast();
