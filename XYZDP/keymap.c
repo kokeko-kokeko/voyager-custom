@@ -2101,6 +2101,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
     
+    // early auto mouse timeout
     case KC_MS_BTN1:
     case KC_MS_BTN2:
     case KC_MS_BTN3:
@@ -2416,7 +2417,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     activate_fade_matrix(now);
     activate_ime_state_sync(now);
   }
-  
   return;
 }
 
