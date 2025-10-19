@@ -2263,10 +2263,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Base_JIS, L_Cursor, L_Cursor_JIS);
   state = update_tri_layer_state(state, L_Base_JIS, L_BothThumb, L_BothThumb_JIS);
   
-  // drag scroll lock release
-  //if (layer_state_cmp(state, L_Mouse) == false) {
-  //  lock_scrolling = false;
-  //}
+  // scroll lock release
+  if (layer_state_cmp(state, L_Mouse) == false) {
+    lock_scrolling = false;
+  }
   
   // mouse scroll by layer
   if (layer_state_cmp(state, L_Number)) {
@@ -2329,7 +2329,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         status_led(now, 0b0100, led_pattern_off);
       }
       // DRAG_SCROLL add on key event
-
       // aim/turbo change without layer, direct write on process_record
       break;
     case L_Firmware:
