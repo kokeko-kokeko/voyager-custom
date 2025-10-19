@@ -477,11 +477,15 @@ void set_layer_color_firmware_map(void) {
 
   //color test
   rgb_matrix_set_color(26, f, 0, 0);
-  rgb_matrix_set_color(32, f, f, 0);
+  rgb_matrix_set_color(32, f, q, 0);
   rgb_matrix_set_color(38, f, h, 0);
-  rgb_matrix_set_color(44, f, h + f, 0);
+  rgb_matrix_set_color(44, f, q + h, 0);
 
   rgb_matrix_set_color(27, f, f, 0);
+  rgb_matrix_set_color(33, q + h, f, 0);
+  rgb_matrix_set_color(39, h, f, 0);
+  rgb_matrix_set_color(43, q, f, 0);
+
   
   rgb_matrix_set_color(28, 0, f, 0);
   rgb_matrix_set_color(34, 0, f, h);
