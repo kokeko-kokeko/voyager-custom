@@ -2346,6 +2346,9 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     activate_fade_matrix(now);
     activate_ime_state_sync(now);
   }
+
+                  fast_timer_t now1 = timer_read_fast();
+                status_led(now1, 0b0100, led_pattern_on);
   
   // early auto mouse timeout
   if (is_auto_mouse_active()) {
