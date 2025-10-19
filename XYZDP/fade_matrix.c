@@ -415,7 +415,7 @@ void set_layer_color_firmware_map(void) {
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
   const uint8_t q = h >> 1;
-  //const uint8_t o = q >> 1;
+  const uint8_t o = q >> 1;
 
   rgb_matrix_set_color_all(0, 0, 0);
 
@@ -488,14 +488,14 @@ void set_layer_color_firmware_map(void) {
 
   
   rgb_matrix_set_color(28, 0, f, 0);
-  rgb_matrix_set_color(34, 0, f, q);
+  rgb_matrix_set_color(34, 0, f, o);
   rgb_matrix_set_color(40, 0, f, f);
-  rgb_matrix_set_color(46, 0, q, f);
+  rgb_matrix_set_color(46, 0, o, f);
   
   rgb_matrix_set_color(29, 0, 0, f);
-  rgb_matrix_set_color(35, h, 0, f);
+  rgb_matrix_set_color(35, o, 0, f);
   rgb_matrix_set_color(41, f, 0, f);
-  rgb_matrix_set_color(47, f, 0, h);
+  rgb_matrix_set_color(47, f, 0, o);
 }
 
 extern bool set_scrolling;
