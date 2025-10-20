@@ -2099,6 +2099,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         auto_mouse_layer_off();
       }
       return false;
+
+    // auto mouse EXIT keys (dummy keycode)
+    case KC_LANGUAGE_7:
+      if (record->event.pressed) {
+        auto_mouse_layer_off();
+      }
+      return false;
     
     // early auto mouse timeout
     case KC_MS_BTN1:
