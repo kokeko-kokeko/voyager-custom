@@ -771,8 +771,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           press_time = record->event.time;
           set_scrolling = true;
-          fast_timer_t now = timer_read_fast();
-          status_led(now, 0b0100, led_pattern_on);
         } else {
           uint16_t duration = record->event.time - press_time;
           if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
@@ -780,23 +778,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (lock_scrolling) {
               // if locked release lock
               set_scrolling = false;
-              fast_timer_t now = timer_read_fast();
-              status_led(now, 0b0100, led_pattern_off);
               lock_scrolling = false;
             } else {
               // keep scroll
-              //set_scrolling = true;
-              //fast_timer_t now = timer_read_fast();
-              //status_led(now, 0b0100, led_pattern_on);
               lock_scrolling = true;
             }
           } else {
             // drag, must disable scroll lock
             set_scrolling = false;
-            fast_timer_t now = timer_read_fast();
-            status_led(now, 0b0100, led_pattern_off);
             lock_scrolling = false;
           }
+        }
+        
+        fast_timer_t now = timer_read_fast();
+        if (set_scrolling) {
+          status_led(now, 0b0100, led_pattern_on);
+        } else {
+          status_led(now, 0b0100, led_pattern_off);
         }
       }
       return false;
