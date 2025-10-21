@@ -268,6 +268,8 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
 }
 
 static bool lock_scrolling = false;
+static bool lock_turbo = false;
+static bool lock_aim = false;
 static fast_timer_t auto_mouse_early_trigger = 0;
 
 // -----------------------------------------------------------------------------
@@ -799,25 +801,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
   case NAVIGATOR_TURBO:
-    if (record->event.pressed) {
-      navigator_turbo = true;
-      fast_timer_t now = timer_read_fast();
-      status_led(now, 0b0001, led_pattern_on);
-    } else {
-      navigator_turbo = false;
-      fast_timer_t now = timer_read_fast();
-      status_led(now, 0b0001, led_pattern_off);
+    {
+      if (record->event.pressed) {
+        navigator_turbo = true;
+        fast_timer_t now = timer_read_fast();
+        status_led(now, 0b0001, led_pattern_on);
+      } else {
+        navigator_turbo = false;
+        fast_timer_t now = timer_read_fast();
+        status_led(now, 0b0001, led_pattern_off);
+      }
     }
     return false;
   case NAVIGATOR_AIM:
-    if (record->event.pressed) {
-      navigator_aim = true;
-      fast_timer_t now = timer_read_fast();
-      status_led(now, 0b0010, led_pattern_on);
-    } else {
-      navigator_aim = false;
-      fast_timer_t now = timer_read_fast();
-      status_led(now, 0b0010, led_pattern_off);
+    {
+      if (record->event.pressed) {
+        navigator_aim = true;
+        fast_timer_t now = timer_read_fast();
+        status_led(now, 0b0010, led_pattern_on);
+      } else {
+        navigator_aim = false;
+        fast_timer_t now = timer_read_fast();
+        status_led(now, 0b0010, led_pattern_off);
+      }
     }
     return false;
   case NAVIGATOR_INC_CPI:
@@ -1146,6 +1152,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // scroll lock release
   if (layer_state_cmp(state, L_Mouse) == false) {
     lock_scrolling = false;
+    lock_turbo = false;
+    lock_aim = false;
+
+    navigator_turbo = false;
+    navigator_aim = false;
   }
   
   // mouse scroll by layer
