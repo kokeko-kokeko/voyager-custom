@@ -44,28 +44,28 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(2, KC_Y)
-#define DUAL_FUNC_1 LT(5, KC_F15)
-#define DUAL_FUNC_2 LT(7, KC_H)
-#define DUAL_FUNC_3 LT(9, KC_X)
-#define DUAL_FUNC_4 LT(7, KC_F14)
-#define DUAL_FUNC_5 LT(8, KC_F18)
-#define DUAL_FUNC_6 LT(4, KC_L)
-#define DUAL_FUNC_7 LT(10, KC_R)
-#define DUAL_FUNC_8 LT(15, KC_F4)
-#define DUAL_FUNC_9 LT(2, KC_I)
-#define DUAL_FUNC_10 LT(7, KC_R)
-#define DUAL_FUNC_11 LT(5, KC_E)
-#define DUAL_FUNC_12 LT(12, KC_R)
-#define DUAL_FUNC_13 LT(9, KC_9)
-#define DUAL_FUNC_14 LT(7, KC_G)
-#define DUAL_FUNC_15 LT(1, KC_F13)
-#define DUAL_FUNC_16 LT(1, KC_F10)
-#define DUAL_FUNC_17 LT(8, KC_6)
-#define DUAL_FUNC_18 LT(13, KC_F12)
-#define DUAL_FUNC_19 LT(6, KC_M)
-#define DUAL_FUNC_20 LT(3, KC_W)
-#define DUAL_FUNC_21 LT(1, KC_F1)
+#define DUAL_FUNC_0 LT(13, KC_F21)
+#define DUAL_FUNC_1 LT(10, KC_F9)
+#define DUAL_FUNC_2 LT(6, KC_O)
+#define DUAL_FUNC_3 LT(15, KC_L)
+#define DUAL_FUNC_4 LT(5, KC_1)
+#define DUAL_FUNC_5 LT(2, KC_F6)
+#define DUAL_FUNC_6 LT(12, KC_T)
+#define DUAL_FUNC_7 LT(2, KC_2)
+#define DUAL_FUNC_8 LT(4, KC_F11)
+#define DUAL_FUNC_9 LT(10, KC_F5)
+#define DUAL_FUNC_10 LT(13, KC_3)
+#define DUAL_FUNC_11 LT(2, KC_V)
+#define DUAL_FUNC_12 LT(4, KC_Q)
+#define DUAL_FUNC_13 LT(10, KC_F17)
+#define DUAL_FUNC_14 LT(10, KC_7)
+#define DUAL_FUNC_15 LT(7, KC_F24)
+#define DUAL_FUNC_16 LT(15, KC_F4)
+#define DUAL_FUNC_17 LT(12, KC_F13)
+#define DUAL_FUNC_18 LT(13, KC_F2)
+#define DUAL_FUNC_19 LT(11, KC_F18)
+#define DUAL_FUNC_20 LT(4, KC_F1)
+#define DUAL_FUNC_21 LT(13, KC_G)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -452,9 +452,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_LCTL);
+          register_code16(KC_LEFT_CTRL);
         } else {
-          unregister_mods(MOD_LCTL);
+          unregister_code16(KC_LEFT_CTRL);
         }  
       }  
       return false;
@@ -467,9 +467,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_LCTL);
+          register_code16(KC_LEFT_CTRL);
         } else {
-          unregister_mods(MOD_LCTL);
+          unregister_code16(KC_LEFT_CTRL);
         }  
       }  
       return false;
@@ -482,9 +482,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_RSFT);
+          register_code16(KC_RIGHT_SHIFT);
         } else {
-          unregister_mods(MOD_RSFT);
+          unregister_code16(KC_RIGHT_SHIFT);
         }  
       }  
       return false;
@@ -497,9 +497,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_RCTL);
+          register_code16(KC_RIGHT_CTRL);
         } else {
-          unregister_mods(MOD_RCTL);
+          unregister_code16(KC_RIGHT_CTRL);
         }  
       }  
       return false;
@@ -512,9 +512,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_RCTL);
+          register_code16(KC_RIGHT_CTRL);
         } else {
-          unregister_mods(MOD_RCTL);
+          unregister_code16(KC_RIGHT_CTRL);
         }  
       }  
       return false;
@@ -527,9 +527,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_LCTL);
+          register_code16(KC_LEFT_CTRL);
         } else {
-          unregister_mods(MOD_LCTL);
+          unregister_code16(KC_LEFT_CTRL);
         }  
       }  
       return false;
@@ -542,9 +542,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_LCTL);
+          register_code16(KC_LEFT_CTRL);
         } else {
-          unregister_mods(MOD_LCTL);
+          unregister_code16(KC_LEFT_CTRL);
         }  
       }  
       return false;
@@ -557,9 +557,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_LSFT);
+          register_code16(KC_LEFT_SHIFT);
         } else {
-          unregister_mods(MOD_LSFT);
+          unregister_code16(KC_LEFT_SHIFT);
         }  
       }  
       return false;
@@ -572,9 +572,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_RCTL);
+          register_code16(KC_RIGHT_CTRL);
         } else {
-          unregister_mods(MOD_RCTL);
+          unregister_code16(KC_RIGHT_CTRL);
         }  
       }  
       return false;
@@ -587,9 +587,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_RCTL);
+          register_code16(KC_RIGHT_CTRL);
         } else {
-          unregister_mods(MOD_RCTL);
+          unregister_code16(KC_RIGHT_CTRL);
         }  
       }  
       return false;
@@ -602,9 +602,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_LGUI);
+          register_code16(KC_LEFT_GUI);
         } else {
-          unregister_mods(MOD_LGUI);
+          unregister_code16(KC_LEFT_GUI);
         }  
       }  
       return false;
@@ -617,9 +617,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_LALT);
+          register_code16(KC_LEFT_ALT);
         } else {
-          unregister_mods(MOD_LALT);
+          unregister_code16(KC_LEFT_ALT);
         }  
       }  
       return false;
@@ -632,9 +632,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_LSFT);
+          register_code16(KC_LEFT_SHIFT);
         } else {
-          unregister_mods(MOD_LSFT);
+          unregister_code16(KC_LEFT_SHIFT);
         }  
       }  
       return false;
@@ -647,9 +647,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_LCTL);
+          register_code16(KC_LEFT_CTRL);
         } else {
-          unregister_mods(MOD_LCTL);
+          unregister_code16(KC_LEFT_CTRL);
         }  
       }  
       return false;
@@ -662,9 +662,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_LCTL);
+          register_code16(KC_LEFT_CTRL);
         } else {
-          unregister_mods(MOD_LCTL);
+          unregister_code16(KC_LEFT_CTRL);
         }  
       }  
       return false;
@@ -677,9 +677,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_LSFT);
+          register_code16(KC_LEFT_SHIFT);
         } else {
-          unregister_mods(MOD_LSFT);
+          unregister_code16(KC_LEFT_SHIFT);
         }  
       }  
       return false;
@@ -692,9 +692,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_RSFT);
+          register_code16(KC_RIGHT_SHIFT);
         } else {
-          unregister_mods(MOD_RSFT);
+          unregister_code16(KC_RIGHT_SHIFT);
         }  
       }  
       return false;
@@ -707,9 +707,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_RCTL);
+          register_code16(KC_RIGHT_CTRL);
         } else {
-          unregister_mods(MOD_RCTL);
+          unregister_code16(KC_RIGHT_CTRL);
         }  
       }  
       return false;
@@ -722,9 +722,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_LCTL);
+          register_code16(KC_LEFT_CTRL);
         } else {
-          unregister_mods(MOD_LCTL);
+          unregister_code16(KC_LEFT_CTRL);
         }  
       }  
       return false;
@@ -737,9 +737,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_RCTL);
+          register_code16(KC_RIGHT_CTRL);
         } else {
-          unregister_mods(MOD_RCTL);
+          unregister_code16(KC_RIGHT_CTRL);
         }  
       }  
       return false;
@@ -752,9 +752,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_LCTL);
+          register_code16(KC_LEFT_CTRL);
         } else {
-          unregister_mods(MOD_LCTL);
+          unregister_code16(KC_LEFT_CTRL);
         }  
       }  
       return false;
@@ -767,9 +767,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          register_mods(MOD_LSFT);
+          register_code16(KC_LEFT_SHIFT);
         } else {
-          unregister_mods(MOD_LSFT);
+          unregister_code16(KC_LEFT_SHIFT);
         }  
       }  
       return false;
