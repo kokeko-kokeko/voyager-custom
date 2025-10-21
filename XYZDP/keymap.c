@@ -1162,14 +1162,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // both thumb and pin
   state = update_tri_layer_state(state, L_LeftPinkyThumb, L_RightPinkyThumb, L_BothPinkyThumb);
 
-  // call FwSys with Bkt and Fn
-  state = update_tri_layer_state(state, L_Cursor, L_Function, L_Firmware); 
+  // call FwSys with Fn and Cursor
+  state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware); 
   
-  // call color settng
-  //state = update_tri_layer_state(state, L_Function, L_Set_Speed, L_Set_Val); 
-  //state = update_tri_layer_state(state, L_Cursor, L_Set_Speed, L_Set_Sat); 
-  
-  // call Hue with Sat and Val
+  // call Speed with Sat and Val
   state = update_tri_layer_state(state, L_Set_Sat, L_Set_Val, L_Set_Speed);
   
   // on mouse, cursor override
