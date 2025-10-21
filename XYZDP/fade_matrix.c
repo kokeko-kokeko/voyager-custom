@@ -492,26 +492,25 @@ void set_layer_color_firmware_map(void) {
   rgb_matrix_set_color(49, f, 0, 0);
 
   //color test
-  rgb_matrix_set_color(26, f, 0, 0);
-  rgb_matrix_set_color(32, f, o, 0);
-  rgb_matrix_set_color(38, f, q, 0);
-  rgb_matrix_set_color(44, f, h, 0);
+  //rgb_matrix_set_color(26, f, 0, 0);
+  //rgb_matrix_set_color(32, f, o, 0);
+  //rgb_matrix_set_color(38, f, q, 0);
+  //rgb_matrix_set_color(44, f, h, 0);
 
-  rgb_matrix_set_color(27, f, f, 0);
-  rgb_matrix_set_color(33, h, f, 0);
-  rgb_matrix_set_color(39, q, f, 0);
-  rgb_matrix_set_color(45, o, f, 0);
-
+  //rgb_matrix_set_color(27, f, f, 0);
+  //rgb_matrix_set_color(33, h, f, 0);
+  //rgb_matrix_set_color(39, q, f, 0);
+  //rgb_matrix_set_color(45, o, f, 0);
   
-  rgb_matrix_set_color(28, 0, f, 0);
-  rgb_matrix_set_color(34, 0, f, q);
-  rgb_matrix_set_color(40, 0, f, f);
-  rgb_matrix_set_color(46, 0, q, f);
+  //rgb_matrix_set_color(28, 0, f, 0);
+  //rgb_matrix_set_color(34, 0, f, q);
+  //rgb_matrix_set_color(40, 0, f, f);
+  //rgb_matrix_set_color(46, 0, q, f);
   
-  rgb_matrix_set_color(29, 0, 0, f);
-  rgb_matrix_set_color(35, q, 0, f);
-  rgb_matrix_set_color(41, f, 0, f);
-  rgb_matrix_set_color(47, f, 0, q);
+  //rgb_matrix_set_color(29, 0, 0, f);
+  //rgb_matrix_set_color(35, q, 0, f);
+  //rgb_matrix_set_color(41, f, 0, f);
+  //rgb_matrix_set_color(47, f, 0, q);
 }
 
 extern bool set_scrolling;
