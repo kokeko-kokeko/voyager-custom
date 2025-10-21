@@ -780,11 +780,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               set_scrolling = false;
               lock_scrolling = false;
             } else {
-              // keep scroll
+              // keep scroll, add lock
               lock_scrolling = true;
             }
           } else {
-            // drag, must disable scroll lock
+            // drag, must release lock
             set_scrolling = false;
             lock_scrolling = false;
           }
@@ -806,8 +806,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         press_time = record->event.time;
         navigator_turbo = true;
-        fast_timer_t now = timer_read_fast();
-        status_led(now, 0b0001, led_pattern_on);
       } else {
         uint16_t duration = record->event.time - press_time;
         if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
@@ -815,23 +813,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (lock_turbo) {
             // if locked release lock
             navigator_turbo = false;
-            fast_timer_t now = timer_read_fast();
-            status_led(now, 0b0001, led_pattern_off);
             lock_turbo = false;
           } else {
-            // keep turbo
-            //navigator_turbo = true;
-            //fast_timer_t now = timer_read_fast();
-            //status_led(now, 0b0001, led_pattern_on);
+            // keep turbo, add lock
             lock_turbo = true;
           }
         } else {
-          // drag, must disable lock
+          // drag, must release lock
           navigator_turbo = false;
-          fast_timer_t now = timer_read_fast();
-          status_led(now, 0b0001, led_pattern_off);
           lock_turbo = false;
         }
+      }
+      
+      fast_timer_t now = timer_read_fast();
+      if (navigator_turbo) {
+        status_led(now, 0b0001, led_pattern_on);
+      } else {
+        status_led(now, 0b0001, led_pattern_off);
+      }
+      if (navigator_aim) {
+        status_led(now, 0b0010, led_pattern_on);
+      } else {
+        status_led(now, 0b0010, led_pattern_off);
       }
     }
     return false;
@@ -843,8 +846,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         press_time = record->event.time;
         navigator_aim = true;
-        fast_timer_t now = timer_read_fast();
-        status_led(now, 0b0010, led_pattern_on);
       } else {
         uint16_t duration = record->event.time - press_time;
         if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
@@ -852,23 +853,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (lock_aim) {
             // if locked release lock
             navigator_aim = false;
-            fast_timer_t now = timer_read_fast();
-            status_led(now, 0b0010, led_pattern_off);
             lock_aim = false;
           } else {
-            // keep aim
-            //navigator_aim = true;
-            //fast_timer_t now = timer_read_fast();
-            //status_led(now, 0b0010, led_pattern_on);
+            // keep aim, add lock
             lock_aim = true;
           }
         } else {
-          // drag, must disacle lock
+          // drag, must release lock
           navigator_aim = false;
-          fast_timer_t now = timer_read_fast();
-          status_led(now, 0b0010, led_pattern_off);
           lock_aim = false;
         }
+      }
+      
+      fast_timer_t now = timer_read_fast();
+      if (navigator_turbo) {
+        status_led(now, 0b0001, led_pattern_on);
+      } else {
+        status_led(now, 0b0001, led_pattern_off);
+      }
+      if (navigator_aim) {
+        status_led(now, 0b0010, led_pattern_on);
+      } else {
+        status_led(now, 0b0010, led_pattern_off);
       }
     }
     return false;
