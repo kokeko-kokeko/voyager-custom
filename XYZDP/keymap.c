@@ -862,7 +862,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             //navigator_aim = true;
             //fast_timer_t now = timer_read_fast();
             //status_led(now, 0b0010, led_pattern_on);
-            lodk_aim = true;
+            lock_aim = true;
           }
         } else {
           // drag, must disacle lock
