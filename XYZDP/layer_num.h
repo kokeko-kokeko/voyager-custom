@@ -4,7 +4,6 @@
 enum layer_num {
   L_Base = 0,
   L_Base_JIS,
-  L_MO_Guard,
   L_Function,
   L_Number,
   L_Number_JIS,
@@ -21,10 +20,10 @@ enum layer_num {
   L_Mouse,
   L_Mouse_Cursor_Override,
   L_Firmware,
-  L_Set_Speed,
-  L_Set_Val,
-  L_Set_Sat,
   L_Set_Hue,
+  L_Set_Sat,
+  L_Set_Val,
+  L_Set_Speed,
   C_LAYER_COUNT 
 };
 
