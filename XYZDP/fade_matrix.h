@@ -1,5 +1,7 @@
 #pragma once
 
+extern const uint8_t rowcol2pos_tbl[][];
+
 extern void fade_matrix_set_mode(const uint8_t mode);
 extern void fade_matrix_set_hue_pos(const uint8_t pos);
 extern void fade_matrix_set_sat_pos(const uint8_t pos);
