@@ -774,108 +774,102 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }  
       return false;
     case DRAG_SCROLL:
-      {
-        if (record->event.pressed) {
-          drag_scroll_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
-          set_scrolling = true;
+      if (record->event.pressed) {
+        drag_scroll_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
+        set_scrolling = true;
+      } else {
+        if (timer_expired_fast(now, drag_scroll_trigger)) {
+          // drag, must release lock
+          set_scrolling = false;
+          lock_scrolling = false;
         } else {
-          if (timer_expired_fast(now, drag_scroll_trigger)) {
-            // drag, must release lock
+          // tap
+          if (lock_scrolling) {
+            // if locked release lock
             set_scrolling = false;
             lock_scrolling = false;
           } else {
-            // tap
-            if (lock_scrolling) {
-              // if locked release lock
-              set_scrolling = false;
-              lock_scrolling = false;
-            } else {
-              // keep scroll, add lock
-              lock_scrolling = true;
-            }
+            // keep scroll, add lock
+            lock_scrolling = true;
           }
         }
-        if (set_scrolling) {
-          status_led(now, 0b0100, led_pattern_on);
-        } else {
-          status_led(now, 0b0100, led_pattern_off);
-        }
+      }
+      if (set_scrolling) {
+        status_led(now, 0b0100, led_pattern_on);
+      } else {
+        status_led(now, 0b0100, led_pattern_off);
       }
       return false;
   case NAVIGATOR_TURBO:
-    {
-      if (record->event.pressed) {
-        drag_turbo_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
-        navigator_turbo = true;
-
-        // release another side
-        navigator_aim = false;
-        lock_aim = false;
-      } else {
-        if (timer_expired_fast(now, drag_turbo_trigger)) {
-          // drag, must release lock
-          navigator_turbo = false;
-          lock_turbo = false;
-        } else {
-          // tap
-          if (lock_turbo) {
-            // if locked release lock
-            navigator_turbo = false;
-            lock_turbo = false;
-          } else {
-            // keep turbo, add lock
-            lock_turbo = true;
-          }
-        } 
-      }
-      if (navigator_turbo) {
-        status_led(now, 0b0001, led_pattern_on);
-      } else {
-        status_led(now, 0b0001, led_pattern_off);
-      }
-      if (navigator_aim) {
-        status_led(now, 0b0010, led_pattern_on);
-      } else {
-        status_led(now, 0b0010, led_pattern_off);
-      }
-    }
-    return false;
-  case NAVIGATOR_AIM:
-    {
-      if (record->event.pressed) {
-        drag_aim_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
-        navigator_aim = true;
-
-        // release another side
+    if (record->event.pressed) {
+      drag_turbo_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
+      navigator_turbo = true;
+      
+      // release another side
+      navigator_aim = false;
+      lock_aim = false;
+    } else {
+      if (timer_expired_fast(now, drag_turbo_trigger)) {
+        // drag, must release lock
         navigator_turbo = false;
         lock_turbo = false;
       } else {
-        if (timer_expired_fast(now, drag_aim_trigger)) {
-          // drag, must release lock
+        // tap
+        if (lock_turbo) {
+          // if locked release lock
+          navigator_turbo = false;
+          lock_turbo = false;
+        } else {
+          // keep turbo, add lock
+          lock_turbo = true;
+        }
+      } 
+    }
+    if (navigator_turbo) {
+      status_led(now, 0b0001, led_pattern_on);
+    } else {
+      status_led(now, 0b0001, led_pattern_off);
+    }
+    if (navigator_aim) {
+      status_led(now, 0b0010, led_pattern_on);
+    } else {
+      status_led(now, 0b0010, led_pattern_off);
+    }
+    return false;
+  case NAVIGATOR_AIM:
+    if (record->event.pressed) {
+      drag_aim_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
+      navigator_aim = true;
+      
+      // release another side
+      navigator_turbo = false;
+      lock_turbo = false;
+    } else {
+      if (timer_expired_fast(now, drag_aim_trigger)) {
+        // drag, must release lock
+        navigator_aim = false;
+        lock_aim = false;
+      } else {
+        // tap
+        if (lock_aim) {
+          // if locked release lock
           navigator_aim = false;
           lock_aim = false;
         } else {
-          // tap
-          if (lock_aim) {
-            // if locked release lock
-            navigator_aim = false;
-            lock_aim = false;
-          } else {
-            // keep aim, add lock
-            lock_aim = true;
-          }
+          // keep aim, add lock
+          lock_aim = true;
         }
-      }      
-      if (navigator_turbo) {
-        status_led(now, 0b0001, led_pattern_on);
-      } else {
-        status_led(now, 0b0001, led_pattern_off);
       }
-      if (navigator_aim) {
-        status_led(now, 0b0010, led_pattern_on);
-      } else {
-        status_led(now, 0b0010, led_pattern_off);
-      }
+    }      
+    if (navigator_turbo) {
+      status_led(now, 0b0001, led_pattern_on);
+    } else {
+      status_led(now, 0b0001, led_pattern_off);
+    }
+    if (navigator_aim) {
+      status_led(now, 0b0010, led_pattern_on);
+    } else {
+      status_led(now, 0b0010, led_pattern_off);
     }
     return false;
   case NAVIGATOR_INC_CPI:
@@ -1045,35 +1039,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_MS_BTN6:
     case KC_MS_BTN7:
     case KC_MS_BTN8:
-      {
-        if (record->event.key.row < MATRIX_ROWS / 2) {
-          // left side mouse button
-          if (record->event.pressed) {
-            drag_btn_left_trigger[keycode - KC_MS_BTN1] = now + AUTO_MOUSE_DRAG_THRESHOLD;
-            // early trigger reset on auto_mouse_activation
-          } else {
-            if (timer_expired_fast(now, drag_btn_left_trigger[keycode - KC_MS_BTN1])) {
-              // drag, nothing to do
-            } else {
-              //tap
-              auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_LEFT_SIDE;
-            }
-          }
+      if (record->event.key.row < MATRIX_ROWS / 2) {
+        // left side mouse button
+        if (record->event.pressed) {
+          drag_btn_left_trigger[keycode - KC_MS_BTN1] = now + AUTO_MOUSE_DRAG_THRESHOLD;
+          // early trigger reset on auto_mouse_activation
         } else {
-          if (record->event.pressed) {
-            drag_btn_right_trigger[keycode - KC_MS_BTN1] = now + AUTO_MOUSE_DRAG_THRESHOLD;
-            // early trigger reset on auto_mouse_activation
+          if (timer_expired_fast(now, drag_btn_left_trigger[keycode - KC_MS_BTN1])) {
+            // drag, nothing to do
           } else {
-            if (timer_expired_fast(now, drag_btn_right_trigger[keycode - KC_MS_BTN1])) {
-              // drag, nothing to do
-            } else {
-              //tap
-              auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_RIGHT_SIDE;
-            }
+            //tap
+            auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_LEFT_SIDE;
+          }
+        }
+      } else {
+        if (record->event.pressed) {
+          drag_btn_right_trigger[keycode - KC_MS_BTN1] = now + AUTO_MOUSE_DRAG_THRESHOLD;
+          // early trigger reset on auto_mouse_activation
+        } else {
+          if (timer_expired_fast(now, drag_btn_right_trigger[keycode - KC_MS_BTN1])) {
+            // drag, nothing to do
+          } else {
+            //tap
+            auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_RIGHT_SIDE;
           }
         }
       }
-      // pass to main process
       return true; 
   }
 
