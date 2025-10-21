@@ -766,14 +766,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DRAG_SCROLL:
       {
         // local scope for keep press time value
-        static uint16_t press_time = 0;
-
+        static fast_timer_t drag_trigger = 0;
+        fast_timer_t now = timer_read_fast();
+        
         if (record->event.pressed) {
-          press_time = record->event.time;
+          drag_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
           set_scrolling = true;
         } else {
-          uint16_t duration = record->event.time - press_time;
-          if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
+          if (timer_expired_fast(now, drag_trigger)) 
+          {
+            // drag, must release lock
+            set_scrolling = false;
+            lock_scrolling = false;
+          } else {
             // tap
             if (lock_scrolling) {
               // if locked release lock
@@ -783,14 +788,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               // keep scroll, add lock
               lock_scrolling = true;
             }
-          } else {
-            // drag, must release lock
-            set_scrolling = false;
-            lock_scrolling = false;
           }
         }
         
-        fast_timer_t now = timer_read_fast();
         if (set_scrolling) {
           status_led(now, 0b0100, led_pattern_on);
         } else {
