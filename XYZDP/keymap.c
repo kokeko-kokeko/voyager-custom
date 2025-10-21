@@ -922,7 +922,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           // nothing to do
         } else if (pos == 51) {
           fade_matrix_load_preset_powersave();
-          fast_timer_t now = timer_read_fast();
           status_led(now, 0b0101, led_pattern_oneshot);
         } else {
           fade_matrix_set_speed_pos(pos);
@@ -963,7 +962,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           // nothing to do
         } else if (pos == 51) {
           fade_matrix_load_preset();
-          fast_timer_t now = timer_read_fast();
           status_led(now, 0b1010, led_pattern_oneshot);
         } else {
           fade_matrix_set_hue_pos(pos);
