@@ -1050,28 +1050,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_MS_BTN7:
     case KC_MS_BTN8:
       {
+        fast_timer_t now = timer_read_fast();
         if (record->event.key.row < MATRIX_ROWS / 2) {
           // left side mouse button
-          static uint16_t press_time[8];
+          static fast_timer_t drag_trigger[8];
+          
           if (record->event.pressed) {
-            press_time[keycode - KC_MS_BTN1] = record->event.time;
+            drag_trigger[keycode - KC_MS_BTN1] = now + AUTO_MOUSE_DRAG_THRESHOLD;
             // early trigger reset on auto_mouse_activation
           } else {
-            uint16_t duration = record->event.time - press_time[keycode - KC_MS_BTN1];
-            if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
+            if (timer_expired_fast(now, drag_trigger[keycode - KC_MS_BTN1])) {
+              // drag, nothing to do
+            } else {
+              //tap
               fast_timer_t now = timer_read_fast();
               auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_LEFT_SIDE;
             }
           }
         } else {
           // right side mouse button
-          static uint16_t press_time[8];
+          static fast_timer_t drag_trigger[8];
+          
           if (record->event.pressed) {
-            press_time[keycode - KC_MS_BTN1] = record->event.time;
+            drag_trigger[keycode - KC_MS_BTN1] = now + AUTO_MOUSE_DRAG_THRESHOLD;
             // early trigger reset on auto_mouse_activation
           } else {
-            uint16_t duration = record->event.time - press_time[keycode - KC_MS_BTN1];
-            if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
+            if (timer_expired_fast(now, drag_trigger[keycode - KC_MS_BTN1])) {
+              // drag, nothing to do
+            } else {
+              //tap
               fast_timer_t now = timer_read_fast();
               auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_RIGHT_SIDE;
             }
