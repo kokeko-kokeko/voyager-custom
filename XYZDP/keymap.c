@@ -900,8 +900,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case HSV_0_0_240:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,240);
+        uint8_t pos = rowcol2pos_tbl[record->event.key.row][record->event.key.col];
+        if (pos == 255) {
+          // nothing to do
+        } else if (pos == 51) {
+          fade_matrix_load_preset();
+          fast_timer_t now = timer_read_fast();
+          status_led(now, 0b1010, led_pattern_oneshot);
+        } else {
+          fade_matrix_set_hue_pos(pos);
+        }
       }
       return false;
 
