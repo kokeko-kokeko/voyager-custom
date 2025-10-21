@@ -908,10 +908,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (pos == 255) {
           // nothing to do
         } else if (pos == 51) {
-          fade_matrix_load_preset_powersave();
+          fade_matrix_load_preset();
           status_led(now, 0b0101, led_pattern_oneshot);
         } else {
-          fade_matrix_set_speed_pos(pos);
+          fade_matrix_set_hue_pos(pos);
         }
       }
       return false;
@@ -924,7 +924,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else if (pos == 51) {
           // nothing to do
         } else {
-          fade_matrix_set_val_pos(pos);
+          fade_matrix_set_sat_pos(pos);
         }
       }
       return false;
@@ -937,7 +937,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else if (pos == 51) {
           // nothing to do
         } else {
-          fade_matrix_set_sat_pos(pos);
+          fade_matrix_set_val_pos(pos);
         }
       }
       return false;
@@ -948,10 +948,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (pos == 255) {
           // nothing to do
         } else if (pos == 51) {
-          fade_matrix_load_preset();
+          fade_matrix_load_preset_powersave();
           status_led(now, 0b1010, led_pattern_oneshot);
         } else {
-          fade_matrix_set_hue_pos(pos);
+          fade_matrix_set_speed_pos(pos);
         }
       }
       return false;
