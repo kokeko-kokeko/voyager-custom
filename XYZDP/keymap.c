@@ -773,8 +773,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           drag_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
           set_scrolling = true;
         } else {
-          if (timer_expired_fast(now, drag_trigger)) 
-          {
+          if (timer_expired_fast(now, drag_trigger)) {
             // drag, must release lock
             set_scrolling = false;
             lock_scrolling = false;
@@ -790,7 +789,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
           }
         }
-        
         if (set_scrolling) {
           status_led(now, 0b0100, led_pattern_on);
         } else {
@@ -801,18 +799,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case NAVIGATOR_TURBO:
     {
       // local scope for keep press time value
-      static uint16_t press_time = 0;
+      static fast_timer_t drag_trigger = 0;
+      fast_timer_t now = timer_read_fast();
       
       if (record->event.pressed) {
-        press_time = record->event.time;
+        drag_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
         navigator_turbo = true;
 
         // release another side
         navigator_aim = false;
         lock_aim = false;
       } else {
-        uint16_t duration = record->event.time - press_time;
-        if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
+        if (timer_expired_fast(now, drag_trigger)) {
+          // drag, must release lock
+          navigator_turbo = false;
+          lock_turbo = false;
+        } else {
           // tap
           if (lock_turbo) {
             // if locked release lock
@@ -822,14 +824,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // keep turbo, add lock
             lock_turbo = true;
           }
-        } else {
-          // drag, must release lock
-          navigator_turbo = false;
-          lock_turbo = false;
-        }
+        } 
       }
-      
-      fast_timer_t now = timer_read_fast();
       if (navigator_turbo) {
         status_led(now, 0b0001, led_pattern_on);
       } else {
@@ -845,18 +841,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case NAVIGATOR_AIM:
     {
       // local scope for keep press time value
-      static uint16_t press_time = 0;
+      static fast_timer_t drag_trigger = 0;
+      fast_timer_t now = timer_read_fast();
       
       if (record->event.pressed) {
-        press_time = record->event.time;
+        drag_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
         navigator_aim = true;
 
         // release another side
         navigator_turbo = false;
         lock_turbo = false;
       } else {
-        uint16_t duration = record->event.time - press_time;
-        if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
+        if (timer_expired_fast(now, drag_trigger)) {
+          // drag, must release lock
+          navigator_aim = false;
+          lock_aim = false;
+        } else {
           // tap
           if (lock_aim) {
             // if locked release lock
@@ -866,14 +866,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // keep aim, add lock
             lock_aim = true;
           }
-        } else {
-          // drag, must release lock
-          navigator_aim = false;
-          lock_aim = false;
         }
-      }
-      
-      fast_timer_t now = timer_read_fast();
+      }      
       if (navigator_turbo) {
         status_led(now, 0b0001, led_pattern_on);
       } else {
