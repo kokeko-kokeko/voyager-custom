@@ -885,7 +885,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         uint8_t pos = rowcol2pos_tbl[record->event.key.row][record->event.key.col];
         if (pos == 255) {
-          // nothing to do
+          // error, nothing to do
         } else if (pos == 0) {
           layer_off(L_Base_JIS);
         } else if (pos == 6) {
@@ -908,6 +908,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (pos == 255) {
           // error, nothing to do
         } else if (pos == 51) {
+          fade_matrix_load_preset();
+          status_led(now, 0b0101, led_pattern_oneshot);
+        } else if (pos == 50) {
           // off all setting layers
           layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
@@ -928,8 +931,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (pos == 255) {
           // error, nothing to do
         } else if (pos == 51) {
-          fade_matrix_load_preset();
-          status_led(now, 0b0101, led_pattern_oneshot);
+        } else if (pos == 50) {
         } else {
           fade_matrix_set_sat_pos(pos);
         }
@@ -942,8 +944,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (pos == 255) {
           // error, nothing to do
         } else if (pos == 51) {
-          fade_matrix_load_preset_powersave();
-          status_led(now, 0b1010, led_pattern_oneshot);
+        } else if (pos == 50) {  
         } else {
           fade_matrix_set_val_pos(pos);
         }
@@ -956,7 +957,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (pos == 255) {
           // error, nothing to do
         } else if (pos == 51) {
-          // nothing to do
+          fade_matrix_load_preset_powersave();
+          status_led(now, 0b1010, led_pattern_oneshot);
+        } else if (pos == 50) {
         } else {
           fade_matrix_set_speed_pos(pos);
         }
