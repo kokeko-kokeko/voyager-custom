@@ -1164,16 +1164,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
   // call FwSys with Bkt and Fn
   state = update_tri_layer_state(state, L_Cursor, L_Function, L_Firmware); 
-
-  // if speed layer active, MO guard, block base tap tap side
-  state = update_tri_layer_state(state, L_Set_Speed, L_Set_Speed, L_MO_Guard); 
   
   // call color settng
-  state = update_tri_layer_state(state, L_Function, L_Set_Speed, L_Set_Val); 
-  state = update_tri_layer_state(state, L_Cursor, L_Set_Speed, L_Set_Sat); 
+  //state = update_tri_layer_state(state, L_Function, L_Set_Speed, L_Set_Val); 
+  //state = update_tri_layer_state(state, L_Cursor, L_Set_Speed, L_Set_Sat); 
   
   // call Hue with Sat and Val
-  state = update_tri_layer_state(state, L_Set_Val, L_Set_Sat, L_Set_Hue);
+  state = update_tri_layer_state(state, L_Set_Sat, L_Set_Val, L_Set_Speed);
   
   // on mouse, cursor override
   state = update_tri_layer_state(state, L_Mouse, L_Cursor, L_Mouse_Cursor_Override);
@@ -1213,7 +1210,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     case L_Base :
     case L_Base_JIS:
-    case L_MO_Guard:
       status_led(now, 0b1011, led_pattern_off);
       
       if (set_scrolling) {
@@ -1300,17 +1296,17 @@ bool rgb_matrix_indicators_user(void) {
       set_layer_color_firmware_map();
       set_layer_color_firmware_map_ime_state_sync();
       break;
-    case L_Set_Speed:
-      set_layer_color_speed_map();
-      break;    
-    case L_Set_Val:
-      set_layer_color_val_map();
+    case L_Set_Hue:
+      set_layer_color_hue_map();
       break;
     case L_Set_Sat:
       set_layer_color_sat_map();
       break;
-    case L_Set_Hue:
-      set_layer_color_hue_map();
+    case L_Set_Val:
+      set_layer_color_val_map();
+      break;
+    case L_Set_Speed:
+      set_layer_color_speed_map();
       break;
     
     default:
