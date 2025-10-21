@@ -1028,8 +1028,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case HSV_0_255_200:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,200);
+        uint8_t pos = rowcol2pos_tbl[record->event.key.row][record->event.key.col];
+
+        if (pos == 255) return false;
+
+        if (pos == 0) {
+          layer_off(L_Base_JIS);
+        } else if (pos == 6) {
+          layer_on(L_Base_JIS);
+        } else if (pos == 2) {
+          ime_state_sync_enable();
+        } else if (pos == 8) {
+          ime_state_sync_disable();
+        } else if (pos == 31) {
+          reset_keyboard();
+        } else if (pos == 49) {
+          soft_reset_keyboard();
+        }
       }
       return false;
 
