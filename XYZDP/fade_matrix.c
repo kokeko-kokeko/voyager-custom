@@ -111,7 +111,7 @@ const uint8_t rowcol2pos_tbl[MATRIX_ROWS][MATRIX_COLS] = {
   { 255,  45,  46,  47,  48,  49, 255 },
   { 255, 255,  44, 255, 255, 255, 255 },
   { 255, 255, 255, 255, 255,  50,  51 }
-}
+};
 
 void fade_matrix_set_mode(const uint8_t mode) {
   fade_matrix_target.mode = mode;
