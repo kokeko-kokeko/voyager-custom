@@ -515,6 +515,8 @@ void set_layer_color_firmware_map(void) {
 }
 
 extern bool set_scrolling;
+extern bool navigator_turbo;
+extern bool navigator_aim;
 
 void set_layer_color_mouse_map(void) {
   const uint8_t f = rgb_matrix_get_val();
@@ -550,8 +552,8 @@ void set_layer_color_mouse_map(void) {
   rgb_matrix_set_color(32, 0, 0, f);
   rgb_matrix_set_color(33, 0, f, 0);
   rgb_matrix_set_color(34, q, q, q);
-  rgb_matrix_set_color(35, q, o, 0);
-  rgb_matrix_set_color(36, f, h, 0);
+  
+ 
   
   rgb_matrix_set_color(38, o, q, 0);
   rgb_matrix_set_color(39, f, 0, 0);
@@ -569,5 +571,16 @@ void set_layer_color_mouse_map(void) {
     rgb_matrix_set_color(17, h, h, h);
     rgb_matrix_set_color(45, h, h, h);
     rgb_matrix_set_color(50, h, h, h);
+  }
+
+  if (navigator_turbo) {
+    rgb_matrix_set_color(36, f, h, 0);
+  } else {
+    rgb_matrix_set_color(36, f, f, f);
+  }
+  if (navigator_aim) {
+    rgb_matrix_set_color(35, q, o, 0);
+  } else {
+    rgb_matrix_set_color(35, q, q, q);    
   }
 }
