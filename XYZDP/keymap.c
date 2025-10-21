@@ -839,14 +839,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   case NAVIGATOR_AIM:
     {
+      // local scope for keep press time value
+      static uint16_t press_time = 0;
+      
       if (record->event.pressed) {
+        press_time = record->event.time;
         navigator_aim = true;
         fast_timer_t now = timer_read_fast();
         status_led(now, 0b0010, led_pattern_on);
       } else {
-        navigator_aim = false;
-        fast_timer_t now = timer_read_fast();
-        status_led(now, 0b0010, led_pattern_off);
+        uint16_t duration = record->event.time - press_time;
+        if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
+          // tap
+          if (lock_aim) {
+            // if locked release lock
+            navigator_aim = false;
+            fast_timer_t now = timer_read_fast();
+            status_led(now, 0b0010, led_pattern_off);
+            lock_aim = false;
+          } else {
+            // keep aim
+            //navigator_aim = true;
+            //fast_timer_t now = timer_read_fast();
+            //status_led(now, 0b0010, led_pattern_on);
+            lodk_aim = true;
+          }
+        } else {
+          // drag, must disacle lock
+          navigator_aim = false;
+          fast_timer_t now = timer_read_fast();
+          status_led(now, 0b0010, led_pattern_off);
+          lock_aim = false;
+        }
       }
     }
     return false;
