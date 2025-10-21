@@ -8,55 +8,7 @@
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
   HSV_0_255_200,
-  HSV_0_255_100,
-  HSV_0_255_101,
-  HSV_0_255_102,
-  HSV_0_255_103,
-  HSV_0_255_104,
-  HSV_0_255_105,
-  HSV_0_255_106,
-  HSV_0_255_107,
-  HSV_0_255_108,
-  HSV_0_255_109,
-  HSV_0_255_110,
-  HSV_0_255_111,
-  HSV_0_255_112,
-  HSV_0_255_113,
-  HSV_0_255_114,
-  HSV_0_255_115,
-  HSV_0_255_116,
-  HSV_0_255_117,
-  HSV_0_255_118,
-  HSV_0_255_119,
-  HSV_0_255_120,
-  HSV_0_255_121,
-  HSV_0_255_122,
-  HSV_0_255_123,
-  HSV_0_255_126,
-  HSV_0_255_127,
-  HSV_0_255_128,
-  HSV_0_255_129,
-  HSV_0_255_130,
-  HSV_0_255_131,
-  HSV_0_255_132,
-  HSV_0_255_133,
-  HSV_0_255_134,
-  HSV_0_255_135,
-  HSV_0_255_136,
-  HSV_0_255_137,
-  HSV_0_255_138,
-  HSV_0_255_139,
-  HSV_0_255_140,
-  HSV_0_255_141,
-  HSV_0_255_142,
-  HSV_0_255_143,
-  HSV_0_255_144,
-  HSV_0_255_145,
-  HSV_0_255_146,
-  HSV_0_255_147,
-  HSV_0_255_148,
-  HSV_0_255_149,
-  HSV_0_255_151,
+  HSV_0_255_210,
   HSV_43_255_100,
   HSV_43_255_101,
   HSV_43_255_102,
@@ -234,28 +186,28 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(11, KC_F23)
-#define DUAL_FUNC_1 LT(3, KC_5)
-#define DUAL_FUNC_2 LT(6, KC_9)
-#define DUAL_FUNC_3 LT(4, KC_G)
-#define DUAL_FUNC_4 LT(8, KC_L)
-#define DUAL_FUNC_5 LT(12, KC_F20)
-#define DUAL_FUNC_6 LT(11, KC_F19)
-#define DUAL_FUNC_7 LT(11, KC_E)
-#define DUAL_FUNC_8 LT(4, KC_J)
-#define DUAL_FUNC_9 LT(6, KC_J)
-#define DUAL_FUNC_10 LT(12, KC_5)
-#define DUAL_FUNC_11 LT(7, KC_V)
-#define DUAL_FUNC_12 LT(13, KC_A)
-#define DUAL_FUNC_13 LT(6, KC_0)
-#define DUAL_FUNC_14 LT(15, KC_F21)
-#define DUAL_FUNC_15 LT(13, KC_F10)
-#define DUAL_FUNC_16 LT(7, KC_F16)
-#define DUAL_FUNC_17 LT(9, KC_N)
-#define DUAL_FUNC_18 LT(7, KC_F14)
-#define DUAL_FUNC_19 LT(14, KC_I)
-#define DUAL_FUNC_20 LT(8, KC_M)
-#define DUAL_FUNC_21 LT(6, KC_F23)
+#define DUAL_FUNC_0 LT(10, KC_F3)
+#define DUAL_FUNC_1 LT(9, KC_F7)
+#define DUAL_FUNC_2 LT(9, KC_C)
+#define DUAL_FUNC_3 LT(15, KC_9)
+#define DUAL_FUNC_4 LT(13, KC_W)
+#define DUAL_FUNC_5 LT(8, KC_F10)
+#define DUAL_FUNC_6 LT(9, KC_T)
+#define DUAL_FUNC_7 LT(1, KC_1)
+#define DUAL_FUNC_8 LT(13, KC_F6)
+#define DUAL_FUNC_9 LT(15, KC_M)
+#define DUAL_FUNC_10 LT(15, KC_3)
+#define DUAL_FUNC_11 LT(1, KC_7)
+#define DUAL_FUNC_12 LT(1, KC_R)
+#define DUAL_FUNC_13 LT(9, KC_U)
+#define DUAL_FUNC_14 LT(1, KC_W)
+#define DUAL_FUNC_15 LT(14, KC_F23)
+#define DUAL_FUNC_16 LT(7, KC_K)
+#define DUAL_FUNC_17 LT(11, KC_F21)
+#define DUAL_FUNC_18 LT(11, KC_V)
+#define DUAL_FUNC_19 LT(14, KC_U)
+#define DUAL_FUNC_20 LT(7, KC_1)
+#define DUAL_FUNC_21 LT(13, KC_F12)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -392,11 +344,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 MO(19),         HSV_0_255_200
   ),
   [19] = LAYOUT_voyager(
-    HSV_0_255_100,  HSV_0_255_101,  HSV_0_255_102,  HSV_0_255_103,  HSV_0_255_104,  HSV_0_255_105,                                  HSV_0_255_126,  HSV_0_255_127,  HSV_0_255_128,  HSV_0_255_129,  HSV_0_255_130,  HSV_0_255_131,  
-    HSV_0_255_106,  HSV_0_255_107,  HSV_0_255_108,  HSV_0_255_109,  HSV_0_255_110,  HSV_0_255_111,                                  HSV_0_255_132,  HSV_0_255_133,  HSV_0_255_134,  HSV_0_255_135,  HSV_0_255_136,  HSV_0_255_137,  
-    HSV_0_255_112,  HSV_0_255_113,  HSV_0_255_114,  HSV_0_255_115,  HSV_0_255_116,  HSV_0_255_117,                                  HSV_0_255_138,  HSV_0_255_139,  HSV_0_255_140,  HSV_0_255_141,  HSV_0_255_142,  HSV_0_255_143,  
-    HSV_0_255_118,  HSV_0_255_119,  HSV_0_255_120,  HSV_0_255_121,  HSV_0_255_122,  HSV_0_255_123,                                  HSV_0_255_144,  HSV_0_255_145,  HSV_0_255_146,  HSV_0_255_147,  HSV_0_255_148,  HSV_0_255_149,  
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, HSV_0_255_151
+    HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,                                  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  
+    HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,                                  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  
+    HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,                                  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  
+    HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,                                  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, HSV_0_255_210
   ),
   [20] = LAYOUT_voyager(
     HSV_43_255_100, HSV_43_255_101, HSV_43_255_102, HSV_43_255_103, HSV_43_255_104, HSV_43_255_105,                                 HSV_43_255_126, HSV_43_255_127, HSV_43_255_128, HSV_43_255_129, HSV_43_255_130, HSV_43_255_131, 
@@ -1047,252 +999,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
-
-    case HSV_0_255_100:
+    case HSV_0_255_210:
       if (record->event.pressed) {
-        fade_matrix_set_speed_pos(0);
-      }
-      return false;
-    case HSV_0_255_101:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(1);
-      }
-      return false;
-    case HSV_0_255_102:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(2);
-      }
-      return false;
-    case HSV_0_255_103:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(3);
-      }
-      return false;
-    case HSV_0_255_104:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(4);
-      }
-      return false;
-    case HSV_0_255_105:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(5);
-      }
-      return false;
-    case HSV_0_255_106:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(6);
-      }
-      return false;
-    case HSV_0_255_107:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(7);
-      }
-      return false;
-    case HSV_0_255_108:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(8);
-      }
-      return false;
-    case HSV_0_255_109:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(9);
-      }
-      return false;
-    case HSV_0_255_110:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(10);
-      }
-      return false;
-    case HSV_0_255_111:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(11);
-      }
-      return false;
-    case HSV_0_255_112:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(12);
-      }
-      return false;
-    case HSV_0_255_113:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(13);
-      }
-      return false;
-    case HSV_0_255_114:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(14);
-      }
-      return false;
-    case HSV_0_255_115:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(15);
-      }
-      return false;
-    case HSV_0_255_116:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(16);
-      }
-      return false;
-    case HSV_0_255_117:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(17);
-      }
-      return false;
-    case HSV_0_255_118:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(18);
-      }
-      return false;
-    case HSV_0_255_119:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(19);
-      }
-      return false;
-    case HSV_0_255_120:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(20);
-      }
-      return false;
-    case HSV_0_255_121:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(21);
-      }
-      return false;
-    case HSV_0_255_122:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(22);
-      }
-      return false;
-    case HSV_0_255_123:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(23);
-      }
-      return false;
-    case HSV_0_255_126:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(26);
-      }
-      return false;
-    case HSV_0_255_127:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(27);
-      }
-      return false;
-    case HSV_0_255_128:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(28);
-      }
-      return false;
-    case HSV_0_255_129:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(29);
-      }
-      return false;
-    case HSV_0_255_130:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(30);
-      }
-      return false;
-    case HSV_0_255_131:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(31);
-      }
-      return false;
-    case HSV_0_255_132:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(32);
-      }
-      return false;
-    case HSV_0_255_133:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(33);
-      }
-      return false;
-    case HSV_0_255_134:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(34);
-      }
-      return false;
-    case HSV_0_255_135:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(35);
-      }
-      return false;
-    case HSV_0_255_136:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(36);
-      }
-      return false;
-    case HSV_0_255_137:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(37);
-      }
-      return false;
-    case HSV_0_255_138:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(38);
-      }
-      return false;
-    case HSV_0_255_139:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(39);
-      }
-      return false;
-    case HSV_0_255_140:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(40);
-      }
-      return false;
-    case HSV_0_255_141:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(41);
-      }
-      return false;
-    case HSV_0_255_142:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(42);
-      }
-      return false;
-    case HSV_0_255_143:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(43);
-      }
-      return false;
-    case HSV_0_255_144:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(44);
-      }
-      return false;
-    case HSV_0_255_145:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(45);
-      }
-      return false;
-    case HSV_0_255_146:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(46);
-      }
-      return false;
-    case HSV_0_255_147:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(47);
-      }
-      return false;
-    case HSV_0_255_148:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(48);
-      }
-      return false;
-    case HSV_0_255_149:
-      if (record->event.pressed) {
-        fade_matrix_set_speed_pos(49);
-      }
-      return false;
-    case HSV_0_255_151:
-      if (record->event.pressed) {
-        fade_matrix_load_preset_powersave();
-        fast_timer_t now = timer_read_fast();
-        status_led(now, 0b0101, led_pattern_oneshot);
+        rgblight_mode(1);
+        rgblight_sethsv(0,255,210);
       }
       return false;
     
