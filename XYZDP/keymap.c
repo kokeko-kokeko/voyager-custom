@@ -270,7 +270,14 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
 static bool lock_scrolling = false;
 static bool lock_turbo = false;
 static bool lock_aim = false;
+
 static fast_timer_t auto_mouse_early_trigger = 0;
+
+static fast_timer_t drag_scroll_trigger = 0;
+static fast_timer_t drag_turbo_trigger = 0;
+static fast_timer_t drag_aim_trigger = 0;
+static fast_timer_t drag_btn_left_trigger[8];
+static fast_timer_t drag_btn_right_trigger[8];
 
 // -----------------------------------------------------------------------------
 //
@@ -300,6 +307,9 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // timer read first
+  fast_timer_t now = timer_read_fast();
+  
   switch (keycode) {
   case QK_MODS ... QK_MODS_MAX: 
     // Mouse keys with modifiers work inconsistently across operating systems, this makes sure that modifiers are always
@@ -765,15 +775,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case DRAG_SCROLL:
       {
-        // local scope for keep press time value
-        static fast_timer_t drag_trigger = 0;
-        fast_timer_t now = timer_read_fast();
-        
         if (record->event.pressed) {
-          drag_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
+          drag_scroll_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
           set_scrolling = true;
         } else {
-          if (timer_expired_fast(now, drag_trigger)) {
+          if (timer_expired_fast(now, drag_scroll_trigger)) {
             // drag, must release lock
             set_scrolling = false;
             lock_scrolling = false;
@@ -798,19 +804,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   case NAVIGATOR_TURBO:
     {
-      // local scope for keep press time value
-      static fast_timer_t drag_trigger = 0;
-      fast_timer_t now = timer_read_fast();
-      
       if (record->event.pressed) {
-        drag_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
+        drag_turbo_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
         navigator_turbo = true;
 
         // release another side
         navigator_aim = false;
         lock_aim = false;
       } else {
-        if (timer_expired_fast(now, drag_trigger)) {
+        if (timer_expired_fast(now, drag_turbo_trigger)) {
           // drag, must release lock
           navigator_turbo = false;
           lock_turbo = false;
@@ -840,19 +842,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   case NAVIGATOR_AIM:
     {
-      // local scope for keep press time value
-      static fast_timer_t drag_trigger = 0;
-      fast_timer_t now = timer_read_fast();
-      
       if (record->event.pressed) {
-        drag_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
+        drag_aim_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
         navigator_aim = true;
 
         // release another side
         navigator_turbo = false;
         lock_turbo = false;
       } else {
-        if (timer_expired_fast(now, drag_trigger)) {
+        if (timer_expired_fast(now, drag_aim_trigger)) {
           // drag, must release lock
           navigator_aim = false;
           lock_aim = false;
@@ -1050,16 +1048,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_MS_BTN7:
     case KC_MS_BTN8:
       {
-        fast_timer_t now = timer_read_fast();
         if (record->event.key.row < MATRIX_ROWS / 2) {
           // left side mouse button
-          static fast_timer_t drag_trigger[8];
-          
           if (record->event.pressed) {
-            drag_trigger[keycode - KC_MS_BTN1] = now + AUTO_MOUSE_DRAG_THRESHOLD;
+            drag_btn_left_trigger[keycode - KC_MS_BTN1] = now + AUTO_MOUSE_DRAG_THRESHOLD;
             // early trigger reset on auto_mouse_activation
           } else {
-            if (timer_expired_fast(now, drag_trigger[keycode - KC_MS_BTN1])) {
+            if (timer_expired_fast(now, drag_btn_left_trigger[keycode - KC_MS_BTN1])) {
               // drag, nothing to do
             } else {
               //tap
@@ -1067,14 +1062,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
           }
         } else {
-          // right side mouse button
-          static fast_timer_t drag_trigger[8];
-          
           if (record->event.pressed) {
-            drag_trigger[keycode - KC_MS_BTN1] = now + AUTO_MOUSE_DRAG_THRESHOLD;
+            drag_btn_right_trigger[keycode - KC_MS_BTN1] = now + AUTO_MOUSE_DRAG_THRESHOLD;
             // early trigger reset on auto_mouse_activation
           } else {
-            if (timer_expired_fast(now, drag_trigger[keycode - KC_MS_BTN1])) {
+            if (timer_expired_fast(now, drag_btn_right_trigger[keycode - KC_MS_BTN1])) {
               // drag, nothing to do
             } else {
               //tap
