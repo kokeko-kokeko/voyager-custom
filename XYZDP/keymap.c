@@ -981,7 +981,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_0_255_200:
       if (record->event.pressed) {
         uint8_t pos = rowcol2pos_tbl[record->event.key.row][record->event.key.col];
-
         if (pos == 255) {
           // nothing to do
         } else if (pos == 0) {
@@ -999,10 +998,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
+    
     case HSV_0_255_210:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,210);
+        uint8_t pos = rowcol2pos_tbl[record->event.key.row][record->event.key.col];
+        if (pos == 255) {
+          // nothing to do
+        } else if (pos == 51) {
+          fade_matrix_load_preset_powersave();
+          fast_timer_t now = timer_read_fast();
+          status_led(now, 0b0101, led_pattern_oneshot);
+        } else {
+          fade_matrix_set_speed_pos(pos);
+        }
       }
       return false;
     
