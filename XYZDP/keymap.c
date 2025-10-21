@@ -908,8 +908,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (pos == 255) {
           // nothing to do
         } else if (pos == 51) {
-          fade_matrix_load_preset();
-          status_led(now, 0b0101, led_pattern_oneshot);
+          // off all setting layers
+          layer_off(L_Set_Speed);
+          layer_off(L_Set_Val);
+          layer_off(L_Set_Sat);
+          layer_off(L_Set_Hue);
+          layer_off(L_Firmware);
+          
+          status_led(now, 0b1111, led_pattern_oneshot);
         } else {
           fade_matrix_set_hue_pos(pos);
         }
@@ -922,7 +928,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (pos == 255) {
           // nothing to do
         } else if (pos == 51) {
-          // nothing to do
+          fade_matrix_load_preset();
+          status_led(now, 0b0101, led_pattern_oneshot);
         } else {
           fade_matrix_set_sat_pos(pos);
         }
