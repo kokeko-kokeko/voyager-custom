@@ -966,10 +966,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
+    
     case HSV_0_255_220:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,220);
+        uint8_t pos = rowcol2pos_tbl[record->event.key.row][record->event.key.col];
+        if (pos == 255) {
+          // nothing to do
+        } else if (pos == 51) {
+          // nothing to do
+        } else {
+          fade_matrix_set_val_pos(pos);
+        }
       }
       return false;
 
