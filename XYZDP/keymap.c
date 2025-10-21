@@ -806,6 +806,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         press_time = record->event.time;
         navigator_turbo = true;
+
+        // release another side
+        navigator_aim = false;
+        lock_aim = false;
       } else {
         uint16_t duration = record->event.time - press_time;
         if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
@@ -846,6 +850,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         press_time = record->event.time;
         navigator_aim = true;
+
+        // release another side
+        navigator_turbo = false;
+        lock_turbo = false;
       } else {
         uint16_t duration = record->event.time - press_time;
         if (duration < AUTO_MOUSE_DRAG_THRESHOLD) {
