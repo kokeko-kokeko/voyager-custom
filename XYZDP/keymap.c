@@ -1063,7 +1063,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               // drag, nothing to do
             } else {
               //tap
-              fast_timer_t now = timer_read_fast();
               auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_LEFT_SIDE;
             }
           }
@@ -1079,7 +1078,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               // drag, nothing to do
             } else {
               //tap
-              fast_timer_t now = timer_read_fast();
               auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_RIGHT_SIDE;
             }
           }
