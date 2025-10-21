@@ -9,54 +9,7 @@ enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
   HSV_0_255_200,
   HSV_0_255_210,
-  HSV_43_255_100,
-  HSV_43_255_101,
-  HSV_43_255_102,
-  HSV_43_255_103,
-  HSV_43_255_104,
-  HSV_43_255_105,
-  HSV_43_255_106,
-  HSV_43_255_107,
-  HSV_43_255_108,
-  HSV_43_255_109,
-  HSV_43_255_110,
-  HSV_43_255_111,
-  HSV_43_255_112,
-  HSV_43_255_113,
-  HSV_43_255_114,
-  HSV_43_255_115,
-  HSV_43_255_116,
-  HSV_43_255_117,
-  HSV_43_255_118,
-  HSV_43_255_119,
-  HSV_43_255_120,
-  HSV_43_255_121,
-  HSV_43_255_122,
-  HSV_43_255_123,
-  HSV_43_255_126,
-  HSV_43_255_127,
-  HSV_43_255_128,
-  HSV_43_255_129,
-  HSV_43_255_130,
-  HSV_43_255_131,
-  HSV_43_255_132,
-  HSV_43_255_133,
-  HSV_43_255_134,
-  HSV_43_255_135,
-  HSV_43_255_136,
-  HSV_43_255_137,
-  HSV_43_255_138,
-  HSV_43_255_139,
-  HSV_43_255_140,
-  HSV_43_255_141,
-  HSV_43_255_142,
-  HSV_43_255_143,
-  HSV_43_255_144,
-  HSV_43_255_145,
-  HSV_43_255_146,
-  HSV_43_255_147,
-  HSV_43_255_148,
-  HSV_43_255_149,
+  HSV_0_255_220,
   HSV_86_255_100,
   HSV_86_255_101,
   HSV_86_255_102,
@@ -186,28 +139,28 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(10, KC_F3)
-#define DUAL_FUNC_1 LT(9, KC_F7)
-#define DUAL_FUNC_2 LT(9, KC_C)
-#define DUAL_FUNC_3 LT(15, KC_9)
-#define DUAL_FUNC_4 LT(13, KC_W)
-#define DUAL_FUNC_5 LT(8, KC_F10)
-#define DUAL_FUNC_6 LT(9, KC_T)
-#define DUAL_FUNC_7 LT(1, KC_1)
-#define DUAL_FUNC_8 LT(13, KC_F6)
-#define DUAL_FUNC_9 LT(15, KC_M)
-#define DUAL_FUNC_10 LT(15, KC_3)
-#define DUAL_FUNC_11 LT(1, KC_7)
-#define DUAL_FUNC_12 LT(1, KC_R)
-#define DUAL_FUNC_13 LT(9, KC_U)
-#define DUAL_FUNC_14 LT(1, KC_W)
-#define DUAL_FUNC_15 LT(14, KC_F23)
-#define DUAL_FUNC_16 LT(7, KC_K)
-#define DUAL_FUNC_17 LT(11, KC_F21)
-#define DUAL_FUNC_18 LT(11, KC_V)
-#define DUAL_FUNC_19 LT(14, KC_U)
-#define DUAL_FUNC_20 LT(7, KC_1)
-#define DUAL_FUNC_21 LT(13, KC_F12)
+#define DUAL_FUNC_0 LT(10, KC_J)
+#define DUAL_FUNC_1 LT(10, KC_2)
+#define DUAL_FUNC_2 LT(4, KC_F4)
+#define DUAL_FUNC_3 LT(9, KC_J)
+#define DUAL_FUNC_4 LT(10, KC_F1)
+#define DUAL_FUNC_5 LT(5, KC_B)
+#define DUAL_FUNC_6 LT(7, KC_8)
+#define DUAL_FUNC_7 LT(5, KC_T)
+#define DUAL_FUNC_8 LT(14, KC_F8)
+#define DUAL_FUNC_9 LT(1, KC_F11)
+#define DUAL_FUNC_10 LT(5, KC_F10)
+#define DUAL_FUNC_11 LT(15, KC_V)
+#define DUAL_FUNC_12 LT(3, KC_F22)
+#define DUAL_FUNC_13 LT(2, KC_2)
+#define DUAL_FUNC_14 LT(3, KC_F18)
+#define DUAL_FUNC_15 LT(2, KC_F14)
+#define DUAL_FUNC_16 LT(15, KC_I)
+#define DUAL_FUNC_17 LT(3, KC_O)
+#define DUAL_FUNC_18 LT(9, KC_O)
+#define DUAL_FUNC_19 LT(4, KC_F17)
+#define DUAL_FUNC_20 LT(7, KC_A)
+#define DUAL_FUNC_21 LT(14, KC_2)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -351,11 +304,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, HSV_0_255_210
   ),
   [20] = LAYOUT_voyager(
-    HSV_43_255_100, HSV_43_255_101, HSV_43_255_102, HSV_43_255_103, HSV_43_255_104, HSV_43_255_105,                                 HSV_43_255_126, HSV_43_255_127, HSV_43_255_128, HSV_43_255_129, HSV_43_255_130, HSV_43_255_131, 
-    HSV_43_255_106, HSV_43_255_107, HSV_43_255_108, HSV_43_255_109, HSV_43_255_110, HSV_43_255_111,                                 HSV_43_255_132, HSV_43_255_133, HSV_43_255_134, HSV_43_255_135, HSV_43_255_136, HSV_43_255_137, 
-    HSV_43_255_112, HSV_43_255_113, HSV_43_255_114, HSV_43_255_115, HSV_43_255_116, HSV_43_255_117,                                 HSV_43_255_138, HSV_43_255_139, HSV_43_255_140, HSV_43_255_141, HSV_43_255_142, HSV_43_255_143, 
-    HSV_43_255_118, HSV_43_255_119, HSV_43_255_120, HSV_43_255_121, HSV_43_255_122, HSV_43_255_123,                                 HSV_43_255_144, HSV_43_255_145, HSV_43_255_146, HSV_43_255_147, HSV_43_255_148, HSV_43_255_149, 
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO
+    HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,                                  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  
+    HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,                                  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  
+    HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,                                  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  
+    HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,                                  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  HSV_0_255_220,  
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, HSV_0_255_220
   ),
   [21] = LAYOUT_voyager(
     HSV_86_255_100, HSV_86_255_101, HSV_86_255_102, HSV_86_255_103, HSV_86_255_104, HSV_86_255_105,                                 HSV_86_255_126, HSV_86_255_127, HSV_86_255_128, HSV_86_255_129, HSV_86_255_130, HSV_86_255_131, 
@@ -908,292 +861,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv(0,255,210);
       }
       return false;
-    case HSV_43_255_100:
+    case HSV_0_255_220:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(43,255,100);
-      }
-      return false;
-    case HSV_43_255_101:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,101);
-      }
-      return false;
-    case HSV_43_255_102:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,102);
-      }
-      return false;
-    case HSV_43_255_103:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,103);
-      }
-      return false;
-    case HSV_43_255_104:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,104);
-      }
-      return false;
-    case HSV_43_255_105:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,105);
-      }
-      return false;
-    case HSV_43_255_106:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,106);
-      }
-      return false;
-    case HSV_43_255_107:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,107);
-      }
-      return false;
-    case HSV_43_255_108:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,108);
-      }
-      return false;
-    case HSV_43_255_109:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,109);
-      }
-      return false;
-    case HSV_43_255_110:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,110);
-      }
-      return false;
-    case HSV_43_255_111:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,111);
-      }
-      return false;
-    case HSV_43_255_112:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,112);
-      }
-      return false;
-    case HSV_43_255_113:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,113);
-      }
-      return false;
-    case HSV_43_255_114:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,114);
-      }
-      return false;
-    case HSV_43_255_115:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,115);
-      }
-      return false;
-    case HSV_43_255_116:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,116);
-      }
-      return false;
-    case HSV_43_255_117:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,117);
-      }
-      return false;
-    case HSV_43_255_118:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,118);
-      }
-      return false;
-    case HSV_43_255_119:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,119);
-      }
-      return false;
-    case HSV_43_255_120:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,120);
-      }
-      return false;
-    case HSV_43_255_121:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,121);
-      }
-      return false;
-    case HSV_43_255_122:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,122);
-      }
-      return false;
-    case HSV_43_255_123:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,123);
-      }
-      return false;
-    case HSV_43_255_126:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,126);
-      }
-      return false;
-    case HSV_43_255_127:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,127);
-      }
-      return false;
-    case HSV_43_255_128:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,128);
-      }
-      return false;
-    case HSV_43_255_129:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,129);
-      }
-      return false;
-    case HSV_43_255_130:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,130);
-      }
-      return false;
-    case HSV_43_255_131:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,131);
-      }
-      return false;
-    case HSV_43_255_132:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,132);
-      }
-      return false;
-    case HSV_43_255_133:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,133);
-      }
-      return false;
-    case HSV_43_255_134:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,134);
-      }
-      return false;
-    case HSV_43_255_135:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,135);
-      }
-      return false;
-    case HSV_43_255_136:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,136);
-      }
-      return false;
-    case HSV_43_255_137:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,137);
-      }
-      return false;
-    case HSV_43_255_138:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,138);
-      }
-      return false;
-    case HSV_43_255_139:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,139);
-      }
-      return false;
-    case HSV_43_255_140:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,140);
-      }
-      return false;
-    case HSV_43_255_141:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,141);
-      }
-      return false;
-    case HSV_43_255_142:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,142);
-      }
-      return false;
-    case HSV_43_255_143:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,143);
-      }
-      return false;
-    case HSV_43_255_144:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,144);
-      }
-      return false;
-    case HSV_43_255_145:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,145);
-      }
-      return false;
-    case HSV_43_255_146:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,146);
-      }
-      return false;
-    case HSV_43_255_147:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,147);
-      }
-      return false;
-    case HSV_43_255_148:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,148);
-      }
-      return false;
-    case HSV_43_255_149:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,149);
+        rgblight_sethsv(0,255,220);
       }
       return false;
     case HSV_86_255_100:
