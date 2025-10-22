@@ -85,16 +85,16 @@ static const uint8_t idx2pos_tbl[48] = {
 };
 
 static const uint8_t pos2idx_tbl[52] = {
-   47, 43, 39, 35, 31, 27,
-   46, 42, 38, 34, 30, 26,
-   45, 41, 37, 33, 29, 25,
-   44, 40, 36, 32, 28, 24,
-    0,  0,
-   23, 19, 15, 11,  7,  3,
-   22, 18, 14, 10,  6,  2,
-   21, 17, 13,  9,  5,  1,
-   20, 16, 12,  8,  4,  0,
-    0,  0
+    47,  43,  39,  35,  31,  27,
+    46,  42,  38,  34,  30,  26,
+    45,  41,  37,  33,  29,  25,
+    44,  40,  36,  32,  28,  24,
+   255, 255,
+    23,  19,  15,  11,   7,   3,
+    22,  18,  14,  10,   6,   2,
+    21,  17,  13,   9,   5,   1,
+    20,  16,  12,   8,   4,   0,
+   255, 255
 };
 
 static const uint8_t row_col2pos_tbl[MATRIX_ROWS][MATRIX_COLS] = {
@@ -125,25 +125,33 @@ void fade_matrix_set_mode(const uint8_t mode) {
 
 void fade_matrix_set_hue_pos(const uint8_t pos) {
   if (52 <= pos) return;
-  fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[pos]];
+  uint8_t idx = pos2idx_tbl[pos];
+  if (48 <= idx) return;
+  fade_matrix_target.hsv.h = hue_tbl[idx];
   activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_set_sat_pos(const uint8_t pos) {
   if (52 <= pos) return;
-  fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[pos]];
+  uint8_t idx = pos2idx_tbl[pos];
+  if (48 <= idx) return;
+  fade_matrix_target.hsv.s = sat_tbl[idx];
   activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_set_val_pos(const uint8_t pos) {
   if (52 <= pos) return;
-  fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[pos]];
+  uint8_t idx = pos2idx_tbl[pos];
+  if (48 <= idx) return;
+  fade_matrix_target.hsv.v = val_tbl[idx];
   activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_set_speed_pos(const uint8_t pos) {
   if (52 <= pos) return;
-  fade_matrix_target.speed = spd_tbl[pos2idx_tbl[pos]];
+  uint8_t idx = pos2idx_tbl[pos];
+  if (48 <= idx) return;
+  fade_matrix_target.speed = spd_tbl[idx];
   activate_fade_matrix(timer_read_fast());
 }
 
