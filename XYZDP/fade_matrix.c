@@ -97,7 +97,7 @@ static const uint8_t pos2idx_tbl[52] = {
     0,  0
 };
 
-const uint8_t rowcol2pos_tbl[MATRIX_ROWS][MATRIX_COLS] = {
+static const uint8_t row_col2pos_tbl[MATRIX_ROWS][MATRIX_COLS] = {
   { 255,   0,   1,   2,   3,   4,   5 },
   { 255,   6,   7,   8,   9,  10,  11 },
   { 255,  12,  13,  14,  15,  16,  17 },
@@ -112,6 +112,11 @@ const uint8_t rowcol2pos_tbl[MATRIX_ROWS][MATRIX_COLS] = {
   { 255, 255,  44, 255, 255, 255, 255 },
   { 255, 255, 255, 255, 255,  50,  51 }
 };
+
+uint8_t get_pos_from_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return 255;
+  return row_col2pos_tbl[record->event.key.row][record->event.key.col];
+}
 
 void fade_matrix_set_mode(const uint8_t mode) {
   fade_matrix_target.mode = mode;
