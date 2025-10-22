@@ -884,9 +884,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_0_0_0:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
-        if (pos == 255) {
-          // error, nothing to do
-        } else if (pos == 0) {
+        if (52 <= pos) return false;
+        
+        if (pos == 0) {
           layer_off(L_Base_JIS);
         } else if (pos == 6) {
           layer_on(L_Base_JIS);
@@ -905,9 +905,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_0_0_1:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
-        if (pos == 255) {
-          // error, nothing to do
-        } else if (pos == 50) {
+        if (52 <= pos) return false;
+        
+        if (pos == 50) {
           // off all setting layers
           layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
@@ -928,9 +928,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_0_0_2:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
-        if (pos == 255) {
-          // error, nothing to do
-        } else if (pos == 50) {
+        if (52 <= pos) return false;
+        
+        if (pos == 50) {
         } else if (pos == 51) {
         } else {
           fade_matrix_set_sat_pos(pos);
@@ -941,9 +941,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_0_0_3:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
-        if (pos == 255) {
-          // error, nothing to do
-        } else if (pos == 50) {
+        if (52 <= pos) return false;
+        
+        if (pos == 50) {
         } else if (pos == 51) {  
         } else {
           fade_matrix_set_val_pos(pos);
@@ -954,9 +954,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_0_0_4:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
-        if (pos == 255) {
-          // error, nothing to do
-        } else if (pos == 50) {
+        if (52 <= pos) return false;
+        
+        if (pos == 50) {
         } else if (pos == 51) {
           fade_matrix_load_preset_powersave();
           status_led(now, 0b1010, led_pattern_oneshot);
