@@ -915,7 +915,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_on(L_Set_Val);
         } else if (pos == 50) {
           // off all setting layers
-          layer_off(L_Set_Speed);
+          //layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
           layer_off(L_Set_Sat);
           layer_off(L_Set_Hue);
@@ -942,7 +942,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_on(L_Set_Val);
         } else if (pos == 50) {
           // off all setting layers
-          layer_off(L_Set_Speed);
+          //layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
           layer_off(L_Set_Sat);
           layer_off(L_Set_Hue);
@@ -967,7 +967,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(L_Set_Val);
         } else if (pos == 50) {
           // off all setting layers
-          layer_off(L_Set_Speed);
+          //layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
           layer_off(L_Set_Sat);
           layer_off(L_Set_Hue);
@@ -992,7 +992,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(L_Set_Val);
         } else if (pos == 50) {
           // off all setting layers
-          layer_off(L_Set_Speed);
+          //layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
           layer_off(L_Set_Sat);
           layer_off(L_Set_Hue);
