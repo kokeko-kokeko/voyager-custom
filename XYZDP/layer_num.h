@@ -24,6 +24,7 @@ enum layer_num {
   L_Set_Sat,
   L_Set_Val,
   L_Set_Speed,
+  L_Halt_Mask,
   C_LAYER_COUNT 
 };
 
