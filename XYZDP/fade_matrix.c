@@ -124,21 +124,25 @@ void fade_matrix_set_mode(const uint8_t mode) {
 }
 
 void fade_matrix_set_hue_pos(const uint8_t pos) {
+  if (52 <= pos) return;
   fade_matrix_target.hsv.h = hue_tbl[pos2idx_tbl[pos]];
   activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_set_sat_pos(const uint8_t pos) {
+  if (52 <= pos) return;
   fade_matrix_target.hsv.s = sat_tbl[pos2idx_tbl[pos]];
   activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_set_val_pos(const uint8_t pos) {
+  if (52 <= pos) return;
   fade_matrix_target.hsv.v = val_tbl[pos2idx_tbl[pos]];
   activate_fade_matrix(timer_read_fast());
 }
 
 void fade_matrix_set_speed_pos(const uint8_t pos) {
+  if (52 <= pos) return;
   fade_matrix_target.speed = spd_tbl[pos2idx_tbl[pos]];
   activate_fade_matrix(timer_read_fast());
 }
