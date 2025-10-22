@@ -347,7 +347,7 @@ void set_layer_color_sat_map(void) {
   RGB rgb = hsv_to_rgb(hsv);
 
   rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
-  rgb_matrix_set_color(50, 0, 0, 0);
+  rgb_matrix_set_color(50, hsv.v, hsv.v, 0);
   rgb_matrix_set_color(51, 0, 0, 0);
   uint8_t key = hsv.s;
   uint8_t i = 0;
@@ -380,7 +380,7 @@ void set_layer_color_val_map(void) {
   RGB rgb = hsv_to_rgb(hsv);
 
   rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
-  rgb_matrix_set_color(50, 0, 0, 0);
+  rgb_matrix_set_color(50, hsv.v, hsv.v, 0);
   rgb_matrix_set_color(51, 0, 0, 0);
   uint8_t key = hsv.v;
   uint8_t i = 0;
@@ -412,7 +412,7 @@ void set_layer_color_speed_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
 
-  rgb_matrix_set_color(50, 0, 0, 0);
+  rgb_matrix_set_color(50, hsv.v, hsv.v, 0);
   rgb_matrix_set_color(51, 0, 0, hsv.v);
   
   // copy logic from breathing_anim.h   
@@ -457,7 +457,7 @@ void set_layer_color_firmware_map(void) {
   rgb_matrix_set_color(25, f, f, 0);
   //rgb_matrix_set_color(44, f, f, 0);
   //rgb_matrix_set_color(45, f, f, 0);
-  rgb_matrix_set_color(50, q, q, q);
+  rgb_matrix_set_color(50, q, q, 0);
 
   //ANSI/JIS
   if (layer_state_is(L_Base_JIS)) {
