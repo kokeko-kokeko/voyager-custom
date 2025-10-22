@@ -1304,24 +1304,27 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b0011, led_pattern_off);
       status_led(now, 0b1100, led_pattern_blink);
       break;
-    case L_Set_Speed:
+    case L_Set_Hue:
       status_led(now, 0b0011, led_pattern_off);
       status_led(now, 0b1100, led_pattern_on);
-      break;    
-    case L_Set_Val:
+      break;
+    case L_Set_Sat:
       status_led(now, 0b0001, led_pattern_off);
       status_led(now, 0b1100, led_pattern_on);
       status_led(now, 0b0010, led_pattern_blink);
       break;
-    case L_Set_Sat:
+    case L_Set_Val:
       status_led(now, 0b0010, led_pattern_off);
       status_led(now, 0b1100, led_pattern_on);
       status_led(now, 0b0001, led_pattern_blink);
-      break;
-    case L_Set_Hue:
+      break;    
+    case L_Set_Speed:
       status_led(now, 0b1100, led_pattern_on);
       status_led(now, 0b0011, led_pattern_blink);
-      break;
+      break;    
+
+
+
 
     default:
       status_led(now, 0b1111, led_pattern_off);
