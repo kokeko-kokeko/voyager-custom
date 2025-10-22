@@ -1015,6 +1015,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
+    
+    case HSV_0_0_5:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(0,0,5);
+      }
+      return false;
 
     //RGB inc/dec no eeprom over write
     // always return false (sometime use upedge)
@@ -1381,12 +1388,6 @@ bool rgb_matrix_indicators_user(void) {
 bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (pre_process_record_ime_state_sync(keycode, record) == false) {
     return false;
-    case HSV_0_0_5:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,5);
-      }
-      return false;
   }
   return true;
 }
