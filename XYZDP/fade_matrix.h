@@ -1,6 +1,6 @@
 #pragma once
 
-extern const uint8_t rowcol2pos_tbl[MATRIX_ROWS][MATRIX_COLS];
+extern uint8_t get_pos_from_keyrecord(const keyrecord_t * const record);
 
 extern void fade_matrix_set_mode(const uint8_t mode);
 extern void fade_matrix_set_hue_pos(const uint8_t pos);
