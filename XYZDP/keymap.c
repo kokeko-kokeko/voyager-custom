@@ -898,6 +898,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           reset_keyboard();
         } else if (pos == 49) {
           soft_reset_keyboard();
+        } else if (pos == 50) {
+          layer_on(L_Set_Hue);
         }
       }
       return false;
