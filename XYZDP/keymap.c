@@ -883,7 +883,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case HSV_0_0_0:
       if (record->event.pressed) {
-        uint8_t pos = rowcol2pos_tbl[record->event.key.row][record->event.key.col];
+        uint8_t pos = get_pos_from_keyrecord(record);
         if (pos == 255) {
           // error, nothing to do
         } else if (pos == 0) {
@@ -904,7 +904,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case HSV_0_0_1:
       if (record->event.pressed) {
-        uint8_t pos = rowcol2pos_tbl[record->event.key.row][record->event.key.col];
+        uint8_t pos = get_pos_from_keyrecord(record);
         if (pos == 255) {
           // error, nothing to do
         } else if (pos == 50) {
@@ -927,7 +927,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case HSV_0_0_2:
       if (record->event.pressed) {
-        uint8_t pos = rowcol2pos_tbl[record->event.key.row][record->event.key.col];
+        uint8_t pos = get_pos_from_keyrecord(record);
         if (pos == 255) {
           // error, nothing to do
         } else if (pos == 50) {
@@ -940,7 +940,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case HSV_0_0_3:
       if (record->event.pressed) {
-        uint8_t pos = rowcol2pos_tbl[record->event.key.row][record->event.key.col];
+        uint8_t pos = get_pos_from_keyrecord(record);
         if (pos == 255) {
           // error, nothing to do
         } else if (pos == 50) {
@@ -953,7 +953,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case HSV_0_0_4:
       if (record->event.pressed) {
-        uint8_t pos = rowcol2pos_tbl[record->event.key.row][record->event.key.col];
+        uint8_t pos = get_pos_from_keyrecord(record);
         if (pos == 255) {
           // error, nothing to do
         } else if (pos == 50) {
