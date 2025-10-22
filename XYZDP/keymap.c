@@ -940,7 +940,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(L_Set_Sat);
         } else if (pos == 25) {
           layer_on(L_Set_Val);
-        } elseif (pos == 50) {
+        } else if (pos == 50) {
           // off all setting layers
           layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
@@ -965,7 +965,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_on(L_Set_Sat);
         } else if (pos == 25) {
           layer_off(L_Set_Val);
-        } elseif (pos == 50) {
+        } else if (pos == 50) {
           // off all setting layers
           layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
@@ -990,7 +990,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(L_Set_Sat);
         } else if (pos == 25) {
           layer_off(L_Set_Val);
-        } elseif (pos == 50) {
+        } else if (pos == 50) {
           // off all setting layers
           layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
