@@ -909,6 +909,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else if (pos == 50) {
           layer_on(L_Set_Hue);
         } else if (pos == 51) {
+          clear_keyboard();
           layer_on(L_Halt_Mask);
         }
       }
@@ -1035,7 +1036,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         uint8_t pos = get_pos_from_keyrecord(record);
         if (52 <= pos) return false;
         
-        if (pos == 31) {
+        if (pos == 49) {
 
         } else if (pos == 50) {
           // off all setting layers
@@ -1047,7 +1048,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(L_Firmware);
           
           status_led(now, 0b1111, led_pattern_oneshot);
-        } 
+        } else {
+          clear_keyboard();
+        }
       }
       return false;
 
