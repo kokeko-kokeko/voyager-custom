@@ -458,7 +458,8 @@ void set_layer_color_firmware_map(void) {
   //rgb_matrix_set_color(44, f, f, 0);
   //rgb_matrix_set_color(45, f, f, 0);
   rgb_matrix_set_color(50, q, q, 0);
-
+  rgb_matrix_set_color(51, q, 0, 0);
+  
   //ANSI/JIS
   if (layer_state_is(L_Base_JIS)) {
     //JIS base enable
