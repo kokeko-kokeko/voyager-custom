@@ -444,6 +444,17 @@ void set_layer_color_speed_map(void) {
   }
 }
 
+void set_layer_color_halt_map(void) {
+  HSV hsv = rgb_matrix_get_hsv();
+  //RGB rgb = hsv_to_rgb(hsv);
+
+  rgb_matrix_set_color_all(0, 0, 0);
+
+  rgb_matrix_set_color(31, hsv.v, 0, 0);
+  rgb_matrix_set_color(49, hsv.v, hsv.v, 0);
+  rgb_matrix_set_color(50, 0, hsv.v, 0);
+}
+
 void set_layer_color_firmware_map(void) {
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
@@ -529,17 +540,6 @@ void set_layer_color_firmware_map(void) {
   //rgb_matrix_set_color(35, q, 0, f);
   //rgb_matrix_set_color(41, f, 0, f);
   //rgb_matrix_set_color(47, f, 0, q);
-}
-
-void set_layer_color_halt_map(void) {
-  HSV hsv = rgb_matrix_get_hsv();
-  //RGB rgb = hsv_to_rgb(hsv);
-
-  rgb_matrix_set_color_all(0, 0, 0);
-
-  rgb_matrix_set_color(31, hsv.v, 0, 0);
-  rgb_matrix_set_color(49, hsv.v, hsv.v, 0);
-  rgb_matrix_set_color(50, 0, hsv.v, 0);
 }
 
 extern bool set_scrolling;
