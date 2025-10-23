@@ -1045,7 +1045,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         if (pos == 31) {
           while (1);
-
+        } else if (pos == 49) {
+          clear_keyboard();
         } else if (pos == 50) {
           // off all setting layers
           layer_off(L_Halt_Mask);
@@ -1058,8 +1059,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           set_auto_mouse_enable(true);
           
           status_led(now, 0b1111, led_pattern_oneshot);
-        } else {
-          clear_keyboard();
         }
       }
       return false;
