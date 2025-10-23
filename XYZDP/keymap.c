@@ -919,11 +919,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         if (pos == 24) {
           layer_on(L_Set_Sat);
+          update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
         } else if (pos == 25) {
           layer_on(L_Set_Val);
+          update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
         } else if (pos == 50) {
           // off all setting layers
-          //layer_off(L_Set_Speed);
+          layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
           layer_off(L_Set_Sat);
           layer_off(L_Set_Hue);
@@ -946,11 +948,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         if (pos == 24) {
           layer_off(L_Set_Sat);
+          update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
         } else if (pos == 25) {
           layer_on(L_Set_Val);
+          update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
         } else if (pos == 50) {
           // off all setting layers
-          //layer_off(L_Set_Speed);
+          layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
           layer_off(L_Set_Sat);
           layer_off(L_Set_Hue);
@@ -971,11 +975,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         if (pos == 24) {
           layer_on(L_Set_Sat);
+          update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
         } else if (pos == 25) {
           layer_off(L_Set_Val);
+          update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
         } else if (pos == 50) {
           // off all setting layers
-          //layer_off(L_Set_Speed);
+          layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
           layer_off(L_Set_Sat);
           layer_off(L_Set_Hue);
@@ -996,11 +1002,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         if (pos == 24) {
           layer_off(L_Set_Sat);
+          update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
         } else if (pos == 25) {
           layer_off(L_Set_Val);
+          update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
         } else if (pos == 50) {
           // off all setting layers
-          //layer_off(L_Set_Speed);
+          layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
           layer_off(L_Set_Sat);
           layer_off(L_Set_Hue);
@@ -1233,7 +1241,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware); 
   
   // call Speed with Sat and Val
-  state = update_tri_layer_state(state, L_Set_Sat, L_Set_Val, L_Set_Speed);
+  //state = update_tri_layer_state(state, L_Set_Sat, L_Set_Val, L_Set_Speed);
+  // call on key press side
   
   // on mouse, cursor override
   state = update_tri_layer_state(state, L_Mouse, L_Cursor, L_Mouse_Cursor_Override);
