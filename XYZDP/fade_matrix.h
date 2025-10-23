@@ -30,8 +30,8 @@ extern void set_layer_color_hue_map(void);
 extern void set_layer_color_sat_map(void);
 extern void set_layer_color_val_map(void);
 extern void set_layer_color_speed_map(void);
+extern void set_layer_color_halt_map(void);
 
 extern void set_layer_color_firmware_map(void);
-extern void set_layer_color_halt_map(void);
 
 extern void set_layer_color_mouse_map(void);
