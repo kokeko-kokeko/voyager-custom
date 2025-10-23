@@ -530,6 +530,16 @@ void set_layer_color_firmware_map(void) {
   //rgb_matrix_set_color(47, f, 0, q);
 }
 
+void set_layer_color_halt_map(void) {
+  HSV hsv = rgb_matrix_get_hsv();
+  RGB rgb = hsv_to_rgb(hsv);
+
+  rgb_matrix_set_color_all(0, 0, 0);
+
+  rgb_matrix_set_color(31, hsv.v, 0, 0);
+  rgb_matrix_set_color(50, hsv.v, hsv.v, 0);
+}
+
 extern bool set_scrolling;
 extern bool navigator_turbo;
 extern bool navigator_aim;
