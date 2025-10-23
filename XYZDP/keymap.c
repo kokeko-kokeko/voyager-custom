@@ -1043,7 +1043,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         uint8_t pos = get_pos_from_keyrecord(record);
         if (52 <= pos) return false;
         
-        if (pos == 49) {
+        if (pos == 31) {
           while (1);
 
         } else if (pos == 50) {
