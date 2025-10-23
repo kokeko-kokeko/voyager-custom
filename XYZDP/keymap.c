@@ -908,6 +908,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           soft_reset_keyboard();
         } else if (pos == 50) {
           layer_on(L_Set_Hue);
+        } else if (pos == 51) {
+          layer_on(L_Halt_Mask);
         }
       }
       return false;
@@ -925,6 +927,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
         } else if (pos == 50) {
           // off all setting layers
+          layer_off(L_Halt_Mask);
           layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
           layer_off(L_Set_Sat);
@@ -954,6 +957,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
         } else if (pos == 50) {
           // off all setting layers
+          layer_off(L_Halt_Mask);
           layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
           layer_off(L_Set_Sat);
@@ -981,6 +985,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
         } else if (pos == 50) {
           // off all setting layers
+          layer_off(L_Halt_Mask);
           layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
           layer_off(L_Set_Sat);
@@ -1008,6 +1013,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
         } else if (pos == 50) {
           // off all setting layers
+          layer_off(L_Halt_Mask);
           layer_off(L_Set_Speed);
           layer_off(L_Set_Val);
           layer_off(L_Set_Sat);
@@ -1026,8 +1032,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case HSV_0_0_5:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,5);
+        uint8_t pos = get_pos_from_keyrecord(record);
+        if (52 <= pos) return false;
+        
+        if (pos == 31) {
+
+        } else if (pos == 50) {
+          // off all setting layers
+          layer_off(L_Halt_Mask);
+          layer_off(L_Set_Speed);
+          layer_off(L_Set_Val);
+          layer_off(L_Set_Sat);
+          layer_off(L_Set_Hue);
+          layer_off(L_Firmware);
+          
+          status_led(now, 0b1111, led_pattern_oneshot);
+        } 
       }
       return false;
 
