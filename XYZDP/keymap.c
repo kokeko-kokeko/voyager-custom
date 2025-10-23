@@ -888,7 +888,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         fade_matrix_set_mode(RGB_MATRIX_SOLID_COLOR);
       }
       return false;
-    
+
+    // Firmware
     case HSV_0_0_0:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
@@ -915,7 +916,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
-    
+
+    // Hue
     case HSV_0_0_1:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
@@ -945,7 +947,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
-    
+
+    // Sat
     case HSV_0_0_2:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
@@ -973,7 +976,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
-    
+
+    // Val
     case HSV_0_0_3:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
@@ -1001,7 +1005,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
-    
+
+    // Speed
     case HSV_0_0_4:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
@@ -1031,7 +1036,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
-    
+
+    // Halt
     case HSV_0_0_5:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
