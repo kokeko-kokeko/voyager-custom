@@ -273,6 +273,7 @@ static bool lock_turbo = false;
 static bool lock_aim = false;
 
 static fast_timer_t auto_mouse_early_trigger = 0;
+static fast_timer_t auto_mouse_count_reset_trigger = 0;
 
 static fast_timer_t drag_scroll_trigger = 0;
 static fast_timer_t drag_turbo_trigger = 0;
@@ -1457,6 +1458,17 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
     .h = 0,
     .v = 0,
   };
+
+  fast_timer_t now = timer_read_fast();
+  
+  if (timer_expired_fast(now, auto_mouse_count_reset_trigger)) {
+    auto_mouse_count_reset_trigger = now + AUTO_MOUSE_COUNT_RESET_DELAY;
+
+    total_move_local.x = 0;
+    total_move_local.y = 0;
+    total_move_local.h = 0;
+    total_move_local.v = 0;
+  }
 
   // both state check xy move
   total_move_local.x += mouse_report.x;
