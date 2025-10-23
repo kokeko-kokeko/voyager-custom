@@ -1370,7 +1370,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now, 0b0011, led_pattern_blink);
       break;
     case L_Halt_Mask:
-      status_led(now, 0b1111, led_pattern_on);
+      status_led(now, 0b1111, led_pattern_off);
       break;
 
     default:
