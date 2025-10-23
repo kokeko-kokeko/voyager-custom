@@ -533,7 +533,7 @@ void set_layer_color_firmware_map(void) {
 
 void set_layer_color_halt_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
-  RGB rgb = hsv_to_rgb(hsv);
+  //RGB rgb = hsv_to_rgb(hsv);
 
   rgb_matrix_set_color_all(0, 0, 0);
 
