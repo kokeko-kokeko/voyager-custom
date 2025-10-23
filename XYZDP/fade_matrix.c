@@ -315,7 +315,7 @@ void set_layer_color_hue_map(void) {
   rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
   rgb_matrix_set_color(50, 0, hsv.v, 0);
-  rgb_matrix_set_color(51, hsv.v, 0, 0);
+  rgb_matrix_set_color(51, hsv.v, hsv.v, 0);
   uint8_t key = hsv.h;
   uint8_t i = 0;
   for (i = 0; i < 48; i++) {
