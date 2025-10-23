@@ -1365,7 +1365,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Set_Speed:
       status_led(now, 0b1100, led_pattern_on);
       status_led(now, 0b0011, led_pattern_blink);
-      break;    
+      break;
+    case L_Halt_Mask:
+      status_led(now, 0b1111, led_pattern_on);
+      break;
 
     default:
       status_led(now, 0b1111, led_pattern_off);
@@ -1399,6 +1402,9 @@ bool rgb_matrix_indicators_user(void) {
       break;
     case L_Set_Speed:
       set_layer_color_speed_map();
+      break;
+    case L_Halt_Mask:
+      set_layer_color_halt_map();
       break;
     
     default:
