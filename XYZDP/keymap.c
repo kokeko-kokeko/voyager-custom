@@ -1273,10 +1273,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // call FwSys with Fn and Cursor
   state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware); 
   
-  // call Speed with Sat and Val
-  //state = update_tri_layer_state(state, L_Set_Sat, L_Set_Val, L_Set_Speed);
-  // call on key press side
-  
   // on mouse, cursor override
   state = update_tri_layer_state(state, L_Mouse, L_Cursor, L_Mouse_Cursor_Override);
   
@@ -1459,17 +1455,6 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
     .v = 0,
   };
 
-  fast_timer_t now = timer_read_fast();
-  
-  if (timer_expired_fast(now, auto_mouse_count_reset_trigger)) {
-    auto_mouse_count_reset_trigger = now + AUTO_MOUSE_COUNT_RESET_DELAY;
-
-    total_move_local.x = 0;
-    total_move_local.y = 0;
-    total_move_local.h = 0;
-    total_move_local.v = 0;
-  }
-
   // both state check xy move
   total_move_local.x += mouse_report.x;
   total_move_local.y += mouse_report.y;
@@ -1493,14 +1478,23 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
     activate = activate || abs(total_move_local.v) > AUTO_MOUSE_SCROLL_THRESHOLD;
     activate = activate || mouse_report.buttons;
   }
+  
+  fast_timer_t now = timer_read_fast();
 
   if (activate) {
-    fast_timer_t now = timer_read_fast();
     auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
-      
+    auto_mouse_count_reset_trigger = now + AUTO_MOUSE_COUNT_RESET_DELAY;
+
     // wakeup RGB
     activate_fade_matrix(now);
     
+    total_move_local.x = 0;
+    total_move_local.y = 0;
+    total_move_local.h = 0;
+    total_move_local.v = 0;
+  } else if (timer_expired_fast(now, auto_mouse_count_reset_trigger)) {
+    auto_mouse_count_reset_trigger = now + AUTO_MOUSE_COUNT_RESET_DELAY;
+
     total_move_local.x = 0;
     total_move_local.y = 0;
     total_move_local.h = 0;
