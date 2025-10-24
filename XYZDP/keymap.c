@@ -976,6 +976,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(L_Set_Sat);
         layer_off(L_Set_Hue);
         layer_off(L_Firmware);
+
+        set_auto_mouse_enable(true);
         
         status_led(now, 0b1111, led_pattern_oneshot);
       }
