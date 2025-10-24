@@ -11,8 +11,8 @@ enum custom_keycodes {
   HSV_0_255_1,
   HSV_0_255_2,
   HSV_0_0_10,
-  HSV_0_0_11,
-  HSV_0_0_12,
+  HSV_0_255_3,
+  HSV_0_255_4,
   HSV_0_255_255,
   HSV_0_0_14,
   HSV_0_0_20,
@@ -54,28 +54,28 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(7, KC_P)
-#define DUAL_FUNC_1 LT(9, KC_F1)
-#define DUAL_FUNC_2 LT(11, KC_K)
-#define DUAL_FUNC_3 LT(4, KC_D)
-#define DUAL_FUNC_4 LT(4, KC_F11)
-#define DUAL_FUNC_5 LT(3, KC_F18)
-#define DUAL_FUNC_6 LT(11, KC_F3)
-#define DUAL_FUNC_7 LT(7, KC_F17)
-#define DUAL_FUNC_8 LT(1, KC_I)
-#define DUAL_FUNC_9 LT(8, KC_G)
-#define DUAL_FUNC_10 LT(6, KC_F2)
-#define DUAL_FUNC_11 LT(10, KC_F24)
-#define DUAL_FUNC_12 LT(12, KC_F2)
-#define DUAL_FUNC_13 LT(2, KC_U)
-#define DUAL_FUNC_14 LT(12, KC_L)
-#define DUAL_FUNC_15 LT(3, KC_A)
-#define DUAL_FUNC_16 LT(2, KC_F1)
-#define DUAL_FUNC_17 LT(12, KC_P)
-#define DUAL_FUNC_18 LT(8, KC_F4)
-#define DUAL_FUNC_19 LT(2, KC_P)
-#define DUAL_FUNC_20 LT(9, KC_S)
-#define DUAL_FUNC_21 LT(7, KC_U)
+#define DUAL_FUNC_0 LT(4, KC_F15)
+#define DUAL_FUNC_1 LT(6, KC_Q)
+#define DUAL_FUNC_2 LT(12, KC_F3)
+#define DUAL_FUNC_3 LT(10, KC_Y)
+#define DUAL_FUNC_4 LT(14, KC_A)
+#define DUAL_FUNC_5 LT(13, KC_2)
+#define DUAL_FUNC_6 LT(6, KC_F19)
+#define DUAL_FUNC_7 LT(12, KC_Q)
+#define DUAL_FUNC_8 LT(1, KC_C)
+#define DUAL_FUNC_9 LT(1, KC_G)
+#define DUAL_FUNC_10 LT(4, KC_A)
+#define DUAL_FUNC_11 LT(6, KC_E)
+#define DUAL_FUNC_12 LT(1, KC_7)
+#define DUAL_FUNC_13 LT(10, KC_F)
+#define DUAL_FUNC_14 LT(8, KC_4)
+#define DUAL_FUNC_15 LT(8, KC_6)
+#define DUAL_FUNC_16 LT(8, KC_F8)
+#define DUAL_FUNC_17 LT(4, KC_F10)
+#define DUAL_FUNC_18 LT(1, KC_F24)
+#define DUAL_FUNC_19 LT(8, KC_X)
+#define DUAL_FUNC_20 LT(8, KC_C)
+#define DUAL_FUNC_21 LT(11, KC_V)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -209,21 +209,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,                                     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     
     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,                                     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     
     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,                                     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     
-                                                    HSV_0_0_11,     HSV_0_0_12,                                     HSV_0_255_255,  HSV_0_0_14
+                                                    HSV_0_255_3,    HSV_0_255_4,                                    HSV_0_255_255,  HSV_0_0_14
   ),
   [19] = LAYOUT_voyager(
     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,                                     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     
     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,                                     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     
     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,                                     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     
     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,                                     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     
-                                                    HSV_0_0_21,     HSV_0_0_12,                                     HSV_0_255_255,  KC_NO
+                                                    HSV_0_0_21,     HSV_0_255_4,                                    HSV_0_255_255,  KC_NO
   ),
   [20] = LAYOUT_voyager(
     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,                                     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     
     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,                                     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     
     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,                                     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     
     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,                                     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     
-                                                    HSV_0_0_11,     HSV_0_0_32,                                     HSV_0_255_255,  KC_NO
+                                                    HSV_0_255_3,    HSV_0_0_32,                                     HSV_0_255_255,  KC_NO
   ),
   [21] = LAYOUT_voyager(
     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,                                     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     
@@ -942,13 +942,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         fade_matrix_set_hue_pos(pos);
       }
       return false;
-    case HSV_0_0_11:
+    case HSV_0_255_3:
       if (record->event.pressed) {
         layer_on(L_Set_Sat);
         update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
       }
       return false;
-    case HSV_0_0_12:
+    case HSV_0_255_4:
       if (record->event.pressed) {
         layer_on(L_Set_Val);
         update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
