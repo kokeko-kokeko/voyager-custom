@@ -8,8 +8,8 @@
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
   HSV_0_0_0,
-  HSV_0_0_1,
-  HSV_0_0_2,
+  HSV_0_255_1,
+  HSV_0_255_2,
   HSV_0_0_10,
   HSV_0_0_11,
   HSV_0_0_12,
@@ -54,28 +54,28 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(12, KC_5)
-#define DUAL_FUNC_1 LT(14, KC_7)
-#define DUAL_FUNC_2 LT(5, KC_F6)
-#define DUAL_FUNC_3 LT(14, KC_F23)
-#define DUAL_FUNC_4 LT(11, KC_W)
-#define DUAL_FUNC_5 LT(8, KC_R)
-#define DUAL_FUNC_6 LT(5, KC_F16)
-#define DUAL_FUNC_7 LT(7, KC_F1)
-#define DUAL_FUNC_8 LT(6, KC_W)
-#define DUAL_FUNC_9 LT(4, KC_I)
-#define DUAL_FUNC_10 LT(4, KC_F24)
-#define DUAL_FUNC_11 LT(6, KC_N)
-#define DUAL_FUNC_12 LT(5, KC_G)
-#define DUAL_FUNC_13 LT(1, KC_8)
-#define DUAL_FUNC_14 LT(14, KC_5)
-#define DUAL_FUNC_15 LT(6, KC_A)
-#define DUAL_FUNC_16 LT(7, KC_F8)
-#define DUAL_FUNC_17 LT(2, KC_S)
-#define DUAL_FUNC_18 LT(5, KC_Q)
-#define DUAL_FUNC_19 LT(3, KC_2)
-#define DUAL_FUNC_20 LT(14, KC_D)
-#define DUAL_FUNC_21 LT(4, KC_F12)
+#define DUAL_FUNC_0 LT(13, KC_F23)
+#define DUAL_FUNC_1 LT(14, KC_O)
+#define DUAL_FUNC_2 LT(11, KC_F20)
+#define DUAL_FUNC_3 LT(14, KC_J)
+#define DUAL_FUNC_4 LT(10, KC_J)
+#define DUAL_FUNC_5 LT(12, KC_0)
+#define DUAL_FUNC_6 LT(12, KC_C)
+#define DUAL_FUNC_7 LT(9, KC_F8)
+#define DUAL_FUNC_8 LT(9, KC_F24)
+#define DUAL_FUNC_9 LT(6, KC_R)
+#define DUAL_FUNC_10 LT(2, KC_F)
+#define DUAL_FUNC_11 LT(2, KC_5)
+#define DUAL_FUNC_12 LT(1, KC_M)
+#define DUAL_FUNC_13 LT(7, KC_F8)
+#define DUAL_FUNC_14 LT(11, KC_F23)
+#define DUAL_FUNC_15 LT(5, KC_F22)
+#define DUAL_FUNC_16 LT(10, KC_F23)
+#define DUAL_FUNC_17 LT(3, KC_F2)
+#define DUAL_FUNC_18 LT(2, KC_F4)
+#define DUAL_FUNC_19 LT(2, KC_R)
+#define DUAL_FUNC_20 LT(2, KC_C)
+#define DUAL_FUNC_21 LT(6, KC_F16)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -202,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,                                      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      
     HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,                                      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      
     HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,                                      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 HSV_0_0_1,      HSV_0_0_2
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 HSV_0_255_1,    HSV_0_255_2
   ),
   [18] = LAYOUT_voyager(
     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,                                     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     HSV_0_0_10,     
@@ -770,16 +770,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv(0,0,0);
       }
       return false;
-    case HSV_0_0_1:
+    case HSV_0_255_1:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(0,0,1);
+        rgblight_sethsv(0,255,1);
       }
       return false;
-    case HSV_0_0_2:
+    case HSV_0_255_2:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(0,0,2);
+        rgblight_sethsv(0,255,2);
       }
       return false;
     case HSV_0_0_10:
