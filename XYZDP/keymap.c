@@ -17,13 +17,9 @@ enum custom_keycodes {
   HSV_0_0_14,
   HSV_0_0_20,
   HSV_0_0_21,
-  HSV_0_0_22,
   HSV_0_0_30,
-  HSV_0_0_31,
   HSV_0_0_32,
   HSV_0_0_40,
-  HSV_0_0_41,
-  HSV_0_0_42,
   HSV_0_0_44,
   HSV_0_0_250,
   ST_MACRO_0,
@@ -58,28 +54,28 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(1, KC_9)
-#define DUAL_FUNC_1 LT(10, KC_F11)
-#define DUAL_FUNC_2 LT(5, KC_F24)
-#define DUAL_FUNC_3 LT(12, KC_F5)
-#define DUAL_FUNC_4 LT(6, KC_F17)
-#define DUAL_FUNC_5 LT(5, KC_F21)
-#define DUAL_FUNC_6 LT(4, KC_Z)
-#define DUAL_FUNC_7 LT(2, KC_8)
-#define DUAL_FUNC_8 LT(2, KC_F6)
-#define DUAL_FUNC_9 LT(9, KC_5)
-#define DUAL_FUNC_10 LT(3, KC_K)
-#define DUAL_FUNC_11 LT(13, KC_Q)
-#define DUAL_FUNC_12 LT(3, KC_F11)
-#define DUAL_FUNC_13 LT(6, KC_F4)
-#define DUAL_FUNC_14 LT(7, KC_F21)
-#define DUAL_FUNC_15 LT(13, KC_F15)
-#define DUAL_FUNC_16 LT(10, KC_F22)
-#define DUAL_FUNC_17 LT(10, KC_R)
-#define DUAL_FUNC_18 LT(14, KC_F2)
-#define DUAL_FUNC_19 LT(1, KC_H)
-#define DUAL_FUNC_20 LT(2, KC_F1)
-#define DUAL_FUNC_21 LT(14, KC_D)
+#define DUAL_FUNC_0 LT(7, KC_F12)
+#define DUAL_FUNC_1 LT(13, KC_C)
+#define DUAL_FUNC_2 LT(13, KC_F21)
+#define DUAL_FUNC_3 LT(8, KC_F13)
+#define DUAL_FUNC_4 LT(11, KC_G)
+#define DUAL_FUNC_5 LT(7, KC_O)
+#define DUAL_FUNC_6 LT(14, KC_G)
+#define DUAL_FUNC_7 LT(4, KC_F8)
+#define DUAL_FUNC_8 LT(12, KC_5)
+#define DUAL_FUNC_9 LT(3, KC_F23)
+#define DUAL_FUNC_10 LT(3, KC_Y)
+#define DUAL_FUNC_11 LT(10, KC_B)
+#define DUAL_FUNC_12 LT(6, KC_6)
+#define DUAL_FUNC_13 LT(9, KC_G)
+#define DUAL_FUNC_14 LT(4, KC_F3)
+#define DUAL_FUNC_15 LT(6, KC_J)
+#define DUAL_FUNC_16 LT(6, KC_F12)
+#define DUAL_FUNC_17 LT(13, KC_M)
+#define DUAL_FUNC_18 LT(14, KC_U)
+#define DUAL_FUNC_19 LT(5, KC_F9)
+#define DUAL_FUNC_20 LT(10, KC_R)
+#define DUAL_FUNC_21 LT(2, KC_Y)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -220,21 +216,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,                                     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     
     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,                                     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     
     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,                                     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     
-                                                    HSV_0_0_21,     HSV_0_0_22,                                     HSV_0_0_255,    KC_NO
+                                                    HSV_0_0_21,     HSV_0_0_12,                                     HSV_0_0_255,    KC_NO
   ),
   [20] = LAYOUT_voyager(
     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,                                     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     
     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,                                     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     
     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,                                     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     
     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,                                     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     HSV_0_0_30,     
-                                                    HSV_0_0_31,     HSV_0_0_32,                                     HSV_0_0_255,    KC_NO
+                                                    HSV_0_0_11,     HSV_0_0_32,                                     HSV_0_0_255,    KC_NO
   ),
   [21] = LAYOUT_voyager(
     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,                                     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     
     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,                                     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     
     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,                                     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     
     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,                                     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     HSV_0_0_40,     
-                                                    HSV_0_0_41,     HSV_0_0_42,                                     HSV_0_0_255,    HSV_0_0_44
+                                                    HSV_0_0_21,     HSV_0_0_32,                                     HSV_0_0_255,    HSV_0_0_44
   ),
   [22] = LAYOUT_voyager(
     HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,                                    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    
@@ -995,25 +991,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
       }
       return false;
-    case HSV_0_0_22:
-      if (record->event.pressed) {
-        layer_on(L_Set_Val);
-        update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
-      }
-      return false;
-    
     case HSV_0_0_30:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
         if (52 <= pos) return false;
         
         fade_matrix_set_val_pos(pos);
-      }
-      return false;
-    case HSV_0_0_31:
-      if (record->event.pressed) {
-        layer_on(L_Set_Sat);
-        update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
       }
       return false;
     case HSV_0_0_32:
@@ -1028,18 +1011,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (52 <= pos) return false;
         
         fade_matrix_set_speed_pos(pos);
-      }
-      return false;
-    case HSV_0_0_41:
-      if (record->event.pressed) {
-        layer_off(L_Set_Sat);
-        update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
-      }
-      return false;
-    case HSV_0_0_42:
-      if (record->event.pressed) {
-        layer_off(L_Set_Val);
-        update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
       }
       return false;
     case HSV_0_0_44:
