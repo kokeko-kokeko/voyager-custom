@@ -913,10 +913,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           ime_state_sync_enable();
         } else if (pos == 8) {
           ime_state_sync_disable();
+        } else if (pos == 26) {
+          soft_reset_keyboard();
         } else if (pos == 31) {
           reset_keyboard();
         } else if (pos == 49) {
-          soft_reset_keyboard();
+          clear_keyboard();
         }
       }
       return false;
