@@ -13,7 +13,7 @@ enum custom_keycodes {
   HSV_0_0_20,
   HSV_86_255_3,
   HSV_86_255_4,
-  HSV_0_255_255,
+  HSV_86_255_255,
   HSV_172_255_1,
   HSV_0_0_21,
   HSV_86_255_5,
@@ -54,28 +54,28 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(6, KC_Q)
-#define DUAL_FUNC_1 LT(10, KC_S)
-#define DUAL_FUNC_2 LT(1, KC_W)
-#define DUAL_FUNC_3 LT(14, KC_Z)
-#define DUAL_FUNC_4 LT(3, KC_F15)
-#define DUAL_FUNC_5 LT(2, KC_P)
-#define DUAL_FUNC_6 LT(14, KC_5)
-#define DUAL_FUNC_7 LT(11, KC_F19)
-#define DUAL_FUNC_8 LT(2, KC_F23)
-#define DUAL_FUNC_9 LT(12, KC_J)
-#define DUAL_FUNC_10 LT(9, KC_Q)
-#define DUAL_FUNC_11 LT(9, KC_F21)
-#define DUAL_FUNC_12 LT(4, KC_F)
-#define DUAL_FUNC_13 LT(1, KC_F9)
-#define DUAL_FUNC_14 LT(12, KC_F13)
-#define DUAL_FUNC_15 LT(13, KC_U)
-#define DUAL_FUNC_16 LT(11, KC_3)
-#define DUAL_FUNC_17 LT(8, KC_F1)
-#define DUAL_FUNC_18 LT(13, KC_H)
-#define DUAL_FUNC_19 LT(12, KC_F19)
-#define DUAL_FUNC_20 LT(1, KC_Z)
-#define DUAL_FUNC_21 LT(1, KC_F1)
+#define DUAL_FUNC_0 LT(11, KC_J)
+#define DUAL_FUNC_1 LT(14, KC_F5)
+#define DUAL_FUNC_2 LT(2, KC_V)
+#define DUAL_FUNC_3 LT(5, KC_F20)
+#define DUAL_FUNC_4 LT(8, KC_F6)
+#define DUAL_FUNC_5 LT(3, KC_5)
+#define DUAL_FUNC_6 LT(4, KC_I)
+#define DUAL_FUNC_7 LT(11, KC_F8)
+#define DUAL_FUNC_8 LT(14, KC_F15)
+#define DUAL_FUNC_9 LT(3, KC_3)
+#define DUAL_FUNC_10 LT(13, KC_F7)
+#define DUAL_FUNC_11 LT(2, KC_K)
+#define DUAL_FUNC_12 LT(11, KC_F)
+#define DUAL_FUNC_13 LT(5, KC_O)
+#define DUAL_FUNC_14 LT(6, KC_F12)
+#define DUAL_FUNC_15 LT(1, KC_Z)
+#define DUAL_FUNC_16 LT(13, KC_S)
+#define DUAL_FUNC_17 LT(12, KC_F3)
+#define DUAL_FUNC_18 LT(4, KC_F4)
+#define DUAL_FUNC_19 LT(13, KC_G)
+#define DUAL_FUNC_20 LT(2, KC_F24)
+#define DUAL_FUNC_21 LT(1, KC_Q)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -209,35 +209,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,                                     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     
     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,                                     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     
     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,                                     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     HSV_0_0_20,     
-                                                    HSV_86_255_3,   HSV_86_255_4,                                   HSV_0_255_255,  HSV_172_255_1
+                                                    HSV_86_255_3,   HSV_86_255_4,                                   HSV_86_255_255, HSV_172_255_1
   ),
   [19] = LAYOUT_voyager(
     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,                                     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     
     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,                                     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     
     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,                                     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     
     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,                                     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     HSV_0_0_21,     
-                                                    HSV_86_255_5,   HSV_86_255_4,                                   HSV_0_255_255,  KC_NO
+                                                    HSV_86_255_5,   HSV_86_255_4,                                   HSV_86_255_255, KC_NO
   ),
   [20] = LAYOUT_voyager(
     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,                                     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     
     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,                                     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     
     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,                                     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     
     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,                                     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     HSV_0_0_22,     
-                                                    HSV_86_255_3,   HSV_86_255_6,                                   HSV_0_255_255,  KC_NO
+                                                    HSV_86_255_3,   HSV_86_255_6,                                   HSV_86_255_255, KC_NO
   ),
   [21] = LAYOUT_voyager(
     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,                                     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     
     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,                                     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     
     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,                                     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     
     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,                                     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     HSV_0_0_23,     
-                                                    HSV_86_255_5,   HSV_86_255_6,                                   HSV_0_255_255,  HSV_172_255_2
+                                                    HSV_86_255_5,   HSV_86_255_6,                                   HSV_86_255_255, HSV_172_255_2
   ),
   [22] = LAYOUT_voyager(
     HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,                                      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      
     HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,                                      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      
     HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,                                      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      
     HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,                                      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      
-                                                    KC_NO,          KC_NO,                                          HSV_0_255_255,  KC_NO
+                                                    KC_NO,          KC_NO,                                          HSV_86_255_255, KC_NO
   ),
 };
 
@@ -800,10 +800,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_sethsv(86,255,4);
       }
       return false;
-    case HSV_0_255_255:
+    case HSV_86_255_255:
       if (record->event.pressed) {
         rgblight_mode(1);
-        rgblight_sethsv(0,255,255);
+        rgblight_sethsv(86,255,255);
       }
       return false;
     case HSV_172_255_1:
