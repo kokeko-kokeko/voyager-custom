@@ -975,6 +975,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         status_led(now, 0b0101, led_pattern_oneshot);
       }
       return false;
+    
     // Sat
     case HSV_0_0_21:
       if (record->event.pressed) {
@@ -990,6 +991,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
       }
       return false;
+
+    // Val
     case HSV_0_0_22:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
@@ -1004,6 +1007,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
       }
       return false;
+
+    // Speed
     case HSV_0_0_23:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
@@ -1033,6 +1038,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
+
+    
     //RGB inc/dec no eeprom over write
     // always return false (sometime use upedge)
     case RGB_HUI:
