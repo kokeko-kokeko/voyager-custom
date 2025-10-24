@@ -21,6 +21,7 @@ enum custom_keycodes {
   HSV_0_255_6,
   HSV_0_0_23,
   HSV_86_255_2,
+  HSV_0_0_0,
   HSV_0_0_255,
   ST_MACRO_0,
   ST_MACRO_1,
@@ -54,28 +55,28 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(5, KC_F12)
-#define DUAL_FUNC_1 LT(8, KC_F6)
-#define DUAL_FUNC_2 LT(4, KC_F3)
-#define DUAL_FUNC_3 LT(4, KC_V)
-#define DUAL_FUNC_4 LT(10, KC_P)
-#define DUAL_FUNC_5 LT(14, KC_E)
-#define DUAL_FUNC_6 LT(6, KC_F23)
-#define DUAL_FUNC_7 LT(10, KC_F23)
-#define DUAL_FUNC_8 LT(12, KC_0)
-#define DUAL_FUNC_9 LT(9, KC_T)
-#define DUAL_FUNC_10 LT(12, KC_F8)
-#define DUAL_FUNC_11 LT(10, KC_1)
-#define DUAL_FUNC_12 LT(11, KC_F4)
-#define DUAL_FUNC_13 LT(5, KC_U)
-#define DUAL_FUNC_14 LT(9, KC_U)
-#define DUAL_FUNC_15 LT(11, KC_F)
-#define DUAL_FUNC_16 LT(8, KC_1)
-#define DUAL_FUNC_17 LT(13, KC_9)
-#define DUAL_FUNC_18 LT(1, KC_G)
-#define DUAL_FUNC_19 LT(4, KC_9)
-#define DUAL_FUNC_20 LT(10, KC_U)
-#define DUAL_FUNC_21 LT(2, KC_1)
+#define DUAL_FUNC_0 LT(10, KC_F18)
+#define DUAL_FUNC_1 LT(4, KC_P)
+#define DUAL_FUNC_2 LT(2, KC_4)
+#define DUAL_FUNC_3 LT(8, KC_F14)
+#define DUAL_FUNC_4 LT(5, KC_F5)
+#define DUAL_FUNC_5 LT(11, KC_F8)
+#define DUAL_FUNC_6 LT(2, KC_S)
+#define DUAL_FUNC_7 LT(8, KC_D)
+#define DUAL_FUNC_8 LT(8, KC_A)
+#define DUAL_FUNC_9 LT(3, KC_F13)
+#define DUAL_FUNC_10 LT(10, KC_F4)
+#define DUAL_FUNC_11 LT(7, KC_W)
+#define DUAL_FUNC_12 LT(10, KC_N)
+#define DUAL_FUNC_13 LT(10, KC_Q)
+#define DUAL_FUNC_14 LT(5, KC_P)
+#define DUAL_FUNC_15 LT(14, KC_F22)
+#define DUAL_FUNC_16 LT(13, KC_K)
+#define DUAL_FUNC_17 LT(1, KC_F5)
+#define DUAL_FUNC_18 LT(11, KC_G)
+#define DUAL_FUNC_19 LT(11, KC_M)
+#define DUAL_FUNC_20 LT(7, KC_F16)
+#define DUAL_FUNC_21 LT(5, KC_M)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -233,10 +234,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     HSV_0_255_5,    HSV_0_255_6,                                    HSV_0_255_255,  HSV_86_255_2
   ),
   [22] = LAYOUT_voyager(
-    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,                                    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    
-    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,                                    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    
-    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,                                    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    
-    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,                                    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    HSV_0_0_255,    
+    HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,                                      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_255,    
+    HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,                                      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      
+    HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,                                      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      
+    HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,                                      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      HSV_0_0_0,      
                                                     KC_NO,          KC_NO,                                          HSV_0_255_255,  KC_NO
   ),
 };
@@ -846,6 +847,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_mode(1);
         rgblight_sethsv(86,255,2);
+      }
+      return false;
+    case HSV_0_0_0:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(0,0,0);
       }
       return false;
     case HSV_0_0_255:
