@@ -930,55 +930,60 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           reset_keyboard();
         } else if (pos == 49) {
           soft_reset_keyboard();
-        } else if (pos == 50) {
-          layer_on(L_Set_Hue);
-        } else if (pos == 51) {
-          set_auto_mouse_enable(false);
-          clear_keyboard();
-          layer_on(L_Halt_Mask);
         }
       }
       return false;
     case HSV_0_0_3:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,3);
+        layer_on(L_Set_Hue);
       }
       return false;
     case HSV_0_0_4:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,4);
+        set_auto_mouse_enable(false);
+        clear_keyboard();
+        layer_on(L_Halt_Mask);
       }
       return false;
+
+    // Hue
     case HSV_0_0_10:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,10);
+        uint8_t pos = get_pos_from_keyrecord(record);
+        if (52 <= pos) return false;
+        
+        fade_matrix_set_hue_pos(pos);
       }
       return false;
     case HSV_0_0_11:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,11);
+        layer_on(L_Set_Sat);
+        update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
       }
       return false;
     case HSV_0_0_12:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,12);
+        layer_on(L_Set_Val);
+        update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
       }
       return false;
     case HSV_0_0_13:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,13);
+        // off all setting layers
+        layer_off(L_Halt_Mask);
+        layer_off(L_Set_Speed);
+        layer_off(L_Set_Val);
+        layer_off(L_Set_Sat);
+        layer_off(L_Set_Hue);
+        layer_off(L_Firmware);
+        
+        status_led(now, 0b1111, led_pattern_oneshot);
       }
       return false;
     case HSV_0_0_14:
       if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,0,14);
+        fade_matrix_load_preset();
+        status_led(now, 0b0101, led_pattern_oneshot);
       }
       return false;
 
