@@ -13,7 +13,6 @@ enum custom_keycodes {
   HSV_0_0_3,
   HSV_0_0_4,
   HSV_0_0_250,
-  HSV_0_0_5,
   HSV_0_0_251,
   HSV_0_0_252,
   HSV_0_0_253,
@@ -50,28 +49,28 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(1, KC_F1)
-#define DUAL_FUNC_1 LT(13, KC_F18)
-#define DUAL_FUNC_2 LT(8, KC_Y)
-#define DUAL_FUNC_3 LT(13, KC_L)
-#define DUAL_FUNC_4 LT(7, KC_M)
-#define DUAL_FUNC_5 LT(7, KC_F5)
-#define DUAL_FUNC_6 LT(8, KC_3)
-#define DUAL_FUNC_7 LT(8, KC_I)
-#define DUAL_FUNC_8 LT(10, KC_J)
-#define DUAL_FUNC_9 LT(5, KC_F1)
-#define DUAL_FUNC_10 LT(13, KC_7)
-#define DUAL_FUNC_11 LT(10, KC_C)
-#define DUAL_FUNC_12 LT(13, KC_F24)
-#define DUAL_FUNC_13 LT(11, KC_F11)
-#define DUAL_FUNC_14 LT(6, KC_F20)
-#define DUAL_FUNC_15 LT(2, KC_F4)
-#define DUAL_FUNC_16 LT(3, KC_F19)
-#define DUAL_FUNC_17 LT(8, KC_9)
-#define DUAL_FUNC_18 LT(3, KC_E)
-#define DUAL_FUNC_19 LT(3, KC_F13)
-#define DUAL_FUNC_20 LT(14, KC_N)
-#define DUAL_FUNC_21 LT(13, KC_3)
+#define DUAL_FUNC_0 LT(2, KC_H)
+#define DUAL_FUNC_1 LT(6, KC_I)
+#define DUAL_FUNC_2 LT(7, KC_F16)
+#define DUAL_FUNC_3 LT(10, KC_8)
+#define DUAL_FUNC_4 LT(1, KC_J)
+#define DUAL_FUNC_5 LT(6, KC_F16)
+#define DUAL_FUNC_6 LT(6, KC_F20)
+#define DUAL_FUNC_7 LT(12, KC_W)
+#define DUAL_FUNC_8 LT(8, KC_F4)
+#define DUAL_FUNC_9 LT(7, KC_F19)
+#define DUAL_FUNC_10 LT(4, KC_C)
+#define DUAL_FUNC_11 LT(12, KC_E)
+#define DUAL_FUNC_12 LT(3, KC_F1)
+#define DUAL_FUNC_13 LT(6, KC_F4)
+#define DUAL_FUNC_14 LT(8, KC_F24)
+#define DUAL_FUNC_15 LT(13, KC_F8)
+#define DUAL_FUNC_16 LT(8, KC_O)
+#define DUAL_FUNC_17 LT(13, KC_U)
+#define DUAL_FUNC_18 LT(11, KC_O)
+#define DUAL_FUNC_19 LT(12, KC_9)
+#define DUAL_FUNC_20 LT(14, KC_F1)
+#define DUAL_FUNC_21 LT(12, KC_L)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -230,7 +229,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [22] = LAYOUT_voyager(
     HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,                                    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    
-    HSV_0_0_250,    HSV_0_0_5,      HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,                                    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    
+    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,                                    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    
     HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,                                    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    
     HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,                                    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    HSV_0_0_250,    
                                                     HSV_0_0_251,    HSV_0_0_252,                                    HSV_0_0_253,    HSV_0_0_254
