@@ -1482,8 +1482,6 @@ bool rgb_matrix_indicators_user(void) {
         set_layer_color_overlay_layer();
       }
       break;
-=======
->>>>>>> origin/oryx
   }
   return true;
 }
