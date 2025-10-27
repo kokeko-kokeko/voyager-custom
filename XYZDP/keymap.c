@@ -1276,14 +1276,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     navigator_aim = false;
   }
   
-  // mouse scroll / auto mouse by layer
-  if (layer_state_cmp(state, L_Number)) {
+  // mouse scroll / auto mouse
+  if (layer_state_cmp(state, L_Halt_Mask)) {
+    remove_auto_mouse_layer(state, true);
+    set_auto_mouse_enable(false);
+  } else if (layer_state_cmp(state, L_Cursor)) {
     set_scrolling = true;
     lock_scrolling = false;
     if (get_auto_mouse_enable() == false) {
       set_auto_mouse_enable(false);
     }
-  } else if (layer_state_cmp(state, L_Cursor)) {
+  } else if (layer_state_cmp(state, L_Number)) {
     set_scrolling = true;
     lock_scrolling = false;
     if (get_auto_mouse_enable() == false) {
