@@ -954,13 +954,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_86_255_3:
       if (record->event.pressed) {
         layer_on(L_Set_Sat);
-        update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
       }
       return false;
     case HSV_86_255_4:
       if (record->event.pressed) {
         layer_on(L_Set_Val);
-        update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
       }
       return false;
     case HSV_86_255_255:
@@ -997,7 +995,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_86_255_5:
       if (record->event.pressed) {
         layer_off(L_Set_Sat);
-        update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
       }
       return false;
 
@@ -1013,7 +1010,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_86_255_6:
       if (record->event.pressed) {
         layer_off(L_Set_Val);
-        update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
       }
       return false;
 
@@ -1281,18 +1277,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   
   // mouse scroll / auto mouse
   if (layer_state_cmp(state, L_Halt_Mask)) {
-    remove_auto_mouse_layer(state, true);
+    state = remove_auto_mouse_layer(state, true);
     set_auto_mouse_enable(false);
   } else if (layer_state_cmp(state, L_Cursor)) {
     set_scrolling = true;
     lock_scrolling = false;
-    if (get_auto_mouse_enable() == false) {
+    if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
   } else if (layer_state_cmp(state, L_Number)) {
     set_scrolling = true;
     lock_scrolling = false;
-    if (get_auto_mouse_enable() == false) {
+    if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
   } else {
