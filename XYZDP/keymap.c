@@ -1257,7 +1257,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Mouse, L_Number, L_Mouse_Number_Override);
   state = update_tri_layer_state(state, L_Mouse, L_Cursor, L_Mouse_Cursor_Override);
 
-  // fw overwide
+  // rgb setting tri layer
   state = update_tri_layer_state(state, L_Set_Sat, L_Set_Val, L_Set_Speed);
   
   // ANSI/JIS addiional enable
