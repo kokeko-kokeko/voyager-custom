@@ -1445,26 +1445,16 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
   // both state check xy move
   total_move_local.x += mouse_report.x;
   total_move_local.y += mouse_report.y;
-
+  total_move_local.h += mouse_report.h;
+  total_move_local.v += mouse_report.v;
+  
   bool activate = false;
 
-  if (is_auto_mouse_active() == false) {
-    // non active
-    activate = activate || abs(total_move_local.x) > AUTO_MOUSE_THRESHOLD;
-    activate = activate || abs(total_move_local.y) > AUTO_MOUSE_THRESHOLD;
-  } else {
-    // active
-    activate = activate || abs(total_move_local.x) > AUTO_MOUSE_CONT_THRESHOLD;
-    activate = activate || abs(total_move_local.y) > AUTO_MOUSE_CONT_THRESHOLD;  
-    
-    // active, additional check wheel and button
-    total_move_local.h += mouse_report.h;
-    total_move_local.v += mouse_report.v;
-    
-    activate = activate || abs(total_move_local.h) > AUTO_MOUSE_SCROLL_THRESHOLD;
-    activate = activate || abs(total_move_local.v) > AUTO_MOUSE_SCROLL_THRESHOLD;
-    activate = activate || mouse_report.buttons;
-  }
+  activate = activate || abs(total_move_local.x) > AUTO_MOUSE_THRESHOLD;
+  activate = activate || abs(total_move_local.y) > AUTO_MOUSE_THRESHOLD;  
+  activate = activate || abs(total_move_local.h) > AUTO_MOUSE_SCROLL_THRESHOLD;
+  activate = activate || abs(total_move_local.v) > AUTO_MOUSE_SCROLL_THRESHOLD;
+  activate = activate || mouse_report.buttons;
   
   fast_timer_t now = timer_read_fast();
 
