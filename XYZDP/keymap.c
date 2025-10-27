@@ -1276,15 +1276,22 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     navigator_aim = false;
   }
   
-  // mouse scroll by layer
+  // mouse scroll / auto mouse by layer
   if (layer_state_cmp(state, L_Number)) {
     set_scrolling = true;
     lock_scrolling = false;
+    if (get_auto_mouse_enable() == false) {
+      set_auto_mouse_enable(false);
+    }
   } else if (layer_state_cmp(state, L_Cursor)) {
     set_scrolling = true;
     lock_scrolling = false;
+    if (get_auto_mouse_enable() == false) {
+      set_auto_mouse_enable(false);
+    }
   } else {
     set_scrolling = lock_scrolling;
+    set_auto_mouse_enable(true);
   }
 
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
