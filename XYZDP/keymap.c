@@ -1257,7 +1257,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // call FwSys with Fn and Cursor
   state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware); 
   
-  // on mouse, cursor override
+  // on mouse, number/cursor override
+  state = update_tri_layer_state(state, L_Mouse, L_Number, L_Mouse_Number_Override);
   state = update_tri_layer_state(state, L_Mouse, L_Cursor, L_Mouse_Cursor_Override);
   
   // ANSI/JIS addiional enable
@@ -1324,6 +1325,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_BothPinkyThumb:
       break;
     case L_Mouse:
+    case L_Mouse_Number_Override:
     case L_Mouse_Cursor_Override:
       // mouse indication
       status_led(now, 0b0011, led_pattern_off);
@@ -1377,6 +1379,7 @@ bool rgb_matrix_indicators_user(void) {
   if (keyboard_config.disable_layer_led) { return false; }
   switch (get_highest_layer(layer_state)) {
     case L_Mouse:
+    case L_Mouse_Number_Override:
     case L_Mouse_Cursor_Override:
       set_layer_color_mouse_map();
       break;    
