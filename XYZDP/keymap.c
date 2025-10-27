@@ -276,18 +276,6 @@ extern bool is_launching;
 
 #include "engram_key_overrides.inc"
 
-bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
-  // self-hold 
-  if (layer_state_is(L_Mouse_Number_Override)) {
-    return true;
-  }
-  if (layer_state_is(L_Mouse_Cursor_Override)) {
-    return true;
-  }
-
-  return false;
-}
-
 static bool lock_scrolling = false;
 static bool lock_turbo = false;
 static bool lock_aim = false;
@@ -320,8 +308,8 @@ void pointing_device_init_user(void) {
 bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
   // Treat all keys as mouse keys when in the automouse layer so that any key set resets the timeout without leaving the layer.
   if (!layer_state_is(AUTO_MOUSE_TARGET_LAYER)) return false;
-      return true;
-  }
+  return true;
+}
 
 
 
