@@ -1090,7 +1090,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // auto mouse EXIT key left (dummy keycode)
     case KC_LANGUAGE_6:
       if (record->event.pressed) {
-        // Immediately
+        
+      } else {
+        // release
         auto_mouse_layer_off();
       }
       return false;
@@ -1098,6 +1100,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // auto mouse EXIT key right (dummy keycode)
     case KC_LANGUAGE_7:
       if (record->event.pressed) {
+        
+      } else {
+        // release
         auto_mouse_layer_off();
       }
       return false;
