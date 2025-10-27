@@ -565,7 +565,6 @@ void set_layer_color_mouse_map(void) {
 
   rgb_matrix_set_color(16, h, 0, f);
   
-  rgb_matrix_set_color(22, q, q, q);
   rgb_matrix_set_color(23, 0, 0, f);
   
   rgb_matrix_set_color(24, 0, f, 0);
@@ -594,10 +593,12 @@ void set_layer_color_mouse_map(void) {
   // scroll
   if (set_scrolling) {
     rgb_matrix_set_color(17, h, 0, 0);
+    rgb_matrix_set_color(22, h, 0, 0);
     rgb_matrix_set_color(45, h, 0, 0);
     rgb_matrix_set_color(50, h, 0, 0);
   } else {
     rgb_matrix_set_color(17, h, h, h);
+    rgb_matrix_set_color(22, h, h, h);
     rgb_matrix_set_color(45, h, h, h);
     rgb_matrix_set_color(50, h, h, h);
   }
