@@ -926,7 +926,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case HSV_86_255_2:
       if (record->event.pressed) {
-        set_auto_mouse_enable(false);
         clear_keyboard();
         layer_on(L_Halt_Mask);
       }
