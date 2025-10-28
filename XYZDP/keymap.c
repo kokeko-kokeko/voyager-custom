@@ -1439,10 +1439,10 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       default:
         if (record->event.pressed) {
-          
+          auto_mouse_early_trigger = now + 5;
         } else {
           // release soon
-          auto_mouse_early_trigger = now + 5;
+          //auto_mouse_early_trigger = now + 5;
         }
         break;
     }
