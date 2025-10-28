@@ -1397,8 +1397,11 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     activate_ime_state_sync(now);
   }
 
+  // timer read first
+  fast_timer_t now = timer_read_fast();
+
   // auto mouse timeout & exit control
-  if (is_auto_mouse_active() == false) {
+  if (is_auto_mouse_active()) {
     switch (keycode) {
       case KC_MS_BTN1:
       case KC_MS_BTN2:
