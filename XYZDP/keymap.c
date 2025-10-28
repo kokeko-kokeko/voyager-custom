@@ -1390,16 +1390,14 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // timer read first
+  fast_timer_t now = timer_read_fast();
+  
   if (record->event.pressed) {
-    fast_timer_t now = timer_read_fast();
-
     activate_fade_matrix(now);
     activate_ime_state_sync(now);
   }
-
-  // timer read first
-  fast_timer_t now = timer_read_fast();
-
+  
   // auto mouse timeout & exit control
   if (is_auto_mouse_active()) {
     switch (keycode) {
@@ -1441,10 +1439,10 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       default:
         if (record->event.pressed) {
-          auto_mouse_layer_off();
+          
         } else {
-          // release
-          auto_mouse_layer_off();
+          // release soon
+          auto_mouse_early_trigger = now + 1;
         }
         break;
     }
