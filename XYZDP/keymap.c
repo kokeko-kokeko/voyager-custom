@@ -283,7 +283,7 @@ static bool lock_aim = false;
 static fast_timer_t auto_mouse_early_trigger = 0;
 static fast_timer_t auto_mouse_count_reset_trigger = 0;
 
-static fast_timer_t drag_scroll_trigger = 0;
+static uint16_t drag_scroll_press = 0;
 static fast_timer_t drag_turbo_trigger = 0;
 static fast_timer_t drag_aim_trigger = 0;
 static fast_timer_t drag_btn_left_trigger[8];
@@ -783,14 +783,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case DRAG_SCROLL:
       if (record->event.pressed) {
-        drag_scroll_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
+        drag_scroll_press = record->event.time;
         set_scrolling = true;
       } else {
-        if (timer_expired_fast(now, drag_scroll_trigger)) {
-          // drag, must release lock
-          set_scrolling = false;
-          lock_scrolling = false;
-        } else {
+        if (TIMER_DIFF_16(record->event.time, drag_scroll_press) < AUTO_MOUSE_DRAG_THRESHOLD) {
           // tap
           if (lock_scrolling) {
             // if locked release lock
@@ -800,8 +796,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // keep scroll, add lock
             lock_scrolling = true;
           }
+        } else {
+          // drag, must release lock
+          set_scrolling = false;
+          lock_scrolling = false;
         }
       }
+      // update LED
       if (set_scrolling) {
         status_led(now, 0b0100, led_pattern_on);
       } else {
