@@ -1438,10 +1438,12 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
 
       default:
-        //if (record->event.pressed) {
-          // exit immediately
-          auto_mouse_early_trigger = now + 3;
-        //}
+        if (record->tap.count > 0) { 
+          if (record->event.pressed) {
+            // exit immediately
+            auto_mouse_early_trigger = now + 3;
+          }
+        }
     }
   }
   return;
