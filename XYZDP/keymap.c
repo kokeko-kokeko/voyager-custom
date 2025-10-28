@@ -286,8 +286,8 @@ static fast_timer_t auto_mouse_count_reset_trigger = 0;
 static uint16_t drag_scroll_press = 0;
 static uint16_t drag_turbo_press = 0;
 static uint16_t drag_aim_press = 0;
-static fast_timer_t drag_btn_left_trigger[8];
-static fast_timer_t drag_btn_right_trigger[8];
+static uint16_t drag_btn_left_press[8];
+static uint16_t drag_btn_right_press[8];
 
 // -----------------------------------------------------------------------------
 //
@@ -1415,26 +1415,26 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.key.row < MATRIX_ROWS / 2) {
           // left side mouse button
           if (record->event.pressed) {
-            drag_btn_left_trigger[keycode - KC_MS_BTN1] = now + AUTO_MOUSE_DRAG_THRESHOLD;
+            drag_btn_left_press[keycode - KC_MS_BTN1] = record->event.time;
             // early trigger reset on auto_mouse_activation
           } else {
-            if (timer_expired_fast(now, drag_btn_left_trigger[keycode - KC_MS_BTN1])) {
-              // drag, nothing to do
-            } else {
+            if (TIMER_DIFF_16(record->event.time, drag_btn_left_press[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
               //tap
               auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_LEFT_SIDE;
+            } else {
+              // drag, nothing to do
             }
           }
         } else {
           if (record->event.pressed) {
-            drag_btn_right_trigger[keycode - KC_MS_BTN1] = now + AUTO_MOUSE_DRAG_THRESHOLD;
+            drag_btn_right_press[keycode - KC_MS_BTN1] = record->event.time;
             // early trigger reset on auto_mouse_activation
           } else {
-            if (timer_expired_fast(now, drag_btn_right_trigger[keycode - KC_MS_BTN1])) {
-              // drag, nothing to do
-            } else {
+            if (TIMER_DIFF_16(record->event.time, drag_btn_right_press[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
               //tap
               auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_RIGHT_SIDE;
+            } else {
+              // drag, nothing to do
             }
           }
         }
