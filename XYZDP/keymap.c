@@ -286,8 +286,8 @@ static fast_timer_t auto_mouse_count_reset_trigger = 0;
 static uint16_t drag_scroll_press = 0;
 static uint16_t drag_turbo_press = 0;
 static uint16_t drag_aim_press = 0;
-static uint16_t drag_btn_left_press[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-static uint16_t drag_btn_right_press[8];
+static uint16_t drag_btn_left_press[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+static uint16_t drag_btn_right_press[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
 // -----------------------------------------------------------------------------
 //
