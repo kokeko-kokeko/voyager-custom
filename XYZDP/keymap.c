@@ -284,8 +284,8 @@ static fast_timer_t auto_mouse_early_trigger = 0;
 static fast_timer_t auto_mouse_count_reset_trigger = 0;
 
 static uint16_t drag_scroll_press = 0;
-static fast_timer_t drag_turbo_trigger = 0;
-static fast_timer_t drag_aim_trigger = 0;
+static uint16_t drag_turbo_press = 0;
+static uint16_t drag_aim_press = 0;
 static fast_timer_t drag_btn_left_trigger[8];
 static fast_timer_t drag_btn_right_trigger[8];
 
@@ -811,18 +811,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   case NAVIGATOR_TURBO:
     if (record->event.pressed) {
-      drag_turbo_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
+      drag_turbo_press = record->event.time;
       navigator_turbo = true;
       
       // release another side
       navigator_aim = false;
       lock_aim = false;
     } else {
-      if (timer_expired_fast(now, drag_turbo_trigger)) {
-        // drag, must release lock
-        navigator_turbo = false;
-        lock_turbo = false;
-      } else {
+      if (TIMER_DIFF_16(record->event.time, drag_turbo_press) < AUTO_MOUSE_DRAG_THRESHOLD) {
         // tap
         if (lock_turbo) {
           // if locked release lock
@@ -832,8 +828,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           // keep turbo, add lock
           lock_turbo = true;
         }
+      } else {
+        // drag, must release lock
+        navigator_turbo = false;
+        lock_turbo = false;
       } 
     }
+    // update LED
     if (navigator_turbo) {
       status_led(now, 0b0001, led_pattern_on);
     } else {
@@ -847,18 +848,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   case NAVIGATOR_AIM:
     if (record->event.pressed) {
-      drag_aim_trigger = now + AUTO_MOUSE_DRAG_THRESHOLD;
+      drag_aim_press = record->event.time;
       navigator_aim = true;
       
       // release another side
       navigator_turbo = false;
       lock_turbo = false;
     } else {
-      if (timer_expired_fast(now, drag_aim_trigger)) {
-        // drag, must release lock
-        navigator_aim = false;
-        lock_aim = false;
-      } else {
+      if (TIMER_DIFF_16(record->event.time, drag_aim_press) < AUTO_MOUSE_DRAG_THRESHOLD) {
         // tap
         if (lock_aim) {
           // if locked release lock
@@ -868,8 +865,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           // keep aim, add lock
           lock_aim = true;
         }
+      } else {
+        // drag, must release lock
+        navigator_aim = false;
+        lock_aim = false;
       }
-    }      
+    }
+    // update LED
     if (navigator_turbo) {
       status_led(now, 0b0001, led_pattern_on);
     } else {
