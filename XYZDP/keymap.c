@@ -1105,43 +1105,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         auto_mouse_layer_off();
       }
       return false;
-    
-    // early auto mouse timeout
-    case KC_MS_BTN1:
-    case KC_MS_BTN2:
-    case KC_MS_BTN3:
-    case KC_MS_BTN4:
-    case KC_MS_BTN5:
-    case KC_MS_BTN6:
-    case KC_MS_BTN7:
-    case KC_MS_BTN8:
-      if (record->event.key.row < MATRIX_ROWS / 2) {
-        // left side mouse button
-        if (record->event.pressed) {
-          drag_btn_left_trigger[keycode - KC_MS_BTN1] = now + AUTO_MOUSE_DRAG_THRESHOLD;
-          // early trigger reset on auto_mouse_activation
-        } else {
-          if (timer_expired_fast(now, drag_btn_left_trigger[keycode - KC_MS_BTN1])) {
-            // drag, nothing to do
-          } else {
-            //tap
-            auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_LEFT_SIDE;
-          }
-        }
-      } else {
-        if (record->event.pressed) {
-          drag_btn_right_trigger[keycode - KC_MS_BTN1] = now + AUTO_MOUSE_DRAG_THRESHOLD;
-          // early trigger reset on auto_mouse_activation
-        } else {
-          if (timer_expired_fast(now, drag_btn_right_trigger[keycode - KC_MS_BTN1])) {
-            // drag, nothing to do
-          } else {
-            //tap
-            auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_RIGHT_SIDE;
-          }
-        }
-      }
-      return true; 
   }
 
   if (process_record_ime_state_sync(keycode, record) == false) {
@@ -1432,6 +1395,56 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     activate_fade_matrix(now);
     activate_ime_state_sync(now);
+  }
+
+  // auto mouse timeout & exit control
+  if (is_auto_mouse_active() == false) {
+    switch (keycode) {
+      case KC_MS_BTN1:
+      case KC_MS_BTN2:
+      case KC_MS_BTN3:
+      case KC_MS_BTN4:
+      case KC_MS_BTN5:
+      case KC_MS_BTN6:
+      case KC_MS_BTN7:
+      case KC_MS_BTN8:
+        if (record->event.key.row < MATRIX_ROWS / 2) {
+          // left side mouse button
+          if (record->event.pressed) {
+            drag_btn_left_trigger[keycode - KC_MS_BTN1] = now + AUTO_MOUSE_DRAG_THRESHOLD;
+            // early trigger reset on auto_mouse_activation
+          } else {
+            if (timer_expired_fast(now, drag_btn_left_trigger[keycode - KC_MS_BTN1])) {
+              // drag, nothing to do
+            } else {
+              //tap
+              auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_LEFT_SIDE;
+            }
+          }
+        } else {
+          if (record->event.pressed) {
+            drag_btn_right_trigger[keycode - KC_MS_BTN1] = now + AUTO_MOUSE_DRAG_THRESHOLD;
+            // early trigger reset on auto_mouse_activation
+          } else {
+            if (timer_expired_fast(now, drag_btn_right_trigger[keycode - KC_MS_BTN1])) {
+              // drag, nothing to do
+            } else {
+              //tap
+              auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_RIGHT_SIDE;
+            }
+          }
+        }
+        break;
+
+      default:
+        if (record->event.pressed) {
+          
+        } else {
+          // release
+          auto_mouse_layer_off();
+        }
+        break;
+    }
   }
   return;
 }
