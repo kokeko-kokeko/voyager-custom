@@ -1441,7 +1441,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
 
       default:
-        auto_mouse_reset_trigger(record->event.pressed);
+        //auto_mouse_reset_trigger(record->event.pressed);
     }
   }
   return;
