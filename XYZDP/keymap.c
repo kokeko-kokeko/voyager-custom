@@ -803,21 +803,91 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }  
       }  
       return false;
-
-    // skip impl after
     case DRAG_SCROLL:
-      break;
   case NAVIGATOR_TURBO:
-    break;
   case NAVIGATOR_AIM:
-    break;
   case NAVIGATOR_INC_CPI:
-    break;
   case NAVIGATOR_DEC_CPI:
-    break;
     case RGB_SLD:
-      break;
-    
+    case HSV_0_255_10:
+    case HSV_86_255_1:
+    case HSV_86_255_2:
+    case HSV_0_255_20:
+    case HSV_86_255_3:
+    case HSV_86_255_4:
+    case HSV_86_255_255:
+    case HSV_172_255_1:
+    case HSV_0_255_21:
+    case HSV_86_255_5:
+    case HSV_0_255_22:
+    case HSV_86_255_6:
+    case HSV_0_255_23:
+    case HSV_172_255_2:
+    case HSV_0_0_0:
+  }
+
+  //RGB inc/dec no eeprom override
+  // always return false (sometime use upedge)
+  switch (keycode) {
+    case RGB_SLD:
+      if (record->event.pressed) {
+        fade_matrix_set_mode(RGB_MATRIX_SOLID_COLOR);
+      }
+      return false;
+    case RGB_HUI:
+      if (record->event.pressed) {
+        fade_matrix_increase_hue();
+      }
+      return false;
+    case RGB_HUD:
+      if (record->event.pressed) {
+        fade_matrix_decrease_hue();
+      }
+      return false;
+    case RGB_SAI:
+      if (record->event.pressed) {
+        fade_matrix_increase_sat();
+      }
+      return false;
+    case RGB_SAD:
+      if (record->event.pressed) {
+        fade_matrix_decrease_sat();
+      }
+      return false;
+    case RGB_VAI:
+      if (record->event.pressed) {
+        fade_matrix_increase_val();
+      }
+      return false;
+    case RGB_VAD:
+      if (record->event.pressed) {
+        fade_matrix_decrease_val();
+      }
+      return false;
+    case RGB_SPI:
+      if (record->event.pressed) {
+        fade_matrix_increase_speed();
+      }
+      return false;
+    case RGB_SPD:
+      if (record->event.pressed) {
+        fade_matrix_decrease_speed();
+      }
+      return false;
+    case RGB_TOG:
+      if (record->event.pressed) {
+        fade_matrix_toggle();
+      }
+      return false;
+    case RGB_MODE_FORWARD:
+      if (record->event.pressed) {
+        fade_matrix_step();
+      }
+      return false;
+  }
+
+  // HSV_x_y_z override impl
+  switch (keycode) {
     // Firmware
     case HSV_0_255_10:
       if (record->event.pressed) {
@@ -952,66 +1022,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else if (pos == 49) {
           clear_keyboard();
         }
-      }
-      return false;
-  }
-
-  //RGB inc/dec no eeprom override
-  // always return false (sometime use upedge)
-  switch (keycode) {
-    case RGB_SLD:
-      if (record->event.pressed) {
-        fade_matrix_set_mode(RGB_MATRIX_SOLID_COLOR);
-      }
-      return false;
-    case RGB_HUI:
-      if (record->event.pressed) {
-        fade_matrix_increase_hue();
-      }
-      return false;
-    case RGB_HUD:
-      if (record->event.pressed) {
-        fade_matrix_decrease_hue();
-      }
-      return false;
-    case RGB_SAI:
-      if (record->event.pressed) {
-        fade_matrix_increase_sat();
-      }
-      return false;
-    case RGB_SAD:
-      if (record->event.pressed) {
-        fade_matrix_decrease_sat();
-      }
-      return false;
-    case RGB_VAI:
-      if (record->event.pressed) {
-        fade_matrix_increase_val();
-      }
-      return false;
-    case RGB_VAD:
-      if (record->event.pressed) {
-        fade_matrix_decrease_val();
-      }
-      return false;
-    case RGB_SPI:
-      if (record->event.pressed) {
-        fade_matrix_increase_speed();
-      }
-      return false;
-    case RGB_SPD:
-      if (record->event.pressed) {
-        fade_matrix_decrease_speed();
-      }
-      return false;
-    case RGB_TOG:
-      if (record->event.pressed) {
-        fade_matrix_toggle();
-      }
-      return false;
-    case RGB_MODE_FORWARD:
-      if (record->event.pressed) {
-        fade_matrix_step();
       }
       return false;
   }
