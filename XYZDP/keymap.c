@@ -806,10 +806,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // skip impl after
     case DRAG_SCROLL:
+      break;
   case NAVIGATOR_TURBO:
+    break;
   case NAVIGATOR_AIM:
+    break;
   case NAVIGATOR_INC_CPI:
+    break;
   case NAVIGATOR_DEC_CPI:
+    break;
     case RGB_SLD:
       break;
     
