@@ -317,6 +317,7 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
       return true;
   }
 
+  // only self hold override layer
   if (layer_state_is(L_Mouse_Number_Override)) return true;
   if (layer_state_is(L_Mouse_Cursor_Override)) return true;
   
