@@ -803,119 +803,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }  
       }  
       return false;
-    case DRAG_SCROLL:
-      if (record->event.pressed) {
-        drag_scroll_press = record->event.time;
-        set_scrolling = true;
-      } else {
-        if (TIMER_DIFF_16(record->event.time, drag_scroll_press) < AUTO_MOUSE_DRAG_THRESHOLD) {
-          // tap
-          if (lock_scrolling) {
-            // if locked release lock
-            set_scrolling = false;
-            lock_scrolling = false;
-          } else {
-            // keep scroll, add lock
-            lock_scrolling = true;
-          }
-        } else {
-          // drag, must release lock
-          set_scrolling = false;
-          lock_scrolling = false;
-        }
-      }
-      // update LED
-      if (set_scrolling) {
-        status_led(now, 0b0100, led_pattern_on);
-      } else {
-        status_led(now, 0b0100, led_pattern_off);
-      }
-      return false;
-  case NAVIGATOR_TURBO:
-    if (record->event.pressed) {
-      drag_turbo_press = record->event.time;
-      navigator_turbo = true;
-      
-      // release another side
-      navigator_aim = false;
-      lock_aim = false;
-    } else {
-      if (TIMER_DIFF_16(record->event.time, drag_turbo_press) < AUTO_MOUSE_DRAG_THRESHOLD) {
-        // tap
-        if (lock_turbo) {
-          // if locked release lock
-          navigator_turbo = false;
-          lock_turbo = false;
-        } else {
-          // keep turbo, add lock
-          lock_turbo = true;
-        }
-      } else {
-        // drag, must release lock
-        navigator_turbo = false;
-        lock_turbo = false;
-      } 
-    }
-    // update LED
-    if (navigator_turbo) {
-      status_led(now, 0b0001, led_pattern_on);
-    } else {
-      status_led(now, 0b0001, led_pattern_off);
-    }
-    if (navigator_aim) {
-      status_led(now, 0b0010, led_pattern_on);
-    } else {
-      status_led(now, 0b0010, led_pattern_off);
-    }
-    return false;
-  case NAVIGATOR_AIM:
-    if (record->event.pressed) {
-      drag_aim_press = record->event.time;
-      navigator_aim = true;
-      
-      // release another side
-      navigator_turbo = false;
-      lock_turbo = false;
-    } else {
-      if (TIMER_DIFF_16(record->event.time, drag_aim_press) < AUTO_MOUSE_DRAG_THRESHOLD) {
-        // tap
-        if (lock_aim) {
-          // if locked release lock
-          navigator_aim = false;
-          lock_aim = false;
-        } else {
-          // keep aim, add lock
-          lock_aim = true;
-        }
-      } else {
-        // drag, must release lock
-        navigator_aim = false;
-        lock_aim = false;
-      }
-    }
-    // update LED
-    if (navigator_turbo) {
-      status_led(now, 0b0001, led_pattern_on);
-    } else {
-      status_led(now, 0b0001, led_pattern_off);
-    }
-    if (navigator_aim) {
-      status_led(now, 0b0010, led_pattern_on);
-    } else {
-      status_led(now, 0b0010, led_pattern_off);
-    }
-    return false;
-  case NAVIGATOR_INC_CPI:
-    if (record->event.pressed) {
-        pointing_device_set_cpi(1);
-    }
-    return false;
-  case NAVIGATOR_DEC_CPI:
-    if (record->event.pressed) {
-        pointing_device_set_cpi(0);
-    }
-    return false;
+    //case DRAG_SCROLL:
+  //case NAVIGATOR_TURBO:
+  //case NAVIGATOR_AIM:
+  //case NAVIGATOR_INC_CPI:
+  //case NAVIGATOR_DEC_CPI:
     //case RGB_SLD:
+    //break;
     
     // Firmware
     case HSV_0_255_10:
@@ -1116,7 +1010,120 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // mouse logic impl
-  switch (keycode) {  
+  switch (keycode) {
+    case DRAG_SCROLL:
+      if (record->event.pressed) {
+        drag_scroll_press = record->event.time;
+        set_scrolling = true;
+      } else {
+        if (TIMER_DIFF_16(record->event.time, drag_scroll_press) < AUTO_MOUSE_DRAG_THRESHOLD) {
+          // tap
+          if (lock_scrolling) {
+            // if locked release lock
+            set_scrolling = false;
+            lock_scrolling = false;
+          } else {
+            // keep scroll, add lock
+            lock_scrolling = true;
+          }
+        } else {
+          // drag, must release lock
+          set_scrolling = false;
+          lock_scrolling = false;
+        }
+      }
+      // update LED
+      if (set_scrolling) {
+        status_led(now, 0b0100, led_pattern_on);
+      } else {
+        status_led(now, 0b0100, led_pattern_off);
+      }
+      return false;
+    case NAVIGATOR_TURBO:
+      if (record->event.pressed) {
+        drag_turbo_press = record->event.time;
+        navigator_turbo = true;
+        
+        // release another side
+        navigator_aim = false;
+        lock_aim = false;
+      } else {
+        if (TIMER_DIFF_16(record->event.time, drag_turbo_press) < AUTO_MOUSE_DRAG_THRESHOLD) {
+          // tap
+          if (lock_turbo) {
+            // if locked release lock
+            navigator_turbo = false;
+            lock_turbo = false;
+          } else {
+            // keep turbo, add lock
+            lock_turbo = true;
+          }
+        } else {
+          // drag, must release lock
+          navigator_turbo = false;
+          lock_turbo = false;
+        } 
+      }
+      // update LED
+      if (navigator_turbo) {
+        status_led(now, 0b0001, led_pattern_on);
+      } else {
+        status_led(now, 0b0001, led_pattern_off);
+      }
+      if (navigator_aim) {
+        status_led(now, 0b0010, led_pattern_on);
+      } else {
+        status_led(now, 0b0010, led_pattern_off);
+      }
+      return false;
+    case NAVIGATOR_AIM:
+      if (record->event.pressed) {
+        drag_aim_press = record->event.time;
+        navigator_aim = true;
+        
+        // release another side
+        navigator_turbo = false;
+        lock_turbo = false;
+      } else {
+        if (TIMER_DIFF_16(record->event.time, drag_aim_press) < AUTO_MOUSE_DRAG_THRESHOLD) {
+          // tap
+          if (lock_aim) {
+            // if locked release lock
+            navigator_aim = false;
+            lock_aim = false;
+          } else {
+            // keep aim, add lock
+            lock_aim = true;
+          }
+        } else {
+          // drag, must release lock
+          navigator_aim = false;
+          lock_aim = false;
+        }
+      }
+      // update LED
+      if (navigator_turbo) {
+        status_led(now, 0b0001, led_pattern_on);
+      } else {
+        status_led(now, 0b0001, led_pattern_off);
+      }
+      if (navigator_aim) {
+        status_led(now, 0b0010, led_pattern_on);
+      } else {
+        status_led(now, 0b0010, led_pattern_off);
+      }
+      return false;
+    case NAVIGATOR_INC_CPI:
+      if (record->event.pressed) {
+        pointing_device_set_cpi(1);
+      }
+      return false;
+    case NAVIGATOR_DEC_CPI:
+      if (record->event.pressed) {
+        pointing_device_set_cpi(0);
+      }
+      return false;
+
     // auto mouse EXIT key left (dummy keycode)
     case KC_LANGUAGE_6:
       if (record->event.pressed) {
