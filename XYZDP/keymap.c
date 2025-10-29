@@ -803,13 +803,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }  
       }  
       return false;
-    //case DRAG_SCROLL:
-  //case NAVIGATOR_TURBO:
-  //case NAVIGATOR_AIM:
-  //case NAVIGATOR_INC_CPI:
-  //case NAVIGATOR_DEC_CPI:
-    //case RGB_SLD:
-    //break;
+
+    // skip impl after
+    case DRAG_SCROLL:
+  case NAVIGATOR_TURBO:
+  case NAVIGATOR_AIM:
+  case NAVIGATOR_INC_CPI:
+  case NAVIGATOR_DEC_CPI:
+    case RGB_SLD:
+      break;
     
     // Firmware
     case HSV_0_255_10:
