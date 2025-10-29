@@ -1461,14 +1461,21 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
         }
         break;
+      
+      case DRAG_SCROLL:
+      case NAVIGATOR_INC_CPI:
+      case NAVIGATOR_DEC_CPI:
+      case NAVIGATOR_TURBO:
+      case NAVIGATOR_AIM:
+        break;
 
       default:
-        if (record->event.pressed) {
+        //if (record->event.pressed) {
           
-        } else {
+        //} else {
           // release
           auto_mouse_early_trigger = now + 1;
-        }
+       // }
     }
   }
   return;
