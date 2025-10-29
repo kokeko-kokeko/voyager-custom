@@ -337,9 +337,6 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // timer read first
-  fast_timer_t now = timer_read_fast();
-  
   switch (keycode) {
   case QK_MODS ... QK_MODS_MAX: 
     // Mouse keys with modifiers work inconsistently across operating systems, this makes sure that modifiers are always
@@ -825,7 +822,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_172_255_2:
     case HSV_0_0_0:
   }
-
+  
+  // timer read first
+  fast_timer_t now = timer_read_fast();
+  
   //RGB inc/dec no eeprom override
   // always return false (sometime use upedge)
   switch (keycode) {
