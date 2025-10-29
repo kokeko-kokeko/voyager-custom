@@ -915,12 +915,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         pointing_device_set_cpi(0);
     }
     return false;
-    case RGB_SLD:
-      if (record->event.pressed) {
-        fade_matrix_set_mode(RGB_MATRIX_SOLID_COLOR);
-      }
-      return false;
-
+    //case RGB_SLD:
+    
     // Firmware
     case HSV_0_255_10:
       if (record->event.pressed) {
@@ -1061,7 +1057,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   //RGB inc/dec no eeprom over write
   // always return false (sometime use upedge)
-  switch (keycode) {  
+  switch (keycode) {
+    case RGB_SLD:
+      if (record->event.pressed) {
+        fade_matrix_set_mode(RGB_MATRIX_SOLID_COLOR);
+      }
+      return false;
     case RGB_HUI:
       if (record->event.pressed) {
         fade_matrix_increase_hue();
