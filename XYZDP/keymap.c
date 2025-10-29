@@ -1216,7 +1216,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // -----------------------------------------------------------------------------
 
 void keyboard_post_init_user(void) {
-  keymap_config.nkro = true;
+  // config.h
+  //keymap_config.nkro = true;
 
   fast_timer_t now = timer_read_fast();
   init_fade_matrix(now);
