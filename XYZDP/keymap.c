@@ -956,7 +956,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
 
-  //RGB inc/dec no eeprom over write
+  //RGB inc/dec no eeprom override
   // always return false (sometime use upedge)
   switch (keycode) {
     case RGB_SLD:
