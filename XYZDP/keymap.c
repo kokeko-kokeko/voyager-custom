@@ -1,4 +1,4 @@
-iiijjjjjjiixfiijiixfpejiiipiiijiijjjjxxcpppiiiiieiiff#include QMK_KEYBOARD_H
+#include QMK_KEYBOARD_H
 #include "version.h"
 #define MOON_LED_LEVEL LED_LEVEL
 #ifndef ZSA_SAFE_RANGE
