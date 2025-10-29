@@ -1057,9 +1057,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
-    
-    //RGB inc/dec no eeprom over write
-    // always return false (sometime use upedge)
+  }
+
+  //RGB inc/dec no eeprom over write
+  // always return false (sometime use upedge)
+  switch (keycode) {  
     case RGB_HUI:
       if (record->event.pressed) {
         fade_matrix_increase_hue();
@@ -1110,7 +1112,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         fade_matrix_step();
       }
       return false;
-    
+  }
+
+  // mouse logic impl
+  switch (keycode) {  
     // auto mouse EXIT key left (dummy keycode)
     case KC_LANGUAGE_6:
       if (record->event.pressed) {
