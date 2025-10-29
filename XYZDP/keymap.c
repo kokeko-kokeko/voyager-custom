@@ -280,9 +280,17 @@ static bool lock_scrolling = false;
 static bool lock_turbo = false;
 static bool lock_aim = false;
 
-// auto_mouse_layer_off() only on housekeepeng, other set timer
+// auto_mouse_layer_off() only on housekeeping, other set timer
 static fast_timer_t auto_mouse_early_trigger = 0;
 static fast_timer_t auto_mouse_count_reset_trigger = 0;
+
+// reset from housekeeping
+static total_mouse_movement_t auto_mouse_total_move = {
+  .x = 0,
+  .y = 0,
+  .h = 0,
+  .v = 0,
+};
 
 static uint16_t drag_scroll_press = 0;
 static uint16_t drag_turbo_press = 0;
@@ -1468,25 +1476,18 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // copy & custom from pointing_device_auto_mouse.c
 bool auto_mouse_activation(report_mouse_t mouse_report) {
-  static total_mouse_movement_t total_move_local = {
-    .x = 0,
-    .y = 0,
-    .h = 0,
-    .v = 0,
-  };
-
   // both state check xy move
-  total_move_local.x += mouse_report.x;
-  total_move_local.y += mouse_report.y;
-  total_move_local.h += mouse_report.h;
-  total_move_local.v += mouse_report.v;
+  auto_mouse_total_move.x += mouse_report.x;
+  auto_mouse_total_move.y += mouse_report.y;
+  auto_mouse_total_move.h += mouse_report.h;
+  auto_mouse_total_move.v += mouse_report.v;
   
   bool activate = false;
 
-  activate = activate || abs(total_move_local.x) > AUTO_MOUSE_THRESHOLD;
-  activate = activate || abs(total_move_local.y) > AUTO_MOUSE_THRESHOLD;  
-  activate = activate || abs(total_move_local.h) > AUTO_MOUSE_SCROLL_THRESHOLD;
-  activate = activate || abs(total_move_local.v) > AUTO_MOUSE_SCROLL_THRESHOLD;
+  activate = activate || abs(auto_mouse_total_move.x) > AUTO_MOUSE_THRESHOLD;
+  activate = activate || abs(auto_mouse_total_move.y) > AUTO_MOUSE_THRESHOLD;  
+  activate = activate || abs(auto_mouse_total_move.h) > AUTO_MOUSE_SCROLL_THRESHOLD;
+  activate = activate || abs(auto_mouse_total_move.v) > AUTO_MOUSE_SCROLL_THRESHOLD;
   activate = activate || mouse_report.buttons;
   
   fast_timer_t now = timer_read_fast();
@@ -1498,17 +1499,17 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
     // wakeup RGB
     activate_fade_matrix(now);
     
-    total_move_local.x = 0;
-    total_move_local.y = 0;
-    total_move_local.h = 0;
-    total_move_local.v = 0;
+    auto_mouse_total_move.x = 0;
+    auto_mouse_total_move.y = 0;
+    auto_mouse_total_move.h = 0;
+    auto_mouse_total_move.v = 0;
   } else if (timer_expired_fast(now, auto_mouse_count_reset_trigger)) {
     auto_mouse_count_reset_trigger = now + AUTO_MOUSE_COUNT_RESET_DELAY;
 
-    total_move_local.x = 0;
-    total_move_local.y = 0;
-    total_move_local.h = 0;
-    total_move_local.v = 0;
+    auto_mouse_total_move.x = 0;
+    auto_mouse_total_move.y = 0;
+    auto_mouse_total_move.h = 0;
+    auto_mouse_total_move.v = 0;
   }
   
   return activate;    
@@ -1524,6 +1525,12 @@ void housekeeping_task_user(void) {
   if (timer_expired_fast(now, auto_mouse_early_trigger)) {
     auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
     auto_mouse_layer_off();
+
+    // reset count
+    auto_mouse_total_move.x = 0;
+    auto_mouse_total_move.y = 0;
+    auto_mouse_total_move.h = 0;
+    auto_mouse_total_move.v = 0;
   }
   
   return;
