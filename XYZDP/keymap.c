@@ -1531,13 +1531,14 @@ void housekeeping_task_user(void) {
   
   if (timer_expired_fast(now, auto_mouse_early_trigger)) {
     auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
-    auto_mouse_layer_off();
-
+    
     // reset count
     auto_mouse_total_move.x = 0;
     auto_mouse_total_move.y = 0;
     auto_mouse_total_move.h = 0;
     auto_mouse_total_move.v = 0;
+
+    auto_mouse_layer_off();
   }
   
   return;
