@@ -280,6 +280,7 @@ static bool lock_scrolling = false;
 static bool lock_turbo = false;
 static bool lock_aim = false;
 
+// auto_mouse_layer_off() only on housekeepeng, other set timer
 static fast_timer_t auto_mouse_early_trigger = 0;
 static fast_timer_t auto_mouse_count_reset_trigger = 0;
 
@@ -1108,7 +1109,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
       } else {
         // release
-        auto_mouse_layer_off();
+        auto_mouse_early_trigger = now + 1;
       }
       return false;
 
@@ -1118,7 +1119,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
       } else {
         // release
-        auto_mouse_layer_off();
+        auto_mouse_early_trigger = now + 1;
       }
       return false;
   }
@@ -1454,7 +1455,12 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
 
       default:
-        //auto_mouse_reset_trigger(record->event.pressed);
+        if (record->event.pressed) {
+          
+        } else {
+          // release
+          auto_mouse_early_trigger = now + 1;
+        }
     }
   }
   return;
@@ -1511,14 +1517,14 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
 void housekeeping_task_user(void) {
   fast_timer_t now = timer_read_fast();
   
-  if (timer_expired_fast(now, auto_mouse_early_trigger)) {
-    auto_mouse_layer_off();
-    auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
-  }
-  
   update_fade_matrix(now);
   update_ime_state_sync(now);
   update_status_led(now);
+  
+  if (timer_expired_fast(now, auto_mouse_early_trigger)) {
+    auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
+    auto_mouse_layer_off();
+  }
   
   return;
 }
