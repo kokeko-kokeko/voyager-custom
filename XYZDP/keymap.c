@@ -1040,7 +1040,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
 
-  // mouse logic
+  // mouse logic (only auto mouse)
   if (is_auto_mouse_active()) {
     switch (keycode) {
       case DRAG_SCROLL:
