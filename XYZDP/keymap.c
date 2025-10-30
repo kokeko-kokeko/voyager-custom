@@ -1158,7 +1158,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         pointing_device_set_cpi(1);
       }
       return false;
-    
+  }
+  
+  switch (keycode) { 
     case NAVIGATOR_DEC_CPI:
       if (record->event.pressed) {
         pointing_device_set_cpi(0);
@@ -1166,8 +1168,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
   
+  // auto mouse EXIT key left (dummy keycode)
   switch (keycode) {
-    // auto mouse EXIT key left (dummy keycode)
     case KC_LANGUAGE_6:
       if (record->event.pressed) {
         exit_left_hand_press_time = record->event.time;
@@ -1193,8 +1195,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
   
+  // auto mouse EXIT key right (dummy keycode)
   switch (keycode) {    
-    // auto mouse EXIT key right (dummy keycode)
     case KC_LANGUAGE_7:
       if (record->event.pressed) {
         exit_right_hand_press_time = record->event.time;
@@ -1219,7 +1221,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
   }
-  
+
+  // mouse button eraly exit
   switch (keycode) {  
     case KC_MS_BTN1:
     case KC_MS_BTN2:
