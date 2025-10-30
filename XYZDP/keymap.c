@@ -1040,7 +1040,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
 
-  // mouse logic (only auto mouse)
+  // mouse logic (complex dup switch)
   switch (keycode) {
     case DRAG_SCROLL:
       if (record->event.pressed) {
@@ -1070,7 +1070,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         status_led(now_buffer, 0b0100, led_pattern_off);
       }
       return false;
-    
+  }
+  
+  switch (keycode) {  
     case NAVIGATOR_TURBO:
       if (record->event.pressed) {
         turbo_press_time = record->event.time;
@@ -1108,7 +1110,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         status_led(now_buffer, 0b0010, led_pattern_off);
       }
       return false;
-      
+  }
+  
+  switch (keycode) {    
     case NAVIGATOR_AIM:
       if (record->event.pressed) {
         aim_press_time = record->event.time;
@@ -1146,7 +1150,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         status_led(now_buffer, 0b0010, led_pattern_off);
       }
       return false;
-      
+  }
+  
+  switch (keycode) {    
     case NAVIGATOR_INC_CPI:
       if (record->event.pressed) {
         pointing_device_set_cpi(1);
@@ -1158,7 +1164,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         pointing_device_set_cpi(0);
       }
       return false;
-
+  }
+  
+  switch (keycode) {
     // auto mouse EXIT key left (dummy keycode)
     case KC_LANGUAGE_6:
       if (record->event.pressed) {
@@ -1183,7 +1191,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         status_led(now_buffer, 0b0100, led_pattern_off);
       }
       return false;
-      
+  }
+  
+  switch (keycode) {    
     // auto mouse EXIT key right (dummy keycode)
     case KC_LANGUAGE_7:
       if (record->event.pressed) {
@@ -1208,7 +1218,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         status_led(now_buffer, 0b0100, led_pattern_off);
       }
       return false;
-    
+  }
+  
+  switch (keycode) {  
     case KC_MS_BTN1:
     case KC_MS_BTN2:
     case KC_MS_BTN3:
