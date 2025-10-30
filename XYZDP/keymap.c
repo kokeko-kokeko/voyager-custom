@@ -287,6 +287,15 @@ static bool lock_aim = false;
 static fast_timer_t auto_mouse_early_off_trigger = 0;
 static fast_timer_t auto_mouse_count_reset_trigger = 0;
 
+static const fast_timer_t btn_delay_left[8] = {
+  AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT,
+  AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT
+};
+static const fast_timer_t btn_delay_right[8] = {
+  AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT,
+  AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT
+};
+
 // reset from housekeeping
 static total_mouse_movement_t auto_mouse_total_move = {
   .x = 0,
@@ -1178,7 +1187,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           if (TIMER_DIFF_16(record->event.time, drag_btn_left_press[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
             //tap
-            auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LEFT_SIDE;
+            auto_mouse_early_off_trigger = now_buffer + btn_delay_left[keycode - KC_MS_BTN1];
           } else {
             // drag, nothing to do
           }
@@ -1191,7 +1200,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           if (TIMER_DIFF_16(record->event.time, drag_btn_right_press[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
             //tap
-            auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_RIGHT_SIDE;
+            auto_mouse_early_off_trigger = now_buffer + btn_delay_right[keycode - KC_MS_BTN1];
           } else {
             // drag, nothing to do
           }
