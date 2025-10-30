@@ -855,9 +855,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_0_0_0:
   }
   
-   
-
-  
   // mouse button eraly exit
   switch (keycode) {  
     case KC_MS_BTN1:
