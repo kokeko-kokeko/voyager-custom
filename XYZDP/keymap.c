@@ -931,175 +931,161 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // HSV_h_s_v override
-  switch (keycode) {
-    // Firmware
-    case HSV_0_255_10:
-      if (record->event.pressed) {
-        uint8_t pos = get_pos_from_keyrecord(record);
-        if (52 <= pos) return false;
-        
-        if (pos == 0) {
-          layer_off(L_Base_JIS);
-        } else if (pos == 6) {
-          layer_on(L_Base_JIS);
-        } else if (pos == 2) {
-          ime_state_sync_enable();
-        } else if (pos == 8) {
-          ime_state_sync_disable();
-        } else if (pos == 29) {
-          soft_reset_keyboard();
-        } else if (pos == 31) {
-          reset_keyboard();
-        } else if (pos == 49) {
-          clear_keyboard();
-        }
-      }
-      return false;
-  }
-  
-  switch (keycode) {
-    case HSV_86_255_1:
-      if (record->event.pressed) {
-        layer_on(L_Set_Hue);
-      }
-      return false;
-  }
-  
-  switch (keycode) {
-    case HSV_86_255_2:
-      if (record->event.pressed) {
+    
+  // Firmware  
+  if (keycode == HSV_0_255_10) {
+    if (record->event.pressed) {
+      uint8_t pos = get_pos_from_keyrecord(record);
+      if (52 <= pos) return false;
+      
+      if (pos == 0) {
+        layer_off(L_Base_JIS);
+      } else if (pos == 6) {
+        layer_on(L_Base_JIS);
+      } else if (pos == 2) {
+        ime_state_sync_enable();
+      } else if (pos == 8) {
+        ime_state_sync_disable();
+      } else if (pos == 29) {
+        soft_reset_keyboard();
+      } else if (pos == 31) {
+        reset_keyboard();
+      } else if (pos == 49) {
         clear_keyboard();
-        layer_on(L_Halt_Mask);
       }
-      return false;
+    }
+    return false;
   }
   
-  switch (keycode) {
-    case HSV_0_255_20:
-      if (record->event.pressed) {
-        uint8_t pos = get_pos_from_keyrecord(record);
-        if (52 <= pos) return false;
-        
-        fade_matrix_set_hue_pos(pos);
-      }
-      return false;
+  if (keycode == HSV_86_255_1) {
+    if (record->event.pressed) {
+      layer_on(L_Set_Hue);
+    }
+    return false;
   }
   
-  switch (keycode) {
-    case HSV_86_255_3:
-      if (record->event.pressed) {
-        layer_on(L_Set_Sat);
-      }
-      return false;
+  if (keycode == HSV_86_255_2) {
+    if (record->event.pressed) {
+      clear_keyboard();
+      layer_on(L_Halt_Mask);
+    }
+    return false;
   }
   
-  switch (keycode) {
-    case HSV_86_255_4:
-      if (record->event.pressed) {
-        layer_on(L_Set_Val);
-      }
-      return false;
+  if (keycode == HSV_0_255_20) {
+    if (record->event.pressed) {
+      uint8_t pos = get_pos_from_keyrecord(record);
+      if (52 <= pos) return false;
+      
+      fade_matrix_set_hue_pos(pos);
+    }
+    return false;
   }
   
-  switch (keycode) {
-    case HSV_86_255_255:
-      if (record->event.pressed) {
-        // off all setting layers
-        layer_off(L_Halt_Mask);
-        layer_off(L_Set_Speed);
-        layer_off(L_Set_Val);
-        layer_off(L_Set_Sat);
-        layer_off(L_Set_Hue);
-        layer_off(L_Firmware);
-
-        set_auto_mouse_enable(true);
-        
-        status_led(now_buffer, 0b1111, led_pattern_oneshot);
-      }
-      return false;
+  if (keycode == HSV_86_255_3) {
+    if (record->event.pressed) {
+      layer_on(L_Set_Sat);
+    }
+    return false;
   }
   
-  switch (keycode) {
-    case HSV_172_255_1:
-      if (record->event.pressed) {
-        fade_matrix_load_preset();
-        status_led(now_buffer, 0b0101, led_pattern_oneshot);
-      }
-      return false;
+  if (keycode == HSV_86_255_4) {
+    if (record->event.pressed) {
+      layer_on(L_Set_Val);
+    }
+    return false;
   }
   
-  switch (keycode) {
-    case HSV_0_255_21:
-      if (record->event.pressed) {
-        uint8_t pos = get_pos_from_keyrecord(record);
-        if (52 <= pos) return false;
-        
-        fade_matrix_set_sat_pos(pos);
-      }
-      return false;
+  if (keycode == HSV_86_255_255) {
+    if (record->event.pressed) {
+      // off all setting layers
+      layer_off(L_Halt_Mask);
+      layer_off(L_Set_Speed);
+      layer_off(L_Set_Val);
+      layer_off(L_Set_Sat);
+      layer_off(L_Set_Hue);
+      layer_off(L_Firmware);
+      
+      set_auto_mouse_enable(true);
+      
+      status_led(now_buffer, 0b1111, led_pattern_oneshot);
+    }
+    return false;
   }
   
-  switch (keycode) {
-    case HSV_86_255_5:
-      if (record->event.pressed) {
-        layer_off(L_Set_Sat);
-      }
-      return false;
+  if (keycode == HSV_172_255_1) {
+    if (record->event.pressed) {
+      fade_matrix_load_preset();
+      status_led(now_buffer, 0b0101, led_pattern_oneshot);
+    }
+    return false;
   }
   
-  switch (keycode) {
-    case HSV_0_255_22:
-      if (record->event.pressed) {
-        uint8_t pos = get_pos_from_keyrecord(record);
-        if (52 <= pos) return false;
-        
-        fade_matrix_set_val_pos(pos);
-      }
-      return false;
+  if (keycode == HSV_0_255_21) {
+    if (record->event.pressed) {
+      uint8_t pos = get_pos_from_keyrecord(record);
+      if (52 <= pos) return false;
+      
+      fade_matrix_set_sat_pos(pos);
+    }
+    return false;
   }
   
-  switch (keycode) {
-    case HSV_86_255_6:
-      if (record->event.pressed) {
-        layer_off(L_Set_Val);
-      }
-      return false;
+  if (keycode == HSV_86_255_5) {
+    if (record->event.pressed) {
+      layer_off(L_Set_Sat);
+    }
+    return false;
   }
   
-  switch (keycode) {
-    case HSV_0_255_23:
-      if (record->event.pressed) {
-        uint8_t pos = get_pos_from_keyrecord(record);
-        if (52 <= pos) return false;
-        
-        fade_matrix_set_speed_pos(pos);
-      }
-      return false;
+  if (keycode == HSV_0_255_22) {
+    if (record->event.pressed) {
+      uint8_t pos = get_pos_from_keyrecord(record);
+      if (52 <= pos) return false;
+      
+      fade_matrix_set_val_pos(pos);
+    }
+    return false;
   }
   
-  switch (keycode) {
-    case HSV_172_255_2:
-      if (record->event.pressed) {
-        fade_matrix_load_preset_powersave();
-        status_led(now_buffer, 0b1010, led_pattern_oneshot);
-      }
-      return false;
+  if (keycode == HSV_86_255_6) {
+    if (record->event.pressed) {
+      layer_off(L_Set_Val);
+    }
+    return false;
   }
   
-  switch (keycode) {
-    case HSV_0_0_0:
-      if (record->event.pressed) {
-        uint8_t pos = get_pos_from_keyrecord(record);
-        if (52 <= pos) return false;
-        
-        if (pos == 31) {
-          // hang-up
-          while (1);
-        } else if (pos == 49) {
-          clear_keyboard();
-        }
+  if (keycode == HSV_0_255_23) {
+    if (record->event.pressed) {
+      uint8_t pos = get_pos_from_keyrecord(record);
+      if (52 <= pos) return false;
+      
+      fade_matrix_set_speed_pos(pos);
+    }
+    return false;
+  }
+  
+  if (keycode == HSV_172_255_2) {
+    if (record->event.pressed) {
+      fade_matrix_load_preset_powersave();
+      status_led(now_buffer, 0b1010, led_pattern_oneshot);
+    }
+    return false;
+  }
+  
+  if (keycode == HSV_0_0_0) {
+    if (record->event.pressed) {
+      uint8_t pos = get_pos_from_keyrecord(record);
+      if (52 <= pos) return false;
+      
+      if (pos == 31) {
+        // hang-up
+        while (1);
+      } else if (pos == 49) {
+        clear_keyboard();
       }
-      return false;
+    }
+    return false;
   }
 
   // mouse logic (complex dup switch)
