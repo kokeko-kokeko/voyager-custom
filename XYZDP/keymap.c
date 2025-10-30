@@ -312,6 +312,10 @@ static uint16_t btn_right_hand_press_time[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 static uint16_t exit_left_hand_press_time = 0;
 static uint16_t exit_right_hand_press_time = 0;
 
+bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
+bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record);
+bool process_record_mouse(uint16_t keycode, keyrecord_t *record);
+
 // -----------------------------------------------------------------------------
 //
 //
@@ -1302,6 +1306,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return true;
   }
+
+  if (process_record_rgb_inc_dec(keycode, record) == false) {
+    return false;
+  }
+  
+  if (process_record_hsv_x_y_z(keycode, record) == false) {
+    return false;
+  }
+  
+  if (process_record_mouse(keycode, record) == false) {
+    return false;
+  }
   
   if (process_record_ime_state_sync(keycode, record) == false) {
     return false;
@@ -1317,6 +1333,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //
 //
 // -----------------------------------------------------------------------------
+
+bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
 
 // -----------------------------------------------------------------------------
 //
