@@ -925,19 +925,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
+  }
+  
+  switch (keycode) {
     case HSV_86_255_1:
       if (record->event.pressed) {
         layer_on(L_Set_Hue);
       }
       return false;
+  }
+  
+  switch (keycode) {
     case HSV_86_255_2:
       if (record->event.pressed) {
         clear_keyboard();
         layer_on(L_Halt_Mask);
       }
       return false;
-
-    // Hue
+  }
+  
+  switch (keycode) {
     case HSV_0_255_20:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
@@ -946,16 +953,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         fade_matrix_set_hue_pos(pos);
       }
       return false;
+  }
+  
+  switch (keycode) {
     case HSV_86_255_3:
       if (record->event.pressed) {
         layer_on(L_Set_Sat);
       }
       return false;
+  }
+  
+  switch (keycode) {
     case HSV_86_255_4:
       if (record->event.pressed) {
         layer_on(L_Set_Val);
       }
       return false;
+  }
+  
+  switch (keycode) {
     case HSV_86_255_255:
       if (record->event.pressed) {
         // off all setting layers
@@ -971,14 +987,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         status_led(now_buffer, 0b1111, led_pattern_oneshot);
       }
       return false;
+  }
+  
+  switch (keycode) {
     case HSV_172_255_1:
       if (record->event.pressed) {
         fade_matrix_load_preset();
         status_led(now_buffer, 0b0101, led_pattern_oneshot);
       }
       return false;
-    
-    // Sat
+  }
+  
+  switch (keycode) {
     case HSV_0_255_21:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
@@ -987,13 +1007,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         fade_matrix_set_sat_pos(pos);
       }
       return false;
+  }
+  
+  switch (keycode) {
     case HSV_86_255_5:
       if (record->event.pressed) {
         layer_off(L_Set_Sat);
       }
       return false;
-
-    // Val
+  }
+  
+  switch (keycode) {
     case HSV_0_255_22:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
@@ -1002,13 +1026,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         fade_matrix_set_val_pos(pos);
       }
       return false;
+  }
+  
+  switch (keycode) {
     case HSV_86_255_6:
       if (record->event.pressed) {
         layer_off(L_Set_Val);
       }
       return false;
-
-    // Speed
+  }
+  
+  switch (keycode) {
     case HSV_0_255_23:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
@@ -1017,14 +1045,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         fade_matrix_set_speed_pos(pos);
       }
       return false;
+  }
+  
+  switch (keycode) {
     case HSV_172_255_2:
       if (record->event.pressed) {
         fade_matrix_load_preset_powersave();
         status_led(now_buffer, 0b1010, led_pattern_oneshot);
       }
       return false;
-
-    // Halt
+  }
+  
+  switch (keycode) {
     case HSV_0_0_0:
       if (record->event.pressed) {
         uint8_t pos = get_pos_from_keyrecord(record);
