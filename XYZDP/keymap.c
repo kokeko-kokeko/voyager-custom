@@ -821,6 +821,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_0_255_23:
     case HSV_172_255_2:
     case HSV_0_0_0:
+      break;
   }
   
   // timer read first
