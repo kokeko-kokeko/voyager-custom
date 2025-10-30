@@ -284,7 +284,7 @@ static bool lock_turbo = false;
 static bool lock_aim = false;
 
 // auto_mouse_layer_off() only on housekeeping, other set timer
-static fast_timer_t auto_mouse_early_trigger = 0;
+static fast_timer_t auto_mouse_early_off_trigger = 0;
 static fast_timer_t auto_mouse_count_reset_trigger = 0;
 
 // reset from housekeeping
@@ -1148,7 +1148,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
       } else {
         // release
-        auto_mouse_early_trigger = now_buffer + 1;
+        auto_mouse_early_off_trigger = now_buffer + 1;
       }
       return false;
 
@@ -1158,7 +1158,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
       } else {
         // release
-        auto_mouse_early_trigger = now_buffer + 1;
+        auto_mouse_early_off_trigger = now_buffer + 1;
       }
       return false;
     
@@ -1178,7 +1178,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           if (TIMER_DIFF_16(record->event.time, drag_btn_left_press[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
             //tap
-            auto_mouse_early_trigger = now_buffer + AUTO_MOUSE_TIME_LEFT_SIDE;
+            auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LEFT_SIDE;
           } else {
             // drag, nothing to do
           }
@@ -1191,7 +1191,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           if (TIMER_DIFF_16(record->event.time, drag_btn_right_press[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
             //tap
-            auto_mouse_early_trigger = now_buffer + AUTO_MOUSE_TIME_RIGHT_SIDE;
+            auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_RIGHT_SIDE;
           } else {
             // drag, nothing to do
           }
@@ -1224,7 +1224,7 @@ void keyboard_post_init_user(void) {
   init_fade_matrix(now_buffer);
   status_led(now_buffer, 0b1111, led_pattern_off);
 
-  auto_mouse_early_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+  auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
   
   //ANSI
   layer_move(L_Base);
@@ -1507,7 +1507,7 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
   activate = activate || mouse_report.buttons;
   
   if (activate) {
-    auto_mouse_early_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     auto_mouse_count_reset_trigger = now_buffer + AUTO_MOUSE_COUNT_RESET_DELAY;
 
     // wakeup RGB
@@ -1537,8 +1537,8 @@ void housekeeping_task_user(void) {
   update_ime_state_sync(now_buffer);
   update_status_led(now_buffer);
   
-  if (timer_expired_fast(now_buffer, auto_mouse_early_trigger)) {
-    auto_mouse_early_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+  if (timer_expired_fast(now_buffer, auto_mouse_early_off_trigger)) {
+    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     
     // reset count
     auto_mouse_total_move.x = 0;
