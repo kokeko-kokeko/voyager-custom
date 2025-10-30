@@ -276,6 +276,9 @@ extern bool is_launching;
 
 #include "engram_key_overrides.inc"
 
+// cached now value, update on housekeeping
+static fast_timer_t now_buffer = 0;
+
 static bool lock_scrolling = false;
 static bool lock_turbo = false;
 static bool lock_aim = false;
@@ -824,9 +827,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
   
-  // timer read first
-  fast_timer_t now = timer_read_fast();
-  
   //RGB inc/dec no eeprom override
   // always return false (sometime use upedge)
   switch (keycode) {
@@ -955,13 +955,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         set_auto_mouse_enable(true);
         
-        status_led(now, 0b1111, led_pattern_oneshot);
+        status_led(now_buffer, 0b1111, led_pattern_oneshot);
       }
       return false;
     case HSV_172_255_1:
       if (record->event.pressed) {
         fade_matrix_load_preset();
-        status_led(now, 0b0101, led_pattern_oneshot);
+        status_led(now_buffer, 0b0101, led_pattern_oneshot);
       }
       return false;
     
@@ -1007,7 +1007,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_172_255_2:
       if (record->event.pressed) {
         fade_matrix_load_preset_powersave();
-        status_led(now, 0b1010, led_pattern_oneshot);
+        status_led(now_buffer, 0b1010, led_pattern_oneshot);
       }
       return false;
 
@@ -1052,9 +1052,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       // update LED
       if (set_scrolling) {
-        status_led(now, 0b0100, led_pattern_on);
+        status_led(now_buffer, 0b0100, led_pattern_on);
       } else {
-        status_led(now, 0b0100, led_pattern_off);
+        status_led(now_buffer, 0b0100, led_pattern_off);
       }
       return false;
     case NAVIGATOR_TURBO:
@@ -1084,14 +1084,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       // update LED
       if (navigator_turbo) {
-        status_led(now, 0b0001, led_pattern_on);
+        status_led(now_buffer, 0b0001, led_pattern_on);
       } else {
-        status_led(now, 0b0001, led_pattern_off);
+        status_led(now_buffer, 0b0001, led_pattern_off);
       }
       if (navigator_aim) {
-        status_led(now, 0b0010, led_pattern_on);
+        status_led(now_buffer, 0b0010, led_pattern_on);
       } else {
-        status_led(now, 0b0010, led_pattern_off);
+        status_led(now_buffer, 0b0010, led_pattern_off);
       }
       return false;
     case NAVIGATOR_AIM:
@@ -1121,14 +1121,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       // update LED
       if (navigator_turbo) {
-        status_led(now, 0b0001, led_pattern_on);
+        status_led(now_buffer, 0b0001, led_pattern_on);
       } else {
-        status_led(now, 0b0001, led_pattern_off);
+        status_led(now_buffer, 0b0001, led_pattern_off);
       }
       if (navigator_aim) {
-        status_led(now, 0b0010, led_pattern_on);
+        status_led(now_buffer, 0b0010, led_pattern_on);
       } else {
-        status_led(now, 0b0010, led_pattern_off);
+        status_led(now_buffer, 0b0010, led_pattern_off);
       }
       return false;
     case NAVIGATOR_INC_CPI:
@@ -1148,7 +1148,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
       } else {
         // release
-        auto_mouse_early_trigger = now + 1;
+        auto_mouse_early_trigger = now_buffer + 1;
       }
       return false;
 
@@ -1158,7 +1158,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
       } else {
         // release
-        auto_mouse_early_trigger = now + 1;
+        auto_mouse_early_trigger = now_buffer + 1;
       }
       return false;
     
@@ -1178,7 +1178,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           if (TIMER_DIFF_16(record->event.time, drag_btn_left_press[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
             //tap
-            auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_LEFT_SIDE;
+            auto_mouse_early_trigger = now_buffer + AUTO_MOUSE_TIME_LEFT_SIDE;
           } else {
             // drag, nothing to do
           }
@@ -1191,7 +1191,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           if (TIMER_DIFF_16(record->event.time, drag_btn_right_press[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
             //tap
-            auto_mouse_early_trigger = now + AUTO_MOUSE_TIME_RIGHT_SIDE;
+            auto_mouse_early_trigger = now_buffer + AUTO_MOUSE_TIME_RIGHT_SIDE;
           } else {
             // drag, nothing to do
           }
@@ -1220,39 +1220,38 @@ void keyboard_post_init_user(void) {
   // config.h
   //keymap_config.nkro = true;
 
-  fast_timer_t now = timer_read_fast();
-  init_fade_matrix(now);
-  status_led(now, 0b1111, led_pattern_off);
+  now_buffer = timer_read_fast();
+  init_fade_matrix(now_buffer);
+  status_led(now_buffer, 0b1111, led_pattern_off);
 
-  auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
+  auto_mouse_early_trigger = now_buffer + (UINT32_MAX / 2) - 1;
   
   //ANSI
   layer_move(L_Base);
 }
 
 bool process_detected_host_os_user(os_variant_t detected_os) {
-  fast_timer_t now = timer_read_fast();
   switch (detected_os) {
     case OS_MACOS:
       fade_matrix_load_preset();
-      status_led(now, 0b1000, led_pattern_oneshot);
+      status_led(now_buffer, 0b1000, led_pattern_oneshot);
       break;
     case OS_IOS:
       fade_matrix_load_preset_powersave();
-      status_led(now, 0b0100, led_pattern_oneshot);
+      status_led(now_buffer, 0b0100, led_pattern_oneshot);
       break;
     case OS_WINDOWS:
       fade_matrix_load_preset();
-      status_led(now, 0b0010, led_pattern_oneshot);
+      status_led(now_buffer, 0b0010, led_pattern_oneshot);
       break;
     case OS_LINUX:
       fade_matrix_load_preset_powersave();
-      status_led(now, 0b0001, led_pattern_oneshot);
+      status_led(now_buffer, 0b0001, led_pattern_oneshot);
       break;
     case OS_UNSURE:
-      status_led(now, 0b1111, led_pattern_oneshot);
-      status_led(now, 0b1111, led_pattern_oneshot);
-      status_led(now, 0b1111, led_pattern_oneshot);
+      status_led(now_buffer, 0b1111, led_pattern_oneshot);
+      status_led(now_buffer, 0b1111, led_pattern_oneshot);
+      status_led(now_buffer, 0b1111, led_pattern_oneshot);
       break;
   }
     
@@ -1351,29 +1350,28 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   if (is_launching || !keyboard_config.led_level) return state;
   
   uint8_t layer = get_highest_layer(state);
-  fast_timer_t now = timer_read_fast();
   
   switch (layer) {
     case L_Base :
     case L_Base_JIS:
-      status_led(now, 0b1011, led_pattern_off);
+      status_led(now_buffer, 0b1011, led_pattern_off);
       
       if (set_scrolling) {
-        status_led(now, 0b0100, led_pattern_on);
+        status_led(now_buffer, 0b0100, led_pattern_on);
       } else {
-        status_led(now, 0b0100, led_pattern_off);
+        status_led(now_buffer, 0b0100, led_pattern_off);
       }
       break;
     case L_Function:
-      status_led(now, 0b1100, led_pattern_off);
-      status_led(now, 0b0011, led_pattern_on);
+      status_led(now_buffer, 0b1100, led_pattern_off);
+      status_led(now_buffer, 0b0011, led_pattern_on);
       break; 
     case L_Number:
     case L_Number_JIS:
     case L_Cursor:
     case L_Cursor_JIS:
-      status_led(now, 0b1011, led_pattern_off);
-      status_led(now, 0b0100, led_pattern_on);
+      status_led(now_buffer, 0b1011, led_pattern_off);
+      status_led(now_buffer, 0b0100, led_pattern_on);
       break; 
     case L_LeftPinky:
     case L_RightPinky:
@@ -1388,45 +1386,45 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Mouse_Number_Override:
     case L_Mouse_Cursor_Override:
       // mouse indication
-      status_led(now, 0b0011, led_pattern_off);
-      status_led(now, 0b1000, led_pattern_on);
+      status_led(now_buffer, 0b0011, led_pattern_off);
+      status_led(now_buffer, 0b1000, led_pattern_on);
 
       if (set_scrolling) {
-        status_led(now, 0b0100, led_pattern_on);
+        status_led(now_buffer, 0b0100, led_pattern_on);
       } else {
-        status_led(now, 0b0100, led_pattern_off);
+        status_led(now_buffer, 0b0100, led_pattern_off);
       }
       // DRAG_SCROLL add on key event
       // aim/turbo change without layer, direct write on process_record
       break;
     case L_Firmware:
-      status_led(now, 0b0011, led_pattern_off);
-      status_led(now, 0b1100, led_pattern_blink);
+      status_led(now_buffer, 0b0011, led_pattern_off);
+      status_led(now_buffer, 0b1100, led_pattern_blink);
       break;
     case L_Set_Hue:
-      status_led(now, 0b0011, led_pattern_off);
-      status_led(now, 0b1100, led_pattern_on);
+      status_led(now_buffer, 0b0011, led_pattern_off);
+      status_led(now_buffer, 0b1100, led_pattern_on);
       break;
     case L_Set_Sat:
-      status_led(now, 0b0001, led_pattern_off);
-      status_led(now, 0b1100, led_pattern_on);
-      status_led(now, 0b0010, led_pattern_blink);
+      status_led(now_buffer, 0b0001, led_pattern_off);
+      status_led(now_buffer, 0b1100, led_pattern_on);
+      status_led(now_buffer, 0b0010, led_pattern_blink);
       break;
     case L_Set_Val:
-      status_led(now, 0b0010, led_pattern_off);
-      status_led(now, 0b1100, led_pattern_on);
-      status_led(now, 0b0001, led_pattern_blink);
+      status_led(now_buffer, 0b0010, led_pattern_off);
+      status_led(now_buffer, 0b1100, led_pattern_on);
+      status_led(now_buffer, 0b0001, led_pattern_blink);
       break;    
     case L_Set_Speed:
-      status_led(now, 0b1100, led_pattern_on);
-      status_led(now, 0b0011, led_pattern_blink);
+      status_led(now_buffer, 0b1100, led_pattern_on);
+      status_led(now_buffer, 0b0011, led_pattern_blink);
       break;
     case L_Halt_Mask:
-      status_led(now, 0b1111, led_pattern_off);
+      status_led(now_buffer, 0b1111, led_pattern_off);
       break;
 
     default:
-      status_led(now, 0b1111, led_pattern_off);
+      status_led(now_buffer, 0b1111, led_pattern_off);
       break;
   }  
   return state;
@@ -1484,12 +1482,9 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // timer read first
-  fast_timer_t now = timer_read_fast();
-  
   if (record->event.pressed) {
-    activate_fade_matrix(now);
-    activate_ime_state_sync(now);
+    activate_fade_matrix(now_buffer);
+    activate_ime_state_sync(now_buffer);
   }
   
   return;
@@ -1511,21 +1506,19 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
   activate = activate || abs(auto_mouse_total_move.v) > AUTO_MOUSE_SCROLL_THRESHOLD;
   activate = activate || mouse_report.buttons;
   
-  fast_timer_t now = timer_read_fast();
-
   if (activate) {
-    auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
-    auto_mouse_count_reset_trigger = now + AUTO_MOUSE_COUNT_RESET_DELAY;
+    auto_mouse_early_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+    auto_mouse_count_reset_trigger = now_buffer + AUTO_MOUSE_COUNT_RESET_DELAY;
 
     // wakeup RGB
-    activate_fade_matrix(now);
+    activate_fade_matrix(now_buffer);
     
     auto_mouse_total_move.x = 0;
     auto_mouse_total_move.y = 0;
     auto_mouse_total_move.h = 0;
     auto_mouse_total_move.v = 0;
-  } else if (timer_expired_fast(now, auto_mouse_count_reset_trigger)) {
-    auto_mouse_count_reset_trigger = now + AUTO_MOUSE_COUNT_RESET_DELAY;
+  } else if (timer_expired_fast(now_buffer, auto_mouse_count_reset_trigger)) {
+    auto_mouse_count_reset_trigger = now_buffer + AUTO_MOUSE_COUNT_RESET_DELAY;
 
     auto_mouse_total_move.x = 0;
     auto_mouse_total_move.y = 0;
@@ -1537,14 +1530,12 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
 }
 
 void housekeeping_task_user(void) {
-  fast_timer_t now = timer_read_fast();
+  update_fade_matrix(now_buffer);
+  update_ime_state_sync(now_buffer);
+  update_status_led(now_buffer);
   
-  update_fade_matrix(now);
-  update_ime_state_sync(now);
-  update_status_led(now);
-  
-  if (timer_expired_fast(now, auto_mouse_early_trigger)) {
-    auto_mouse_early_trigger = now + (UINT32_MAX / 2) - 1;
+  if (timer_expired_fast(now_buffer, auto_mouse_early_trigger)) {
+    auto_mouse_early_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     
     // reset count
     auto_mouse_total_move.x = 0;
@@ -1554,6 +1545,8 @@ void housekeeping_task_user(void) {
 
     auto_mouse_layer_off();
   }
-  
+
+  // update to next now
+  now_buffer = timer_read_fast();
   return;
 }
