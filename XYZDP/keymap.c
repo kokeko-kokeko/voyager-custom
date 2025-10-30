@@ -287,11 +287,11 @@ static bool lock_aim = false;
 static fast_timer_t auto_mouse_early_off_trigger = 0;
 static fast_timer_t auto_mouse_count_reset_trigger = 0;
 
-static const fast_timer_t btn_delay_left[8] = {
+static const fast_timer_t btn_left_hand_delay[8] = {
   AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT,
   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT
 };
-static const fast_timer_t btn_delay_right[8] = {
+static const fast_timer_t btn_right_hand_delay[8] = {
   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT,
   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT
 };
@@ -304,11 +304,11 @@ static total_mouse_movement_t auto_mouse_total_move = {
   .v = 0,
 };
 
-static uint16_t drag_scroll_press = 0;
-static uint16_t drag_turbo_press = 0;
-static uint16_t drag_aim_press = 0;
-static uint16_t drag_btn_left_press[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-static uint16_t drag_btn_right_press[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+static uint16_t drag_scroll_press_time = 0;
+static uint16_t turbo_press_time = 0;
+static uint16_t aim_press_time = 0;
+static uint16_t btn_left_hand_press_time[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+static uint16_t btn_right_hand_press_time[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
 // -----------------------------------------------------------------------------
 //
@@ -1040,10 +1040,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case DRAG_SCROLL:
       if (record->event.pressed) {
-        drag_scroll_press = record->event.time;
+        drag_scroll_press_time = record->event.time;
         set_scrolling = true;
       } else {
-        if (TIMER_DIFF_16(record->event.time, drag_scroll_press) < AUTO_MOUSE_DRAG_THRESHOLD) {
+        if (TIMER_DIFF_16(record->event.time, drag_scroll_press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
           // tap
           if (lock_scrolling) {
             // if locked release lock
@@ -1068,14 +1068,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case NAVIGATOR_TURBO:
       if (record->event.pressed) {
-        drag_turbo_press = record->event.time;
+        turbo_press_time = record->event.time;
         navigator_turbo = true;
         
         // release another side
         navigator_aim = false;
         lock_aim = false;
       } else {
-        if (TIMER_DIFF_16(record->event.time, drag_turbo_press) < AUTO_MOUSE_DRAG_THRESHOLD) {
+        if (TIMER_DIFF_16(record->event.time, turbo_press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
           // tap
           if (lock_turbo) {
             // if locked release lock
@@ -1105,14 +1105,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case NAVIGATOR_AIM:
       if (record->event.pressed) {
-        drag_aim_press = record->event.time;
+        aim_press_time = record->event.time;
         navigator_aim = true;
         
         // release another side
         navigator_turbo = false;
         lock_turbo = false;
       } else {
-        if (TIMER_DIFF_16(record->event.time, drag_aim_press) < AUTO_MOUSE_DRAG_THRESHOLD) {
+        if (TIMER_DIFF_16(record->event.time, aim_press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
           // tap
           if (lock_aim) {
             // if locked release lock
@@ -1182,12 +1182,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.key.row < MATRIX_ROWS / 2) {
         // left side
         if (record->event.pressed) {
-          drag_btn_left_press[keycode - KC_MS_BTN1] = record->event.time;
+          btn_left_hand_press_time[keycode - KC_MS_BTN1] = record->event.time;
            // early trigger reset on auto_mouse_activation
         } else {
-          if (TIMER_DIFF_16(record->event.time, drag_btn_left_press[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
+          if (TIMER_DIFF_16(record->event.time, btn_left_hand_press_time[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
             //tap
-            auto_mouse_early_off_trigger = now_buffer + btn_delay_left[keycode - KC_MS_BTN1];
+            auto_mouse_early_off_trigger = now_buffer + btn_left_hand_delay[keycode - KC_MS_BTN1];
           } else {
             // drag, nothing to do
           }
@@ -1195,12 +1195,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         // right side
         if (record->event.pressed) {
-          drag_btn_right_press[keycode - KC_MS_BTN1] = record->event.time;
+          btn_right_hand_press_time[keycode - KC_MS_BTN1] = record->event.time;
           // early trigger reset on auto_mouse_activation
         } else {
-          if (TIMER_DIFF_16(record->event.time, drag_btn_right_press[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
+          if (TIMER_DIFF_16(record->event.time, btn_right_hand_press_time[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
             //tap
-            auto_mouse_early_off_trigger = now_buffer + btn_delay_right[keycode - KC_MS_BTN1];
+            auto_mouse_early_off_trigger = now_buffer + btn_right_hand_delay[keycode - KC_MS_BTN1];
           } else {
             // drag, nothing to do
           }
