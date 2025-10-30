@@ -887,7 +887,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
 
-  // HSV_x_y_z override impl
+  // HSV_h_s_v override
   switch (keycode) {
     // Firmware
     case HSV_0_255_10:
@@ -1027,7 +1027,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
 
-  // mouse logic impl
+  // mouse logic
   switch (keycode) {
     case DRAG_SCROLL:
       if (record->event.pressed) {
