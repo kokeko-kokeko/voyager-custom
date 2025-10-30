@@ -1014,6 +1014,163 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
 
+
+  
+  // mouse button eraly exit
+  switch (keycode) {  
+    case KC_MS_BTN1:
+    case KC_MS_BTN2:
+    case KC_MS_BTN3:
+    case KC_MS_BTN4:
+    case KC_MS_BTN5:
+    case KC_MS_BTN6:
+    case KC_MS_BTN7:
+    case KC_MS_BTN8:
+      if (record->event.key.row < MATRIX_ROWS / 2) {
+        // left side
+        if (record->event.pressed) {
+          btn_left_hand_press_time[keycode - KC_MS_BTN1] = record->event.time;
+          // early trigger reset on auto_mouse_activation
+        } else {
+          if (TIMER_DIFF_16(record->event.time, btn_left_hand_press_time[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
+            //tap
+            auto_mouse_early_off_trigger = now_buffer + btn_left_hand_delay[keycode - KC_MS_BTN1];
+          } else {
+            // drag, nothing to do
+          }
+        }
+      } else {
+        // right side
+        if (record->event.pressed) {
+          btn_right_hand_press_time[keycode - KC_MS_BTN1] = record->event.time;
+          // early trigger reset on auto_mouse_activation
+        } else {
+          if (TIMER_DIFF_16(record->event.time, btn_right_hand_press_time[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
+            //tap
+            auto_mouse_early_off_trigger = now_buffer + btn_right_hand_delay[keycode - KC_MS_BTN1];
+          } else {
+            // drag, nothing to do
+          }
+        }
+      }
+      return true;
+  }
+
+  if (process_record_rgb_inc_dec(keycode, record) == false) {
+    return false;
+  }
+  
+  if (process_record_hsv_x_y_z(keycode, record) == false) {
+    return false;
+  }
+  
+  if (process_record_mouse(keycode, record) == false) {
+    return false;
+  }
+  
+  if (process_record_ime_state_sync(keycode, record) == false) {
+    return false;
+  }
+  
+  return true;
+}
+
+// -----------------------------------------------------------------------------
+//
+//
+// Split keymap impl
+//
+//
+// -----------------------------------------------------------------------------
+
+bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
+  //RGB inc/dec no eeprom override
+  // always return false (sometime use upedge)
+  if (keycode == RGB_SLD) {
+    if (record->event.pressed) {
+      fade_matrix_set_mode(RGB_MATRIX_SOLID_COLOR);
+    }
+    return false;
+  }
+  
+  if (keycode == RGB_HUI) {
+    if (record->event.pressed) {
+      fade_matrix_increase_hue();
+    }
+    return false;
+  }
+  
+  if (keycode == RGB_HUD) {
+    if (record->event.pressed) {
+      fade_matrix_decrease_hue();
+    }
+    return false;
+  }
+  
+  if (keycode == RGB_SAI) {
+    if (record->event.pressed) {
+      fade_matrix_increase_sat();
+    }
+    return false;
+  }
+  
+  if (keycode == RGB_SAD) {
+    if (record->event.pressed) {
+      fade_matrix_decrease_sat();
+    }
+    return false;
+  }
+  
+  if (keycode == RGB_VAI) {
+    if (record->event.pressed) {
+      fade_matrix_increase_val();
+    }
+    return false;
+  }
+  
+  if (keycode == RGB_VAD) {
+    if (record->event.pressed) {
+      fade_matrix_decrease_val();
+    }
+    return false;
+  }
+  
+  if (keycode == RGB_SPI) {
+    if (record->event.pressed) {
+      fade_matrix_increase_speed();
+    }
+    return false;
+  }
+  
+  if (keycode == RGB_SPD) {
+    if (record->event.pressed) {
+      fade_matrix_decrease_speed();
+    }
+    return false;
+  }
+  
+  if (keycode == RGB_TOG) {
+    if (record->event.pressed) {
+      fade_matrix_toggle();
+    }
+    return false;
+  }
+  
+  if (keycode == RGB_MODE_FORWARD) {
+    if (record->event.pressed) {
+      fade_matrix_step();
+    }
+    return false;
+  }
+  
+  return true;
+}
+
+bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+
+bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
   // mouse logic (complex dup switch)
   if (keycode == DRAG_SCROLL) {
     if (record->event.pressed) {
@@ -1189,161 +1346,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  // mouse button eraly exit
-  switch (keycode) {  
-    case KC_MS_BTN1:
-    case KC_MS_BTN2:
-    case KC_MS_BTN3:
-    case KC_MS_BTN4:
-    case KC_MS_BTN5:
-    case KC_MS_BTN6:
-    case KC_MS_BTN7:
-    case KC_MS_BTN8:
-      if (record->event.key.row < MATRIX_ROWS / 2) {
-        // left side
-        if (record->event.pressed) {
-          btn_left_hand_press_time[keycode - KC_MS_BTN1] = record->event.time;
-          // early trigger reset on auto_mouse_activation
-        } else {
-          if (TIMER_DIFF_16(record->event.time, btn_left_hand_press_time[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
-            //tap
-            auto_mouse_early_off_trigger = now_buffer + btn_left_hand_delay[keycode - KC_MS_BTN1];
-          } else {
-            // drag, nothing to do
-          }
-        }
-      } else {
-        // right side
-        if (record->event.pressed) {
-          btn_right_hand_press_time[keycode - KC_MS_BTN1] = record->event.time;
-          // early trigger reset on auto_mouse_activation
-        } else {
-          if (TIMER_DIFF_16(record->event.time, btn_right_hand_press_time[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
-            //tap
-            auto_mouse_early_off_trigger = now_buffer + btn_right_hand_delay[keycode - KC_MS_BTN1];
-          } else {
-            // drag, nothing to do
-          }
-        }
-      }
-      return true;
-  }
-
-  if (process_record_rgb_inc_dec(keycode, record) == false) {
-    return false;
-  }
-  
-  if (process_record_hsv_x_y_z(keycode, record) == false) {
-    return false;
-  }
-  
-  if (process_record_mouse(keycode, record) == false) {
-    return false;
-  }
-  
-  if (process_record_ime_state_sync(keycode, record) == false) {
-    return false;
-  }
-  
-  return true;
-}
-
-// -----------------------------------------------------------------------------
-//
-//
-// Split keymap impl
-//
-//
-// -----------------------------------------------------------------------------
-
-bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
-  //RGB inc/dec no eeprom override
-  // always return false (sometime use upedge)
-  if (keycode == RGB_SLD) {
-    if (record->event.pressed) {
-      fade_matrix_set_mode(RGB_MATRIX_SOLID_COLOR);
-    }
-    return false;
-  }
-  
-  if (keycode == RGB_HUI) {
-    if (record->event.pressed) {
-      fade_matrix_increase_hue();
-    }
-    return false;
-  }
-  
-  if (keycode == RGB_HUD) {
-    if (record->event.pressed) {
-      fade_matrix_decrease_hue();
-    }
-    return false;
-  }
-  
-  if (keycode == RGB_SAI) {
-    if (record->event.pressed) {
-      fade_matrix_increase_sat();
-    }
-    return false;
-  }
-  
-  if (keycode == RGB_SAD) {
-    if (record->event.pressed) {
-      fade_matrix_decrease_sat();
-    }
-    return false;
-  }
-  
-  if (keycode == RGB_VAI) {
-    if (record->event.pressed) {
-      fade_matrix_increase_val();
-    }
-    return false;
-  }
-  
-  if (keycode == RGB_VAD) {
-    if (record->event.pressed) {
-      fade_matrix_decrease_val();
-    }
-    return false;
-  }
-  
-  if (keycode == RGB_SPI) {
-    if (record->event.pressed) {
-      fade_matrix_increase_speed();
-    }
-    return false;
-  }
-  
-  if (keycode == RGB_SPD) {
-    if (record->event.pressed) {
-      fade_matrix_decrease_speed();
-    }
-    return false;
-  }
-  
-  if (keycode == RGB_TOG) {
-    if (record->event.pressed) {
-      fade_matrix_toggle();
-    }
-    return false;
-  }
-  
-  if (keycode == RGB_MODE_FORWARD) {
-    if (record->event.pressed) {
-      fade_matrix_step();
-    }
-    return false;
-  }
-  
-  return true;
-}
-
-bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
