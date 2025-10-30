@@ -337,6 +337,8 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
   switch (keycode) {
     case NAVIGATOR_INC_CPI ... NAVIGATOR_AIM:
     case DRAG_SCROLL:
+    case KC_LANGUAGE_6:
+    case KC_LANGUAGE_7:
       return true;
   }
 
