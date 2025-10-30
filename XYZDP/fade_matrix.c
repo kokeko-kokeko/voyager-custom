@@ -559,7 +559,6 @@ void set_layer_color_mouse_map(void) {
   rgb_matrix_set_color( 4, f, f, 0);
   rgb_matrix_set_color( 5, f, 0, h);
   
-  rgb_matrix_set_color( 9, q, q, q);
   rgb_matrix_set_color(10, 0, h, f);
   rgb_matrix_set_color(11, 0, f, h);
 
@@ -579,9 +578,6 @@ void set_layer_color_mouse_map(void) {
   
   rgb_matrix_set_color(32, 0, 0, f);
   rgb_matrix_set_color(33, 0, f, 0);
-  rgb_matrix_set_color(34, q, q, q);
-  
- 
   
   rgb_matrix_set_color(38, o, q, 0);
   rgb_matrix_set_color(39, f, 0, 0);
@@ -592,13 +588,17 @@ void set_layer_color_mouse_map(void) {
   
   // scroll
   if (set_scrolling) {
+    rgb_matrix_set_color( 9, h, 0, 0);
     rgb_matrix_set_color(17, h, 0, 0);
     rgb_matrix_set_color(22, h, 0, 0);
+    rgb_matrix_set_color(34, h, 0, 0);
     rgb_matrix_set_color(45, h, 0, 0);
     rgb_matrix_set_color(50, h, 0, 0);
   } else {
+    rgb_matrix_set_color( 9, h, h, h);
     rgb_matrix_set_color(17, h, h, h);
     rgb_matrix_set_color(22, h, h, h);
+    rgb_matrix_set_color(34, h, h, h);
     rgb_matrix_set_color(45, h, h, h);
     rgb_matrix_set_color(50, h, h, h);
   }
