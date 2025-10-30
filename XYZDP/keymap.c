@@ -1530,6 +1530,9 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
 }
 
 void housekeeping_task_user(void) {
+  // update to next now
+  now_buffer = timer_read_fast();
+  
   update_fade_matrix(now_buffer);
   update_ime_state_sync(now_buffer);
   update_status_led(now_buffer);
@@ -1545,8 +1548,6 @@ void housekeeping_task_user(void) {
 
     auto_mouse_layer_off();
   }
-
-  // update to next now
-  now_buffer = timer_read_fast();
+  
   return;
 }
