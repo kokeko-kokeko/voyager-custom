@@ -304,14 +304,6 @@ static total_mouse_movement_t auto_mouse_total_move = {
   .v = 0,
 };
 
-static uint16_t drag_scroll_press_time = 0;
-static uint16_t turbo_press_time = 0;
-static uint16_t aim_press_time = 0;
-static uint16_t btn_left_hand_press_time[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-static uint16_t btn_right_hand_press_time[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-static uint16_t exit_left_hand_press_time = 0;
-static uint16_t exit_right_hand_press_time = 0;
-
 bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
 bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record);
 bool process_record_mouse(uint16_t keycode, keyrecord_t *record);
@@ -1127,7 +1119,12 @@ bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
-  // mouse logic (complex dup switch)
+  static uint16_t drag_scroll_press_time = 0;
+  static uint16_t turbo_press_time = 0;
+  static uint16_t aim_press_time = 0;
+  static uint16_t exit_left_hand_press_time = 0;
+  static uint16_t exit_right_hand_press_time = 0;
+  
   if (keycode == DRAG_SCROLL) {
     if (record->event.pressed) {
       drag_scroll_press_time = record->event.time;
@@ -1306,6 +1303,9 @@ bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
+  static uint16_t btn_left_hand_press_time[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+  static uint16_t btn_right_hand_press_time[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+  
     // mouse button eraly exit
   if (IS_MOUSEKEY_BUTTON(keycode)) {
     if (record->event.key.row < MATRIX_ROWS / 2) {
