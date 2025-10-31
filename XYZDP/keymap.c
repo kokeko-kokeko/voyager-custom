@@ -1301,7 +1301,7 @@ void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
   static uint16_t btn_left_hand_press_time[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
   static uint16_t btn_right_hand_press_time[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
-  if (is_auto_mouse_active() == false) return;
+  //if (is_auto_mouse_active() == false) return;
   if (IS_MOUSEKEY_BUTTON(keycode) == false) return; 
   
   // mouse button eraly exit
