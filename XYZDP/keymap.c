@@ -1044,6 +1044,7 @@ bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
   if (keycode == HSV_86_255_2) {
     if (record->event.pressed) {
       clear_keyboard();
+      set_auto_mouse_enable(false);
       layer_on(L_Halt_Mask);
     }
     return false;
@@ -1052,6 +1053,7 @@ bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
   if (keycode == HSV_86_255_3) {
     if (record->event.pressed) {
       layer_on(L_Set_Sat);
+      update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
     }
     return false;
   }
@@ -1059,6 +1061,8 @@ bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
   if (keycode == HSV_86_255_4) {
     if (record->event.pressed) {
       layer_on(L_Set_Val);
+      update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
+
     }
     return false;
   }
@@ -1066,6 +1070,7 @@ bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
   if (keycode == HSV_86_255_5) {
     if (record->event.pressed) {
       layer_off(L_Set_Sat);
+      update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
     }
     return false;
   }
@@ -1073,6 +1078,7 @@ bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
   if (keycode == HSV_86_255_6) {
     if (record->event.pressed) {
       layer_off(L_Set_Val);
+      update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
     }
     return false;
   }
@@ -1433,9 +1439,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // on mouse, number/cursor override
   state = update_tri_layer_state(state, L_Mouse, L_Number, L_Mouse_Number_Override);
   state = update_tri_layer_state(state, L_Mouse, L_Cursor, L_Mouse_Cursor_Override);
-
-  // rgb setting tri layer
-  state = update_tri_layer_state(state, L_Set_Sat, L_Set_Val, L_Set_Speed);
   
   // ANSI/JIS addiional enable
   state = update_tri_layer_state(state, L_Base_JIS, L_Number, L_Number_JIS);
