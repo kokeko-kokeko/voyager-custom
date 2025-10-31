@@ -315,6 +315,7 @@ static uint16_t exit_right_hand_press_time = 0;
 bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
 bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record);
 bool process_record_mouse(uint16_t keycode, keyrecord_t *record);
+void post_process_record_mouse(uint16_t keycode, keyrecord_t *record);
 
 // -----------------------------------------------------------------------------
 //
@@ -1304,6 +1305,10 @@ bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
+  
+}
+
 // -----------------------------------------------------------------------------
 //
 //
@@ -1582,7 +1587,9 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     activate_fade_matrix(now_buffer);
     activate_ime_state_sync(now_buffer);
   }
-
+  
+  post_process_record_mouse(keycode, record);
+  
   // mouse button eraly exit
   if (IS_MOUSEKEY_BUTTON(keycode)) {
     if (record->event.key.row < MATRIX_ROWS / 2) {
