@@ -1309,6 +1309,9 @@ void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
   static uint16_t btn_right_hand_press_time[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
   
   if (IS_MOUSEKEY_BUTTON(keycode) == false) {
+    if (layer_state_is(L_Mouse_Number_Override)) return;
+    if (layer_state_is(L_Mouse_Cursor_Override)) return;
+    
     if (record->event.pressed == false) {
       // non-mouse key release, exit 
       auto_mouse_early_off_trigger = now_buffer + 1;
