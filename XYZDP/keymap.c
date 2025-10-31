@@ -855,38 +855,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HSV_0_0_0:
   }
   
-  // mouse button eraly exit
-  if (IS_MOUSEKEY_BUTTON(keycode)) {
-    if (record->event.key.row < MATRIX_ROWS / 2) {
-      // left side
-      if (record->event.pressed) {
-        btn_left_hand_press_time[keycode - KC_MS_BTN1] = record->event.time;
-        // early trigger reset on auto_mouse_activation
-      } else {
-        if (TIMER_DIFF_16(record->event.time, btn_left_hand_press_time[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
-          //tap
-          auto_mouse_early_off_trigger = now_buffer + btn_left_hand_delay[keycode - KC_MS_BTN1];
-        } else {
-          // drag, nothing to do
-        }
-      }
-    } else {
-      // right side
-      if (record->event.pressed) {
-        btn_right_hand_press_time[keycode - KC_MS_BTN1] = record->event.time;
-        // early trigger reset on auto_mouse_activation
-      } else {
-        if (TIMER_DIFF_16(record->event.time, btn_right_hand_press_time[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
-          //tap
-          auto_mouse_early_off_trigger = now_buffer + btn_right_hand_delay[keycode - KC_MS_BTN1];
-        } else {
-          // drag, nothing to do
-        }
-      }
-    }
-    return true;
-  }
-
   if (process_record_rgb_inc_dec(keycode, record) == false) {
     return false;
   }
@@ -1613,6 +1581,37 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     activate_fade_matrix(now_buffer);
     activate_ime_state_sync(now_buffer);
+  }
+
+  // mouse button eraly exit
+  if (IS_MOUSEKEY_BUTTON(keycode)) {
+    if (record->event.key.row < MATRIX_ROWS / 2) {
+      // left side
+      if (record->event.pressed) {
+        btn_left_hand_press_time[keycode - KC_MS_BTN1] = record->event.time;
+        // early trigger reset on auto_mouse_activation
+      } else {
+        if (TIMER_DIFF_16(record->event.time, btn_left_hand_press_time[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
+          //tap
+          auto_mouse_early_off_trigger = now_buffer + btn_left_hand_delay[keycode - KC_MS_BTN1];
+        } else {
+          // drag, nothing to do
+        }
+      }
+    } else {
+      // right side
+      if (record->event.pressed) {
+        btn_right_hand_press_time[keycode - KC_MS_BTN1] = record->event.time;
+        // early trigger reset on auto_mouse_activation
+      } else {
+        if (TIMER_DIFF_16(record->event.time, btn_right_hand_press_time[keycode - KC_MS_BTN1]) < AUTO_MOUSE_DRAG_THRESHOLD) {
+          //tap
+          auto_mouse_early_off_trigger = now_buffer + btn_right_hand_delay[keycode - KC_MS_BTN1];
+        } else {
+          // drag, nothing to do
+        }
+      }
+    }
   }
   
   return;
