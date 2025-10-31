@@ -307,6 +307,7 @@ static total_mouse_movement_t auto_mouse_total_move = {
 bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
 bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record);
 bool process_record_mouse(uint16_t keycode, keyrecord_t *record);
+
 void post_process_record_mouse(uint16_t keycode, keyrecord_t *record);
 
 // -----------------------------------------------------------------------------
