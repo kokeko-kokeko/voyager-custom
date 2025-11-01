@@ -1636,11 +1636,11 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
   activate = activate || mouse_report.buttons;
   
   if (activate) {
-    //auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     auto_mouse_count_reset_trigger = now_buffer + AUTO_MOUSE_COUNT_RESET_DELAY;
 
     // wakeup RGB
-    //activate_fade_matrix(now_buffer);
+    activate_fade_matrix(now_buffer);
     
     auto_mouse_total_move.x = 0;
     auto_mouse_total_move.y = 0;
@@ -1658,29 +1658,6 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
   return activate;    
 }
 
-void matrix_scan_user(void) {
-  report_mouse_t currentReport = pointing_device_get_report();
-  if (currentReport.x != 0) {
-    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
-          status_led(now_buffer, 0b0101, led_pattern_oneshot);
-
-  }
-  if (currentReport.y != 0) {
-    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
-          status_led(now_buffer, 0b0101, led_pattern_oneshot);
-
-  }
-  if (currentReport.h != 0) {
-    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
-          status_led(now_buffer, 0b0101, led_pattern_oneshot);
-
-  }
-  if (currentReport.v != 0) {
-    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
-        status_led(now_buffer, 0b0101, led_pattern_oneshot);
-  }
-}
-
 void housekeeping_task_user(void) {
   // update to next now
   now_buffer = timer_read_fast();
@@ -1688,8 +1665,6 @@ void housekeeping_task_user(void) {
   update_fade_matrix(now_buffer);
   update_ime_state_sync(now_buffer);
   update_status_led(now_buffer);
-
-
 
   if (timer_expired_fast(now_buffer, auto_mouse_early_off_trigger)) {
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
