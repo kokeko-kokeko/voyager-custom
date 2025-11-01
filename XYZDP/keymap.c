@@ -1667,16 +1667,16 @@ void housekeeping_task_user(void) {
   update_status_led(now_buffer);
 
   report_mouse_t currentReport = pointing_device_get_report();
-  if (currentReport-x != 0) {
+  if (currentReport.x != 0) {
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
   }
-  if (currentReport-y != 0) {
+  if (currentReport.y != 0) {
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
   }
-  if (currentReport-h != 0) {
+  if (currentReport.h != 0) {
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
   }
-  if (currentReport-v != 0) {
+  if (currentReport.v != 0) {
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
   }
 
