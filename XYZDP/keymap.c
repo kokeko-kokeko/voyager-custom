@@ -1273,6 +1273,22 @@ void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0
   };
+  static fast_timer_t btn_event_time[16] = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0
+  };
+  static fast_timer_t btn_event_time_d[16] = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0
+  };
+  static bool btn_tapped[16] = {
+    false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false
+  };
+  static bool btn_tapped_d[16] = {
+    false, false, false, false, false, false, false, false,
+    false, false, false, false, false, false, false, false
+  };
   
   if (IS_MOUSEKEY(keycode) == false) {    
     if (record->event.pressed == false) {
@@ -1295,15 +1311,22 @@ void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
   
   if (record->event.pressed) {
     btn_press_time[index] = record->event.time;
+    btn_event_time_d[index] = btn_event_time[index];
+    btn_event_time[index] = now_buffer;
     // early trigger reset on auto_mouse_activation
   } else {
+    btn_tapped_d[index] = btn_tapped[index];
     if (TIMER_DIFF_16(record->event.time, btn_press_time[index]) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
+      btn_tapped[index] = true;
       auto_mouse_early_off_trigger = now_buffer + btn_early_off_delay[index];
     } else {
       // drag, reset
+      btn_tapped[index] = false;
       auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     }
+
+    // double tap detection
   }
 
   return;
