@@ -1273,17 +1273,9 @@ void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0
   };
-  static fast_timer_t btn_event_time[16] = {
+  static fast_timer_t btn_last_tap_time[16] = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0
-  };
-  static fast_timer_t btn_event_time_d[16] = {
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0
-  };
-  static bool btn_last_tapped[16] = {
-    false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false
   };
   
   if (IS_MOUSEKEY(keycode) == false) {    
@@ -1307,31 +1299,23 @@ void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
   
   if (record->event.pressed) {
     btn_press_time[index] = record->event.time;
-    btn_event_time_d[index] = btn_event_time[index];
-    btn_event_time[index] = now_buffer;
     // early trigger reset on auto_mouse_activation
   } else {
     if (TIMER_DIFF_16(record->event.time, btn_press_time[index]) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
-      auto_mouse_early_off_trigger = now_buffer + btn_early_off_delay[index];
+      if (TIMER_DIFF_FAST(now_buffer, btn_last_tap_time[index]) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) {
+        //double tap, short time
+        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
+      } else {
+        //single tap
+        auto_mouse_early_off_trigger = now_buffer + btn_early_off_delay[index];
+      }
+      btn_last_tap_time[index] = now_buffer;
     } else {
       // drag, reset
       auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
-      
-      // pass double tap detection
-      btn_last_tapped[index] = false;
-      return;
     }
-
-    // double tap detection overwrite
-    if (btn_last_tapped[index]) {
-      if (TIMER_DIFF_FAST(btn_event_time[index], btn_event_time_d[index]) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) {
-        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
-      }
-    }
-    btn_last_tapped[index] = true;
   }
-
   return;
 }
 
