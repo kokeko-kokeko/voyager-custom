@@ -818,7 +818,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case RGB_SLD:
       break;
-    case HSV_0_255_10:
+    case HSV_0_255_200:
       break;
     case HSV_86_255_1:
       break;
@@ -962,7 +962,7 @@ bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
 
 bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
   // Firmware  
-  if (keycode == HSV_0_255_10) {
+  if (keycode == HSV_0_255_200) {
     if (record->event.pressed) {
       uint8_t pos = get_pos_from_keyrecord(record);
       if (52 <= pos) return false;
@@ -982,7 +982,6 @@ bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
       } else if (pos == 49) {
         clear_keyboard();
       }
-<<<<<<< HEAD
     }
     return false;
   }
@@ -1279,13 +1278,6 @@ bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
         // drag, must release lock non exit
         set_scrolling = false;
         lock_scrolling = false;
-=======
-      return false;
-    case HSV_0_255_210:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,210);
->>>>>>> origin/oryx
       }
     }
     // update LED
