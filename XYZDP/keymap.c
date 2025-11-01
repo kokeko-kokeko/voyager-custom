@@ -11,8 +11,8 @@ enum custom_keycodes {
   HSV_86_255_200,
   HSV_86_255_201,
   HSV_0_255_210,
-  HSV_86_255_3,
-  HSV_86_255_4,
+  HSV_86_255_202,
+  HSV_86_255_203,
   HSV_86_255_255,
   HSV_172_255_200,
   HSV_0_255_211,
@@ -54,28 +54,28 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(1, KC_C)
-#define DUAL_FUNC_1 LT(12, KC_9)
-#define DUAL_FUNC_2 LT(5, KC_F13)
-#define DUAL_FUNC_3 LT(14, KC_F14)
-#define DUAL_FUNC_4 LT(10, KC_F18)
-#define DUAL_FUNC_5 LT(10, KC_F3)
-#define DUAL_FUNC_6 LT(8, KC_F5)
-#define DUAL_FUNC_7 LT(10, KC_Q)
-#define DUAL_FUNC_8 LT(7, KC_G)
-#define DUAL_FUNC_9 LT(7, KC_P)
-#define DUAL_FUNC_10 LT(9, KC_S)
-#define DUAL_FUNC_11 LT(10, KC_X)
-#define DUAL_FUNC_12 LT(10, KC_9)
-#define DUAL_FUNC_13 LT(12, KC_E)
-#define DUAL_FUNC_14 LT(12, KC_F7)
-#define DUAL_FUNC_15 LT(6, KC_5)
-#define DUAL_FUNC_16 LT(14, KC_F13)
-#define DUAL_FUNC_17 LT(14, KC_Z)
-#define DUAL_FUNC_18 LT(6, KC_F7)
-#define DUAL_FUNC_19 LT(1, KC_F18)
-#define DUAL_FUNC_20 LT(14, KC_6)
-#define DUAL_FUNC_21 LT(11, KC_F4)
+#define DUAL_FUNC_0 LT(5, KC_F12)
+#define DUAL_FUNC_1 LT(11, KC_3)
+#define DUAL_FUNC_2 LT(10, KC_2)
+#define DUAL_FUNC_3 LT(3, KC_J)
+#define DUAL_FUNC_4 LT(4, KC_J)
+#define DUAL_FUNC_5 LT(12, KC_F20)
+#define DUAL_FUNC_6 LT(3, KC_F20)
+#define DUAL_FUNC_7 LT(4, KC_F8)
+#define DUAL_FUNC_8 LT(11, KC_F2)
+#define DUAL_FUNC_9 LT(8, KC_F4)
+#define DUAL_FUNC_10 LT(7, KC_A)
+#define DUAL_FUNC_11 LT(10, KC_F1)
+#define DUAL_FUNC_12 LT(12, KC_Y)
+#define DUAL_FUNC_13 LT(9, KC_B)
+#define DUAL_FUNC_14 LT(6, KC_F20)
+#define DUAL_FUNC_15 LT(1, KC_6)
+#define DUAL_FUNC_16 LT(1, KC_R)
+#define DUAL_FUNC_17 LT(13, KC_Q)
+#define DUAL_FUNC_18 LT(10, KC_W)
+#define DUAL_FUNC_19 LT(2, KC_9)
+#define DUAL_FUNC_20 LT(11, KC_T)
+#define DUAL_FUNC_21 LT(7, KC_7)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -216,7 +216,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,                                  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  
     HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,                                  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  
     HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,                                  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  
-                                                    HSV_86_255_3,   HSV_86_255_4,                                   HSV_86_255_255, HSV_172_255_200
+                                                    HSV_86_255_202, HSV_86_255_203,                                 HSV_86_255_255, HSV_172_255_200
   ),
   [20] = LAYOUT_voyager(
     HSV_0_255_211,  HSV_0_255_211,  HSV_0_255_211,  HSV_0_255_211,  HSV_0_255_211,  HSV_0_255_211,                                  HSV_0_255_211,  HSV_0_255_211,  HSV_0_255_211,  HSV_0_255_211,  HSV_0_255_211,  HSV_0_255_211,  
@@ -1467,6 +1467,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       } else {
         status_led(now_buffer, 0b0100, led_pattern_off);
       }
+<<<<<<< HEAD
       break;
     case L_Function:
       status_led(now_buffer, 0b1100, led_pattern_off);
@@ -1499,6 +1500,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         status_led(now_buffer, 0b0100, led_pattern_on);
       } else {
         status_led(now_buffer, 0b0100, led_pattern_off);
+=======
+      return false;
+    case HSV_86_255_202:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(86,255,202);
+>>>>>>> origin/oryx
       }
       // DRAG_SCROLL add on key event
       // aim/turbo change without layer, direct write on process_record
@@ -1539,6 +1547,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 bool rgb_matrix_indicators_user(void) {
   if (rawhid_state.rgb_control) {
       return false;
+<<<<<<< HEAD
   }
   if (keyboard_config.disable_layer_led) { return false; }
   switch (get_highest_layer(layer_state)) {
@@ -1574,6 +1583,12 @@ bool rgb_matrix_indicators_user(void) {
         set_layer_color_overlay_mod();
         set_layer_color_overlay_ime_state_sync();
         set_layer_color_overlay_layer();
+=======
+    case HSV_86_255_203:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+        rgblight_sethsv(86,255,203);
+>>>>>>> origin/oryx
       }
       break;
   }
