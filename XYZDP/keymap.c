@@ -842,7 +842,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case HSV_86_255_6:
       break;
-    case HSV_0_255_113:
+    case HSV_0_255_213:
       break;
     case HSV_172_255_2:
       break;
@@ -1016,7 +1016,7 @@ bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
 
-  if (keycode == HSV_0_255_113) {
+  if (keycode == HSV_0_255_213) {
     if (record->event.pressed) {
       uint8_t pos = get_pos_from_keyrecord(record);
       if (52 <= pos) return false;
@@ -1617,41 +1617,7 @@ bool rgb_matrix_indicators_user(void) {
         set_layer_color_overlay_ime_state_sync();
         set_layer_color_overlay_layer();
       }
-<<<<<<< HEAD
       break;
-=======
-      return false;
-    case HSV_0_255_22:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,22);
-      }
-      return false;
-    case HSV_86_255_6:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,255,6);
-      }
-      return false;
-    case HSV_0_255_213:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,213);
-      }
-      return false;
-    case HSV_172_255_2:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(172,255,2);
-      }
-      return false;
-    case HSV_0_255_255:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,255);
-      }
-      return false;
->>>>>>> origin/oryx
   }
   return true;
 }
