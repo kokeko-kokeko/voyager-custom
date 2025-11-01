@@ -1226,7 +1226,6 @@ bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
         navigator_aim = false;
         lock_aim = false;
       }
-<<<<<<< HEAD
     }
     // update LED
     if (navigator_turbo) {
