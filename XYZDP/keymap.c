@@ -1036,13 +1036,6 @@ bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
         while (1);
       } else if (pos == 49) {
         clear_keyboard();
-=======
-      return false;
-    case HSV_0_255_200:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,200);
->>>>>>> origin/oryx
       }
     }
     return false;
@@ -1517,7 +1510,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       } else {
         status_led(now_buffer, 0b0100, led_pattern_off);
       }
-<<<<<<< HEAD
       break;
     case L_Function:
       status_led(now_buffer, 0b1100, led_pattern_off);
@@ -1550,13 +1542,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         status_led(now_buffer, 0b0100, led_pattern_on);
       } else {
         status_led(now_buffer, 0b0100, led_pattern_off);
-=======
-      return false;
-    case HSV_0_255_211:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,211);
->>>>>>> origin/oryx
       }
       // DRAG_SCROLL add on key event
       // aim/turbo change without layer, direct write on process_record
