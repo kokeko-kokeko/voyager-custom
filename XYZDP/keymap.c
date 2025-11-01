@@ -287,12 +287,12 @@ static bool lock_aim = false;
 static fast_timer_t auto_mouse_early_off_trigger = 0;
 static fast_timer_t auto_mouse_count_reset_trigger = 0;
 
-// 0 = left, 1 = right, button 8 count
-static const fast_timer_t btn_delay[2][8] = {
-  { AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT,
-    AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT },
-  { AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT,
-    AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT }
+// 0 to 7 = left, 8 to 15 = right, button 8 count
+static const fast_timer_t btn_delay[16] = {
+  AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT,
+  AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT,
+  AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT,
+  AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT
 };
 
 // reset from housekeeping
@@ -1268,10 +1268,10 @@ bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
-  // 0 = left, 1 = right, button 8 count
-  static uint16_t btn_press_time[2][8] = {
-    { 0, 0, 0, 0, 0, 0, 0, 0 },
-    { 0, 0, 0, 0, 0, 0, 0, 0 }
+  // 0 to 7 = left, 8 to 15 = right, button 8 count
+  static uint16_t btn_press_time[16] = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0
   };
   
   if (IS_MOUSEKEY(keycode) == false) {    
@@ -1284,19 +1284,22 @@ void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
 
   if (IS_MOUSEKEY_BUTTON(keycode) == false) return;
 
-  uint8_t side = 1;
-  if (record->event.key.row < MATRIX_ROWS / 2) {
-    side = 0;
-  }
   uint8_t index = keycode - KC_MS_BTN1;
+  if (record->event.key.row < MATRIX_ROWS / 2) {
+    // left
+    index += 0;
+  } else {
+    // right
+    index += 8;
+  }
   
   if (record->event.pressed) {
-    btn_press_time[side][index] = record->event.time;
+    btn_press_time[index] = record->event.time;
     // early trigger reset on auto_mouse_activation
   } else {
-    if (TIMER_DIFF_16(record->event.time, btn_press_time[side][index]) < AUTO_MOUSE_DRAG_THRESHOLD) {
+    if (TIMER_DIFF_16(record->event.time, btn_press_time[index]) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
-      auto_mouse_early_off_trigger = now_buffer + btn_delay[side][index];
+      auto_mouse_early_off_trigger = now_buffer + btn_delay[index];
     } else {
       // drag, reset
       auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
