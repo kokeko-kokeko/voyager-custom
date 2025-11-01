@@ -1636,11 +1636,11 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
   activate = activate || mouse_report.buttons;
   
   if (activate) {
-    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+    //auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     auto_mouse_count_reset_trigger = now_buffer + AUTO_MOUSE_COUNT_RESET_DELAY;
 
     // wakeup RGB
-    activate_fade_matrix(now_buffer);
+    //activate_fade_matrix(now_buffer);
     
     auto_mouse_total_move.x = 0;
     auto_mouse_total_move.y = 0;
