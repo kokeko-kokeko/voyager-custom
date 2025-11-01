@@ -1658,14 +1658,7 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
   return activate;    
 }
 
-void housekeeping_task_user(void) {
-  // update to next now
-  now_buffer = timer_read_fast();
-  
-  update_fade_matrix(now_buffer);
-  update_ime_state_sync(now_buffer);
-  update_status_led(now_buffer);
-
+void matrix_scan_user(void) {
   report_mouse_t currentReport = pointing_device_get_report();
   if (currentReport.x != 0) {
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
@@ -1686,6 +1679,17 @@ void housekeeping_task_user(void) {
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
         status_led(now_buffer, 0b0101, led_pattern_oneshot);
   }
+}
+
+void housekeeping_task_user(void) {
+  // update to next now
+  now_buffer = timer_read_fast();
+  
+  update_fade_matrix(now_buffer);
+  update_ime_state_sync(now_buffer);
+  update_status_led(now_buffer);
+
+
 
   if (timer_expired_fast(now_buffer, auto_mouse_early_off_trigger)) {
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
