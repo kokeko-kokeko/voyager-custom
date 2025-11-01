@@ -1288,6 +1288,7 @@ void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
 
   if (IS_MOUSEKEY_BUTTON(keycode) == false) return;
 
+  // only mouse button
   uint8_t index = keycode - KC_MS_BTN1;
   if (record->event.key.row < MATRIX_ROWS / 2) {
     // left
