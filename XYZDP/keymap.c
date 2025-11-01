@@ -806,48 +806,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }  
       }  
       return false;
-    case DRAG_SCROLL:
-      break;
-  case NAVIGATOR_TURBO:
-    break;
-  case NAVIGATOR_AIM:
-    break;
-  case NAVIGATOR_INC_CPI:
-    break;
-  case NAVIGATOR_DEC_CPI:
-    break;
-    case RGB_SLD:
-      break;
-    case HSV_0_255_200:
-      break;
-    case HSV_86_255_200:
-      break;
-    case HSV_86_255_201:
-      break;
-    case HSV_0_255_210:
-      break;
-    case HSV_86_255_3:
-      break;
-    case HSV_86_255_4:
-      break;
-    case HSV_86_255_255:
-      break;
-    case HSV_172_255_200:
-      break;
-    case HSV_0_255_211:
-      break;
-    case HSV_86_255_5:
-      break;
-    case HSV_0_255_212:
-      break;
-    case HSV_86_255_6:
-      break;
-    case HSV_0_255_213:
-      break;
-    case HSV_172_255_201:
-      break;
-    case HSV_0_255_255:
-      break;
   }
   
   if (process_record_rgb_inc_dec(keycode, record) == false) {
