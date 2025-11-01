@@ -1666,6 +1666,20 @@ void housekeeping_task_user(void) {
   update_ime_state_sync(now_buffer);
   update_status_led(now_buffer);
 
+  report_mouse_t currentReport = pointing_device_get_report();
+  if (currentReport-x != 0) {
+    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+  }
+  if (currentReport-y != 0) {
+    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+  }
+  if (currentReport-h != 0) {
+    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+  }
+  if (currentReport-v != 0) {
+    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+  }
+
   if (timer_expired_fast(now_buffer, auto_mouse_early_off_trigger)) {
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     
