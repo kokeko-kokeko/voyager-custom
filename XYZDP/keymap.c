@@ -1296,7 +1296,8 @@ void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
         //tap
         auto_mouse_early_off_trigger = now_buffer + btn_left_hand_delay[keycode - KC_MS_BTN1];
       } else {
-        // drag, nothing to do
+        // drag, reset
+        auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
       }
     }
   } else {
@@ -1309,7 +1310,8 @@ void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
         //tap
         auto_mouse_early_off_trigger = now_buffer + btn_right_hand_delay[keycode - KC_MS_BTN1];
       } else {
-        // drag, nothing to do
+        // drag, reset
+        auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
       }
     }
   }
