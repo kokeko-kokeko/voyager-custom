@@ -287,15 +287,6 @@ static bool lock_aim = false;
 static fast_timer_t auto_mouse_early_off_trigger = 0;
 static fast_timer_t auto_mouse_count_reset_trigger = 0;
 
-//static const fast_timer_t btn_left_hand_delay[8] = {
-//  AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT,
-//  AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT
-//};
-//static const fast_timer_t btn_right_hand_delay[8] = {
-//  AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT,
-//  AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT
-//};
-
 // 0 = left, 1 = right, button 8 count
 static const fast_timer_t btn_delay[2][8] = {
   { AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT,
@@ -1277,9 +1268,6 @@ bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
-  //static uint16_t btn_left_hand_press_time[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-  //static uint16_t btn_right_hand_press_time[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-
   // 0 = left, 1 = right, button 8 count
   static uint16_t btn_press_time[2][8] = {
     { 0, 0, 0, 0, 0, 0, 0, 0 },
