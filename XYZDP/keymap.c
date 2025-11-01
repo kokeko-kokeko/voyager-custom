@@ -1032,7 +1032,7 @@ bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
 
-  if (keycode == HSV_86_255_5) {
+  if (keycode == HSV_86_255_204) {
     if (record->event.pressed) {
       layer_off(L_Set_Sat);
       update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
@@ -1040,7 +1040,7 @@ bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  if (keycode == HSV_86_255_6) {
+  if (keycode == HSV_86_255_205) {
     if (record->event.pressed) {
       layer_off(L_Set_Val);
       update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
@@ -1575,65 +1575,7 @@ bool rgb_matrix_indicators_user(void) {
         set_layer_color_overlay_ime_state_sync();
         set_layer_color_overlay_layer();
       }
-<<<<<<< HEAD
       break;
-=======
-      return false;
-    case HSV_86_255_255:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,255,255);
-      }
-      return false;
-    case HSV_172_255_200:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(172,255,200);
-      }
-      return false;
-    case HSV_0_255_211:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,211);
-      }
-      return false;
-    case HSV_86_255_204:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,255,204);
-      }
-      return false;
-    case HSV_0_255_212:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,212);
-      }
-      return false;
-    case HSV_86_255_205:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,255,205);
-      }
-      return false;
-    case HSV_0_255_213:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,213);
-      }
-      return false;
-    case HSV_172_255_201:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(172,255,201);
-      }
-      return false;
-    case HSV_0_255_255:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,255);
-      }
-      return false;
->>>>>>> origin/oryx
   }
   return true;
 }
