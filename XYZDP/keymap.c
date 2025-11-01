@@ -288,7 +288,7 @@ static fast_timer_t auto_mouse_early_off_trigger = 0;
 static fast_timer_t auto_mouse_count_reset_trigger = 0;
 
 // 0 to 7 = left, 8 to 15 = right, button 8 count
-static const fast_timer_t btn_delay[16] = {
+static const fast_timer_t btn_early_off_delay[16] = {
   AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT,
   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT,
   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT,
@@ -1299,7 +1299,7 @@ void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
   } else {
     if (TIMER_DIFF_16(record->event.time, btn_press_time[index]) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
-      auto_mouse_early_off_trigger = now_buffer + btn_delay[index];
+      auto_mouse_early_off_trigger = now_buffer + btn_early_off_delay[index];
     } else {
       // drag, reset
       auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
