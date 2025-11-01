@@ -820,9 +820,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case HSV_0_255_200:
       break;
-    case HSV_86_255_1:
+    case HSV_86_255_200:
       break;
-    case HSV_86_255_2:
+    case HSV_86_255_201:
       break;
     case HSV_0_255_210:
       break;
@@ -1037,19 +1037,18 @@ bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
       } else if (pos == 49) {
         clear_keyboard();
       }
-<<<<<<< HEAD
     }
     return false;
   }
   
-  if (keycode == HSV_86_255_1) {
+  if (keycode == HSV_86_255_200) {
     if (record->event.pressed) {
       layer_on(L_Set_Hue);
     }
     return false;
   }
   
-  if (keycode == HSV_86_255_2) {
+  if (keycode == HSV_86_255_201) {
     if (record->event.pressed) {
       clear_keyboard();
       set_auto_mouse_enable(false);
@@ -1226,19 +1225,6 @@ bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
         // drag, must release lock
         navigator_aim = false;
         lock_aim = false;
-=======
-      return false;
-    case HSV_86_255_200:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,255,200);
-      }
-      return false;
-    case HSV_86_255_201:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,255,201);
->>>>>>> origin/oryx
       }
     }
     // update LED
