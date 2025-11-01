@@ -832,7 +832,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case HSV_86_255_255:
       break;
-    case HSV_172_255_1:
+    case HSV_172_255_200:
       break;
     case HSV_0_255_211:
       break;
@@ -1107,7 +1107,7 @@ bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  if (keycode == HSV_172_255_1) {
+  if (keycode == HSV_172_255_200) {
     if (record->event.pressed) {
       fade_matrix_load_preset();
       status_led(now_buffer, 0b0101, led_pattern_oneshot);
@@ -1353,7 +1353,6 @@ void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
       } else {
         // drag, nothing to do
       }
-<<<<<<< HEAD
     }
   }
 
@@ -1509,13 +1508,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         status_led(now_buffer, 0b0100, led_pattern_on);
       } else {
         status_led(now_buffer, 0b0100, led_pattern_off);
-=======
-      return false;
-    case HSV_172_255_200:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(172,255,200);
->>>>>>> origin/oryx
       }
       break;
     case L_Function:
