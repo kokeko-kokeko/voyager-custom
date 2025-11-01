@@ -1015,7 +1015,7 @@ bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  if (keycode == HSV_86_255_3) {
+  if (keycode == HSV_86_255_202) {
     if (record->event.pressed) {
       layer_on(L_Set_Sat);
       update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
@@ -1023,7 +1023,7 @@ bool process_record_hsv_x_y_z(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  if (keycode == HSV_86_255_4) {
+  if (keycode == HSV_86_255_203) {
     if (record->event.pressed) {
       layer_on(L_Set_Val);
       update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
@@ -1467,7 +1467,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       } else {
         status_led(now_buffer, 0b0100, led_pattern_off);
       }
-<<<<<<< HEAD
       break;
     case L_Function:
       status_led(now_buffer, 0b1100, led_pattern_off);
@@ -1500,13 +1499,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         status_led(now_buffer, 0b0100, led_pattern_on);
       } else {
         status_led(now_buffer, 0b0100, led_pattern_off);
-=======
-      return false;
-    case HSV_86_255_202:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,255,202);
->>>>>>> origin/oryx
       }
       // DRAG_SCROLL add on key event
       // aim/turbo change without layer, direct write on process_record
