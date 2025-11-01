@@ -1665,17 +1665,19 @@ void housekeeping_task_user(void) {
   update_fade_matrix(now_buffer);
   update_ime_state_sync(now_buffer);
   update_status_led(now_buffer);
-  
-  if (timer_expired_fast(now_buffer, auto_mouse_early_off_trigger)) {
-    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
-    
-    // reset count
-    auto_mouse_total_move.x = 0;
-    auto_mouse_total_move.y = 0;
-    auto_mouse_total_move.h = 0;
-    auto_mouse_total_move.v = 0;
 
-    auto_mouse_layer_off();
+  if (is_auto_mouse_active()) {
+    if (timer_expired_fast(now_buffer, auto_mouse_early_off_trigger)) {
+      auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+      
+      // reset count
+      auto_mouse_total_move.x = 0;
+      auto_mouse_total_move.y = 0;
+      auto_mouse_total_move.h = 0;
+      auto_mouse_total_move.v = 0;
+      
+      auto_mouse_layer_off();
+    }
   }
   
   return;
