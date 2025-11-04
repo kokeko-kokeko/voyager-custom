@@ -304,7 +304,7 @@ static total_mouse_movement_t auto_mouse_total_move = {
 };
 
 bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
-bool process_record_hsv_0_255_n_map(uint16_t keycode, keyrecord_t *record);
+bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record);
 bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrecord_t *record);
 bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record);
 bool process_record_mouse(uint16_t keycode, keyrecord_t *record);
@@ -813,7 +813,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  if (process_record_hsv_0_255_n_map(keycode, record) == false) {
+  if (process_record_hsv_0_255_n_setting_map(keycode, record) == false) {
     return false;
   }
   
@@ -927,7 +927,7 @@ bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-bool process_record_hsv_0_255_n_map(uint16_t keycode, keyrecord_t *record) {
+bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record) {
   // Firmware  
   if (keycode == HSV_0_255_200) {
     if (record->event.pressed) {
