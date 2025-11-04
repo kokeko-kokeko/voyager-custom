@@ -805,33 +805,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           unregister_code16(KC_LEFT_SHIFT);
         }  
-      }  
+      }
       return false;
   }
   
-  if (process_record_rgb_inc_dec(keycode, record) == false) {
-    return false;
-  }
-  
-  if (process_record_hsv_0_255_n_setting_map(keycode, record) == false) {
-    return false;
-  }
-  
-  if (process_record_hsv_86_255_n_layer_to(keycode, record) == false) {
-    return false;
-  }
-  
-  if (process_record_hsv_172_255_n_function(keycode, record) == false) {
-    return false;
-  }
-  
-  if (process_record_mouse(keycode, record) == false) {
-    return false;
-  }
-  
-  if (process_record_ime_state_sync(keycode, record) == false) {
-    return false;
-  }
+  if (process_record_rgb_inc_dec(keycode, record) == false) return false;
+  if (process_record_hsv_0_255_n_setting_map(keycode, record) == false) return false;
+  if (process_record_hsv_86_255_n_layer_to(keycode, record) == false) return false;
+  if (process_record_hsv_172_255_n_function(keycode, record) == false) return false;
+  if (process_record_mouse(keycode, record) == false) return false;
+  if (process_record_ime_state_sync(keycode, record) == false) return false;
   
   return true;
 }
@@ -1335,6 +1318,7 @@ void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
       auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     }
   }
+  
   return;
 }
 
