@@ -545,9 +545,9 @@ void set_layer_color_firmware_map(void) {
   led_t status = host_keyboard_led_state();
 
   if (status.caps_lock) {
-    rgb_matrix_set_color(18, h, 0, 0);
+    rgb_matrix_set_color(19, h, 0, 0);
   } else {
-    rgb_matrix_set_color(18, q, q, q);
+    rgb_matrix_set_color(19, q, q, q);
   }
 
   if (status.num_lock) {
