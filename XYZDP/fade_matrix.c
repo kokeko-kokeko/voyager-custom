@@ -541,6 +541,39 @@ void set_layer_color_firmware_map(void) {
   //rgb_matrix_set_color(35, q, 0, f);
   //rgb_matrix_set_color(41, f, 0, f);
   //rgb_matrix_set_color(47, f, 0, q);
+
+  led_t status = host_keyboard_led_state();
+
+  if (status.caps_lock) {
+    rgb_matrix_set_color(18, h, 0, 0);
+  } else {
+    rgb_matrix_set_color(18, q, q, q);
+  }
+
+  if (status.num_lock) {
+    rgb_matrix_set_color(45, h, 0, 0);
+  } else {
+    rgb_matrix_set_color(45, q, q, q);
+  }
+
+  if (status.scroll_lock) {
+    rgb_matrix_set_color(46, 0, h, 0);
+  } else {
+    rgb_matrix_set_color(46, q, q, q);
+  }
+
+  if (status.compose) {
+    rgb_matrix_set_color(47, 0, 0, h);
+  } else {
+    rgb_matrix_set_color(47, q, q, q);
+  }
+
+  if (status.kana) {
+    rgb_matrix_set_color(17, h, 0, h);
+  } else {
+    rgb_matrix_set_color(17, q, q, q);
+  }
+  
 }
 
 extern bool set_scrolling;
