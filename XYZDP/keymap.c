@@ -1007,6 +1007,8 @@ bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *recor
     }
     return false;
   }
+  
+  return true;
 }
 
 bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrecord_t *record) {  
@@ -1075,6 +1077,8 @@ bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrecord_t *record)
     }
     return false;
   }
+  
+  return true;
 }
 
 bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record) {    
