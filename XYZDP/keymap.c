@@ -1282,11 +1282,27 @@ bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record) {
+  if (keycode != LT(L_Number, KC_SPACE)) return;
 
+  if (record->event.pressed) {
+    // early disable auto mouse
+    if (is_auto_mouse_active() == false) {
+      set_auto_mouse_enable(false);
+    }
+  }
+  
   return;
 }
 
 void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record) {
+  if (keycode != LT(L_Cursor, KC_SPACE)) return;
+
+  if (record->event.pressed) {
+    // early disable auto mouse
+    if (is_auto_mouse_active() == false) {
+      set_auto_mouse_enable(false);
+    }
+  }
 
   return;
 }
@@ -1534,15 +1550,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   } else if (layer_state_cmp(state, L_Cursor)) {
     set_scrolling = true;
     lock_scrolling = false;
-    if (is_auto_mouse_active() == false) {
-      set_auto_mouse_enable(false);
-    }
+    //if (is_auto_mouse_active() == false) {
+    //  set_auto_mouse_enable(false);
+    //}
   } else if (layer_state_cmp(state, L_Number)) {
     set_scrolling = true;
     lock_scrolling = false;
-    if (is_auto_mouse_active() == false) {
-      set_auto_mouse_enable(false);
-    }
+    //if (is_auto_mouse_active() == false) {
+    //  set_auto_mouse_enable(false);
+    //}
   } else {
     set_scrolling = lock_scrolling;
 
