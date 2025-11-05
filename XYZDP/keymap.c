@@ -1285,7 +1285,9 @@ void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record) {
   if (keycode != LT(L_Number, KC_SPACE)) return;
 
   if (record->event.pressed) {
-    // early disable auto mouse
+    // early enable scrall disable auto mouse
+    set_scrolling = true;
+    lock_scrolling = false;
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
@@ -1298,7 +1300,9 @@ void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record) {
   if (keycode != LT(L_Cursor, KC_SPACE)) return;
 
   if (record->event.pressed) {
-    // early disable auto mouse
+    // early enable scrall disable auto mouse
+    set_scrolling = true;
+    lock_scrolling = false;
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
