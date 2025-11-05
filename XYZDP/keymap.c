@@ -1351,6 +1351,7 @@ void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *record) 
       if (TIMER_DIFF_FAST(now_buffer, last_tap_time) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) {
         //double tap, short time
         //auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
+        auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
       } else {
         //single tap
         auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
@@ -1380,6 +1381,7 @@ void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *record) 
       if (TIMER_DIFF_FAST(now_buffer, last_tap_time) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) {
         //double tap, short time
         //auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
+        auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
       } else {
         //single tap
         auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
