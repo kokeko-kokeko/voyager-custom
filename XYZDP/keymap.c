@@ -310,13 +310,14 @@ static total_mouse_movement_t auto_mouse_total_move = {
   .v = 0,
 };
 
+// split process_record, return false, break
 static inline bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
 static inline bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record);
 static inline bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrecord_t *record);
 static inline bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record);
 static inline bool process_record_mouse(uint16_t keycode, keyrecord_t *record);
 
-// post_process not break, overwrite after function
+// split post_process_record not break, overwrite after function
 static inline void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record);
 static inline void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record);
 static inline void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record);
@@ -821,7 +822,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
   }
-  
+
+  // split process_record, return false, break
   if (process_record_rgb_inc_dec(keycode, record) == false) return false;
   if (process_record_hsv_0_255_n_setting_map(keycode, record) == false) return false;
   if (process_record_hsv_86_255_n_layer_to(keycode, record) == false) return false;
@@ -1716,8 +1718,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     activate_fade_matrix(now_buffer);
     activate_ime_state_sync(now_buffer);
   }
-
-  // post_process not break, overwrite after function
+  
+  // split post_process_record not break, overwrite after function
   post_process_record_lt_number(keycode, record);
   post_process_record_lt_cursor(keycode, record);
   post_process_record_non_mouse(keycode, record);
