@@ -1343,7 +1343,7 @@ void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *record) 
   if (keycode != MO(L_Mouse_Number)) return;
 
   if (record->event.pressed) {
-    press_time[index] = record->event.time;
+    press_time = record->event.time;
     // early trigger reset on auto_mouse_activation
   } else {
     if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
@@ -1372,7 +1372,7 @@ void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *record) 
   if (keycode != MO(L_Mouse_Cursor)) return;
 
   if (record->event.pressed) {
-    press_time[index] = record->event.time;
+    press_time = record->event.time;
     // early trigger reset on auto_mouse_activation
   } else {
     if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
