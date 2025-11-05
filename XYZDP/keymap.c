@@ -1287,7 +1287,8 @@ void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     // early enable scrall disable auto mouse
     set_scrolling = true;
-    lock_scrolling = false;
+    // for another layer move 
+    lock_scrolling = true;
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
@@ -1302,7 +1303,8 @@ void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     // early enable scrall disable auto mouse
     set_scrolling = true;
-    lock_scrolling = false;
+    // for another layer move 
+    lock_scrolling = true;
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
@@ -1552,20 +1554,20 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     set_scrolling = true;
     lock_scrolling = false;
   } else if (layer_state_cmp(state, L_Cursor)) {
-    //set_scrolling = true;
-    //lock_scrolling = false;
+    set_scrolling = true;
+    lock_scrolling = false;
     //if (is_auto_mouse_active() == false) {
     //  set_auto_mouse_enable(false);
     //}
   } else if (layer_state_cmp(state, L_Number)) {
-    //set_scrolling = true;
-    //lock_scrolling = false;
+    set_scrolling = true;
+    lock_scrolling = false;
     //if (is_auto_mouse_active() == false) {
     //  set_auto_mouse_enable(false);
     //}
   } else {
     set_scrolling = lock_scrolling;
-
+    
     // false set on post_process_lt_*
     set_auto_mouse_enable(true);
   }
