@@ -1285,6 +1285,10 @@ void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0
   };
+
+  // layer ope nothing to do this function
+  if (keycode == MO(L_Mouse_Number)) return;
+  if (keycode == MO(L_Mouse_Cursor)) return;
   
   if (IS_MOUSEKEY(keycode) == false) {    
     if (record->event.pressed == false) {
