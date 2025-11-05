@@ -1552,14 +1552,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     set_scrolling = true;
     lock_scrolling = false;
   } else if (layer_state_cmp(state, L_Cursor)) {
-    set_scrolling = true;
-    lock_scrolling = false;
+    //set_scrolling = true;
+    //lock_scrolling = false;
     //if (is_auto_mouse_active() == false) {
     //  set_auto_mouse_enable(false);
     //}
   } else if (layer_state_cmp(state, L_Number)) {
-    set_scrolling = true;
-    lock_scrolling = false;
+    //set_scrolling = true;
+    //lock_scrolling = false;
     //if (is_auto_mouse_active() == false) {
     //  set_auto_mouse_enable(false);
     //}
