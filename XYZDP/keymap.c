@@ -1292,6 +1292,8 @@ void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record) {
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
+  } else {
+    set_auto_mouse_enable(true);
   }
   
   return;
@@ -1307,7 +1309,9 @@ void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record) {
     lock_scrolling = true;
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
-    }
+    } 
+  } else {
+    set_auto_mouse_enable(true);
   }
 
   return;
@@ -1567,9 +1571,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     //}
   } else {
     set_scrolling = lock_scrolling;
-    
-    // false set on post_process_lt_*
-    set_auto_mouse_enable(true);
+    //set_auto_mouse_enable(true);
   }
 
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
