@@ -316,7 +316,7 @@ bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrecord_t *record)
 bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record);
 bool process_record_mouse(uint16_t keycode, keyrecord_t *record);
 
-void post_process_record_mouse(uint16_t keycode, keyrecord_t *record);
+void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *record);
 
 // -----------------------------------------------------------------------------
 //
@@ -1275,7 +1275,7 @@ bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void post_process_record_mouse(uint16_t keycode, keyrecord_t *record) {
+void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *record) {
   // 0 to 7 = left, 8 to 15 = right, button 8 count
   static uint16_t btn_press_time[16] = {
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -1616,7 +1616,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     activate_ime_state_sync(now_buffer);
   }
   
-  post_process_record_mouse(keycode, record);
+  post_process_record_mouse_button(keycode, record);
   
   return;
 }
