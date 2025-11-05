@@ -317,6 +317,8 @@ bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record
 bool process_record_mouse(uint16_t keycode, keyrecord_t *record);
 
 // post_process not break, overwrite after function
+void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record);
+void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record);
 void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record);
 void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *record);
 void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *record);
@@ -1279,6 +1281,16 @@ bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record) {
+
+  return;
+}
+
+void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record) {
+
+  return;
+}
+
 void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record) {
   if (IS_MOUSEKEY(keycode) == true) return;
   
@@ -1533,6 +1545,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
   } else {
     set_scrolling = lock_scrolling;
+
+    // false set on post_process_lt_*
     set_auto_mouse_enable(true);
   }
 
@@ -1680,6 +1694,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // post_process not break, overwrite after function
+  post_process_record_lt_number(keycode, record);
+  post_process_record_lt_cursor(keycode, record);
   post_process_record_non_mouse(keycode, record);
   post_process_record_mouse_button(keycode, record);
   post_process_record_mo_mouse_number(keycode, record);
