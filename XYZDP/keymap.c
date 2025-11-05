@@ -1424,9 +1424,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // call FwSys with Fn and Cursor
   state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware); 
   
-  // on mouse, number/cursor override
-  //state = update_tri_layer_state(state, L_Mouse, L_Number, L_Mouse_Number);
-  //state = update_tri_layer_state(state, L_Mouse, L_Cursor, L_Mouse_Cursor);
+  // on mouse, both thumb
+  state = update_tri_layer_state(state, L_Mouse_Number, L_Mouse_Cursor, L_Mouse_BothThumb);
   
   // ANSI/JIS addiional enable
   state = update_tri_layer_state(state, L_Base_JIS, L_Number, L_Number_JIS);
@@ -1509,6 +1508,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Mouse:
     case L_Mouse_Number:
     case L_Mouse_Cursor:
+    case L_Mouse_BothThumb:
       // mouse indication
       status_led(now_buffer, 0b0011, led_pattern_off);
       status_led(now_buffer, 0b1000, led_pattern_on);
@@ -1563,6 +1563,7 @@ bool rgb_matrix_indicators_user(void) {
     case L_Mouse:
     case L_Mouse_Number:
     case L_Mouse_Cursor:
+    case L_Mouse_BothThumb:
       set_layer_color_mouse_map();
       break;    
     case L_Firmware:
