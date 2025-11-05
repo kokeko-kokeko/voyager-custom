@@ -20,6 +20,7 @@ enum layer_num {
   L_Mouse,
   L_Mouse_Number,
   L_Mouse_Cursor,
+  L_Mouse_BothThumb,
   L_Firmware,
   L_Set_Hue,
   L_Set_Sat,
