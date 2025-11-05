@@ -1280,6 +1280,12 @@ bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record) {
+  if (IS_MOUSEKEY(keycode) == true) return;
+  
+  if (record->event.pressed == false) {
+    // non-mouse key release, exit 
+    auto_mouse_early_off_trigger = now_buffer + 1;
+  } 
 
   return;
 }
@@ -1294,21 +1300,9 @@ void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *record) {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0
   };
-
-  // layer ope nothing to do this function
-  if (keycode == MO(L_Mouse_Number)) return;
-  if (keycode == MO(L_Mouse_Cursor)) return;
-  
-  if (IS_MOUSEKEY(keycode) == false) {    
-    if (record->event.pressed == false) {
-      // non-mouse key release, exit 
-      auto_mouse_early_off_trigger = now_buffer + 1;
-    }
-    return;
-  }
-
-  if (IS_MOUSEKEY_BUTTON(keycode) == false) return;
+    
   // only mouse button
+  if (IS_MOUSEKEY_BUTTON(keycode) == false) return;
   
   uint8_t index = keycode - KC_MS_BTN1;
   if (record->event.key.row < MATRIX_ROWS / 2) {
@@ -1343,11 +1337,59 @@ void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *record) {
+  static uint16_t press_time = 0;
+  static fast_timer_t last_tap_time = 0;
+  
+  if (keycode != MO(L_Mouse_Number)) return;
+
+  if (record->event.pressed) {
+    press_time[index] = record->event.time;
+    // early trigger reset on auto_mouse_activation
+  } else {
+    if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
+      //tap
+      if (TIMER_DIFF_FAST(now_buffer, last_tap_time) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) {
+        //double tap, short time
+        //auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
+      } else {
+        //single tap
+        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
+      }
+      last_tap_time = now_buffer;
+    } else {
+      // drag, reset
+      auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+    }
+  }
   
   return;
 }
 
 void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *record) {
+  static uint16_t press_time = 0;
+  static fast_timer_t last_tap_time = 0;
+  
+  if (keycode != MO(L_Mouse_Cursor)) return;
+
+  if (record->event.pressed) {
+    press_time[index] = record->event.time;
+    // early trigger reset on auto_mouse_activation
+  } else {
+    if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
+      //tap
+      if (TIMER_DIFF_FAST(now_buffer, last_tap_time) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) {
+        //double tap, short time
+        //auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
+      } else {
+        //single tap
+        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
+      }
+      last_tap_time = now_buffer;
+    } else {
+      // drag, reset
+      auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+    }
+  }
   
   return;
 }
