@@ -490,13 +490,13 @@ void set_layer_color_firmware_map(void) {
     rgb_matrix_set_color(6, q, q, q);
   }
 
-  //2021/2025
+  //Engram v2021/v2025
   if (layer_state_is(L_Base_2025)) {
-    //2025 base enable
+    //v2025 base enable
     rgb_matrix_set_color(1, q, q, q);
     rgb_matrix_set_color(7, f, f, 0);
   } else {
-    //2021 base
+    //v2021 base
     rgb_matrix_set_color(1, 0, 0, f);
     rgb_matrix_set_color(7, q, q, q);
   }
