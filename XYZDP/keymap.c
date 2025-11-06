@@ -1086,6 +1086,7 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
   if (keycode == HSV_172_255_200) {
     if (record->event.pressed) {
       fade_matrix_load_preset();
+      activate_fade_matrix(now_buffer);
       status_led(now_buffer, 0b0101, led_pattern_oneshot);
     }
     return false;
@@ -1094,6 +1095,7 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
   if (keycode == HSV_172_255_201) {
     if (record->event.pressed) {
       fade_matrix_load_preset_powersave();
+      activate_fade_matrix(now_buffer);
       status_led(now_buffer, 0b1010, led_pattern_oneshot);
     }
     return false;
