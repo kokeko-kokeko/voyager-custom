@@ -1216,58 +1216,6 @@ static inline bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  // auto mouse EXIT key left (dummy keycode)
-  if (keycode == KC_LANGUAGE_6) {
-    if (record->event.pressed) {
-      exit_left_hand_press_time = record->event.time;
-      set_scrolling = true;
-    } else {
-      if (TIMER_DIFF_16(record->event.time, exit_left_hand_press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
-        // tap to exit auto mouse
-        set_scrolling = false;
-        lock_scrolling = false;
-        auto_mouse_early_off_trigger = now_buffer + 1;
-      } else {
-        // drag, must release lock non exit
-        set_scrolling = false;
-        lock_scrolling = false;
-      }
-    }
-    // update LED
-    if (set_scrolling) {
-      status_led(now_buffer, 0b0100, led_pattern_on);
-    } else {
-      status_led(now_buffer, 0b0100, led_pattern_off);
-    }
-    return false;
-  }
-  
-  // auto mouse EXIT key right (dummy keycode)
-  if (keycode == KC_LANGUAGE_7) {
-    if (record->event.pressed) {
-      exit_right_hand_press_time = record->event.time;
-      set_scrolling = true;
-    } else {
-      if (TIMER_DIFF_16(record->event.time, exit_right_hand_press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
-        // tap to exit auto mouse
-        set_scrolling = false;
-        lock_scrolling = false;
-        auto_mouse_early_off_trigger = now_buffer + 1;
-      } else {
-        // drag, must release lock non exit
-        set_scrolling = false;
-        lock_scrolling = false;
-      }
-    }
-    // update LED
-    if (set_scrolling) {
-      status_led(now_buffer, 0b0100, led_pattern_on);
-    } else {
-      status_led(now_buffer, 0b0100, led_pattern_off);
-    }
-    return false;
-  }
-  
   return true;
 }
 
