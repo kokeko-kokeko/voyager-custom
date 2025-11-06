@@ -490,6 +490,17 @@ void set_layer_color_firmware_map(void) {
     rgb_matrix_set_color(6, q, q, q);
   }
 
+  //2021/2025
+  if (layer_state_is(L_Base_2025)) {
+    //2025 base enable
+    rgb_matrix_set_color(1, q, q, q);
+    rgb_matrix_set_color(7, 0, 0, f);
+  } else {
+    //2021 base
+    rgb_matrix_set_color(1, f, 0, 0);
+    rgb_matrix_set_color(7, q, q, q);
+  }
+
   //OS detect
   RGB rgb_os = {0, 0, 0};
   switch (detected_host_os()) {
