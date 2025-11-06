@@ -494,10 +494,10 @@ void set_layer_color_firmware_map(void) {
   if (layer_state_is(L_Base_2025)) {
     //2025 base enable
     rgb_matrix_set_color(1, q, q, q);
-    rgb_matrix_set_color(7, 0, 0, f);
+    rgb_matrix_set_color(7, f, f, 0);
   } else {
     //2021 base
-    rgb_matrix_set_color(1, f, 0, 0);
+    rgb_matrix_set_color(1, 0, 0, f);
     rgb_matrix_set_color(7, q, q, q);
   }
 
