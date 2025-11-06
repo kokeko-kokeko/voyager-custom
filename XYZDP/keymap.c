@@ -1472,6 +1472,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   
   switch (layer) {
     case L_Base_2021:
+    case L_Base_2025:
     case L_Base_JIS:
       status_led(now_buffer, 0b1011, led_pattern_off);
       break;
