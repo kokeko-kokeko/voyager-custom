@@ -1247,10 +1247,13 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
       }
       last_tap_time = now_buffer;
     } else {
-      // drag, reset
+      // drag, reset all
       auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
       set_scrolling = false;
       lock_scrolling = false;
+
+      navigator_turbo = false;
+      navigator_aim = false;
     }
   }
 
@@ -1303,13 +1306,19 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
         }
       }
       last_1_tap_time = now_buffer;
-    } else {
-      // drag, reset
-      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-    }
 
-    if (lock_scrolling == false) {
+      // non-lock off
+      if (lock_scrolling == false) {
+        set_scrolling = false;
+      }
+    } else {
+      // drag, reset all
+      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
       set_scrolling = false;
+      lock_scrolling = false;
+
+      navigator_turbo = false;
+      navigator_aim = false;
     }
   }
 
