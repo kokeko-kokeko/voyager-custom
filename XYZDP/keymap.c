@@ -940,6 +940,10 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
         layer_off(L_Base_JIS);
       } else if (pos == 6) {
         layer_on(L_Base_JIS);
+      } else if (pos == 1) {
+        layer_off(L_Base_2025);
+      } else if (pos == 7) {
+        layer_on(L_Base_2025);
       } else if (pos == 2) {
         ime_state_sync_enable();
       } else if (pos == 8) {
