@@ -1091,8 +1091,6 @@ static bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
   static uint16_t drag_scroll_press_time = 0;
   static uint16_t turbo_press_time = 0;
   static uint16_t aim_press_time = 0;
-  static uint16_t exit_left_hand_press_time = 0;
-  static uint16_t exit_right_hand_press_time = 0;
   
   if (keycode == DRAG_SCROLL) {
     if (record->event.pressed) {
