@@ -848,6 +848,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_SLD) {
     if (record->event.pressed) {
       fade_matrix_set_mode(RGB_MATRIX_SOLID_COLOR);
+      activate_fade_matrix(now_buffer);
     }
     return false;
   }
@@ -855,6 +856,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_HUI) {
     if (record->event.pressed) {
       fade_matrix_increase_hue();
+      activate_fade_matrix(now_buffer);
     }
     return false;
   }
@@ -862,6 +864,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_HUD) {
     if (record->event.pressed) {
       fade_matrix_decrease_hue();
+      activate_fade_matrix(now_buffer);
     }
     return false;
   }
@@ -869,6 +872,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_SAI) {
     if (record->event.pressed) {
       fade_matrix_increase_sat();
+      activate_fade_matrix(now_buffer);
     }
     return false;
   }
@@ -876,6 +880,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_SAD) {
     if (record->event.pressed) {
       fade_matrix_decrease_sat();
+      activate_fade_matrix(now_buffer);
     }
     return false;
   }
@@ -883,6 +888,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_VAI) {
     if (record->event.pressed) {
       fade_matrix_increase_val();
+      activate_fade_matrix(now_buffer);
     }
     return false;
   }
@@ -890,6 +896,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_VAD) {
     if (record->event.pressed) {
       fade_matrix_decrease_val();
+      activate_fade_matrix(now_buffer);
     }
     return false;
   }
@@ -897,6 +904,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_SPI) {
     if (record->event.pressed) {
       fade_matrix_increase_speed();
+      activate_fade_matrix(now_buffer);
     }
     return false;
   }
@@ -904,6 +912,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_SPD) {
     if (record->event.pressed) {
       fade_matrix_decrease_speed();
+      activate_fade_matrix(now_buffer);
     }
     return false;
   }
@@ -911,6 +920,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_TOG) {
     if (record->event.pressed) {
       fade_matrix_toggle();
+      activate_fade_matrix(now_buffer);
     }
     return false;
   }
@@ -918,6 +928,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_MODE_FORWARD) {
     if (record->event.pressed) {
       fade_matrix_step();
+      activate_fade_matrix(now_buffer);
     }
     return false;
   }
@@ -954,6 +965,7 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
   if (keycode == HSV_0_255_210) {
     if (record->event.pressed) {
       fade_matrix_set_hue_keyrecord(record);
+      activate_fade_matrix(now_buffer);
     }
     return false;
   }
@@ -961,6 +973,7 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
   if (keycode == HSV_0_255_211) {
     if (record->event.pressed) {
       fade_matrix_set_sat_keyrecord(record);
+      activate_fade_matrix(now_buffer);
     }
     return false;
   }
@@ -968,6 +981,7 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
   if (keycode == HSV_0_255_212) {
     if (record->event.pressed) {
       fade_matrix_set_val_keyrecord(record);
+      activate_fade_matrix(now_buffer);
     }
     return false;
   }
@@ -975,6 +989,7 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
   if (keycode == HSV_0_255_213) {
     if (record->event.pressed) {
       fade_matrix_set_speed_keyrecord(record);
+      activate_fade_matrix(now_buffer);
     }
     return false;
   }
