@@ -847,88 +847,77 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   // always return false (sometime use upedge)
   if (keycode == RGB_SLD) {
     if (record->event.pressed) {
-      fade_matrix_set_mode(RGB_MATRIX_SOLID_COLOR);
-      activate_fade_matrix(now_buffer);
+      fade_matrix_set_mode(now_buffer, RGB_MATRIX_SOLID_COLOR);
     }
     return false;
   }
   
   if (keycode == RGB_HUI) {
     if (record->event.pressed) {
-      fade_matrix_increase_hue();
-      activate_fade_matrix(now_buffer);
+      fade_matrix_increase_hue(now_buffer);
     }
     return false;
   }
   
   if (keycode == RGB_HUD) {
     if (record->event.pressed) {
-      fade_matrix_decrease_hue();
-      activate_fade_matrix(now_buffer);
+      fade_matrix_decrease_hue(now_buffer);
     }
     return false;
   }
   
   if (keycode == RGB_SAI) {
     if (record->event.pressed) {
-      fade_matrix_increase_sat();
-      activate_fade_matrix(now_buffer);
+      fade_matrix_increase_sat(now_buffer);
     }
     return false;
   }
   
   if (keycode == RGB_SAD) {
     if (record->event.pressed) {
-      fade_matrix_decrease_sat();
-      activate_fade_matrix(now_buffer);
+      fade_matrix_decrease_sat(now_buffer);
     }
     return false;
   }
   
   if (keycode == RGB_VAI) {
     if (record->event.pressed) {
-      fade_matrix_increase_val();
-      activate_fade_matrix(now_buffer);
+      fade_matrix_increase_val(now_buffer);
     }
     return false;
   }
   
   if (keycode == RGB_VAD) {
     if (record->event.pressed) {
-      fade_matrix_decrease_val();
-      activate_fade_matrix(now_buffer);
+      fade_matrix_decrease_val(now_buffer);
     }
     return false;
   }
   
   if (keycode == RGB_SPI) {
     if (record->event.pressed) {
-      fade_matrix_increase_speed();
-      activate_fade_matrix(now_buffer);
+      fade_matrix_increase_speed(now_buffer);
     }
     return false;
   }
   
   if (keycode == RGB_SPD) {
     if (record->event.pressed) {
-      fade_matrix_decrease_speed();
-      activate_fade_matrix(now_buffer);
+      fade_matrix_decrease_speed(now_buffer);
     }
     return false;
   }
   
   if (keycode == RGB_TOG) {
     if (record->event.pressed) {
-      fade_matrix_toggle();
-      activate_fade_matrix(now_buffer);
+      fade_matrix_toggle(now_buffer);
     }
     return false;
   }
   
   if (keycode == RGB_MODE_FORWARD) {
     if (record->event.pressed) {
-      fade_matrix_step();
-      activate_fade_matrix(now_buffer);
+      fade_matrix_step(now_buffer);
     }
     return false;
   }
@@ -964,32 +953,28 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
 
   if (keycode == HSV_0_255_210) {
     if (record->event.pressed) {
-      fade_matrix_set_hue_keyrecord(record);
-      activate_fade_matrix(now_buffer);
+      fade_matrix_set_hue_keyrecord(now_buffer, record);
     }
     return false;
   }
 
   if (keycode == HSV_0_255_211) {
     if (record->event.pressed) {
-      fade_matrix_set_sat_keyrecord(record);
-      activate_fade_matrix(now_buffer);
+      fade_matrix_set_sat_keyrecord(now_buffer, record);
     }
     return false;
   }
 
   if (keycode == HSV_0_255_212) {
     if (record->event.pressed) {
-      fade_matrix_set_val_keyrecord(record);
-      activate_fade_matrix(now_buffer);
+      fade_matrix_set_val_keyrecord(now_buffer, record);
     }
     return false;
   }
 
   if (keycode == HSV_0_255_213) {
     if (record->event.pressed) {
-      fade_matrix_set_speed_keyrecord(record);
-      activate_fade_matrix(now_buffer);
+      fade_matrix_set_speed_keyrecord(now_buffer, record);
     }
     return false;
   }
@@ -1085,17 +1070,18 @@ static bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrecord_t *
 static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record) {    
   if (keycode == HSV_172_255_200) {
     if (record->event.pressed) {
-      fade_matrix_load_preset();
-      activate_fade_matrix(now_buffer);
+      fade_matrix_load_preset(now_buffer);
       status_led(now_buffer, 0b0101, led_pattern_oneshot);
     }
-    return false;
+    return false;  
   }
+
+
+
   
   if (keycode == HSV_172_255_201) {
     if (record->event.pressed) {
-      fade_matrix_load_preset_powersave();
-      activate_fade_matrix(now_buffer);
+      fade_matrix_load_preset_powersave(now_buffer);
       status_led(now_buffer, 0b1010, led_pattern_oneshot);
     }
     return false;
