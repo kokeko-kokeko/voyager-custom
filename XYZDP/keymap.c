@@ -1307,7 +1307,10 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
       // drag, reset
       auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
     }
-    set_scrolling = false;
+
+    if (lock_scrolling == false) {
+      set_scrolling = false;
+    }
   }
 
   if (set_scrolling) {
