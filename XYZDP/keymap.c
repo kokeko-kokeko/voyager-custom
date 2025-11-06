@@ -1287,15 +1287,21 @@ static inline void post_process_record_lt_number(uint16_t keycode, keyrecord_t *
   if (keycode != LT(L_Number, KC_SPACE)) return;
 
   if (record->event.pressed) {
-    // early enable scrall disable auto mouse
     set_scrolling = true;
-    // for another layer move 
-    lock_scrolling = true;
+    lock_scrolling = false;
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
   } else {
+    set_scrolling = false;
+    lock_scrolling = false;
     set_auto_mouse_enable(true);
+  }
+
+  if (set_scrolling) {
+    status_led(now_buffer, 0b0100, led_pattern_on);
+  } else {
+    status_led(now_buffer, 0b0100, led_pattern_off);
   }
   
   return;
@@ -1305,15 +1311,21 @@ static inline void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *
   if (keycode != LT(L_Cursor, KC_SPACE)) return;
 
   if (record->event.pressed) {
-    // early enable scrall disable auto mouse
     set_scrolling = true;
-    // for another layer move 
-    lock_scrolling = true;
+    lock_scrolling = false;
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     } 
   } else {
+    set_scrolling = false;
+    lock_scrolling = false;
     set_auto_mouse_enable(true);
+  }
+
+  if (set_scrolling) {
+    status_led(now_buffer, 0b0100, led_pattern_on);
+  } else {
+    status_led(now_buffer, 0b0100, led_pattern_off);
   }
 
   return;
@@ -1385,6 +1397,8 @@ static inline void post_process_record_mo_mouse_number(uint16_t keycode, keyreco
   if (record->event.pressed) {
     press_time = record->event.time;
     // early trigger reset on auto_mouse_activation
+    set_scrolling = true;
+    lock_scrolling = false;
   } else {
     if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
@@ -1401,6 +1415,14 @@ static inline void post_process_record_mo_mouse_number(uint16_t keycode, keyreco
       // drag, reset
       auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     }
+    set_scrolling = false;
+    lock_scrolling = false;
+  }
+
+  if (set_scrolling) {
+    status_led(now_buffer, 0b0100, led_pattern_on);
+  } else {
+    status_led(now_buffer, 0b0100, led_pattern_off);
   }
   
   return;
@@ -1415,6 +1437,8 @@ static inline void post_process_record_mo_mouse_cursor(uint16_t keycode, keyreco
   if (record->event.pressed) {
     press_time = record->event.time;
     // early trigger reset on auto_mouse_activation
+    set_scrolling = true;
+    lock_scrolling = false;
   } else {
     if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
@@ -1431,6 +1455,14 @@ static inline void post_process_record_mo_mouse_cursor(uint16_t keycode, keyreco
       // drag, reset
       auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     }
+    set_scrolling = false;
+    lock_scrolling = false;
+  }
+
+  if (set_scrolling) {
+    status_led(now_buffer, 0b0100, led_pattern_on);
+  } else {
+    status_led(now_buffer, 0b0100, led_pattern_off);
   }
   
   return;
@@ -1564,12 +1596,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Base :
     case L_Base_JIS:
       status_led(now_buffer, 0b1011, led_pattern_off);
-      
-      if (set_scrolling) {
-        status_led(now_buffer, 0b0100, led_pattern_on);
-      } else {
-        status_led(now_buffer, 0b0100, led_pattern_off);
-      }
       break;
     case L_Function:
       status_led(now_buffer, 0b1100, led_pattern_off);
@@ -1598,12 +1624,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       // mouse indication
       status_led(now_buffer, 0b0011, led_pattern_off);
       status_led(now_buffer, 0b1000, led_pattern_on);
-
-      if (set_scrolling) {
-        status_led(now_buffer, 0b0100, led_pattern_on);
-      } else {
-        status_led(now_buffer, 0b0100, led_pattern_off);
-      }
       // DRAG_SCROLL add on key event
       // aim/turbo change without layer, direct write on process_record
       break;
