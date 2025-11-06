@@ -1651,7 +1651,9 @@ void housekeeping_task_user(void) {
 
     navigator_turbo = false;
     navigator_aim = false;
-      
+
+    status_led(now_buffer, 0b0111, led_pattern_off);
+    
     auto_mouse_layer_off();
   }
   
