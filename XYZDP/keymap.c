@@ -1196,7 +1196,7 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
   } else {
     if (TIMER_DIFF_16(record->event.time, btn_press_time[index]) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
-      if (TIMER_DIFF_FAST(now_buffer, btn_last_tap_time[index]) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) {
+      if (TIMER_DIFF_FAST(now_buffer, btn_last_tap_time[index]) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
         //double tap, short time
         auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
       } else {
@@ -1229,7 +1229,7 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
   } else {
     if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
-      if (TIMER_DIFF_FAST(now_buffer, last_tap_time) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) {
+      if (TIMER_DIFF_FAST(now_buffer, last_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
         //2 tap
         lock_scrolling = true;
         auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
@@ -1282,14 +1282,14 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
   } else {
     if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
-      if (TIMER_DIFF_FAST(now_buffer, last_2_tap_time) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) {
+      if (TIMER_DIFF_FAST(now_buffer, last_2_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
         // 3 tap
         navigator_turbo = true;
         navigator_aim = false;
         
         auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
         //last_3_tap_time = now_buffer;
-      } else if (TIMER_DIFF_FAST(now_buffer, last_1_tap_time) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) { 
+      } else if (TIMER_DIFF_FAST(now_buffer, last_1_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) { 
         // 2 tap
         last_2_tap_time = now_buffer;
         
