@@ -1342,7 +1342,10 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
 
 static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *record) {
   static uint16_t press_time = 0;
-  static fast_timer_t last_tap_time = 0;
+  static fast_timer_t last_1_tap_time = 0;
+  static fast_timer_t last_2_tap_time = 0;
+  static fast_timer_t last_3_tap_time = 0;
+
   
   if (keycode != MO(L_Mouse_Cursor)) return;
 
@@ -1354,14 +1357,31 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
   } else {
     if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
-      if (TIMER_DIFF_FAST(now_buffer, last_tap_time) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) {
-        //double tap, short time
+      if (TIMER_DIFF_FAST(now_buffer, last_3_tap_time) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) {
+        // 4 tap
+        navigator_turbo = false;
+        navigator_aim = false;
+        
         auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+      } else if (TIMER_DIFF_FAST(now_buffer, last_2_tap_time) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) {
+        // 3 tap
+        navigator_turbo = true;
+        navigator_aim = false;
+        
+        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+        last_3_tap_time = now_buffer;
+      } else if (TIMER_DIFF_FAST(now_buffer, last_1_tap_time) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) { 
+        // 2 tap
+        navigator_turbo = false;
+        navigator_aim = true;
+        
+        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+        last_2_tap_time = now_buffer;
       } else {
-        //single tap
+        // 1 tap
         auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
       }
-      last_tap_time = now_buffer;
+      last_1_tap_time = now_buffer;
     } else {
       // drag, reset
       auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
