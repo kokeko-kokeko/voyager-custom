@@ -953,40 +953,28 @@ static inline bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyr
 
   if (keycode == HSV_0_255_210) {
     if (record->event.pressed) {
-      uint8_t pos = get_pos_from_keyrecord(record);
-      if (52 <= pos) return false;
-      
-      fade_matrix_set_hue_pos(pos);
+      fade_matrix_set_hue_keyrecord(record);
     }
     return false;
   }
 
   if (keycode == HSV_0_255_211) {
     if (record->event.pressed) {
-      uint8_t pos = get_pos_from_keyrecord(record);
-      if (52 <= pos) return false;
-      
-      fade_matrix_set_sat_pos(pos);
+      fade_matrix_set_sat_keyrecord(record);
     }
     return false;
   }
 
   if (keycode == HSV_0_255_212) {
     if (record->event.pressed) {
-      uint8_t pos = get_pos_from_keyrecord(record);
-      if (52 <= pos) return false;
-      
-      fade_matrix_set_val_pos(pos);
+      fade_matrix_set_val_keyrecord(record);
     }
     return false;
   }
 
   if (keycode == HSV_0_255_213) {
     if (record->event.pressed) {
-      uint8_t pos = get_pos_from_keyrecord(record);
-      if (52 <= pos) return false;
-      
-      fade_matrix_set_speed_pos(pos);
+      fade_matrix_set_speed_keyrecord(record);
     }
     return false;
   }
