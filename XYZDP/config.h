@@ -24,7 +24,7 @@
 #define USB_POLLING_INTERVAL_MS 1
 
 #undef DEBOUNCE
-#define DEBOUNCE 10
+#define DEBOUNCE 8
 
 #define NKRO_DEFAULT_ON true
 
