@@ -1201,11 +1201,14 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
         auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
       } else {
         //single tap
+        btn_last_tap_time[index] = now_buffer;
+        
         auto_mouse_early_off_trigger = now_buffer + btn_early_off_delay[index];
       }
-      btn_last_tap_time[index] = now_buffer;
     } else {
       // drag, reset
+      btn_last_tap_time[index] = now_buffer + (UINT32_MAX / 2) - 1;
+      
       auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     }
   }
@@ -1232,6 +1235,8 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
         auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
       } else {
         //1 tap
+        last_tap_time = now_buffer;
+        
         if (lock_scrolling) {
           lock_scrolling = false;
 
@@ -1241,9 +1246,10 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
         }
         set_scrolling = false;
       }
-      last_tap_time = now_buffer;
     } else {
       // drag, reset all
+      last_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+      
       auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
       set_scrolling = false;
       lock_scrolling = false;
@@ -1285,13 +1291,16 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
         //last_3_tap_time = now_buffer;
       } else if (TIMER_DIFF_FAST(now_buffer, last_1_tap_time) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) { 
         // 2 tap
+        last_2_tap_time = now_buffer;
+        
         navigator_turbo = false;
         navigator_aim = true;
         
         auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-        last_2_tap_time = now_buffer;
       } else {
         // 1 tap
+        last_1_tap_time = now_buffer;
+
         if (navigator_turbo || navigator_aim) {
           navigator_turbo = false;
           navigator_aim = false;
@@ -1301,14 +1310,15 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
           auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
         }
       }
-      last_1_tap_time = now_buffer;
-
       // non-lock off
       if (lock_scrolling == false) {
         set_scrolling = false;
       }
     } else {
       // drag, reset all
+      last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+      last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+      
       auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
       set_scrolling = false;
       lock_scrolling = false;
