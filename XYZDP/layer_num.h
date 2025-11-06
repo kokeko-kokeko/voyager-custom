@@ -2,7 +2,7 @@
 
 // layer 
 enum layer_num {
-  L_Base = 0,
+  L_Base_2021 = 0,
   L_Base_JIS,
   L_Function,
   L_Number,
