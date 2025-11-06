@@ -311,19 +311,19 @@ static total_mouse_movement_t auto_mouse_total_move = {
 };
 
 // split process_record, return false, break
-static inline bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
-static inline bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record);
-static inline bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrecord_t *record);
-static inline bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record);
-static inline bool process_record_mouse(uint16_t keycode, keyrecord_t *record);
+static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
+static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record);
+static bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrecord_t *record);
+static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record);
+static bool process_record_mouse(uint16_t keycode, keyrecord_t *record);
 
 // split post_process_record not break, overwrite after function
-static inline void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record);
-static inline void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record);
-static inline void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record);
-static inline void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *record);
-static inline void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *record);
-static inline void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *record);
+static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record);
+static void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record);
+static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record);
+static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *record);
+static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *record);
+static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *record);
 
 // -----------------------------------------------------------------------------
 //
@@ -842,7 +842,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //
 // -----------------------------------------------------------------------------
 
-static inline bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
+static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   //RGB inc/dec no eeprom override
   // always return false (sometime use upedge)
   if (keycode == RGB_SLD) {
@@ -925,7 +925,7 @@ static inline bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *rec
   return true;
 }
 
-static inline bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record) {
+static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record) {
   // Firmware  
   if (keycode == HSV_0_255_200) {
     if (record->event.pressed) {
@@ -997,7 +997,7 @@ static inline bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyr
   return true;
 }
 
-static inline bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrecord_t *record) {  
+static bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrecord_t *record) {  
   if (keycode == HSV_86_255_200) {
     if (record->event.pressed) {
       layer_on(L_Set_Hue);
@@ -1067,7 +1067,7 @@ static inline bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrec
   return true;
 }
 
-static inline bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record) {    
+static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record) {    
   if (keycode == HSV_172_255_200) {
     if (record->event.pressed) {
       fade_matrix_load_preset();
@@ -1087,7 +1087,7 @@ static inline bool process_record_hsv_172_255_n_function(uint16_t keycode, keyre
   return true;
 }
 
-static inline bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
+static bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
   static uint16_t drag_scroll_press_time = 0;
   static uint16_t turbo_press_time = 0;
   static uint16_t aim_press_time = 0;
@@ -1219,7 +1219,7 @@ static inline bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-static inline void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record) {
+static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record) {
   if (keycode != LT(L_Number, KC_SPACE)) return;
 
   if (record->event.pressed) {
@@ -1243,7 +1243,7 @@ static inline void post_process_record_lt_number(uint16_t keycode, keyrecord_t *
   return;
 }
 
-static inline void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record) {
+static void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record) {
   if (keycode != LT(L_Cursor, KC_SPACE)) return;
 
   if (record->event.pressed) {
@@ -1267,7 +1267,7 @@ static inline void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *
   return;
 }
 
-static inline void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record) {
+static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record) {
   if (IS_MOUSEKEY(keycode) == true) return;
   
   if (record->event.pressed == false) {
@@ -1278,7 +1278,7 @@ static inline void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *
   return;
 }
 
-static inline void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *record) {
+static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *record) {
   // 0 to 7 = left, 8 to 15 = right, button 8 count
   static uint16_t btn_press_time[16] = {
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -1324,7 +1324,7 @@ static inline void post_process_record_mouse_button(uint16_t keycode, keyrecord_
   return;
 }
 
-static inline void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *record) {
+static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *record) {
   static uint16_t press_time = 0;
   static fast_timer_t last_tap_time = 0;
   
@@ -1364,7 +1364,7 @@ static inline void post_process_record_mo_mouse_number(uint16_t keycode, keyreco
   return;
 }
 
-static inline void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *record) {
+static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *record) {
   static uint16_t press_time = 0;
   static fast_timer_t last_tap_time = 0;
   
