@@ -1646,6 +1646,7 @@ void housekeeping_task_user(void) {
     auto_mouse_total_move.h = 0;
     auto_mouse_total_move.v = 0;
 
+    set_scrolling = false;
     lock_scrolling = false;
 
     navigator_turbo = false;
