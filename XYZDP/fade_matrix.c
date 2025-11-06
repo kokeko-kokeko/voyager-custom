@@ -638,14 +638,11 @@ void set_layer_color_mouse_map(void) {
     rgb_matrix_set_color(50, h, h, h);
   }
 
-  if (navigator_turbo) {
-    rgb_matrix_set_color(36, f, h, 0);
-  } else {
-    rgb_matrix_set_color(36, f, f, f);
-  }
-  if (navigator_aim) {
-    rgb_matrix_set_color(35, q, o, 0);
-  } else {
-    rgb_matrix_set_color(35, q, q, q);    
-  }
+  if (navigator_turbo && navigator_aim) {
+    rgb_matrix_set_color(0, f, f, 0);
+  } else if (navigator_turbo) {
+    rgb_matrix_set_color(0, f, 0, 0);
+  } else if (navigator_aim) {
+    rgb_matrix_set_color(0, 0, f, 0);
+  } 
 }
