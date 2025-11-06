@@ -1274,7 +1274,6 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
     press_time = record->event.time;
     // early trigger reset on auto_mouse_activation
     set_scrolling = true;
-    lock_scrolling = false;
   } else {
     if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
@@ -1309,7 +1308,6 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
       auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
     }
     set_scrolling = false;
-    lock_scrolling = false;
   }
 
   if (set_scrolling) {
