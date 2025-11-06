@@ -1085,9 +1085,6 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
 }
 
 static bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
-  static uint16_t turbo_press_time = 0;
-  static uint16_t aim_press_time = 0;
-  
   if (keycode == NAVIGATOR_TURBO) {
     // empty
     return false;
