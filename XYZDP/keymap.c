@@ -286,8 +286,6 @@ extern bool is_launching;
 static fast_timer_t now_buffer = 0;
 
 static bool lock_scrolling = false;
-static bool lock_turbo = false;
-static bool lock_aim = false;
 
 // auto_mouse_layer_off() only on housekeeping, other set timer
 static fast_timer_t auto_mouse_early_off_trigger = 0;
@@ -1091,80 +1089,12 @@ static bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
   static uint16_t aim_press_time = 0;
   
   if (keycode == NAVIGATOR_TURBO) {
-    if (record->event.pressed) {
-      turbo_press_time = record->event.time;
-      navigator_turbo = true;
-      
-      // release another side
-      navigator_aim = false;
-      lock_aim = false;
-    } else {
-      if (TIMER_DIFF_16(record->event.time, turbo_press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
-        // tap
-        if (lock_turbo) {
-          // if locked release lock
-          navigator_turbo = false;
-          lock_turbo = false;
-        } else {
-          // keep turbo, add lock
-          lock_turbo = true;
-        }
-      } else {
-        // drag, must release lock
-        navigator_turbo = false;
-        lock_turbo = false;
-      } 
-    }
-    // update LED
-    if (navigator_turbo) {
-      status_led(now_buffer, 0b0001, led_pattern_on);
-    } else {
-      status_led(now_buffer, 0b0001, led_pattern_off);
-    }
-    if (navigator_aim) {
-      status_led(now_buffer, 0b0010, led_pattern_on);
-    } else {
-      status_led(now_buffer, 0b0010, led_pattern_off);
-    }
+    // empty
     return false;
   }
   
   if (keycode == NAVIGATOR_AIM) {
-    if (record->event.pressed) {
-      aim_press_time = record->event.time;
-      navigator_aim = true;
-      
-      // release another side
-      navigator_turbo = false;
-      lock_turbo = false;
-    } else {
-      if (TIMER_DIFF_16(record->event.time, aim_press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
-        // tap
-        if (lock_aim) {
-          // if locked release lock
-          navigator_aim = false;
-          lock_aim = false;
-        } else {
-          // keep aim, add lock
-          lock_aim = true;
-        }
-      } else {
-        // drag, must release lock
-        navigator_aim = false;
-        lock_aim = false;
-      }
-    }
-    // update LED
-    if (navigator_turbo) {
-      status_led(now_buffer, 0b0001, led_pattern_on);
-    } else {
-      status_led(now_buffer, 0b0001, led_pattern_off);
-    }
-    if (navigator_aim) {
-      status_led(now_buffer, 0b0010, led_pattern_on);
-    } else {
-      status_led(now_buffer, 0b0010, led_pattern_off);
-    }
+    // empty
     return false;
   }
   
@@ -1714,8 +1644,6 @@ void housekeeping_task_user(void) {
     auto_mouse_total_move.v = 0;
 
     lock_scrolling = false;
-    lock_turbo = false;
-    lock_aim = false;
 
     navigator_turbo = false;
     navigator_aim = false;
