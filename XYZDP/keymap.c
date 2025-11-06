@@ -295,7 +295,7 @@ static fast_timer_t auto_mouse_count_reset_trigger = 0;
 
 // 0 to 7 = left, 8 to 15 = right, button 8 count
 static const fast_timer_t btn_early_off_delay[16] = {
-  (UINT32_MAX / 2) - 1,  (UINT32_MAX / 2) - 1,  AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT,
+  AUTO_MOUSE_TIME_LONG,  AUTO_MOUSE_TIME_LONG,  AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT,
   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT,
   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT,
   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT
@@ -1305,7 +1305,7 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
       //tap
       if (TIMER_DIFF_FAST(now_buffer, last_tap_time) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) {
         //double tap, short time
-        auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
 
         if (lock_scrolling) {
           // if locked release lock
@@ -1324,7 +1324,7 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
       last_tap_time = now_buffer;
     } else {
       // drag, reset
-      auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
       set_scrolling = false;
       lock_scrolling = false;
     }
@@ -1356,8 +1356,7 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
       //tap
       if (TIMER_DIFF_FAST(now_buffer, last_tap_time) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) {
         //double tap, short time
-        //auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
-        auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
       } else {
         //single tap
         auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
@@ -1365,7 +1364,7 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
       last_tap_time = now_buffer;
     } else {
       // drag, reset
-      auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
     }
     set_scrolling = false;
     lock_scrolling = false;
