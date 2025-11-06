@@ -1571,16 +1571,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Base_JIS, L_Cursor, L_Cursor_JIS);
   state = update_tri_layer_state(state, L_Base_JIS, L_BothThumb, L_BothThumb_JIS);
   
-  // scroll lock release
-  if (layer_state_cmp(state, L_Mouse) == false) {
-    //lock_scrolling = false;
-    lock_turbo = false;
-    lock_aim = false;
-
-    navigator_turbo = false;
-    navigator_aim = false;
-  }
-  
   // auto mouse
   if (layer_state_cmp(state, L_Halt_Mask)) {
     state = remove_auto_mouse_layer(state, true);
@@ -1779,11 +1769,18 @@ void housekeeping_task_user(void) {
   if (timer_expired_fast(now_buffer, auto_mouse_early_off_trigger)) {
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     
-    // reset count
+    // reset state
     auto_mouse_total_move.x = 0;
     auto_mouse_total_move.y = 0;
     auto_mouse_total_move.h = 0;
     auto_mouse_total_move.v = 0;
+
+    lock_scrolling = false;
+    lock_turbo = false;
+    lock_aim = false;
+
+    navigator_turbo = false;
+    navigator_aim = false;
       
     auto_mouse_layer_off();
   }
