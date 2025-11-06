@@ -1541,7 +1541,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   
   // scroll lock release
   if (layer_state_cmp(state, L_Mouse) == false) {
-    lock_scrolling = false;
+    //lock_scrolling = false;
     lock_turbo = false;
     lock_aim = false;
 
@@ -1549,31 +1549,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     navigator_aim = false;
   }
   
-  // mouse scroll / auto mouse
+  // auto mouse
   if (layer_state_cmp(state, L_Halt_Mask)) {
     state = remove_auto_mouse_layer(state, true);
     set_auto_mouse_enable(false);
-  } else if (layer_state_cmp(state, L_Mouse_Cursor)) {
-    set_scrolling = true;
-    lock_scrolling = false;
-  } else if (layer_state_cmp(state, L_Mouse_Number)) {
-    set_scrolling = true;
-    lock_scrolling = false;
-  } else if (layer_state_cmp(state, L_Cursor)) {
-    set_scrolling = true;
-    lock_scrolling = false;
-    //if (is_auto_mouse_active() == false) {
-    //  set_auto_mouse_enable(false);
-    //}
-  } else if (layer_state_cmp(state, L_Number)) {
-    set_scrolling = true;
-    lock_scrolling = false;
-    //if (is_auto_mouse_active() == false) {
-    //  set_auto_mouse_enable(false);
-    //}
-  } else {
-    set_scrolling = lock_scrolling;
-    //set_auto_mouse_enable(true);
   }
 
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
