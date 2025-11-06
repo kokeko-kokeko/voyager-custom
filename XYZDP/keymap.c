@@ -1367,8 +1367,8 @@ void keyboard_post_init_user(void) {
 
   auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
   
-  //ANSI
-  layer_move(L_Base);
+  //ANSI / 2021
+  layer_move(L_Base_2021);
 }
 
 bool process_detected_host_os_user(os_variant_t detected_os) {
@@ -1464,7 +1464,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   uint8_t layer = get_highest_layer(state);
   
   switch (layer) {
-    case L_Base :
+    case L_Base_2021:
     case L_Base_JIS:
       status_led(now_buffer, 0b1011, led_pattern_off);
       break;
