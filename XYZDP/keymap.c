@@ -1074,9 +1074,6 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
     }
     return false;  
   }
-
-
-
   
   if (keycode == HSV_172_255_201) {
     if (record->event.pressed) {
@@ -1090,39 +1087,8 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
 }
 
 static bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
-  static uint16_t drag_scroll_press_time = 0;
   static uint16_t turbo_press_time = 0;
   static uint16_t aim_press_time = 0;
-  
-  if (keycode == DRAG_SCROLL) {
-    if (record->event.pressed) {
-      drag_scroll_press_time = record->event.time;
-      set_scrolling = true;
-    } else {
-      if (TIMER_DIFF_16(record->event.time, drag_scroll_press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
-        // tap
-        if (lock_scrolling) {
-          // if locked release lock
-          set_scrolling = false;
-          lock_scrolling = false;
-        } else {
-          // keep scroll, add lock
-          lock_scrolling = true;
-        }
-      } else {
-        // drag, must release lock
-        set_scrolling = false;
-        lock_scrolling = false;
-      }
-    }
-    // update LED
-    if (set_scrolling) {
-      status_led(now_buffer, 0b0100, led_pattern_on);
-    } else {
-      status_led(now_buffer, 0b0100, led_pattern_off);
-    }
-    return false;
-  }
   
   if (keycode == NAVIGATOR_TURBO) {
     if (record->event.pressed) {
@@ -1334,25 +1300,36 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
     press_time = record->event.time;
     // early trigger reset on auto_mouse_activation
     set_scrolling = true;
-    lock_scrolling = false;
   } else {
     if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
       if (TIMER_DIFF_FAST(now_buffer, last_tap_time) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) {
         //double tap, short time
-        //auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
         auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+
+        if (lock_scrolling) {
+          // if locked release lock
+          set_scrolling = false;
+          lock_scrolling = false;
+        } else {
+          // keep scroll, add lock
+          lock_scrolling = true;
+        }
       } else {
         //single tap
         auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
+        
+        set_scrolling = false;
+        lock_scrolling = false;
       }
       last_tap_time = now_buffer;
     } else {
       // drag, reset
       auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+      set_scrolling = false;
+      lock_scrolling = false;
     }
-    set_scrolling = false;
-    lock_scrolling = false;
+
   }
 
   if (set_scrolling) {
