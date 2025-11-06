@@ -2,25 +2,25 @@
 
 uint8_t get_pos_from_keyrecord(const keyrecord_t * const record);
 
-void fade_matrix_set_mode(const uint8_t mode);
-void fade_matrix_set_hue_keyrecord(const keyrecord_t * const record);
-void fade_matrix_set_sat_keyrecord(const keyrecord_t * const record);
-void fade_matrix_set_val_keyrecord(const keyrecord_t * const record);
-void fade_matrix_set_speed_keyrecord(const keyrecord_t * const record);
+void fade_matrix_set_mode(const fast_timer_t now, const uint8_t mode);
+void fade_matrix_set_hue_keyrecord(const fast_timer_t now, const keyrecord_t * const record);
+void fade_matrix_set_sat_keyrecord(const fast_timer_t now, const keyrecord_t * const record);
+void fade_matrix_set_val_keyrecord(const fast_timer_t now, const keyrecord_t * const record);
+void fade_matrix_set_speed_keyrecord(const fast_timer_t now, const keyrecord_t * const record);
 
-void fade_matrix_increase_hue(void);
-void fade_matrix_decrease_hue(void);
-void fade_matrix_increase_sat(void);
-void fade_matrix_decrease_sat(void);
-void fade_matrix_increase_val(void);
-void fade_matrix_decrease_val(void);
-void fade_matrix_increase_speed(void);
-void fade_matrix_decrease_speed(void);
-void fade_matrix_toggle(void);
-void fade_matrix_step(void);
+void fade_matrix_increase_hue(const fast_timer_t now);
+void fade_matrix_decrease_hue(const fast_timer_t now);
+void fade_matrix_increase_sat(const fast_timer_t now);
+void fade_matrix_decrease_sat(const fast_timer_t now);
+void fade_matrix_increase_val(const fast_timer_t now);
+void fade_matrix_decrease_val(const fast_timer_t now);
+void fade_matrix_increase_speed(const fast_timer_t now);
+void fade_matrix_decrease_speed(const fast_timer_t now);
+void fade_matrix_toggle(const fast_timer_t now);
+void fade_matrix_step(const fast_timer_t now);
 
-void fade_matrix_load_preset(void);
-void fade_matrix_load_preset_powersave(void);
+void fade_matrix_load_preset(const fast_timer_t now);
+void fade_matrix_load_preset_powersave(const fast_timer_t now);
 
 void init_fade_matrix(const fast_timer_t now);
 void activate_fade_matrix(const fast_timer_t now);
