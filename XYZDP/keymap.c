@@ -1395,6 +1395,18 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
   } else {
     status_led(now_buffer, 0b0100, led_pattern_off);
   }
+
+  if (navigator_turbo) {
+    status_led(now_buffer, 0b0001, led_pattern_on);
+  } else {
+    status_led(now_buffer, 0b0001, led_pattern_off);
+  }
+  
+  if (navigator_aim) {
+    status_led(now_buffer, 0b0010, led_pattern_on);
+  } else {
+    status_led(now_buffer, 0b0010, led_pattern_off);
+  }
   
   return;
 }
