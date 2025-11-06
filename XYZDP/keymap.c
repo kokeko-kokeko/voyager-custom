@@ -1320,7 +1320,6 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
         auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
         
         set_scrolling = false;
-        lock_scrolling = false;
       }
       last_tap_time = now_buffer;
     } else {
