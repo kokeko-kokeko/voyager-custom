@@ -1117,13 +1117,11 @@ static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record)
 
   if (record->event.pressed) {
     set_scrolling = true;
-    lock_scrolling = false;
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
   } else {
     set_scrolling = false;
-    lock_scrolling = false;
     set_auto_mouse_enable(true);
   }
 
@@ -1141,13 +1139,11 @@ static void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record)
 
   if (record->event.pressed) {
     set_scrolling = true;
-    lock_scrolling = false;
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     } 
   } else {
     set_scrolling = false;
-    lock_scrolling = false;
     set_auto_mouse_enable(true);
   }
 
