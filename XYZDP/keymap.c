@@ -1231,21 +1231,18 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
     if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
       if (TIMER_DIFF_FAST(now_buffer, last_tap_time) < AUTO_MOUSE_DOUBLE_TAP_THRESHOLD) {
-        //double tap, short time
+        //2 tap
+        lock_scrolling = true;
         auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-
-        if (lock_scrolling) {
-          // if locked release lock
-          set_scrolling = false;
-          lock_scrolling = false;
-        } else {
-          // keep scroll, add lock
-          lock_scrolling = true;
-        }
       } else {
-        //single tap
-        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
-        
+        //1 tap
+        if (lock_scrolling) {
+          lock_scrolling = false;
+
+          auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+        } else {
+          auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
+        }
         set_scrolling = false;
       }
       last_tap_time = now_buffer;
@@ -1255,7 +1252,6 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
       set_scrolling = false;
       lock_scrolling = false;
     }
-
   }
 
   if (set_scrolling) {
