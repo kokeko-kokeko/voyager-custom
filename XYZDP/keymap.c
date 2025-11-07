@@ -941,8 +941,10 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
       } else if (pos == 6) {
         layer_on(L_Base_JIS);
       } else if (pos == 1) {
+        layer_on(L_Base_2021);
         layer_off(L_Base_2025);
       } else if (pos == 7) {
+        layer_on(L_Base_2021);
         layer_on(L_Base_2025);
       } else if (pos == 2) {
         ime_state_sync_enable();
@@ -1380,6 +1382,7 @@ void keyboard_post_init_user(void) {
   
   //ANSI / 2021
   layer_move(L_Base_2021);
+  layer_off(L_Base_2025);
 }
 
 bool process_detected_host_os_user(os_variant_t detected_os) {
