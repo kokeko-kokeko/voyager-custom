@@ -53,41 +53,41 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(3, KC_5)
-#define DUAL_FUNC_1 LT(2, KC_2)
-#define DUAL_FUNC_2 LT(9, KC_H)
-#define DUAL_FUNC_3 LT(7, KC_F)
-#define DUAL_FUNC_4 LT(12, KC_8)
-#define DUAL_FUNC_5 LT(6, KC_F15)
-#define DUAL_FUNC_6 LT(8, KC_F23)
-#define DUAL_FUNC_7 LT(7, KC_P)
-#define DUAL_FUNC_8 LT(11, KC_M)
-#define DUAL_FUNC_9 LT(9, KC_F3)
-#define DUAL_FUNC_10 LT(9, KC_F14)
-#define DUAL_FUNC_11 LT(13, KC_T)
-#define DUAL_FUNC_12 LT(5, KC_1)
-#define DUAL_FUNC_13 LT(2, KC_1)
-#define DUAL_FUNC_14 LT(5, KC_F8)
-#define DUAL_FUNC_15 LT(15, KC_F1)
-#define DUAL_FUNC_16 LT(10, KC_W)
-#define DUAL_FUNC_17 LT(15, KC_4)
-#define DUAL_FUNC_18 LT(11, KC_T)
-#define DUAL_FUNC_19 LT(15, KC_F10)
-#define DUAL_FUNC_20 LT(4, KC_F4)
-#define DUAL_FUNC_21 LT(8, KC_R)
+#define DUAL_FUNC_0 LT(10, KC_F18)
+#define DUAL_FUNC_1 LT(13, KC_R)
+#define DUAL_FUNC_2 LT(9, KC_8)
+#define DUAL_FUNC_3 LT(6, KC_B)
+#define DUAL_FUNC_4 LT(5, KC_D)
+#define DUAL_FUNC_5 LT(2, KC_Z)
+#define DUAL_FUNC_6 LT(8, KC_F12)
+#define DUAL_FUNC_7 LT(9, KC_O)
+#define DUAL_FUNC_8 LT(6, KC_F6)
+#define DUAL_FUNC_9 LT(9, KC_F6)
+#define DUAL_FUNC_10 LT(9, KC_F20)
+#define DUAL_FUNC_11 LT(5, KC_U)
+#define DUAL_FUNC_12 LT(2, KC_F19)
+#define DUAL_FUNC_13 LT(13, KC_F3)
+#define DUAL_FUNC_14 LT(13, KC_F6)
+#define DUAL_FUNC_15 LT(6, KC_8)
+#define DUAL_FUNC_16 LT(7, KC_F16)
+#define DUAL_FUNC_17 LT(8, KC_F18)
+#define DUAL_FUNC_18 LT(12, KC_F17)
+#define DUAL_FUNC_19 LT(15, KC_7)
+#define DUAL_FUNC_20 LT(9, KC_F9)
+#define DUAL_FUNC_21 LT(4, KC_F24)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    KC_1,           KC_2,           KC_Y,           KC_O,           KC_U,           KC_QUOTE,                                       KC_3,           KC_L,           KC_D,           KC_W,           KC_SLASH,       CW_TOGG,        
-    LT(8, KC_B),    MT(MOD_LGUI, KC_C),MT(MOD_LALT, KC_I),MT(MOD_LSFT, KC_E),MT(MOD_LCTL, KC_A),KC_COMMA,                                       KC_DOT,         MT(MOD_RCTL, KC_H),MT(MOD_RSFT, KC_T),MT(MOD_RALT, KC_S),MT(MOD_RGUI, KC_N),LT(9, KC_V),    
-    MT(MOD_LCTL, KC_Z),MT(MOD_LCTL, KC_G),MT(MOD_LSFT, KC_X),KC_J,           KC_K,           KC_MINUS,                                       KC_4,           KC_R,           KC_M,           MT(MOD_RSFT, KC_F),MT(MOD_RCTL, KC_P),MT(MOD_RCTL, KC_Q),
+    KC_1,           KC_2,           KC_Y,           KC_O,           KC_U,           KC_QUOTE,                                       KC_3,           KC_D,           KC_N,           KC_G,           KC_SLASH,       CW_TOGG,        
+    LT(8, KC_B),    MT(MOD_LGUI, KC_H),MT(MOD_LALT, KC_I),MT(MOD_LSFT, KC_A),MT(MOD_LCTL, KC_E),KC_COMMA,                                       KC_DOT,         MT(MOD_RCTL, KC_T),MT(MOD_RSFT, KC_R),MT(MOD_RALT, KC_S),MT(MOD_RGUI, KC_C),LT(9, KC_V),    
+    MT(MOD_LCTL, KC_Z),MT(MOD_LCTL, KC_K),MT(MOD_LSFT, KC_J),KC_X,           KC_W,           KC_MINUS,                                       KC_4,           KC_M,           KC_L,           MT(MOD_RSFT, KC_F),MT(MOD_RCTL, KC_P),MT(MOD_RCTL, KC_Q),
     KC_LEFT_SHIFT,  KC_LEFT,        KC_RIGHT,       KC_BSPC,        LT(4, KC_SPACE),KC_LANGUAGE_2,                                  LT(3, KC_LANGUAGE_1),LT(6, KC_SPACE),KC_DELETE,      KC_UP,          KC_DOWN,        KC_RIGHT_SHIFT, 
                                                     LT(3, KC_TAB),  LT(6, KC_ESCAPE),                                LT(4, KC_BSPC), KC_ENTER
   ),
   [1] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_D,           KC_N,           KC_G,           KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_TRANSPARENT, MT(MOD_LGUI, KC_H),KC_TRANSPARENT, MT(MOD_LSFT, KC_A),MT(MOD_LCTL, KC_E),KC_TRANSPARENT,                                 KC_TRANSPARENT, MT(MOD_RCTL, KC_T),MT(MOD_RSFT, KC_R),KC_TRANSPARENT, MT(MOD_RGUI, KC_C),KC_TRANSPARENT, 
-    KC_TRANSPARENT, MT(MOD_LCTL, KC_K),MT(MOD_LSFT, KC_J),KC_X,           KC_W,           KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_M,           KC_L,           KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_L,           KC_D,           KC_W,           KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, MT(MOD_LGUI, KC_C),KC_TRANSPARENT, MT(MOD_LSFT, KC_E),MT(MOD_LCTL, KC_A),KC_TRANSPARENT,                                 KC_TRANSPARENT, MT(MOD_RCTL, KC_H),MT(MOD_RSFT, KC_T),KC_TRANSPARENT, MT(MOD_RGUI, KC_N),KC_TRANSPARENT, 
+    KC_TRANSPARENT, MT(MOD_LCTL, KC_G),MT(MOD_LSFT, KC_X),KC_J,           KC_K,           KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_R,           KC_M,           KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
