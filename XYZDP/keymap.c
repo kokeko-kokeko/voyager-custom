@@ -1380,7 +1380,7 @@ void keyboard_post_init_user(void) {
 
   auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
   
-  //ANSI / 2021
+  //JIS / 2021
   layer_move(L_Base_2025);
   layer_on(L_Base_2021);
   layer_off(L_Base_ANSI);
