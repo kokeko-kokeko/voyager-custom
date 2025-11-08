@@ -42,8 +42,8 @@ const key_override_t *key_overrides[] = {
   &ko_jis_base_1,  &ko_jis_base_2,  ko_jis_base_3,  &ko_jis_base_4,
   &ko_jis_base_1s, &ko_jis_base_2s, ko_jis_base_3s, &ko_jis_base_4s,
   &ko_jis_base_ATs, &ko_jis_base_MINSs, &ko_jis_base_SLSHs, &ko_jis_base_DOTs,
-  &ko_ansi_base_1,  &ko_ansi_base_2,  &ko_ansi_base_3,  &ko_ansi_base_4,
-  &ko_ansi_base_1s, &ko_ansi_base_2s, &ko_ansi_base_3s, &ko_ansi_base_4s,
+  &ko_ansi_base_1,  &ko_ansi_base_2,
+  &ko_ansi_base_1s, &ko_ansi_base_2s,
   &ko_ansi_base_QUOTs, &ko_ansi_base_COMMs, &ko_ansi_base_MINSs, &ko_ansi_base_SLSHs, &ko_ansi_base_DOTs
 };
 
