@@ -937,9 +937,9 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
       if (52 <= pos) return false;
       
       if (pos == 0) {
-        layer_off(L_Base_JIS);
+        layer_off(L_Base_ANSI);
       } else if (pos == 6) {
-        layer_on(L_Base_JIS);
+        layer_on(L_Base_ANSI);
       } else if (pos == 1) {
         layer_on(L_Base_2025);
         layer_off(L_Base_2021);
@@ -1383,7 +1383,7 @@ void keyboard_post_init_user(void) {
   //ANSI / 2021
   layer_move(L_Base_2025);
   layer_on(L_Base_2021);
-  layer_off(L_Base_JIS);
+  layer_off(L_Base_ANSI);
 }
 
 bool process_detected_host_os_user(os_variant_t detected_os) {
@@ -1463,9 +1463,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Mouse_Number, L_Mouse_Cursor, L_Mouse_BothThumb);
   
   // ANSI/JIS addiional enable
-  state = update_tri_layer_state(state, L_Base_JIS, L_Number, L_Number_JIS);
-  state = update_tri_layer_state(state, L_Base_JIS, L_Cursor, L_Cursor_JIS);
-  state = update_tri_layer_state(state, L_Base_JIS, L_BothThumb, L_BothThumb_JIS);
+  state = update_tri_layer_state(state, L_Base_ANSI, L_Number, L_Number_ANSI);
+  state = update_tri_layer_state(state, L_Base_ANSI, L_Cursor, L_Cursor_ANSI);
+  state = update_tri_layer_state(state, L_Base_ANSI, L_BothThumb, L_BothThumb_ANSI);
   
   // auto mouse
   if (layer_state_cmp(state, L_Halt_Mask)) {
@@ -1481,7 +1481,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     case L_Base_2025:
     case L_Base_2021:
-    case L_Base_JIS:
+    case L_Base_ANSI:
       status_led(now_buffer, 0b1011, led_pattern_off);
       break;
     case L_Function:
@@ -1489,9 +1489,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(now_buffer, 0b0011, led_pattern_on);
       break; 
     case L_Number:
-    case L_Number_JIS:
+    case L_Number_ANSI:
     case L_Cursor:
-    case L_Cursor_JIS:
+    case L_Cursor_ANSI:
       status_led(now_buffer, 0b1011, led_pattern_off);
       status_led(now_buffer, 0b0100, led_pattern_on);
       break; 
@@ -1500,7 +1500,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_LeftPinkyThumb:
     case L_RightPinkyThumb:
     case L_BothThumb:
-    case L_BothThumb_JIS:
+    case L_BothThumb_ANSI:
     case L_BothPinky:
     case L_BothPinkyThumb:
       break;
