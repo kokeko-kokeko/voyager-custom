@@ -655,5 +655,7 @@ void set_layer_color_mouse_map(void) {
     rgb_matrix_set_color(0, f, 0, 0);
   } else if (navigator_aim) {
     rgb_matrix_set_color(0, 0, f, 0);
-  } 
+  } else {
+    rgb_matrix_set_color(0, 0, 0, f);
+  }
 }
