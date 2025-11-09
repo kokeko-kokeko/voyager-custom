@@ -946,9 +946,9 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
       } else if (pos == 7) {
         layer_on(L_Base_2025);
         layer_on(L_Base_2021);
-      } else if (pos == 2) {
+      } else if (pos == 3) {
         ime_state_sync_enable();
-      } else if (pos == 8) {
+      } else if (pos == 9) {
         ime_state_sync_disable();
       } else if (pos == 29) {
         soft_reset_keyboard();
