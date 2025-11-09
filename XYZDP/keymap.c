@@ -352,6 +352,28 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
 static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *record);
 static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *record);
 
+// mouse status delayed display
+static bool set_scrolling_delayed = false;
+static bool navigator_turbo_delayed = false;
+static bool navigator_aim_delayed = false;
+
+static fast_timer_t mouse_flag_update_trigger = 0;
+
+bool get_mouse_flag_scrolling(void);
+bool get_mouse_flag_turbo(void);
+bool get_mouse_flag_aim(void);
+
+// delayd 0->1
+bool get_mouse_flag_scrolling(void) {
+  return (set_scrolling && set_scrolling_delayed)
+}
+bool get_mouse_flag_turbo(void) {
+  return (navigator_turbo && navigator_turbo_delayed)
+}
+bool get_mouse_flag_aim(void) {
+  return (navigator_aim && navigator_aim_delayed)
+}
+
 // -----------------------------------------------------------------------------
 //
 //
@@ -1136,13 +1158,6 @@ static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record)
     set_scrolling = false;
     set_auto_mouse_enable(true);
   }
-
-  if (set_scrolling) {
-    status_led(now_buffer, 0b0100, led_pattern_on);
-  } else {
-    status_led(now_buffer, 0b0100, led_pattern_off);
-  }
-  
   return;
 }
 
@@ -1158,13 +1173,6 @@ static void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record)
     set_scrolling = false;
     set_auto_mouse_enable(true);
   }
-
-  if (set_scrolling) {
-    status_led(now_buffer, 0b0100, led_pattern_on);
-  } else {
-    status_led(now_buffer, 0b0100, led_pattern_off);
-  }
-
   return;
 }
 
@@ -1285,26 +1293,6 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
       navigator_aim = false;
     }
   }
-
-  if (set_scrolling) {
-    status_led(now_buffer, 0b0100, led_pattern_on);
-  } else {
-    status_led(now_buffer, 0b0100, led_pattern_off);
-  }
-
-  if (navigator_turbo) {
-    status_led(now_buffer, 0b0001, led_pattern_on);
-  } else {
-    status_led(now_buffer, 0b0001, led_pattern_off);
-  }
-  
-  if (navigator_aim) {
-    status_led(now_buffer, 0b0010, led_pattern_on);
-  } else {
-    status_led(now_buffer, 0b0010, led_pattern_off);
-  }
-  
-  
   return;
 }
 
@@ -1367,25 +1355,6 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
       navigator_aim = false;
     }
   }
-
-  if (set_scrolling) {
-    status_led(now_buffer, 0b0100, led_pattern_on);
-  } else {
-    status_led(now_buffer, 0b0100, led_pattern_off);
-  }
-
-  if (navigator_turbo) {
-    status_led(now_buffer, 0b0001, led_pattern_on);
-  } else {
-    status_led(now_buffer, 0b0001, led_pattern_off);
-  }
-  
-  if (navigator_aim) {
-    status_led(now_buffer, 0b0010, led_pattern_on);
-  } else {
-    status_led(now_buffer, 0b0010, led_pattern_off);
-  }
-  
   return;
 }
 
@@ -1705,6 +1674,33 @@ void housekeeping_task_user(void) {
     status_led(now_buffer, 0b0111, led_pattern_off);
     
     auto_mouse_layer_off();
+  }
+
+  if (timer_expired_fast(now_buffer, mouse_flag_update_trigger)) {
+    mouse_flag_update_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+
+    // update
+    set_scrolling_delayed = set_scrolling;
+    navigator_turbo_delayed = navigator_turbo;
+    navigator_aim_delayed = navigator_aim;
+
+    if (get_mouse_flag_scrolling()) {
+      status_led(now_buffer, 0b0100, led_pattern_on);
+    } else {
+      status_led(now_buffer, 0b0100, led_pattern_off);
+    }
+    
+    if (get_mouse_flag_turbo()) {
+      status_led(now_buffer, 0b0001, led_pattern_on);
+    } else {
+      status_led(now_buffer, 0b0001, led_pattern_off);
+    }
+    
+    if (get_mouse_flag_aim()) {
+      status_led(now_buffer, 0b0010, led_pattern_on);
+    } else {
+      status_led(now_buffer, 0b0010, led_pattern_off);
+    }
   }
   
   return;
