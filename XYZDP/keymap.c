@@ -1231,7 +1231,8 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
 
 static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *record) {
   static uint16_t press_time = 0;
-  static fast_timer_t last_tap_time = 0;
+  static fast_timer_t last_1_tap_time = 0;
+  static fast_timer_t last_2_tap_time = 0;
   
   if (keycode != MO(L_Mouse_Number)) return;
 
@@ -1242,28 +1243,40 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
   } else {
     if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
-      if (TIMER_DIFF_FAST(now_buffer, last_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
-        //2 tap
-        lock_scrolling = true;
+      if (TIMER_DIFF_FAST(now_buffer, last_2_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
+        // 3 tap
         auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+
+        lock_scrolling = true;
+        
+        navigator_turbo = true;
+      } else if (TIMER_DIFF_FAST(now_buffer, last_1_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
+        //2 tap
+        last_2_tap_time = now_buffer;
+
+        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+        
+        lock_scrolling = true;
       } else {
         //1 tap
-        last_tap_time = now_buffer;
+        last_1_tap_time = now_buffer;
         
         if (lock_scrolling) {
-          lock_scrolling = false;
-
           auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
         } else {
           auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
         }
+
         set_scrolling = false;
+        lock_scrolling = false;
       }
     } else {
       // drag, reset all
-      last_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+      last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+      last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
       
       auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+      
       set_scrolling = false;
       lock_scrolling = false;
 
@@ -1277,6 +1290,19 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
   } else {
     status_led(now_buffer, 0b0100, led_pattern_off);
   }
+
+  if (navigator_turbo) {
+    status_led(now_buffer, 0b0001, led_pattern_on);
+  } else {
+    status_led(now_buffer, 0b0001, led_pattern_off);
+  }
+  
+  if (navigator_aim) {
+    status_led(now_buffer, 0b0010, led_pattern_on);
+  } else {
+    status_led(now_buffer, 0b0010, led_pattern_off);
+  }
+  
   
   return;
 }
@@ -1297,31 +1323,30 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
       //tap
       if (TIMER_DIFF_FAST(now_buffer, last_2_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
         // 3 tap
+        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+        
         navigator_turbo = true;
         navigator_aim = false;
-        
-        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-        //last_3_tap_time = now_buffer;
       } else if (TIMER_DIFF_FAST(now_buffer, last_1_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) { 
         // 2 tap
         last_2_tap_time = now_buffer;
         
+        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+        
         navigator_turbo = false;
         navigator_aim = true;
-        
-        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
       } else {
         // 1 tap
         last_1_tap_time = now_buffer;
 
         if (navigator_turbo || navigator_aim) {
-          navigator_turbo = false;
-          navigator_aim = false;
-
           auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
         } else {
           auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
         }
+        
+        navigator_turbo = false;
+        navigator_aim = false;
       }
       // non-lock off
       if (lock_scrolling == false) {
@@ -1333,6 +1358,7 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
       last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
       
       auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+      
       set_scrolling = false;
       lock_scrolling = false;
 
