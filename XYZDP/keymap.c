@@ -365,13 +365,13 @@ bool get_mouse_flag_aim(void);
 
 // delayd 0->1
 bool get_mouse_flag_scrolling(void) {
-  return (set_scrolling && set_scrolling_delayed)
+  return (set_scrolling && set_scrolling_delayed);
 }
 bool get_mouse_flag_turbo(void) {
-  return (navigator_turbo && navigator_turbo_delayed)
+  return (navigator_turbo && navigator_turbo_delayed);
 }
 bool get_mouse_flag_aim(void) {
-  return (navigator_aim && navigator_aim_delayed)
+  return (navigator_aim && navigator_aim_delayed);
 }
 
 // -----------------------------------------------------------------------------
