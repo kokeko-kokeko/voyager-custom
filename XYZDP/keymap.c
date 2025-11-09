@@ -1269,6 +1269,8 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
 
         set_scrolling = false;
         lock_scrolling = false;
+
+        navigator_turbo = false;
       }
     } else {
       // drag, reset all
