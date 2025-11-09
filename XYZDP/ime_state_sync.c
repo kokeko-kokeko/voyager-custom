@@ -179,11 +179,11 @@ void set_layer_color_firmware_map_ime_state_sync(void) {
   const uint8_t o = q >> 1;
 
   if (iss_enable) {
-    rgb_matrix_set_color(2, 0, f, 0);
-    rgb_matrix_set_color(8, o, o, o);
+    rgb_matrix_set_color(3, 0, f, 0);
+    rgb_matrix_set_color(9, o, o, o);
   } else {
     //ANSI base
-    rgb_matrix_set_color(2, o, o, o);
-    rgb_matrix_set_color(8, f, f, 0);
+    rgb_matrix_set_color(3, o, o, o);
+    rgb_matrix_set_color(9, f, f, 0);
   }
 }
