@@ -1154,7 +1154,7 @@ static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record)
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
-    mouse_flag_update_trigger = now_buffer + AUTO_MOUSE_DRAG_THRESHOLD;
+    mouse_flag_update_trigger = now_buffer + TAPPING_TERM;
   } else {
     set_scrolling = false;
     set_auto_mouse_enable(true);
@@ -1171,7 +1171,7 @@ static void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record)
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
-    mouse_flag_update_trigger = now_buffer + AUTO_MOUSE_DRAG_THRESHOLD;
+    mouse_flag_update_trigger = now_buffer + TAPPING_TERM;
   } else {
     set_scrolling = false;
     set_auto_mouse_enable(true);
@@ -1252,7 +1252,7 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
     // early trigger reset on auto_mouse_activation
     set_scrolling = true;
 
-    mouse_flag_update_trigger = now_buffer + AUTO_MOUSE_DRAG_THRESHOLD;
+    mouse_flag_update_trigger = now_buffer + TAPPING_TERM;
   } else {
     if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
@@ -1315,7 +1315,7 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
     // early trigger reset on auto_mouse_activation
     set_scrolling = true;
 
-    mouse_flag_update_trigger = now_buffer + AUTO_MOUSE_DRAG_THRESHOLD;
+    mouse_flag_update_trigger = now_buffer + TAPPING_TERM;
   } else {
     if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
