@@ -286,6 +286,14 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
   return true;
 }
 
+// -----------------------------------------------------------------------------
+//
+//
+// GitHub C additional declaration
+//
+//
+// -----------------------------------------------------------------------------
+
 #define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
 
 #include "layer_num.h"
@@ -322,7 +330,7 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
 // -----------------------------------------------------------------------------
 //
 //
-// End of GitHub C additional
+// End of GitHub C additional declaration
 //
 //
 // -----------------------------------------------------------------------------
