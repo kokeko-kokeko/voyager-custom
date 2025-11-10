@@ -286,57 +286,6 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
   return true;
 }
 
-// -----------------------------------------------------------------------------
-//
-//
-// GitHub C additional
-//
-//
-// -----------------------------------------------------------------------------
-
-#define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
-
-#include "layer_num.h"
-// enum for layer define sync oryx side
-_Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
-
-// access to voyager system-side flag
-extern keyboard_config_t keyboard_config;
-extern bool is_launching;
-
-// split impl
-#include "fade_matrix.h"
-#include "ime_state_sync.h"
-#include "overlay_layer_mod.h"
-#include "status_led.h"
-
-#include "engram_key_overrides.inc"
-
-// cached now value, update on housekeeping
-static fast_timer_t now_buffer = 0;
-
-static bool lock_scrolling = false;
-
-// auto_mouse_layer_off() only on housekeeping, other set timer
-static fast_timer_t auto_mouse_early_off_trigger = 0;
-static fast_timer_t auto_mouse_count_reset_trigger = 0;
-
-// 0 to 7 = left, 8 to 15 = right, button 8 count
-static const fast_timer_t btn_early_off_delay[16] = {
-  AUTO_MOUSE_TIME_LONG,  AUTO_MOUSE_TIME_LONG,  AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT,
-  AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT,
-  AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT,
-  AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT
-};
-
-// reset from housekeeping
-static total_mouse_movement_t auto_mouse_total_move = {
-  .x = 0,
-  .y = 0,
-  .h = 0,
-  .v = 0,
-};
-
 // split process_record, return false, break
 static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
 static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record);
@@ -351,63 +300,6 @@ static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record)
 static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *record);
 static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *record);
 static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *record);
-
-// mouse status delayed display
-static bool set_scrolling_delayed = false;
-static bool navigator_turbo_delayed = false;
-static bool navigator_aim_delayed = false;
-
-static fast_timer_t mouse_flag_update_trigger = 0;
-
-bool get_mouse_flag_scrolling(void) {
-  return set_scrolling_delayed;
-}
-
-bool get_mouse_flag_turbo(void) {
-  return navigator_turbo_delayed;
-}
-
-bool get_mouse_flag_aim(void) {
-  return navigator_aim_delayed;
-}
-
-static void activate_mouse_flag(const fast_timer_t now, const keyrecord_t * const record) {
-  if (record->event.pressed) {
-    mouse_flag_update_trigger = now + TAPPING_TERM;
-  } else {
-    mouse_flag_update_trigger = now + 1;
-  }
-  return;
-}
-
-static void update_mouse_flag(const fast_timer_t now) {
-  if (timer_expired_fast(now, mouse_flag_update_trigger) == false) return;
-  mouse_flag_update_trigger = now + (UINT32_MAX / 2) - 1;
-  
-  // update
-  set_scrolling_delayed = set_scrolling;
-  navigator_turbo_delayed = navigator_turbo;
-  navigator_aim_delayed = navigator_aim;
-  
-  if (get_mouse_flag_scrolling()) {
-    status_led(now, 0b0100, led_pattern_on);
-  } else {
-    status_led(now, 0b0100, led_pattern_off);
-  }
-    
-  if (get_mouse_flag_turbo()) {
-    status_led(now, 0b0001, led_pattern_on);
-  } else {
-    status_led(now, 0b0001, led_pattern_off);
-  }
-    
-  if (get_mouse_flag_aim()) {
-    status_led(now, 0b0010, led_pattern_on);
-  } else {
-    status_led(now, 0b0010, led_pattern_off);
-  }
-  return;
-}
 
 // -----------------------------------------------------------------------------
 //
@@ -892,6 +784,114 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (process_record_ime_state_sync(keycode, record) == false) return false;
   
   return true;
+}
+
+// -----------------------------------------------------------------------------
+//
+//
+// GitHub C additional
+//
+//
+// -----------------------------------------------------------------------------
+
+#define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
+
+#include "layer_num.h"
+// enum for layer define sync oryx side
+_Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
+
+// access to voyager system-side flag
+extern keyboard_config_t keyboard_config;
+extern bool is_launching;
+
+// split impl
+#include "fade_matrix.h"
+#include "ime_state_sync.h"
+#include "overlay_layer_mod.h"
+#include "status_led.h"
+
+#include "engram_key_overrides.inc"
+
+// cached now value, update on housekeeping
+static fast_timer_t now_buffer = 0;
+
+static bool lock_scrolling = false;
+
+// auto_mouse_layer_off() only on housekeeping, other set timer
+static fast_timer_t auto_mouse_early_off_trigger = 0;
+static fast_timer_t auto_mouse_count_reset_trigger = 0;
+
+// 0 to 7 = left, 8 to 15 = right, button 8 count
+static const fast_timer_t btn_early_off_delay[16] = {
+  AUTO_MOUSE_TIME_LONG,  AUTO_MOUSE_TIME_LONG,  AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT,
+  AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT,
+  AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT,
+  AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT
+};
+
+// reset from housekeeping
+static total_mouse_movement_t auto_mouse_total_move = {
+  .x = 0,
+  .y = 0,
+  .h = 0,
+  .v = 0,
+};
+
+// mouse status delayed display
+static bool set_scrolling_delayed = false;
+static bool navigator_turbo_delayed = false;
+static bool navigator_aim_delayed = false;
+
+static fast_timer_t mouse_flag_update_trigger = 0;
+
+bool get_mouse_flag_scrolling(void) {
+  return set_scrolling_delayed;
+}
+
+bool get_mouse_flag_turbo(void) {
+  return navigator_turbo_delayed;
+}
+
+bool get_mouse_flag_aim(void) {
+  return navigator_aim_delayed;
+}
+
+static void activate_mouse_flag(const fast_timer_t now, const keyrecord_t * const record) {
+  if (record->event.pressed) {
+    mouse_flag_update_trigger = now + TAPPING_TERM;
+  } else {
+    mouse_flag_update_trigger = now + 1;
+  }
+  return;
+}
+
+static void update_mouse_flag(const fast_timer_t now) {
+  if (timer_expired_fast(now, mouse_flag_update_trigger) == false) return;
+  mouse_flag_update_trigger = now + (UINT32_MAX / 2) - 1;
+  
+  // update
+  set_scrolling_delayed = set_scrolling;
+  navigator_turbo_delayed = navigator_turbo;
+  navigator_aim_delayed = navigator_aim;
+  
+  if (get_mouse_flag_scrolling()) {
+    status_led(now, 0b0100, led_pattern_on);
+  } else {
+    status_led(now, 0b0100, led_pattern_off);
+  }
+    
+  if (get_mouse_flag_turbo()) {
+    status_led(now, 0b0001, led_pattern_on);
+  } else {
+    status_led(now, 0b0001, led_pattern_off);
+  }
+    
+  if (get_mouse_flag_aim()) {
+    status_led(now, 0b0010, led_pattern_on);
+  } else {
+    status_led(now, 0b0010, led_pattern_off);
+  }
+  return;
 }
 
 // -----------------------------------------------------------------------------
