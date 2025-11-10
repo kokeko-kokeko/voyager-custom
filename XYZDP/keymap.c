@@ -312,7 +312,6 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
 //
 // -----------------------------------------------------------------------------
 
-
 extern bool set_scrolling;
 extern bool navigator_turbo;
 extern bool navigator_aim;
@@ -332,6 +331,8 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
   }
   return true;
 }
+
+
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
