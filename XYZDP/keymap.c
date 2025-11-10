@@ -286,6 +286,24 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
   return true;
 }
 
+#define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
+
+#include "layer_num.h"
+// enum for layer define sync oryx side
+_Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
+
+// access to voyager system-side flag
+extern keyboard_config_t keyboard_config;
+extern bool is_launching;
+
+// split impl
+#include "fade_matrix.h"
+#include "ime_state_sync.h"
+#include "overlay_layer_mod.h"
+#include "status_led.h"
+
+#include "engram_key_overrides.inc"
+
 // split process_record, return false, break
 static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
 static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record);
@@ -794,23 +812,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //
 // -----------------------------------------------------------------------------
 
-#define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
 
-#include "layer_num.h"
-// enum for layer define sync oryx side
-_Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
-
-// access to voyager system-side flag
-extern keyboard_config_t keyboard_config;
-extern bool is_launching;
-
-// split impl
-#include "fade_matrix.h"
-#include "ime_state_sync.h"
-#include "overlay_layer_mod.h"
-#include "status_led.h"
-
-#include "engram_key_overrides.inc"
 
 // cached now value, update on housekeeping
 static fast_timer_t now_buffer = 0;
