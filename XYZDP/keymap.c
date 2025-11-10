@@ -359,10 +359,6 @@ static bool navigator_aim_delayed = false;
 
 static fast_timer_t mouse_flag_update_trigger = 0;
 
-//bool get_mouse_flag_scrolling(void);
-//bool get_mouse_flag_turbo(void);
-//bool get_mouse_flag_aim(void);
-
 bool get_mouse_flag_scrolling(void) {
   return set_scrolling_delayed;
 }
@@ -412,7 +408,6 @@ static void update_mouse_flag(const fast_timer_t now) {
   }
   return;
 }
-
 
 // -----------------------------------------------------------------------------
 //
