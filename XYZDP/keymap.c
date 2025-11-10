@@ -359,20 +359,60 @@ static bool navigator_aim_delayed = false;
 
 static fast_timer_t mouse_flag_update_trigger = 0;
 
-bool get_mouse_flag_scrolling(void);
-bool get_mouse_flag_turbo(void);
-bool get_mouse_flag_aim(void);
+//bool get_mouse_flag_scrolling(void);
+//bool get_mouse_flag_turbo(void);
+//bool get_mouse_flag_aim(void);
 
-// delayd 0->1
 bool get_mouse_flag_scrolling(void) {
-  return (set_scrolling && set_scrolling_delayed);
+  return set_scrolling_delayed;
 }
+
 bool get_mouse_flag_turbo(void) {
-  return (navigator_turbo && navigator_turbo_delayed);
+  return navigator_turbo_delayed;
 }
+
 bool get_mouse_flag_aim(void) {
-  return (navigator_aim && navigator_aim_delayed);
+  return navigator_aim_delayed;
 }
+
+static void activate_mouse_flag(const fast_timer_t now, const keyrecord_t * const record) {
+  if (record->event.pressed) {
+    mouse_flag_update_trigger = now_buffer + TAPPING_TERM;
+  } else {
+    mouse_flag_update_trigger = now_buffer + 1;
+  }
+  return;
+}
+
+static void update_mouse_flag(const fast_timer_t now) {
+  if (timer_expired_fast(now_buffer, mouse_flag_update_trigger) == false) return;
+  mouse_flag_update_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+  
+  // update
+  set_scrolling_delayed = set_scrolling;
+  navigator_turbo_delayed = navigator_turbo;
+  navigator_aim_delayed = navigator_aim;
+  
+  if (get_mouse_flag_scrolling()) {
+    status_led(now_buffer, 0b0100, led_pattern_on);
+  } else {
+    status_led(now_buffer, 0b0100, led_pattern_off);
+  }
+    
+  if (get_mouse_flag_turbo()) {
+    status_led(now_buffer, 0b0001, led_pattern_on);
+  } else {
+    status_led(now_buffer, 0b0001, led_pattern_off);
+  }
+    
+  if (get_mouse_flag_aim()) {
+    status_led(now_buffer, 0b0010, led_pattern_on);
+  } else {
+    status_led(now_buffer, 0b0010, led_pattern_off);
+  }
+  return;
+}
+
 
 // -----------------------------------------------------------------------------
 //
@@ -1154,12 +1194,13 @@ static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record)
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
-    mouse_flag_update_trigger = now_buffer + TAPPING_TERM;
   } else {
     set_scrolling = false;
     set_auto_mouse_enable(true);
-    mouse_flag_update_trigger = now_buffer + 1;
   }
+  
+  activate_mouse_flag(now_buffer, record);
+  
   return;
 }
 
@@ -1171,12 +1212,13 @@ static void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record)
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
-    mouse_flag_update_trigger = now_buffer + TAPPING_TERM;
   } else {
     set_scrolling = false;
     set_auto_mouse_enable(true);
-    mouse_flag_update_trigger = now_buffer + 1;
   }
+  
+  activate_mouse_flag(now_buffer, record);
+  
   return;
 }
 
@@ -1251,8 +1293,6 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
     press_time = record->event.time;
     // early trigger reset on auto_mouse_activation
     set_scrolling = true;
-
-    mouse_flag_update_trigger = now_buffer + TAPPING_TERM;
   } else {
     if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
@@ -1298,8 +1338,10 @@ static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *r
       navigator_turbo = false;
       navigator_aim = false;
     }
-    mouse_flag_update_trigger = now_buffer + 1;
   }
+  
+  activate_mouse_flag(now_buffer, record);
+  
   return;
 }
 
@@ -1314,8 +1356,6 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
     press_time = record->event.time;
     // early trigger reset on auto_mouse_activation
     set_scrolling = true;
-
-    mouse_flag_update_trigger = now_buffer + TAPPING_TERM;
   } else {
     if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
       //tap
@@ -1364,8 +1404,10 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
       navigator_aim = false;
 
     }
-    mouse_flag_update_trigger = now_buffer + 1;
   }
+  
+  activate_mouse_flag(now_buffer, record);
+  
   return;
 }
 
@@ -1667,6 +1709,8 @@ void housekeeping_task_user(void) {
   update_ime_state_sync(now_buffer);
   update_status_led(now_buffer);
 
+  update_mouse_flag(now_buffer); 
+
   if (timer_expired_fast(now_buffer, auto_mouse_early_off_trigger)) {
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     
@@ -1687,33 +1731,6 @@ void housekeeping_task_user(void) {
     auto_mouse_layer_off();
 
     mouse_flag_update_trigger = now_buffer + 1;
-  }
-
-  if (timer_expired_fast(now_buffer, mouse_flag_update_trigger)) {
-    mouse_flag_update_trigger = now_buffer + (UINT32_MAX / 2) - 1;
-
-    // update
-    set_scrolling_delayed = set_scrolling;
-    navigator_turbo_delayed = navigator_turbo;
-    navigator_aim_delayed = navigator_aim;
-
-    if (get_mouse_flag_scrolling()) {
-      status_led(now_buffer, 0b0100, led_pattern_on);
-    } else {
-      status_led(now_buffer, 0b0100, led_pattern_off);
-    }
-    
-    if (get_mouse_flag_turbo()) {
-      status_led(now_buffer, 0b0001, led_pattern_on);
-    } else {
-      status_led(now_buffer, 0b0001, led_pattern_off);
-    }
-    
-    if (get_mouse_flag_aim()) {
-      status_led(now_buffer, 0b0010, led_pattern_on);
-    } else {
-      status_led(now_buffer, 0b0010, led_pattern_off);
-    }
   }
   
   return;
