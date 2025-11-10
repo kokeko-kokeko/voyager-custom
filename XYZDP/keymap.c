@@ -1419,7 +1419,7 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
 // -----------------------------------------------------------------------------
 //
 //
-// GitHub C implementation additional
+// GitHub C QMK callback definition
 //
 //
 // -----------------------------------------------------------------------------
