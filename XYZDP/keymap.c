@@ -377,16 +377,16 @@ bool get_mouse_flag_aim(void) {
 
 static void activate_mouse_flag(const fast_timer_t now, const keyrecord_t * const record) {
   if (record->event.pressed) {
-    mouse_flag_update_trigger = now_buffer + TAPPING_TERM;
+    mouse_flag_update_trigger = now + TAPPING_TERM;
   } else {
-    mouse_flag_update_trigger = now_buffer + 1;
+    mouse_flag_update_trigger = now + 1;
   }
   return;
 }
 
 static void update_mouse_flag(const fast_timer_t now) {
-  if (timer_expired_fast(now_buffer, mouse_flag_update_trigger) == false) return;
-  mouse_flag_update_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+  if (timer_expired_fast(now, mouse_flag_update_trigger) == false) return;
+  mouse_flag_update_trigger = now + (UINT32_MAX / 2) - 1;
   
   // update
   set_scrolling_delayed = set_scrolling;
@@ -394,21 +394,21 @@ static void update_mouse_flag(const fast_timer_t now) {
   navigator_aim_delayed = navigator_aim;
   
   if (get_mouse_flag_scrolling()) {
-    status_led(now_buffer, 0b0100, led_pattern_on);
+    status_led(now, 0b0100, led_pattern_on);
   } else {
-    status_led(now_buffer, 0b0100, led_pattern_off);
+    status_led(now, 0b0100, led_pattern_off);
   }
     
   if (get_mouse_flag_turbo()) {
-    status_led(now_buffer, 0b0001, led_pattern_on);
+    status_led(now, 0b0001, led_pattern_on);
   } else {
-    status_led(now_buffer, 0b0001, led_pattern_off);
+    status_led(now, 0b0001, led_pattern_off);
   }
     
   if (get_mouse_flag_aim()) {
-    status_led(now_buffer, 0b0010, led_pattern_on);
+    status_led(now, 0b0010, led_pattern_on);
   } else {
-    status_led(now_buffer, 0b0010, led_pattern_off);
+    status_led(now, 0b0010, led_pattern_off);
   }
   return;
 }
