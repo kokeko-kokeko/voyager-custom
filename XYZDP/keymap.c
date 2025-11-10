@@ -265,27 +265,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-
-extern bool set_scrolling;
-extern bool navigator_turbo;
-extern bool navigator_aim;
-void pointing_device_init_user(void) {
-  set_auto_mouse_enable(true);
-}
-
-bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
-  // Treat all keys as mouse keys when in the automouse layer so that any key set resets the timeout without leaving the layer.
-  if (!layer_state_is(AUTO_MOUSE_TARGET_LAYER)){
-    // When depressing a mouse key with a LT key at the same time, the mouse key tracker is not decremented.
-    // This is a workaround to fix that
-    if (IS_MOUSE_KEYCODE(keycode) && !record->event.pressed) {
-      return true;
-    }
-    return false;
-  }
-  return true;
-}
-
 // -----------------------------------------------------------------------------
 //
 //
@@ -310,8 +289,6 @@ extern bool is_launching;
 #include "overlay_layer_mod.h"
 #include "status_led.h"
 
-#include "engram_key_overrides.inc"
-
 // split process_record, return false, break
 static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
 static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record);
@@ -334,6 +311,28 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
 //
 //
 // -----------------------------------------------------------------------------
+
+
+extern bool set_scrolling;
+extern bool navigator_turbo;
+extern bool navigator_aim;
+void pointing_device_init_user(void) {
+  set_auto_mouse_enable(true);
+}
+
+bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
+  // Treat all keys as mouse keys when in the automouse layer so that any key set resets the timeout without leaving the layer.
+  if (!layer_state_is(AUTO_MOUSE_TARGET_LAYER)){
+    // When depressing a mouse key with a LT key at the same time, the mouse key tracker is not decremented.
+    // This is a workaround to fix that
+    if (IS_MOUSE_KEYCODE(keycode) && !record->event.pressed) {
+      return true;
+    }
+    return false;
+  }
+  return true;
+}
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -815,12 +814,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // -----------------------------------------------------------------------------
 //
 //
-// GitHub C additional
+// GitHub C additional definition
 //
 //
 // -----------------------------------------------------------------------------
 
-
+#include "engram_key_overrides.inc"
 
 // cached now value, update on housekeeping
 static fast_timer_t now_buffer = 0;
