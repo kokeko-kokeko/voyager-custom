@@ -64,9 +64,8 @@
 
 #define FLOW_TAP_TERM 199
 
-#ifndef USE_CIE1931_CURVE
-  #define USE_CIE1931_CURVE
-#endif
+#undef USE_CIE1931_CURVE
+#define USE_CIE1931_CURVE
 
 // user impl RGB timeout, disable system side
 #undef RGB_MATRIX_TIMEOUT
