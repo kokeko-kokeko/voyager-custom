@@ -849,6 +849,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //
 // -----------------------------------------------------------------------------
 
+// remove oryx i18n defane
 #include "i18n_undef.inc"
 
 #include "engram_key_overrides.inc"
