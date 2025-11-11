@@ -3,3 +3,14 @@
 #define JP_LCBR S(KC_RBRC)
 #define JP_PIPE S(KC_INT3)
 #define JP_EQL S(KC_MINS)
+#define JP_TILD S(KC_EQL)
+#define JP_PLUS S(KC_SCLN)
+#define JP_RBRC KC_NUHS
+#define JP_CIRC KC_EQL
+#define JP_AMPR S(KC_6)
+#define JP_ASTR S(KC_QUOT)
+#define JP_RCBR S(KC_NUHS)
+#define JP_LPRN S(KC_8)
+#define JP_UNDS S(KC_INT1)
+#define JP_RPRN S(KC_9)
+#define JP_COLN KC_QUOT
