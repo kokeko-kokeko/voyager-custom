@@ -849,6 +849,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //
 // -----------------------------------------------------------------------------
 
+#include "i18n_undef.inc"
+
 #include "engram_key_overrides.inc"
 
 // cached now value, update on housekeeping
