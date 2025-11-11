@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "i18n.h"
 #define MOON_LED_LEVEL LED_LEVEL
 #ifndef ZSA_SAFE_RANGE
 #define ZSA_SAFE_RANGE SAFE_RANGE
@@ -53,32 +54,32 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(3, KC_Y)
-#define DUAL_FUNC_1 LT(9, KC_F19)
-#define DUAL_FUNC_2 LT(11, KC_F7)
-#define DUAL_FUNC_3 LT(15, KC_F6)
-#define DUAL_FUNC_4 LT(8, KC_F22)
-#define DUAL_FUNC_5 LT(13, KC_D)
-#define DUAL_FUNC_6 LT(2, KC_F2)
-#define DUAL_FUNC_7 LT(8, KC_F4)
-#define DUAL_FUNC_8 LT(5, KC_R)
-#define DUAL_FUNC_9 LT(12, KC_J)
-#define DUAL_FUNC_10 LT(11, KC_I)
-#define DUAL_FUNC_11 LT(5, KC_P)
-#define DUAL_FUNC_12 LT(8, KC_3)
-#define DUAL_FUNC_13 LT(6, KC_G)
-#define DUAL_FUNC_14 LT(8, KC_4)
-#define DUAL_FUNC_15 LT(4, KC_F3)
-#define DUAL_FUNC_16 LT(14, KC_W)
-#define DUAL_FUNC_17 LT(14, KC_7)
-#define DUAL_FUNC_18 LT(15, KC_F24)
-#define DUAL_FUNC_19 LT(12, KC_5)
-#define DUAL_FUNC_20 LT(7, KC_F1)
-#define DUAL_FUNC_21 LT(2, KC_F14)
+#define DUAL_FUNC_0 LT(9, KC_F14)
+#define DUAL_FUNC_1 LT(9, KC_F21)
+#define DUAL_FUNC_2 LT(1, KC_S)
+#define DUAL_FUNC_3 LT(14, KC_A)
+#define DUAL_FUNC_4 LT(8, KC_9)
+#define DUAL_FUNC_5 LT(2, KC_O)
+#define DUAL_FUNC_6 LT(13, KC_F13)
+#define DUAL_FUNC_7 LT(13, KC_V)
+#define DUAL_FUNC_8 LT(7, KC_F)
+#define DUAL_FUNC_9 LT(3, KC_F12)
+#define DUAL_FUNC_10 LT(2, KC_W)
+#define DUAL_FUNC_11 LT(4, KC_X)
+#define DUAL_FUNC_12 LT(9, KC_G)
+#define DUAL_FUNC_13 LT(2, KC_Y)
+#define DUAL_FUNC_14 LT(10, KC_F21)
+#define DUAL_FUNC_15 LT(11, KC_Y)
+#define DUAL_FUNC_16 LT(2, KC_S)
+#define DUAL_FUNC_17 LT(11, KC_F1)
+#define DUAL_FUNC_18 LT(3, KC_F)
+#define DUAL_FUNC_19 LT(8, KC_Q)
+#define DUAL_FUNC_20 LT(1, KC_R)
+#define DUAL_FUNC_21 LT(6, KC_Z)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    KC_LBRC,        KC_1,           KC_Y,           KC_O,           KC_U,           KC_2,                                           KC_3,           KC_D,           KC_N,           KC_G,           KC_SLASH,       CW_TOGG,        
+    JP_AT,          KC_1,           KC_Y,           KC_O,           KC_U,           KC_2,                                           KC_3,           KC_D,           KC_N,           KC_G,           KC_SLASH,       CW_TOGG,        
     LT(8, KC_B),    MT(MOD_LGUI, KC_H),MT(MOD_LALT, KC_I),MT(MOD_LSFT, KC_A),MT(MOD_LCTL, KC_E),KC_COMMA,                                       KC_DOT,         MT(MOD_RCTL, KC_T),MT(MOD_RSFT, KC_R),MT(MOD_RALT, KC_S),MT(MOD_RGUI, KC_C),LT(9, KC_V),    
     MT(MOD_LCTL, KC_Z),MT(MOD_LCTL, KC_K),MT(MOD_LSFT, KC_J),KC_X,           KC_W,           KC_MINUS,                                       KC_4,           KC_M,           KC_L,           MT(MOD_RSFT, KC_F),MT(MOD_RCTL, KC_P),MT(MOD_RCTL, KC_Q),
     KC_LEFT_SHIFT,  KC_LEFT,        KC_RIGHT,       KC_BSPC,        LT(4, KC_SPACE),KC_LANGUAGE_2,                                  LT(3, KC_LANGUAGE_1),LT(6, KC_SPACE),KC_DELETE,      KC_UP,          KC_DOWN,        KC_RIGHT_SHIFT, 
