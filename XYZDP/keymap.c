@@ -1225,7 +1225,7 @@ static bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
 }
 
 static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record) {
-  if (keycode != LT(L_Number, KC_SPACE)) return;
+  if ((keycode != LT(L_Number, KC_SPACE)) && (keycode != LT(L_Number, KC_BSPC))) return;
 
   if (record->event.pressed) {
     set_scrolling = true;
@@ -1243,7 +1243,7 @@ static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record)
 }
 
 static void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record) {
-  if (keycode != LT(L_Cursor, KC_SPACE)) return;
+  if ((keycode != LT(L_Cursor, KC_ESCAPE)) && (keycode != LT(L_Cursor, KC_SPACE))) return;
 
   if (record->event.pressed) {
     set_scrolling = true;
