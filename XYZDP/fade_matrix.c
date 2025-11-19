@@ -639,23 +639,32 @@ void set_layer_color_mouse_map(void) {
   
   // scroll
   if (get_mouse_flag_scrolling()) {
-    rgb_matrix_set_color( 1, f, 0, 0);
+    if (get_mouse_flag_turbo() && get_mouse_flag_aim()) {
+      rgb_matrix_set_color(0, f, f, 0);
+    } else if (get_mouse_flag_turbo()) {
+      rgb_matrix_set_color(0, f, h, 0);
+    } else if (get_mouse_flag_aim()) {
+      rgb_matrix_set_color(0, 0, f, h);
+    } else {
+      rgb_matrix_set_color(0, 0, h, f);
+    }
+    
     rgb_matrix_set_color(22, h, 0, 0);
     rgb_matrix_set_color(45, h, 0, 0);
     rgb_matrix_set_color(50, h, 0, 0);
   } else {
+    if (get_mouse_flag_turbo() && get_mouse_flag_aim()) {
+      rgb_matrix_set_color(0, f, f, f);
+    } else if (get_mouse_flag_turbo()) {
+      rgb_matrix_set_color(0, f, 0, 0);
+    } else if (get_mouse_flag_aim()) {
+      rgb_matrix_set_color(0, 0, f, 0);
+    } else {
+      rgb_matrix_set_color(0, 0, 0, f);
+    }
+    
     rgb_matrix_set_color(22, h, h, h);
     rgb_matrix_set_color(45, h, h, h);
     rgb_matrix_set_color(50, h, h, h);
-  }
-
-  if (get_mouse_flag_turbo() && get_mouse_flag_aim()) {
-    rgb_matrix_set_color(0, f, f, 0);
-  } else if (get_mouse_flag_turbo()) {
-    rgb_matrix_set_color(0, f, 0, 0);
-  } else if (get_mouse_flag_aim()) {
-    rgb_matrix_set_color(0, 0, f, 0);
-  } else {
-    rgb_matrix_set_color(0, 0, 0, f);
   }
 }
