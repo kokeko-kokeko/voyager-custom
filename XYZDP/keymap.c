@@ -1245,8 +1245,10 @@ static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record)
 }
 
 static void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record) {
-  if ((keycode != LT(L_Cursor, KC_ESCAPE)) && (keycode != LT(L_Cursor, KC_SPACE))) return;
-
+  //if ((keycode != LT(L_Cursor, KC_ESCAPE)) && (keycode != LT(L_Cursor, KC_SPACE))) return;
+  if (IS_QK_LAYER_TAP(keycode) == false) return;
+  if (QK_LAYER_TAP_GET_LAYER(keycode) != (uint8_t)L_Cursor) return;
+  
   if (record->event.pressed) {
     set_scrolling = true;
     if (is_auto_mouse_active() == false) {
