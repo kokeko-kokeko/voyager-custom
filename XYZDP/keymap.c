@@ -1232,7 +1232,7 @@ static bool press_lt_number_right = false;
 static bool press_lt_cursor_left = false;
 static bool press_lt_cursor_right = false;
 
-static vocd calc_update_lt_scrolling(void) {
+static void calc_update_lt_scrolling(void) {
   bool scrolling_flag = false;
 
   // calc OR flag
