@@ -289,6 +289,7 @@ extern bool is_launching;
 #include "status_led.h"
 
 // split process_record, return false, break
+// declaration berofe process_record
 static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
 static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record);
 static bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrecord_t *record);
