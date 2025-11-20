@@ -1232,10 +1232,10 @@ static bool press_lt_number_right = false;
 static bool press_lt_cursor_left = false;
 static bool press_lt_cursor_right = false;
 
-static viod update_lt_scrolling(void) {
+static vocd calc_update_lt_scrolling(void) {
   bool scrolling_flag = false;
 
-  // calc or
+  // calc OR flag
   scrolling_flag = scrolling_flag || press_lt_function_left;
   scrolling_flag = scrolling_flag || press_lt_function_right;
   scrolling_flag = scrolling_flag || press_lt_number_left;
@@ -1265,7 +1265,7 @@ static void post_process_record_lt_function(uint16_t keycode, keyrecord_t *recor
     // right
     press_lt_function_right = record->event.pressed;;
   }
-  update_lt_scrolling();
+  calc_update_lt_scrolling();
   
   activate_mouse_flag(now_buffer, record);
   
@@ -1283,7 +1283,7 @@ static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record)
     // right
     press_lt_number_right = record->event.pressed;;
   }
-  update_lt_scrolling();
+  calc_update_lt_scrolling();
   
   activate_mouse_flag(now_buffer, record);
   
@@ -1301,7 +1301,7 @@ static void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record)
     // right
     press_lt_cursor_right = record->event.pressed;;
   }
-  update_lt_scrolling();
+  calc_update_lt_scrolling();
   
   activate_mouse_flag(now_buffer, record);
   
