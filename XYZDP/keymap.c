@@ -1263,7 +1263,7 @@ static void post_process_record_lt_function(uint16_t keycode, keyrecord_t *recor
     press_lt_function_left = record->event.pressed;
   } else {
     // right
-    press_lt_function_right = record->event.pressed;;
+    press_lt_function_right = record->event.pressed;
   }
   calc_update_lt_scrolling();
   
@@ -1281,7 +1281,7 @@ static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record)
     press_lt_number_left = record->event.pressed;
   } else {
     // right
-    press_lt_number_right = record->event.pressed;;
+    press_lt_number_right = record->event.pressed;
   }
   calc_update_lt_scrolling();
   
@@ -1299,7 +1299,7 @@ static void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record)
     press_lt_cursor_left = record->event.pressed;
   } else {
     // right
-    press_lt_cursor_right = record->event.pressed;;
+    press_lt_cursor_right = record->event.pressed;
   }
   calc_update_lt_scrolling();
   
