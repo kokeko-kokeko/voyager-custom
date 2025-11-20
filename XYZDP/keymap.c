@@ -1252,8 +1252,6 @@ static viod update_lt_scrolling(void) {
     set_scrolling = false;
     set_auto_mouse_enable(true);
   }
-  
-  //activate_mouse_flag(now_buffer, record);
 }
 
 static void post_process_record_lt_function(uint16_t keycode, keyrecord_t *record) {
@@ -1267,7 +1265,6 @@ static void post_process_record_lt_function(uint16_t keycode, keyrecord_t *recor
     // right
     press_lt_function_right = record->event.pressed;;
   }
-
   update_lt_scrolling();
   
   activate_mouse_flag(now_buffer, record);
@@ -1286,7 +1283,6 @@ static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record)
     // right
     press_lt_number_right = record->event.pressed;;
   }
-
   update_lt_scrolling();
   
   activate_mouse_flag(now_buffer, record);
@@ -1305,7 +1301,6 @@ static void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record)
     // right
     press_lt_cursor_right = record->event.pressed;;
   }
-
   update_lt_scrolling();
   
   activate_mouse_flag(now_buffer, record);
