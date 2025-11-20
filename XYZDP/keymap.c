@@ -296,13 +296,13 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
 static bool process_record_mouse(uint16_t keycode, keyrecord_t *record);
 
 // split post_process_record not break, overwrite after function
-static void post_process_record_lt_function(uint16_t keycode, keyrecord_t *record);
-static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record);
-static void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record);
-static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record);
-static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *record);
-static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *record);
-static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *record);
+//static void post_process_record_lt_function(uint16_t keycode, keyrecord_t *record);
+//static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record);
+//static void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record);
+//static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record);
+//static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *record);
+//static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *record);
+//static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *record);
 
 // -----------------------------------------------------------------------------
 //
@@ -941,7 +941,7 @@ static void update_mouse_flag(const fast_timer_t now) {
 // -----------------------------------------------------------------------------
 //
 //
-// Split keymap impl
+// Split keymap process_record impl
 //
 //
 // -----------------------------------------------------------------------------
@@ -1224,6 +1224,14 @@ static bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
   
   return true;
 }
+
+// -----------------------------------------------------------------------------
+//
+//
+// Split keymap post_process_record impl, not break, overwrite after function
+//
+//
+// -----------------------------------------------------------------------------
 
 static void post_process_record_lt_function(uint16_t keycode, keyrecord_t *record) {
   if (IS_QK_LAYER_TAP(keycode) == false) return;
