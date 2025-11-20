@@ -296,6 +296,7 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
 static bool process_record_mouse(uint16_t keycode, keyrecord_t *record);
 
 // split post_process_record not break, overwrite after function
+static void post_process_record_lt_function(uint16_t keycode, keyrecord_t *record);
 static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record);
 static void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record);
 static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record);
@@ -1224,8 +1225,26 @@ static bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+static void post_process_record_lt_function(uint16_t keycode, keyrecord_t *record) {
+  if (IS_QK_LAYER_TAP(keycode) == false) return;
+  if (QK_LAYER_TAP_GET_LAYER(keycode) != (uint8_t)L_Function) return;
+  
+  if (record->event.pressed) {
+    set_scrolling = true;
+    if (is_auto_mouse_active() == false) {
+      set_auto_mouse_enable(false);
+    }
+  } else {
+    set_scrolling = false;
+    set_auto_mouse_enable(true);
+  }
+  
+  activate_mouse_flag(now_buffer, record);
+  
+  return;
+}
+
 static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record) {
-  //if ((keycode != LT(L_Number, KC_SPACE)) && (keycode != LT(L_Number, KC_BSPC))) return;
   if (IS_QK_LAYER_TAP(keycode) == false) return;
   if (QK_LAYER_TAP_GET_LAYER(keycode) != (uint8_t)L_Number) return;
   
@@ -1245,7 +1264,6 @@ static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record)
 }
 
 static void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record) {
-  //if ((keycode != LT(L_Cursor, KC_ESCAPE)) && (keycode != LT(L_Cursor, KC_SPACE))) return;
   if (IS_QK_LAYER_TAP(keycode) == false) return;
   if (QK_LAYER_TAP_GET_LAYER(keycode) != (uint8_t)L_Cursor) return;
   
@@ -1694,6 +1712,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   
   // split post_process_record not break, overwrite after function
+  post_process_record_lt_function(keycode, record);
   post_process_record_lt_number(keycode, record);
   post_process_record_lt_cursor(keycode, record);
   post_process_record_non_mouse(keycode, record);
