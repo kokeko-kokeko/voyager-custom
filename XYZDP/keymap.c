@@ -1226,6 +1226,8 @@ static bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
 // -----------------------------------------------------------------------------
 
 static void post_process_record_layer_scrolling(uint16_t keycode, keyrecord_t *record) {
+  //if (IS_QK_LAYER_TAP(keycode) == false) return;
+  //if (QK_LAYER_TAP_GET_LAYER(keycode) != (uint8_t)L_Function) return;
   // layer or
   bool scrolling_flag = false;
   scrolling_flag = scrolling_flag || layer_state_is(L_Function);
@@ -1244,6 +1246,17 @@ static void post_process_record_layer_scrolling(uint16_t keycode, keyrecord_t *r
   
   activate_mouse_flag(now_buffer, record);
   
+  return;
+}
+
+static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record) {
+  if (IS_MOUSEKEY(keycode) == true) return;
+  
+  if (record->event.pressed == false) {
+    // non-mouse key release, exit 
+    auto_mouse_early_off_trigger = now_buffer + 1;
+  } 
+
   return;
 }
 
