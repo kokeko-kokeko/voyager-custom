@@ -1219,7 +1219,7 @@ static bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
 // -----------------------------------------------------------------------------
 //
 //
-// Split keymap post_process_record impl, not break, overwrite after function
+// Split keymap post_process_record impl & declaration, not break, overwrite after function
 //
 //
 // -----------------------------------------------------------------------------
