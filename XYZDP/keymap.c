@@ -1225,11 +1225,25 @@ static bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
 //
 // -----------------------------------------------------------------------------
 
-static void post_process_record_lt_function(uint16_t keycode, keyrecord_t *record) {
-  if (IS_QK_LAYER_TAP(keycode) == false) return;
-  if (QK_LAYER_TAP_GET_LAYER(keycode) != (uint8_t)L_Function) return;
-  
-  if (record->event.pressed) {
+static bool press_lt_function_left = false;
+static bool press_lt_function_right = false;
+static bool press_lt_number_left = false;
+static bool press_lt_number_right = false;
+static bool press_lt_cursor_left = false;
+static bool press_lt_cursor_right = false;
+
+static viod update_lt_scrolling(void) {
+  bool scrolling_flag = false;
+
+  // calc or
+  scrolling_flag = scrolling_flag || press_lt_function_left;
+  scrolling_flag = scrolling_flag || press_lt_function_right;
+  scrolling_flag = scrolling_flag || press_lt_number_left;
+  scrolling_flag = scrolling_flag || press_lt_number_right;
+  scrolling_flag = scrolling_flag || press_lt_cursor_left;
+  scrolling_flag = scrolling_flag || press_lt_cursor_right;
+
+  if (scrolling_flag) {
     set_scrolling = true;
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
@@ -1238,6 +1252,23 @@ static void post_process_record_lt_function(uint16_t keycode, keyrecord_t *recor
     set_scrolling = false;
     set_auto_mouse_enable(true);
   }
+  
+  //activate_mouse_flag(now_buffer, record);
+}
+
+static void post_process_record_lt_function(uint16_t keycode, keyrecord_t *record) {
+  if (IS_QK_LAYER_TAP(keycode) == false) return;
+  if (QK_LAYER_TAP_GET_LAYER(keycode) != (uint8_t)L_Function) return;
+
+  if (record->event.key.row < MATRIX_ROWS / 2) {
+    // left
+    press_lt_function_left = record->event.pressed;
+  } else {
+    // right
+    press_lt_function_right = record->event.pressed;;
+  }
+
+  update_lt_scrolling();
   
   activate_mouse_flag(now_buffer, record);
   
@@ -1248,15 +1279,15 @@ static void post_process_record_lt_number(uint16_t keycode, keyrecord_t *record)
   if (IS_QK_LAYER_TAP(keycode) == false) return;
   if (QK_LAYER_TAP_GET_LAYER(keycode) != (uint8_t)L_Number) return;
   
-  if (record->event.pressed) {
-    set_scrolling = true;
-    if (is_auto_mouse_active() == false) {
-      set_auto_mouse_enable(false);
-    }
+  if (record->event.key.row < MATRIX_ROWS / 2) {
+    // left
+    press_lt_number_left = record->event.pressed;
   } else {
-    set_scrolling = false;
-    set_auto_mouse_enable(true);
+    // right
+    press_lt_number_right = record->event.pressed;;
   }
+
+  update_lt_scrolling();
   
   activate_mouse_flag(now_buffer, record);
   
@@ -1267,15 +1298,15 @@ static void post_process_record_lt_cursor(uint16_t keycode, keyrecord_t *record)
   if (IS_QK_LAYER_TAP(keycode) == false) return;
   if (QK_LAYER_TAP_GET_LAYER(keycode) != (uint8_t)L_Cursor) return;
   
-  if (record->event.pressed) {
-    set_scrolling = true;
-    if (is_auto_mouse_active() == false) {
-      set_auto_mouse_enable(false);
-    }
+  if (record->event.key.row < MATRIX_ROWS / 2) {
+    // left
+    press_lt_cursor_left = record->event.pressed;
   } else {
-    set_scrolling = false;
-    set_auto_mouse_enable(true);
+    // right
+    press_lt_cursor_right = record->event.pressed;;
   }
+
+  update_lt_scrolling();
   
   activate_mouse_flag(now_buffer, record);
   
