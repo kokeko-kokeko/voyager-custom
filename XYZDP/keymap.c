@@ -294,7 +294,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
 static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record);
 static bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrecord_t *record);
 static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record);
-static bool process_record_mouse(uint16_t keycode, keyrecord_t *record);
+static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record);
 
 // -----------------------------------------------------------------------------
 //
@@ -830,7 +830,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (process_record_hsv_0_255_n_setting_map(keycode, record) == false) return false;
   if (process_record_hsv_86_255_n_layer_to(keycode, record) == false) return false;
   if (process_record_hsv_172_255_n_function(keycode, record) == false) return false;
-  if (process_record_mouse(keycode, record) == false) return false;
+  if (process_record_mouse_setting(keycode, record) == false) return false;
   if (process_record_ime_state_sync(keycode, record) == false) return false;
   
   return true;
@@ -1180,7 +1180,7 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
   return true;
 }
 
-static bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
+static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record) {
   if (keycode == NAVIGATOR_TURBO) {
     // empty
     return false;
@@ -1440,7 +1440,7 @@ static layer_state_t layer_state_set_mouse_scrolling(layer_state_t state) {
   return state;
 }
 
-static layer_state_t layer_state_set_mouse_reset(layer_state_t state) {
+static layer_state_t layer_state_set_mouse_enter_exit(layer_state_t state) {
   static bool layer_on = false;
 
   if (layer_on == layer_state_cmp(state, L_Mouse)) return state;
@@ -1578,7 +1578,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = layer_state_set_mouse_cursor(state);
   state = layer_state_set_mouse_halt_mask(state);
   state = layer_state_set_mouse_scrolling(state);
-  state = layer_state_set_mouse_reset(state);
+  state = layer_state_set_mouse_enter_exit(state);
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
