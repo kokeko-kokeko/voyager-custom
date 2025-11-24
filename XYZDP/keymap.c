@@ -1570,7 +1570,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   
   // on mouse, both thumb
   state = update_tri_layer_state(state, L_Mouse_Number, L_Mouse_Cursor, L_Mouse_BothThumb);
-  
+
+  // color speed select
+  state = update_tri_layer_state(state, L_Set_Sat, L_Set_Val, L_Set_Speed);
+
   // ANSI/JIS addiional enable
   state = update_tri_layer_state(state, L_Base_ANSI, L_Number, L_Number_ANSI);
   state = update_tri_layer_state(state, L_Base_ANSI, L_Cursor, L_Cursor_ANSI);
