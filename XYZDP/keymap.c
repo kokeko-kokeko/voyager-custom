@@ -1441,6 +1441,30 @@ static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *r
 // -----------------------------------------------------------------------------
 //
 //
+// Split set layer impl
+//
+//
+// -----------------------------------------------------------------------------
+
+static layer_state_t layer_state_set_mouse_number(layer_state_t state) {
+  return state;
+}
+
+static layer_state_t layer_state_set_mouse_cursor(layer_state_t state) {
+  return state;
+}
+
+static layer_state_t layer_state_set_mouse_scrolling(layer_state_t state) {
+  return state;
+}
+
+static layer_state_t layer_state_set_mouse_reset(layer_state_t state) {
+  return state;
+}
+
+// -----------------------------------------------------------------------------
+//
+//
 // GitHub C QMK callback definition
 //
 //
@@ -1549,6 +1573,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     set_auto_mouse_enable(false);
   }
 
+  // mouse layers
+  state = layer_state_set_mouse_number(state);
+  state = layer_state_set_mouse_cursor(state);
+  state = layer_state_set_mouse_scrolling(state);
+  state = layer_state_set_mouse_reset(state);
+  
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
   
