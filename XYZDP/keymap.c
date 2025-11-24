@@ -1220,7 +1220,10 @@ static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record)
   if (IS_MOUSEKEY(keycode) == true) return;
   if (IS_QK_MOMENTARY(keycode) == true) return;
   
-  if (record->event.pressed == false) {
+  if (record->event.pressed) {
+    // non-mouse key press 
+    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+  } else {
     // non-mouse key release, exit 
     auto_mouse_early_off_trigger = now_buffer + 1;
   } 
@@ -1253,6 +1256,7 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
   
   if (record->event.pressed) {
     btn_press_time[index] = record->event.time;
+    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     // early trigger reset on auto_mouse_activation
   } else {
     if (TIMER_DIFF_16(record->event.time, btn_press_time[index]) < AUTO_MOUSE_DRAG_THRESHOLD) {
@@ -1297,6 +1301,7 @@ static layer_state_t layer_state_set_mouse_number(layer_state_t state) {
   if (layer_on) {
     // entered
     enter_time = now_buffer;
+    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     return state;
   }
 
@@ -1336,7 +1341,7 @@ static layer_state_t layer_state_set_mouse_number(layer_state_t state) {
     last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
     last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
     
-    auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     
     lock_scrolling = false;
     
@@ -1359,6 +1364,7 @@ static layer_state_t layer_state_set_mouse_cursor(layer_state_t state) {
   if (layer_on) {
     // entered
     enter_time = now_buffer;
+    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     return state;
   }
 
@@ -1397,7 +1403,7 @@ static layer_state_t layer_state_set_mouse_cursor(layer_state_t state) {
     last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
     last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
     
-    auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     
     lock_scrolling = false;
     
