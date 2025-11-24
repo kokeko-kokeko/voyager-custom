@@ -1106,12 +1106,23 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
   if (keycode == HSV_86_255_255) {
     if (record->event.pressed) {
       // off all setting layers
-      layer_off(L_Halt_Mask);
-      layer_off(L_Set_Speed);
-      layer_off(L_Set_Val);
-      layer_off(L_Set_Sat);
-      layer_off(L_Set_Hue);
-      layer_off(L_Firmware);
+      //layer_off(L_Halt_Mask);
+      //layer_off(L_Set_Speed);
+      //layer_off(L_Set_Val);
+      //layer_off(L_Set_Sat);
+      //layer_off(L_Set_Hue);
+      //layer_off(L_Firmware);
+
+      layer_state_t mask = 0;
+      mask |= (layer_state_t)1 << L_Halt_Mask;
+      mask |= (layer_state_t)1 << L_Set_Speed;
+      mask |= (layer_state_t)1 << L_Set_Val;
+      mask |= (layer_state_t)1 << L_Set_Sat;
+      mask |= (layer_state_t)1 << L_Set_Hue;
+      mask |= (layer_state_t)1 << L_Firmware;
+      mask = ~mask;
+
+      layer_and(mask);
       
       set_auto_mouse_enable(true);
       
