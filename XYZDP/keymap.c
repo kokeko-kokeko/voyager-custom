@@ -1313,6 +1313,7 @@ static layer_state_t layer_state_set_mouse_number(layer_state_t state) {
   if (layer_on) {
     // entered
     enter_time = now_buffer;
+    activate_mouse_flag(now_buffer, true);
     return state;
   }
 
@@ -1360,6 +1361,7 @@ static layer_state_t layer_state_set_mouse_number(layer_state_t state) {
     navigator_aim = false;
   }
   
+  activate_mouse_flag(now_buffer, false);
   return state;
 }
 
