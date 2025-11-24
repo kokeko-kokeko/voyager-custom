@@ -1114,12 +1114,12 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
       //layer_off(L_Firmware);
 
       layer_state_t mask = 0;
-      mask |= (layer_state_t)1 << L_Halt_Mask;
-      mask |= (layer_state_t)1 << L_Set_Speed;
-      mask |= (layer_state_t)1 << L_Set_Val;
-      mask |= (layer_state_t)1 << L_Set_Sat;
-      mask |= (layer_state_t)1 << L_Set_Hue;
       mask |= (layer_state_t)1 << L_Firmware;
+      mask |= (layer_state_t)1 << L_Set_Hue;
+      mask |= (layer_state_t)1 << L_Set_Sat;
+      mask |= (layer_state_t)1 << L_Set_Val;
+      mask |= (layer_state_t)1 << L_Set_Speed;
+      mask |= (layer_state_t)1 << L_Halt_Mask;
       mask = ~mask;
 
       layer_and(mask);
