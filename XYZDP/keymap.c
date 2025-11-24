@@ -1229,20 +1229,20 @@ static void post_process_record_layer_scrolling(uint16_t keycode, keyrecord_t *r
   //if (IS_QK_LAYER_TAP(keycode) == false) return;
   //if (QK_LAYER_TAP_GET_LAYER(keycode) != (uint8_t)L_Function) return;
   // layer or
-  bool scrolling_flag = false;
-  scrolling_flag = scrolling_flag || layer_state_is(L_Function);
-  scrolling_flag = scrolling_flag || layer_state_is(L_Number);
-  scrolling_flag = scrolling_flag || layer_state_is(L_Cursor);
+  //bool scrolling_flag = false;
+  //scrolling_flag = scrolling_flag || layer_state_is(L_Function);
+  //scrolling_flag = scrolling_flag || layer_state_is(L_Number);
+  //scrolling_flag = scrolling_flag || layer_state_is(L_Cursor);
 
-  if (scrolling_flag) {
-    set_scrolling = true;
-    if (is_auto_mouse_active() == false) {
-      set_auto_mouse_enable(false);
-    }
-  } else {
-    set_scrolling = false;
-    set_auto_mouse_enable(true);
-  }
+  //if (scrolling_flag) {
+  //  set_scrolling = true;
+  //  if (is_auto_mouse_active() == false) {
+  //    set_auto_mouse_enable(false);
+  //  }
+  //} else {
+  //  set_scrolling = false;
+  //  set_auto_mouse_enable(true);
+  //}
   
   activate_mouse_flag(now_buffer, record);
   
@@ -1455,6 +1455,23 @@ static layer_state_t layer_state_set_mouse_cursor(layer_state_t state) {
 }
 
 static layer_state_t layer_state_set_mouse_scrolling(layer_state_t state) {
+  bool scrolling_flag = false;
+  scrolling_flag = scrolling_flag || layer_state_cmp(state, L_Function);
+  scrolling_flag = scrolling_flag || layer_state_cmp(state, L_Number);
+  scrolling_flag = scrolling_flag || layer_state_cmp(state, L_Cursor);
+  scrolling_flag = scrolling_flag || layer_state_cmp(state, L_Mouse_Number);
+  scrolling_flag = scrolling_flag || layer_state_cmp(state, L_Mouse_Cursor);
+  
+  if (scrolling_flag) {
+    set_scrolling = true;
+    if (is_auto_mouse_active() == false) {
+      set_auto_mouse_enable(false);
+    }
+  } else {
+    set_scrolling = false;
+    set_auto_mouse_enable(true);
+  }
+  
   return state;
 }
 
