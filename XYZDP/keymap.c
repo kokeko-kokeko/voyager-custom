@@ -1103,39 +1103,6 @@ static bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrecord_t *
     return false;
   }
   
-  if (keycode == HSV_86_255_202) {
-    if (record->event.pressed) {
-      layer_on(L_Set_Sat);
-      update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
-    }
-    return false;
-  }
-  
-  if (keycode == HSV_86_255_203) {
-    if (record->event.pressed) {
-      layer_on(L_Set_Val);
-      update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
-
-    }
-    return false;
-  }
-
-  if (keycode == HSV_86_255_204) {
-    if (record->event.pressed) {
-      layer_off(L_Set_Sat);
-      update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
-    }
-    return false;
-  }
-  
-  if (keycode == HSV_86_255_205) {
-    if (record->event.pressed) {
-      layer_off(L_Set_Val);
-      update_tri_layer(L_Set_Sat, L_Set_Val, L_Set_Speed);
-    }
-    return false;
-  }
-  
   if (keycode == HSV_86_255_255) {
     if (record->event.pressed) {
       // off all setting layers
