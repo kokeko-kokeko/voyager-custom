@@ -1457,6 +1457,10 @@ static layer_state_t layer_state_set_mouse_reset(layer_state_t state) {
 
   if (layer_on) {
     // entered
+    
+    // wakeup RGB
+    activate_fade_matrix(now_buffer);
+    
     return state;
   }
 
