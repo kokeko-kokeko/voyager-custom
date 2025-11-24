@@ -1226,24 +1226,6 @@ static bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
 // -----------------------------------------------------------------------------
 
 static void post_process_record_layer_scrolling(uint16_t keycode, keyrecord_t *record) {
-  //if (IS_QK_LAYER_TAP(keycode) == false) return;
-  //if (QK_LAYER_TAP_GET_LAYER(keycode) != (uint8_t)L_Function) return;
-  // layer or
-  //bool scrolling_flag = false;
-  //scrolling_flag = scrolling_flag || layer_state_is(L_Function);
-  //scrolling_flag = scrolling_flag || layer_state_is(L_Number);
-  //scrolling_flag = scrolling_flag || layer_state_is(L_Cursor);
-
-  //if (scrolling_flag) {
-  //  set_scrolling = true;
-  //  if (is_auto_mouse_active() == false) {
-  //    set_auto_mouse_enable(false);
-  //  }
-  //} else {
-  //  set_scrolling = false;
-  //  set_auto_mouse_enable(true);
-  //}
-  
   activate_mouse_flag(now_buffer, record);
   
   return;
@@ -1305,135 +1287,6 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
       auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     }
   }
-  
-  return;
-}
-
-static void post_process_record_mo_mouse_number(uint16_t keycode, keyrecord_t *record) {
-  static uint16_t press_time = 0;
-  static fast_timer_t last_1_tap_time = 0;
-  static fast_timer_t last_2_tap_time = 0;
-  
-  if (keycode != MO(L_Mouse_Number)) return;
-
-  if (record->event.pressed) {
-    press_time = record->event.time;
-    // early trigger reset on auto_mouse_activation
-    set_scrolling = true;
-  } else {
-    if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
-      //tap
-      if (TIMER_DIFF_FAST(now_buffer, last_2_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
-        // 3 tap
-        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-
-        lock_scrolling = true;
-        
-        navigator_turbo = true;
-      } else if (TIMER_DIFF_FAST(now_buffer, last_1_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
-        //2 tap
-        last_2_tap_time = now_buffer;
-
-        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-        
-        lock_scrolling = true;
-      } else {
-        //1 tap
-        last_1_tap_time = now_buffer;
-        
-        if (lock_scrolling) {
-          auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-        } else {
-          auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
-        }
-
-        set_scrolling = false;
-        lock_scrolling = false;
-
-        navigator_turbo = false;
-      }
-    } else {
-      // drag, reset all
-      last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
-      last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
-      
-      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-      
-      set_scrolling = false;
-      lock_scrolling = false;
-
-      navigator_turbo = false;
-      navigator_aim = false;
-    }
-  }
-  
-  activate_mouse_flag(now_buffer, record);
-  
-  return;
-}
-
-static void post_process_record_mo_mouse_cursor(uint16_t keycode, keyrecord_t *record) {
-  static uint16_t press_time = 0;
-  static fast_timer_t last_1_tap_time = 0;
-  static fast_timer_t last_2_tap_time = 0;
-  
-  if (keycode != MO(L_Mouse_Cursor)) return;
-
-  if (record->event.pressed) {
-    press_time = record->event.time;
-    // early trigger reset on auto_mouse_activation
-    set_scrolling = true;
-  } else {
-    if (TIMER_DIFF_16(record->event.time, press_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
-      //tap
-      if (TIMER_DIFF_FAST(now_buffer, last_2_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
-        // 3 tap
-        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-        
-        navigator_turbo = true;
-        navigator_aim = false;
-      } else if (TIMER_DIFF_FAST(now_buffer, last_1_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) { 
-        // 2 tap
-        last_2_tap_time = now_buffer;
-        
-        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-        
-        navigator_turbo = false;
-        navigator_aim = true;
-      } else {
-        // 1 tap
-        last_1_tap_time = now_buffer;
-
-        if (navigator_turbo || navigator_aim) {
-          auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-        } else {
-          auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
-        }
-        
-        navigator_turbo = false;
-        navigator_aim = false;
-      }
-      // non-lock off
-      if (lock_scrolling == false) {
-        set_scrolling = false;
-      }
-    } else {
-      // drag, reset all
-      last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
-      last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
-      
-      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-      
-      set_scrolling = false;
-      lock_scrolling = false;
-
-      navigator_turbo = false;
-      navigator_aim = false;
-
-    }
-  }
-  
-  activate_mouse_flag(now_buffer, record);
   
   return;
 }
@@ -1729,8 +1582,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   post_process_record_layer_scrolling(keycode, record);
   post_process_record_non_mouse(keycode, record);
   post_process_record_mouse_button(keycode, record);
-  post_process_record_mo_mouse_number(keycode, record);
-  post_process_record_mo_mouse_cursor(keycode, record);
   
   return;
 }
