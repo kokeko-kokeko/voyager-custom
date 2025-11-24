@@ -1378,7 +1378,7 @@ static layer_state_t layer_state_set_mouse_cursor(layer_state_t state) {
   return state;
 }
 
-static layer_state_t layer_state_set_mouse_halt_mask(layer_state_t state) {
+static layer_state_t layer_state_set_mouse_auto_block(layer_state_t state) {
   if (layer_state_cmp(state, L_Halt_Mask)) {
     state = remove_auto_mouse_layer(state, true);
     set_auto_mouse_enable(false);
@@ -1549,7 +1549,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // mouse layers
   state = layer_state_set_mouse_number(state);
   state = layer_state_set_mouse_cursor(state);
-  state = layer_state_set_mouse_halt_mask(state);
+  state = layer_state_set_mouse_auto_block(state);
   state = layer_state_set_mouse_scrolling(state);
   state = layer_state_set_mouse_enter_exit(state);
   
