@@ -1450,6 +1450,31 @@ static layer_state_t layer_state_set_mouse_scrolling(layer_state_t state) {
 }
 
 static layer_state_t layer_state_set_mouse_reset(layer_state_t state) {
+  static bool layer_on = false;
+
+  if (layer_on == layer_state_cmp(state, L_Mouse)) return state;
+  layer_on = !layer_on;
+
+  if (layer_on) {
+    // entered
+    return state;
+  }
+
+  // exited
+  // reset state
+  auto_mouse_total_move.x = 0;
+  auto_mouse_total_move.y = 0;
+  auto_mouse_total_move.h = 0;
+  auto_mouse_total_move.v = 0;
+  
+  set_scrolling = false;
+  lock_scrolling = false;
+  
+  navigator_turbo = false;
+  navigator_aim = false;
+
+  activate_mouse_flag(now_buffer, false);
+
   return state;
 }
 
@@ -1752,24 +1777,7 @@ void housekeeping_task_user(void) {
 
   if (timer_expired_fast(now_buffer, auto_mouse_early_off_trigger)) {
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
-    
-    // reset state
-    auto_mouse_total_move.x = 0;
-    auto_mouse_total_move.y = 0;
-    auto_mouse_total_move.h = 0;
-    auto_mouse_total_move.v = 0;
-
-    set_scrolling = false;
-    lock_scrolling = false;
-
-    navigator_turbo = false;
-    navigator_aim = false;
-
-    status_led(now_buffer, 0b0111, led_pattern_off);
-    
     auto_mouse_layer_off();
-
-    mouse_flag_update_trigger = now_buffer + 1;
   }
   
   return;
