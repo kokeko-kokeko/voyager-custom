@@ -10,7 +10,6 @@ enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
   HSV_0_255_200,
   HSV_86_255_200,
-  HSV_86_255_201,
   HSV_0_255_210,
   HSV_86_255_255,
   HSV_172_255_200,
@@ -50,30 +49,30 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(3, KC_7)
-#define DUAL_FUNC_1 LT(6, KC_F17)
-#define DUAL_FUNC_2 LT(5, KC_I)
-#define DUAL_FUNC_3 LT(15, KC_1)
-#define DUAL_FUNC_4 LT(6, KC_2)
-#define DUAL_FUNC_5 LT(4, KC_E)
-#define DUAL_FUNC_6 LT(6, KC_F20)
-#define DUAL_FUNC_7 LT(15, KC_W)
-#define DUAL_FUNC_8 LT(3, KC_A)
-#define DUAL_FUNC_9 LT(15, KC_F18)
-#define DUAL_FUNC_10 LT(2, KC_F1)
-#define DUAL_FUNC_11 LT(3, KC_K)
-#define DUAL_FUNC_12 LT(14, KC_F)
-#define DUAL_FUNC_13 LT(11, KC_5)
-#define DUAL_FUNC_14 LT(2, KC_F6)
-#define DUAL_FUNC_15 LT(3, KC_C)
-#define DUAL_FUNC_16 LT(2, KC_Q)
-#define DUAL_FUNC_17 LT(1, KC_F8)
-#define DUAL_FUNC_18 LT(12, KC_F4)
-#define DUAL_FUNC_19 LT(7, KC_A)
-#define DUAL_FUNC_20 LT(13, KC_W)
-#define DUAL_FUNC_21 LT(2, KC_F5)
-#define DUAL_FUNC_22 LT(6, KC_Z)
-#define DUAL_FUNC_23 LT(1, KC_K)
+#define DUAL_FUNC_0 LT(2, KC_S)
+#define DUAL_FUNC_1 LT(4, KC_9)
+#define DUAL_FUNC_2 LT(2, KC_7)
+#define DUAL_FUNC_3 LT(1, KC_F12)
+#define DUAL_FUNC_4 LT(9, KC_D)
+#define DUAL_FUNC_5 LT(13, KC_F18)
+#define DUAL_FUNC_6 LT(14, KC_7)
+#define DUAL_FUNC_7 LT(7, KC_F22)
+#define DUAL_FUNC_8 LT(3, KC_3)
+#define DUAL_FUNC_9 LT(12, KC_Q)
+#define DUAL_FUNC_10 LT(7, KC_Q)
+#define DUAL_FUNC_11 LT(12, KC_D)
+#define DUAL_FUNC_12 LT(9, KC_G)
+#define DUAL_FUNC_13 LT(7, KC_S)
+#define DUAL_FUNC_14 LT(9, KC_K)
+#define DUAL_FUNC_15 LT(14, KC_F21)
+#define DUAL_FUNC_16 LT(4, KC_W)
+#define DUAL_FUNC_17 LT(4, KC_V)
+#define DUAL_FUNC_18 LT(12, KC_F3)
+#define DUAL_FUNC_19 LT(10, KC_F11)
+#define DUAL_FUNC_20 LT(15, KC_F4)
+#define DUAL_FUNC_21 LT(15, KC_F12)
+#define DUAL_FUNC_22 LT(15, KC_7)
+#define DUAL_FUNC_23 LT(12, KC_F5)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -221,7 +220,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,                                  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  
     HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,                                  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  
     KC_LEFT_SHIFT,  KC_CAPS,        HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,                                  HSV_0_255_200,  KC_NUM,         KC_SCRL,        HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 HSV_86_255_200, HSV_86_255_201
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 HSV_86_255_200, TG(25)
   ),
   [21] = LAYOUT_voyager(
     HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,                                  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  HSV_0_255_210,  
@@ -256,7 +255,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,                                  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  
     HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,                                  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  
     HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,                                  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  HSV_0_255_255,  
-                                                    KC_NO,          KC_NO,                                          HSV_86_255_255, KC_NO
+                                                    KC_NO,          KC_NO,                                          HSV_86_255_255, KC_TRANSPARENT
   ),
 };
 
