@@ -1302,6 +1302,64 @@ static layer_state_t layer_state_set_mouse_halt_mask(layer_state_t state) {
 }
 
 static layer_state_t layer_state_set_mouse_number(layer_state_t state) {
+  static bool layer_on = false;
+  static fast_timer_t enter_time = 0;
+  static fast_timer_t last_1_tap_time = 0;
+  static fast_timer_t last_2_tap_time = 0;
+
+  if (layer_on == layer_state_cmp(state, L_Mouse_Number)) return state;
+  layer_on = !layer_on;
+
+  if (layer_on) {
+    // entered
+    enter_time = now_buffer;
+    return state;
+  }
+
+  // exited
+  if (TIMER_DIFF_FAST(now_buffer, enter_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
+    //tap
+    if (TIMER_DIFF_FAST(now_buffer, last_2_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
+      // 3 tap
+      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+
+      lock_scrolling = true;
+        
+      navigator_turbo = true;
+    } else if (TIMER_DIFF_FAST(now_buffer, last_1_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
+      //2 tap
+      last_2_tap_time = now_buffer;
+
+      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+        
+      lock_scrolling = true;
+    } else {
+      //1 tap
+      last_1_tap_time = now_buffer;
+      
+      if (lock_scrolling) {
+        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+      } else {
+        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
+      }
+      
+      lock_scrolling = false;
+
+      navigator_turbo = false;
+    }
+  } else {
+    // drag, reset all
+    last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+    last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+    
+    auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+    
+    lock_scrolling = false;
+    
+    navigator_turbo = false;
+    navigator_aim = false;
+  }
+  
   return state;
 }
 
@@ -1316,6 +1374,7 @@ static layer_state_t layer_state_set_mouse_scrolling(layer_state_t state) {
   scrolling_flag = scrolling_flag || layer_state_cmp(state, L_Cursor);
   scrolling_flag = scrolling_flag || layer_state_cmp(state, L_Mouse_Number);
   scrolling_flag = scrolling_flag || layer_state_cmp(state, L_Mouse_Cursor);
+  scrolling_flag = scrolling_flag || lock_scrolling;
   
   if (scrolling_flag) {
     set_scrolling = true;
