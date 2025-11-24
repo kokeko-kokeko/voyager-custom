@@ -1306,7 +1306,6 @@ static layer_state_t layer_state_set_mouse_number(layer_state_t state) {
   if (layer_on) {
     // entered
     enter_time = now_buffer;
-    activate_mouse_flag(now_buffer, true);
     return state;
   }
 
@@ -1354,11 +1353,67 @@ static layer_state_t layer_state_set_mouse_number(layer_state_t state) {
     navigator_aim = false;
   }
   
-  activate_mouse_flag(now_buffer, false);
   return state;
 }
 
 static layer_state_t layer_state_set_mouse_cursor(layer_state_t state) {
+  static bool layer_on = false;
+  static fast_timer_t enter_time = 0;
+  static fast_timer_t last_1_tap_time = 0;
+  static fast_timer_t last_2_tap_time = 0;
+
+  if (layer_on == layer_state_cmp(state, L_Mouse_Cursor)) return state;
+  layer_on = !layer_on;
+
+  if (layer_on) {
+    // entered
+    enter_time = now_buffer;
+    return state;
+  }
+
+  // exited
+  if (TIMER_DIFF_FAST(now_buffer, enter_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
+    //tap
+    if (TIMER_DIFF_FAST(now_buffer, last_2_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
+      // 3 tap
+      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+
+      navigator_turbo = true;
+      navigator_aim = false;
+    } else if (TIMER_DIFF_FAST(now_buffer, last_1_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
+      //2 tap
+      last_2_tap_time = now_buffer;
+
+      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+        
+      navigator_turbo = false;
+      navigator_aim = true;
+    } else {
+      //1 tap
+      last_1_tap_time = now_buffer;
+      
+      if (navigator_turbo || navigator_aim) {
+        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+      } else {
+        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
+      }
+        
+      navigator_turbo = false;
+      navigator_aim = false;
+    }
+  } else {
+    // drag, reset all
+    last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+    last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+    
+    auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+    
+    lock_scrolling = false;
+    
+    navigator_turbo = false;
+    navigator_aim = false;
+  }
+  
   return state;
 }
 
