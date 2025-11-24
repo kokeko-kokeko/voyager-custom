@@ -1225,12 +1225,6 @@ static bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
 //
 // -----------------------------------------------------------------------------
 
-static void post_process_record_layer_scrolling(uint16_t keycode, keyrecord_t *record) {
-  activate_mouse_flag(now_buffer, record->event.pressed);
-  
-  return;
-}
-
 static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record) {
   if (IS_MOUSEKEY(keycode) == true) return;
   
@@ -1320,9 +1314,11 @@ static layer_state_t layer_state_set_mouse_scrolling(layer_state_t state) {
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
+    activate_mouse_flag(now_buffer, true);
   } else {
     set_scrolling = false;
     set_auto_mouse_enable(true);
+    activate_mouse_flag(now_buffer, false);
   }
   
   return state;
@@ -1579,7 +1575,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   
   // split post_process_record not break, overwrite after function
-  post_process_record_layer_scrolling(keycode, record);
   post_process_record_non_mouse(keycode, record);
   post_process_record_mouse_button(keycode, record);
   
