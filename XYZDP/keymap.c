@@ -1730,45 +1730,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   return;
 }
 
-// copy & custom from pointing_device_auto_mouse.c
-bool auto_mouse_activation(report_mouse_t mouse_report) {
-  // both state check xy move
-  auto_mouse_total_move.x += mouse_report.x;
-  auto_mouse_total_move.y += mouse_report.y;
-  auto_mouse_total_move.h += mouse_report.h;
-  auto_mouse_total_move.v += mouse_report.v;
-  
-  bool activate = false;
-
-  activate = activate || abs(auto_mouse_total_move.x) > AUTO_MOUSE_THRESHOLD;
-  activate = activate || abs(auto_mouse_total_move.y) > AUTO_MOUSE_THRESHOLD;  
-  activate = activate || abs(auto_mouse_total_move.h) > AUTO_MOUSE_SCROLL_THRESHOLD;
-  activate = activate || abs(auto_mouse_total_move.v) > AUTO_MOUSE_SCROLL_THRESHOLD;
-  activate = activate || mouse_report.buttons;
-  
-  if (activate) {
-    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
-    auto_mouse_count_reset_trigger = now_buffer + AUTO_MOUSE_COUNT_RESET_DELAY;
-
-    // wakeup RGB
-    activate_fade_matrix(now_buffer);
-    
-    auto_mouse_total_move.x = 0;
-    auto_mouse_total_move.y = 0;
-    auto_mouse_total_move.h = 0;
-    auto_mouse_total_move.v = 0;
-  } else if (timer_expired_fast(now_buffer, auto_mouse_count_reset_trigger)) {
-    auto_mouse_count_reset_trigger += AUTO_MOUSE_COUNT_RESET_DELAY;
-
-    auto_mouse_total_move.x = 0;
-    auto_mouse_total_move.y = 0;
-    auto_mouse_total_move.h = 0;
-    auto_mouse_total_move.v = 0;
-  }
-  
-  return activate;    
-}
-
 void housekeeping_task_user(void) {
   // update to next now
   now_buffer = timer_read_fast();
