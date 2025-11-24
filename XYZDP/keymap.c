@@ -892,8 +892,8 @@ bool get_mouse_flag_aim(void) {
   return navigator_aim_delayed;
 }
 
-static void activate_mouse_flag(const fast_timer_t now, const keyrecord_t * const record) {
-  if (record->event.pressed) {
+static void activate_mouse_flag(const fast_timer_t now, const bool pressed) {
+  if (pressed) {
     mouse_flag_update_trigger = now + TAPPING_TERM;
   } else {
     mouse_flag_update_trigger = now + 1;
@@ -1226,7 +1226,7 @@ static bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
 // -----------------------------------------------------------------------------
 
 static void post_process_record_layer_scrolling(uint16_t keycode, keyrecord_t *record) {
-  activate_mouse_flag(now_buffer, record);
+  activate_mouse_flag(now_buffer, record->event.pressed);
   
   return;
 }
