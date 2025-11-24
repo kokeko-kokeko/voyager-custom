@@ -1113,16 +1113,16 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
       //layer_off(L_Set_Hue);
       //layer_off(L_Firmware);
 
-      layer_state_t mask = 
+      layer_state_t layer_mask = 
         ((layer_state_t)1 << L_Firmware)  |
         ((layer_state_t)1 << L_Set_Hue)   |
         ((layer_state_t)1 << L_Set_Sat)   |
         ((layer_state_t)1 << L_Set_Val)   |
         ((layer_state_t)1 << L_Set_Speed) |
         ((layer_state_t)1 << L_Halt_Mask);
-      mask = ~mask;
+      layer_mask = ~layer_mask;
 
-      layer_and(mask);
+      layer_and(layer_mask);
       
       set_auto_mouse_enable(true);
       
