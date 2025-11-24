@@ -1093,14 +1093,14 @@ static bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrecord_t *
     return false;
   }
   
-  if (keycode == HSV_86_255_201) {
-    if (record->event.pressed) {
-      clear_keyboard();
-      set_auto_mouse_enable(false);
-      layer_on(L_Halt_Mask);
-    }
-    return false;
-  }
+  //if (keycode == HSV_86_255_201) {
+  //  if (record->event.pressed) {
+  //    clear_keyboard();
+  //    set_auto_mouse_enable(false);
+  //    layer_on(L_Halt_Mask);
+  //  }
+  //  return false;
+  //}
   
   if (keycode == HSV_86_255_255) {
     if (record->event.pressed) {
