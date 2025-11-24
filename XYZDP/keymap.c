@@ -855,7 +855,7 @@ static bool lock_scrolling = false;
 
 // auto_mouse_layer_off() only on housekeeping, other set timer
 static fast_timer_t auto_mouse_early_off_trigger = 0;
-static fast_timer_t auto_mouse_count_reset_trigger = 0;
+//static fast_timer_t auto_mouse_count_reset_trigger = 0;
 
 // 0 to 7 = left, 8 to 15 = right, button 8 count
 static const fast_timer_t btn_early_off_delay[16] = {
