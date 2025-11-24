@@ -1379,7 +1379,15 @@ static layer_state_t layer_state_set_mouse_cursor(layer_state_t state) {
 }
 
 static layer_state_t layer_state_set_mouse_auto_block(layer_state_t state) {
-  if (layer_state_cmp(state, L_Halt_Mask)) {
+  bool block_flag = false;
+  block_flag = block_flag || layer_state_cmp(state, L_Firmware);
+  block_flag = block_flag || layer_state_cmp(state, L_Set_Hue);
+  block_flag = block_flag || layer_state_cmp(state, L_Set_Sat);
+  block_flag = block_flag || layer_state_cmp(state, L_Set_Val);
+  block_flag = block_flag || layer_state_cmp(state, L_Set_Speed);
+  block_flag = block_flag || layer_state_cmp(state, L_Halt_Mask);
+  
+  if (block_flag) {
     state = remove_auto_mouse_layer(state, true);
     set_auto_mouse_enable(false);
   }
