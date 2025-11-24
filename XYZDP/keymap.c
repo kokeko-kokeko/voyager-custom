@@ -855,7 +855,6 @@ static bool lock_scrolling = false;
 
 // auto_mouse_layer_off() only on housekeeping, other set timer
 static fast_timer_t auto_mouse_early_off_trigger = 0;
-//static fast_timer_t auto_mouse_count_reset_trigger = 0;
 
 // 0 to 7 = left, 8 to 15 = right, button 8 count
 static const fast_timer_t btn_early_off_delay[16] = {
@@ -863,14 +862,6 @@ static const fast_timer_t btn_early_off_delay[16] = {
   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT,
   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_MID,   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT,
   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT
-};
-
-// reset from housekeeping
-static total_mouse_movement_t auto_mouse_total_move = {
-  .x = 0,
-  .y = 0,
-  .h = 0,
-  .v = 0,
 };
 
 // mouse status delayed display
@@ -1466,11 +1457,6 @@ static layer_state_t layer_state_set_mouse_reset(layer_state_t state) {
 
   // exited
   // reset state
-  auto_mouse_total_move.x = 0;
-  auto_mouse_total_move.y = 0;
-  auto_mouse_total_move.h = 0;
-  auto_mouse_total_move.v = 0;
-  
   set_scrolling = false;
   lock_scrolling = false;
   
