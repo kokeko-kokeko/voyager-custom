@@ -1219,7 +1219,7 @@ static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record) 
 static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record) {
   if (IS_MOUSEKEY(keycode) == true) return;
   if (IS_QK_MOMENTARY(keycode) == true) return;
-  if (IS_QK_LAYER_TAP(keycode) == true) return;
+  //if (IS_QK_LAYER_TAP(keycode) == true) return;
   
   if (record->event.pressed) {
     // non-mouse key press 
