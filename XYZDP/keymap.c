@@ -288,7 +288,7 @@ extern bool is_launching;
 // declaration berofe process_record
 static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
 static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record);
-static bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrecord_t *record);
+static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *record);
 static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record);
 static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record);
 
@@ -824,7 +824,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // split process_record, return false, break
   if (process_record_rgb_inc_dec(keycode, record) == false) return false;
   if (process_record_hsv_0_255_n_setting_map(keycode, record) == false) return false;
-  if (process_record_hsv_86_255_n_layer_to(keycode, record) == false) return false;
+  if (process_record_hsv_86_255_n_layer_op(keycode, record) == false) return false;
   if (process_record_hsv_172_255_n_function(keycode, record) == false) return false;
   if (process_record_mouse_setting(keycode, record) == false) return false;
   if (process_record_ime_state_sync(keycode, record) == false) return false;
@@ -1086,7 +1086,7 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
   return true;
 }
 
-static bool process_record_hsv_86_255_n_layer_to(uint16_t keycode, keyrecord_t *record) {  
+static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *record) {  
   if (keycode == HSV_86_255_200) {
     if (record->event.pressed) {
       layer_on(L_Set_Hue);
