@@ -268,15 +268,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 // -----------------------------------------------------------------------------
 
-// with process_record_*
-#include "ime_state_sync.h"
-
 // split process_record, return false, break
 static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
 static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record);
 static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *record);
 static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record);
 static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record);
+
+// with process_record_*
+#include "ime_state_sync.h"
 
 // -----------------------------------------------------------------------------
 //
@@ -826,9 +826,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //
 // -----------------------------------------------------------------------------
 
-#define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
 #include "layer_num.h"
+
 // enum for layer define sync oryx side
+#define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
 _Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
 #undef ORYX_LAYER_COUNT
 
