@@ -1454,10 +1454,10 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
   
   if (or_flag) {
     set_scrolling = true;
+    activate_mouse_flag(now_buffer, true);
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
-    activate_mouse_flag(now_buffer, true);
     return state;
   } 
 
@@ -1473,8 +1473,8 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
   }
   
   set_scrolling = false;
+  activate_mouse_flag(now_buffer, false);
   set_auto_mouse_enable(true);
-  
   return state;
 }
 
