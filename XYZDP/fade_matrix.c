@@ -217,7 +217,7 @@ void fade_matrix_step(const fast_timer_t now) {
 void fade_matrix_load_preset(const fast_timer_t now) {
   fade_matrix_target.enable = true;
   fade_matrix_target.hsv.h = 250;
-  fade_matrix_target.hsv.s = 130;
+  fade_matrix_target.hsv.s = 128;
   fade_matrix_target.hsv.v = 109;
   fade_matrix_target.speed = 80;
   fade_matrix_target.mode = RGB_MATRIX_FLOWER_BLOOMING;
