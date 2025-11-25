@@ -276,7 +276,7 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
 static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record);
 static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record);
 
-// with process_record_*
+// header incl process_record_*
 #include "ime_state_sync.h"
 
 // -----------------------------------------------------------------------------
