@@ -268,12 +268,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 // -----------------------------------------------------------------------------
 
-#define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
-#include "layer_num.h"
-// enum for layer define sync oryx side
-_Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
-#undef ORYX_LAYER_COUNT
-
 // with process_record_*
 #include "ime_state_sync.h"
 
@@ -831,6 +825,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //
 //
 // -----------------------------------------------------------------------------
+
+#define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
+#include "layer_num.h"
+// enum for layer define sync oryx side
+_Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
+#undef ORYX_LAYER_COUNT
 
 // access to voyager system-side flag
 extern keyboard_config_t keyboard_config;
