@@ -274,15 +274,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 _Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
 #undef ORYX_LAYER_COUNT
 
-// access to voyager system-side flag
-extern keyboard_config_t keyboard_config;
-extern bool is_launching;
 
-// split impl header
-#include "fade_matrix.h"
-#include "ime_state_sync.h"
-#include "overlay_layer_mod.h"
-#include "status_led.h"
 
 // split process_record, return false, break
 // declaration berofe process_record
@@ -840,8 +832,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //
 // -----------------------------------------------------------------------------
 
-#include "i18n_undef.inc"
+// access to voyager system-side flag
+extern keyboard_config_t keyboard_config;
+extern bool is_launching;
 
+// split impl header
+#include "fade_matrix.h"
+#include "ime_state_sync.h"
+#include "overlay_layer_mod.h"
+#include "status_led.h"
+
+// remove oryx JP keycode, load qmk JP keycode & overrides
+#include "i18n_undef.inc"
 #include "engram_key_overrides.inc"
 
 // cached now value, update on housekeeping
