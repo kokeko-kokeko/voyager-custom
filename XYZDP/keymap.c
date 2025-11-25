@@ -264,7 +264,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //
 // GitHub C additional declaration
-//
+// declaration berofe process_record
 //
 // -----------------------------------------------------------------------------
 
@@ -274,10 +274,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 _Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
 #undef ORYX_LAYER_COUNT
 
-
+// with process_record_*
+#include "ime_state_sync.h"
 
 // split process_record, return false, break
-// declaration berofe process_record
 static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
 static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record);
 static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *record);
@@ -838,7 +838,6 @@ extern bool is_launching;
 
 // split impl header
 #include "fade_matrix.h"
-#include "ime_state_sync.h"
 #include "overlay_layer_mod.h"
 #include "status_led.h"
 
