@@ -1421,48 +1421,62 @@ static layer_state_t layer_state_set_mouse_enter_exit(layer_state_t state) {
   return state;
 }
 
-static layer_state_t layer_state_set_mouse_scrolling(layer_state_t state) {
-  bool scrolling_flag = false;
-  scrolling_flag = scrolling_flag || layer_state_cmp(state, L_Function);
-  scrolling_flag = scrolling_flag || layer_state_cmp(state, L_Number);
-  scrolling_flag = scrolling_flag || layer_state_cmp(state, L_Cursor);
-  scrolling_flag = scrolling_flag || layer_state_cmp(state, L_Mouse_Number);
-  scrolling_flag = scrolling_flag || layer_state_cmp(state, L_Mouse_Cursor);
-  scrolling_flag = scrolling_flag || lock_scrolling;
+static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t state) {
+  bool or_flag = false;
+  or_flag = or_flag || layer_state_cmp(state, L_Firmware);
+  or_flag = or_flag || layer_state_cmp(state, L_Set_Hue);
+  or_flag = or_flag || layer_state_cmp(state, L_Set_Sat);
+  or_flag = or_flag || layer_state_cmp(state, L_Set_Val);
+  or_flag = or_flag || layer_state_cmp(state, L_Set_Speed);
+  or_flag = or_flag || layer_state_cmp(state, L_Halt_Mask);
   
-  if (scrolling_flag) {
+  if (or_flag) {
+    set_scrolling = false;
+    state = remove_auto_mouse_layer(state, true);
+    set_auto_mouse_enable(false);
+    return state;
+  }
+
+  or_flag = false;
+  or_flag = or_flag || layer_state_cmp(state, L_Mouse_Number);
+  or_flag = or_flag || layer_state_cmp(state, L_Mouse_Cursor);
+  or_flag = or_flag || lock_scrolling;
+
+  if (or_flag) {
+    set_scrolling = true;
+    activate_mouse_flag(now_buffer, true);
+    return state;
+  }
+
+  or_flag = false;
+  or_flag = or_flag || layer_state_cmp(state, L_Number);
+  or_flag = or_flag || layer_state_cmp(state, L_Cursor);
+  
+  if (or_flag) {
     set_scrolling = true;
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
     activate_mouse_flag(now_buffer, true);
-  } else {
-    set_scrolling = false;
-    set_auto_mouse_enable(true);
-    activate_mouse_flag(now_buffer, false);
+    return state;
+  } 
+
+  or_flag = false;
+  or_flag = or_flag || layer_state_cmp(state, L_Function);
+
+  if (or_flag) {
+    set_scrolling = true;
+    if (is_auto_mouse_active() == false) {
+      set_auto_mouse_enable(false);
+    }
+    return state;
   }
+  
+  set_scrolling = false;
+  set_auto_mouse_enable(true);
   
   return state;
 }
-
-static layer_state_t layer_state_set_mouse_auto_block(layer_state_t state) {
-  bool block_flag = false;
-  block_flag = block_flag || layer_state_cmp(state, L_Firmware);
-  block_flag = block_flag || layer_state_cmp(state, L_Set_Hue);
-  block_flag = block_flag || layer_state_cmp(state, L_Set_Sat);
-  block_flag = block_flag || layer_state_cmp(state, L_Set_Val);
-  block_flag = block_flag || layer_state_cmp(state, L_Set_Speed);
-  block_flag = block_flag || layer_state_cmp(state, L_Halt_Mask);
-  
-  if (block_flag) {
-    set_scrolling = false;
-    state = remove_auto_mouse_layer(state, true);
-    set_auto_mouse_enable(false);
-  }
-  return state;
-}
-
-
 
 // -----------------------------------------------------------------------------
 //
@@ -1576,8 +1590,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = layer_state_set_mouse_number_enter_exit(state);
   state = layer_state_set_mouse_cursor_enter_exit(state);
   state = layer_state_set_mouse_enter_exit(state);
-  state = layer_state_set_mouse_scrolling(state);
-  state = layer_state_set_mouse_auto_block(state);
+  state = layer_state_set_mouse_auto_block_scrolling(state);
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
