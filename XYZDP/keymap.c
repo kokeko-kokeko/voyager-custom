@@ -1263,6 +1263,7 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
 //
 //
 // Split set layer impl
+// after func overwrite before result
 //
 //
 // -----------------------------------------------------------------------------
@@ -1392,22 +1393,6 @@ static layer_state_t layer_state_set_mouse_cursor(layer_state_t state) {
   return state;
 }
 
-static layer_state_t layer_state_set_mouse_auto_block(layer_state_t state) {
-  bool block_flag = false;
-  block_flag = block_flag || layer_state_cmp(state, L_Firmware);
-  block_flag = block_flag || layer_state_cmp(state, L_Set_Hue);
-  block_flag = block_flag || layer_state_cmp(state, L_Set_Sat);
-  block_flag = block_flag || layer_state_cmp(state, L_Set_Val);
-  block_flag = block_flag || layer_state_cmp(state, L_Set_Speed);
-  block_flag = block_flag || layer_state_cmp(state, L_Halt_Mask);
-  
-  if (block_flag) {
-    state = remove_auto_mouse_layer(state, true);
-    set_auto_mouse_enable(false);
-  }
-  return state;
-}
-
 static layer_state_t layer_state_set_mouse_scrolling(layer_state_t state) {
   bool scrolling_flag = false;
   scrolling_flag = scrolling_flag || layer_state_cmp(state, L_Function);
@@ -1429,6 +1414,23 @@ static layer_state_t layer_state_set_mouse_scrolling(layer_state_t state) {
     activate_mouse_flag(now_buffer, false);
   }
   
+  return state;
+}
+
+static layer_state_t layer_state_set_mouse_auto_block(layer_state_t state) {
+  bool block_flag = false;
+  block_flag = block_flag || layer_state_cmp(state, L_Firmware);
+  block_flag = block_flag || layer_state_cmp(state, L_Set_Hue);
+  block_flag = block_flag || layer_state_cmp(state, L_Set_Sat);
+  block_flag = block_flag || layer_state_cmp(state, L_Set_Val);
+  block_flag = block_flag || layer_state_cmp(state, L_Set_Speed);
+  block_flag = block_flag || layer_state_cmp(state, L_Halt_Mask);
+  
+  if (block_flag) {
+    set_scrolling = false;
+    state = remove_auto_mouse_layer(state, true);
+    set_auto_mouse_enable(false);
+  }
   return state;
 }
 
@@ -1571,8 +1573,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // mouse layers
   state = layer_state_set_mouse_number(state);
   state = layer_state_set_mouse_cursor(state);
-  state = layer_state_set_mouse_auto_block(state);
   state = layer_state_set_mouse_scrolling(state);
+  state = layer_state_set_mouse_auto_block(state);
   state = layer_state_set_mouse_enter_exit(state);
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
