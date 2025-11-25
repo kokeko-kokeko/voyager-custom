@@ -1268,7 +1268,7 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
 //
 // -----------------------------------------------------------------------------
 
-static layer_state_t layer_state_set_mouse_number(layer_state_t state) {
+static layer_state_t layer_state_set_mouse_number_enter_exit(layer_state_t state) {
   static bool layer_on = false;
   static fast_timer_t enter_time = 0;
   static fast_timer_t last_1_tap_time = 0;
@@ -1331,7 +1331,7 @@ static layer_state_t layer_state_set_mouse_number(layer_state_t state) {
   return state;
 }
 
-static layer_state_t layer_state_set_mouse_cursor(layer_state_t state) {
+static layer_state_t layer_state_set_mouse_cursor_enter_exit(layer_state_t state) {
   static bool layer_on = false;
   static fast_timer_t enter_time = 0;
   static fast_timer_t last_1_tap_time = 0;
@@ -1393,6 +1393,34 @@ static layer_state_t layer_state_set_mouse_cursor(layer_state_t state) {
   return state;
 }
 
+static layer_state_t layer_state_set_mouse_enter_exit(layer_state_t state) {
+  static bool layer_on = false;
+
+  if (layer_on == layer_state_cmp(state, L_Mouse)) return state;
+  layer_on = !layer_on;
+
+  if (layer_on) {
+    // entered
+    
+    // wakeup RGB
+    activate_fade_matrix(now_buffer);
+    
+    return state;
+  }
+
+  // exited
+  // reset state
+  set_scrolling = false;
+  lock_scrolling = false;
+  
+  navigator_turbo = false;
+  navigator_aim = false;
+
+  activate_mouse_flag(now_buffer, false);
+
+  return state;
+}
+
 static layer_state_t layer_state_set_mouse_scrolling(layer_state_t state) {
   bool scrolling_flag = false;
   scrolling_flag = scrolling_flag || layer_state_cmp(state, L_Function);
@@ -1434,33 +1462,7 @@ static layer_state_t layer_state_set_mouse_auto_block(layer_state_t state) {
   return state;
 }
 
-static layer_state_t layer_state_set_mouse_enter_exit(layer_state_t state) {
-  static bool layer_on = false;
 
-  if (layer_on == layer_state_cmp(state, L_Mouse)) return state;
-  layer_on = !layer_on;
-
-  if (layer_on) {
-    // entered
-    
-    // wakeup RGB
-    activate_fade_matrix(now_buffer);
-    
-    return state;
-  }
-
-  // exited
-  // reset state
-  set_scrolling = false;
-  lock_scrolling = false;
-  
-  navigator_turbo = false;
-  navigator_aim = false;
-
-  activate_mouse_flag(now_buffer, false);
-
-  return state;
-}
 
 // -----------------------------------------------------------------------------
 //
@@ -1571,11 +1573,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Base_ANSI, L_BothThumb, L_BothThumb_ANSI);
   
   // mouse layers
-  state = layer_state_set_mouse_number(state);
-  state = layer_state_set_mouse_cursor(state);
+  state = layer_state_set_mouse_number_enter_exit(state);
+  state = layer_state_set_mouse_cursor_enter_exit(state);
+  state = layer_state_set_mouse_enter_exit(state);
   state = layer_state_set_mouse_scrolling(state);
   state = layer_state_set_mouse_auto_block(state);
-  state = layer_state_set_mouse_enter_exit(state);
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
