@@ -1268,6 +1268,34 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
 //
 // -----------------------------------------------------------------------------
 
+static layer_state_t layer_state_set_mouse_edge_detect(const layer_state_t state) {
+  static bool layer_on = false;
+
+  if (layer_on == layer_state_cmp(state, L_Mouse)) return state;
+  layer_on = !layer_on;
+
+  if (layer_on) {
+    // entered
+    
+    // wakeup RGB
+    activate_fade_matrix(now_buffer);
+    
+    return state;
+  }
+
+  // exited
+  // reset state
+  set_scrolling = false;
+  lock_scrolling = false;
+  
+  navigator_turbo = false;
+  navigator_aim = false;
+
+  activate_mouse_flag(now_buffer, false);
+
+  return state;
+}
+
 static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_t state) {
   static bool layer_on = false;
   static fast_timer_t enter_time = 0;
@@ -1393,34 +1421,6 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
   return state;
 }
 
-static layer_state_t layer_state_set_mouse_edge_detect(const layer_state_t state) {
-  static bool layer_on = false;
-
-  if (layer_on == layer_state_cmp(state, L_Mouse)) return state;
-  layer_on = !layer_on;
-
-  if (layer_on) {
-    // entered
-    
-    // wakeup RGB
-    activate_fade_matrix(now_buffer);
-    
-    return state;
-  }
-
-  // exited
-  // reset state
-  set_scrolling = false;
-  lock_scrolling = false;
-  
-  navigator_turbo = false;
-  navigator_aim = false;
-
-  activate_mouse_flag(now_buffer, false);
-
-  return state;
-}
-
 static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t state) {
   bool layer_state_or = false;
   layer_state_or = layer_state_or || layer_state_cmp(state, L_Halt_Mask);
@@ -1432,6 +1432,7 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
   
   if (layer_state_or) {
     set_scrolling = false;
+    // not update mouse flag (LED)
     state = remove_auto_mouse_layer(state, true);
     set_auto_mouse_enable(false);
     return state;
@@ -1588,9 +1589,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Base_ANSI, L_BothThumb, L_BothThumb_ANSI);
   
   // mouse layers
+  state = layer_state_set_mouse_edge_detect(state);
   state = layer_state_set_mouse_number_edge_detect(state);
   state = layer_state_set_mouse_cursor_edge_detect(state);
-  state = layer_state_set_mouse_edge_detect(state);
   state = layer_state_set_mouse_auto_block_scrolling(state);
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
