@@ -605,7 +605,7 @@ void set_layer_color_mouse_map(void) {
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
   const uint8_t q = h >> 1;
-  const uint8_t o = q >> 1;
+  //const uint8_t o = q >> 1;
 
   rgb_matrix_set_color_all(0, 0, 0);
 
