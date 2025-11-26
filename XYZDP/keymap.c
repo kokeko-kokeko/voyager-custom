@@ -1359,7 +1359,7 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
   if (TIMER_DIFF_FAST(now_buffer, exit_0_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
     //2 tap
     exit_0_time = exit_1_time;
-    exit_1_time = now_buffer; //keep continue
+    exit_1_time = now_buffer;
     
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
         
@@ -1405,13 +1405,13 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
 
   // exited
   // exit<0_time is more old
-  static fast_timer_t exit_1_time = 0;
   static fast_timer_t exit_0_time = 0;
+  static fast_timer_t exit_1_time = 0;
   
   if (TIMER_DIFF_FAST(now_buffer, enter_time) >= AUTO_MOUSE_DRAG_THRESHOLD) {
     // drag, reset all
+    exit_0_time = now_buffer;
     exit_1_time = now_buffer + (UINT32_MAX / 2) - 1;
-    exit_0_time = now_buffer + (UINT32_MAX / 2) - 1;
     
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
   
@@ -1426,8 +1426,8 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
   //tap
   if (TIMER_DIFF_FAST(now_buffer, exit_1_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
     // 3 tap
+    exit_0_time = exit_1_time;
     exit_1_time = now_buffer; //keep continue
-    exit_0_time = now_buffer + (UINT32_MAX / 2) - 1;
     
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
 
@@ -1441,8 +1441,8 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
     
   if (TIMER_DIFF_FAST(now_buffer, exit_0_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
     //2 tap
+    exit_0_time = exit_1_time;
     exit_1_time = now_buffer;
-    exit_0_time = now_buffer + (UINT32_MAX / 2) - 1;
     
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
 
@@ -1455,8 +1455,8 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
   }
     
   //1 tap
-  exit_1_time = now_buffer + (UINT32_MAX / 2) - 1;
   exit_0_time = now_buffer;
+  exit_1_time = now_buffer + (UINT32_MAX / 2) - 1;
     
   if (lock_scrolling || navigator_turbo || navigator_aim) {
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
