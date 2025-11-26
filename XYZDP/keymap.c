@@ -1373,7 +1373,7 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
   
   //1 tap
   exit_0_time = now_buffer;
-  exit_1_time = now_buffer + (UINT32_MAX / 2) - 1;
+  //exit_1_time = now_buffer + (UINT32_MAX / 2) - 1;
   
   if (lock_scrolling || navigator_turbo || navigator_aim) {
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
@@ -1456,7 +1456,7 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
     
   //1 tap
   exit_0_time = now_buffer;
-  exit_1_time = now_buffer + (UINT32_MAX / 2) - 1;
+  //exit_1_time = now_buffer + (UINT32_MAX / 2) - 1;
     
   if (lock_scrolling || navigator_turbo || navigator_aim) {
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
