@@ -1109,13 +1109,6 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
   if (keycode == HSV_86_255_255) {
     if (record->event.pressed) {
       // off all setting layers
-      //layer_off(L_Halt_Mask);
-      //layer_off(L_Set_Speed);
-      //layer_off(L_Set_Val);
-      //layer_off(L_Set_Sat);
-      //layer_off(L_Set_Hue);
-      //layer_off(L_Firmware);
-
       layer_state_t layer_mask = 
         ((layer_state_t)1 << L_Firmware)  |
         ((layer_state_t)1 << L_Set_Hue)   |
@@ -1312,57 +1305,57 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
   }
 
   // exited
-  if (TIMER_DIFF_FAST(now_buffer, enter_time) < AUTO_MOUSE_DRAG_THRESHOLD) {
-    //tap
-    if (TIMER_DIFF_FAST(now_buffer, last_2_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
-      // 3 tap
-      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-
-      lock_scrolling = true;
-        
-      navigator_turbo = true;
-
-      return state;
-    } 
-      
-    if (TIMER_DIFF_FAST(now_buffer, last_1_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
-      //2 tap
-      last_2_tap_time = now_buffer;
-
-      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-        
-      lock_scrolling = true;
-      
-      return state;
-    }
-      
-    //1 tap
-    last_1_tap_time = now_buffer;
-      
-    if (lock_scrolling) {
-      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-    } else {
-      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
-    }
+  if (TIMER_DIFF_FAST(now_buffer, enter_time) >= AUTO_MOUSE_DRAG_THRESHOLD) {
+    // drag, reset all
+    last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+    last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+    
+    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     
     lock_scrolling = false;
     
     navigator_turbo = false;
+    navigator_aim = false;
     
     return state;
   }
   
-  // drag, reset all
-  last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
-  last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+  //tap
+  if (TIMER_DIFF_FAST(now_buffer, last_2_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
+    // 3 tap
+    auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+    
+    lock_scrolling = true;
+        
+    navigator_turbo = true;
+    
+    return state;
+  } 
+      
+  if (TIMER_DIFF_FAST(now_buffer, last_1_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
+    //2 tap
+    last_2_tap_time = now_buffer;
+    
+    auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+        
+    lock_scrolling = true;
+      
+    return state;
+  }
   
-  auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+  //1 tap
+  last_1_tap_time = now_buffer;
   
+  if (lock_scrolling) {
+    auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+  } else {
+    auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
+  }
+    
   lock_scrolling = false;
-  
+    
   navigator_turbo = false;
-  navigator_aim = false;
-  
+    
   return state;
 }
 
