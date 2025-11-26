@@ -1114,7 +1114,7 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
     static uint16_t halt_press_2_time = 0;
     static uint16_t halt_press_3_time = 0;
       
-    if (TIMER_DIFF_16(record->event.time, halt_press_3_time) < 800) {
+    if (TIMER_DIFF_16(record->event.time, halt_press_3_time) < 1000) {
       halt_press_3_time = record->event.time;
       
       clear_keyboard();
@@ -1124,19 +1124,19 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
       return false;
     }
     
-    if (TIMER_DIFF_16(record->event.time, halt_press_2_time) < 800) {
+    if (TIMER_DIFF_16(record->event.time, halt_press_2_time) < 1000) {
       halt_press_3_time = record->event.time;
       
       return false;
     }
     
-    if (TIMER_DIFF_16(record->event.time, halt_press_1_time) < 800) {
+    if (TIMER_DIFF_16(record->event.time, halt_press_1_time) < 1000) {
       halt_press_2_time = record->event.time;
         
       return false;
     }
 
-    if (TIMER_DIFF_16(record->event.time, halt_press_0_time) < 800) {
+    if (TIMER_DIFF_16(record->event.time, halt_press_0_time) < 1000) {
       halt_press_1_time = record->event.time;
         
       return false;
