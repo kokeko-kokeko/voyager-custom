@@ -1270,7 +1270,6 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
 
 static layer_state_t layer_state_set_mouse_edge_detect(const layer_state_t state) {
   static bool layer_on = false;
-
   if (layer_on == layer_state_cmp(state, L_Mouse)) return state;
   layer_on = !layer_on;
 
@@ -1298,12 +1297,12 @@ static layer_state_t layer_state_set_mouse_edge_detect(const layer_state_t state
 
 static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_t state) {
   static bool layer_on = false;
+  if (layer_on == layer_state_cmp(state, L_Mouse_Number)) return state;
+  layer_on = !layer_on;
+
   static fast_timer_t enter_time = 0;
   static fast_timer_t last_1_tap_time = 0;
   static fast_timer_t last_2_tap_time = 0;
-
-  if (layer_on == layer_state_cmp(state, L_Mouse_Number)) return state;
-  layer_on = !layer_on;
 
   if (layer_on) {
     // entered
@@ -1361,13 +1360,13 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
 
 static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_t state) {
   static bool layer_on = false;
+  if (layer_on == layer_state_cmp(state, L_Mouse_Cursor)) return state;
+  layer_on = !layer_on;
+  
   static fast_timer_t enter_time = 0;
   static fast_timer_t last_1_tap_time = 0;
   static fast_timer_t last_2_tap_time = 0;
-
-  if (layer_on == layer_state_cmp(state, L_Mouse_Cursor)) return state;
-  layer_on = !layer_on;
-
+  
   if (layer_on) {
     // entered
     enter_time = now_buffer;
