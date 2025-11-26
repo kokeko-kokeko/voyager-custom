@@ -1422,37 +1422,37 @@ static layer_state_t layer_state_set_mouse_edge_detect(layer_state_t state) {
 }
 
 static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t state) {
-  bool or_flag = false;
-  or_flag = or_flag || layer_state_cmp(state, L_Firmware);
-  or_flag = or_flag || layer_state_cmp(state, L_Set_Hue);
-  or_flag = or_flag || layer_state_cmp(state, L_Set_Sat);
-  or_flag = or_flag || layer_state_cmp(state, L_Set_Val);
-  or_flag = or_flag || layer_state_cmp(state, L_Set_Speed);
-  or_flag = or_flag || layer_state_cmp(state, L_Halt_Mask);
+  bool layer_state_or = false;
+  layer_state_or = layer_state_or || layer_state_cmp(state, L_Halt_Mask);
+  layer_state_or = layer_state_or || layer_state_cmp(state, L_Set_Speed);
+  layer_state_or = layer_state_or || layer_state_cmp(state, L_Set_Val);
+  layer_state_or = layer_state_or || layer_state_cmp(state, L_Set_Sat);
+  layer_state_or = layer_state_or || layer_state_cmp(state, L_Set_Hue);
+  layer_state_or = layer_state_or || layer_state_cmp(state, L_Firmware);
   
-  if (or_flag) {
+  if (layer_state_or) {
     set_scrolling = false;
     state = remove_auto_mouse_layer(state, true);
     set_auto_mouse_enable(false);
     return state;
   }
 
-  or_flag = false;
-  or_flag = or_flag || layer_state_cmp(state, L_Mouse_Number);
-  or_flag = or_flag || layer_state_cmp(state, L_Mouse_Cursor);
-  or_flag = or_flag || lock_scrolling;
+  layer_state_or = false;
+  layer_state_or = layer_state_or || layer_state_cmp(state, L_Mouse_Cursor);
+  layer_state_or = layer_state_or || layer_state_cmp(state, L_Mouse_Number);
+  layer_state_or = layer_state_or || lock_scrolling;
 
-  if (or_flag) {
+  if (layer_state_or) {
     set_scrolling = true;
     activate_mouse_flag(now_buffer, true);
     return state;
   }
 
-  or_flag = false;
-  or_flag = or_flag || layer_state_cmp(state, L_Number);
-  or_flag = or_flag || layer_state_cmp(state, L_Cursor);
+  layer_state_or = false;
+  layer_state_or = layer_state_or || layer_state_cmp(state, L_Cursor);
+  layer_state_or = layer_state_or || layer_state_cmp(state, L_Number);
   
-  if (or_flag) {
+  if (layer_state_or) {
     set_scrolling = true;
     activate_mouse_flag(now_buffer, true);
     if (is_auto_mouse_active() == false) {
@@ -1461,11 +1461,12 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
     return state;
   } 
 
-  or_flag = false;
-  or_flag = or_flag || layer_state_cmp(state, L_Function);
+  layer_state_or = false;
+  layer_state_or = layer_state_or || layer_state_cmp(state, L_Function);
 
-  if (or_flag) {
+  if (layer_state_or) {
     set_scrolling = true;
+    // not update mouse flag (LED)
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
