@@ -1099,43 +1099,46 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
   
   if (keycode == HSV_86_255_201) {
     if (record->event.pressed) {
-      static uint16_t halt_press_0_time = 0;
-      static uint16_t halt_press_1_time = 0;
-      static uint16_t halt_press_2_time = 0;
-      static uint16_t halt_press_3_time = 0;
+      // press
+      return false;
+    }
+
+    // release
+    static uint16_t halt_press_0_time = 0;
+    static uint16_t halt_press_1_time = 0;
+    static uint16_t halt_press_2_time = 0;
+    static uint16_t halt_press_3_time = 0;
       
-      if (TIMER_DIFF_16(record->event.time, halt_press_3_time) < 2 * TAPPING_TERM) {
-        halt_press_3_time = record->event.time;
-        
-        clear_keyboard();
-        set_auto_mouse_enable(false);
-        layer_on(L_Halt_Mask);
-        
-        return false;
-      }
-
-      if (TIMER_DIFF_16(record->event.time, halt_press_2_time) < 2 * TAPPING_TERM) {
-        halt_press_3_time = record->event.time;
-        
-        return false;
-      }
-
-      if (TIMER_DIFF_16(record->event.time, halt_press_1_time) < 2 * TAPPING_TERM) {
-        halt_press_2_time = record->event.time;
-        
-        return false;
-      }
-
-      if (TIMER_DIFF_16(record->event.time, halt_press_0_time) < 2 * TAPPING_TERM) {
-        halt_press_1_time = record->event.time;
-        
-        return false;
-      }
+    if (TIMER_DIFF_16(record->event.time, halt_press_3_time) < 800) {
+      halt_press_3_time = record->event.time;
       
-      halt_press_0_time = record->event.time;
+      clear_keyboard();
+      set_auto_mouse_enable(false);
+      layer_on(L_Halt_Mask);
+        
+      return false;
+    }
+    
+    if (TIMER_DIFF_16(record->event.time, halt_press_2_time) < 800) {
+      halt_press_3_time = record->event.time;
       
       return false;
     }
+    
+    if (TIMER_DIFF_16(record->event.time, halt_press_1_time) < 800) {
+      halt_press_2_time = record->event.time;
+        
+      return false;
+    }
+
+    if (TIMER_DIFF_16(record->event.time, halt_press_0_time) < 800) {
+      halt_press_1_time = record->event.time;
+        
+      return false;
+    }
+      
+    halt_press_0_time = record->event.time;
+      
     return false;
   }
   
