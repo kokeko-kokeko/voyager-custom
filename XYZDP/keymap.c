@@ -1332,6 +1332,7 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
     lock_scrolling = true;
         
     navigator_turbo = true;
+    navigator_aim = false;
     
     return state;
   } 
@@ -1344,6 +1345,9 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
         
     lock_scrolling = true;
+
+    navigator_turbo = false;
+    navigator_aim = false;
       
     return state;
   }
@@ -1352,7 +1356,7 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
   last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
   last_1_tap_time = now_buffer;
   
-  if (lock_scrolling) {
+  if (lock_scrolling || navigator_turbo || navigator_aim) {
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
   } else {
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
@@ -1361,6 +1365,7 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
   lock_scrolling = false;
     
   navigator_turbo = false;
+  navigator_aim = false;
     
   return state;
 }
@@ -1405,6 +1410,8 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
     last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
     
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+
+    lock_scrolling = false;
     
     navigator_turbo = true;
     navigator_aim = false;
@@ -1418,6 +1425,8 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
     last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
     
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+
+    lock_scrolling = false;
       
     navigator_turbo = false;
     navigator_aim = true;
@@ -1429,12 +1438,14 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
   last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
   last_1_tap_time = now_buffer;
     
-  if (navigator_turbo || navigator_aim) {
+  if (lock_scrolling || navigator_turbo || navigator_aim) {
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
   } else {
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
   }
-      
+
+  lock_scrolling = false;   
+  
   navigator_turbo = false;
   navigator_aim = false;
     
