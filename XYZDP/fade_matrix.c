@@ -462,7 +462,7 @@ void set_layer_color_halt_map(void) {
   rgb_matrix_set_color(24, 0, hsv.v, 0);
   rgb_matrix_set_color(25, 0, hsv.v, 0);
   rgb_matrix_set_color(50, 0, hsv.v, 0);
-  rgb_matrix_set_color(51, 0, hsv.v, 0);
+  //rgb_matrix_set_color(51, 0, hsv.v, 0);
 }
 
 void set_layer_color_firmware_map(void) {
