@@ -624,16 +624,15 @@ void set_layer_color_mouse_map(void) {
 
   // right side
   rgb_matrix_set_color(26, 0, f, h);
-  rgb_matrix_set_color(27, f, 0, h);
-  rgb_matrix_set_color(28, f, f, 0);
-  rgb_matrix_set_color(29, 0, h, f); 
-  rgb_matrix_set_color(30, h, 0, f);
-  rgb_matrix_set_color(31, o, q, 0);
+  rgb_matrix_set_color(27, 0, f, 0);
+  rgb_matrix_set_color(28, f, 0, h);
+  rgb_matrix_set_color(29, f, f, 0);
+  rgb_matrix_set_color(30, 0, h, f); 
+  rgb_matrix_set_color(31, h, 0, f);
 
   rgb_matrix_set_color(32, 0, 0, f);
     
   rgb_matrix_set_color(38, f, 0, 0);
-  rgb_matrix_set_color(39, 0, f, 0);
 
   //rgb_matrix_set_color(44, q, q, q);
   rgb_matrix_set_color(47, q, q, q);
