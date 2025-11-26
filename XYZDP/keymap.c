@@ -1217,40 +1217,39 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
   if (IS_MOUSEKEY_BUTTON(keycode) == false) return;
   
   uint8_t index = keycode - KC_MS_BTN1;
-  if (record->event.key.row < MATRIX_ROWS / 2) {
-    // left
-    index += 0;
-  } else {
-    // right
-    index += 8;
-  }
+
+  // right hand
+  if (record->event.key.row >= MATRIX_ROWS / 2) index += 8;
   
   if (record->event.pressed) {
     btn_press_time[index] = record->event.time;
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     // early trigger reset on auto_mouse_activation
-  } else {
-    if (TIMER_DIFF_16(record->event.time, btn_press_time[index]) < AUTO_MOUSE_DRAG_THRESHOLD) {
-      //tap
-      if (TIMER_DIFF_FAST(now_buffer, btn_last_tap_time[index]) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
-        //double tap
-        //keep continue
-        btn_last_tap_time[index] = now_buffer;
+
+    return;
+  }
+
+  // release
+  if (TIMER_DIFF_16(record->event.time, btn_press_time[index]) < AUTO_MOUSE_DRAG_THRESHOLD) {
+    //tap
+    if (TIMER_DIFF_FAST(now_buffer, btn_last_tap_time[index]) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
+      //double tap
+      //keep continue
+      btn_last_tap_time[index] = now_buffer;
         
-        //short time
-        auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
-      } else {
-        //single tap
-        btn_last_tap_time[index] = now_buffer;
-        
-        auto_mouse_early_off_trigger = now_buffer + btn_early_off_delay[index];
-      }
+      //short time
+      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
     } else {
-      // drag, reset
-      btn_last_tap_time[index] = now_buffer + (UINT32_MAX / 2) - 1;
+      //single tap
+      btn_last_tap_time[index] = now_buffer;
       
-      auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+      auto_mouse_early_off_trigger = now_buffer + btn_early_off_delay[index];
     }
+  } else {
+    // drag, reset
+    btn_last_tap_time[index] = now_buffer + (UINT32_MAX / 2) - 1;
+    
+    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
   }
   
   return;
