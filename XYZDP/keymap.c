@@ -1099,9 +1099,42 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
   
   if (keycode == HSV_86_255_201) {
     if (record->event.pressed) {
-      clear_keyboard();
-      set_auto_mouse_enable(false);
-      layer_on(L_Halt_Mask);
+      static uint16_t halt_press_0_time = 0;
+      static uint16_t halt_press_1_time = 0;
+      static uint16_t halt_press_2_time = 0;
+      static uint16_t halt_press_3_time = 0;
+      
+      if (TIMER_DIFF_16(record->event.time, halt_press_3_time) < TAPPING_TERM) {
+        halt_press_3_time = record->event.time;
+        
+        clear_keyboard();
+        set_auto_mouse_enable(false);
+        layer_on(L_Halt_Mask);
+        
+        return false;
+      }
+
+      if (TIMER_DIFF_16(record->event.time, halt_press_2_time) < TAPPING_TERM) {
+        halt_press_3_time = record->event.time;
+        
+        return false;
+      }
+
+      if (TIMER_DIFF_16(record->event.time, halt_press_1_time) < TAPPING_TERM) {
+        halt_press_2_time = record->event.time;
+        
+        return false;
+      }
+
+      if (TIMER_DIFF_16(record->event.time, halt_press_0_time) < TAPPING_TERM) {
+        halt_press_1_time = record->event.time;
+        
+        return false;
+      }
+      
+      halt_press_0_time = record->event.time;
+      
+      return false;
     }
     return false;
   }
