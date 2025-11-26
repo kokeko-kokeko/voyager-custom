@@ -1324,7 +1324,7 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
   //tap
   if (TIMER_DIFF_FAST(now_buffer, last_2_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
     // 3 tap
-    last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+    last_2_tap_time = now_buffer; //keep continue
     last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
     
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
@@ -1406,7 +1406,7 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
   //tap
   if (TIMER_DIFF_FAST(now_buffer, last_2_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
     // 3 tap
-    last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+    last_2_tap_time = now_buffer; //keep continue
     last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
     
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
