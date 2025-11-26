@@ -1187,6 +1187,14 @@ static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record) 
 // -----------------------------------------------------------------------------
 
 static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record) {
+  // mouse non-active skip
+  if (layer_state_is(L_Mouse) == false) return;
+
+  // keep on mouse number and cursor
+  if (layer_state_is(L_Mouse_Number) == true) return;
+  if (layer_state_is(L_Mouse_Cursor) == true) return;
+
+  // keycode check
   if (IS_MOUSEKEY(keycode) == true) return;
   if (IS_QK_MOMENTARY(keycode) == true) return;
   //if (IS_QK_LAYER_TAP(keycode) == true) return;
