@@ -1268,7 +1268,7 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
 //
 // -----------------------------------------------------------------------------
 
-static layer_state_t layer_state_set_mouse_number_enter_exit(layer_state_t state) {
+static layer_state_t layer_state_set_mouse_number_edge_detect(layer_state_t state) {
   static bool layer_on = false;
   static fast_timer_t enter_time = 0;
   static fast_timer_t last_1_tap_time = 0;
@@ -1331,7 +1331,7 @@ static layer_state_t layer_state_set_mouse_number_enter_exit(layer_state_t state
   return state;
 }
 
-static layer_state_t layer_state_set_mouse_cursor_enter_exit(layer_state_t state) {
+static layer_state_t layer_state_set_mouse_cursor_edge_detect(layer_state_t state) {
   static bool layer_on = false;
   static fast_timer_t enter_time = 0;
   static fast_timer_t last_1_tap_time = 0;
@@ -1393,7 +1393,7 @@ static layer_state_t layer_state_set_mouse_cursor_enter_exit(layer_state_t state
   return state;
 }
 
-static layer_state_t layer_state_set_mouse_enter_exit(layer_state_t state) {
+static layer_state_t layer_state_set_mouse_edge_detect(layer_state_t state) {
   static bool layer_on = false;
 
   if (layer_on == layer_state_cmp(state, L_Mouse)) return state;
@@ -1587,9 +1587,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Base_ANSI, L_BothThumb, L_BothThumb_ANSI);
   
   // mouse layers
-  state = layer_state_set_mouse_number_enter_exit(state);
-  state = layer_state_set_mouse_cursor_enter_exit(state);
-  state = layer_state_set_mouse_enter_exit(state);
+  state = layer_state_set_mouse_number_edge_detect(state);
+  state = layer_state_set_mouse_cursor_edge_detect(state);
+  state = layer_state_set_mouse_edge_detect(state);
   state = layer_state_set_mouse_auto_block_scrolling(state);
   
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
