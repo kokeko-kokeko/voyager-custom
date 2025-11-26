@@ -1294,17 +1294,18 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
   layer_on = !layer_on;
 
   static fast_timer_t enter_time = 0;
-  static fast_timer_t last_1_tap_time = 0;
-  static fast_timer_t last_2_tap_time = 0;
-
+  
   if (layer_on) {
     // entered
     enter_time = now_buffer;
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     return state;
   }
-
+  
   // exited
+  static fast_timer_t last_1_tap_time = 0;
+  static fast_timer_t last_2_tap_time = 0;
+  
   if (TIMER_DIFF_FAST(now_buffer, enter_time) >= AUTO_MOUSE_DRAG_THRESHOLD) {
     // drag, reset all
     last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
@@ -1323,6 +1324,9 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
   //tap
   if (TIMER_DIFF_FAST(now_buffer, last_2_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
     // 3 tap
+    last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+    last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+    
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
     
     lock_scrolling = true;
@@ -1334,6 +1338,7 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
       
   if (TIMER_DIFF_FAST(now_buffer, last_1_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
     //2 tap
+    last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
     last_2_tap_time = now_buffer;
     
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
@@ -1345,6 +1350,7 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
   
   //1 tap
   last_1_tap_time = now_buffer;
+  last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
   
   if (lock_scrolling) {
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
@@ -1365,9 +1371,7 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
   layer_on = !layer_on;
   
   static fast_timer_t enter_time = 0;
-  static fast_timer_t last_1_tap_time = 0;
-  static fast_timer_t last_2_tap_time = 0;
-  
+
   if (layer_on) {
     // entered
     enter_time = now_buffer;
@@ -1376,6 +1380,9 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
   }
 
   // exited
+  static fast_timer_t last_1_tap_time = 0;
+  static fast_timer_t last_2_tap_time = 0;
+  
   if (TIMER_DIFF_FAST(now_buffer, enter_time) >= AUTO_MOUSE_DRAG_THRESHOLD) {
     // drag, reset all
     last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
@@ -1394,6 +1401,9 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
   //tap
   if (TIMER_DIFF_FAST(now_buffer, last_2_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
     // 3 tap
+    last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+    last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
+    
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
     
     navigator_turbo = true;
@@ -1404,6 +1414,7 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
     
   if (TIMER_DIFF_FAST(now_buffer, last_1_tap_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
     //2 tap
+    last_1_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
     last_2_tap_time = now_buffer;
     
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
@@ -1416,6 +1427,7 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
     
   //1 tap
   last_1_tap_time = now_buffer;
+  last_2_tap_time = now_buffer + (UINT32_MAX / 2) - 1;
     
   if (navigator_turbo || navigator_aim) {
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
