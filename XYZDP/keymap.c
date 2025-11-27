@@ -1101,11 +1101,11 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
     }
 
     if (TIMER_DIFF_16(record->event.time, press_time) < TAPPING_TERM) {
-      // tap
+      // tap release
       return false;
     }
     
-    // hold
+    // hold release
     layer_on(L_Set_Hue);
     
     return false;
@@ -1154,12 +1154,21 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
   }
   
   if (keycode == HSV_86_255_255) {
+    static uint16_t press_time = 0;
+    
     if (record->event.pressed) {
       // press
+      press_time = record->event.time;
+
       return false;
     }
 
-    // release
+    if (TIMER_DIFF_16(record->event.time, press_time) < TAPPING_TERM) {
+      // tap release
+      return false;
+    }
+    
+    // hold release
     // off all setting layers
     layer_state_t layer_mask = 
       ((layer_state_t)1 << L_Firmware)  |
