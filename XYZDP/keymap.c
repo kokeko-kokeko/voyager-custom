@@ -934,6 +934,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_SLD) {
     if (record->event.pressed) {
       fade_matrix_set_mode(now_buffer, RGB_MATRIX_SOLID_COLOR);
+      return false;
     }
     return false;
   }
@@ -941,6 +942,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_HUI) {
     if (record->event.pressed) {
       fade_matrix_increase_hue(now_buffer);
+      return false;
     }
     return false;
   }
@@ -948,6 +950,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_HUD) {
     if (record->event.pressed) {
       fade_matrix_decrease_hue(now_buffer);
+      return false;
     }
     return false;
   }
@@ -955,6 +958,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_SAI) {
     if (record->event.pressed) {
       fade_matrix_increase_sat(now_buffer);
+      return false;
     }
     return false;
   }
@@ -962,6 +966,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_SAD) {
     if (record->event.pressed) {
       fade_matrix_decrease_sat(now_buffer);
+      return false;
     }
     return false;
   }
@@ -969,6 +974,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_VAI) {
     if (record->event.pressed) {
       fade_matrix_increase_val(now_buffer);
+      return false;
     }
     return false;
   }
@@ -976,6 +982,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_VAD) {
     if (record->event.pressed) {
       fade_matrix_decrease_val(now_buffer);
+      return false;
     }
     return false;
   }
@@ -983,6 +990,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_SPI) {
     if (record->event.pressed) {
       fade_matrix_increase_speed(now_buffer);
+      return false;
     }
     return false;
   }
@@ -990,6 +998,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_SPD) {
     if (record->event.pressed) {
       fade_matrix_decrease_speed(now_buffer);
+      return false;
     }
     return false;
   }
@@ -997,6 +1006,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_TOG) {
     if (record->event.pressed) {
       fade_matrix_toggle(now_buffer);
+      return false;
     }
     return false;
   }
@@ -1004,6 +1014,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   if (keycode == RGB_MODE_FORWARD) {
     if (record->event.pressed) {
       fade_matrix_step(now_buffer);
+      return false;
     }
     return false;
   }
@@ -1020,25 +1031,35 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
       
       if (pos == 0) {
         layer_off(L_Base_ANSI);
+        return false;
       } else if (pos == 6) {
         layer_on(L_Base_ANSI);
+        return false;
       } else if (pos == 1) {
         layer_on(L_Base_2025);
         layer_off(L_Base_2021);
+        return false;
       } else if (pos == 7) {
         layer_on(L_Base_2025);
         layer_on(L_Base_2021);
+        return false;
       } else if (pos == 3) {
         ime_state_sync_enable();
+        return false;
       } else if (pos == 9) {
         ime_state_sync_disable();
+        return false;
       } else if (pos == 29) {
         soft_reset_keyboard();
+        return false;
       } else if (pos == 31) {
         reset_keyboard();
+        return false;
       } else if (pos == 49) {
         clear_keyboard();
+        return false;
       }
+      return false;
     }
     return false;
   }
@@ -1046,6 +1067,7 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
   if (keycode == HSV_0_255_210) {
     if (record->event.pressed) {
       fade_matrix_set_hue_keyrecord(now_buffer, record);
+      return false;
     }
     return false;
   }
@@ -1053,6 +1075,7 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
   if (keycode == HSV_0_255_211) {
     if (record->event.pressed) {
       fade_matrix_set_sat_keyrecord(now_buffer, record);
+      return false;
     }
     return false;
   }
@@ -1060,6 +1083,7 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
   if (keycode == HSV_0_255_212) {
     if (record->event.pressed) {
       fade_matrix_set_val_keyrecord(now_buffer, record);
+      return false;
     }
     return false;
   }
@@ -1067,6 +1091,7 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
   if (keycode == HSV_0_255_213) {
     if (record->event.pressed) {
       fade_matrix_set_speed_keyrecord(now_buffer, record);
+      return false;
     }
     return false;
   }
@@ -1079,9 +1104,12 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
       if (pos == 31) {
         // hang-up
         while (1);
+        return false;
       } else if (pos == 49) {
         clear_keyboard();
+        return false;
       }
+      return false;
     }
     return false;
   }
@@ -1196,6 +1224,7 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
     if (record->event.pressed) {
       fade_matrix_load_preset(now_buffer);
       status_led(now_buffer, 0b0101, led_pattern_oneshot);
+      return false;
     }
     return false;  
   }
@@ -1204,6 +1233,7 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
     if (record->event.pressed) {
       fade_matrix_load_preset_powersave(now_buffer);
       status_led(now_buffer, 0b1010, led_pattern_oneshot);
+      return false;
     }
     return false;
   }
@@ -1225,6 +1255,7 @@ static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record) 
   if (keycode == NAVIGATOR_INC_CPI) {  
     if (record->event.pressed) {
       pointing_device_set_cpi(1);
+      return false;
     }
     return false;
   }
@@ -1232,6 +1263,7 @@ static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record) 
   if (keycode == NAVIGATOR_DEC_CPI) {
     if (record->event.pressed) {
       pointing_device_set_cpi(0);
+      return false;
     }
     return false;
   }
