@@ -1032,33 +1032,50 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
       if (pos == 0) {
         layer_off(L_Base_ANSI);
         return false;
-      } else if (pos == 6) {
+      }
+      
+      if (pos == 6) {
         layer_on(L_Base_ANSI);
         return false;
-      } else if (pos == 1) {
+      }
+      
+      if (pos == 1) {
         layer_on(L_Base_2025);
         layer_off(L_Base_2021);
         return false;
-      } else if (pos == 7) {
+      }
+      
+      if (pos == 7) {
         layer_on(L_Base_2025);
         layer_on(L_Base_2021);
         return false;
-      } else if (pos == 3) {
+      }
+      
+      if (pos == 3) {
         ime_state_sync_enable();
         return false;
-      } else if (pos == 9) {
+      }
+      
+      if (pos == 9) {
         ime_state_sync_disable();
         return false;
-      } else if (pos == 29) {
+      }
+      
+      if (pos == 29) {
         soft_reset_keyboard();
         return false;
-      } else if (pos == 31) {
+      }
+      
+      if (pos == 31) {
         reset_keyboard();
         return false;
-      } else if (pos == 49) {
+      }
+      
+      if (pos == 49) {
         clear_keyboard();
         return false;
       }
+      
       return false;
     }
     return false;
@@ -1105,10 +1122,13 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
         // hang-up
         while (1);
         return false;
-      } else if (pos == 49) {
+      }
+      
+      if (pos == 49) {
         clear_keyboard();
         return false;
       }
+      
       return false;
     }
     return false;
@@ -1124,7 +1144,6 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
     if (record->event.pressed) {
       // press
       press_time = record->event.time;
-
       return false;
     }
 
@@ -1135,7 +1154,6 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
     
     // hold release
     layer_on(L_Set_Hue);
-    
     return false;
   }
   
@@ -1150,34 +1168,28 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
       
     if (TIMER_DIFF_FAST(now_buffer, release_time[3])< 1000) {
       release_time[3] = now_buffer;
-      
       clear_keyboard();
       set_auto_mouse_enable(false);
       layer_on(L_Halt_Mask);
-        
       return false;
     }
     
     if (TIMER_DIFF_FAST(now_buffer, release_time[2])< 1000) {
       release_time[3] = now_buffer;
-      
       return false;
     }
     
     if (TIMER_DIFF_FAST(now_buffer, release_time[1])< 1000) {
       release_time[2] = now_buffer;
-        
       return false;
     }
 
     if (TIMER_DIFF_FAST(now_buffer, release_time[0])< 1000) {
       release_time[1] = now_buffer;
-        
       return false;
     }
       
     release_time[0] = now_buffer;      
-    
     return false;
   }
   
@@ -1187,7 +1199,6 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
     if (record->event.pressed) {
       // press
       press_time = record->event.time;
-
       return false;
     }
 
@@ -1208,11 +1219,8 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
     layer_mask = ~layer_mask;
     
     layer_and(layer_mask);
-    
     set_auto_mouse_enable(true);
-    
     status_led(now_buffer, 0b1111, led_pattern_oneshot);
-    
     return false;
   }
   
