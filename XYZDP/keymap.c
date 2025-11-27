@@ -1109,13 +1109,10 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
     }
 
     // release
-    static uint16_t halt_press_0_time = 0;
-    static uint16_t halt_press_1_time = 0;
-    static uint16_t halt_press_2_time = 0;
-    static uint16_t halt_press_3_time = 0;
+    static fast_timer_t halt_release_time[4] = {0, 0, 0, 0};
       
-    if (TIMER_DIFF_16(record->event.time, halt_press_3_time) < 1000) {
-      halt_press_3_time = record->event.time;
+    if (TIMER_DIFF_FAST(now_buffer, halt_release_time[3])< 1000) {
+      halt_release_time[3] = now_buffer;
       
       clear_keyboard();
       set_auto_mouse_enable(false);
@@ -1124,26 +1121,26 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
       return false;
     }
     
-    if (TIMER_DIFF_16(record->event.time, halt_press_2_time) < 1000) {
-      halt_press_3_time = record->event.time;
+    if (TIMER_DIFF_FAST(now_buffer, halt_release_time[2])< 1000) {
+      halt_release_time[3] = now_buffer;
       
       return false;
     }
     
-    if (TIMER_DIFF_16(record->event.time, halt_press_1_time) < 1000) {
-      halt_press_2_time = record->event.time;
+    if (TIMER_DIFF_FAST(now_buffer, halt_release_time[1])< 1000) {
+      halt_release_time[2] = now_buffer;
         
       return false;
     }
 
-    if (TIMER_DIFF_16(record->event.time, halt_press_0_time) < 1000) {
-      halt_press_1_time = record->event.time;
+    if (TIMER_DIFF_FAST(now_buffer, halt_release_time[0])< 1000) {
+      halt_release_time[1] = now_buffer;
         
       return false;
     }
       
-    halt_press_0_time = record->event.time;
-      
+    halt_release_time[0] = now_buffer;      
+    
     return false;
   }
   
