@@ -29,7 +29,6 @@ SRC += status_led.c
 LTO_ENABLE = yes
 EXTRAFLAGS += -flto -O3
 EXTRAFLAGS += -Werror
-EXTRAFLAGS += -Wshadow
 EXTRAFLAGS += -march=armv7e-m
 EXTRAFLAGS += -mcpu=cortex-m4
 EXTRAFLAGS += -mfloat-abi=hard
