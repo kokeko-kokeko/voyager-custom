@@ -1109,10 +1109,10 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
     }
 
     // release
-    static fast_timer_t halt_release_time[4] = {0, 0, 0, 0};
+    static fast_timer_t release_time[4] = {0, 0, 0, 0};
       
-    if (TIMER_DIFF_FAST(now_buffer, halt_release_time[3])< 1000) {
-      halt_release_time[3] = now_buffer;
+    if (TIMER_DIFF_FAST(now_buffer, release_time[3])< 1000) {
+      release_time[3] = now_buffer;
       
       clear_keyboard();
       set_auto_mouse_enable(false);
@@ -1121,25 +1121,25 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
       return false;
     }
     
-    if (TIMER_DIFF_FAST(now_buffer, halt_release_time[2])< 1000) {
-      halt_release_time[3] = now_buffer;
+    if (TIMER_DIFF_FAST(now_buffer, release_time[2])< 1000) {
+      release_time[3] = now_buffer;
       
       return false;
     }
     
-    if (TIMER_DIFF_FAST(now_buffer, halt_release_time[1])< 1000) {
-      halt_release_time[2] = now_buffer;
+    if (TIMER_DIFF_FAST(now_buffer, release_time[1])< 1000) {
+      release_time[2] = now_buffer;
         
       return false;
     }
 
-    if (TIMER_DIFF_FAST(now_buffer, halt_release_time[0])< 1000) {
-      halt_release_time[1] = now_buffer;
+    if (TIMER_DIFF_FAST(now_buffer, release_time[0])< 1000) {
+      release_time[1] = now_buffer;
         
       return false;
     }
       
-    halt_release_time[0] = now_buffer;      
+    release_time[0] = now_buffer;      
     
     return false;
   }
