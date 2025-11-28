@@ -1413,7 +1413,6 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
   }
   
   // exited
-  // exit_0_time is more old value
   static fast_timer_t exit_time = 0;
   static uint8_t exit_count = 0;
   
