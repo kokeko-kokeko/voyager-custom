@@ -1183,7 +1183,7 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
 
     // single tap
     release_time = now_buffer;
-    release_count = 0;
+    release_count = 1;
     return false;
   }
   
