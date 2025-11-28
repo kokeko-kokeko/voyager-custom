@@ -1451,7 +1451,7 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
     return state;
   }
 
-  // multi tap
+  // multi tap (use ==)
   exit_time = now_buffer;
   exit_count++;
 
@@ -1466,7 +1466,7 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
     return state;
   }  
 
-  // 3 tap or more
+  // or more
   auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
   
   lock_scrolling = true;
@@ -1492,14 +1492,13 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
   }
 
   // exited
-  // exit_0_time is more old
-  static fast_timer_t exit_0_time = 0;
-  static fast_timer_t exit_1_time = 0;
+  static fast_timer_t exit_time = 0;
+  static uint8_t exit_count = 0;
   
   if (TIMER_DIFF_FAST(now_buffer, enter_time) >= AUTO_MOUSE_DRAG_THRESHOLD) {
     // drag, reset all
-    exit_0_time = now_buffer;
-    exit_1_time = now_buffer + (UINT32_MAX / 2) - 1;
+    exit_time = now_buffer;
+    exit_count = 1;
     
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
   
@@ -1512,28 +1511,32 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
   }
   
   //tap
-  if (TIMER_DIFF_FAST(now_buffer, exit_1_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
-    // 3 tap
-    //exit_0_time = exit_1_time;
-    exit_1_time = now_buffer; //keep continue
+  if (TIMER_DIFF_FAST(now_buffer, exit_1_time) >= AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
+    //1 tap (far from previous release)
+    exit_time = now_buffer;
+    exit_count = 1;
     
-    auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-
-    lock_scrolling = false;
+    if (lock_scrolling || navigator_turbo || navigator_aim) {
+      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+    } else {
+      auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
+    }
     
-    navigator_turbo = true;
+    lock_scrolling = false;   
+    
+    navigator_turbo = false;
     navigator_aim = false;
     
     return state;
   }
     
-  if (TIMER_DIFF_FAST(now_buffer, exit_0_time) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
-    //2 tap
-    //exit_0_time = exit_1_time;
-    exit_1_time = now_buffer;
-    
+  // multi tap (use ==)
+  exit_time = now_buffer;
+  exit_count++;
+  
+  if (exit_count == 2) {
     auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-
+    
     lock_scrolling = false;
       
     navigator_turbo = false;
@@ -1541,22 +1544,15 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
     
     return state;
   }
-    
-  //1 tap
-  exit_0_time = now_buffer;
-  //exit_1_time = now_buffer + (UINT32_MAX / 2) - 1;
-    
-  if (lock_scrolling || navigator_turbo || navigator_aim) {
-    auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-  } else {
-    auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
-  }
-
-  lock_scrolling = false;   
   
-  navigator_turbo = false;
-  navigator_aim = false;
+  // or more
+  auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+  
+  lock_scrolling = false;
     
+  navigator_turbo = true;
+  navigator_aim = false;
+  
   return state;
 }
 
