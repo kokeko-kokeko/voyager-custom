@@ -1161,8 +1161,9 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
     // release
     static fast_timer_t release_time = 0;
     static uint8_t release_count = 0;
-      
+    
     if (TIMER_DIFF_FAST(now_buffer, release_time)< 1000) {
+      // multi tap
       release_time = now_buffer;
       release_count += 1;
 
@@ -1181,7 +1182,8 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
       
       return false;
     }
-    
+
+    // single tap
     release_time = now_buffer;
     release_count = 0;
     return false;
