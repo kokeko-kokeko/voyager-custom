@@ -1527,13 +1527,16 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
     return state;
   }  
 
-  // or more
-  auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-  
-  lock_scrolling = true;
-  
-  navigator_turbo = true;
-  navigator_aim = false;
+  if (exit_count == 3) {
+    auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
+    
+    lock_scrolling = true;
+    
+    navigator_turbo = true;
+    navigator_aim = false;
+
+    return state;
+  }
   
   return state;
 }
@@ -1607,13 +1610,16 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
     return state;
   }
   
-  // or more
-  auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
-  
-  lock_scrolling = false;
+  if (exit_count == 3) {
+    auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_LONG;
     
-  navigator_turbo = true;
-  navigator_aim = false;
+    lock_scrolling = false;
+    
+    navigator_turbo = true;
+    navigator_aim = false;
+    
+    return state;
+  }
   
   return state;
 }
