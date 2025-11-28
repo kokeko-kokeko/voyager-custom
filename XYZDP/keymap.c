@@ -1162,28 +1162,26 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
     static fast_timer_t release_time = 0;
     static uint8_t release_count = 0;
     
-    if (TIMER_DIFF_FAST(now_buffer, release_time)< 1000) {
-      // multi tap
+    if (TIMER_DIFF_FAST(now_buffer, release_time) >= 1000) {
+      // single release (far from previous release)
       release_time = now_buffer;
-      release_count += 1;
+      release_count = 1;
+      return false;
+    }
 
-      if (release_count < 5) {
-        // nothing to do
-        return false;
-      }
-        
+    // multi release
+    release_time = now_buffer;
+    release_count++;
+
+    if (release_count == 5) {
       // both on Hue for exit key
       layer_state_t layer_mask = 
         ((layer_state_t)1 << L_Set_Hue)   |
         ((layer_state_t)1 << L_Halt_Mask);
       layer_or(layer_mask);
-      
       return false;
     }
-
-    // single tap
-    release_time = now_buffer;
-    release_count = 1;
+    
     return false;
   }
   
