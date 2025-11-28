@@ -1511,7 +1511,7 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
   }
   
   //tap
-  if (TIMER_DIFF_FAST(now_buffer, exit_1_time) >= AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
+  if (TIMER_DIFF_FAST(now_buffer, exit_time) >= AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
     //1 tap (far from previous release)
     exit_time = now_buffer;
     exit_count = 1;
