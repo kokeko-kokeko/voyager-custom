@@ -1124,11 +1124,6 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
         return false;
       }
       
-      if (pos == 49) {
-        clear_keyboard();
-        return false;
-      }
-      
       return false;
     }
     return false;
@@ -1168,9 +1163,13 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
       
     if (TIMER_DIFF_FAST(now_buffer, release_time[3])< 1000) {
       release_time[3] = now_buffer;
-      clear_keyboard();
+      // on Hue for exit
+      layer_state_t layer_mask = 
+        ((layer_state_t)1 << L_Set_Hue)   |
+        ((layer_state_t)1 << L_Halt_Mask);
+      layer_or(layer_mask);
+      
       set_auto_mouse_enable(false);
-      layer_on(L_Halt_Mask);
       return false;
     }
     
@@ -1217,8 +1216,8 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
       ((layer_state_t)1 << L_Set_Speed) |
       ((layer_state_t)1 << L_Halt_Mask);
     layer_mask = ~layer_mask;
-    
     layer_and(layer_mask);
+    
     set_auto_mouse_enable(true);
     status_led(now_buffer, 0b1111, led_pattern_oneshot);
     return false;
