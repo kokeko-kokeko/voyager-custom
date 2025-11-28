@@ -1166,22 +1166,24 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
       release_time = now_buffer;
       release_count += 1;
 
-      if (release_count >= 5) {
-        // both on Hue for exit key
-        layer_state_t layer_mask = 
-          ((layer_state_t)1 << L_Set_Hue)   |
-          ((layer_state_t)1 << L_Halt_Mask);
-        layer_or(layer_mask);
-        
-        set_auto_mouse_enable(false);
+      if (release_count < 5) {
+        // nothing to do
         return false;
       }
+        
+      // both on Hue for exit key
+      layer_state_t layer_mask = 
+        ((layer_state_t)1 << L_Set_Hue)   |
+        ((layer_state_t)1 << L_Halt_Mask);
+      layer_or(layer_mask);
+        
+      set_auto_mouse_enable(false);
       
       return false;
     }
     
     release_time = now_buffer;
-    release_count = 1;
+    release_count = 0;
     return false;
   }
   
