@@ -1313,14 +1313,14 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
   if (record->event.key.row >= MATRIX_ROWS / 2) index += 8;
   
     // 0 to 7 = left, 8 to 15 = right, button 8 count
-  static uint16_t btn_press_time[16] = {
+  static uint16_t press_time[16] = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0
   };
   
   if (record->event.pressed) {
     // press
-    btn_press_time[index] = record->event.time;
+    press_time[index] = record->event.time;
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     // early trigger reset on auto_mouse_activation
 
@@ -1328,14 +1328,14 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
   }
   
   // release
-  static fast_timer_t btn_last_tap_time[16] = {
+  static fast_timer_t release_time[16] = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0
   };
 
-  if (TIMER_DIFF_16(record->event.time, btn_press_time[index]) >= AUTO_MOUSE_DRAG_THRESHOLD) {
+  if (TIMER_DIFF_16(record->event.time, press_time[index]) >= AUTO_MOUSE_DRAG_THRESHOLD) {
     // drag, reset
-    btn_last_tap_time[index] = now_buffer + (UINT32_MAX / 2) - 1;
+    release_time[index] = now_buffer + (UINT32_MAX / 2) - 1;
     
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
     
@@ -1343,9 +1343,9 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
   }
     
   //tap
-  if (TIMER_DIFF_FAST(now_buffer, btn_last_tap_time[index]) >= AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
+  if (TIMER_DIFF_FAST(now_buffer, release_time[index]) >= AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
     //single tap (far from previous release)
-    btn_last_tap_time[index] = now_buffer;
+    release_time[index] = now_buffer;
     
     auto_mouse_early_off_trigger = now_buffer + btn_early_off_delay[index];
     
@@ -1354,7 +1354,7 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
   
   //double tap or more
   //keep continue
-  btn_last_tap_time[index] = now_buffer;
+  release_time[index] = now_buffer;
   
   auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
   
