@@ -1343,21 +1343,21 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
   }
     
   //tap
-  if (TIMER_DIFF_FAST(now_buffer, btn_last_tap_time[index]) < AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
-    //double tap
-    //keep continue
+  if (TIMER_DIFF_FAST(now_buffer, btn_last_tap_time[index]) >= AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
+    //single tap (far from previous release)
     btn_last_tap_time[index] = now_buffer;
-      
-    //short time
-    auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
-
+    
+    auto_mouse_early_off_trigger = now_buffer + btn_early_off_delay[index];
+    
     return;
   }
   
-  //single tap
+  //double tap or more
+  //keep continue
   btn_last_tap_time[index] = now_buffer;
-      
-  auto_mouse_early_off_trigger = now_buffer + btn_early_off_delay[index];
+  
+  //short time
+  auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
   
   return;
 }
