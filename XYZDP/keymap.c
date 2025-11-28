@@ -1356,7 +1356,6 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
   //keep continue
   btn_last_tap_time[index] = now_buffer;
   
-  //short time
   auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
   
   return;
