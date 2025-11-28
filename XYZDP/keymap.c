@@ -1206,7 +1206,7 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
 
     // release
     static fast_timer_t release_time = 0;
-    static uint8_t release_count = 0;
+    static uint16_t release_count = 0;
     
     if (TIMER_DIFF_FAST(now_buffer, release_time) >= 1000) {
       // single release (far from previous release)
@@ -1475,7 +1475,7 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
   
   // exited
   static fast_timer_t exit_time = 0;
-  static uint8_t exit_count = 0;
+  static uint16_t exit_count = 0;
   
   if (TIMER_DIFF_FAST(now_buffer, enter_time) >= AUTO_MOUSE_DRAG_THRESHOLD) {
     // drag, reset all
@@ -1558,7 +1558,7 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
 
   // exited
   static fast_timer_t exit_time = 0;
-  static uint8_t exit_count = 0;
+  static uint16_t exit_count = 0;
   
   if (TIMER_DIFF_FAST(now_buffer, enter_time) >= AUTO_MOUSE_DRAG_THRESHOLD) {
     // drag, reset all
