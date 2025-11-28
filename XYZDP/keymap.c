@@ -1805,7 +1805,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Base_2025:
     case L_Base_2021:
     case L_Base_ANSI:
-      status_led(now_buffer, 0b1011, led_pattern_off);
+      status_led(now_buffer, 0b1111, led_pattern_off);
       break;
     case L_Function:
       status_led(now_buffer, 0b1100, led_pattern_off);
@@ -1829,7 +1829,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Mouse_Cursor:
     case L_Mouse_BothThumb:
       // mouse indication
-      status_led(now_buffer, 0b0011, led_pattern_off);
       status_led(now_buffer, 0b1000, led_pattern_on);
       // DRAG_SCROLL add on key event
       // aim/turbo change without layer, direct write on process_record
