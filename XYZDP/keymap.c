@@ -1159,36 +1159,29 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
     }
 
     // release
-    static fast_timer_t release_time[4] = {0, 0, 0, 0};
+    static fast_timer_t release_time = 0;
+    static uint8_t release_count = 0;
       
-    if (TIMER_DIFF_FAST(now_buffer, release_time[3])< 1000) {
-      release_time[3] = now_buffer;
-      // on Hue for exit
-      layer_state_t layer_mask = 
-        ((layer_state_t)1 << L_Set_Hue)   |
-        ((layer_state_t)1 << L_Halt_Mask);
-      layer_or(layer_mask);
-      
-      set_auto_mouse_enable(false);
-      return false;
-    }
-    
-    if (TIMER_DIFF_FAST(now_buffer, release_time[2])< 1000) {
-      release_time[3] = now_buffer;
-      return false;
-    }
-    
-    if (TIMER_DIFF_FAST(now_buffer, release_time[1])< 1000) {
-      release_time[2] = now_buffer;
-      return false;
-    }
+    if (TIMER_DIFF_FAST(now_buffer, release_time)< 1000) {
+      release_time = now_buffer;
+      release_count += 1;
 
-    if (TIMER_DIFF_FAST(now_buffer, release_time[0])< 1000) {
-      release_time[1] = now_buffer;
+      if (release_count >= 5) {
+        // both on Hue for exit key
+        layer_state_t layer_mask = 
+          ((layer_state_t)1 << L_Set_Hue)   |
+          ((layer_state_t)1 << L_Halt_Mask);
+        layer_or(layer_mask);
+        
+        set_auto_mouse_enable(false);
+        return false;
+      }
+      
       return false;
     }
-      
-    release_time[0] = now_buffer;      
+    
+    release_time = now_buffer;
+    release_count = 1;
     return false;
   }
   
