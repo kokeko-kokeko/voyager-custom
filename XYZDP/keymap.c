@@ -1272,7 +1272,7 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
 }
 
 static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record) {    
-  if (keycode == HSV_172_255_200) {
+  if (keycode == HSV_172_255_210) {
     if (record->event.pressed) {
       fade_matrix_load_preset(now_buffer);
       status_led(now_buffer, 0b0101, led_pattern_oneshot);
@@ -1282,8 +1282,18 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
     
     return false;  
   }
+
+  if (keycode == HSV_172_255_211) {
+
+    return false;  
+  }
+
+  if (keycode == HSV_172_255_212) {
+
+    return false;  
+  }
   
-  if (keycode == HSV_172_255_201) {
+  if (keycode == HSV_172_255_213) {
     if (record->event.pressed) {
       fade_matrix_load_preset_powersave(now_buffer);
       status_led(now_buffer, 0b1010, led_pattern_oneshot);
