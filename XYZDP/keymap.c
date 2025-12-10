@@ -1437,6 +1437,18 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
 // -----------------------------------------------------------------------------
 //
 //
+// Split pointing_device_task_user
+//
+//
+// -----------------------------------------------------------------------------
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+  return mouse_report;
+}
+
+// -----------------------------------------------------------------------------
+//
+//
 // Split set layer impl
 // after func overwrite before result
 //
