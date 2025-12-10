@@ -1443,6 +1443,7 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
 // -----------------------------------------------------------------------------
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+  // move detect
   bool move_or = false;
   
   move_or = move_or || (mouse_report.x != 0);
@@ -1452,6 +1453,9 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
   if (move_or) {
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+
+    // wakeup RGB
+    activate_fade_matrix(now_buffer);
   }
   
   return mouse_report;
