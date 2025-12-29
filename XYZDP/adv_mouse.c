@@ -49,6 +49,8 @@ bool get_mouse_flag_aim(void) {
 }
 
 static void activate_mouse_flag(const fast_timer_t now, const bool pressed) {
+  
+  
   if (pressed) {
     mouse_flag_update_trigger = now + TAPPING_TERM;
   } else {
@@ -103,10 +105,10 @@ static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record)
   
   if (record->event.pressed) {
     // non-mouse key press 
-    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+    auto_mouse_early_off_trigger = timer_read_fast() + (UINT32_MAX / 2) - 1;
   } else {
     // non-mouse key release, exit 
-    auto_mouse_early_off_trigger = now_buffer + 1;
+    auto_mouse_early_off_trigger = timer_read_fast() + 1;
   } 
 
   return;
@@ -115,7 +117,9 @@ static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record)
 static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *record) {
   // only mouse button
   if (IS_MOUSEKEY_BUTTON(keycode) == false) return;
-  
+
+  const fast_timer_t now = timer_read_fast();
+
   uint8_t index = keycode - KC_MS_BTN1;
   
   // right hand
@@ -130,7 +134,7 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
   if (record->event.pressed) {
     // press
     press_time[index] = record->event.time;
-    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+    auto_mouse_early_off_trigger = now + (UINT32_MAX / 2) - 1;
     // early trigger reset on auto_mouse_activation
 
     return;
@@ -144,28 +148,28 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
 
   if (TIMER_DIFF_16(record->event.time, press_time[index]) >= AUTO_MOUSE_DRAG_THRESHOLD) {
     // drag, reset
-    release_time[index] = now_buffer + (UINT32_MAX / 2) - 1;
+    release_time[index] = now + (UINT32_MAX / 2) - 1;
     
-    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+    auto_mouse_early_off_trigger = now + (UINT32_MAX / 2) - 1;
     
     return;
   }
     
   //tap
-  if (TIMER_DIFF_FAST(now_buffer, release_time[index]) >= AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
+  if (TIMER_DIFF_FAST(now, release_time[index]) >= AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
     //single tap (far from previous release)
-    release_time[index] = now_buffer;
+    release_time[index] = now;
     
-    auto_mouse_early_off_trigger = now_buffer + btn_early_off_delay[index];
+    auto_mouse_early_off_trigger = now + btn_early_off_delay[index];
     
     return;
   }
   
   //double tap or more
   //keep continue
-  release_time[index] = now_buffer;
+  release_time[index] = now;
   
-  auto_mouse_early_off_trigger = now_buffer + AUTO_MOUSE_TIME_SHORT;
+  auto_mouse_early_off_trigger = now + AUTO_MOUSE_TIME_SHORT;
   
   return;
 }
@@ -477,7 +481,7 @@ void housekeeping_task_adv_mouse(void) {
   
   update_mouse_flag(now); 
 
-  if (timer_expired_fast(now_buffer, auto_mouse_early_off_trigger)) {
+  if (timer_expired_fast(now, auto_mouse_early_off_trigger)) {
     auto_mouse_early_off_trigger = now + (UINT32_MAX / 2) - 1;
     auto_mouse_layer_off();
   }
