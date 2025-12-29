@@ -294,7 +294,7 @@ layer_state_t layer_state_set_fade_matrix(layer_state_t state) {
   return state;
 }
 
-void housekeeping_fade_matrix(void) {
+void housekeeping_task_fade_matrix(void) {
   const fast_timer_t now = timer_read_fast();
   
   if (timer_expired_fast(now, fade_tamrix_trigger) == false) return;
