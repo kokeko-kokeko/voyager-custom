@@ -11,6 +11,10 @@
 
 #include "status_led.h"
 
+// zsa side
+extern bool set_scrolling;
+extern bool navigator_turbo;
+extern bool navigator_aim;
 
 static bool lock_scrolling = false;
 
