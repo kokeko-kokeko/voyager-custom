@@ -239,7 +239,7 @@ void fade_matrix_load_preset_powersave(void) {
   activate_fade_matrix();
 }
 
-void init_fade_matrix(void) {
+void post_init_fade_matrix(void) {
   rgb_matrix_sethsv_noeeprom(0, 0, 0);
   rgb_matrix_set_speed_noeeprom(0);
   rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
