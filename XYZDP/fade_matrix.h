@@ -22,7 +22,7 @@ void fade_matrix_step(void);
 void fade_matrix_load_preset(void);
 void fade_matrix_load_preset_powersave(void);
 
-void init_fade_matrix(const fast_timer_t now);
+void post_init_fade_matrix(void);
 void activate_fade_matrix(void);
 void housekeeping_fade_matrix(void);
 
