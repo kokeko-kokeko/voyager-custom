@@ -495,3 +495,73 @@ void housekeeping_task_adv_mouse(void) {
   
   return;
 }
+
+void set_layer_color_mouse_map(void) {
+  const uint8_t f = rgb_matrix_get_val();
+  const uint8_t h = f >> 1;
+  const uint8_t q = h >> 1;
+  const uint8_t o = q >> 1;
+
+  rgb_matrix_set_color_all(0, 0, 0);
+
+  // left side
+  rgb_matrix_set_color( 2, h, 0, f);
+  rgb_matrix_set_color( 3, 0, h, f);
+  rgb_matrix_set_color( 4, f, f, 0);
+  rgb_matrix_set_color( 5, f, 0, h);
+  
+  rgb_matrix_set_color(11, 0, f, h);
+  
+  rgb_matrix_set_color(17, 0, 0, f);
+  
+  rgb_matrix_set_color(24, 0, f, 0);
+  rgb_matrix_set_color(25, f, 0, 0);
+
+  // right side
+  rgb_matrix_set_color(26, 0, f, h);
+  rgb_matrix_set_color(27, 0, f, 0);
+  rgb_matrix_set_color(28, f, 0, h);
+  rgb_matrix_set_color(29, f, f, 0);
+  rgb_matrix_set_color(30, 0, h, f); 
+  rgb_matrix_set_color(31, h, 0, f);
+
+  rgb_matrix_set_color(32, 0, 0, f);
+  rgb_matrix_set_color(37, o, q, 0);
+  
+  rgb_matrix_set_color(38, f, 0, 0);
+
+  //rgb_matrix_set_color(44, q, q, q);
+  rgb_matrix_set_color(47, q, q, q);
+  rgb_matrix_set_color(48, f, f, f);
+  
+  // scroll
+  if (get_mouse_flag_scrolling()) {
+    if (get_mouse_flag_turbo() && get_mouse_flag_aim()) {
+      rgb_matrix_set_color(0, f, f, 0);
+    } else if (get_mouse_flag_turbo()) {
+      rgb_matrix_set_color(0, f, h, 0);
+    } else if (get_mouse_flag_aim()) {
+      rgb_matrix_set_color(0, 0, f, h);
+    } else {
+      rgb_matrix_set_color(0, 0, h, f);
+    }
+    
+    rgb_matrix_set_color(22, h, 0, 0);
+    rgb_matrix_set_color(45, h, 0, 0);
+    rgb_matrix_set_color(50, h, 0, 0);
+  } else {
+    if (get_mouse_flag_turbo() && get_mouse_flag_aim()) {
+      rgb_matrix_set_color(0, f, f, f);
+    } else if (get_mouse_flag_turbo()) {
+      rgb_matrix_set_color(0, f, 0, 0);
+    } else if (get_mouse_flag_aim()) {
+      rgb_matrix_set_color(0, 0, f, 0);
+    } else {
+      rgb_matrix_set_color(0, 0, 0, f);
+    }
+    
+    rgb_matrix_set_color(22, h, h, h);
+    rgb_matrix_set_color(45, h, h, h);
+    rgb_matrix_set_color(50, h, h, h);
+  }
+}
