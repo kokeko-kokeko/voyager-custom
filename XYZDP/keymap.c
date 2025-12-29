@@ -1712,7 +1712,7 @@ void keyboard_post_init_user(void) {
   //keymap_config.nkro = true;
 
   now_buffer = timer_read_fast();
-  init_fade_matrix(now_buffer);
+  post_init_fade_matrix();
   status_led(0b1111, led_pattern_off);
 
   auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
