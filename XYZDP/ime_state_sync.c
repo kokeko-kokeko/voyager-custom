@@ -111,16 +111,24 @@ bool process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void activate_ime_state_sync(const fast_timer_t now) {
+void post_process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed == false) return;
+
+  const fast_timer_t now = timer_read_fast();
+  
   iss_sync = false;
   if (iss_enable) {
     iss_trigger = now + iss_sync_delay;
   } else {
     iss_trigger = now + (UINT32_MAX / 2) - 1;
   }
+  
+  return;
 }
 
-void update_ime_state_sync(const fast_timer_t now) {
+void housekeeping_ime_state_sync(void) {
+  const fast_timer_t now = timer_read_fast();
+  
   if (timer_expired_fast(now, iss_trigger) == false) return;
 
   if (iss_sync == false) {
@@ -131,6 +139,8 @@ void update_ime_state_sync(const fast_timer_t now) {
     iss_sync = false;
     iss_trigger += (UINT32_MAX / 2) - 1;
   }
+
+  return;
 }
 
 void set_layer_color_overlay_ime_state_sync(void) {
