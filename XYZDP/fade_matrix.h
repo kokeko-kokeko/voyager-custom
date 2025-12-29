@@ -25,6 +25,7 @@ void fade_matrix_load_preset_powersave(void);
 void post_init_fade_matrix(void);
 void post_process_record_fade_matrix(uint16_t keycode, keyrecord_t *record);
 report_mouse_t pointing_device_task_fade_matrix(report_mouse_t mouse_report);
+layer_state_t layer_state_set_fade_matrix(layer_state_t state);
 void housekeeping_fade_matrix(void);
 
 void set_layer_color_hue_map(void);
