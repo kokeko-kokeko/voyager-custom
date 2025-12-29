@@ -468,7 +468,7 @@ report_mouse_t pointing_device_task_adv_mouse(report_mouse_t mouse_report) {
   move_or = move_or || (mouse_report.v != 0);
 
   if (move_or) {
-    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+    auto_mouse_early_off_trigger =  timer_read_fast() + (UINT32_MAX / 2) - 1;
   }
   
   return mouse_report;
@@ -486,7 +486,7 @@ layer_state_t layer_state_set_adv_mouse(layer_state_t state) {
 void housekeeping_task_adv_mouse(void) {
   const fast_timer_t now = timer_read_fast();
   
-  update_mouse_flag(now); 
+  update_mouse_flag(); 
 
   if (timer_expired_fast(now, auto_mouse_early_off_trigger)) {
     auto_mouse_early_off_trigger = now + (UINT32_MAX / 2) - 1;
