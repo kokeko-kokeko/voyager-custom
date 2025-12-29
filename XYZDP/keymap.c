@@ -1939,8 +1939,9 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     activate_fade_matrix(now_buffer);
-    activate_ime_state_sync(now_buffer);
   }
+
+  post_process_record_ime_state_sync(keycode, record);
   
   // split post_process_record not break, overwrite after function
   post_process_record_non_mouse(keycode, record);
@@ -1973,8 +1974,8 @@ void housekeeping_task_user(void) {
   now_buffer = timer_read_fast();
   
   update_fade_matrix(now_buffer);
-  update_ime_state_sync(now_buffer);
-
+  
+  housekeeping_ime_state_sync();
   housekeeping_status_led();
 
   update_mouse_flag(now_buffer); 
