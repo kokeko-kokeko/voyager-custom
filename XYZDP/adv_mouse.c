@@ -352,7 +352,7 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
   }
     
   // multi tap (use ==)
-  exit_time = now_buffer;
+  exit_time = now;
   if (exit_count != 0) exit_count++;
   
   if (exit_count == 2) {
