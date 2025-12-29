@@ -21,6 +21,7 @@ SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no 
 MAGIC_ENABLE = no
 
+SRC += adv_mouse.c
 SRC += fade_matrix.c
 SRC += ime_state_sync.c
 SRC += overlay_layer_mod.c
