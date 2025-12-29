@@ -279,7 +279,10 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
 static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record);
 
 // header incl process_record_*
+#include "fade_matrix.h"
 #include "ime_state_sync.h"
+#include "overlay_layer_mod.h"
+#include "status_led.h"
 
 // -----------------------------------------------------------------------------
 //
@@ -835,11 +838,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
 _Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
 #undef ORYX_LAYER_COUNT
-
-// split impl header
-#include "fade_matrix.h"
-#include "overlay_layer_mod.h"
-#include "status_led.h"
 
 // remove oryx JP keycode, load qmk JP keycode & overrides
 #include "i18n_undef.inc"
