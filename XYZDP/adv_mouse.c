@@ -443,6 +443,22 @@ void post_process_record_adv_mouse(uint16_t keycode, keyrecord_t *record) {
   return;
 }
 
+report_mouse_t pointing_device_task_adv_mouse(report_mouse_t mouse_report) {
+  // move detect
+  bool move_or = false;
+  
+  move_or = move_or || (mouse_report.x != 0);
+  move_or = move_or || (mouse_report.y != 0);
+  move_or = move_or || (mouse_report.h != 0);
+  move_or = move_or || (mouse_report.v != 0);
+
+  if (move_or) {
+    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
+  }
+  
+  return mouse_report;
+}
+
 layer_state_t layer_state_set_adv_mouse(const layer_state_t state) {
   state = layer_state_set_mouse_edge_detect(state);
   state = layer_state_set_mouse_number_edge_detect(state);
