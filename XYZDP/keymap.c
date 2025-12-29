@@ -1283,10 +1283,9 @@ void keyboard_post_init_user(void) {
   // config.h
   //keymap_config.nkro = true;
 
-  post_init_fade_matrix();
-  status_led(0b1111, led_pattern_off);
-  
   keyboard_post_init_adv_mouse();
+  keyboard_post_init_fade_matrix();
+  status_led(0b1111, led_pattern_off);
   
   //JIS / 2021
   layer_move(L_Base_2025);
