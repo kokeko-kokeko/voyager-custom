@@ -278,7 +278,8 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
 static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record);
 static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record);
 
-// header incl process_record_*
+// module impl
+#include "adv_mouse.h"
 #include "fade_matrix.h"
 #include "ime_state_sync.h"
 #include "overlay_layer_mod.h"
