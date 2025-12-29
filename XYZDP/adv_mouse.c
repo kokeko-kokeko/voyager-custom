@@ -48,18 +48,19 @@ bool get_mouse_flag_aim(void) {
   return navigator_aim_delayed;
 }
 
-static void activate_mouse_flag(const fast_timer_t now, const bool pressed) {
-  
-  
+static void activate_mouse_flag(const bool pressed) {
+  const fast_timer_t now = timer_read_fast();
+
   if (pressed) {
     mouse_flag_update_trigger = now + TAPPING_TERM;
   } else {
     mouse_flag_update_trigger = now + 1;
   }
+  
   return;
 }
 
-static void update_mouse_flag(const fast_timer_t now) {
+static void update_mouse_flag(void) {
   if (timer_expired_fast(now, mouse_flag_update_trigger) == false) return;
   mouse_flag_update_trigger = now + (UINT32_MAX / 2) - 1;
   
@@ -202,7 +203,7 @@ static layer_state_t layer_state_set_mouse_edge_detect(const layer_state_t state
   navigator_turbo = false;
   navigator_aim = false;
 
-  activate_mouse_flag(now_buffer, false);
+  activate_mouse_flag(false);
 
   return state;
 }
@@ -398,7 +399,7 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
 
   if (layer_state_or) {
     set_scrolling = true;
-    activate_mouse_flag(now_buffer, true);
+    activate_mouse_flag(true);
     
     return state;
   }
@@ -408,7 +409,7 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
   
   if (layer_state_or) {
     set_scrolling = true;
-    activate_mouse_flag(now_buffer, true);
+    activate_mouse_flag(true);
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
@@ -430,7 +431,7 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
 
   // all test layers off
   set_scrolling = false;
-  activate_mouse_flag(now_buffer, false);
+  activate_mouse_flag(false);
   set_auto_mouse_enable(true);
   
   return state;
