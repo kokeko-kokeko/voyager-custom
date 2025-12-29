@@ -1974,7 +1974,8 @@ void housekeeping_task_user(void) {
   
   update_fade_matrix(now_buffer);
   update_ime_state_sync(now_buffer);
-  update_status_led(now_buffer);
+
+  housekeeping_status_led();
 
   update_mouse_flag(now_buffer); 
 
