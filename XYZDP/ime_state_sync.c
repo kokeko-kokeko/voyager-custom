@@ -126,7 +126,7 @@ void post_process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record) {
   return;
 }
 
-void housekeeping_ime_state_sync(void) {
+void housekeeping_task_ime_state_sync(void) {
   const fast_timer_t now = timer_read_fast();
   
   if (timer_expired_fast(now, iss_trigger) == false) return;
