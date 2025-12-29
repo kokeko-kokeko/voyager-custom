@@ -95,8 +95,10 @@ static void status_led_update_func(status_led_state_t * const state, const fast_
 // 2 -> Green Left
 // 4 -> Green Right
 // re-order bit position
-void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t * const pattern) {
+void status_led(const uint8_t mask, const uint8_t * const pattern) {
   if (pattern == NULL) return;
+  
+  const fast_timer_t now = timer_read_fast();
   
   //add prime pseudo rendom start
   if (mask & 0b1000) {
@@ -114,10 +116,13 @@ void status_led(const fast_timer_t now, const uint8_t mask, const uint8_t * cons
   return;
 }
 
-void update_status_led(const fast_timer_t now) {
+void housekeeping_status_led(void) {
+  const fast_timer_t now = timer_read_fast();
+
   status_led_update_func(&status_led_state_1, now);
   status_led_update_func(&status_led_state_3, now);
   status_led_update_func(&status_led_state_2, now);
   status_led_update_func(&status_led_state_4, now);
+  
   return;
 }
