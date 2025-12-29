@@ -474,7 +474,7 @@ report_mouse_t pointing_device_task_adv_mouse(report_mouse_t mouse_report) {
   return mouse_report;
 }
 
-layer_state_t layer_state_set_adv_mouse(const layer_state_t state) {
+layer_state_t layer_state_set_adv_mouse(layer_state_t state) {
   state = layer_state_set_mouse_edge_detect(state);
   state = layer_state_set_mouse_number_edge_detect(state);
   state = layer_state_set_mouse_cursor_edge_detect(state);
