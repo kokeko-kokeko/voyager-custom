@@ -116,7 +116,7 @@ void status_led(const uint8_t mask, const uint8_t * const pattern) {
   return;
 }
 
-void housekeeping_status_led(void) {
+void housekeeping_task_status_led(void) {
   const fast_timer_t now = timer_read_fast();
 
   status_led_update_func(&status_led_state_1, now);
