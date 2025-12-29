@@ -1286,6 +1286,9 @@ void keyboard_post_init_user(void) {
 
   keyboard_post_init_adv_mouse();
   keyboard_post_init_fade_matrix();
+  
+  status_led(0b1111, led_pattern_off);
+  status_led(0b1111, led_pattern_off);
   status_led(0b1111, led_pattern_off);
   
   //JIS / 2021
@@ -1498,9 +1501,8 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (pre_process_record_ime_state_sync(keycode, record) == false) {
-    return false;
-  }
+  if (pre_process_record_ime_state_sync(keycode, record) == false) return false;
+  
   return true;
 }
 
