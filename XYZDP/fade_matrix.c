@@ -260,7 +260,9 @@ void activate_fade_matrix(const fast_timer_t now) {
   fade_matrix_active = fade_matrix_target.enable;
 }
 
-void update_fade_matrix(const fast_timer_t now) {
+void housekeeping_fade_matrix(void) {
+  const fast_timer_t now = timer_read_fast();
+  
   if (timer_expired_fast(now, fade_tamrix_trigger) == false) return;
   fade_tamrix_trigger += fade_matrix_repeat_delay;
 
