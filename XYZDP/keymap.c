@@ -1274,7 +1274,7 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
 static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record) {    
   if (keycode == HSV_172_255_210) {
     if (record->event.pressed) {
-      fade_matrix_load_preset(now_buffer);
+      fade_matrix_load_preset();
       status_led(0b0101, led_pattern_oneshot);
       
       return false;
@@ -1295,7 +1295,7 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
   
   if (keycode == HSV_172_255_213) {
     if (record->event.pressed) {
-      fade_matrix_load_preset_powersave(now_buffer);
+      fade_matrix_load_preset_powersave();
       status_led(0b1010, led_pattern_oneshot);
       
       return false;
@@ -1452,7 +1452,7 @@ static layer_state_t layer_state_set_mouse_edge_detect(const layer_state_t state
     // entered
     
     // wakeup RGB
-    activate_fade_matrix(now_buffer);
+    activate_fade_matrix();
     
     return state;
   }
