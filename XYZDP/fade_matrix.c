@@ -117,11 +117,9 @@ uint8_t get_pos_from_keyrecord(const keyrecord_t * const record) {
   return row_col2pos_tbl[record->event.key.row][record->event.key.col];
 }
 
-void fade_matrix_set_mode(const uint8_t mode) {
-  const fast_timer_t now = timer_read_fast();
-
+void fade_matrix_set_mode() {
   fade_matrix_target.mode = mode;
-  activate_fade_matrix(now);
+  activate_fade_matrix();
 }
 
 void fade_matrix_set_hue_keyrecord(const keyrecord_t * const record) {
@@ -130,11 +128,8 @@ void fade_matrix_set_hue_keyrecord(const keyrecord_t * const record) {
   if (52 <= pos) return;
   uint8_t idx = pos2idx_tbl[pos];
   if (48 <= idx) return;
-
-  const fast_timer_t now = timer_read_fast();
-
   fade_matrix_target.hsv.h = hue_tbl[idx];
-  activate_fade_matrix(now);
+  activate_fade_matrix();
 }
 
 void fade_matrix_set_sat_keyrecord(const keyrecord_t * const record) {
@@ -143,11 +138,8 @@ void fade_matrix_set_sat_keyrecord(const keyrecord_t * const record) {
   if (52 <= pos) return;
   uint8_t idx = pos2idx_tbl[pos];
   if (48 <= idx) return;
-    
-  const fast_timer_t now = timer_read_fast();
-
   fade_matrix_target.hsv.s = sat_tbl[idx];
-  activate_fade_matrix(now);
+  activate_fade_matrix();
 }
 
 void fade_matrix_set_val_keyrecord(const keyrecord_t * const record) {
@@ -156,11 +148,8 @@ void fade_matrix_set_val_keyrecord(const keyrecord_t * const record) {
   if (52 <= pos) return;
   uint8_t idx = pos2idx_tbl[pos];
   if (48 <= idx) return;
-
-  const fast_timer_t now = timer_read_fast();
-
   fade_matrix_target.hsv.v = val_tbl[idx];
-  activate_fade_matrix(now);
+  activate_fade_matrix();
 }
 
 void fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
@@ -169,11 +158,8 @@ void fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
   if (52 <= pos) return;
   uint8_t idx = pos2idx_tbl[pos];
   if (48 <= idx) return;
-  
-  const fast_timer_t now = timer_read_fast();
-
   fade_matrix_target.speed = spd_tbl[idx];
-  activate_fade_matrix(now);
+  activate_fade_matrix();
 }
 
 void fade_matrix_increase_hue() {
