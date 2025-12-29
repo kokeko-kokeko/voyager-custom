@@ -112,6 +112,14 @@ static const uint8_t row_col2pos_tbl[MATRIX_ROWS][MATRIX_COLS] = {
   { 255, 255, 255, 255, 255,  50,  51 }
 };
 
+static void activate_fade_matrix(void) {
+  const fast_timer_t now = timer_read_fast();
+
+  fade_tamrix_trigger = now + fade_matrix_activate_delay;
+  // transfer target to active, set rgb_matrix_config.enacle by api
+  fade_matrix_active = fade_matrix_target.enable;
+}
+
 uint8_t get_pos_from_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return 255;
   return row_col2pos_tbl[record->event.key.row][record->event.key.col];
@@ -254,12 +262,29 @@ void post_init_fade_matrix(void) {
   activate_fade_matrix();
 }
 
-void activate_fade_matrix(void) {
-  const fast_timer_t now = timer_read_fast();
+void post_process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed == false) return;
 
-  fade_tamrix_trigger = now + fade_matrix_activate_delay;
-  // transfer target to active, set rgb_matrix_config.enacle by api
-  fade_matrix_active = fade_matrix_target.enable;
+  activate_fade_matrix();
+  
+  return;
+}
+
+report_mouse_t pointing_device_task_fade_matrix(report_mouse_t mouse_report) {
+  // move detect
+  bool move_or = false;
+  
+  move_or = move_or || (mouse_report.x != 0);
+  move_or = move_or || (mouse_report.y != 0);
+  move_or = move_or || (mouse_report.h != 0);
+  move_or = move_or || (mouse_report.v != 0);
+
+  if (move_or) {
+    // wakeup RGB
+    activate_fade_matrix();
+  }
+  
+  return mouse_report;
 }
 
 void housekeeping_fade_matrix(void) {
