@@ -903,21 +903,21 @@ static void update_mouse_flag(const fast_timer_t now) {
   navigator_aim_delayed = navigator_aim;
   
   if (get_mouse_flag_scrolling()) {
-    status_led(now, 0b0100, led_pattern_on);
+    status_led(0b0100, led_pattern_on);
   } else {
-    status_led(now, 0b0100, led_pattern_off);
+    status_led(0b0100, led_pattern_off);
   }
     
   if (get_mouse_flag_turbo()) {
-    status_led(now, 0b0001, led_pattern_on);
+    status_led(0b0001, led_pattern_on);
   } else {
-    status_led(now, 0b0001, led_pattern_off);
+    status_led(0b0001, led_pattern_off);
   }
     
   if (get_mouse_flag_aim()) {
-    status_led(now, 0b0010, led_pattern_on);
+    status_led(0b0010, led_pattern_on);
   } else {
-    status_led(now, 0b0010, led_pattern_off);
+    status_led(0b0010, led_pattern_off);
   }
   return;
 }
@@ -1263,7 +1263,7 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
     layer_mask = ~layer_mask;
     layer_and(layer_mask);
     
-    status_led(now_buffer, 0b1111, led_pattern_oneshot);
+    status_led(0b1111, led_pattern_oneshot);
     
     return false;
   }
@@ -1275,7 +1275,7 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
   if (keycode == HSV_172_255_210) {
     if (record->event.pressed) {
       fade_matrix_load_preset(now_buffer);
-      status_led(now_buffer, 0b0101, led_pattern_oneshot);
+      status_led(0b0101, led_pattern_oneshot);
       
       return false;
     }
@@ -1296,7 +1296,7 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
   if (keycode == HSV_172_255_213) {
     if (record->event.pressed) {
       fade_matrix_load_preset_powersave(now_buffer);
-      status_led(now_buffer, 0b1010, led_pattern_oneshot);
+      status_led(0b1010, led_pattern_oneshot);
       
       return false;
     }
@@ -1713,7 +1713,7 @@ void keyboard_post_init_user(void) {
 
   now_buffer = timer_read_fast();
   init_fade_matrix(now_buffer);
-  status_led(now_buffer, 0b1111, led_pattern_off);
+  status_led(0b1111, led_pattern_off);
 
   auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
   
@@ -1727,24 +1727,24 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
   switch (detected_os) {
     case OS_MACOS:
       fade_matrix_load_preset(now_buffer);
-      status_led(now_buffer, 0b1000, led_pattern_oneshot);
+      status_led(0b1000, led_pattern_oneshot);
       break;
     case OS_IOS:
       fade_matrix_load_preset_powersave(now_buffer);
-      status_led(now_buffer, 0b0100, led_pattern_oneshot);
+      status_led(0b0100, led_pattern_oneshot);
       break;
     case OS_WINDOWS:
       fade_matrix_load_preset(now_buffer);
-      status_led(now_buffer, 0b0010, led_pattern_oneshot);
+      status_led(0b0010, led_pattern_oneshot);
       break;
     case OS_LINUX:
       fade_matrix_load_preset_powersave(now_buffer);
-      status_led(now_buffer, 0b0001, led_pattern_oneshot);
+      status_led(0b0001, led_pattern_oneshot);
       break;
     case OS_UNSURE:
-      status_led(now_buffer, 0b1111, led_pattern_oneshot);
-      status_led(now_buffer, 0b1111, led_pattern_oneshot);
-      status_led(now_buffer, 0b1111, led_pattern_oneshot);
+      status_led(0b1111, led_pattern_oneshot);
+      status_led(0b1111, led_pattern_oneshot);
+      status_led(0b1111, led_pattern_oneshot);
       break;
   }
     
@@ -1823,11 +1823,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Base_2025:
     case L_Base_2021:
     case L_Base_ANSI:
-      status_led(now_buffer, 0b1111, led_pattern_off);
+      status_led(0b1111, led_pattern_off);
       break;
     case L_Function:
-      status_led(now_buffer, 0b1100, led_pattern_off);
-      status_led(now_buffer, 0b0011, led_pattern_on);
+      status_led(0b1100, led_pattern_off);
+      status_led(0b0011, led_pattern_on);
       break; 
     case L_Number:
     case L_Number_ANSI:
@@ -1847,38 +1847,38 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Mouse_Cursor:
     case L_Mouse_BothThumb:
       // mouse indication
-      status_led(now_buffer, 0b1000, led_pattern_on);
+      status_led(0b1000, led_pattern_on);
       // DRAG_SCROLL add on key event
       // aim/turbo change without layer, direct write on process_record
       break;
     case L_Firmware:
-      status_led(now_buffer, 0b0011, led_pattern_off);
-      status_led(now_buffer, 0b1100, led_pattern_blink);
+      status_led(0b0011, led_pattern_off);
+      status_led(0b1100, led_pattern_blink);
       break;
     case L_Set_Hue:
-      status_led(now_buffer, 0b0011, led_pattern_off);
-      status_led(now_buffer, 0b1100, led_pattern_on);
+      status_led(0b0011, led_pattern_off);
+      status_led(0b1100, led_pattern_on);
       break;
     case L_Set_Sat:
-      status_led(now_buffer, 0b0001, led_pattern_off);
-      status_led(now_buffer, 0b1100, led_pattern_on);
-      status_led(now_buffer, 0b0010, led_pattern_blink);
+      status_led(0b0001, led_pattern_off);
+      status_led(0b1100, led_pattern_on);
+      status_led(0b0010, led_pattern_blink);
       break;
     case L_Set_Val:
-      status_led(now_buffer, 0b0010, led_pattern_off);
-      status_led(now_buffer, 0b1100, led_pattern_on);
-      status_led(now_buffer, 0b0001, led_pattern_blink);
+      status_led(0b0010, led_pattern_off);
+      status_led(0b1100, led_pattern_on);
+      status_led(0b0001, led_pattern_blink);
       break;    
     case L_Set_Speed:
-      status_led(now_buffer, 0b1100, led_pattern_on);
-      status_led(now_buffer, 0b0011, led_pattern_blink);
+      status_led(0b1100, led_pattern_on);
+      status_led(0b0011, led_pattern_blink);
       break;
     case L_Halt_Mask:
-      status_led(now_buffer, 0b1111, led_pattern_off);
+      status_led(0b1111, led_pattern_off);
       break;
 
     default:
-      status_led(now_buffer, 0b1111, led_pattern_off);
+      status_led(0b1111, led_pattern_off);
       break;
   }  
   return state;
