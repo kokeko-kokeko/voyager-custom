@@ -1938,7 +1938,7 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-    activate_fade_matrix(now_buffer);
+    activate_fade_matrix();
   }
 
   post_process_record_ime_state_sync(keycode, record);
@@ -1963,7 +1963,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
 
     // wakeup RGB
-    activate_fade_matrix(now_buffer);
+    activate_fade_matrix();
   }
   
   return mouse_report;
