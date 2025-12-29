@@ -435,5 +435,12 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
   return state;
 }
 
+layer_state_t layer_state_set_adv_mouse(const layer_state_t state) {
+  state = layer_state_set_mouse_edge_detect(state);
+  state = layer_state_set_mouse_number_edge_detect(state);
+  state = layer_state_set_mouse_cursor_edge_detect(state);
+  state = layer_state_set_mouse_auto_block_scrolling(state);
 
+  return state;
+}
 
