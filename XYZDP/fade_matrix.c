@@ -287,7 +287,7 @@ report_mouse_t pointing_device_task_fade_matrix(report_mouse_t mouse_report) {
   return mouse_report;
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_fade_matrix(layer_state_t state) {
   // layer change activate
   activate_fade_matrix();
   
