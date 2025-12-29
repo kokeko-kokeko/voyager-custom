@@ -1804,6 +1804,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, L_Base_ANSI, L_Number, L_Number_ANSI);
   state = update_tri_layer_state(state, L_Base_ANSI, L_Cursor, L_Cursor_ANSI);
   state = update_tri_layer_state(state, L_Base_ANSI, L_BothThumb, L_BothThumb_ANSI);
+
+  state = layer_state_set_fade_matrix(state);
   
   // mouse layers
   state = layer_state_set_mouse_edge_detect(state);
