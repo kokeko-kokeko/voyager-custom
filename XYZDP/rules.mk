@@ -23,6 +23,7 @@ MAGIC_ENABLE = no
 
 SRC += adv_mouse.c
 SRC += fade_matrix.c
+SRC += firmware_map.c
 SRC += ime_state_sync.c
 SRC += overlay_layer_mod.c
 SRC += status_led.c
