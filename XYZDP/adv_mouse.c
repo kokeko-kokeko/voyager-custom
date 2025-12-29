@@ -166,13 +166,6 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
   return;
 }
 
-void post_process_record_adv_mouse(uint16_t keycode, keyrecord_t *record) {
-  post_process_record_non_mouse(keycode, record);
-  post_process_record_mouse_button(keycode, record);
-
-  return;
-}
-
 // -----------------------------------------------------------------------------
 //
 //
@@ -433,6 +426,21 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
   set_auto_mouse_enable(true);
   
   return state;
+}
+
+void keyboard_post_init_adv_mouse(void) {
+  const fast_timer_t now = timer_read_fast();
+
+  auto_mouse_early_off_trigger = now + (UINT32_MAX / 2) - 1;
+
+  return;
+}
+
+void post_process_record_adv_mouse(uint16_t keycode, keyrecord_t *record) {
+  post_process_record_non_mouse(keycode, record);
+  post_process_record_mouse_button(keycode, record);
+
+  return;
 }
 
 layer_state_t layer_state_set_adv_mouse(const layer_state_t state) {
