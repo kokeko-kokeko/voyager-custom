@@ -1937,10 +1937,7 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    activate_fade_matrix();
-  }
-
+  post_process_record_fade_matrix(keycode, record);
   post_process_record_ime_state_sync(keycode, record);
   
   // split post_process_record not break, overwrite after function
@@ -1961,10 +1958,9 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
   if (move_or) {
     auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
-
-    // wakeup RGB
-    activate_fade_matrix();
   }
+
+  mouse_report = pointing_device_task_fade_matrix(mouse_report);
   
   return mouse_report;
 }
