@@ -23,7 +23,7 @@ void fade_matrix_load_preset(void);
 void fade_matrix_load_preset_powersave(void);
 
 void init_fade_matrix(const fast_timer_t now);
-void activate_fade_matrix(const fast_timer_t now);
+void activate_fade_matrix(void);
 void housekeeping_fade_matrix(void);
 
 void set_layer_color_hue_map(void);
