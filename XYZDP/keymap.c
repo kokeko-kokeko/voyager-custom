@@ -848,9 +848,6 @@ _Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missma
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
 
-// cached now value, update on housekeeping
-static fast_timer_t now_buffer = 0;
-
 // -----------------------------------------------------------------------------
 //
 //
@@ -1134,21 +1131,23 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
       
       return false;
     }
+    
+    const fast_timer_t now = timer_read_fast();
 
     // release
     static fast_timer_t release_time = 0;
     static uint8_t release_count = 0;
     
-    if (TIMER_DIFF_FAST(now_buffer, release_time) >= 1000) {
+    if (TIMER_DIFF_FAST(now, release_time) >= 1000) {
       // single release (far from previous release)
-      release_time = now_buffer;
+      release_time = now;
       release_count = 1;
       
       return false;
     }
 
     // multi release
-    release_time = now_buffer;
+    release_time = now;
     if (release_count != 0) release_count++;
 
     if (release_count == 5) {
@@ -1284,13 +1283,10 @@ void keyboard_post_init_user(void) {
   // config.h
   //keymap_config.nkro = true;
 
-  now_buffer = timer_read_fast();
   post_init_fade_matrix();
   status_led(0b1111, led_pattern_off);
   
   keyboard_post_init_adv_mouse();
-
-  auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
   
   //JIS / 2021
   layer_move(L_Base_2025);
@@ -1524,9 +1520,6 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 }
 
 void housekeeping_task_user(void) {
-  // update to next now
-  now_buffer = timer_read_fast();
-
   housekeeping_task_adv_mouse();
   housekeeping_fade_matrix();
   housekeeping_ime_state_sync();
