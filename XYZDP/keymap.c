@@ -1538,17 +1538,11 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 void housekeeping_task_user(void) {
   // update to next now
   now_buffer = timer_read_fast();
-  
+
+  housekeeping_task_adv_mouse();
   housekeeping_fade_matrix();
   housekeeping_ime_state_sync();
   housekeeping_status_led();
 
-  update_mouse_flag(now_buffer); 
-
-  if (timer_expired_fast(now_buffer, auto_mouse_early_off_trigger)) {
-    auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
-    auto_mouse_layer_off();
-  }
-  
   return;
 }
