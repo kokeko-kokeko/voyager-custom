@@ -1287,6 +1287,8 @@ void keyboard_post_init_user(void) {
   now_buffer = timer_read_fast();
   post_init_fade_matrix();
   status_led(0b1111, led_pattern_off);
+  
+  keyboard_post_init_adv_mouse();
 
   auto_mouse_early_off_trigger = now_buffer + (UINT32_MAX / 2) - 1;
   
@@ -1507,12 +1509,9 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  post_process_record_adv_mouse(keycode, record);
   post_process_record_fade_matrix(keycode, record);
   post_process_record_ime_state_sync(keycode, record);
-  
-  // split post_process_record not break, overwrite after function
-  post_process_record_non_mouse(keycode, record);
-  post_process_record_mouse_button(keycode, record);
   
   return;
 }
