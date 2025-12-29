@@ -1973,8 +1973,7 @@ void housekeeping_task_user(void) {
   // update to next now
   now_buffer = timer_read_fast();
   
-  update_fade_matrix(now_buffer);
-  
+  housekeeping_fade_matrix();
   housekeeping_ime_state_sync();
   housekeeping_status_led();
 
