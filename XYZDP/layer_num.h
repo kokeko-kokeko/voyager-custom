@@ -3,7 +3,7 @@
 // layer 
 enum layer_num {
   L_Base_2025 = 0,
-  L_Base_2021,
+  L_transition,
   L_Base_ANSI,
   L_Function,
   L_Number,
