@@ -36,13 +36,13 @@ void set_layer_color_firmware_map(void) {
     rgb_matrix_set_color(6, q, q, q);
   }
 
-  //Engram v2021/v2025
-  if (layer_state_is(L_transition)) {
-    //v2021 base enable
+  // Transition
+  if (layer_state_is(L_Transition)) {
+    // on
     rgb_matrix_set_color(1, q, q, q);
     rgb_matrix_set_color(7, f, f, 0);
   } else {
-    //v2025 base
+    // off
     rgb_matrix_set_color(1, 0, 0, f);
     rgb_matrix_set_color(7, q, q, q);
   }
