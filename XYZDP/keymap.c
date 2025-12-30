@@ -1000,15 +1000,15 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
       }
       
       if (pos == 1) {
-        layer_on(L_Base_2025);
-        layer_off(L_transition);
+        layer_on(L_Base);
+        layer_off(L_Transition);
         
         return false;
       }
       
       if (pos == 7) {
-        layer_on(L_Base_2025);
-        layer_on(L_transition);
+        layer_on(L_Base);
+        layer_on(L_Transition);
         
         return false;
       }
@@ -1400,6 +1400,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (layer) {
     case L_Base_2025:
     case L_transition:
+    case L_not_use_transition:
     case L_Base_ANSI:
       status_led(0b1111, led_pattern_off);
       break;
