@@ -1299,7 +1299,7 @@ void keyboard_post_init_user(void) {
   status_led(0b1111, led_pattern_off);
   
   //JIS / transition
-  layer_move(L_Base_2025);
+  layer_move(L_Base);
   layer_on(L_Transition);
   layer_off(L_Base_ANSI);
 }
@@ -1398,7 +1398,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   uint8_t layer = get_highest_layer(state);
   
   switch (layer) {
-    case L_Base_2025:
+    case L_Base:
     case L_Transition:
     case L_not_use_Transition:
     case L_Base_ANSI:
