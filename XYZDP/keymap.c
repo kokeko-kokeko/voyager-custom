@@ -980,6 +980,9 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+void mouse_jiggler_enable(void);
+void mouse_jiggler_disable(void);
+
 static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record) {
   // Firmware  
   if (keycode == HSV_0_255_200) {
@@ -1021,6 +1024,18 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
       
       if (pos == 9) {
         ime_state_sync_disable();
+        
+        return false;
+      }
+
+      if (pos == 5) {
+        mouse_jiggler_enable();
+        
+        return false;
+      }
+      
+      if (pos == 11) {
+        mouse_jiggler_disable();
         
         return false;
       }
