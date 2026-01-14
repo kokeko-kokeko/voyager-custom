@@ -8,6 +8,6 @@
     "features": {
         "nkro": true
     },
-    "debounce": 5,
+    "debounce": 8,
     "debounce_type": "asym_eager_defer_pk"
 }
