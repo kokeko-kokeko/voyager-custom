@@ -9,6 +9,8 @@
 
 #include "layer_num.h"
 
+bool mouse_jiggler_is_enabled(void);
+
 void set_layer_color_firmware_map(void) {
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
