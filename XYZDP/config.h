@@ -22,9 +22,6 @@
 
 #define USB_POLLING_INTERVAL_MS 1
 
-#undef DEBOUNCE
-#define DEBOUNCE 8
-
 #define NKRO_DEFAULT_ON true
 
 // near 16bit max value
