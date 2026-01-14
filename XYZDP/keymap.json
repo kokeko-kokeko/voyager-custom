@@ -4,5 +4,11 @@
         "zsa/defaults",
         "zsa/doubleclick",
         "zsa/mousejiggler"
-    ]
+    ],
+    "host": {
+        "default": {
+            "nkro": true
+            }
+        }
+    }
 }
