@@ -9,6 +9,7 @@
 
 #include "layer_num.h"
 
+// call mouse jiggler
 bool mouse_jiggler_is_enabled(void);
 
 void set_layer_color_firmware_map(void) {
@@ -52,12 +53,12 @@ void set_layer_color_firmware_map(void) {
   // mouse jiggler
   if (mouse_jiggler_is_enabled()) {
     // on
-    rgb_matrix_set_color(5, 0, f, 0);
+    rgb_matrix_set_color(5, 0, 0, f);
     rgb_matrix_set_color(11, q, q, q);
   } else {
     // off
     rgb_matrix_set_color(5, q, q, q);
-    rgb_matrix_set_color(11, f, f, 0);
+    rgb_matrix_set_color(11, f, 0, 0);
   }
 
   //OS detect
