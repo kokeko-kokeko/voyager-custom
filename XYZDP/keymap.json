@@ -1,8 +1,9 @@
 {
+    {
     "modules": [
         "zsa/oryx",
         "zsa/defaults",
         "zsa/doubleclick",
         "zsa/mousejiggler"
-    ]
+    ]}
 }
