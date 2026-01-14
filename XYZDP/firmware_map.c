@@ -47,6 +47,17 @@ void set_layer_color_firmware_map(void) {
     rgb_matrix_set_color(7, q, q, q);
   }
 
+  // mouse jiggler
+  if (mouse_jiggler_is_enabled()) {
+    // on
+    rgb_matrix_set_color(5, 0, 0, f);
+    rgb_matrix_set_color(12, q, q, q);
+  } else {
+    // off
+    rgb_matrix_set_color(5, q, q, q);
+    rgb_matrix_set_color(12, f, f, 0);
+  }
+
   //OS detect
   RGB rgb_os = {0, 0, 0};
   switch (detected_host_os()) {
