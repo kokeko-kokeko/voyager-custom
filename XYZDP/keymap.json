@@ -1,7 +1,6 @@
 {
     "modules": [
         "zsa/oryx",
-        "zsa/doubleclick",
         "zsa/defaults"
     ]
 }
