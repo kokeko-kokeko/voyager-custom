@@ -5,13 +5,13 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "overlay_layer_mod.h"
+#include "layer_num.h"
+
+#include "addons/overlay_layer_mod.h"
 
 // use animation logic
 // use abs path
 #include "lib/lib8tion/lib8tion.h"
-
-#include "layer_num.h"
 
 // ime state from LANG1/LANG2 key
 static bool ime_on = false;
