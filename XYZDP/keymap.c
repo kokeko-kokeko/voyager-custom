@@ -291,7 +291,7 @@ static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record);
 #include "firmware_map.h"
 #include "ime_state_sync.h"
 #include "overlay_layer_mod.h"
-#include "status_led.h"
+#include "addons/status_led.h"
 
 // -----------------------------------------------------------------------------
 //
