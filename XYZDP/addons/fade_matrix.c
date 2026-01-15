@@ -5,13 +5,13 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "fade_matrix.h"
+#include "layer_num.h"
+
+#include "addons/fade_matrix.h"
 
 // use animation logic
 // use abs path
 #include "lib/lib8tion/lib8tion.h"
-
-#include "layer_num.h"
 
 // fade color system
 static fast_timer_t fade_tamrix_trigger = (UINT32_MAX / 2) - 1;
