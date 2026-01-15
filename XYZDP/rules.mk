@@ -28,7 +28,7 @@ SRC += addons/fade_matrix.c
 SRC += addons/firmware_map.c
 SRC += addons/ime_state_sync.c
 SRC += addons/overlay_layer_mod.c
-SRC += ../addons/status_led.c
+SRC += addons/status_led.c
 
 LTO_ENABLE = yes
 EXTRAFLAGS += -flto -O3
