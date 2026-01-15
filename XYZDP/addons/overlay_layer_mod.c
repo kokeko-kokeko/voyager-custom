@@ -5,13 +5,13 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "overlay_layer_mod.h"
+#include "layer_num.h"
+
+#include "addons/overlay_layer_mod.h"
 
 // use animation logic
 // use abs path
 #include "lib/lib8tion/lib8tion.h"
-
-#include "layer_num.h"
 
 void set_layer_color_overlay_layer(void) {
   // use golden angle 255 * phi
