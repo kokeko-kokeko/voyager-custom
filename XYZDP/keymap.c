@@ -286,11 +286,11 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
 static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record);
 
 // module impl
-#include "adv_mouse.h"
-#include "fade_matrix.h"
-#include "firmware_map.h"
-#include "ime_state_sync.h"
-#include "overlay_layer_mod.h"
+#include "addons/adv_mouse.h"
+#include "addons/fade_matrix.h"
+#include "addons/firmware_map.h"
+#include "addons/ime_state_sync.h"
+#include "addons/overlay_layer_mod.h"
 #include "addons/status_led.h"
 
 // -----------------------------------------------------------------------------
