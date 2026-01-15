@@ -5,9 +5,9 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "firmware_map.h"
-
 #include "layer_num.h"
+
+#include "addons/firmware_map.h"
 
 // call mouse jiggler
 bool mouse_jiggler_is_enabled(void);
