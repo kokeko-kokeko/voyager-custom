@@ -9,7 +9,7 @@
 
 #include "layer_num.h"
 
-#include "status_led.h"
+#include "addons/status_led.h"
 
 // zsa side
 extern bool set_scrolling;
