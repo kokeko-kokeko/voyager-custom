@@ -46,15 +46,15 @@
 #define VOYAGER_USER_LEDS
 
 // disable system status
-#undef STATUS_LED_1
-#undef STATUS_LED_2
-#undef STATUS_LED_3
-#undef STATUS_LED_4
+//#undef STATUS_LED_1
+//#undef STATUS_LED_2
+//#undef STATUS_LED_3
+//#undef STATUS_LED_4
 
-#define STATUS_LED_1(status)
-#define STATUS_LED_2(status)
-#define STATUS_LED_3(status)
-#define STATUS_LED_4(status)
+//#define STATUS_LED_1(status)
+//#define STATUS_LED_2(status)
+//#define STATUS_LED_3(status)
+//#define STATUS_LED_4(status)
 
 // max value
 #define OS_DETECTION_DEBOUNCE 2000
