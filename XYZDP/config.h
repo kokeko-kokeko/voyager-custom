@@ -45,7 +45,7 @@
 
 #define VOYAGER_USER_LEDS
 
-// disable system status, donot work voyager.h call after
+// disable system status, do not work voyager.h call after
 //#undef STATUS_LED_1
 //#undef STATUS_LED_2
 //#undef STATUS_LED_3
