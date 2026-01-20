@@ -36,10 +36,16 @@ typedef struct status_led_state {
   uint8_t scale;
 } status_led_state_t;
 
-static void status_led_out_func_1(const bool out_val) { STATUS_LED_1(out_val); }
-static void status_led_out_func_2(const bool out_val) { STATUS_LED_2(out_val); }
-static void status_led_out_func_3(const bool out_val) { STATUS_LED_3(out_val); }
-static void status_led_out_func_4(const bool out_val) { STATUS_LED_4(out_val); }
+// ref voyager.t
+//#define STATUS_LED_1(status) gpio_write_pin(B5, (bool)(status))
+//#define STATUS_LED_2(status) gpio_write_pin(B4, (bool)(status))
+//#define STATUS_LED_3(status) mcp23018_leds[0] = (bool)(status)
+//#define STATUS_LED_4(status) mcp23018_leds[1] = (bool)(status)
+
+static void status_led_out_func_1(const bool out_val) { gpio_write_pin(B5, out_val); }
+static void status_led_out_func_2(const bool out_val) { gpio_write_pin(B4, out_val); }
+static void status_led_out_func_3(const bool out_val) { mcp23018_leds[0] = out_val; }
+static void status_led_out_func_4(const bool out_val) { mcp23018_leds[1] = out_val; }
 
 static status_led_state_t status_led_state_1 = {(UINT32_MAX / 2) - 1, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, status_led_out_func_1, false, 0};
 static status_led_state_t status_led_state_2 = {(UINT32_MAX / 2) - 1, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, status_led_out_func_2, false, 0};
