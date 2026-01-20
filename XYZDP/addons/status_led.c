@@ -114,13 +114,13 @@ void status_led(const uint8_t mask, const uint8_t * const pattern) {
     status_led_set_func(&status_led_state_1, now + 2, pattern);
   }
   if (mask & 0b0100) {
-    status_led_set_func(&status_led_state_3, now + 3, pattern);
+    status_led_set_func(&status_led_state_3, now + 4, pattern);
   }
   if (mask & 0b0010) {
-    status_led_set_func(&status_led_state_2, now + 5, pattern);
+    status_led_set_func(&status_led_state_2, now + 6, pattern);
   }
   if (mask & 0b0001) {
-    status_led_set_func(&status_led_state_4, now + 7, pattern);
+    status_led_set_func(&status_led_state_4, now + 8, pattern);
   }
   return;
 }
