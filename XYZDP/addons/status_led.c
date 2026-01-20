@@ -36,7 +36,7 @@ typedef struct status_led_state {
   uint8_t scale;
 } status_led_state_t;
 
-// ref voyager.t
+// ref voyager.h
 //#define STATUS_LED_1(status) gpio_write_pin(B5, (bool)(status))
 //#define STATUS_LED_2(status) gpio_write_pin(B4, (bool)(status))
 //#define STATUS_LED_3(status) mcp23018_leds[0] = (bool)(status)
