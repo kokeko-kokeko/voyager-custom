@@ -67,7 +67,7 @@ static void status_led_set_func(status_led_state_t * const state, const fast_tim
 
 static void status_led_update_func(status_led_state_t * const state, const fast_timer_t now) {
   // wnite everytime
-  state->out_func(state->out_val);
+  //state->out_func(state->out_val);
   
   if (timer_expired_fast(now, state->trigger) == false) return;
 
@@ -85,7 +85,7 @@ static void status_led_update_func(status_led_state_t * const state, const fast_
     state->scale = *(state->ptr++);
   }
   
-  //state->out_func(state->out_val);
+  state->out_func(state->out_val);
   state->out_val = !(state->out_val);
 
   fast_timer_t delay = *(state->ptr++);
