@@ -52,8 +52,8 @@ static status_led_state_t status_led_state_2 = {(UINT32_MAX / 2) - 1, led_patter
 static status_led_state_t status_led_state_3 = {(UINT32_MAX / 2) - 1, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, status_led_out_func_3, false, 0};
 static status_led_state_t status_led_state_4 = {(UINT32_MAX / 2) - 1, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, status_led_out_func_4, false, 0};
 
-static void status_led_set_func(status_led_state_t * const state, const fast_timer_t now, const uint8_t * const pattern) {
-  state->trigger = now;
+static void status_led_set_func(status_led_state_t * const state, const fast_timer_t trigger, const uint8_t * const pattern) {
+  state->trigger = trigger;
   state->ptr_2 = state->ptr_1;
   state->ptr_1 = state->ptr_0;
   state->ptr_0 = pattern;
@@ -66,6 +66,9 @@ static void status_led_set_func(status_led_state_t * const state, const fast_tim
 }
 
 static void status_led_update_func(status_led_state_t * const state, const fast_timer_t now) {
+  // wnite everytime
+  state->out_func(state->out_val);
+  
   if (timer_expired_fast(now, state->trigger) == false) return;
 
   if (*(state->ptr) == UINT8_MAX) {
@@ -82,7 +85,7 @@ static void status_led_update_func(status_led_state_t * const state, const fast_
     state->scale = *(state->ptr++);
   }
   
-  state->out_func(state->out_val);
+  //state->out_func(state->out_val);
   state->out_val = !(state->out_val);
 
   fast_timer_t delay = *(state->ptr++);
