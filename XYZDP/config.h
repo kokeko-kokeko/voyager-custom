@@ -56,8 +56,8 @@
 //#define STATUS_LED_3(status)
 //#define STATUS_LED_4(status)
 
-// max value
-#define OS_DETECTION_DEBOUNCE 2000
+// near max value
+#define OS_DETECTION_DEBOUNCE 1999
 //#define OS_DETECTION_KEYBOARD_RESET
 //#define OS_DETECTION_SINGLE_REPORT
 
@@ -67,6 +67,9 @@
 #define TAPPING_TERM 293
 
 #define FLOW_TAP_TERM 199
+
+#undef ONESHOT_TIMEOUT
+#define ONESHOT_TIMEOUT 7993
 
 #undef USE_CIE1931_CURVE
 #define USE_CIE1931_CURVE
