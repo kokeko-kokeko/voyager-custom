@@ -6,6 +6,7 @@ enum layer_num {
   L_Transition,
   L_not_use_Transition,
   L_Base_ANSI,
+  L_OneShot,
   L_Function,
   L_Number,
   L_Number_ANSI,
