@@ -6,6 +6,8 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
+#include "osm_upstream.h"
+
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
   HSV_0_255_200,
