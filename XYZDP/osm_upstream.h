@@ -1,5 +1,8 @@
 #pragma once
 
+// copy from upstream qmk
+// https://github.com/qmk/qmk_firmware/blob/master/quantum/quantum_keycodes.h
+
 #define OS_LCTL OSM(MOD_LCTL)
 #define OS_LSFT OSM(MOD_LSFT)
 #define OS_LALT OSM(MOD_LALT)
