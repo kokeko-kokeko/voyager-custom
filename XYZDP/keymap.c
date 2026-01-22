@@ -1194,9 +1194,9 @@ void keyboard_post_init_user(void) {
   status_led(0b1111, led_pattern_off);
   status_led(0b1111, led_pattern_off);
   
-  //JIS / transition
+  //JIS / no transition
   layer_move(L_Base);
-  layer_on(L_Transition);
+  layer_off(L_Transition);
   layer_off(L_Base_ANSI);
 }
 
