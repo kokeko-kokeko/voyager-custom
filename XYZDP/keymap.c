@@ -54,22 +54,22 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(15, KC_E)
-#define DUAL_FUNC_1 LT(12, KC_F15)
-#define DUAL_FUNC_2 LT(4, KC_1)
-#define DUAL_FUNC_3 LT(2, KC_R)
-#define DUAL_FUNC_4 LT(13, KC_F21)
-#define DUAL_FUNC_5 LT(4, KC_4)
-#define DUAL_FUNC_6 LT(5, KC_9)
-#define DUAL_FUNC_7 LT(12, KC_4)
-#define DUAL_FUNC_8 LT(4, KC_F18)
-#define DUAL_FUNC_9 LT(13, KC_O)
-#define DUAL_FUNC_10 LT(15, KC_2)
-#define DUAL_FUNC_11 LT(15, KC_F1)
-#define DUAL_FUNC_12 LT(12, KC_V)
-#define DUAL_FUNC_13 LT(8, KC_F18)
-#define DUAL_FUNC_14 LT(1, KC_D)
-#define DUAL_FUNC_15 LT(2, KC_B)
+#define DUAL_FUNC_0 LT(12, KC_O)
+#define DUAL_FUNC_1 LT(3, KC_W)
+#define DUAL_FUNC_2 LT(14, KC_F6)
+#define DUAL_FUNC_3 LT(7, KC_U)
+#define DUAL_FUNC_4 LT(1, KC_F18)
+#define DUAL_FUNC_5 LT(5, KC_E)
+#define DUAL_FUNC_6 LT(1, KC_F8)
+#define DUAL_FUNC_7 LT(7, KC_5)
+#define DUAL_FUNC_8 LT(5, KC_R)
+#define DUAL_FUNC_9 LT(7, KC_F12)
+#define DUAL_FUNC_10 LT(9, KC_9)
+#define DUAL_FUNC_11 LT(7, KC_R)
+#define DUAL_FUNC_12 LT(13, KC_9)
+#define DUAL_FUNC_13 LT(6, KC_K)
+#define DUAL_FUNC_14 LT(9, KC_F19)
+#define DUAL_FUNC_15 LT(2, KC_F15)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
