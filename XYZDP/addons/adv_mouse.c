@@ -531,8 +531,8 @@ void set_layer_color_mouse_map(void) {
   rgb_matrix_set_color(38, f, 0, 0);
 
   //rgb_matrix_set_color(44, q, q, q);
-  rgb_matrix_set_color(47, q, q, q);
-  rgb_matrix_set_color(48, f, f, f);
+  rgb_matrix_set_color(47, q, o, 0);
+  rgb_matrix_set_color(48, f, h, 0);
   
   // scroll
   if (get_mouse_flag_scrolling()) {
