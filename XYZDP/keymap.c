@@ -885,14 +885,14 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
       
       if (pos == 1) {
         layer_on(L_Base);
-        layer_off(L_Transition);
+        //layer_off(L_Transition);
         
         return false;
       }
       
       if (pos == 7) {
         layer_on(L_Base);
-        layer_on(L_Transition);
+        //layer_on(L_Transition);
         
         return false;
       }
