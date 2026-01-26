@@ -54,22 +54,22 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(15, KC_8)
-#define DUAL_FUNC_1 LT(12, KC_9)
-#define DUAL_FUNC_2 LT(5, KC_H)
-#define DUAL_FUNC_3 LT(5, KC_F8)
-#define DUAL_FUNC_4 LT(13, KC_F19)
-#define DUAL_FUNC_5 LT(7, KC_D)
-#define DUAL_FUNC_6 LT(3, KC_C)
-#define DUAL_FUNC_7 LT(2, KC_X)
-#define DUAL_FUNC_8 LT(2, KC_Q)
-#define DUAL_FUNC_9 LT(11, KC_P)
-#define DUAL_FUNC_10 LT(15, KC_F11)
-#define DUAL_FUNC_11 LT(2, KC_3)
-#define DUAL_FUNC_12 LT(10, KC_J)
-#define DUAL_FUNC_13 LT(10, KC_F15)
-#define DUAL_FUNC_14 LT(9, KC_O)
-#define DUAL_FUNC_15 LT(12, KC_F23)
+#define DUAL_FUNC_0 LT(8, KC_X)
+#define DUAL_FUNC_1 LT(7, KC_F11)
+#define DUAL_FUNC_2 LT(6, KC_0)
+#define DUAL_FUNC_3 LT(8, KC_N)
+#define DUAL_FUNC_4 LT(3, KC_F15)
+#define DUAL_FUNC_5 LT(10, KC_U)
+#define DUAL_FUNC_6 LT(10, KC_F15)
+#define DUAL_FUNC_7 LT(1, KC_B)
+#define DUAL_FUNC_8 LT(6, KC_F14)
+#define DUAL_FUNC_9 LT(7, KC_F)
+#define DUAL_FUNC_10 LT(14, KC_P)
+#define DUAL_FUNC_11 LT(9, KC_R)
+#define DUAL_FUNC_12 LT(6, KC_U)
+#define DUAL_FUNC_13 LT(10, KC_K)
+#define DUAL_FUNC_14 LT(4, KC_T)
+#define DUAL_FUNC_15 LT(3, KC_P)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -108,9 +108,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [5] = LAYOUT_voyager(
-    CW_TOGG,        KC_F21,         KC_F22,         KC_F23,         KC_F24,         KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    LT(10, KC_F11), MT(MOD_LGUI, KC_F1),MT(MOD_LALT, KC_F2),MT(MOD_LSFT, KC_F3),MT(MOD_LCTL, KC_F4),KC_F5,                                          KC_F6,          MT(MOD_RCTL, KC_F7),MT(MOD_RSFT, KC_F8),MT(MOD_RALT, KC_F9),MT(MOD_RGUI, KC_F10),LT(11, KC_F12), 
-    KC_LEFT_CTRL,   MT(MOD_LCTL, KC_F11),KC_F12,         KC_F13,         KC_F14,         KC_F15,                                         KC_F16,         KC_F17,         KC_F18,         KC_F19,         MT(MOD_RCTL, KC_F20),KC_RIGHT_CTRL,  
+    CW_TOGG,        KC_F21,         MT(MOD_LALT | MOD_LGUI | MOD_LSFT | MOD_LCTL, KC_F22),MT(MOD_LALT | MOD_LSFT, KC_F23),MT(MOD_LALT | MOD_LCTL, KC_F24),KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    LT(10, KC_F11), MT(MOD_LGUI | MOD_LALT, KC_F1),MT(MOD_LSFT | MOD_LCTL, KC_F2),MT(MOD_LSFT, KC_F3),MT(MOD_LCTL, KC_F4),KC_F5,                                          KC_F6,          MT(MOD_RCTL, KC_F7),MT(MOD_RSFT, KC_F8),MT(MOD_RSFT | MOD_RCTL, KC_F9),MT(MOD_RGUI | MOD_RALT, KC_F10),LT(11, KC_F12), 
+    KC_LEFT_CTRL,   MT(MOD_LGUI, KC_F11),MT(MOD_LALT, KC_F12),MT(MOD_LGUI | MOD_LSFT, KC_F13),MT(MOD_LGUI | MOD_LCTL, KC_F14),KC_F15,                                         KC_F16,         MT(MOD_RGUI | MOD_RCTL, KC_F17),MT(MOD_RGUI | MOD_RSFT, KC_F18),MT(MOD_RALT, KC_F19),MT(MOD_RGUI, KC_F20),KC_RIGHT_CTRL,  
     KC_TRANSPARENT, KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,  
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
