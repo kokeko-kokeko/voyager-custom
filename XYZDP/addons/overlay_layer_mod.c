@@ -124,6 +124,12 @@ void set_layer_color_overlay_layer(void) {
 }
 
 void set_layer_color_overlay_mod(void) {
+  // CAPS WORD inidication
+  if (is_caps_word_on()) {
+    rgb_matrix_set_color(0, 0, 0, 0);
+    rgb_matrix_set_color(31, 0, 0, 0);
+  }
+
   // use golden angle 255 * phi
   const uint8_t h_diff = 97;
   
@@ -138,12 +144,12 @@ void set_layer_color_overlay_mod(void) {
   hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
 
   // CAPS WORD inidication
-  if (is_caps_word_on()) {
-    hsv.h -= h_diff;
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(31, rgb.r, rgb.g, rgb.b);
-  }
+  //if (is_caps_word_on()) {
+  //  hsv.h -= h_diff;
+  //  RGB rgb = hsv_to_rgb(hsv);
+  //  rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(31, rgb.r, rgb.g, rgb.b);
+  //}
 
   // mods display
   if (get_mods() & MOD_BIT_LCTRL) {
