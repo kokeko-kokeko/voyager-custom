@@ -412,22 +412,22 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
   layer_state_or = layer_state_or || layer_state_cmp(state, L_Cursor);
   layer_state_or = layer_state_or || layer_state_cmp(state, L_Number);
   
-  if (layer_state_or) {
-    set_scrolling = true;
-    activate_mouse_flag(true);
-    if (is_auto_mouse_active() == false) {
-      set_auto_mouse_enable(false);
-    }
-    
-    return state;
-  }
+  //if (layer_state_or) {
+  //  set_scrolling = true;
+  //  activate_mouse_flag(true);
+  //  if (is_auto_mouse_active() == false) {
+  //    set_auto_mouse_enable(false);
+  //  }
+  //  
+  //  return state;
+  //}
   
   layer_state_or = layer_state_or || layer_state_cmp(state, L_Function);
   layer_state_or = layer_state_or || layer_state_cmp(state, L_OneShot);
 
   if (layer_state_or) {
     set_scrolling = true;
-    // not update mouse flag (LED)
+    // not update mouse flag (LED by state)
     if (is_auto_mouse_active() == false) {
       set_auto_mouse_enable(false);
     }
