@@ -164,7 +164,7 @@ void set_layer_color_overlay_mod(void) {
     rgb_matrix_set_color(1, 0, 0, 0);
   }
 
-    if (get_mods() & MOD_BIT_RCTRL) {
+  if (get_mods() & MOD_BIT_RCTRL) {
     rgb_matrix_set_color(27, 0, 0, 0);
   }
 
