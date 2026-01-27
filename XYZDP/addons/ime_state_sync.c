@@ -150,11 +150,12 @@ void set_layer_color_overlay_ime_state_sync(void) {
   if (ime_on) {
     rgb_matrix_set_color(44, 0, 0, 0);
     
-    if (ime_kk) {
+    if (ime_kk == false) {
       rgb_matrix_set_color(38, 0, 0, 0);
     }
     
-    if (iss_sync) {
+    if (iss_sync == false) {
+      rgb_matrix_set_color(17, 0, 0, 0);
       rgb_matrix_set_color(23, 0, 0, 0);
     }
   }
