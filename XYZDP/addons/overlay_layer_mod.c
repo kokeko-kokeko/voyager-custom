@@ -17,18 +17,22 @@ void set_layer_color_overlay_layer(void) {
   // layer display with priority
   if (layer_state_is(L_Number)) {
     rgb_matrix_set_color(11, 0, 0, 0);
+    rgb_matrix_set_color(22, 0, 0, 0);
   }
   
   if (layer_state_is(L_Cursor)) {
     rgb_matrix_set_color(32, 0, 0, 0);
+    rgb_matrix_set_color(45, 0, 0, 0);
   }
 
   if (layer_state_is(L_LeftPinky)) {
     rgb_matrix_set_color(5, 0, 0, 0);
+    rgb_matrix_set_color(6, 0, 0, 0);
   }
   
   if (layer_state_is(L_RightPinky)) {
     rgb_matrix_set_color(26, 0, 0, 0);
+    rgb_matrix_set_color(37, 0, 0, 0);
   }
   
   // use golden angle 255 * phi
@@ -187,7 +191,7 @@ void set_layer_color_overlay_mod(void) {
 
   if (get_mods() & MOD_BIT_RGUI) {
     rgb_matrix_set_color(30, 0, 0, 0);
-    rgb_matrix_set_color(36, 0, 0, 0);@@
+    rgb_matrix_set_color(36, 0, 0, 0);
   }
 
   // use golden angle 255 * phi
