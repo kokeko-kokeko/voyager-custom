@@ -412,7 +412,7 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
   if (layer_state_cmp(state, L_Mouse)) {
     // update LED, no scroll
     set_scrolling = false;
-    activate_mouse_flag(true);
+    activate_mouse_flag(false);
     set_auto_mouse_enable(true);
 
     return state;
