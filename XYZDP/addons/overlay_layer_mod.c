@@ -14,25 +14,42 @@
 #include "lib/lib8tion/lib8tion.h"
 
 void set_layer_color_overlay_layer(void) {
+  bool or_flag = false;
+  
   // layer display with priority
   if (layer_state_is(L_Number)) {
     rgb_matrix_set_color(11, 0, 0, 0);
     rgb_matrix_set_color(22, 0, 0, 0);
+
+    or_flag = true;
   }
   
   if (layer_state_is(L_Cursor)) {
     rgb_matrix_set_color(32, 0, 0, 0);
     rgb_matrix_set_color(45, 0, 0, 0);
+
+    or_flag = true;
   }
 
   if (layer_state_is(L_LeftPinky)) {
     rgb_matrix_set_color(5, 0, 0, 0);
     rgb_matrix_set_color(6, 0, 0, 0);
+
+    or_flag = true;
   }
   
   if (layer_state_is(L_RightPinky)) {
     rgb_matrix_set_color(26, 0, 0, 0);
     rgb_matrix_set_color(37, 0, 0, 0);
+
+    or_flag = true;
+  }
+
+  if (or_flag) {
+    rgb_matrix_set_color(19, 0, 0, 0);
+    rgb_matrix_set_color(20, 0, 0, 0);
+    rgb_matrix_set_color(47, 0, 0, 0);
+    rgb_matrix_set_color(48, 0, 0, 0);
   }
   
   // use golden angle 255 * phi
