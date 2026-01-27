@@ -154,34 +154,50 @@ void set_layer_color_overlay_mod(void) {
   // mods display
   if (get_mods() & MOD_BIT_LCTRL) {
     rgb_matrix_set_color(4, 0, 0, 0);
+    rgb_matrix_set_color(10, 0, 0, 0);
+    rgb_matrix_set_color(16, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_LSHIFT) {
     rgb_matrix_set_color(3, 0, 0, 0);
+    rgb_matrix_set_color(9, 0, 0, 0);
+    rgb_matrix_set_color(15, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_LALT) {
     rgb_matrix_set_color(2, 0, 0, 0);
+    rgb_matrix_set_color(8, 0, 0, 0);
+    rgb_matrix_set_color(14, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_LGUI) {
     rgb_matrix_set_color(1, 0, 0, 0);
-  }
+    rgb_matrix_set_color(7, 0, 0, 0);
+    rgb_matrix_set_color(13, 0, 0, 0);
+  }  
 
   if (get_mods() & MOD_BIT_RCTRL) {
     rgb_matrix_set_color(27, 0, 0, 0);
+    rgb_matrix_set_color(33, 0, 0, 0);
+    rgb_matrix_set_color(39, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_RSHIFT) {
     rgb_matrix_set_color(28, 0, 0, 0);
+    rgb_matrix_set_color(34, 0, 0, 0);
+    rgb_matrix_set_color(40, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_RALT) {
     rgb_matrix_set_color(29, 0, 0, 0);
+    rgb_matrix_set_color(35, 0, 0, 0);
+    rgb_matrix_set_color(41, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_RGUI) {
     rgb_matrix_set_color(30, 0, 0, 0);
+    rgb_matrix_set_color(36, 0, 0, 0);
+    rgb_matrix_set_color(42, 0, 0, 0);
   }
 
   // use golden angle 255 * phi
