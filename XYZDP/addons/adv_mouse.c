@@ -408,6 +408,15 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
     
     return state;
   }
+
+  if (layer_state_cmp(state, L_Mouse)) {
+    // update LED
+    set_scrolling = false;
+    activate_mouse_flag(true);
+    set_auto_mouse_enable(true);
+
+    return state;
+  }
   
   layer_state_or = layer_state_or || layer_state_cmp(state, L_Cursor);
   layer_state_or = layer_state_or || layer_state_cmp(state, L_Number);
@@ -437,7 +446,7 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
 
   // all test layers off
   set_scrolling = false;
-  activate_mouse_flag(false);
+  //activate_mouse_flag(false);
   set_auto_mouse_enable(true);
   
   return state;
