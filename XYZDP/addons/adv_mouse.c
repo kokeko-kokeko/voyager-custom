@@ -410,13 +410,15 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
   }
 
   if (layer_state_cmp(state, L_Mouse)) {
-    // update LED
+    // update LED, no scroll
     set_scrolling = false;
     activate_mouse_flag(true);
     set_auto_mouse_enable(true);
 
     return state;
   }
+
+  // after here, no update status
   
   layer_state_or = layer_state_or || layer_state_cmp(state, L_Cursor);
   layer_state_or = layer_state_or || layer_state_cmp(state, L_Number);
