@@ -14,113 +14,130 @@
 #include "lib/lib8tion/lib8tion.h"
 
 void set_layer_color_overlay_layer(void) {
-  // use golden angle 255 * phi
-  const uint8_t h_diff = 97;
+  // layer display with priority
+  if (layer_state_is(L_Number)) {
+    rgb_matrix_set_color(11, 0, 0, 0);
+  }
   
-  HSV hsv = rgb_matrix_get_hsv();
-  hsv.h -= g_rgb_timer >> 4;
-  hsv.s = 255;
+  if (layer_state_is(L_Cursor)) {
+    rgb_matrix_set_color(32, 0, 0, 0);
+  }
+
+  if (layer_state_is(L_LeftPinky)) {
+    rgb_matrix_set_color(5, 0, 0, 0);
+  }
+  
+  if (layer_state_is(L_RightPinky)) {
+    rgb_matrix_set_color(26, 0, 0, 0);
+  }
+  
+  // use golden angle 255 * phi
+  //const uint8_t h_diff = 97;
+  
+  //HSV hsv = rgb_matrix_get_hsv();
+  //hsv.h -= g_rgb_timer >> 4;
+  //hsv.s = 255;
   
   // copy logic from breathing_anim.h 
   // use different speed divide
-  uint8_t speed = rgb_matrix_get_speed(); 
-  uint16_t time = scale16by8(g_rgb_timer, speed / 3);
-  hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
+  //uint8_t speed = rgb_matrix_get_speed(); 
+  //uint16_t time = scale16by8(g_rgb_timer, speed / 3);
+  //hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
   
   // layer display with priority
-  if (layer_state_is(L_BothPinkyThumb)) {
-    hsv.h -= h_diff;
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(5, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(6, rgb.r, rgb.g, rgb.b);
+  //if (layer_state_is(L_BothPinkyThumb)) {
+  //  hsv.h -= h_diff;
+  //  RGB rgb = hsv_to_rgb(hsv);
+  //  rgb_matrix_set_color(5, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(6, rgb.r, rgb.g, rgb.b);
 
-    rgb_matrix_set_color(26, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(37, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(26, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(37, rgb.r, rgb.g, rgb.b);
 
-    rgb_matrix_set_color(11, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(22, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(50, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(11, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(22, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(50, rgb.r, rgb.g, rgb.b);
 
-    rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(32, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(45, rgb.r, rgb.g, rgb.b);
-    return;
-  }
-  if (layer_state_is(L_BothPinky)) {
-    hsv.h -= h_diff;
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(5, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(6, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(32, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(45, rgb.r, rgb.g, rgb.b);
+  //  return;
+  //}
+  //if (layer_state_is(L_BothPinky)) {
+  //  hsv.h -= h_diff;
+  //  RGB rgb = hsv_to_rgb(hsv);
+  //  rgb_matrix_set_color(5, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(6, rgb.r, rgb.g, rgb.b);
 
-    rgb_matrix_set_color(26, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(37, rgb.r, rgb.g, rgb.b);
-    return;
-  }
-  if (layer_state_is(L_BothThumb)) {
-    hsv.h -= h_diff;
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(11, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(22, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(50, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(26, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(37, rgb.r, rgb.g, rgb.b);
+  //  return;
+  //}
+  //if (layer_state_is(L_BothThumb)) {
+  //  hsv.h -= h_diff;
+  //  RGB rgb = hsv_to_rgb(hsv);
+  //  rgb_matrix_set_color(11, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(22, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(50, rgb.r, rgb.g, rgb.b);
 
-    rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(32, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(45, rgb.r, rgb.g, rgb.b);
-    return;
-  }
-  if (layer_state_is(L_RightPinkyThumb)) {
-    hsv.h -= h_diff;
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(26, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(37, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(32, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(45, rgb.r, rgb.g, rgb.b);
+  //  return;
+  //}
+  //if (layer_state_is(L_RightPinkyThumb)) {
+  //  hsv.h -= h_diff;
+  //  RGB rgb = hsv_to_rgb(hsv);
+  //  rgb_matrix_set_color(26, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(37, rgb.r, rgb.g, rgb.b);
     
-    rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(32, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(45, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(32, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(45, rgb.r, rgb.g, rgb.b);
 
-    return;
-  }
-  if (layer_state_is(L_LeftPinkyThumb)) {
-    hsv.h -= h_diff;
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(5, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(6, rgb.r, rgb.g, rgb.b);
+  //  return;
+  //}
+  //if (layer_state_is(L_LeftPinkyThumb)) {
+  //  hsv.h -= h_diff;
+  //  RGB rgb = hsv_to_rgb(hsv);
+  //  rgb_matrix_set_color(5, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(6, rgb.r, rgb.g, rgb.b);
 
-    rgb_matrix_set_color(11, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(22, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(50, rgb.r, rgb.g, rgb.b);
-    return;
-  }
-  if (layer_state_is(L_RightPinky)) {
-    hsv.h -= h_diff;
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(26, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(37, rgb.r, rgb.g, rgb.b);
-    return;
-  }
-  if (layer_state_is(L_LeftPinky)) {
-    hsv.h -= h_diff;
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(5, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(6, rgb.r, rgb.g, rgb.b);
-    return;
-  }
-  if (layer_state_is(L_Cursor)) {
-    hsv.h -= h_diff;
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(32, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(45, rgb.r, rgb.g, rgb.b);
-    return;
-  }
-  if (layer_state_is(L_Number)) {
-    hsv.h -= h_diff;
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(11, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(22, rgb.r, rgb.g, rgb.b);
-    rgb_matrix_set_color(50, rgb.r, rgb.g, rgb.b);
-    return;
-  }
+  //  rgb_matrix_set_color(11, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(22, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(50, rgb.r, rgb.g, rgb.b);
+  //  return;
+  //}
+  //if (layer_state_is(L_RightPinky)) {
+  //  hsv.h -= h_diff;
+  //  RGB rgb = hsv_to_rgb(hsv);
+  //  rgb_matrix_set_color(26, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(37, rgb.r, rgb.g, rgb.b);
+  //  return;
+  //}
+  //if (layer_state_is(L_LeftPinky)) {
+  //  hsv.h -= h_diff;
+  //  RGB rgb = hsv_to_rgb(hsv);
+  //  rgb_matrix_set_color(5, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(6, rgb.r, rgb.g, rgb.b);
+  //  return;
+  //}
+  //if (layer_state_is(L_Cursor)) {
+  //  hsv.h -= h_diff;
+  //  RGB rgb = hsv_to_rgb(hsv);
+  //  rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(32, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(45, rgb.r, rgb.g, rgb.b);
+  //  return;
+  //}
+  //if (layer_state_is(L_Number)) {
+  //  hsv.h -= h_diff;
+  //  RGB rgb = hsv_to_rgb(hsv);
+  //  rgb_matrix_set_color(11, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(22, rgb.r, rgb.g, rgb.b);
+  //  rgb_matrix_set_color(50, rgb.r, rgb.g, rgb.b);
+  //  return;
+  //}
 }
 
 void set_layer_color_overlay_mod(void) {
