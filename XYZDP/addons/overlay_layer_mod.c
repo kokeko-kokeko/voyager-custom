@@ -144,7 +144,11 @@ void set_layer_color_overlay_mod(void) {
   // CAPS WORD inidication
   if (is_caps_word_on()) {
     rgb_matrix_set_color(0, 0, 0, 0);
+    rgb_matrix_set_color(6, 0, 0, 0);
+    rgb_matrix_set_color(12, 0, 0, 0);
     rgb_matrix_set_color(31, 0, 0, 0);
+    rgb_matrix_set_color(37, 0, 0, 0);
+    rgb_matrix_set_color(43, 0, 0, 0);
   }
 
   // mods display
