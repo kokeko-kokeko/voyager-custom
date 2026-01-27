@@ -279,13 +279,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 // -----------------------------------------------------------------------------
 
-// split process_record, return false, break
-static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
-static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record);
-static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *record);
-static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record);
-static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record);
-
 // module impl
 #include "addons/adv_mouse.h"
 #include "addons/fade_matrix.h"
@@ -293,6 +286,13 @@ static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record);
 #include "addons/ime_state_sync.h"
 #include "addons/overlay_layer_mod.h"
 #include "addons/status_led.h"
+
+// split process_record, return false, break
+static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record);
+static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record);
+static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *record);
+static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record);
+static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record);
 
 // -----------------------------------------------------------------------------
 //
