@@ -1314,6 +1314,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Cursor_ANSI:
     case L_LeftPinky:
     case L_RightPinky:
+      status_led(0b1011, led_pattern_off);
+      status_led(0b0100, led_pattern_on);
       break;
     case L_LeftPinkyThumb:
     case L_RightPinkyThumb:
@@ -1321,8 +1323,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_BothThumb_ANSI:
     case L_BothPinky:
     case L_BothPinkyThumb:
-      status_led(0b1100, led_pattern_off);
-      status_led(0b0011, led_pattern_on);
+      status_led(0b1000, led_pattern_off);
+      status_led(0b0111, led_pattern_on);
       break;
     case L_Mouse:
     case L_Mouse_Number:
