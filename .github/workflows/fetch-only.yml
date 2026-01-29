@@ -28,7 +28,7 @@ permissions:
   contents: write
 
 jobs:
-  fetch-and-build-layout:
+  fetch-oryx-only:
     runs-on: ubuntu-latest
 
     steps:
