@@ -200,11 +200,11 @@ void set_layer_color_overlay_mod(void) {
   }
 
   if (get_mods() & MOD_BIT_LALT) {
-    rgb_matrix_set_color(8, 0, 0, 0);
+    rgb_matrix_set_color(14, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_LGUI) {
-    rgb_matrix_set_color(7, 0, 0, 0);
+    rgb_matrix_set_color(13, 0, 0, 0);
   }  
 
   if (get_mods() & MOD_BIT_RCTRL) {
@@ -216,11 +216,11 @@ void set_layer_color_overlay_mod(void) {
   }
 
   if (get_mods() & MOD_BIT_RALT) {
-    rgb_matrix_set_color(35, 0, 0, 0);
+    rgb_matrix_set_color(41, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_RGUI) {
-    rgb_matrix_set_color(36, 0, 0, 0);
+    rgb_matrix_set_color(42, 0, 0, 0);
   }
 
   // use golden angle 255 * phi
