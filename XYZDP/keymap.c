@@ -52,22 +52,22 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(3, KC_K)
-#define DUAL_FUNC_1 LT(6, KC_M)
-#define DUAL_FUNC_2 LT(3, KC_F6)
-#define DUAL_FUNC_3 LT(8, KC_L)
-#define DUAL_FUNC_4 LT(13, KC_J)
-#define DUAL_FUNC_5 LT(14, KC_F8)
-#define DUAL_FUNC_6 LT(12, KC_F15)
-#define DUAL_FUNC_7 LT(15, KC_U)
-#define DUAL_FUNC_8 LT(9, KC_F23)
-#define DUAL_FUNC_9 LT(10, KC_F17)
-#define DUAL_FUNC_10 LT(14, KC_F13)
-#define DUAL_FUNC_11 LT(5, KC_2)
-#define DUAL_FUNC_12 LT(2, KC_F6)
-#define DUAL_FUNC_13 LT(10, KC_F20)
-#define DUAL_FUNC_14 LT(10, KC_F23)
-#define DUAL_FUNC_15 LT(15, KC_F14)
+#define DUAL_FUNC_0 LT(12, KC_L)
+#define DUAL_FUNC_1 LT(9, KC_F7)
+#define DUAL_FUNC_2 LT(9, KC_F9)
+#define DUAL_FUNC_3 LT(5, KC_F23)
+#define DUAL_FUNC_4 LT(10, KC_F15)
+#define DUAL_FUNC_5 LT(10, KC_4)
+#define DUAL_FUNC_6 LT(13, KC_B)
+#define DUAL_FUNC_7 LT(6, KC_F14)
+#define DUAL_FUNC_8 LT(9, KC_W)
+#define DUAL_FUNC_9 LT(9, KC_Z)
+#define DUAL_FUNC_10 LT(9, KC_F1)
+#define DUAL_FUNC_11 LT(8, KC_S)
+#define DUAL_FUNC_12 LT(6, KC_3)
+#define DUAL_FUNC_13 LT(6, KC_F5)
+#define DUAL_FUNC_14 LT(5, KC_F6)
+#define DUAL_FUNC_15 LT(12, KC_W)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -300,11 +300,11 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-  case QK_MODS ... QK_MODS_MAX: 
-    // Mouse keys with modifiers work inconsistently across operating systems, this makes sure that modifiers are always
-    // applied to the mouse key that was pressed.
-    if (IS_MOUSE_KEYCODE(QK_MODS_GET_BASIC_KEYCODE(keycode))) {
-    if (record->event.pressed) {
+  case QK_MODS ... QK_MODS_MAX:
+    // Mouse and consumer keys (volume, media) with modifiers work inconsistently across operating systems,
+    // this makes sure that modifiers are always applied to the key that was pressed.
+    if (IS_MOUSE_KEYCODE(QK_MODS_GET_BASIC_KEYCODE(keycode)) || IS_CONSUMER_KEYCODE(QK_MODS_GET_BASIC_KEYCODE(keycode))) {
+      if (record->event.pressed) {
         add_mods(QK_MODS_GET_MODS(keycode));
         send_keyboard_report();
         wait_ms(2);
