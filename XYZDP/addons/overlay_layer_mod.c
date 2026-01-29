@@ -167,49 +167,59 @@ void set_layer_color_overlay_mod(void) {
   // CAPS WORD inidication
   if (is_caps_word_on()) {
     rgb_matrix_set_color(0, 0, 0, 0);
-    rgb_matrix_set_color(6, 0, 0, 0);
     rgb_matrix_set_color(31, 0, 0, 0);
-    rgb_matrix_set_color(37, 0, 0, 0);
   }
 
   // mods display
-  if (get_mods() & MOD_BIT_LCTRL) {
+  if (get_mods() & MOD_MASK_CTRL) {
     rgb_matrix_set_color(4, 0, 0, 0);
+    rgb_matrix_set_color(27, 0, 0, 0);
+  }
+
+  if (get_mods() & MOD_MASK_SHIFT) {
+    rgb_matrix_set_color(3, 0, 0, 0);
+    rgb_matrix_set_color(28, 0, 0, 0);
+  }
+
+  if (get_mods() & MOD_MASK_ALT) {
+    rgb_matrix_set_color(2, 0, 0, 0);
+    rgb_matrix_set_color(29, 0, 0, 0);
+  }
+
+  if (get_mods() & MOD_MASK_GUI) {
+    rgb_matrix_set_color(1, 0, 0, 0);
+    rgb_matrix_set_color(30, 0, 0, 0);
+  }  
+  
+  if (get_mods() & MOD_BIT_LCTRL) {
     rgb_matrix_set_color(10, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_LSHIFT) {
-    rgb_matrix_set_color(3, 0, 0, 0);
     rgb_matrix_set_color(9, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_LALT) {
-    rgb_matrix_set_color(2, 0, 0, 0);
     rgb_matrix_set_color(8, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_LGUI) {
-    rgb_matrix_set_color(1, 0, 0, 0);
     rgb_matrix_set_color(7, 0, 0, 0);
   }  
 
   if (get_mods() & MOD_BIT_RCTRL) {
-    rgb_matrix_set_color(27, 0, 0, 0);
     rgb_matrix_set_color(33, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_RSHIFT) {
-    rgb_matrix_set_color(28, 0, 0, 0);
     rgb_matrix_set_color(34, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_RALT) {
-    rgb_matrix_set_color(29, 0, 0, 0);
     rgb_matrix_set_color(35, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_RGUI) {
-    rgb_matrix_set_color(30, 0, 0, 0);
     rgb_matrix_set_color(36, 0, 0, 0);
   }
 
