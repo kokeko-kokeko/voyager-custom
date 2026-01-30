@@ -30,6 +30,7 @@ SRC += addons/ime_state_sync.c
 SRC += addons/overlay_layer_mod.c
 SRC += addons/status_led.c
 
+LTO_ENABLE = yes
 EXTRAFLAGS += -flto -O3
 EXTRAFLAGS += -Werror
 EXTRAFLAGS += -march=armv7e-m
