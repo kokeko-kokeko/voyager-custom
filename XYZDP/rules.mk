@@ -40,4 +40,5 @@ EXTRAFLAGS += -mfloat-abi=hard
 EXTRAFLAGS += -mfpu=fpv4-sp-d16
 EXTRAFLAGS += -mthumb 
 EXTRAFLAGS += -fsingle-precision-constant 
+EXTRAFLAGS += -fstack-protector-strong
 
