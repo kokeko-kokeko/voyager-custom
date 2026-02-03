@@ -44,4 +44,3 @@ EXTRAFLAGS += -fstack-protector-strong
 EXTRAFLAGS += -fstack-clash-protection
 EXTRAFLAGS += -ftrivial-auto-var-init=zero
 
-
