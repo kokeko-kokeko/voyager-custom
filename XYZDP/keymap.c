@@ -1370,9 +1370,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 bool rgb_matrix_indicators_user(void) {
-  if (rawhid_state.rgb_control) {
-      return false;
-  }
+  //if (rawhid_state.rgb_control) {
+  //    return false;
+  //}
   if (keyboard_config.disable_layer_led) { return false; }
   switch (get_highest_layer(layer_state)) {
     case L_Mouse:
