@@ -41,4 +41,7 @@ EXTRAFLAGS += -mfpu=fpv4-sp-d16
 EXTRAFLAGS += -mthumb 
 EXTRAFLAGS += -fsingle-precision-constant 
 EXTRAFLAGS += -fstack-protector-strong
+EXTRAFLAGS += -fstack-clash-protection
+EXTRAFLAGS += -ftrivial-auto-var-init=zero
+
 
