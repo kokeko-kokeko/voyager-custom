@@ -35,6 +35,7 @@ EXTRAFLAGS += -flto=auto -O3
 EXTRAFLAGS += -Werror
 EXTRAFLAGS += -march=armv7e-m
 EXTRAFLAGS += -mcpu=cortex-m4
+EXTRAFLAGS += -mtune=cortex-m4
 EXTRAFLAGS += -mfloat-abi=hard
 EXTRAFLAGS += -mfpu=fpv4-sp-d16
 EXTRAFLAGS += -mthumb 
