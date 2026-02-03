@@ -96,8 +96,8 @@ void set_layer_color_firmware_map(void) {
   //rgb_matrix_set_color(20, f, 0, f);
 
   //reset clear
-  rgb_matrix_set_color(29, f, h, 0);
   rgb_matrix_set_color(31, f, 0, 0);
+  rgb_matrix_set_color(37, f, h, 0);
   rgb_matrix_set_color(49, f, f, 0);
 
   //color test
