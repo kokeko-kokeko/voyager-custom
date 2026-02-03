@@ -914,14 +914,14 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
         return false;
       }
       
-      if (pos == 29) {
-        soft_reset_keyboard();
+      if (pos == 31) {
+        reset_keyboard();
         
         return false;
       }
       
-      if (pos == 31) {
-        reset_keyboard();
+      if (pos == 37) {
+        soft_reset_keyboard();
         
         return false;
       }
