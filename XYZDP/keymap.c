@@ -1350,9 +1350,6 @@ bool rgb_matrix_indicators_user(void) {
   if (keyboard_config.disable_layer_led) { return false; }
   switch (get_highest_layer(layer_state)) {
     case L_Mouse:
-    case L_Mouse_Number:
-    case L_Mouse_Cursor:
-    case L_Mouse_BothThumb:
       set_layer_color_mouse_map();
       break;    
     case L_Firmware:
