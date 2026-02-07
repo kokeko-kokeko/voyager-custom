@@ -1292,6 +1292,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_Transition:
       status_led(0b1111, led_pattern_off);
       break;
+    case L_Mouse:
+      // mouse indication
+      status_led(0b1000, led_pattern_on);
+      // DRAG_SCROLL add on key event
+      // aim/turbo change without layer, direct write on process_record
+      break;
     case L_OneShot:
       status_led(0b1100, led_pattern_off);
       status_led(0b0011, led_pattern_blink);
@@ -1327,7 +1333,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0011, led_pattern_blink);
       status_led(0b0100, led_pattern_on);
       break;
-    case L_Mouse:
     case L_Mouse_Number:
     case L_Mouse_Cursor:
     case L_Mouse_BothThumb:
