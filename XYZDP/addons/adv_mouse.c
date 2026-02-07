@@ -96,8 +96,8 @@ static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record)
   if (layer_state_is(L_Mouse) == false) return;
 
   // keep on mouse number and cursor
-  if (layer_state_is(L_Mouse_Number) == true) return;
-  if (layer_state_is(L_Mouse_Cursor) == true) return;
+  if (layer_state_is(L_Number) == true) return;
+  if (layer_state_is(L_Cursor) == true) return;
 
   // keycode check
   if (IS_MOUSEKEY(keycode) == true) return;
@@ -398,8 +398,8 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
     return state;
   }
   
-  layer_state_or = layer_state_or || layer_state_cmp(state, L_Mouse_Cursor);
-  layer_state_or = layer_state_or || layer_state_cmp(state, L_Mouse_Number);
+  //layer_state_or = layer_state_or || layer_state_cmp(state, L_Mouse_Cursor);
+  //layer_state_or = layer_state_or || layer_state_cmp(state, L_Mouse_Number);
   layer_state_or = layer_state_or || lock_scrolling;
 
   if (layer_state_or) {
