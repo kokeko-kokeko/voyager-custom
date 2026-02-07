@@ -211,7 +211,7 @@ static layer_state_t layer_state_set_mouse_edge_detect(const layer_state_t state
 
 static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_t state) {
   static bool layer_on = false;
-  if (layer_on == layer_state_cmp(state, L_Mouse_Number)) return state;
+  if (layer_on == layer_state_cmp(state, L_Number)) return state;
   layer_on = !layer_on;
   
   const fast_timer_t now = timer_read_fast();
@@ -296,7 +296,7 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
 
 static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_t state) {
   static bool layer_on = false;
-  if (layer_on == layer_state_cmp(state, L_Mouse_Cursor)) return state;
+  if (layer_on == layer_state_cmp(state, L_Cursor)) return state;
   layer_on = !layer_on;
 
   const fast_timer_t now = timer_read_fast();
