@@ -176,6 +176,38 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
   return;
 }
 
+static void post_process_record_mouse_button_multi_release(uint16_t keycode, keyrecord_t *record) {
+  // only mouse button
+  if (IS_MOUSEKEY_BUTTON(keycode) == false) return;
+
+  const fast_timer_t now = timer_read_fast();
+
+  if (record->event.pressed) {
+    // press, ignore
+
+    return;
+  }
+  
+  // release
+  static fast_timer_t release_time = 0;
+  
+  //tap
+  if (TIMER_DIFF_FAST(now, release_time) >= AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
+    //single tap (far from previous release)
+    release_time = now;
+        
+    return;
+  }
+  
+  //double tap or more
+  //keep continue
+  release_time = now;
+  
+  auto_mouse_early_off_trigger = now + AUTO_MOUSE_TIME_SHORT;
+  
+  return;
+}
+
 // -----------------------------------------------------------------------------
 //
 //
@@ -463,6 +495,7 @@ void keyboard_post_init_adv_mouse(void) {
 void post_process_record_adv_mouse(uint16_t keycode, keyrecord_t *record) {
   post_process_record_non_mouse(keycode, record);
   post_process_record_mouse_button(keycode, record);
+  post_process_record_mouse_button_multi_release(keycode, record);
 
   return;
 }
