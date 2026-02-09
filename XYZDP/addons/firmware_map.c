@@ -13,6 +13,11 @@
 #include "addons/ime_state_sync.h"
 #include "addons/status_led.h"
 
+enum key_pos {
+  P_JIS = 0,
+  P_ANSI = 6
+};
+
 // call mouse jiggler
 void mouse_jiggler_enable(void);
 void mouse_jiggler_disable(void);
@@ -25,14 +30,14 @@ void firmware_map_set_keyrecord(const keyrecord_t * const record) {
   uint8_t pos = get_pos_from_keyrecord(record);
   if (52 <= pos) return;
 
-  if (pos == 0) {
+  if (pos == P_JIS) {
     layer_on(L_Base);
     layer_off(L_Base_ANSI);
         
     return;
   }
       
-  if (pos == 6) {
+  if (pos == P_ANSI) {
     layer_on(L_Base);
     layer_on(L_Base_ANSI);
         
