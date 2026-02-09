@@ -873,8 +873,6 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
     if (record->event.pressed) {
       fade_matrix_load_preset();
       status_led(0b0101, led_pattern_oneshot);
-      
-      return false;
     }
     
     return false;  
@@ -894,8 +892,6 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
     if (record->event.pressed) {
       fade_matrix_load_preset_powersave();
       status_led(0b1010, led_pattern_oneshot);
-      
-      return false;
     }
     
     return false;
@@ -920,8 +916,6 @@ static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record) 
   if (keycode == NAVIGATOR_INC_CPI) {  
     if (record->event.pressed) {
       pointing_device_set_cpi(1);
-      
-      return false;
     }
     
     return false;
@@ -930,8 +924,6 @@ static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record) 
   if (keycode == NAVIGATOR_DEC_CPI) {
     if (record->event.pressed) {
       pointing_device_set_cpi(0);
-      
-      return false;
     }
     
     return false;
