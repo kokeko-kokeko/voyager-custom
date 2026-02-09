@@ -1245,7 +1245,6 @@ bool rgb_matrix_indicators_user(void) {
   switch (get_highest_layer(layer_state)) {
     case L_Firmware:
       set_layer_color_firmware_map();
-      set_layer_color_firmware_map_ime_state_sync();
       break;
     case L_Set_Hue:
       set_layer_color_hue_map();
