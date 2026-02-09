@@ -12,6 +12,20 @@
 // call mouse jiggler
 bool mouse_jiggler_is_enabled(void);
 
+
+void firmware_map_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return;
+  if (record->event.pressed == false) return;
+
+  
+}
+
+void halt_map_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return;
+  if (record->event.pressed == false) return;
+  
+}
+
 void set_layer_color_firmware_map(void) {
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
