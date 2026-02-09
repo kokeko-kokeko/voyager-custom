@@ -23,7 +23,16 @@ void firmware_map_keyrecord(const keyrecord_t * const record) {
 void halt_map_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return;
   if (record->event.pressed == false) return;
-  
+
+  uint8_t pos = get_pos_from_keyrecord(record);
+  if (52 <= pos) return;
+      
+  if (pos == 31) {
+    // hang-up
+    while (1);
+        
+    return false;
+  }  
 }
 
 void set_layer_color_firmware_map(void) {
