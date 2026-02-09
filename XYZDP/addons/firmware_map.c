@@ -9,6 +9,9 @@
 
 #include "addons/firmware_map.h"
 
+#include "addons/fade_matrix.h"
+#include "addons/ime_state_sync.h"
+
 // call mouse jiggler
 bool mouse_jiggler_is_enabled(void);
 
