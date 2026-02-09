@@ -39,6 +39,10 @@ void ime_state_sync_disable(void) {
   iss_trigger = now + (UINT32_MAX / 2) - 1;
 }
 
+bool ime_state_sync_is_enabled(void) {
+  return iss_enable;
+}
+
 bool pre_process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     if(iss_sync) {
@@ -204,7 +208,7 @@ void set_layer_color_firmware_map_ime_state_sync(void) {
   const uint8_t q = h >> 1;
   const uint8_t o = q >> 1;
 
-  if (iss_enable) {
+  if (ime_state_sync_is_enabled()) {
     rgb_matrix_set_color(3, 0, f, 0);
     rgb_matrix_set_color(9, o, o, o);
   } else {
