@@ -201,19 +201,3 @@ void set_layer_color_overlay_ime_state_sync(void) {
   //  rgb_matrix_set_color(32, 0, 0, 0);
   //}
 }
-
-void set_layer_color_firmware_map_ime_state_sync(void) {
-  const uint8_t f = rgb_matrix_get_val();
-  const uint8_t h = f >> 1;
-  const uint8_t q = h >> 1;
-  const uint8_t o = q >> 1;
-
-  if (ime_state_sync_is_enabled()) {
-    rgb_matrix_set_color(3, 0, f, 0);
-    rgb_matrix_set_color(9, o, o, o);
-  } else {
-    //ANSI base
-    rgb_matrix_set_color(3, o, o, o);
-    rgb_matrix_set_color(9, f, f, 0);
-  }
-}
