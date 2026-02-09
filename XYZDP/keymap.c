@@ -831,88 +831,10 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void mouse_jiggler_enable(void);
-void mouse_jiggler_disable(void);
-
 static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record) {
   // Firmware  
   if (keycode == HSV_0_255_200) {
-    if (record->event.pressed) {
-      uint8_t pos = get_pos_from_keyrecord(record);
-      if (52 <= pos) return false;
-      
-      if (pos == 0) {
-        layer_on(L_Base);
-        layer_off(L_Base_ANSI);
-        
-        return false;
-      }
-      
-      if (pos == 6) {
-        layer_on(L_Base);
-        layer_on(L_Base_ANSI);
-        
-        return false;
-      }
-      
-      if (pos == 1) {
-        layer_on(L_Base);
-        layer_off(L_Transition);
-        
-        return false;
-      }
-      
-      if (pos == 7) {
-        layer_on(L_Base);
-        layer_on(L_Transition);
-        
-        return false;
-      }
-      
-      if (pos == 3) {
-        ime_state_sync_enable();
-        
-        return false;
-      }
-      
-      if (pos == 9) {
-        ime_state_sync_disable();
-        
-        return false;
-      }
-
-      if (pos == 5) {
-        mouse_jiggler_enable();
-        
-        return false;
-      }
-      
-      if (pos == 11) {
-        mouse_jiggler_disable();
-        
-        return false;
-      }
-      
-      if (pos == 31) {
-        reset_keyboard();
-        
-        return false;
-      }
-      
-      if (pos == 37) {
-        soft_reset_keyboard();
-        
-        return false;
-      }
-      
-      if (pos == 49) {
-        clear_keyboard();
-        
-        return false;
-      }
-      
-      return false;
-    }
+    firmware_map_keyrecord(record);
     
     return false;
   }
@@ -942,19 +864,7 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
   }
   
   if (keycode == HSV_0_255_255) {
-    if (record->event.pressed) {
-      uint8_t pos = get_pos_from_keyrecord(record);
-      if (52 <= pos) return false;
-      
-      if (pos == 31) {
-        // hang-up
-        while (1);
-        
-        return false;
-      }
-      
-      return false;
-    }
+    halt_map_keyrecord(record);
     
     return false;
   }
