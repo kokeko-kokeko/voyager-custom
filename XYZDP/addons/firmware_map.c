@@ -25,7 +25,15 @@ enum key_pos {
 
   P_RST = 31,
   P_SW_RST = 37,
-  P_CLEAR = 49
+  P_CLEAR = 49,
+  
+  P_Caps_Lock = 19,
+  P_Num_Lock = 45,
+  P_Scroll_Lock = 46
+  P_Compose = 47,
+  P_Kana = 17,
+  
+  P_Halt = 31
 };
 
 // call mouse jiggler
@@ -233,33 +241,33 @@ void set_layer_color_firmware_map(void) {
   led_t status = host_keyboard_led_state();
 
   if (status.caps_lock) {
-    rgb_matrix_set_color(19, h, 0, 0);
+    rgb_matrix_set_color(P_Caps_Lock, h, 0, 0);
   } else {
-    rgb_matrix_set_color(19, q, q, q);
+    rgb_matrix_set_color(P_Caps_Lock, q, q, q);
   }
 
   if (status.num_lock) {
-    rgb_matrix_set_color(45, h, 0, 0);
+    rgb_matrix_set_color(P_Num_Lock, h, 0, 0);
   } else {
-    rgb_matrix_set_color(45, q, q, q);
+    rgb_matrix_set_color(P_Num_Lock, q, q, q);
   }
 
   if (status.scroll_lock) {
-    rgb_matrix_set_color(46, 0, h, 0);
+    rgb_matrix_set_color(P_Scroll_Lock, 0, h, 0);
   } else {
-    rgb_matrix_set_color(46, q, q, q);
+    rgb_matrix_set_color(P_Scroll_Lock, q, q, q);
   }
 
   if (status.compose) {
-    rgb_matrix_set_color(47, 0, 0, h);
+    rgb_matrix_set_color(P_Compose, 0, 0, h);
   } else {
-    rgb_matrix_set_color(47, q, q, q);
+    rgb_matrix_set_color(P_Compose, q, q, q);
   }
 
   if (status.kana) {
-    rgb_matrix_set_color(17, h, 0, h);
+    rgb_matrix_set_color(P_Kana, h, 0, h);
   } else {
-    rgb_matrix_set_color(17, q, q, q);
+    rgb_matrix_set_color(P_Kana, q, q, q);
   }
 }
 
@@ -363,7 +371,7 @@ void halt_map_set_keyrecord(const keyrecord_t * const record) {
   uint8_t pos = get_pos_from_keyrecord(record);
   if (52 <= pos) return;
       
-  if (pos == 31) {
+  if (pos == P_Halt) {
     // hang-up
     while (1);
         
@@ -377,7 +385,7 @@ void set_layer_color_halt_map(void) {
 
   rgb_matrix_set_color_all(0, 0, 0);
 
-  rgb_matrix_set_color(31, hsv.v, 0, 0);
+  rgb_matrix_set_color(P_Halt, hsv.v, 0, 0);
   //rgb_matrix_set_color(49, hsv.v, hsv.v, 0);
   //rgb_matrix_set_color(24, 0, hsv.v, 0);
   //rgb_matrix_set_color(25, 0, hsv.v, 0);
