@@ -1349,9 +1349,6 @@ bool rgb_matrix_indicators_user(void) {
   //}
   if (keyboard_config.disable_layer_led) { return false; }
   switch (get_highest_layer(layer_state)) {
-    case L_Mouse:
-      set_layer_color_mouse_map();
-      break;    
     case L_Firmware:
       set_layer_color_firmware_map();
       set_layer_color_firmware_map_ime_state_sync();
@@ -1376,6 +1373,7 @@ bool rgb_matrix_indicators_user(void) {
       if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
         rgb_matrix_set_color_all(0, 0, 0);
       } else {
+        set_layer_color_overlay_mouse();
         set_layer_color_overlay_mod();
         set_layer_color_overlay_ime_state_sync();
         set_layer_color_overlay_layer();
