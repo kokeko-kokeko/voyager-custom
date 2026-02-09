@@ -773,92 +773,19 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
 
 static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *record) {  
   if (keycode == HSV_86_255_200) {
-    static uint16_t press_time = 0;
-    
-    if (record->event.pressed) {
-      // press
-      press_time = record->event.time;
-      
-      return false;
-    }
-
-    if (TIMER_DIFF_16(record->event.time, press_time) < TAPPING_TERM) {
-      // tap release
-      
-      return false;
-    }
-    
-    // hold release
-    layer_on(L_Set_Hue);
+    firmware_map_enter_hue_keyrecord(record);
     
     return false;
   }
   
   if (keycode == HSV_86_255_201) {
-    if (record->event.pressed) {
-      // press
-      
-      return false;
-    }
-    
-    const fast_timer_t now = timer_read_fast();
-
-    // release
-    static fast_timer_t release_time = 0;
-    static uint8_t release_count = 0;
-    
-    if (TIMER_DIFF_FAST(now, release_time) >= 1000) {
-      // single release (far from previous release)
-      release_time = now;
-      release_count = 1;
-      
-      return false;
-    }
-
-    // multi release
-    release_time = now;
-    if (release_count != 0) release_count++;
-
-    if (release_count == 5) {
-      // both on Hue for exit key
-      layer_state_t layer_mask = 
-        ((layer_state_t)1 << L_Set_Hue)   |
-        ((layer_state_t)1 << L_Halt_Mask);
-      layer_or(layer_mask);
-      
-      return false;
-    }
+    firmware_map_enter_halt_keyrecord(record);
     
     return false;
   }
   
   if (keycode == HSV_86_255_255) {
-    static uint16_t press_time = 0;
-    
-    if (record->event.pressed) {
-      // press
-      press_time = record->event.time;
-      
-      return false;
-    }
-
-    if (TIMER_DIFF_16(record->event.time, press_time) < TAPPING_TERM) {
-      // tap release
-      
-      return false;
-    }
-    
-    // hold release
-    // off all setting layers
-    layer_state_t layer_mask = 
-      ((layer_state_t)1 << L_Firmware)  |
-      ((layer_state_t)1 << L_Set_Hue)   |
-      ((layer_state_t)1 << L_Set_Sat)   |
-      ((layer_state_t)1 << L_Set_Val)   |
-      ((layer_state_t)1 << L_Set_Speed) |
-      ((layer_state_t)1 << L_Halt_Mask);
-    layer_mask = ~layer_mask;
-    layer_and(layer_mask);
+    firmware_map_exit_all_keyrecord(record);
     
     status_led(0b1111, led_pattern_oneshot);
     
