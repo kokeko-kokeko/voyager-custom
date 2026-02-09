@@ -679,6 +679,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (process_record_hsv_86_255_n_layer_op(keycode, record) == false) return false;
   if (process_record_hsv_172_255_n_function(keycode, record) == false) return false;
   if (process_record_mouse_setting(keycode, record) == false) return false;
+  if (process_record_fade_matrix(keycode, record) == false) return false;
   if (process_record_ime_state_sync(keycode, record) == false) return false;
   
   return true;
