@@ -13,14 +13,83 @@
 #include "addons/ime_state_sync.h"
 
 // call mouse jiggler
+void mouse_jiggler_enable(void);
+void mouse_jiggler_disable(void);
 bool mouse_jiggler_is_enabled(void);
-
 
 void firmware_map_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return;
   if (record->event.pressed == false) return;
 
-  
+  if (pos == 0) {
+    layer_on(L_Base);
+    layer_off(L_Base_ANSI);
+        
+    return;
+  }
+      
+  if (pos == 6) {
+    layer_on(L_Base);
+    layer_on(L_Base_ANSI);
+        
+    return;
+  }
+      
+  if (pos == 1) {
+    layer_on(L_Base);
+    layer_off(L_Transition);
+        
+    return;
+  }
+      
+  if (pos == 7) {
+    layer_on(L_Base);
+    layer_on(L_Transition);
+        
+    return;
+  }
+      
+  if (pos == 3) {
+    ime_state_sync_enable();
+        
+    return;
+  }
+      
+  if (pos == 9) {
+    ime_state_sync_disable();
+        
+    return;
+  }
+
+  if (pos == 5) {
+    mouse_jiggler_enable();
+        
+    return;
+  }
+      
+  if (pos == 11) {
+    mouse_jiggler_disable();
+        
+    return;
+  }
+      
+  if (pos == 31) {
+    reset_keyboard();
+        
+    return;
+  }
+      
+  if (pos == 37) {
+    soft_reset_keyboard();
+        
+    return;
+  }
+      
+  if (pos == 49) {
+    clear_keyboard();
+        
+    return;
+  }
 }
 
 void halt_map_keyrecord(const keyrecord_t * const record) {
