@@ -505,7 +505,9 @@ void housekeeping_task_adv_mouse(void) {
   return;
 }
 
-void set_layer_color_mouse_map(void) {
+void set_layer_color_overlay_mouse(void) {
+  if (is_auto_mouse_active() == false) return;
+  
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
   const uint8_t q = h >> 1;
