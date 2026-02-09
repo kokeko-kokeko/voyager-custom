@@ -34,7 +34,7 @@ void halt_map_keyrecord(const keyrecord_t * const record) {
     // hang-up
     while (1);
         
-    return false;
+    return;
   }  
 }
 
