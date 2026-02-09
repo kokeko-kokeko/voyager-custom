@@ -11,6 +11,7 @@
 
 #include "addons/fade_matrix.h"
 #include "addons/ime_state_sync.h"
+#include "addons/status_led.h"
 
 // call mouse jiggler
 void mouse_jiggler_enable(void);
