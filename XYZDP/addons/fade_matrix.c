@@ -270,7 +270,7 @@ void keyboard_post_init_fade_matrix(void) {
   activate_fade_matrix();
 }
 
-static bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
+bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   //RGB inc/dec no eeprom override
   // always return false (sometime use upedge)
   if (keycode == RGB_HUI) {
