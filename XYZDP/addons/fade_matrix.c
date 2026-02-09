@@ -132,6 +132,8 @@ void fade_matrix_set_mode(const uint8_t mode) {
 
 void fade_matrix_set_hue_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return;
+  if (record->event.pressed == false) return;
+  
   uint8_t pos = get_pos_from_keyrecord(record);
   if (52 <= pos) return;
   uint8_t idx = pos2idx_tbl[pos];
@@ -142,6 +144,8 @@ void fade_matrix_set_hue_keyrecord(const keyrecord_t * const record) {
 
 void fade_matrix_set_sat_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return;
+  if (record->event.pressed == false) return; 
+  
   uint8_t pos = get_pos_from_keyrecord(record);
   if (52 <= pos) return;
   uint8_t idx = pos2idx_tbl[pos];
@@ -152,6 +156,8 @@ void fade_matrix_set_sat_keyrecord(const keyrecord_t * const record) {
 
 void fade_matrix_set_val_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return;
+  if (record->event.pressed == false) return; 
+  
   uint8_t pos = get_pos_from_keyrecord(record);
   if (52 <= pos) return;
   uint8_t idx = pos2idx_tbl[pos];
@@ -162,6 +168,8 @@ void fade_matrix_set_val_keyrecord(const keyrecord_t * const record) {
 
 void fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return;
+  if (record->event.pressed == false) return; 
+  
   uint8_t pos = get_pos_from_keyrecord(record);
   if (52 <= pos) return;
   uint8_t idx = pos2idx_tbl[pos];
