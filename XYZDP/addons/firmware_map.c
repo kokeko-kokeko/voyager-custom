@@ -28,10 +28,13 @@ enum key_pos {
   P_CLEAR = 49,
   
   P_Caps_Lock = 19,
-  P_Num_Lock = 45,
-  P_Scroll_Lock = 46,
-  P_Compose = 47,
+  P_Num_Lock = 44,
+  P_Scroll_Lock = 45,
+  P_Compose = 46,
   P_Kana = 20,
+
+  P_OS1 = 22,
+  P_OS2 = 23,
   
   P_Halt = 31
 };
@@ -204,14 +207,9 @@ void set_layer_color_firmware_map(void) {
       rgb_os.b = f;
       break;
   }
-  rgb_matrix_set_color(22, rgb_os.r, rgb_os.g, rgb_os.b);
-  rgb_matrix_set_color(23, rgb_os.r, rgb_os.g, rgb_os.b);
-
-  //tapping
-  //rgb_matrix_set_color(18, 0, 0, f);
-  //rgb_matrix_set_color(19, q, 0, q);
-  //rgb_matrix_set_color(20, f, 0, f);
-
+  rgb_matrix_set_color(P_OS1, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(P_OS2, rgb_os.r, rgb_os.g, rgb_os.b);
+  
   //reset clear
   rgb_matrix_set_color(P_RST, f, 0, 0);
   rgb_matrix_set_color(P_SW_RST, f, h, 0);
