@@ -8,16 +8,16 @@ void fade_matrix_set_sat_keyrecord(const keyrecord_t * const record);
 void fade_matrix_set_val_keyrecord(const keyrecord_t * const record);
 void fade_matrix_set_speed_keyrecord(const keyrecord_t * const record);
 
-void fade_matrix_increase_hue(void);
-void fade_matrix_decrease_hue(void);
-void fade_matrix_increase_sat(void);
-void fade_matrix_decrease_sat(void);
-void fade_matrix_increase_val(void);
-void fade_matrix_decrease_val(void);
-void fade_matrix_increase_speed(void);
-void fade_matrix_decrease_speed(void);
-void fade_matrix_toggle(void);
-void fade_matrix_step(void);
+//void fade_matrix_increase_hue(void);
+//void fade_matrix_decrease_hue(void);
+//void fade_matrix_increase_sat(void);
+//void fade_matrix_decrease_sat(void);
+//void fade_matrix_increase_val(void);
+//void fade_matrix_decrease_val(void);
+//void fade_matrix_increase_speed(void);
+//void fade_matrix_decrease_speed(void);
+//void fade_matrix_toggle(void);
+//void fade_matrix_step(void);
 
 void fade_matrix_load_preset(void);
 void fade_matrix_load_preset_powersave(void);
