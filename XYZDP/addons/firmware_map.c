@@ -29,7 +29,7 @@ enum key_pos {
   
   P_Caps_Lock = 19,
   P_Num_Lock = 45,
-  P_Scroll_Lock = 46
+  P_Scroll_Lock = 46,
   P_Compose = 47,
   P_Kana = 17,
   
