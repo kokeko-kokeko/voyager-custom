@@ -270,6 +270,112 @@ void keyboard_post_init_fade_matrix(void) {
   activate_fade_matrix();
 }
 
+static bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
+  //RGB inc/dec no eeprom override
+  // always return false (sometime use upedge)
+  if (keycode == RGB_HUI) {
+    if (record->event.pressed) {
+      fade_matrix_increase_hue();
+      
+      return false;
+    }
+    
+    return false;
+  }
+  
+  if (keycode == RGB_HUD) {
+    if (record->event.pressed) {
+      fade_matrix_decrease_hue();
+      
+      return false;
+    }
+    
+    return false;
+  }
+  
+  if (keycode == RGB_SAI) {
+    if (record->event.pressed) {
+      fade_matrix_increase_sat();
+      
+      return false;
+    }
+    
+    return false;
+  }
+  
+  if (keycode == RGB_SAD) {
+    if (record->event.pressed) {
+      fade_matrix_decrease_sat();
+      
+      return false;
+    }
+    
+    return false;
+  }
+  
+  if (keycode == RGB_VAI) {
+    if (record->event.pressed) {
+      fade_matrix_increase_val();
+      
+      return false;
+    }
+    
+    return false;
+  }
+  
+  if (keycode == RGB_VAD) {
+    if (record->event.pressed) {
+      fade_matrix_decrease_val();
+      
+      return false;
+    }
+    
+    return false;
+  }
+  
+  if (keycode == RGB_SPI) {
+    if (record->event.pressed) {
+      fade_matrix_increase_speed();
+      
+      return false;
+    }
+    
+    return false;
+  }
+  
+  if (keycode == RGB_SPD) {
+    if (record->event.pressed) {
+      fade_matrix_decrease_speed();
+      
+      return false;
+    }
+    
+    return false;
+  }
+  
+  if (keycode == RGB_TOG) {
+    if (record->event.pressed) {
+      fade_matrix_toggle();
+      
+      return false;
+    }
+    
+    return false;
+  }
+  
+  if (keycode == RGB_MODE_FORWARD) {
+    if (record->event.pressed) {
+      fade_matrix_step();
+      
+      return false;
+    }
+    
+    return false;
+  }
+  
+  return true;
+}
+
 void post_process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed == false) return;
 
