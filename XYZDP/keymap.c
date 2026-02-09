@@ -918,41 +918,25 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
   }
 
   if (keycode == HSV_0_255_210) {
-    if (record->event.pressed) {
-      fade_matrix_set_hue_keyrecord(record);
-      
-      return false;
-    }
+    fade_matrix_set_hue_keyrecord(record);
     
     return false;
   }
 
   if (keycode == HSV_0_255_211) {
-    if (record->event.pressed) {
-      fade_matrix_set_sat_keyrecord(record);
-      
-      return false;
-    }
+    fade_matrix_set_sat_keyrecord(record);
     
     return false;
   }
 
   if (keycode == HSV_0_255_212) {
-    if (record->event.pressed) {
-      fade_matrix_set_val_keyrecord(record);
-      
-      return false;
-    }
+    fade_matrix_set_val_keyrecord(record);
     
     return false;
   }
 
   if (keycode == HSV_0_255_213) {
-    if (record->event.pressed) {
-      fade_matrix_set_speed_keyrecord(record);
-      
-      return false;
-    }
+    fade_matrix_set_speed_keyrecord(record);
     
     return false;
   }
