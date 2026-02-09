@@ -834,7 +834,7 @@ static bool process_record_rgb_inc_dec(uint16_t keycode, keyrecord_t *record) {
 static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record) {
   // Firmware  
   if (keycode == HSV_0_255_200) {
-    firmware_map_keyrecord(record);
+    firmware_map_set_keyrecord(record);
     
     return false;
   }
@@ -864,7 +864,7 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
   }
   
   if (keycode == HSV_0_255_255) {
-    halt_map_keyrecord(record);
+    halt_map_set_keyrecord(record);
     
     return false;
   }
