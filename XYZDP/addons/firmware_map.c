@@ -54,57 +54,57 @@ void firmware_map_set_keyrecord(const keyrecord_t * const record) {
     return;
   }
       
-  if (pos == 1) {
+  if (pos == P_Tran_off) {
     layer_on(L_Base);
     layer_off(L_Transition);
         
     return;
   }
       
-  if (pos == 7) {
+  if (pos == P_Tran_on) {
     layer_on(L_Base);
     layer_on(L_Transition);
         
     return;
   }
       
-  if (pos == 3) {
+  if (pos == P_ISS_on) {
     ime_state_sync_enable();
         
     return;
   }
       
-  if (pos == 9) {
+  if (pos == P_ISS_off) {
     ime_state_sync_disable();
         
     return;
   }
 
-  if (pos == 5) {
+  if (pos == P_MJ_on) {
     mouse_jiggler_enable();
         
     return;
   }
       
-  if (pos == 11) {
+  if (pos == P_MJ_off) {
     mouse_jiggler_disable();
         
     return;
   }
       
-  if (pos == 31) {
+  if (pos == P_RST) {
     reset_keyboard();
         
     return;
   }
       
-  if (pos == 37) {
+  if (pos == P_SW_RST) {
     soft_reset_keyboard();
         
     return;
   }
       
-  if (pos == 49) {
+  if (pos == P_CLEAR) {
     clear_keyboard();
         
     return;
@@ -130,44 +130,44 @@ void set_layer_color_firmware_map(void) {
   //ANSI/JIS
   if (layer_state_is(L_Base_ANSI)) {
     //ANSI base enable
-    rgb_matrix_set_color(0, q, q, q);
-    rgb_matrix_set_color(6, f, 0, 0);
+    rgb_matrix_set_color(P_JIS, q, q, q);
+    rgb_matrix_set_color(P_ANSI, f, 0, 0);
   } else {
     //JIS base
-    rgb_matrix_set_color(0, 0, f, 0);
-    rgb_matrix_set_color(6, q, q, q);
+    rgb_matrix_set_color(P_JIS, 0, f, 0);
+    rgb_matrix_set_color(P_ANSI, q, q, q);
   }
 
   // Transition
   if (layer_state_is(L_Transition)) {
     // on
-    rgb_matrix_set_color(1, q, q, q);
-    rgb_matrix_set_color(7, f, f, 0);
+    rgb_matrix_set_color(P_Tran_off, q, q, q);
+    rgb_matrix_set_color(P_Tran_on, f, f, 0);
   } else {
     // off
-    rgb_matrix_set_color(1, 0, 0, f);
-    rgb_matrix_set_color(7, q, q, q);
+    rgb_matrix_set_color(P_Tran_off, 0, 0, f);
+    rgb_matrix_set_color(P_Tran_on, q, q, q);
   }
 
   // ISS system
   if (ime_state_sync_is_enabled()) {
-    rgb_matrix_set_color(3, 0, f, 0);
-    rgb_matrix_set_color(9, o, o, o);
+    rgb_matrix_set_color(P_ISS_on, 0, f, 0);
+    rgb_matrix_set_color(P_ISS_off, o, o, o);
   } else {
     //ANSI base
-    rgb_matrix_set_color(3, o, o, o);
-    rgb_matrix_set_color(9, f, f, 0);
+    rgb_matrix_set_color(P_ISS_on, o, o, o);
+    rgb_matrix_set_color(P_ISS_off, f, f, 0);
   }
 
   // mouse jiggler
   if (mouse_jiggler_is_enabled()) {
     // on
-    rgb_matrix_set_color(5, 0, 0, f);
-    rgb_matrix_set_color(11, q, q, q);
+    rgb_matrix_set_color(P_MJ_on, 0, 0, f);
+    rgb_matrix_set_color(P_MJ_off, q, q, q);
   } else {
     // off
-    rgb_matrix_set_color(5, q, q, q);
-    rgb_matrix_set_color(11, f, 0, 0);
+    rgb_matrix_set_color(P_MJ_on, q, q, q);
+    rgb_matrix_set_color(P_MJ_off, f, 0, 0);
   }
 
   //OS detect
@@ -205,9 +205,9 @@ void set_layer_color_firmware_map(void) {
   //rgb_matrix_set_color(20, f, 0, f);
 
   //reset clear
-  rgb_matrix_set_color(31, f, 0, 0);
-  rgb_matrix_set_color(37, f, h, 0);
-  rgb_matrix_set_color(49, f, f, 0);
+  rgb_matrix_set_color(P_RST, f, 0, 0);
+  rgb_matrix_set_color(P_SW_RST, f, h, 0);
+  rgb_matrix_set_color(P_CLEAR, f, f, 0);
 
   //color test
   //rgb_matrix_set_color(26, f, 0, 0);
