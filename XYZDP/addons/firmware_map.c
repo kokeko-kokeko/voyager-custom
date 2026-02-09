@@ -336,6 +336,8 @@ void firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
     ((layer_state_t)1 << L_Halt_Mask);
   layer_mask = ~layer_mask;
   layer_and(layer_mask);
+
+  status_led(0b1111, led_pattern_oneshot);
 }
 
 void halt_map_set_keyrecord(const keyrecord_t * const record) {
