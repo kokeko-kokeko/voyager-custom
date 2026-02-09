@@ -247,6 +247,97 @@ void set_layer_color_firmware_map(void) {
   }
 }
 
+void firmware_map_enter_hue_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return;
+
+  static uint16_t press_time = 0;
+    
+  if (record->event.pressed) {
+    // press
+    press_time = record->event.time;
+      
+    return;
+  }
+
+  if (TIMER_DIFF_16(record->event.time, press_time) < TAPPING_TERM) {
+    // tap release
+      
+    return;
+  }
+  
+  // hold release
+  layer_on(L_Set_Hue);
+}
+
+void firmware_map_enter_halt_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return;
+
+  if (record->event.pressed) {
+    // press
+      
+    return;
+  }
+    
+  const fast_timer_t now = timer_read_fast();
+
+  // release
+  static fast_timer_t release_time = 0;
+  static uint8_t release_count = 0;
+    
+  if (TIMER_DIFF_FAST(now, release_time) >= 1000) {
+    // single release (far from previous release)
+    release_time = now;
+    release_count = 1;
+      
+    return;
+  }
+
+  // multi release
+  release_time = now;
+  if (release_count != 0) release_count++;
+
+  if (release_count == 5) {
+    // both on Hue for exit key
+    layer_state_t layer_mask = 
+      ((layer_state_t)1 << L_Set_Hue)   |
+      ((layer_state_t)1 << L_Halt_Mask);
+    layer_or(layer_mask);
+      
+    return;
+  }
+}
+
+void firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return;
+
+  static uint16_t press_time = 0;
+    
+  if (record->event.pressed) {
+    // press
+    press_time = record->event.time;
+      
+    return;
+  }
+
+  if (TIMER_DIFF_16(record->event.time, press_time) < TAPPING_TERM) {
+    // tap release
+      
+    return;
+  }
+    
+  // hold release
+  // off all setting layers
+  layer_state_t layer_mask = 
+    ((layer_state_t)1 << L_Firmware)  |
+    ((layer_state_t)1 << L_Set_Hue)   |
+    ((layer_state_t)1 << L_Set_Sat)   |
+    ((layer_state_t)1 << L_Set_Val)   |
+    ((layer_state_t)1 << L_Set_Speed) |
+    ((layer_state_t)1 << L_Halt_Mask);
+  layer_mask = ~layer_mask;
+  layer_and(layer_mask);
+}
+
 void halt_map_set_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return;
   if (record->event.pressed == false) return;
