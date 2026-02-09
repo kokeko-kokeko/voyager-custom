@@ -15,7 +15,17 @@
 
 enum key_pos {
   P_JIS = 0,
-  P_ANSI = 6
+  P_ANSI = 6,
+  P_Tran_off = 1,
+  P_Tran_on = 7,
+  P_ISS_on = 3,
+  P_ISS_off = 9,
+  P_MJ_on = 5,
+  P_MJ_off = 11,
+
+  P_RST = 31,
+  P_SW_RST = 37,
+  P_CLEAR = 49
 };
 
 // call mouse jiggler
