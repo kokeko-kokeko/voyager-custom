@@ -31,7 +31,7 @@ enum key_pos {
   P_Num_Lock = 45,
   P_Scroll_Lock = 46,
   P_Compose = 47,
-  P_Kana = 17,
+  P_Kana = 20,
   
   P_Halt = 31
 };
