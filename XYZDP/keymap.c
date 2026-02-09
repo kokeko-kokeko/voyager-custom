@@ -786,9 +786,7 @@ static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *
   
   if (keycode == HSV_86_255_255) {
     firmware_map_exit_all_keyrecord(record);
-    
-    status_led(0b1111, led_pattern_oneshot);
-    
+        
     return false;
   }
   
