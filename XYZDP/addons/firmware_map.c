@@ -17,7 +17,7 @@ void mouse_jiggler_enable(void);
 void mouse_jiggler_disable(void);
 bool mouse_jiggler_is_enabled(void);
 
-void firmware_map_keyrecord(const keyrecord_t * const record) {
+void firmware_map_set_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return;
   if (record->event.pressed == false) return;
 
@@ -237,7 +237,7 @@ void set_layer_color_firmware_map(void) {
   }
 }
 
-void halt_map_keyrecord(const keyrecord_t * const record) {
+void halt_map_set_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return;
   if (record->event.pressed == false) return;
 
