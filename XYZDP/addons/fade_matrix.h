@@ -3,15 +3,14 @@
 uint8_t get_pos_from_keyrecord(const keyrecord_t * const record);
 
 void fade_matrix_set_mode(const uint8_t mode);
+void fade_matrix_load_preset(void);
+void fade_matrix_load_preset_powersave(void);
 
 bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record);
 bool fade_matrix_set_hue_keyrecord(const keyrecord_t * const record);
 bool fade_matrix_set_sat_keyrecord(const keyrecord_t * const record);
 bool fade_matrix_set_val_keyrecord(const keyrecord_t * const record);
 bool fade_matrix_set_speed_keyrecord(const keyrecord_t * const record);
-
-void fade_matrix_load_preset(void);
-void fade_matrix_load_preset_powersave(void);
 
 void keyboard_post_init_fade_matrix(void);
 bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record);
