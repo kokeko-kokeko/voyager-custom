@@ -7,7 +7,7 @@
 
 #include "layer_num.h"
 
-#include "addons/overlay_layer_mod.h"
+#include "addons/layer_mod_overlay.h"
 
 // use animation logic
 // use abs path
