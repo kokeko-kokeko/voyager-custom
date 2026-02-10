@@ -126,12 +126,12 @@ uint8_t get_pos_from_keyrecord(const keyrecord_t * const record) {
   return row_col2pos_tbl[record->event.key.row][record->event.key.col];
 }
 
-void fade_matrix_set_mode(const uint8_t mode) {
+static void fade_matrix_set_mode(const uint8_t mode) {
   fade_matrix_target.mode = mode;
   activate_fade_matrix();
 }
 
-void fade_matrix_load_preset(void) {
+static void fade_matrix_load_preset(void) {
   fade_matrix_target.enable = true;
   fade_matrix_target.hsv.h = 86;
   fade_matrix_target.hsv.s = 128;
@@ -144,7 +144,7 @@ void fade_matrix_load_preset(void) {
   activate_fade_matrix();
 }
 
-void fade_matrix_load_preset_powersave(void) {
+static void fade_matrix_load_preset_powersave(void) {
   fade_matrix_target.enable = true;
   //fade_matrix_target.hsv.h = 0;
   fade_matrix_target.hsv.s = 0;
