@@ -131,6 +131,16 @@ void fade_matrix_set_mode(const uint8_t mode) {
   activate_fade_matrix();
 }
 
+bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return false;
+  if (record->event.pressed == false) return false;
+  
+  fade_matrix_set_mode(RGB_MATRIX_SOLID_COLOR);
+  
+  // default false
+  return false;
+}
+
 bool fade_matrix_set_hue_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false;
