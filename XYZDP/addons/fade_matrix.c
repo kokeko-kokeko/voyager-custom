@@ -227,6 +227,28 @@ bool fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
+bool fade_matrix_load_preset_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return false;
+  if (record->event.pressed == false) return false;
+  
+  fade_matrix_load_preset();
+  status_led(0b1010, led_pattern_oneshot);
+  
+  // default false
+  return false;
+}
+
+bool fade_matrix_load_preset_powersave_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return false;
+  if (record->event.pressed == false) return false;
+  
+  fade_matrix_load_preset_powersave();
+  status_led(0b1010, led_pattern_oneshot);
+  
+  // default false
+  return false;
+}
+
 void keyboard_post_init_fade_matrix(void) {
   rgb_matrix_sethsv_noeeprom(0, 0, 0);
   rgb_matrix_set_speed_noeeprom(0);
