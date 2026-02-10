@@ -131,6 +131,32 @@ void fade_matrix_set_mode(const uint8_t mode) {
   activate_fade_matrix();
 }
 
+void fade_matrix_load_preset(void) {
+  fade_matrix_target.enable = true;
+  fade_matrix_target.hsv.h = 86;
+  fade_matrix_target.hsv.s = 128;
+  fade_matrix_target.hsv.v = 105;
+  fade_matrix_target.speed = 80;
+  fade_matrix_target.mode = RGB_MATRIX_FLOWER_BLOOMING;
+  
+  fade_matrix_idle_delay = 180001; // use prime
+
+  activate_fade_matrix();
+}
+
+void fade_matrix_load_preset_powersave(void) {
+  fade_matrix_target.enable = true;
+  //fade_matrix_target.hsv.h = 0;
+  fade_matrix_target.hsv.s = 0;
+  fade_matrix_target.hsv.v = 71;
+  //fade_matrix_target.speed = 128;
+  fade_matrix_target.mode = RGB_MATRIX_SOLID_COLOR;
+
+  fade_matrix_idle_delay = 10007; // use prime
+
+  activate_fade_matrix();
+}
+
 bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false;
@@ -199,32 +225,6 @@ bool fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
 
   // default false
   return false;
-}
-
-void fade_matrix_load_preset(void) {
-  fade_matrix_target.enable = true;
-  fade_matrix_target.hsv.h = 86;
-  fade_matrix_target.hsv.s = 128;
-  fade_matrix_target.hsv.v = 105;
-  fade_matrix_target.speed = 80;
-  fade_matrix_target.mode = RGB_MATRIX_FLOWER_BLOOMING;
-  
-  fade_matrix_idle_delay = 180001; // use prime
-
-  activate_fade_matrix();
-}
-
-void fade_matrix_load_preset_powersave(void) {
-  fade_matrix_target.enable = true;
-  //fade_matrix_target.hsv.h = 0;
-  fade_matrix_target.hsv.s = 0;
-  fade_matrix_target.hsv.v = 71;
-  //fade_matrix_target.speed = 128;
-  fade_matrix_target.mode = RGB_MATRIX_SOLID_COLOR;
-
-  fade_matrix_idle_delay = 10007; // use prime
-
-  activate_fade_matrix();
 }
 
 void keyboard_post_init_fade_matrix(void) {
