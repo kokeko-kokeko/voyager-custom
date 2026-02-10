@@ -125,6 +125,12 @@ void status_led(const uint8_t mask, const uint8_t * const pattern) {
   return;
 }
 
+void keyboard_post_init_status_led(void) {
+  status_led(0b1111, led_pattern_off);
+  status_led(0b1111, led_pattern_off);
+  status_led(0b1111, led_pattern_off);
+}
+
 // access to voyager system-side flag
 extern bool is_launching;
 
