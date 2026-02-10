@@ -7,7 +7,7 @@
 
 #include "layer_num.h"
 
-#include "addons/firmware_map.h"
+#include "addons/firmware_halt_map.h"
 
 #include "addons/fade_matrix.h"
 #include "addons/ime_state_sync.h"
