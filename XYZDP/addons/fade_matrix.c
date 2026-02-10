@@ -8,6 +8,7 @@
 #include "layer_num.h"
 
 #include "addons/fade_matrix.h"
+#include "addons/status_led.h"
 
 // use animation logic
 // use abs path
