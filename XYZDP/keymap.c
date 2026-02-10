@@ -258,7 +258,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #include "addons/status_led.h"
 
 // split process_record, return false, break
-static bool process_record_addtional_custom(uint16_t keycode, keyrecord_t *record);
+static bool process_record_extra_custom_keycodes(uint16_t keycode, keyrecord_t *record);
 
 // -----------------------------------------------------------------------------
 //
@@ -670,7 +670,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // split process_record, return false, break
-  if (process_record_addtional_custom(keycode, record) == false) return false;
+  if (process_record_extra_custom_keycodes(keycode, record) == false) return false;
   if (process_record_fade_matrix(keycode, record) == false) return false;
   if (process_record_ime_state_sync(keycode, record) == false) return false;
   
@@ -708,7 +708,7 @@ extern bool is_launching;
 //
 // -----------------------------------------------------------------------------
 
-static bool process_record_addtional_custom(uint16_t keycode, keyrecord_t *record) {
+static bool process_record_extra_custom_keycodes(uint16_t keycode, keyrecord_t *record) {
   //RGB inc/dec no eeprom override
   // always return false (sometime use upedge)
   if (keycode == RGB_SLD) {
