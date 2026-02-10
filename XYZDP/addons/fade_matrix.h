@@ -14,6 +14,7 @@ void fade_matrix_load_preset_powersave(void);
 
 void keyboard_post_init_fade_matrix(void);
 bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record);
+bool process_detected_host_os_fade_matrix(os_variant_t detected_os);
 report_mouse_t pointing_device_task_fade_matrix(report_mouse_t mouse_report);
 layer_state_t layer_state_set_fade_matrix(layer_state_t state);
 void housekeeping_task_fade_matrix(void);
