@@ -746,7 +746,6 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
 
 static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *record) {  
   if (keycode == HSV_86_255_200) return firmware_map_enter_hue_keyrecord(record);
-  
   if (keycode == HSV_86_255_201) return firmware_map_enter_halt_keyrecord(record);
   
   if (keycode == HSV_86_255_255) return firmware_map_exit_all_keyrecord(record);
