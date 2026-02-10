@@ -26,7 +26,7 @@ SRC += addons/adv_mouse.c
 SRC += addons/fade_matrix.c
 SRC += addons/firmware_halt_map.c
 SRC += addons/ime_state_sync.c
-SRC += addons/overlay_layer_mod.c
+SRC += addons/layer_mod_overlay.c
 SRC += addons/status_led.c
 
 LTO_ENABLE = yes
