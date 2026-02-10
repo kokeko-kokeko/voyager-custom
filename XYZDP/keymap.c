@@ -671,10 +671,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // split process_record, return false, break
   if (process_record_addtional_custom(keycode, record) == false) return false;
-  if (process_record_hsv_0_255_n_setting_map(keycode, record) == false) return false;
-  if (process_record_hsv_86_255_n_layer_op(keycode, record) == false) return false;
-  if (process_record_hsv_172_255_n_function(keycode, record) == false) return false;
-  if (process_record_mouse_setting(keycode, record) == false) return false;
   if (process_record_fade_matrix(keycode, record) == false) return false;
   if (process_record_ime_state_sync(keycode, record) == false) return false;
   
@@ -738,7 +734,8 @@ static bool process_record_addtional_custom(uint16_t keycode, keyrecord_t *recor
   if (keycode == HSV_86_255_201) return firmware_map_enter_halt_keyrecord(record);
   
   if (keycode == HSV_86_255_255) return firmware_map_exit_all_keyrecord(record);
-  
+
+  // preset
   if (keycode == HSV_172_255_210) {
     if (record->event.pressed) {
       fade_matrix_load_preset();
@@ -749,9 +746,7 @@ static bool process_record_addtional_custom(uint16_t keycode, keyrecord_t *recor
   }
 
   if (keycode == HSV_172_255_211) return false;  
-  
   if (keycode == HSV_172_255_212) return false;  
-  
   
   if (keycode == HSV_172_255_213) {
     if (record->event.pressed) {
