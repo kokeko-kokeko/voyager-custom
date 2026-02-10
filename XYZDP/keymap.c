@@ -732,63 +732,24 @@ static bool process_record_rgb_sld(uint16_t keycode, keyrecord_t *record) {
 
 static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record) {
   // Firmware  
-  if (keycode == HSV_0_255_200) {
-    firmware_map_set_keyrecord(record);
-    
-    return false;
-  }
-
-  if (keycode == HSV_0_255_210) {
-    fade_matrix_set_hue_keyrecord(record);
-    
-    return false;
-  }
-
-  if (keycode == HSV_0_255_211) {
-    fade_matrix_set_sat_keyrecord(record);
-    
-    return false;
-  }
-
-  if (keycode == HSV_0_255_212) {
-    fade_matrix_set_val_keyrecord(record);
-    
-    return false;
-  }
-
-  if (keycode == HSV_0_255_213) {
-    fade_matrix_set_speed_keyrecord(record);
-    
-    return false;
-  }
+  if (keycode == HSV_0_255_200) return firmware_map_set_keyrecord(record);
   
-  if (keycode == HSV_0_255_255) {
-    halt_map_set_keyrecord(record);
-    
-    return false;
-  }
+  if (keycode == HSV_0_255_210) return fade_matrix_set_hue_keyrecord(record);
+  if (keycode == HSV_0_255_211) return fade_matrix_set_sat_keyrecord(record);
+  if (keycode == HSV_0_255_212) return fade_matrix_set_val_keyrecord(record);
+  if (keycode == HSV_0_255_213) return fade_matrix_set_speed_keyrecord(record);
+  
+  if (keycode == HSV_0_255_255) return halt_map_set_keyrecord(record);
   
   return true;
 }
 
 static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *record) {  
-  if (keycode == HSV_86_255_200) {
-    firmware_map_enter_hue_keyrecord(record);
-    
-    return false;
-  }
+  if (keycode == HSV_86_255_200) return firmware_map_enter_hue_keyrecord(record);
   
-  if (keycode == HSV_86_255_201) {
-    firmware_map_enter_halt_keyrecord(record);
-    
-    return false;
-  }
+  if (keycode == HSV_86_255_201) return firmware_map_enter_halt_keyrecord(record);
   
-  if (keycode == HSV_86_255_255) {
-    firmware_map_exit_all_keyrecord(record);
-        
-    return false;
-  }
+  if (keycode == HSV_86_255_255) return firmware_map_exit_all_keyrecord(record);
   
   return true;
 }
