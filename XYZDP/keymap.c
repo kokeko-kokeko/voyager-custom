@@ -726,10 +726,10 @@ static bool process_record_extra_custom_keycodes(uint16_t keycode, keyrecord_t *
   if (keycode == HSV_86_255_255) return firmware_map_exit_all_keyrecord(record);
 
   // preset
-  if (keycode == HSV_172_255_210) return fade_matrix_load_preset_keyrecord(record);
+  if (keycode == HSV_172_255_210) return fade_matrix_load_default_keyrecord(record);
   if (keycode == HSV_172_255_211) return false;
   if (keycode == HSV_172_255_212) return false;
-  if (keycode == HSV_172_255_213) return fade_matrix_load_preset_powersave_keyrecord(record);
+  if (keycode == HSV_172_255_213) return fade_matrix_load_powersave_keyrecord(record);
 
   // mouse
   if (keycode == NAVIGATOR_TURBO) return false;
