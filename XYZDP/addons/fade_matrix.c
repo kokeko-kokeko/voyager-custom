@@ -271,7 +271,12 @@ void keyboard_post_init_fade_matrix(void) {
 }
 
 bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
-  //RGB inc/dec no eeprom override
+  // first activate
+  if (record->event.pressed) {
+      activate_fade_matrix();
+  }
+  
+  // RGB inc/dec no eeprom override
   // always return false (sometime use upedge)
   if (keycode == RGB_HUI) {
     if (record->event.pressed) {
@@ -354,14 +359,6 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   }
   
   return true;
-}
-
-void post_process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed == false) return;
-
-  activate_fade_matrix();
-  
-  return;
 }
 
 report_mouse_t pointing_device_task_fade_matrix(report_mouse_t mouse_report) {
