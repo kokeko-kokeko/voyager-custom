@@ -800,30 +800,8 @@ void keyboard_post_init_user(void) {
 }
 
 bool process_detected_host_os_user(os_variant_t detected_os) {
-  switch (detected_os) {
-    case OS_MACOS:
-      fade_matrix_load_preset();
-      status_led(0b1000, led_pattern_oneshot);
-      break;
-    case OS_IOS:
-      fade_matrix_load_preset_powersave();
-      status_led(0b0100, led_pattern_oneshot);
-      break;
-    case OS_WINDOWS:
-      fade_matrix_load_preset();
-      status_led(0b0010, led_pattern_oneshot);
-      break;
-    case OS_LINUX:
-      fade_matrix_load_preset_powersave();
-      status_led(0b0001, led_pattern_oneshot);
-      break;
-    case OS_UNSURE:
-      status_led(0b1111, led_pattern_oneshot);
-      status_led(0b1111, led_pattern_oneshot);
-      status_led(0b1111, led_pattern_oneshot);
-      break;
-  }
-    
+  if (process_detected_host_os_fade_matrix(detected_os) == false) return false;
+
   return true;
 }
 
