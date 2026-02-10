@@ -130,50 +130,53 @@ void fade_matrix_set_mode(const uint8_t mode) {
   activate_fade_matrix();
 }
 
-void fade_matrix_set_hue_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return;
-  if (record->event.pressed == false) return;
+bool fade_matrix_set_hue_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return false;
+  if (record->event.pressed == false) return false;
   
   uint8_t pos = get_pos_from_keyrecord(record);
-  if (52 <= pos) return;
+  if (52 <= pos) return false;
   uint8_t idx = pos2idx_tbl[pos];
-  if (48 <= idx) return;
+  if (48 <= idx) return false;
   fade_matrix_target.hsv.h = hue_tbl[idx];
   activate_fade_matrix();
+
+  // default felse
+  return false;
 }
 
-void fade_matrix_set_sat_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return;
-  if (record->event.pressed == false) return; 
+bool fade_matrix_set_sat_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return false;
+  if (record->event.pressed == false) return false; 
   
   uint8_t pos = get_pos_from_keyrecord(record);
-  if (52 <= pos) return;
+  if (52 <= pos) return false;
   uint8_t idx = pos2idx_tbl[pos];
-  if (48 <= idx) return;
+  if (48 <= idx) return false;
   fade_matrix_target.hsv.s = sat_tbl[idx];
   activate_fade_matrix();
 }
 
-void fade_matrix_set_val_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return;
-  if (record->event.pressed == false) return; 
+bool fade_matrix_set_val_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return false;
+  if (record->event.pressed == false) return false; 
   
   uint8_t pos = get_pos_from_keyrecord(record);
-  if (52 <= pos) return;
+  if (52 <= pos) return false;
   uint8_t idx = pos2idx_tbl[pos];
-  if (48 <= idx) return;
+  if (48 <= idx) return false;
   fade_matrix_target.hsv.v = val_tbl[idx];
   activate_fade_matrix();
 }
 
-void fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return;
-  if (record->event.pressed == false) return; 
+bool fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return false;
+  if (record->event.pressed == false) return false; 
   
   uint8_t pos = get_pos_from_keyrecord(record);
-  if (52 <= pos) return;
+  if (52 <= pos) return false;
   uint8_t idx = pos2idx_tbl[pos];
-  if (48 <= idx) return;
+  if (48 <= idx) return false;
   fade_matrix_target.speed = spd_tbl[idx];
   activate_fade_matrix();
 }
