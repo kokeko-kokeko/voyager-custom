@@ -1100,7 +1100,6 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   post_process_record_adv_mouse(keycode, record);
-  post_process_record_fade_matrix(keycode, record);
   post_process_record_ime_state_sync(keycode, record);
   
   return;
