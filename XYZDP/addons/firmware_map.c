@@ -44,7 +44,7 @@ void mouse_jiggler_enable(void);
 void mouse_jiggler_disable(void);
 bool mouse_jiggler_is_enabled(void);
 
-void firmware_map_set_keyrecord(const keyrecord_t * const record) {
+bool firmware_map_set_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return;
   if (record->event.pressed == false) return;
 
@@ -120,6 +120,9 @@ void firmware_map_set_keyrecord(const keyrecord_t * const record) {
         
     return;
   }
+
+  // default false
+  return false
 }
 
 void set_layer_color_firmware_map(void) {
@@ -269,7 +272,7 @@ void set_layer_color_firmware_map(void) {
   }
 }
 
-void firmware_map_enter_hue_keyrecord(const keyrecord_t * const record) {
+bool firmware_map_enter_hue_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return;
 
   static uint16_t press_time = 0;
@@ -289,9 +292,12 @@ void firmware_map_enter_hue_keyrecord(const keyrecord_t * const record) {
   
   // hold release
   layer_on(L_Set_Hue);
+
+  // default false
+  return false
 }
 
-void firmware_map_enter_halt_keyrecord(const keyrecord_t * const record) {
+bool firmware_map_enter_halt_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return;
 
   if (record->event.pressed) {
@@ -327,9 +333,12 @@ void firmware_map_enter_halt_keyrecord(const keyrecord_t * const record) {
       
     return;
   }
+
+  // default false
+  return false
 }
 
-void firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
+bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return;
 
   static uint16_t press_time = 0;
@@ -360,9 +369,12 @@ void firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
   layer_and(layer_mask);
 
   status_led(0b1111, led_pattern_oneshot);
+
+  // default false
+  return false
 }
 
-void halt_map_set_keyrecord(const keyrecord_t * const record) {
+bool halt_map_set_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return;
   if (record->event.pressed == false) return;
 
@@ -374,7 +386,10 @@ void halt_map_set_keyrecord(const keyrecord_t * const record) {
     while (1);
         
     return;
-  }  
+  }
+
+  // default false
+  return false
 }
 
 void set_layer_color_halt_map(void) {
