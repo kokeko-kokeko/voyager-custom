@@ -73,7 +73,7 @@
 #undef RGB_MATRIX_SLEEP
 #undef LED_MATRIX_SLEEP
 
-// RAM eeprom safety size
+// RAM eeprom minimal safety size
 #define TRANSIENT_EEPROM_SIZE 128
 
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
