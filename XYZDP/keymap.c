@@ -709,16 +709,9 @@ extern bool is_launching;
 // -----------------------------------------------------------------------------
 
 static bool process_record_extra_custom_keycodes(uint16_t keycode, keyrecord_t *record) {
-  //RGB inc/dec no eeprom override
-  // always return false (sometime use upedge)
-  if (keycode == RGB_SLD) {
-    if (record->event.pressed) {
-      fade_matrix_set_mode(RGB_MATRIX_SOLID_COLOR);
-    }
-    
-    return false;
-  }
-  
+  // RGB
+  if (keycode == RGB_SLD) return fade_matrix_rgb_sld_keyrecord(record);
+
   // Firmware  
   if (keycode == HSV_0_255_200) return firmware_map_set_keyrecord(record);
   if (keycode == HSV_0_255_210) return fade_matrix_set_hue_keyrecord(record);
