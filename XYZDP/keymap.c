@@ -252,7 +252,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // module impl
 #include "addons/adv_mouse.h"
 #include "addons/fade_matrix.h"
-#include "addons/firmware_map.h"
+#include "addons/firmware_halt_map.h"
 #include "addons/ime_state_sync.h"
 #include "addons/overlay_layer_mod.h"
 #include "addons/status_led.h"
