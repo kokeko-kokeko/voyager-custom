@@ -791,10 +791,7 @@ void keyboard_post_init_user(void) {
 
   keyboard_post_init_adv_mouse();
   keyboard_post_init_fade_matrix();
-  
-  status_led(0b1111, led_pattern_off);
-  status_led(0b1111, led_pattern_off);
-  status_led(0b1111, led_pattern_off);
+  keyboard_post_init_status_led();
   
   //JIS / no transition
   layer_move(L_Base);
