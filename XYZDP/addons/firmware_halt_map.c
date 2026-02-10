@@ -44,7 +44,7 @@ void mouse_jiggler_enable(void);
 void mouse_jiggler_disable(void);
 bool mouse_jiggler_is_enabled(void);
 
-bool firmware_map_set_keyrecord(const keyrecord_t * const record) {
+bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false;
 
@@ -374,7 +374,7 @@ bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-bool halt_map_set_keyrecord(const keyrecord_t * const record) {
+bool halt_map_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false;
 
