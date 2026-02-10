@@ -178,57 +178,6 @@ void fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
   activate_fade_matrix();
 }
 
-static void fade_matrix_increase_hue(void) {
-  fade_matrix_target.hsv.h++;
-  //activate_fade_matrix();
-}
-
-static void fade_matrix_decrease_hue(void) {
-  fade_matrix_target.hsv.h--;
-  //activate_fade_matrix();
-}
-
-static void fade_matrix_increase_sat(void) {
-  fade_matrix_target.hsv.s = qadd8(fade_matrix_target.hsv.s, 1);
-  //activate_fade_matrix();
-}
-
-static void fade_matrix_decrease_sat(void) {
-  fade_matrix_target.hsv.s = qsub8(fade_matrix_target.hsv.s, 1);
-  //activate_fade_matrix();
-}
-
-static void fade_matrix_increase_val(void) {
-  fade_matrix_target.hsv.v = qadd8(fade_matrix_target.hsv.v, 1);
-  //activate_fade_matrix();
-}
-
-static void fade_matrix_decrease_val(void) {
-  fade_matrix_target.hsv.v = qsub8(fade_matrix_target.hsv.v, 1);
-  //activate_fade_matrix();
-}
-
-static void fade_matrix_increase_speed(void) {
-  fade_matrix_target.speed = qadd8(fade_matrix_target.speed, 1);
-  //activate_fade_matrix();
-}
-
-static void fade_matrix_decrease_speed(void) {
-  fade_matrix_target.speed = qsub8(fade_matrix_target.speed, 1);
-  //activate_fade_matrix();
-}
-
-static void fade_matrix_toggle(void) {
-  fade_matrix_target.enable = !(fade_matrix_target.enable);
-  //activate_fade_matrix();
-}
-
-static void fade_matrix_step(void) {
-  fade_matrix_target.mode++;
-  if (!(fade_matrix_target.mode < RGB_MATRIX_EFFECT_MAX)) fade_matrix_target.mode = 1;
-  //activate_fade_matrix();
-}
-
 void fade_matrix_load_preset(void) {
   fade_matrix_target.enable = true;
   fade_matrix_target.hsv.h = 86;
@@ -280,7 +229,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   // always return false (sometime use upedge)
   if (keycode == RGB_HUI) {
     if (record->event.pressed) {
-      fade_matrix_increase_hue();
+      fade_matrix_target.hsv.h++;
     }
     
     return false;
@@ -288,7 +237,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   
   if (keycode == RGB_HUD) {
     if (record->event.pressed) {
-      fade_matrix_decrease_hue();
+      fade_matrix_target.hsv.h--;
     }
     
     return false;
@@ -296,7 +245,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   
   if (keycode == RGB_SAI) {
     if (record->event.pressed) {
-      fade_matrix_increase_sat();
+      fade_matrix_target.hsv.s = qadd8(fade_matrix_target.hsv.s, 1);
     }
     
     return false;
@@ -304,7 +253,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   
   if (keycode == RGB_SAD) {
     if (record->event.pressed) {
-      fade_matrix_decrease_sat();
+      fade_matrix_target.hsv.s = qsub8(fade_matrix_target.hsv.s, 1);
     }
     
     return false;
@@ -312,7 +261,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   
   if (keycode == RGB_VAI) {
     if (record->event.pressed) {
-      fade_matrix_increase_val();
+      fade_matrix_target.hsv.v = qadd8(fade_matrix_target.hsv.v, 1);
     }
     
     return false;
@@ -320,7 +269,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   
   if (keycode == RGB_VAD) {
     if (record->event.pressed) {
-      fade_matrix_decrease_val();
+      fade_matrix_target.hsv.v = qsub8(fade_matrix_target.hsv.v, 1);
     }
     
     return false;
@@ -328,7 +277,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   
   if (keycode == RGB_SPI) {
     if (record->event.pressed) {
-      fade_matrix_increase_speed();
+      fade_matrix_target.speed = qadd8(fade_matrix_target.speed, 1);
     }
     
     return false;
@@ -336,7 +285,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   
   if (keycode == RGB_SPD) {
     if (record->event.pressed) {
-      fade_matrix_decrease_speed();
+      fade_matrix_target.speed = qsub8(fade_matrix_target.speed, 1);
     }
     
     return false;
@@ -344,7 +293,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   
   if (keycode == RGB_TOG) {
     if (record->event.pressed) {
-      fade_matrix_toggle();
+      fade_matrix_target.enable = !(fade_matrix_target.enable);
     }
     
     return false;
@@ -352,7 +301,8 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   
   if (keycode == RGB_MODE_FORWARD) {
     if (record->event.pressed) {
-      fade_matrix_step();
+      fade_matrix_target.mode++;
+      if (!(fade_matrix_target.mode < RGB_MATRIX_EFFECT_MAX)) fade_matrix_target.mode = 1;
     }
     
     return false;
