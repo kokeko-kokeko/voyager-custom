@@ -139,7 +139,7 @@ void fade_matrix_set_hue_keyrecord(const keyrecord_t * const record) {
   uint8_t idx = pos2idx_tbl[pos];
   if (48 <= idx) return;
   fade_matrix_target.hsv.h = hue_tbl[idx];
-  activate_fade_matrix();
+  //activate_fade_matrix();
 }
 
 void fade_matrix_set_sat_keyrecord(const keyrecord_t * const record) {
@@ -151,7 +151,7 @@ void fade_matrix_set_sat_keyrecord(const keyrecord_t * const record) {
   uint8_t idx = pos2idx_tbl[pos];
   if (48 <= idx) return;
   fade_matrix_target.hsv.s = sat_tbl[idx];
-  activate_fade_matrix();
+  //activate_fade_matrix();
 }
 
 void fade_matrix_set_val_keyrecord(const keyrecord_t * const record) {
@@ -163,7 +163,7 @@ void fade_matrix_set_val_keyrecord(const keyrecord_t * const record) {
   uint8_t idx = pos2idx_tbl[pos];
   if (48 <= idx) return;
   fade_matrix_target.hsv.v = val_tbl[idx];
-  activate_fade_matrix();
+  //activate_fade_matrix();
 }
 
 void fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
@@ -175,58 +175,58 @@ void fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
   uint8_t idx = pos2idx_tbl[pos];
   if (48 <= idx) return;
   fade_matrix_target.speed = spd_tbl[idx];
-  activate_fade_matrix();
+  //activate_fade_matrix();
 }
 
 static void fade_matrix_increase_hue(void) {
   fade_matrix_target.hsv.h++;
-  activate_fade_matrix();
+  //activate_fade_matrix();
 }
 
 static void fade_matrix_decrease_hue(void) {
   fade_matrix_target.hsv.h--;
-  activate_fade_matrix();
+  //activate_fade_matrix();
 }
 
 static void fade_matrix_increase_sat(void) {
   fade_matrix_target.hsv.s = qadd8(fade_matrix_target.hsv.s, 1);
-  activate_fade_matrix();
+  //activate_fade_matrix();
 }
 
 static void fade_matrix_decrease_sat(void) {
   fade_matrix_target.hsv.s = qsub8(fade_matrix_target.hsv.s, 1);
-  activate_fade_matrix();
+  //activate_fade_matrix();
 }
 
 static void fade_matrix_increase_val(void) {
   fade_matrix_target.hsv.v = qadd8(fade_matrix_target.hsv.v, 1);
-  activate_fade_matrix();
+  //activate_fade_matrix();
 }
 
 static void fade_matrix_decrease_val(void) {
   fade_matrix_target.hsv.v = qsub8(fade_matrix_target.hsv.v, 1);
-  activate_fade_matrix();
+  //activate_fade_matrix();
 }
 
 static void fade_matrix_increase_speed(void) {
   fade_matrix_target.speed = qadd8(fade_matrix_target.speed, 1);
-  activate_fade_matrix();
+  //activate_fade_matrix();
 }
 
 static void fade_matrix_decrease_speed(void) {
   fade_matrix_target.speed = qsub8(fade_matrix_target.speed, 1);
-  activate_fade_matrix();
+  //activate_fade_matrix();
 }
 
 static void fade_matrix_toggle(void) {
   fade_matrix_target.enable = !(fade_matrix_target.enable);
-  activate_fade_matrix();
+  //activate_fade_matrix();
 }
 
 static void fade_matrix_step(void) {
   fade_matrix_target.mode++;
   if (!(fade_matrix_target.mode < RGB_MATRIX_EFFECT_MAX)) fade_matrix_target.mode = 1;
-  activate_fade_matrix();
+  //activate_fade_matrix();
 }
 
 void fade_matrix_load_preset(void) {
