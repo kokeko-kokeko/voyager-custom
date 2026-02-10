@@ -161,7 +161,8 @@ bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false;
   
-  fade_matrix_set_mode(RGB_MATRIX_SOLID_COLOR);
+  fade_matrix_target.mode = RGB_MATRIX_SOLID_COLOR;
+  activate_fade_matrix();
   
   // default false
   return false;
