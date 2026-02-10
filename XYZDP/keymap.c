@@ -254,7 +254,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #include "addons/fade_matrix.h"
 #include "addons/firmware_halt_map.h"
 #include "addons/ime_state_sync.h"
-#include "addons/overlay_layer_mod.h"
+#include "addons/layer_mod_overlay.h"
 #include "addons/status_led.h"
 
 // split process_record, return false, break
