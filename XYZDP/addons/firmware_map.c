@@ -45,80 +45,80 @@ void mouse_jiggler_disable(void);
 bool mouse_jiggler_is_enabled(void);
 
 bool firmware_map_set_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return;
-  if (record->event.pressed == false) return;
+  if (record == NULL) return false;
+  if (record->event.pressed == false) return false;
 
   uint8_t pos = get_pos_from_keyrecord(record);
-  if (52 <= pos) return;
+  if (52 <= pos) return false;
 
   if (pos == P_JIS) {
     layer_on(L_Base);
     layer_off(L_Base_ANSI);
         
-    return;
+    return false;
   }
       
   if (pos == P_ANSI) {
     layer_on(L_Base);
     layer_on(L_Base_ANSI);
         
-    return;
+    return false;
   }
       
   if (pos == P_Tran_off) {
     layer_on(L_Base);
     layer_off(L_Transition);
         
-    return;
+    return false;
   }
       
   if (pos == P_Tran_on) {
     layer_on(L_Base);
     layer_on(L_Transition);
         
-    return;
+    return false;
   }
       
   if (pos == P_ISS_on) {
     ime_state_sync_enable();
         
-    return;
+    return false;
   }
       
   if (pos == P_ISS_off) {
     ime_state_sync_disable();
         
-    return;
+    return false;
   }
 
   if (pos == P_MJ_on) {
     mouse_jiggler_enable();
         
-    return;
+    return false;
   }
       
   if (pos == P_MJ_off) {
     mouse_jiggler_disable();
         
-    return;
+    return false;
   }
       
   if (pos == P_RST) {
     reset_keyboard();
         
-    return;
+    return false;
   }
       
   if (pos == P_SW_RST) {
     soft_reset_keyboard();
         
-    return;
+    return false;
   }
       
   if (pos == P_CLEAR) {
     clear_keyboard();
         
-    return;
+    return false;
   }
 
   // default false
@@ -273,7 +273,7 @@ void set_layer_color_firmware_map(void) {
 }
 
 bool firmware_map_enter_hue_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return;
+  if (record == NULL) return false;
 
   static uint16_t press_time = 0;
     
@@ -281,13 +281,13 @@ bool firmware_map_enter_hue_keyrecord(const keyrecord_t * const record) {
     // press
     press_time = record->event.time;
       
-    return;
+    return false;
   }
 
   if (TIMER_DIFF_16(record->event.time, press_time) < TAPPING_TERM) {
     // tap release
       
-    return;
+    return false;
   }
   
   // hold release
@@ -298,12 +298,12 @@ bool firmware_map_enter_hue_keyrecord(const keyrecord_t * const record) {
 }
 
 bool firmware_map_enter_halt_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return;
+  if (record == NULL) return false;
 
   if (record->event.pressed) {
     // press
       
-    return;
+    return false;
   }
     
   const fast_timer_t now = timer_read_fast();
@@ -317,7 +317,7 @@ bool firmware_map_enter_halt_keyrecord(const keyrecord_t * const record) {
     release_time = now;
     release_count = 1;
       
-    return;
+    return false;
   }
 
   // multi release
@@ -331,7 +331,7 @@ bool firmware_map_enter_halt_keyrecord(const keyrecord_t * const record) {
       ((layer_state_t)1 << L_Halt_Mask);
     layer_or(layer_mask);
       
-    return;
+    return false;
   }
 
   // default false
@@ -339,7 +339,7 @@ bool firmware_map_enter_halt_keyrecord(const keyrecord_t * const record) {
 }
 
 bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return;
+  if (record == NULL) return false;
 
   static uint16_t press_time = 0;
     
@@ -347,13 +347,13 @@ bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
     // press
     press_time = record->event.time;
       
-    return;
+    return false;
   }
 
   if (TIMER_DIFF_16(record->event.time, press_time) < TAPPING_TERM) {
     // tap release
       
-    return;
+    return false;
   }
     
   // hold release
@@ -375,17 +375,17 @@ bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
 }
 
 bool halt_map_set_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return;
-  if (record->event.pressed == false) return;
+  if (record == NULL) return false;
+  if (record->event.pressed == false) return false;
 
   uint8_t pos = get_pos_from_keyrecord(record);
-  if (52 <= pos) return;
+  if (52 <= pos) return false;
       
   if (pos == P_Halt) {
     // hang-up
     while (1);
         
-    return;
+    return false;
   }
 
   // default false
