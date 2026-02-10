@@ -258,11 +258,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #include "addons/status_led.h"
 
 // split process_record, return false, break
-static bool process_record_rgb_sld(uint16_t keycode, keyrecord_t *record);
-static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record);
-static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *record);
-static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record);
-static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record);
+static bool process_record_addtional_custom(uint16_t keycode, keyrecord_t *record);
 
 // -----------------------------------------------------------------------------
 //
@@ -674,7 +670,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // split process_record, return false, break
-  if (process_record_rgb_sld(keycode, record) == false) return false;
+  if (process_record_addtional_custom(keycode, record) == false) return false;
   if (process_record_hsv_0_255_n_setting_map(keycode, record) == false) return false;
   if (process_record_hsv_86_255_n_layer_op(keycode, record) == false) return false;
   if (process_record_hsv_172_255_n_function(keycode, record) == false) return false;
@@ -716,7 +712,7 @@ extern bool is_launching;
 //
 // -----------------------------------------------------------------------------
 
-static bool process_record_rgb_sld(uint16_t keycode, keyrecord_t *record) {
+static bool process_record_addtional_custom(uint16_t keycode, keyrecord_t *record) {
   //RGB inc/dec no eeprom override
   // always return false (sometime use upedge)
   if (keycode == RGB_SLD) {
@@ -727,10 +723,6 @@ static bool process_record_rgb_sld(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  return true;
-}
-
-static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t *record) {
   // Firmware  
   if (keycode == HSV_0_255_200) return firmware_map_set_keyrecord(record);
   
@@ -740,20 +732,13 @@ static bool process_record_hsv_0_255_n_setting_map(uint16_t keycode, keyrecord_t
   if (keycode == HSV_0_255_213) return fade_matrix_set_speed_keyrecord(record);
   
   if (keycode == HSV_0_255_255) return halt_map_set_keyrecord(record);
-  
-  return true;
-}
 
-static bool process_record_hsv_86_255_n_layer_op(uint16_t keycode, keyrecord_t *record) {  
+  // layer
   if (keycode == HSV_86_255_200) return firmware_map_enter_hue_keyrecord(record);
   if (keycode == HSV_86_255_201) return firmware_map_enter_halt_keyrecord(record);
   
   if (keycode == HSV_86_255_255) return firmware_map_exit_all_keyrecord(record);
   
-  return true;
-}
-
-static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t *record) {    
   if (keycode == HSV_172_255_210) {
     if (record->event.pressed) {
       fade_matrix_load_preset();
@@ -763,15 +748,10 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
     return false;  
   }
 
-  if (keycode == HSV_172_255_211) {
-
-    return false;  
-  }
-
-  if (keycode == HSV_172_255_212) {
-
-    return false;  
-  }
+  if (keycode == HSV_172_255_211) return false;  
+  
+  if (keycode == HSV_172_255_212) return false;  
+  
   
   if (keycode == HSV_172_255_213) {
     if (record->event.pressed) {
@@ -781,22 +761,10 @@ static bool process_record_hsv_172_255_n_function(uint16_t keycode, keyrecord_t 
     
     return false;
   }
-  
-  return true;
-}
 
-static bool process_record_mouse_setting(uint16_t keycode, keyrecord_t *record) {
-  if (keycode == NAVIGATOR_TURBO) {
-    // empty
-    
-    return false;
-  }
-  
-  if (keycode == NAVIGATOR_AIM) {
-    // empty
-    
-    return false;
-  }
+  // mouse
+  if (keycode == NAVIGATOR_TURBO) return false;
+  if (keycode == NAVIGATOR_AIM) return false;
   
   if (keycode == NAVIGATOR_INC_CPI) {  
     if (record->event.pressed) {
