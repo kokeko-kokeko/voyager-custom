@@ -131,7 +131,7 @@ static void fade_matrix_set_mode(const uint8_t mode) {
   activate_fade_matrix();
 }
 
-static void fade_matrix_load_preset(void) {
+static void fade_matrix_load_default(void) {
   fade_matrix_target.enable = true;
   fade_matrix_target.hsv.h = 86;
   fade_matrix_target.hsv.s = 128;
@@ -144,7 +144,7 @@ static void fade_matrix_load_preset(void) {
   activate_fade_matrix();
 }
 
-static void fade_matrix_load_preset_powersave(void) {
+static void fade_matrix_load_powersave(void) {
   fade_matrix_target.enable = true;
   //fade_matrix_target.hsv.h = 0;
   fade_matrix_target.hsv.s = 0;
@@ -227,22 +227,22 @@ bool fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-bool fade_matrix_load_preset_keyrecord(const keyrecord_t * const record) {
+bool fade_matrix_load_default_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false;
   
-  fade_matrix_load_preset();
+  fade_matrix_load_default();
   status_led(0b1010, led_pattern_oneshot);
   
   // default false
   return false;
 }
 
-bool fade_matrix_load_preset_powersave_keyrecord(const keyrecord_t * const record) {
+bool fade_matrix_load_powersave_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false;
   
-  fade_matrix_load_preset_powersave();
+  fade_matrix_load_powersave();
   status_led(0b1010, led_pattern_oneshot);
   
   // default false
@@ -359,19 +359,19 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
 bool process_detected_host_os_fade_matrix(os_variant_t detected_os) {
   switch (detected_os) {
     case OS_MACOS:
-      fade_matrix_load_preset();
+      fade_matrix_load_default();
       status_led(0b1000, led_pattern_oneshot);
       break;
     case OS_IOS:
-      fade_matrix_load_preset_powersave();
+      fade_matrix_load_powersave();
       status_led(0b0100, led_pattern_oneshot);
       break;
     case OS_WINDOWS:
-      fade_matrix_load_preset();
+      fade_matrix_load_default();
       status_led(0b0010, led_pattern_oneshot);
       break;
     case OS_LINUX:
-      fade_matrix_load_preset_powersave();
+      fade_matrix_load_powersave();
       status_led(0b0001, led_pattern_oneshot);
       break;
     case OS_UNSURE:
