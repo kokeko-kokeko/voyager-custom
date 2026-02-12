@@ -29,7 +29,7 @@ static rgb_config_t fade_matrix_target;
 static bool fade_matrix_active = false;
 
 // hue value 6 * 8 like NCS
-static const uint8_t hue_tbl[48] = {
+static const uint8_t hue_tbl[FADE_MATRIX_INDEX_SIZE] = {
     0,   1,   3,   5,   7,   9, 
    10,  15,  20,  25,  30,  35,
    40,  43,  46,  49,  52,  55,
@@ -40,7 +40,7 @@ static const uint8_t hue_tbl[48] = {
   215, 222, 229, 236, 243, 250
 };
 
-static const uint8_t sat_tbl[48] = {
+static const uint8_t sat_tbl[FADE_MATRIX_INDEX_SIZE] = {
     0,   8,  16,  24,  32,  40,  48,  56,
    64,  72,  80,  88,  96, 104, 112, 120,
   128, 135, 139, 143, 147, 151, 155, 159,
@@ -50,7 +50,7 @@ static const uint8_t sat_tbl[48] = {
 };
 
 // val value max limit 175
-static const uint8_t val_tbl[48] = {
+static const uint8_t val_tbl[FADE_MATRIX_INDEX_SIZE] = {
     1,  11,  21,  31,  41,  46,  51,  53,
    55,  57,  59,  61,  63,  65,  67,  69,
    71,  73,  75,  77,  79,  81,  83,  85,
@@ -59,7 +59,7 @@ static const uint8_t val_tbl[48] = {
   119, 121, 128, 135, 145, 155, 165, 175
 };
 
-static const uint8_t spd_tbl[48] = {
+static const uint8_t spd_tbl[FADE_MATRIX_INDEX_SIZE] = {
    20,  25,  30,  35,  40,  45,  50,  55,
    60,  65,  70,  75,  80,  85,  90,  95,
   100, 105, 110, 115, 120, 125, 130, 135,
@@ -68,7 +68,7 @@ static const uint8_t spd_tbl[48] = {
   220, 225, 230, 235, 240, 245, 250, 255
 };
 
-static const uint8_t idx2pos_tbl[48] = {
+static const uint8_t idx2pos_tbl[FADE_MATRIX_INDEX_SIZE] = {
    0,  6, 12, 18,
    1,  7, 13, 19,  
    2,  8, 14, 20,  
@@ -84,7 +84,7 @@ static const uint8_t idx2pos_tbl[48] = {
   31, 37, 43, 49
 };
 
-static const uint8_t pos2idx_tbl[52] = {
+static const uint8_t pos2idx_tbl[FADE_MATRIX_POS_SIZE] = {
     0,   4,  8, 12, 16, 20,
     1,   5,  9, 13, 17, 21,
     2,   6, 10, 14, 18, 22,
@@ -163,9 +163,9 @@ bool fade_matrix_set_hue_keyrecord(const keyrecord_t * const record) {
   if (record->event.pressed == false) return false;
   
   uint8_t pos = get_pos_from_keyrecord(record);
-  if (52 <= pos) return false;
+  if (FADE_MATRIX_POS_SIZE <= pos) return false;
   uint8_t idx = pos2idx_tbl[pos];
-  if (48 <= idx) return false;
+  if (FADE_MATRIX_INDEX_SIZE <= idx) return false;
   fade_matrix_target.hsv.h = hue_tbl[idx];
 
   // default false
@@ -177,9 +177,9 @@ bool fade_matrix_set_sat_keyrecord(const keyrecord_t * const record) {
   if (record->event.pressed == false) return false; 
   
   uint8_t pos = get_pos_from_keyrecord(record);
-  if (52 <= pos) return false;
+  if (FADE_MATRIX_POS_SIZE <= pos) return false;
   uint8_t idx = pos2idx_tbl[pos];
-  if (48 <= idx) return false;
+  if (FADE_MATRIX_INDEX_SIZE <= idx) return false;
   fade_matrix_target.hsv.s = sat_tbl[idx];
 
   // default false
@@ -191,9 +191,9 @@ bool fade_matrix_set_val_keyrecord(const keyrecord_t * const record) {
   if (record->event.pressed == false) return false; 
   
   uint8_t pos = get_pos_from_keyrecord(record);
-  if (52 <= pos) return false;
+  if (FADE_MATRIX_POS_SIZE <= pos) return false;
   uint8_t idx = pos2idx_tbl[pos];
-  if (48 <= idx) return false;
+  if (FADE_MATRIX_INDEX_SIZE <= idx) return false;
   fade_matrix_target.hsv.v = val_tbl[idx];
 
   // default false
@@ -205,9 +205,9 @@ bool fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
   if (record->event.pressed == false) return false; 
   
   uint8_t pos = get_pos_from_keyrecord(record);
-  if (52 <= pos) return false;
+  if (FADE_MATRIX_POS_SIZE <= pos) return false;
   uint8_t idx = pos2idx_tbl[pos];
-  if (48 <= idx) return false;
+  if (FADE_MATRIX_INDEX_SIZE <= idx) return false;
   fade_matrix_target.speed = spd_tbl[idx];
 
   // default false
@@ -469,7 +469,7 @@ void set_layer_color_hue_map(void) {
   rgb_matrix_set_color(51, hsv.v, hsv.v, 0);
   uint8_t key = hsv.h;
   uint8_t i = 0;
-  for (i = 0; i < 48; i++) {
+  for (i = 0; i < FADE_MATRIX_INDEX_SIZE; i++) {
     hsv.h = hue_tbl[i];
     if (hsv.v == 0) {
       rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
@@ -482,7 +482,7 @@ void set_layer_color_hue_map(void) {
     rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
   }
-  for (i++; i < 48; i++) {
+  for (i++; i < FADE_MATRIX_INDEX_SIZE; i++) {
     hsv.h = hue_tbl[i];
     if (hsv.v == 0) {
       rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
@@ -502,7 +502,7 @@ void set_layer_color_sat_map(void) {
   rgb_matrix_set_color(51, 0, 0, 0);
   uint8_t key = hsv.s;
   uint8_t i = 0;
-  for (i = 0; i < 48; i++) {
+  for (i = 0; i < FADE_MATRIX_INDEX_SIZE; i++) {
     hsv.s = sat_tbl[i];
     if (hsv.v == 0) {
       rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
@@ -515,7 +515,7 @@ void set_layer_color_sat_map(void) {
     rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
   }
-  for (i++; i < 48; i++) {
+  for (i++; i < FADE_MATRIX_INDEX_SIZE; i++) {
     hsv.s = sat_tbl[i];
     if (hsv.v == 0) {
       rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
@@ -535,7 +535,7 @@ void set_layer_color_val_map(void) {
   rgb_matrix_set_color(51, 0, 0, 0);
   uint8_t key = hsv.v;
   uint8_t i = 0;
-  for (i = 0; i < 48; i++) {
+  for (i = 0; i < FADE_MATRIX_INDEX_SIZE; i++) {
     hsv.v = val_tbl[i];
     if (hsv.v == 0) {
       rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
@@ -548,7 +548,7 @@ void set_layer_color_val_map(void) {
     rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
   }
-  for (i++; i < 48; i++) {
+  for (i++; i < FADE_MATRIX_INDEX_SIZE; i++) {
     hsv.v = val_tbl[i];
     if (hsv.v == 0) {
       rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
@@ -574,7 +574,7 @@ void set_layer_color_speed_map(void) {
   uint8_t key = rgb_matrix_get_speed();
   uint8_t i = 0;
   uint8_t spd = 0;
-  for (i = 0; i < 48; i++) {
+  for (i = 0; i < FADE_MATRIX_INDEX_SIZE; i++) {
     spd = spd_tbl[i];
     if (hsv.v == 0) {
       rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
@@ -586,7 +586,7 @@ void set_layer_color_speed_map(void) {
     }
     rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
   }
-  for (i++; i < 48; i++) {
+  for (i++; i < FADE_MATRIX_INDEX_SIZE; i++) {
     if (hsv.v == 0) {
       rgb_matrix_set_color(idx2pos_tbl[i], 0, 0, 0);
       continue;
