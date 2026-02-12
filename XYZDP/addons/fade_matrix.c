@@ -219,7 +219,6 @@ bool fade_matrix_load_default_keyrecord(const keyrecord_t * const record) {
   if (record->event.pressed == false) return false;
   
   fade_matrix_load_default();
-  activate_fade_matrix();
   
   status_led(0b1010, led_pattern_oneshot);
   
@@ -232,7 +231,6 @@ bool fade_matrix_load_powersave_keyrecord(const keyrecord_t * const record) {
   if (record->event.pressed == false) return false;
   
   fade_matrix_load_powersave();
-  activate_fade_matrix();
   
   status_led(0b1010, led_pattern_oneshot);
   
