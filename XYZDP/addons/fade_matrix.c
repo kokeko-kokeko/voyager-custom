@@ -260,12 +260,15 @@ void keyboard_post_init_fade_matrix(void) {
   activate_fade_matrix();
 }
 
-bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
+bool pre_process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   // first activate
   if (record->event.pressed) {
       activate_fade_matrix();
   }
-  
+  return true;
+}
+
+bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   // RGB inc/dec no eeprom override
   // always return false (sometime use upedge)
   if (keycode == RGB_HUI) {
