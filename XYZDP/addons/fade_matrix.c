@@ -135,8 +135,6 @@ static void fade_matrix_load_default(void) {
   fade_matrix_target.mode = RGB_MATRIX_FLOWER_BLOOMING;
   
   fade_matrix_idle_delay = 180001; // use prime
-
-  activate_fade_matrix();
 }
 
 static void fade_matrix_load_powersave(void) {
@@ -148,8 +146,6 @@ static void fade_matrix_load_powersave(void) {
   fade_matrix_target.mode = RGB_MATRIX_SOLID_COLOR;
 
   fade_matrix_idle_delay = 10007; // use prime
-
-  activate_fade_matrix();
 }
 
 bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record) {
@@ -157,7 +153,6 @@ bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record) {
   if (record->event.pressed == false) return false;
   
   fade_matrix_target.mode = RGB_MATRIX_SOLID_COLOR;
-  //activate_fade_matrix();
   
   // default false
   return false;
@@ -172,7 +167,6 @@ bool fade_matrix_set_hue_keyrecord(const keyrecord_t * const record) {
   uint8_t idx = pos2idx_tbl[pos];
   if (48 <= idx) return false;
   fade_matrix_target.hsv.h = hue_tbl[idx];
-  //activate_fade_matrix();
 
   // default false
   return false;
@@ -187,7 +181,6 @@ bool fade_matrix_set_sat_keyrecord(const keyrecord_t * const record) {
   uint8_t idx = pos2idx_tbl[pos];
   if (48 <= idx) return false;
   fade_matrix_target.hsv.s = sat_tbl[idx];
-  //activate_fade_matrix();
 
   // default false
   return false;
@@ -202,7 +195,6 @@ bool fade_matrix_set_val_keyrecord(const keyrecord_t * const record) {
   uint8_t idx = pos2idx_tbl[pos];
   if (48 <= idx) return false;
   fade_matrix_target.hsv.v = val_tbl[idx];
-  //activate_fade_matrix();
 
   // default false
   return false;
@@ -217,7 +209,6 @@ bool fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
   uint8_t idx = pos2idx_tbl[pos];
   if (48 <= idx) return false;
   fade_matrix_target.speed = spd_tbl[idx];
-  //activate_fade_matrix();
 
   // default false
   return false;
@@ -228,6 +219,8 @@ bool fade_matrix_load_default_keyrecord(const keyrecord_t * const record) {
   if (record->event.pressed == false) return false;
   
   fade_matrix_load_default();
+  activate_fade_matrix();
+  
   status_led(0b1010, led_pattern_oneshot);
   
   // default false
@@ -239,6 +232,8 @@ bool fade_matrix_load_powersave_keyrecord(const keyrecord_t * const record) {
   if (record->event.pressed == false) return false;
   
   fade_matrix_load_powersave();
+  activate_fade_matrix();
+  
   status_led(0b1010, led_pattern_oneshot);
   
   // default false
@@ -379,7 +374,9 @@ bool process_detected_host_os_fade_matrix(os_variant_t detected_os) {
       status_led(0b1111, led_pattern_oneshot);
       break;
   }
-    
+  
+  activate_fade_matrix();
+  
   return true;
 }
 
