@@ -1,7 +1,7 @@
 #pragma once
 
-#define FADE_MATRIX_POSITION_SIZE 52
-#define FADE_MATRIX_INDEX_SIZE 48
+#define FADE_MATRIX_POSITION_COUNT 52
+#define FADE_MATRIX_INDEX_COUNT 48
 
 uint8_t get_pos_from_keyrecord(const keyrecord_t * const record);
 
