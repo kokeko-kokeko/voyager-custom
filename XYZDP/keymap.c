@@ -665,8 +665,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
   }
-
+  
+  // -----------------------------------------------------------------------------
   // extra process_record, return false, break
+  // -----------------------------------------------------------------------------
   
   // RGB
   if (keycode == RGB_SLD) return fade_matrix_rgb_sld_keyrecord(record);
