@@ -157,7 +157,7 @@ bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record) {
   if (record->event.pressed == false) return false;
   
   fade_matrix_target.mode = RGB_MATRIX_SOLID_COLOR;
-  activate_fade_matrix();
+  //activate_fade_matrix();
   
   // default false
   return false;
@@ -172,7 +172,7 @@ bool fade_matrix_set_hue_keyrecord(const keyrecord_t * const record) {
   uint8_t idx = pos2idx_tbl[pos];
   if (48 <= idx) return false;
   fade_matrix_target.hsv.h = hue_tbl[idx];
-  activate_fade_matrix();
+  //activate_fade_matrix();
 
   // default false
   return false;
@@ -187,7 +187,7 @@ bool fade_matrix_set_sat_keyrecord(const keyrecord_t * const record) {
   uint8_t idx = pos2idx_tbl[pos];
   if (48 <= idx) return false;
   fade_matrix_target.hsv.s = sat_tbl[idx];
-  activate_fade_matrix();
+  //activate_fade_matrix();
 
   // default false
   return false;
@@ -202,7 +202,7 @@ bool fade_matrix_set_val_keyrecord(const keyrecord_t * const record) {
   uint8_t idx = pos2idx_tbl[pos];
   if (48 <= idx) return false;
   fade_matrix_target.hsv.v = val_tbl[idx];
-  activate_fade_matrix();
+  //activate_fade_matrix();
 
   // default false
   return false;
@@ -217,7 +217,7 @@ bool fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
   uint8_t idx = pos2idx_tbl[pos];
   if (48 <= idx) return false;
   fade_matrix_target.speed = spd_tbl[idx];
-  activate_fade_matrix();
+  //activate_fade_matrix();
 
   // default false
   return false;
