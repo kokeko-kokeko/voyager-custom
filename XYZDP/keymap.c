@@ -717,7 +717,7 @@ static bool process_record_extra_custom_keycodes(uint16_t keycode, keyrecord_t *
   if (keycode == HSV_0_255_200) return firmware_map_main_keyrecord(record);
   if (keycode == HSV_0_255_255) return halt_map_main_keyrecord(record);
 
-  // RGB
+  // HSV set
   if (keycode == HSV_0_255_210) return fade_matrix_set_hue_keyrecord(record);
   if (keycode == HSV_0_255_211) return fade_matrix_set_sat_keyrecord(record);
   if (keycode == HSV_0_255_212) return fade_matrix_set_val_keyrecord(record);
