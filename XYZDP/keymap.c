@@ -671,49 +671,49 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // -----------------------------------------------------------------------------
 
   {
-  // RGB
-  if (keycode == RGB_SLD) return fade_matrix_rgb_sld_keyrecord(record);
-
-  // Firmware  
-  if (keycode == HSV_0_255_200) return firmware_map_main_keyrecord(record);
-  if (keycode == HSV_0_255_255) return halt_map_main_keyrecord(record);
-
-  // HSV set
-  if (keycode == HSV_0_255_210) return fade_matrix_set_hue_keyrecord(record);
-  if (keycode == HSV_0_255_211) return fade_matrix_set_sat_keyrecord(record);
-  if (keycode == HSV_0_255_212) return fade_matrix_set_val_keyrecord(record);
-  if (keycode == HSV_0_255_213) return fade_matrix_set_speed_keyrecord(record);
-
-  // layer
-  if (keycode == HSV_86_255_200) return firmware_map_enter_hue_keyrecord(record);
-  if (keycode == HSV_86_255_201) return firmware_map_enter_halt_keyrecord(record);
-  if (keycode == HSV_86_255_255) return firmware_map_exit_all_keyrecord(record);
-
-  // preset
-  if (keycode == HSV_172_255_210) return fade_matrix_load_default_keyrecord(record);
-  if (keycode == HSV_172_255_211) return false;
-  if (keycode == HSV_172_255_212) return false;
-  if (keycode == HSV_172_255_213) return fade_matrix_load_powersave_keyrecord(record);
-
-  // mouse
-  if (keycode == NAVIGATOR_TURBO) return false;
-  if (keycode == NAVIGATOR_AIM) return false;
-  
-  if (keycode == NAVIGATOR_INC_CPI) {  
-    if (record->event.pressed) {
-      pointing_device_set_cpi(1);
+    // RGB
+    if (keycode == RGB_SLD) return fade_matrix_rgb_sld_keyrecord(record);
+    
+    // Firmware  
+    if (keycode == HSV_0_255_200) return firmware_map_main_keyrecord(record);
+    if (keycode == HSV_0_255_255) return halt_map_main_keyrecord(record);
+    
+    // HSV set
+    if (keycode == HSV_0_255_210) return fade_matrix_set_hue_keyrecord(record);
+    if (keycode == HSV_0_255_211) return fade_matrix_set_sat_keyrecord(record);
+    if (keycode == HSV_0_255_212) return fade_matrix_set_val_keyrecord(record);
+    if (keycode == HSV_0_255_213) return fade_matrix_set_speed_keyrecord(record);
+    
+    // layer
+    if (keycode == HSV_86_255_200) return firmware_map_enter_hue_keyrecord(record);
+    if (keycode == HSV_86_255_201) return firmware_map_enter_halt_keyrecord(record);
+    if (keycode == HSV_86_255_255) return firmware_map_exit_all_keyrecord(record);
+    
+    // preset
+    if (keycode == HSV_172_255_210) return fade_matrix_load_default_keyrecord(record);
+    if (keycode == HSV_172_255_211) return false;
+    if (keycode == HSV_172_255_212) return false;
+    if (keycode == HSV_172_255_213) return fade_matrix_load_powersave_keyrecord(record);
+    
+    // mouse
+    if (keycode == NAVIGATOR_TURBO) return false;
+    if (keycode == NAVIGATOR_AIM) return false;
+    
+    if (keycode == NAVIGATOR_INC_CPI) {
+      if (record->event.pressed) {
+        pointing_device_set_cpi(1);
+      }
+      
+      return false;
     }
     
-    return false;
-  }
-  
-  if (keycode == NAVIGATOR_DEC_CPI) {
-    if (record->event.pressed) {
-      pointing_device_set_cpi(0);
+    if (keycode == NAVIGATOR_DEC_CPI) {
+      if (record->event.pressed) {
+        pointing_device_set_cpi(0);
+      }
+      
+      return false;
     }
-    
-    return false;
-  }
   }
   
   if (process_record_fade_matrix(keycode, record) == false) return false;
