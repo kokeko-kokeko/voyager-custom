@@ -670,46 +670,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // split process_record, return false, break
-  if (process_record_extra_custom_keycodes(keycode, record) == false) return false;
-  
-  if (process_record_fade_matrix(keycode, record) == false) return false;
-  if (process_record_ime_state_sync(keycode, record) == false) return false;
-  
-  return true;
-}
-
-// -----------------------------------------------------------------------------
-//
-//
-// GitHub C additional definition
-//
-//
-// -----------------------------------------------------------------------------
-
-#include "layer_num.h"
-
-// enum for layer define sync oryx side
-#define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
-_Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
-#undef ORYX_LAYER_COUNT
-
-// remove oryx JP keycode, load qmk JP keycode & overrides
-#include "i18n_undef.inc"
-#include "key_overrides.inc"
-
-// access to voyager system-side flag
-extern keyboard_config_t keyboard_config;
-extern bool is_launching;
-
-// -----------------------------------------------------------------------------
-//
-//
-// Split keymap process_record impl
-//
-//
-// -----------------------------------------------------------------------------
-
-static bool process_record_extra_custom_keycodes(uint16_t keycode, keyrecord_t *record) {
   // RGB
   if (keycode == RGB_SLD) return fade_matrix_rgb_sld_keyrecord(record);
 
@@ -754,6 +714,47 @@ static bool process_record_extra_custom_keycodes(uint16_t keycode, keyrecord_t *
     return false;
   }
   
+  if (process_record_extra_custom_keycodes(keycode, record) == false) return false;
+  
+  if (process_record_fade_matrix(keycode, record) == false) return false;
+  if (process_record_ime_state_sync(keycode, record) == false) return false;
+  
+  return true;
+}
+
+// -----------------------------------------------------------------------------
+//
+//
+// GitHub C additional definition
+//
+//
+// -----------------------------------------------------------------------------
+
+#include "layer_num.h"
+
+// enum for layer define sync oryx side
+#define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
+_Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
+#undef ORYX_LAYER_COUNT
+
+// remove oryx JP keycode, load qmk JP keycode & overrides
+#include "i18n_undef.inc"
+#include "key_overrides.inc"
+
+// access to voyager system-side flag
+extern keyboard_config_t keyboard_config;
+extern bool is_launching;
+
+// -----------------------------------------------------------------------------
+//
+//
+// Split keymap process_record impl
+//
+//
+// -----------------------------------------------------------------------------
+
+static bool process_record_extra_custom_keycodes(uint16_t keycode, keyrecord_t *record) {
+
   return true;
 }
 
