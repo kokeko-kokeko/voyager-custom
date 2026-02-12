@@ -968,6 +968,7 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (pre_process_record_fade_matrix(keycode, record) == false) return false;
   if (pre_process_record_ime_state_sync(keycode, record) == false) return false;
   
   return true;
