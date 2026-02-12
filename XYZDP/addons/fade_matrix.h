@@ -1,5 +1,8 @@
 #pragma once
 
+#define FADE_MATRIX_POS_SIZE 52
+#define FADE_MATRIX_INDEX_SIZE 48
+
 uint8_t get_pos_from_keyrecord(const keyrecord_t * const record);
 
 bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record);
