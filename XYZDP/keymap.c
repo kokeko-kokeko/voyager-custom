@@ -671,6 +671,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // split process_record, return false, break
   if (process_record_extra_custom_keycodes(keycode, record) == false) return false;
+  
   if (process_record_fade_matrix(keycode, record) == false) return false;
   if (process_record_ime_state_sync(keycode, record) == false) return false;
   
@@ -714,11 +715,13 @@ static bool process_record_extra_custom_keycodes(uint16_t keycode, keyrecord_t *
 
   // Firmware  
   if (keycode == HSV_0_255_200) return firmware_map_main_keyrecord(record);
+  if (keycode == HSV_0_255_255) return halt_map_main_keyrecord(record);
+
+  // RGB
   if (keycode == HSV_0_255_210) return fade_matrix_set_hue_keyrecord(record);
   if (keycode == HSV_0_255_211) return fade_matrix_set_sat_keyrecord(record);
   if (keycode == HSV_0_255_212) return fade_matrix_set_val_keyrecord(record);
   if (keycode == HSV_0_255_213) return fade_matrix_set_speed_keyrecord(record);
-  if (keycode == HSV_0_255_255) return halt_map_main_keyrecord(record);
 
   // layer
   if (keycode == HSV_86_255_200) return firmware_map_enter_hue_keyrecord(record);
