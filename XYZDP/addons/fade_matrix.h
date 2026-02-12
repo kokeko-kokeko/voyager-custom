@@ -11,6 +11,7 @@ bool fade_matrix_load_default_keyrecord(const keyrecord_t * const record);
 bool fade_matrix_load_powersave_keyrecord(const keyrecord_t * const record);
 
 void keyboard_post_init_fade_matrix(void);
+bool pre_process_record_fade_matrix(uint16_t keycode, keyrecord_t *record);
 bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record);
 bool process_detected_host_os_fade_matrix(os_variant_t detected_os);
 report_mouse_t pointing_device_task_fade_matrix(report_mouse_t mouse_report);
