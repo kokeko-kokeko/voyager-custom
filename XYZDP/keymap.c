@@ -257,9 +257,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #include "addons/layer_mod_overlay.h"
 #include "addons/status_led.h"
 
-// split process_record, return false, break
-static bool process_record_extra_custom_keycodes(uint16_t keycode, keyrecord_t *record);
-
 // -----------------------------------------------------------------------------
 //
 //
@@ -669,7 +666,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
 
-  // split process_record, return false, break
+  // extra process_record, return false, break
   // RGB
   if (keycode == RGB_SLD) return fade_matrix_rgb_sld_keyrecord(record);
 
@@ -714,8 +711,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  if (process_record_extra_custom_keycodes(keycode, record) == false) return false;
-  
   if (process_record_fade_matrix(keycode, record) == false) return false;
   if (process_record_ime_state_sync(keycode, record) == false) return false;
   
@@ -744,19 +739,6 @@ _Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missma
 // access to voyager system-side flag
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
-
-// -----------------------------------------------------------------------------
-//
-//
-// Split keymap process_record impl
-//
-//
-// -----------------------------------------------------------------------------
-
-static bool process_record_extra_custom_keycodes(uint16_t keycode, keyrecord_t *record) {
-
-  return true;
-}
 
 // -----------------------------------------------------------------------------
 //
