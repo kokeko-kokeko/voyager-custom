@@ -870,25 +870,22 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b1011, led_pattern_off);
       status_led(0b0100, led_pattern_on);
       break;
-    case L_LeftPinky:
-    case L_RightPinky:
+    case L_R_Pin:
+    case L_L_Pin:
       status_led(0b1111, led_pattern_off);
       break;
-    case L_LeftPinkyThumb:
-    case L_RightPinkyThumb:
-    case L_BothThumb:
-    case L_BothThumb_ANSI:
-      status_led(0b1000, led_pattern_off);
-      status_led(0b0111, led_pattern_on);
-      break;
-    case L_BothPinky:
+    case L_L_Pin_R_Pin:
       status_led(0b1100, led_pattern_off);
       status_led(0b0011, led_pattern_on);
-      break;    
-    case L_BothPinkyThumb:
+      break;
+    case L_L_Thum_L_Pin:
+    case L_R_Thum_R_Pin:
+    case L_L_Thum_R_Pin:
+    case L_R_Thum_L_Pin:
+    case L_L_Thum_R_Thum:
+    case L_L_Thum_R_Thum_ANSI:
       status_led(0b1000, led_pattern_off);
-      status_led(0b0011, led_pattern_blink);
-      status_led(0b0100, led_pattern_on);
+      status_led(0b0111, led_pattern_on);
       break;
     case L_Firmware:
       status_led(0b0011, led_pattern_off);
