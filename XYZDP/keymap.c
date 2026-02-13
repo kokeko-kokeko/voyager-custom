@@ -810,19 +810,19 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  //both thumb
-  state = update_tri_layer_state(state, L_Number, L_Cursor, L_L_Thum_R_Thum);
+  //both outer pin
+  state = update_tri_layer_state(state, L_L_Pin, L_R_Pin, L_L_Pin_R_Pin);
   
   //same side thumb and pin
   state = update_tri_layer_state(state, L_Number, L_L_Pin, L_L_Thum_L_Pin);
   state = update_tri_layer_state(state, L_Cursor, L_R_Pin, L_R_Thum_R_Pin);
   
-  //both outer pin
-  state = update_tri_layer_state(state, L_L_Pin, L_R_Pin, L_L_Pin_R_Pin);
-
   //cross side thumb and pin
   state = update_tri_layer_state(state, L_Number, L_R_Pin, L_L_Thum_R_Pin);
   state = update_tri_layer_state(state, L_Cursor, L_L_Pin, L_R_Thum_L_Pin);
+
+  //both thumb
+  state = update_tri_layer_state(state, L_Number, L_Cursor, L_L_Thum_R_Thum);  
 
   // call FwSys with Fn and Cursor
   state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware); 
