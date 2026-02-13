@@ -670,6 +670,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // extra process_record, return false, break
   // -----------------------------------------------------------------------------
 
+  if (process_record_fade_matrix(keycode, record) == false) return false;
+  if (process_record_ime_state_sync(keycode, record) == false) return false;
+  
   {
     // RGB
     if (keycode == RGB_SLD) return fade_matrix_rgb_sld_keyrecord(record);
@@ -715,9 +718,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     }
   }
-  
-  if (process_record_fade_matrix(keycode, record) == false) return false;
-  if (process_record_ime_state_sync(keycode, record) == false) return false;
   
   return true;
 }
