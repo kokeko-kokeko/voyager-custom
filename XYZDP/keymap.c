@@ -791,14 +791,14 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
     switch (keycode) {
       case LT(L_Number, KC_SPACE):
       case LT(L_Cursor, KC_SPACE):
-      case LT(L_LeftPinky, KC_B):
-      case LT(L_LeftPinky, KC_F11):
-      case LT(L_LeftPinky, KC_LBRC):
-      case LT(L_LeftPinky, KC_RBRC):
-      case LT(L_RightPinky, KC_V):
-      case LT(L_RightPinky, KC_F12):
-      case LT(L_RightPinky, KC_RBRC):
-      case LT(L_RightPinky, KC_BSLS):
+      case LT(L_L_Pin, KC_B):
+      case LT(L_L_Pin, KC_F11):
+      case LT(L_L_Pin, KC_LBRC):
+      case LT(L_L_Pin, KC_RBRC):
+      case LT(L_R_Pin, KC_V):
+      case LT(L_R_Pin, KC_F12):
+      case LT(L_R_Pin, KC_RBRC):
+      case LT(L_R_Pin, KC_BSLS):
         return 0;
 
       default:
