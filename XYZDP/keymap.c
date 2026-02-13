@@ -811,17 +811,18 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   //both thumb
-  state = update_tri_layer_state(state, L_Number, L_Cursor, L_BothThumb);
+  state = update_tri_layer_state(state, L_Number, L_Cursor, L_L_Thum_R_Thum);
   
-  //tumb and outer pin
-  state = update_tri_layer_state(state, L_LeftPinky, L_Number, L_LeftPinkyThumb);
-  state = update_tri_layer_state(state, L_RightPinky, L_Cursor, L_RightPinkyThumb);
+  //same side thumb and pin
+  state = update_tri_layer_state(state, L_Number, L_L_Pin, L_L_Thum_L_Pin);
+  state = update_tri_layer_state(state, L_Cursor, L_R_Pin, L_R_Thum_R_Pin);
   
   //both outer pin
-  state = update_tri_layer_state(state, L_LeftPinky, L_RightPinky, L_BothPinky);
+  state = update_tri_layer_state(state, L_L_Pin, L_R_Pin, L_L_Pin_R_Pin);
 
-  // both thumb and pin
-  state = update_tri_layer_state(state, L_LeftPinkyThumb, L_RightPinkyThumb, L_BothPinkyThumb);
+  //cross side thumb and pin
+  state = update_tri_layer_state(state, L_Number, L_R_Pin, L_L_Thum_R_Pin);
+  state = update_tri_layer_state(state, L_Cursor, L_L_Pin, L_R_Thum_L_Pin);
 
   // call FwSys with Fn and Cursor
   state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware); 
@@ -832,7 +833,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // ANSI/JIS addiional enable
   state = update_tri_layer_state(state, L_Base_ANSI, L_Number, L_Number_ANSI);
   state = update_tri_layer_state(state, L_Base_ANSI, L_Cursor, L_Cursor_ANSI);
-  state = update_tri_layer_state(state, L_Base_ANSI, L_BothThumb, L_BothThumb_ANSI);
+  state = update_tri_layer_state(state, L_Base_ANSI, L_L_Thum_R_Thum, L_L_Thum_R_Thum_ANSI);
 
   state = layer_state_set_adv_mouse(state);
   state = layer_state_set_fade_matrix(state);
