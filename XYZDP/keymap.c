@@ -831,20 +831,25 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  //both outer pin
+  // both outer pin
   state = update_tri_layer_state(state, L_L_pin, L_R_pin, L_LR_pin);
   
-  //same side thumb and pin
+  // same side thumb and pin
   state = update_tri_layer_state(state, L_Number, L_L_pin, L_L_thum_L_pin);
   state = update_tri_layer_state(state, L_Cursor, L_R_pin, L_R_thum_R_pin);
   
-  //cross side thumb and pin
+  // cross side thumb and pin
   state = update_tri_layer_state(state, L_Number, L_R_pin, L_L_thum_R_pin);
   state = update_tri_layer_state(state, L_Cursor, L_L_pin, L_R_thum_L_pin);
 
-  //both thumb
-  state = update_tri_layer_state(state, L_Number, L_Cursor, L_LR_thum);  
+  // both thumb
+  state = update_tri_layer_state(state, L_Number, L_Cursor, L_LR_thum);
 
+  // 3keys
+  state = update_tri_layer_state(state, L_Number, L_LR_pin, L_L_thum_LR_pin);
+  state = update_tri_layer_state(state, L_Cursor, L_LR_pin, L_R_thum_LR_pin);
+  state = update_tri_layer_state(state, L_LR_thum, L_L_pin, L_LR_thum_L_pin);
+  
   // call FwSys with Fn and Cursor
   state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware); 
   
@@ -907,6 +912,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_LR_thum_ANSI:
       status_led(0b1000, led_pattern_off);
       status_led(0b0111, led_pattern_on);
+      break;
+    case L_L_thum_LR_pin;
+    case L_R_thum_LR_pin;
+    case L_LR_thum_L_pin;
+      status_led(0b1000, led_pattern_off);
+      status_led(0b0100, led_pattern_on);
+      status_led(0b0011, led_pattern_blink);
       break;
     case L_Firmware:
       status_led(0b0011, led_pattern_off);
