@@ -913,9 +913,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b1000, led_pattern_off);
       status_led(0b0111, led_pattern_on);
       break;
-    case L_L_thum_LR_pin;
-    case L_R_thum_LR_pin;
-    case L_LR_thum_L_pin;
+    case L_L_thum_LR_pin:
+    case L_R_thum_LR_pin:
+    case L_LR_thum_L_pin:
       status_led(0b1000, led_pattern_off);
       status_led(0b0100, led_pattern_on);
       status_led(0b0011, led_pattern_blink);
