@@ -382,8 +382,12 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
   if (52 <= pos) return false;
       
   if (pos == P_Halt) {
+    clear_keyboard();
+    clear_keyboard();
+    clear_keyboard();
+    
     // hang-up
-    while (1);
+    while (true);
         
     return false;
   }
