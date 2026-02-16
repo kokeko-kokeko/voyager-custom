@@ -832,18 +832,18 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   //both outer pin
-  state = update_tri_layer_state(state, L_L_Pin, L_R_Pin, L_L_Pin_R_Pin);
+  state = update_tri_layer_state(state, L_L_pin, L_R_pin, L_LR_pin);
   
   //same side thumb and pin
-  state = update_tri_layer_state(state, L_Number, L_L_Pin, L_L_Thum_L_Pin);
-  state = update_tri_layer_state(state, L_Cursor, L_R_Pin, L_R_Thum_R_Pin);
+  state = update_tri_layer_state(state, L_Number, L_L_pin, L_L_thum_L_pin);
+  state = update_tri_layer_state(state, L_Cursor, L_R_pin, L_R_thum_R_pin);
   
   //cross side thumb and pin
-  state = update_tri_layer_state(state, L_Number, L_R_Pin, L_L_Thum_R_Pin);
-  state = update_tri_layer_state(state, L_Cursor, L_L_Pin, L_R_Thum_L_Pin);
+  state = update_tri_layer_state(state, L_Number, L_R_pin, L_L_thum_R_pin);
+  state = update_tri_layer_state(state, L_Cursor, L_L_pin, L_R_thum_L_pin);
 
   //both thumb
-  state = update_tri_layer_state(state, L_Number, L_Cursor, L_L_Thum_R_Thum);  
+  state = update_tri_layer_state(state, L_Number, L_Cursor, L_LR_thum);  
 
   // call FwSys with Fn and Cursor
   state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware); 
@@ -854,7 +854,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // ANSI/JIS addiional enable
   state = update_tri_layer_state(state, L_Base_ANSI, L_Number, L_Number_ANSI);
   state = update_tri_layer_state(state, L_Base_ANSI, L_Cursor, L_Cursor_ANSI);
-  state = update_tri_layer_state(state, L_Base_ANSI, L_L_Thum_R_Thum, L_L_Thum_R_Thum_ANSI);
+  state = update_tri_layer_state(state, L_Base_ANSI, L_LR_thum, L_LR_thum_ANSI);
 
   state = layer_state_set_adv_mouse(state);
   state = layer_state_set_fade_matrix(state);
@@ -891,20 +891,20 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b1011, led_pattern_off);
       status_led(0b0100, led_pattern_on);
       break;
-    case L_R_Pin:
-    case L_L_Pin:
+    case L_R_pin:
+    case L_L_pin:
       status_led(0b1111, led_pattern_off);
       break;
-    case L_L_Pin_R_Pin:
+    case L_LR_pin:
       status_led(0b1100, led_pattern_off);
       status_led(0b0011, led_pattern_on);
       break;
-    case L_L_Thum_L_Pin:
-    case L_R_Thum_R_Pin:
-    case L_L_Thum_R_Pin:
-    case L_R_Thum_L_Pin:
-    case L_L_Thum_R_Thum:
-    case L_L_Thum_R_Thum_ANSI:
+    case L_L_thum_L_pin:
+    case L_R_thum_R_pin:
+    case L_L_thum_R_pin:
+    case L_R_thum_L_pin:
+    case L_LR_thum:
+    case L_LR_thum_ANSI:
       status_led(0b1000, led_pattern_off);
       status_led(0b0111, led_pattern_on);
       break;
