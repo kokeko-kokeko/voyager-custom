@@ -33,14 +33,14 @@ void set_layer_color_overlay_layer(void) {
     or_flag = true;
   }
 
-  if (layer_state_is(LAYER_L_pin)) {
+  if (layer_state_is(LAYER_L_pinky)) {
     rgb_matrix_set_color(5, 0, 0, 0);
     rgb_matrix_set_color(6, 0, 0, 0);
 
     or_flag = true;
   }
   
-  if (layer_state_is(LAYER_R_pin)) {
+  if (layer_state_is(LAYER_R_pinky)) {
     rgb_matrix_set_color(26, 0, 0, 0);
     rgb_matrix_set_color(37, 0, 0, 0);
 
