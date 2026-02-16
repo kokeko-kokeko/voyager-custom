@@ -52,22 +52,22 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(7, KC_X)
-#define DUAL_FUNC_1 LT(15, KC_F19)
-#define DUAL_FUNC_2 LT(14, KC_P)
-#define DUAL_FUNC_3 LT(12, KC_F14)
-#define DUAL_FUNC_4 LT(9, KC_6)
-#define DUAL_FUNC_5 LT(5, KC_F16)
-#define DUAL_FUNC_6 LT(6, KC_G)
-#define DUAL_FUNC_7 LT(11, KC_S)
-#define DUAL_FUNC_8 LT(12, KC_H)
-#define DUAL_FUNC_9 LT(4, KC_F2)
-#define DUAL_FUNC_10 LT(9, KC_L)
-#define DUAL_FUNC_11 LT(4, KC_V)
-#define DUAL_FUNC_12 LT(12, KC_F24)
-#define DUAL_FUNC_13 LT(15, KC_J)
-#define DUAL_FUNC_14 LT(6, KC_C)
-#define DUAL_FUNC_15 LT(10, KC_F1)
+#define DUAL_FUNC_0 LT(7, KC_F7)
+#define DUAL_FUNC_1 LT(7, KC_F14)
+#define DUAL_FUNC_2 LT(4, KC_F17)
+#define DUAL_FUNC_3 LT(10, KC_F10)
+#define DUAL_FUNC_4 LT(4, KC_F22)
+#define DUAL_FUNC_5 LT(6, KC_6)
+#define DUAL_FUNC_6 LT(4, KC_2)
+#define DUAL_FUNC_7 LT(15, KC_7)
+#define DUAL_FUNC_8 LT(8, KC_A)
+#define DUAL_FUNC_9 LT(10, KC_F11)
+#define DUAL_FUNC_10 LT(4, KC_F7)
+#define DUAL_FUNC_11 LT(12, KC_F11)
+#define DUAL_FUNC_12 LT(1, KC_X)
+#define DUAL_FUNC_13 LT(11, KC_F13)
+#define DUAL_FUNC_14 LT(5, KC_A)
+#define DUAL_FUNC_15 LT(9, KC_F12)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [3] = LAYOUT_voyager(
     LGUI(KC_TAB),   KC_TRANSPARENT, KC_MS_BTN8,     KC_MS_BTN7,     KC_MS_BTN6,     KC_MS_BTN5,                                     KC_MS_BTN4,     KC_MS_BTN2,     KC_MS_BTN5,     KC_MS_BTN6,     KC_MS_BTN7,     KC_MS_BTN8,     
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_BTN4,                                     KC_MS_BTN3,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    MO(11),         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_BTN4,                                     KC_MS_BTN3,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MO(10),         
     KC_LEFT_CTRL,   KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_BTN3,                                     KC_MS_BTN1,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_RIGHT_CTRL,  
     KC_LEFT_SHIFT,  KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MO(6),          KC_TRANSPARENT,                                 KC_TRANSPARENT, MO(8),          KC_TRANSPARENT, NAVIGATOR_DEC_CPI,NAVIGATOR_INC_CPI,KC_RIGHT_SHIFT, 
                                                     KC_MS_BTN2,     KC_MS_BTN1,                                     KC_TRANSPARENT, KC_TRANSPARENT
