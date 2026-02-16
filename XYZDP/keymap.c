@@ -812,14 +812,14 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
     switch (keycode) {
       case LT(LAYER_Number, KC_SPACE):
       case LT(LAYER_Cursor, KC_SPACE):
-      case LT(LAYER_L_pin, KC_B):
-      case LT(LAYER_L_pin, KC_F11):
-      case LT(LAYER_L_pin, KC_LBRC):
-      case LT(LAYER_L_pin, KC_RBRC):
-      case LT(LAYER_R_pin, KC_V):
-      case LT(LAYER_R_pin, KC_F12):
-      case LT(LAYER_R_pin, KC_RBRC):
-      case LT(LAYER_R_pin, KC_BSLS):
+      case LT(LAYER_L_pinky, KC_B):
+      case LT(LAYER_L_pinky, KC_F11):
+      case LT(LAYER_L_pinky, KC_LBRC):
+      case LT(LAYER_L_pinky, KC_RBRC):
+      case LT(LAYER_R_pinky, KC_V):
+      case LT(LAYER_R_pinky, KC_F12):
+      case LT(LAYER_R_pinky, KC_RBRC):
+      case LT(LAYER_R_pinky, KC_BSLS):
         return 0;
 
       default:
@@ -832,23 +832,23 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   // same side thumb and pin
-  state = update_tri_layer_state(state, LAYER_Cursor, LAYER_R_pin, LAYER_R_thumb_R_pin);
-  state = update_tri_layer_state(state, LAYER_Number, LAYER_L_pin, LAYER_L_thumb_L_pin);
+  state = update_tri_layer_state(state, LAYER_Cursor, LAYER_R_pinky, LAYER_R_thumb_R_pinky);
+  state = update_tri_layer_state(state, LAYER_Number, LAYER_L_pinky, LAYER_L_thumb_L_pinky);
 
   // both outer pin
-  state = update_tri_layer_state(state, LAYER_L_pin, LAYER_R_pin, LAYER_LR_pin);
+  state = update_tri_layer_state(state, LAYER_L_pinky, LAYER_R_pinky, LAYER_LR_pinky);
   
   // cross side thumb and pin
-  state = update_tri_layer_state(state, LAYER_Number, LAYER_R_pin, LAYER_L_thumb_R_pin);
-  state = update_tri_layer_state(state, LAYER_Cursor, LAYER_L_pin, LAYER_R_thumb_L_pin);
+  state = update_tri_layer_state(state, LAYER_Number, LAYER_R_pinky, LAYER_L_thumb_R_pinky);
+  state = update_tri_layer_state(state, LAYER_Cursor, LAYER_L_pinky, LAYER_R_thumb_L_pinky);
 
   // both thumb
   state = update_tri_layer_state(state, LAYER_Number, LAYER_Cursor, LAYER_LR_thumb);
 
   // 3keys
-  state = update_tri_layer_state(state, LAYER_Number, LAYER_LR_pin, LAYER_L_thumb_LR_pin);
-  state = update_tri_layer_state(state, LAYER_Cursor, LAYER_LR_pin, LAYER_R_thumb_LR_pin);
-  state = update_tri_layer_state(state, LAYER_LR_thumb, LAYER_L_pin, LAYER_LR_thumb_L_pin);
+  state = update_tri_layer_state(state, LAYER_Number, LAYER_LR_pinky, LAYER_L_thumb_LR_pinky);
+  state = update_tri_layer_state(state, LAYER_Cursor, LAYER_LR_pinky, LAYER_R_thumb_LR_pinky);
+  state = update_tri_layer_state(state, LAYER_LR_thumb, LAYER_L_pinky, LAYER_LR_thumb_L_pinky);
   
   // call FwSys with Fn and Cursor
   state = update_tri_layer_state(state, LAYER_Function, LAYER_Cursor, LAYER_Firmware); 
@@ -896,32 +896,32 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b1011, led_pattern_off);
       status_led(0b0100, led_pattern_on);
       break;
-    case LAYER_R_pin:
-    case LAYER_L_pin:
+    case LAYER_R_pinky:
+    case LAYER_L_pinky:
       status_led(0b1111, led_pattern_off);
       break;
-    case LAYER_R_thumb_R_pin:
+    case LAYER_R_thumb_R_pinky:
       status_led(0b1010, led_pattern_off);
       status_led(0b0101, led_pattern_on);
       break;
-    case LAYER_L_thumb_L_pin:
+    case LAYER_L_thumb_L_pinky:
       status_led(0b1001, led_pattern_off);
       status_led(0b0110, led_pattern_on);
       break;
-    case LAYER_LR_pin:
+    case LAYER_LR_pinky:
       status_led(0b1100, led_pattern_off);
       status_led(0b0011, led_pattern_on);
       break;
-    case LAYER_L_thumb_R_pin:
-    case LAYER_R_thumb_L_pin:
+    case LAYER_L_thumb_R_pinky:
+    case LAYER_R_thumb_L_pinky:
     case LAYER_LR_thumb:
     case LAYER_LR_thumb_ANSI:
       status_led(0b1000, led_pattern_off);
       status_led(0b0111, led_pattern_on);
       break;
-    case LAYER_L_thumb_LR_pin:
-    case LAYER_R_thumb_LR_pin:
-    case LAYER_LR_thumb_L_pin:
+    case LAYER_L_thumb_LR_pinky:
+    case LAYER_R_thumb_LR_pinky:
+    case LAYER_LR_thumb_L_pinky:
       status_led(0b1000, led_pattern_off);
       status_led(0b0100, led_pattern_on);
       status_led(0b0011, led_pattern_blink);
