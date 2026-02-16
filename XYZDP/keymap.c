@@ -831,12 +831,12 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+  // same side thumb and pin
+  state = update_tri_layer_state(state, L_Cursor, L_R_pin, L_R_thumb_R_pin);
+  state = update_tri_layer_state(state, L_Number, L_L_pin, L_L_thumb_L_pin);
+
   // both outer pin
   state = update_tri_layer_state(state, L_L_pin, L_R_pin, L_LR_pin);
-  
-  // same side thumb and pin
-  state = update_tri_layer_state(state, L_Number, L_L_pin, L_L_thumb_L_pin);
-  state = update_tri_layer_state(state, L_Cursor, L_R_pin, L_R_thumb_R_pin);
   
   // cross side thumb and pin
   state = update_tri_layer_state(state, L_Number, L_R_pin, L_L_thumb_R_pin);
@@ -900,12 +900,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case L_L_pin:
       status_led(0b1111, led_pattern_off);
       break;
+    case L_R_thumb_R_pin:
+      status_led(0b1010, led_pattern_off);
+      status_led(0b0101, led_pattern_on);
+      break;
+    case L_L_thumb_L_pin:
+      status_led(0b1001, led_pattern_off);
+      status_led(0b0110, led_pattern_on);
+      break;
     case L_LR_pin:
       status_led(0b1100, led_pattern_off);
       status_led(0b0011, led_pattern_on);
       break;
-    case L_L_thumb_L_pin:
-    case L_R_thumb_R_pin:
     case L_L_thumb_R_pin:
     case L_R_thumb_L_pin:
     case L_LR_thumb:
