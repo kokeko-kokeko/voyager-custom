@@ -790,9 +790,9 @@ void keyboard_post_init_user(void) {
   keyboard_post_init_status_led();
   
   //JIS / no transition
-  layer_move(L_Base);
-  layer_off(L_Transition);
-  layer_off(L_Base_ANSI);
+  layer_move(LAYER_Base);
+  layer_off(LAYER_Transition);
+  layer_off(LAYER_Base_ANSI);
 }
 
 bool process_detected_host_os_user(os_variant_t detected_os) {
@@ -810,16 +810,16 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
                            uint16_t prev_keycode) {
   if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
     switch (keycode) {
-      case LT(L_Number, KC_SPACE):
-      case LT(L_Cursor, KC_SPACE):
-      case LT(L_L_pin, KC_B):
-      case LT(L_L_pin, KC_F11):
-      case LT(L_L_pin, KC_LBRC):
-      case LT(L_L_pin, KC_RBRC):
-      case LT(L_R_pin, KC_V):
-      case LT(L_R_pin, KC_F12):
-      case LT(L_R_pin, KC_RBRC):
-      case LT(L_R_pin, KC_BSLS):
+      case LT(LAYER_Number, KC_SPACE):
+      case LT(LAYER_Cursor, KC_SPACE):
+      case LT(LAYER_L_pin, KC_B):
+      case LT(LAYER_L_pin, KC_F11):
+      case LT(LAYER_L_pin, KC_LBRC):
+      case LT(LAYER_L_pin, KC_RBRC):
+      case LT(LAYER_R_pin, KC_V):
+      case LT(LAYER_R_pin, KC_F12):
+      case LT(LAYER_R_pin, KC_RBRC):
+      case LT(LAYER_R_pin, KC_BSLS):
         return 0;
 
       default:
@@ -832,34 +832,34 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   // same side thumb and pin
-  state = update_tri_layer_state(state, L_Cursor, L_R_pin, L_R_thumb_R_pin);
-  state = update_tri_layer_state(state, L_Number, L_L_pin, L_L_thumb_L_pin);
+  state = update_tri_layer_state(state, LAYER_Cursor, LAYER_R_pin, LAYER_R_thumb_R_pin);
+  state = update_tri_layer_state(state, LAYER_Number, LAYER_L_pin, LAYER_L_thumb_L_pin);
 
   // both outer pin
-  state = update_tri_layer_state(state, L_L_pin, L_R_pin, L_LR_pin);
+  state = update_tri_layer_state(state, LAYER_L_pin, LAYER_R_pin, LAYER_LR_pin);
   
   // cross side thumb and pin
-  state = update_tri_layer_state(state, L_Number, L_R_pin, L_L_thumb_R_pin);
-  state = update_tri_layer_state(state, L_Cursor, L_L_pin, L_R_thumb_L_pin);
+  state = update_tri_layer_state(state, LAYER_Number, LAYER_R_pin, LAYER_L_thumb_R_pin);
+  state = update_tri_layer_state(state, LAYER_Cursor, LAYER_L_pin, LAYER_R_thumb_L_pin);
 
   // both thumb
-  state = update_tri_layer_state(state, L_Number, L_Cursor, L_LR_thumb);
+  state = update_tri_layer_state(state, LAYER_Number, LAYER_Cursor, LAYER_LR_thumb);
 
   // 3keys
-  state = update_tri_layer_state(state, L_Number, L_LR_pin, L_L_thumb_LR_pin);
-  state = update_tri_layer_state(state, L_Cursor, L_LR_pin, L_R_thumb_LR_pin);
-  state = update_tri_layer_state(state, L_LR_thumb, L_L_pin, L_LR_thumb_L_pin);
+  state = update_tri_layer_state(state, LAYER_Number, LAYER_LR_pin, LAYER_L_thumb_LR_pin);
+  state = update_tri_layer_state(state, LAYER_Cursor, LAYER_LR_pin, LAYER_R_thumb_LR_pin);
+  state = update_tri_layer_state(state, LAYER_LR_thumb, LAYER_L_pin, LAYER_LR_thumb_L_pin);
   
   // call FwSys with Fn and Cursor
-  state = update_tri_layer_state(state, L_Function, L_Cursor, L_Firmware); 
+  state = update_tri_layer_state(state, LAYER_Function, LAYER_Cursor, LAYER_Firmware); 
   
   // color speed select
-  state = update_tri_layer_state(state, L_Set_Sat, L_Set_Val, L_Set_Speed);
+  state = update_tri_layer_state(state, LAYER_Set_Sat, LAYER_Set_Val, LAYER_Set_Speed);
 
   // ANSI/JIS addiional enable
-  state = update_tri_layer_state(state, L_Base_ANSI, L_Number, L_Number_ANSI);
-  state = update_tri_layer_state(state, L_Base_ANSI, L_Cursor, L_Cursor_ANSI);
-  state = update_tri_layer_state(state, L_Base_ANSI, L_LR_thumb, L_LR_thumb_ANSI);
+  state = update_tri_layer_state(state, LAYER_Base_ANSI, LAYER_Number, LAYER_Number_ANSI);
+  state = update_tri_layer_state(state, LAYER_Base_ANSI, LAYER_Cursor, LAYER_Cursor_ANSI);
+  state = update_tri_layer_state(state, LAYER_Base_ANSI, LAYER_LR_thumb, LAYER_LR_thumb_ANSI);
 
   state = layer_state_set_adv_mouse(state);
   state = layer_state_set_fade_matrix(state);
@@ -870,85 +870,85 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   uint8_t layer = get_highest_layer(state);
   
   switch (layer) {
-    case L_Base:
-    case L_Base_ANSI:
-    case L_Transition:
+    case LAYER_Base:
+    case LAYER_Base_ANSI:
+    case LAYER_Transition:
       status_led(0b1111, led_pattern_off);
       break;
-    case L_Mouse:
+    case LAYER_Mouse:
       // mouse indication
       status_led(0b1000, led_pattern_on);
       // DRAG_SCROLL add on key event
       // aim/turbo change without layer, direct write on process_record
       break;
-    case L_OneShot:
+    case LAYER_OneShot:
       status_led(0b1100, led_pattern_off);
       status_led(0b0011, led_pattern_blink);
       break; 
-    case L_Function:
+    case LAYER_Function:
       status_led(0b1100, led_pattern_off);
       status_led(0b0011, led_pattern_on);
       break; 
-    case L_Number:
-    case L_Number_ANSI:
-    case L_Cursor:
-    case L_Cursor_ANSI:
+    case LAYER_Number:
+    case LAYER_Number_ANSI:
+    case LAYER_Cursor:
+    case LAYER_Cursor_ANSI:
       status_led(0b1011, led_pattern_off);
       status_led(0b0100, led_pattern_on);
       break;
-    case L_R_pin:
-    case L_L_pin:
+    case LAYER_R_pin:
+    case LAYER_L_pin:
       status_led(0b1111, led_pattern_off);
       break;
-    case L_R_thumb_R_pin:
+    case LAYER_R_thumb_R_pin:
       status_led(0b1010, led_pattern_off);
       status_led(0b0101, led_pattern_on);
       break;
-    case L_L_thumb_L_pin:
+    case LAYER_L_thumb_L_pin:
       status_led(0b1001, led_pattern_off);
       status_led(0b0110, led_pattern_on);
       break;
-    case L_LR_pin:
+    case LAYER_LR_pin:
       status_led(0b1100, led_pattern_off);
       status_led(0b0011, led_pattern_on);
       break;
-    case L_L_thumb_R_pin:
-    case L_R_thumb_L_pin:
-    case L_LR_thumb:
-    case L_LR_thumb_ANSI:
+    case LAYER_L_thumb_R_pin:
+    case LAYER_R_thumb_L_pin:
+    case LAYER_LR_thumb:
+    case LAYER_LR_thumb_ANSI:
       status_led(0b1000, led_pattern_off);
       status_led(0b0111, led_pattern_on);
       break;
-    case L_L_thumb_LR_pin:
-    case L_R_thumb_LR_pin:
-    case L_LR_thumb_L_pin:
+    case LAYER_L_thumb_LR_pin:
+    case LAYER_R_thumb_LR_pin:
+    case LAYER_LR_thumb_L_pin:
       status_led(0b1000, led_pattern_off);
       status_led(0b0100, led_pattern_on);
       status_led(0b0011, led_pattern_blink);
       break;
-    case L_Firmware:
+    case LAYER_Firmware:
       status_led(0b0011, led_pattern_off);
       status_led(0b1100, led_pattern_blink);
       break;
-    case L_Set_Hue:
+    case LAYER_Set_Hue:
       status_led(0b0011, led_pattern_off);
       status_led(0b1100, led_pattern_on);
       break;
-    case L_Set_Sat:
+    case LAYER_Set_Sat:
       status_led(0b0001, led_pattern_off);
       status_led(0b1100, led_pattern_on);
       status_led(0b0010, led_pattern_blink);
       break;
-    case L_Set_Val:
+    case LAYER_Set_Val:
       status_led(0b0010, led_pattern_off);
       status_led(0b1100, led_pattern_on);
       status_led(0b0001, led_pattern_blink);
       break;    
-    case L_Set_Speed:
+    case LAYER_Set_Speed:
       status_led(0b1100, led_pattern_on);
       status_led(0b0011, led_pattern_blink);
       break;
-    case L_Halt_Mask:
+    case LAYER_Halt_Mask:
       status_led(0b1111, led_pattern_off);
       break;
 
@@ -966,22 +966,22 @@ bool rgb_matrix_indicators_user(void) {
   //}
   if (keyboard_config.disable_layer_led) { return false; }
   switch (get_highest_layer(layer_state)) {
-    case L_Firmware:
+    case LAYER_Firmware:
       set_layer_color_firmware_map();
       break;
-    case L_Set_Hue:
+    case LAYER_Set_Hue:
       set_layer_color_hue_map();
       break;
-    case L_Set_Sat:
+    case LAYER_Set_Sat:
       set_layer_color_sat_map();
       break;
-    case L_Set_Val:
+    case LAYER_Set_Val:
       set_layer_color_val_map();
       break;
-    case L_Set_Speed:
+    case LAYER_Set_Speed:
       set_layer_color_speed_map();
       break;
-    case L_Halt_Mask:
+    case LAYER_Halt_Mask:
       set_layer_color_halt_map();
       break;
     
