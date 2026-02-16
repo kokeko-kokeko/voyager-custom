@@ -814,12 +814,12 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
       case LT(LAYER_Cursor, KC_SPACE):
       case LT(LAYER_L_pinky, KC_B):
       case LT(LAYER_L_pinky, KC_F11):
+      case LT(LAYER_L_pinky, JP_LBRC):
       case LT(LAYER_L_pinky, KC_LBRC):
-      case LT(LAYER_L_pinky, KC_RBRC):
       case LT(LAYER_R_pinky, KC_V):
       case LT(LAYER_R_pinky, KC_F12):
+      case LT(LAYER_R_pinky, JP_RBRC):
       case LT(LAYER_R_pinky, KC_RBRC):
-      case LT(LAYER_R_pinky, KC_BSLS):
         return 0;
 
       default:
