@@ -17,7 +17,7 @@ void set_layer_color_overlay_layer(void) {
   bool or_flag = false;
   
   // layer display with priority
-  if (layer_state_is(L_Number)) {
+  if (layer_state_is(LAYER_Number)) {
     rgb_matrix_set_color(11, 0, 0, 0);
     rgb_matrix_set_color(22, 0, 0, 0);
     rgb_matrix_set_color(50, 0, 0, 0);
@@ -25,7 +25,7 @@ void set_layer_color_overlay_layer(void) {
     or_flag = true;
   }
   
-  if (layer_state_is(L_Cursor)) {
+  if (layer_state_is(LAYER_Cursor)) {
     rgb_matrix_set_color(25, 0, 0, 0);
     rgb_matrix_set_color(32, 0, 0, 0);
     rgb_matrix_set_color(45, 0, 0, 0);
@@ -33,14 +33,14 @@ void set_layer_color_overlay_layer(void) {
     or_flag = true;
   }
 
-  if (layer_state_is(L_L_pin)) {
+  if (layer_state_is(LAYER_L_pin)) {
     rgb_matrix_set_color(5, 0, 0, 0);
     rgb_matrix_set_color(6, 0, 0, 0);
 
     or_flag = true;
   }
   
-  if (layer_state_is(L_R_pin)) {
+  if (layer_state_is(LAYER_R_pin)) {
     rgb_matrix_set_color(26, 0, 0, 0);
     rgb_matrix_set_color(37, 0, 0, 0);
 
