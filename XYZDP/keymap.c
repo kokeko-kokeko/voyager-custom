@@ -832,9 +832,9 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   // same side thumb and pin
-  state = update_tri_layer_state(state, LAYER_Cursor, LAYER_R_pinky, LAYER_R_thumb_R_pinky);
   state = update_tri_layer_state(state, LAYER_Number, LAYER_L_pinky, LAYER_L_thumb_L_pinky);
-
+  state = update_tri_layer_state(state, LAYER_Cursor, LAYER_R_pinky, LAYER_R_thumb_R_pinky);
+  
   // both outer pin
   state = update_tri_layer_state(state, LAYER_L_pinky, LAYER_R_pinky, LAYER_LR_pinky);
   
