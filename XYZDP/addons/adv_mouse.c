@@ -539,7 +539,7 @@ void housekeeping_task_adv_mouse(void) {
 }
 
 void set_layer_color_overlay_mouse(void) {
-  if (layer_state_is(L_Mouse) == false) return;
+  if (layer_state_is(LAYER_Mouse) == false) return;
   
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
