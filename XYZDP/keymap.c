@@ -859,7 +859,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // ANSI/JIS addiional enable
   state = update_tri_layer_state(state, L_Base_ANSI, L_Number, L_Number_ANSI);
   state = update_tri_layer_state(state, L_Base_ANSI, L_Cursor, L_Cursor_ANSI);
-  state = update_tri_layer_state(state, L_Base_ANSI, L_LR_thum, L_LR_thum_ANSI);
+  state = update_tri_layer_state(state, L_Base_ANSI, L_LR_thumb, L_LR_thumb_ANSI);
 
   state = layer_state_set_adv_mouse(state);
   state = layer_state_set_fade_matrix(state);
