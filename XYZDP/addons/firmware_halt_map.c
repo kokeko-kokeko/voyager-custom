@@ -14,29 +14,29 @@
 #include "addons/status_led.h"
 
 enum key_pos {
-  P_JIS = 0,
-  P_ANSI = 6,
-  P_Tran_off = 1,
-  P_Tran_on = 7,
-  P_ISS_on = 3,
-  P_ISS_off = 9,
-  P_MJ_on = 5,
-  P_MJ_off = 11,
+  POS_JIS = 0,
+  POS_ANSI = 6,
+  POS_Tran_off = 1,
+  POS_Tran_on = 7,
+  POS_ISS_on = 3,
+  POS_ISS_off = 9,
+  POS_MJ_on = 5,
+  POS_MJ_off = 11,
 
-  P_RST = 31,
-  P_SW_RST = 37,
-  P_CLEAR = 49,
+  POS_RST = 31,
+  POS_SW_RST = 37,
+  POS_CLEAR = 49,
   
-  P_Caps_Lock = 19,
-  P_Num_Lock = 44,
-  P_Scroll_Lock = 45,
-  P_Compose = 46,
-  P_Kana = 20,
+  POS_Caps_Lock = 19,
+  POS_Num_Lock = 44,
+  POS_Scroll_Lock = 45,
+  POS_Compose = 46,
+  POS_Kana = 20,
 
-  P_OS1 = 22,
-  P_OS2 = 23,
+  POS_OS1 = 22,
+  POS_OS2 = 23,
   
-  P_Halt = 31
+  POS_Halt = 31
 };
 
 // call mouse jiggler
@@ -51,71 +51,71 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   uint8_t pos = get_pos_from_keyrecord(record);
   if (52 <= pos) return false;
 
-  if (pos == P_JIS) {
+  if (pos == POS_JIS) {
     layer_on(LAYER_Base);
     layer_off(LAYER_Base_ANSI);
         
     return false;
   }
       
-  if (pos == P_ANSI) {
+  if (pos == POS_ANSI) {
     layer_on(LAYER_Base);
     layer_on(LAYER_Base_ANSI);
         
     return false;
   }
       
-  if (pos == P_Tran_off) {
+  if (pos == POS_Tran_off) {
     layer_on(LAYER_Base);
     layer_off(LAYER_Transition);
         
     return false;
   }
       
-  if (pos == P_Tran_on) {
+  if (pos == POS_Tran_on) {
     layer_on(LAYER_Base);
     layer_on(LAYER_Transition);
         
     return false;
   }
       
-  if (pos == P_ISS_on) {
+  if (pos == POS_ISS_on) {
     ime_state_sync_enable();
         
     return false;
   }
       
-  if (pos == P_ISS_off) {
+  if (pos == POS_ISS_off) {
     ime_state_sync_disable();
         
     return false;
   }
 
-  if (pos == P_MJ_on) {
+  if (pos == POS_MJ_on) {
     mouse_jiggler_enable();
         
     return false;
   }
       
-  if (pos == P_MJ_off) {
+  if (pos == POS_MJ_off) {
     mouse_jiggler_disable();
         
     return false;
   }
       
-  if (pos == P_RST) {
+  if (pos == POS_RST) {
     reset_keyboard();
         
     return false;
   }
       
-  if (pos == P_SW_RST) {
+  if (pos == POS_SW_RST) {
     soft_reset_keyboard();
         
     return false;
   }
       
-  if (pos == P_CLEAR) {
+  if (pos == POS_CLEAR) {
     clear_keyboard();
         
     return false;
@@ -144,44 +144,44 @@ void set_layer_color_firmware_map(void) {
   //ANSI/JIS
   if (layer_state_is(LAYER_Base_ANSI)) {
     //ANSI base enable
-    rgb_matrix_set_color(P_JIS, q, q, q);
-    rgb_matrix_set_color(P_ANSI, f, 0, 0);
+    rgb_matrix_set_color(POS_JIS, q, q, q);
+    rgb_matrix_set_color(POS_ANSI, f, 0, 0);
   } else {
     //JIS base
-    rgb_matrix_set_color(P_JIS, 0, f, 0);
-    rgb_matrix_set_color(P_ANSI, q, q, q);
+    rgb_matrix_set_color(POS_JIS, 0, f, 0);
+    rgb_matrix_set_color(POS_ANSI, q, q, q);
   }
 
   // Transition
   if (layer_state_is(LAYER_Transition)) {
     // on
-    rgb_matrix_set_color(P_Tran_off, q, q, q);
-    rgb_matrix_set_color(P_Tran_on, f, f, 0);
+    rgb_matrix_set_color(POS_Tran_off, q, q, q);
+    rgb_matrix_set_color(POS_Tran_on, f, f, 0);
   } else {
     // off
-    rgb_matrix_set_color(P_Tran_off, 0, 0, f);
-    rgb_matrix_set_color(P_Tran_on, q, q, q);
+    rgb_matrix_set_color(POS_Tran_off, 0, 0, f);
+    rgb_matrix_set_color(POS_Tran_on, q, q, q);
   }
 
   // ISS system
   if (ime_state_sync_is_enabled()) {
-    rgb_matrix_set_color(P_ISS_on, 0, f, 0);
-    rgb_matrix_set_color(P_ISS_off, o, o, o);
+    rgb_matrix_set_color(POS_ISS_on, 0, f, 0);
+    rgb_matrix_set_color(POS_ISS_off, o, o, o);
   } else {
     //ANSI base
-    rgb_matrix_set_color(P_ISS_on, o, o, o);
-    rgb_matrix_set_color(P_ISS_off, f, f, 0);
+    rgb_matrix_set_color(POS_ISS_on, o, o, o);
+    rgb_matrix_set_color(POS_ISS_off, f, f, 0);
   }
 
   // mouse jiggler
   if (mouse_jiggler_is_enabled()) {
     // on
-    rgb_matrix_set_color(P_MJ_on, 0, 0, f);
-    rgb_matrix_set_color(P_MJ_off, q, q, q);
+    rgb_matrix_set_color(POS_MJ_on, 0, 0, f);
+    rgb_matrix_set_color(POS_MJ_off, q, q, q);
   } else {
     // off
-    rgb_matrix_set_color(P_MJ_on, q, q, q);
-    rgb_matrix_set_color(P_MJ_off, f, 0, 0);
+    rgb_matrix_set_color(POS_MJ_on, q, q, q);
+    rgb_matrix_set_color(POS_MJ_off, f, 0, 0);
   }
 
   //OS detect
@@ -210,13 +210,13 @@ void set_layer_color_firmware_map(void) {
       rgb_os.b = f;
       break;
   }
-  rgb_matrix_set_color(P_OS1, rgb_os.r, rgb_os.g, rgb_os.b);
-  rgb_matrix_set_color(P_OS2, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(POS_OS1, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(POS_OS2, rgb_os.r, rgb_os.g, rgb_os.b);
   
   //reset clear
-  rgb_matrix_set_color(P_RST, f, 0, 0);
-  rgb_matrix_set_color(P_SW_RST, f, h, 0);
-  rgb_matrix_set_color(P_CLEAR, f, f, 0);
+  rgb_matrix_set_color(POS_RST, f, 0, 0);
+  rgb_matrix_set_color(POS_SW_RST, f, h, 0);
+  rgb_matrix_set_color(POS_CLEAR, f, f, 0);
 
   //color test
   //rgb_matrix_set_color(26, f, 0, 0);
@@ -242,33 +242,33 @@ void set_layer_color_firmware_map(void) {
   led_t status = host_keyboard_led_state();
 
   if (status.caps_lock) {
-    rgb_matrix_set_color(P_Caps_Lock, h, 0, 0);
+    rgb_matrix_set_color(POS_Caps_Lock, h, 0, 0);
   } else {
-    rgb_matrix_set_color(P_Caps_Lock, q, q, q);
+    rgb_matrix_set_color(POS_Caps_Lock, q, q, q);
   }
 
   if (status.num_lock) {
-    rgb_matrix_set_color(P_Num_Lock, h, 0, 0);
+    rgb_matrix_set_color(POS_Num_Lock, h, 0, 0);
   } else {
-    rgb_matrix_set_color(P_Num_Lock, q, q, q);
+    rgb_matrix_set_color(POS_Num_Lock, q, q, q);
   }
 
   if (status.scroll_lock) {
-    rgb_matrix_set_color(P_Scroll_Lock, 0, h, 0);
+    rgb_matrix_set_color(POS_Scroll_Lock, 0, h, 0);
   } else {
-    rgb_matrix_set_color(P_Scroll_Lock, q, q, q);
+    rgb_matrix_set_color(POS_Scroll_Lock, q, q, q);
   }
 
   if (status.compose) {
-    rgb_matrix_set_color(P_Compose, 0, 0, h);
+    rgb_matrix_set_color(POS_Compose, 0, 0, h);
   } else {
-    rgb_matrix_set_color(P_Compose, q, q, q);
+    rgb_matrix_set_color(POS_Compose, q, q, q);
   }
 
   if (status.kana) {
-    rgb_matrix_set_color(P_Kana, h, 0, h);
+    rgb_matrix_set_color(POS_Kana, h, 0, h);
   } else {
-    rgb_matrix_set_color(P_Kana, q, q, q);
+    rgb_matrix_set_color(POS_Kana, q, q, q);
   }
 }
 
@@ -381,7 +381,7 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
   uint8_t pos = get_pos_from_keyrecord(record);
   if (52 <= pos) return false;
       
-  if (pos == P_Halt) {
+  if (pos == POS_Halt) {
     clear_keyboard();
     wait_ms(10);
     clear_keyboard();
@@ -409,7 +409,7 @@ void set_layer_color_halt_map(void) {
 
   rgb_matrix_set_color_all(0, 0, 0);
 
-  rgb_matrix_set_color(P_Halt, hsv.v, 0, 0);
+  rgb_matrix_set_color(POS_Halt, hsv.v, 0, 0);
   //rgb_matrix_set_color(49, hsv.v, hsv.v, 0);
   //rgb_matrix_set_color(24, 0, hsv.v, 0);
   //rgb_matrix_set_color(25, 0, hsv.v, 0);
