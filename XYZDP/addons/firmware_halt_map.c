@@ -52,29 +52,29 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   if (52 <= pos) return false;
 
   if (pos == P_JIS) {
-    layer_on(L_Base);
-    layer_off(L_Base_ANSI);
+    layer_on(LAYER_Base);
+    layer_off(LAYER_Base_ANSI);
         
     return false;
   }
       
   if (pos == P_ANSI) {
-    layer_on(L_Base);
-    layer_on(L_Base_ANSI);
+    layer_on(LAYER_Base);
+    layer_on(LAYER_Base_ANSI);
         
     return false;
   }
       
   if (pos == P_Tran_off) {
-    layer_on(L_Base);
-    layer_off(L_Transition);
+    layer_on(LAYER_Base);
+    layer_off(LAYER_Transition);
         
     return false;
   }
       
   if (pos == P_Tran_on) {
-    layer_on(L_Base);
-    layer_on(L_Transition);
+    layer_on(LAYER_Base);
+    layer_on(LAYER_Transition);
         
     return false;
   }
@@ -142,7 +142,7 @@ void set_layer_color_firmware_map(void) {
   rgb_matrix_set_color(51, q, 0, 0);
   
   //ANSI/JIS
-  if (layer_state_is(L_Base_ANSI)) {
+  if (layer_state_is(LAYER_Base_ANSI)) {
     //ANSI base enable
     rgb_matrix_set_color(P_JIS, q, q, q);
     rgb_matrix_set_color(P_ANSI, f, 0, 0);
@@ -153,7 +153,7 @@ void set_layer_color_firmware_map(void) {
   }
 
   // Transition
-  if (layer_state_is(L_Transition)) {
+  if (layer_state_is(LAYER_Transition)) {
     // on
     rgb_matrix_set_color(P_Tran_off, q, q, q);
     rgb_matrix_set_color(P_Tran_on, f, f, 0);
@@ -291,7 +291,7 @@ bool firmware_map_enter_hue_keyrecord(const keyrecord_t * const record) {
   }
   
   // hold release
-  layer_on(L_Set_Hue);
+  layer_on(LAYER_Set_Hue);
 
   // default false
   return false;
@@ -327,8 +327,8 @@ bool firmware_map_enter_halt_keyrecord(const keyrecord_t * const record) {
   if (release_count == 5) {
     // both on Hue for exit key
     layer_state_t layer_mask = 
-      ((layer_state_t)1 << L_Set_Hue)   |
-      ((layer_state_t)1 << L_Halt_Mask);
+      ((layer_state_t)1 << LAYER_Set_Hue)   |
+      ((layer_state_t)1 << LAYER_Halt_Mask);
     layer_or(layer_mask);
       
     return false;
@@ -359,12 +359,12 @@ bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
   // hold release
   // off all setting layers
   layer_state_t layer_mask = 
-    ((layer_state_t)1 << L_Firmware)  |
-    ((layer_state_t)1 << L_Set_Hue)   |
-    ((layer_state_t)1 << L_Set_Sat)   |
-    ((layer_state_t)1 << L_Set_Val)   |
-    ((layer_state_t)1 << L_Set_Speed) |
-    ((layer_state_t)1 << L_Halt_Mask);
+    ((layer_state_t)1 << LAYER_Firmware)  |
+    ((layer_state_t)1 << LAYER_Set_Hue)   |
+    ((layer_state_t)1 << LAYER_Set_Sat)   |
+    ((layer_state_t)1 << LAYER_Set_Val)   |
+    ((layer_state_t)1 << LAYER_Set_Speed) |
+    ((layer_state_t)1 << LAYER_Halt_Mask);
   layer_mask = ~layer_mask;
   layer_and(layer_mask);
 
