@@ -93,11 +93,11 @@ static void update_mouse_flag(void) {
 
 static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record) {
   // mouse non-active skip
-  if (layer_state_is(L_Mouse) == false) return;
+  if (layer_state_is(LAYER_Mouse) == false) return;
 
   // keep on mouse number and cursor
-  if (layer_state_is(L_Number) == true) return;
-  if (layer_state_is(L_Cursor) == true) return;
+  if (layer_state_is(LAYER_Number) == true) return;
+  if (layer_state_is(LAYER_Cursor) == true) return;
 
   // keycode check
   if (IS_MOUSEKEY(keycode) == true) return;
@@ -219,7 +219,7 @@ static void post_process_record_mouse_button_multi_release(uint16_t keycode, key
 
 static layer_state_t layer_state_set_mouse_edge_detect(const layer_state_t state) {
   static bool layer_on = false;
-  if (layer_on == layer_state_cmp(state, L_Mouse)) return state;
+  if (layer_on == layer_state_cmp(state, LAYER_Mouse)) return state;
   layer_on = !layer_on;
 
   if (layer_on) {
@@ -243,7 +243,7 @@ static layer_state_t layer_state_set_mouse_edge_detect(const layer_state_t state
 
 static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_t state) {
   static bool layer_on = false;
-  if (layer_on == layer_state_cmp(state, L_Number)) return state;
+  if (layer_on == layer_state_cmp(state, LAYER_Number)) return state;
   layer_on = !layer_on;
   
   const fast_timer_t now = timer_read_fast();
@@ -328,7 +328,7 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
 
 static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_t state) {
   static bool layer_on = false;
-  if (layer_on == layer_state_cmp(state, L_Cursor)) return state;
+  if (layer_on == layer_state_cmp(state, LAYER_Cursor)) return state;
   layer_on = !layer_on;
 
   const fast_timer_t now = timer_read_fast();
@@ -414,12 +414,12 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
 static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t state) {
   bool layer_state_or = false;
   
-  layer_state_or = layer_state_or || layer_state_cmp(state, L_Halt_Mask);
-  layer_state_or = layer_state_or || layer_state_cmp(state, L_Set_Speed);
-  layer_state_or = layer_state_or || layer_state_cmp(state, L_Set_Val);
-  layer_state_or = layer_state_or || layer_state_cmp(state, L_Set_Sat);
-  layer_state_or = layer_state_or || layer_state_cmp(state, L_Set_Hue);
-  layer_state_or = layer_state_or || layer_state_cmp(state, L_Firmware);
+  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Halt_Mask);
+  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Set_Speed);
+  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Set_Val);
+  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Set_Sat);
+  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Set_Hue);
+  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Firmware);
   
   if (layer_state_or) {
     set_scrolling = false;
@@ -441,8 +441,8 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
     return state;
   }
   
-  layer_state_or = layer_state_or || layer_state_cmp(state, L_Cursor);
-  layer_state_or = layer_state_or || layer_state_cmp(state, L_Number);
+  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Cursor);
+  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Number);
   
   //if (layer_state_or) {
   //  set_scrolling = true;
@@ -454,8 +454,8 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
   //  return state;
   //}
   
-  layer_state_or = layer_state_or || layer_state_cmp(state, L_Function);
-  layer_state_or = layer_state_or || layer_state_cmp(state, L_OneShot);
+  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Function);
+  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_OneShot);
 
   if (layer_state_or) {
     set_scrolling = true;
@@ -467,7 +467,7 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
     return state;
   }
 
-  if (layer_state_cmp(state, L_Mouse)) {
+  if (layer_state_cmp(state, LAYER_Mouse)) {
     // update LED, no scroll
     set_scrolling = false;
     activate_mouse_flag(false);
