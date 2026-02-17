@@ -122,6 +122,8 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
     wait_ms(2);
     clear_keyboard();
     wait_ms(2);
+
+    status_led(0b1111, led_pattern_oneshot);
         
     return false;
   }
