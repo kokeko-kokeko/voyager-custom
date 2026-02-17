@@ -424,8 +424,8 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
   if (layer_state_or) {
     set_scrolling = false;
     // not update mouse flag (LED)
-    state = remove_auto_mouse_layer(state, true);
-    set_auto_mouse_enable(false);
+    //state = remove_auto_mouse_layer(state, true);
+    //set_auto_mouse_enable(false);
     
     return state;
   }
@@ -460,9 +460,9 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
   if (layer_state_or) {
     set_scrolling = true;
     // not update mouse flag (LED by state)
-    if (is_auto_mouse_active() == false) {
-      set_auto_mouse_enable(false);
-    }
+    //if (is_auto_mouse_active() == false) {
+    //  set_auto_mouse_enable(false);
+    //}
     
     return state;
   }
