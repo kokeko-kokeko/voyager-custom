@@ -117,6 +117,11 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
       
   if (pos == POS_CLEAR) {
     clear_keyboard();
+    wait_ms(2);
+    clear_keyboard();
+    wait_ms(2);
+    clear_keyboard();
+    wait_ms(2);
         
     return false;
   }
