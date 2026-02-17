@@ -52,22 +52,22 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(4, KC_I)
-#define DUAL_FUNC_1 LT(6, KC_9)
-#define DUAL_FUNC_2 LT(9, KC_1)
-#define DUAL_FUNC_3 LT(7, KC_F11)
-#define DUAL_FUNC_4 LT(14, KC_U)
-#define DUAL_FUNC_5 LT(2, KC_T)
-#define DUAL_FUNC_6 LT(4, KC_M)
-#define DUAL_FUNC_7 LT(12, KC_F13)
-#define DUAL_FUNC_8 LT(9, KC_3)
-#define DUAL_FUNC_9 LT(8, KC_W)
-#define DUAL_FUNC_10 LT(9, KC_F16)
-#define DUAL_FUNC_11 LT(15, KC_L)
-#define DUAL_FUNC_12 LT(12, KC_F3)
-#define DUAL_FUNC_13 LT(9, KC_F13)
-#define DUAL_FUNC_14 LT(7, KC_6)
-#define DUAL_FUNC_15 LT(13, KC_F19)
+#define DUAL_FUNC_0 LT(15, KC_A)
+#define DUAL_FUNC_1 LT(6, KC_5)
+#define DUAL_FUNC_2 LT(4, KC_F11)
+#define DUAL_FUNC_3 LT(11, KC_S)
+#define DUAL_FUNC_4 LT(6, KC_V)
+#define DUAL_FUNC_5 LT(9, KC_Q)
+#define DUAL_FUNC_6 LT(4, KC_F7)
+#define DUAL_FUNC_7 LT(10, KC_F23)
+#define DUAL_FUNC_8 LT(13, KC_F14)
+#define DUAL_FUNC_9 LT(14, KC_8)
+#define DUAL_FUNC_10 LT(4, KC_9)
+#define DUAL_FUNC_11 LT(4, KC_F8)
+#define DUAL_FUNC_12 LT(5, KC_F14)
+#define DUAL_FUNC_13 LT(11, KC_C)
+#define DUAL_FUNC_14 LT(5, KC_I)
+#define DUAL_FUNC_15 LT(5, KC_C)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -276,24 +276,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 extern bool set_scrolling;
 extern bool navigator_turbo;
 extern bool navigator_aim;
-void pointing_device_init_user(void) {
-  set_auto_mouse_enable(true);
-}
-
-bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
-  // Treat all keys as mouse keys when in the automouse layer so that any key set resets the timeout without leaving the layer.
-  if (!layer_state_is(AUTO_MOUSE_TARGET_LAYER)){
-    // When depressing a mouse key with a LT key at the same time, the mouse key tracker is not decremented.
-    // This is a workaround to fix that
-    if (IS_MOUSE_KEYCODE(keycode) && !record->event.pressed) {
-      return true;
-    }
-    return false;
-  }
-  else {
-    return true;
-  }
-}
 
 
 
