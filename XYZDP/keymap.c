@@ -747,6 +747,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 _Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
 #undef ORYX_LAYER_COUNT
 
+_Static_assert(LAYER_Mouse == AUTOMOUSE_LAYER, "Auto Mouse layer missmatch!!");
+
 // remove oryx JP keycode, load qmk JP keycode & overrides
 #include "i18n_undef.inc"
 #include "key_overrides.inc"
