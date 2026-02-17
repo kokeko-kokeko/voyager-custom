@@ -1,5 +1,6 @@
 {
     "modules": [
+        "zsa/automouse",
         "zsa/defaults",
         "zsa/mousejiggler"
     ],
