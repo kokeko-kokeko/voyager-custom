@@ -471,7 +471,7 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
     // update LED, no scroll
     set_scrolling = false;
     activate_mouse_flag(false);
-    set_auto_mouse_enable(true);
+    //set_auto_mouse_enable(true);
   
     return state;
   }
@@ -532,7 +532,8 @@ void housekeeping_task_adv_mouse(void) {
 
   if (timer_expired_fast(now, auto_mouse_early_off_trigger)) {
     auto_mouse_early_off_trigger = now + (UINT32_MAX / 2) - 1;
-    auto_mouse_layer_off();
+    //auto_mouse_layer_off();
+    layer_off(LAYER_Mouse);
   }
   
   return;
