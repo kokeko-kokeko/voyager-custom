@@ -542,8 +542,8 @@ void housekeeping_task_adv_mouse(void) {
     auto_mouse_early_off_trigger = now + (UINT32_MAX / 2) - 1;
     //auto_mouse_layer_off();
     automouse_disable();
-    automouse_enable();
     layer_off(LAYER_Mouse);
+    automouse_enable();
   }
   
   return;
