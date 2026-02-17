@@ -10,6 +10,8 @@
 #include "addons/adv_mouse.h"
 #include "addons/status_led.h"
 
+#include "automouse.h"
+
 // zsa side
 extern bool set_scrolling;
 extern bool navigator_turbo;
@@ -533,7 +535,9 @@ void housekeeping_task_adv_mouse(void) {
   if (timer_expired_fast(now, auto_mouse_early_off_trigger)) {
     auto_mouse_early_off_trigger = now + (UINT32_MAX / 2) - 1;
     //auto_mouse_layer_off();
+    automouse_disable();
     layer_off(LAYER_Mouse);
+    automouse_enable();
   }
   
   return;
