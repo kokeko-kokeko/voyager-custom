@@ -49,7 +49,7 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   if (record->event.pressed == false) return false;
 
   uint8_t pos = get_pos_from_keyrecord(record);
-  if (52 <= pos) return false;
+  if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
 
   if (pos == POSITION_JIS) {
     layer_on(LAYER_Base);
@@ -386,7 +386,7 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
   if (record->event.pressed == false) return false;
 
   uint8_t pos = get_pos_from_keyrecord(record);
-  if (52 <= pos) return false;
+  if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
       
   if (pos == POSITION_Halt) {
     clear_keyboard();
