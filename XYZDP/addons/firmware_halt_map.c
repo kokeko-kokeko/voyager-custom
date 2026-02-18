@@ -432,7 +432,7 @@ void set_layer_color_halt_map(void) {
     return;
   }
 
-  rgb_matrix_set_color_all(o, q, 0);
+  rgb_matrix_set_color_all(q, o, 0);
 
   rgb_matrix_set_color(POSITION_Halt, f, 0, 0);
   //rgb_matrix_set_color(49, hsv.v, hsv.v, 0);
