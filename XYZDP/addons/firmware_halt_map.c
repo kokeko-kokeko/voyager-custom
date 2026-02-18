@@ -384,6 +384,8 @@ bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
+static bool is_halted = false;
+
 bool halt_map_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   //if (record->event.pressed == false) return false;
@@ -394,6 +396,7 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
   if (pos == POSITION_Halt) {
     if (record->event.pressed) {
       // press
+      is_halted = true;
       rgb_matrix_disable_noeeprom();   
     } else {
       // release
@@ -432,6 +435,8 @@ void set_layer_color_halt_map(void) {
   //RGB rgb = hsv_to_rgb(hsv);
 
   rgb_matrix_set_color_all(0, 0, 0);
+
+  if (is_halted) return;
 
   rgb_matrix_set_color(POSITION_Halt, hsv.v, 0, 0);
   //rgb_matrix_set_color(49, hsv.v, hsv.v, 0);
