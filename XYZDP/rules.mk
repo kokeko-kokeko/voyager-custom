@@ -7,14 +7,14 @@ CAPS_WORD_ENABLE = yes
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = navigator_trackball
 
+
 BOOTMAGIC_ENABLE = no
 GRAVE_ESC_ENABLE = no 
 MAGIC_ENABLE = no
 BACKLIGHT_ENABLE = no
 RGBLIGHT_ENABLE = no
 SPACE_CADET_ENABLE = no
-SWAP_HANDS_ENABLE = no
-
+ 
 DEBOUNCE_TYPE = asym_eager_defer_pk
 EEPROM_DRIVER = transient
 
@@ -22,6 +22,7 @@ KEY_OVERRIDE_ENABLE = yes
 NKRO_ENABLE = yes
 OS_DETECTION_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
+SWAP_HANDS_ENABLE = yes
 
 SRC += addons/adv_mouse.c
 SRC += addons/fade_matrix.c
