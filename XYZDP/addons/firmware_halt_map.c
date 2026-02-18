@@ -120,12 +120,7 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
       
   if (pos == POSITION_CLEAR) {
     clear_keyboard();
-    wait_ms(2);
-    clear_keyboard();
-    wait_ms(2);
-    clear_keyboard();
-    wait_ms(2);
-
+    
     status_led(0b1111, led_pattern_oneshot);
         
     return false;
@@ -334,7 +329,7 @@ bool firmware_map_enter_halt_keyrecord(const keyrecord_t * const record) {
   release_time = now;
   if (release_count != 0) release_count++;
 
-  if (release_count == 5) {
+  if (3 <= release_count) {
     // both on Hue for exit key
     layer_state_t layer_mask = 
       ((layer_state_t)1 << LAYER_Set_Hue)   |
