@@ -39,7 +39,7 @@ enum key_position {
   POSITION_OS1 = 22,
   POSITION_OS2 = 23,
   
-  POSITION_Halt = 26
+  POSITION_Halt = 3
 };
 
 // call mouse jiggler
