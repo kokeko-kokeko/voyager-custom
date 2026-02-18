@@ -402,10 +402,6 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
     } else {
       // release
       clear_keyboard();
-      wait_ms(10);
-      clear_keyboard();
-      wait_ms(10);
-      clear_keyboard();
       
       wait_ms(100);
       
