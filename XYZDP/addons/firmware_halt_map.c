@@ -423,10 +423,9 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       FLASH->ACR &= ~FLASH_ACR_LATENCY;
       
       chSysUnlock();
-
+      
+      wait_ms(50);  
       STATUS_LED_1(true);
-
-      wait_ms(50);
       
       chSysHalt("ready for disconnect");
       
