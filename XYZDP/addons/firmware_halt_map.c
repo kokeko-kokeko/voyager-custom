@@ -407,6 +407,8 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
     usbStop(&USB_DRIVER);
 
     wait_ms(200);
+
+    chSysHalt("ready for disconnect");
     
     // hang-up
     while (true);
