@@ -404,12 +404,12 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       STATUS_LED_2(true);
     } else {
       // release
-      wait_ms(250);
+      wait_ms(200);
       
       usbDisconnectBus(&USB_DRIVER);
       usbStop(&USB_DRIVER);
       
-      wait_ms(250);
+      wait_ms(200);
       
       chSysLock();
 
