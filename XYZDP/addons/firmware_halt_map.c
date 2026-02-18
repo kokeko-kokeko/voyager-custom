@@ -397,7 +397,8 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
     if (record->event.pressed) {
       // press
       is_halted = true;
-      rgb_matrix_disable_noeeprom();   
+      clear_mods();
+      rgb_matrix_disable_noeeprom();
     } else {
       // release
       clear_keyboard();
