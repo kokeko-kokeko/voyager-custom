@@ -427,8 +427,8 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       
       chSysUnlock();
       
-      wait_ms(50);  
-      STATUS_LED_1(true);
+      wait_ms(20);  
+      //STATUS_LED_1(true);
       STATUS_LED_2(true);
       
       chSysHalt("ready for disconnect");
