@@ -422,20 +422,22 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
 }
 
 void set_layer_color_halt_map(void) {
-  HSV hsv = rgb_matrix_get_hsv();
-  //RGB rgb = hsv_to_rgb(hsv);
+  const uint8_t f = rgb_matrix_get_val();
+  const uint8_t h = f >> 1;
+  const uint8_t q = h >> 1;
+  const uint8_t o = q >> 1;
   
   if (is_halted) {
     rgb_matrix_set_color_all(0, 0, 0);
     return;
   }
 
-  rgb_matrix_set_color_all(hsv.v, hsv.v, 0);
+  rgb_matrix_set_color_all(o, o, 0);
 
-  rgb_matrix_set_color(POSITION_Halt, hsv.v, 0, 0);
+  rgb_matrix_set_color(POSITION_Halt, f, 0, 0);
   //rgb_matrix_set_color(49, hsv.v, hsv.v, 0);
   //rgb_matrix_set_color(24, 0, hsv.v, 0);
   //rgb_matrix_set_color(25, 0, hsv.v, 0);
-  rgb_matrix_set_color(50, 0, hsv.v, 0);
+  rgb_matrix_set_color(50, 0, f, 0);
   //rgb_matrix_set_color(51, 0, hsv.v, 0);
 }
