@@ -423,10 +423,13 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
 void set_layer_color_halt_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
   //RGB rgb = hsv_to_rgb(hsv);
+  
+  if (is_halted) {
+    rgb_matrix_set_color_all(0, 0, 0);
+    return;
+  }
 
-  rgb_matrix_set_color_all(0, 0, 0);
-
-  if (is_halted) return;
+  rgb_matrix_set_color_all(hsv.v, hsv.v, 0);
 
   rgb_matrix_set_color(POSITION_Halt, hsv.v, 0, 0);
   //rgb_matrix_set_color(49, hsv.v, hsv.v, 0);
