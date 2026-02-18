@@ -405,7 +405,7 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       usbDisconnectBus(&USB_DRIVER);
       usbStop(&USB_DRIVER);
       
-      wait_ms(2);
+      wait_ms(250);
       
       chSysLock();
 
@@ -427,8 +427,8 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       
       chSysUnlock();
       
-      wait_ms(20);  
-      //STATUS_LED_1(true);
+      wait_ms(10);  
+      STATUS_LED_1(true);
       STATUS_LED_2(true);
       
       chSysHalt("ready for disconnect");
