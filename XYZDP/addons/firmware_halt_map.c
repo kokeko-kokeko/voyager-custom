@@ -39,7 +39,7 @@ enum key_position {
   POSITION_OS1 = 22,
   POSITION_OS2 = 23,
   
-  POSITION_Halt = 3
+  POSITION_Halt = 28
 };
 
 // call mouse jiggler
@@ -409,20 +409,23 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       
       chSysLock();
 
-      // ★★★ 2. コアクロックをHSI 8MHzに落とす ★★★
-    RCC->CR |= RCC_CR_HSION;                    // HSI有効化
-    while ((RCC->CR & RCC_CR_HSIRDY) == 0);     // HSI安定待ち
-
-    RCC->CFGR &= ~RCC_CFGR_SW;                  // SYSCLK = HSI (SW=00)
-    while ((RCC->CFGR & RCC_CFGR_SWS) != 0);    // 切り替え完了待ち
-
-    RCC->CR &= ~RCC_CR_PLLON;                   // PLL停止（元の高クロック源）
-    while (RCC->CR & RCC_CR_PLLRDY);            // PLL停止待ち
-
-    // Flash Wait Stateを0に（8MHz以下では必須）
-    FLASH->ACR &= ~FLASH_ACR_LATENCY;
+      // core clock low down
+      RCC->CR |= RCC_CR_HSION;                    // HSI enable
+      while ((RCC->CR & RCC_CR_HSIRDY) == 0);     // HSI wait
+      
+      RCC->CFGR &= ~RCC_CFGR_SW;                  // SYSCLK = HSI (SW=00)
+      while ((RCC->CFGR & RCC_CFGR_SWS) != 0);    // wait fot change
+      
+      RCC->CR &= ~RCC_CR_PLLON;                   // PLL stop
+      while (RCC->CR & RCC_CR_PLLRDY);            // wait for PLL stop
+      
+      // Flash Wait State to 0（8MHz must）
+      FLASH->ACR &= ~FLASH_ACR_LATENCY;
       
       chSysUnlock();
+
+      wait_ms(50);
+      
       chSysHalt("ready for disconnect");
       
       // hang-up
