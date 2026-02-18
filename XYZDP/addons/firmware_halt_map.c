@@ -408,6 +408,21 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       wait_ms(2);
       
       chSysLock();
+
+      // ★★★ 2. コアクロックをHSI 8MHzに落とす ★★★
+    RCC->CR |= RCC_CR_HSION;                    // HSI有効化
+    while ((RCC->CR & RCC_CR_HSIRDY) == 0);     // HSI安定待ち
+
+    RCC->CFGR &= ~RCC_CFGR_SW;                  // SYSCLK = HSI (SW=00)
+    while ((RCC->CFGR & RCC_CFGR_SWS) != 0);    // 切り替え完了待ち
+
+    RCC->CR &= ~RCC_CR_PLLON;                   // PLL停止（元の高クロック源）
+    while (RCC->CR & RCC_CR_PLLRDY);            // PLL停止待ち
+
+    // Flash Wait Stateを0に（8MHz以下では必須）
+    FLASH->ACR &= ~FLASH_ACR_LATENCY;
+      
+      chSysUnlock();
       chSysHalt("ready for disconnect");
       
       // hang-up
