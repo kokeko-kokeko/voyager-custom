@@ -386,34 +386,38 @@ bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
 
 bool halt_map_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
-  if (record->event.pressed == false) return false;
+  //if (record->event.pressed == false) return false;
 
   uint8_t pos = get_pos_from_keyrecord(record);
   if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
       
   if (pos == POSITION_Halt) {
-    clear_keyboard();
-    wait_ms(10);
-    clear_keyboard();
-    wait_ms(10);
-    clear_keyboard();
-    wait_ms(10);
-    clear_keyboard();
-    wait_ms(10);
-    clear_keyboard();
-    wait_ms(10);
-
-    usbDisconnectBus(&USB_DRIVER);
-    usbStop(&USB_DRIVER);
+    if (record->event.pressed) {
+      rgb_matrix_disable_noeeprom();
+    } else {
+      clear_keyboard();
+      wait_ms(10);
+      clear_keyboard();
+      wait_ms(10);
+      clear_keyboard();
+      wait_ms(10);
+      clear_keyboard();
+      wait_ms(10);
+      clear_keyboard();
+      wait_ms(10);
+      
+      usbDisconnectBus(&USB_DRIVER);
+      usbStop(&USB_DRIVER);
+      
+      wait_ms(100);
+      
+      chSysLock();
+      chSysHalt("ready for disconnect");
+      
+      // hang-up
+      while (true);
+    }
     
-    wait_ms(100);
-    
-    chSysLock();
-    chSysHalt("ready for disconnect");
-    
-    // hang-up
-    while (true);
-        
     return false;
   }
 
