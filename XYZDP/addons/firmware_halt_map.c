@@ -393,20 +393,20 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       
   if (pos == POSITION_Halt) {
     clear_keyboard();
-    wait_ms(10);
+    wait_ms(50);
     clear_keyboard();
-    wait_ms(10);
+    wait_ms(50);
     clear_keyboard();
-    wait_ms(10);
+    wait_ms(50);
     clear_keyboard();
-    wait_ms(10);
+    wait_ms(50);
     clear_keyboard();
-    wait_ms(10);
+    wait_ms(50);
 
     usbDisconnectBus(&USB_DRIVER);
     usbStop(&USB_DRIVER);
 
-    wait_ms(200);
+    wait_ms(250);
 
     chSysHalt("ready for disconnect");
     
