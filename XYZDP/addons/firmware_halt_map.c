@@ -13,6 +13,8 @@
 #include "addons/ime_state_sync.h"
 #include "addons/status_led.h"
 
+#include "usb_main.h"
+
 enum key_position {
   POSITION_JIS = 0,
   POSITION_ANSI = 6,
