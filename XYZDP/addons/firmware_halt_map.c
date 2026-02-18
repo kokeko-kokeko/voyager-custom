@@ -397,18 +397,14 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
     if (record->event.pressed) {
       // press
       is_halted = true;
-      clear_mods();
+      clear_keyboard();
       rgb_matrix_disable_noeeprom();
     } else {
       // release
-      clear_keyboard();
-      
-      wait_ms(100);
-      
       usbDisconnectBus(&USB_DRIVER);
       usbStop(&USB_DRIVER);
       
-      wait_ms(200);
+      wait_ms(100);
       
       chSysLock();
       chSysHalt("ready for disconnect");
