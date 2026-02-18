@@ -412,7 +412,7 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
     //chSysHalt("ready for disconnect");
     chSysLock();
 
-    __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
+    PWR->CR |= PWR_CR_CWUF;
 
     HAL_PWR_EnterSTANDBYMode();
     
