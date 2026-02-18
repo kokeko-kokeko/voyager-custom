@@ -412,9 +412,20 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
     //chSysHalt("ready for disconnect");
     chSysLock();
 
+    // wakeup clear
     PWR->CR |= PWR_CR_CWUF;
 
-    HAL_PWR_EnterSTANDBYMode();
+    // Standbyモードを選択
+    PWR->CR |= PWR_CR_PDDS; 
+
+    // Cortex-M4のDeep Sleepを有効化
+    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+
+    chSysUnlock();
+
+    // データ同期バリア + Wait For Interrupt → スタンバイ突入！
+    __DSB();
+    __WFI();
     
     // hang-up
     while (true);
