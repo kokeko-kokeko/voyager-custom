@@ -406,15 +406,11 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       wait_ms(10);
       clear_keyboard();
       wait_ms(10);
-      clear_keyboard();
-      wait_ms(10);
-      clear_keyboard();
-      wait_ms(10);
       
       usbDisconnectBus(&USB_DRIVER);
       usbStop(&USB_DRIVER);
       
-      wait_ms(100);
+      wait_ms(50);
       
       chSysLock();
       chSysHalt("ready for disconnect");
