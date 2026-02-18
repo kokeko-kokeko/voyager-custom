@@ -394,10 +394,9 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
   if (pos == POSITION_Halt) {
     if (record->event.pressed) {
       // press
-      rgb_matrix_disable_noeeprom();
-      clear_keyboard();      
+      rgb_matrix_disable_noeeprom();   
     } else {
-      // telease
+      // release
       clear_keyboard();
       wait_ms(10);
       clear_keyboard();
