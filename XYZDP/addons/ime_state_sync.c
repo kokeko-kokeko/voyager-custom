@@ -88,7 +88,7 @@ bool process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record) {
       }
       return true;
 
-    case KC_LANGUAGE_2:
+    case SH_T(KC_LANGUAGE_2):
       if (record->tap.count > 0) {
         if (record->event.pressed) {
           if (layer_state_is(LAYER_Function) | layer_state_is(LAYER_Number) | layer_state_is(LAYER_Cursor) |
