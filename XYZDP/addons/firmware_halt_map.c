@@ -405,9 +405,13 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
 
     usbDisconnectBus(&USB_DRIVER);
     usbStop(&USB_DRIVER);
-
+    
     wait_ms(250);
-
+    
+    rgb_matrix_disable_noeeprom();
+    
+    wait_ms(250);
+    
     chSysLock();
     chSysHalt("ready for disconnect");
     
