@@ -409,7 +409,7 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       
       chSysLock();
 
-      // core clock low down
+      // core clock low down (ai gen)
       RCC->CR |= RCC_CR_HSION;                    // HSI enable
       while ((RCC->CR & RCC_CR_HSIRDY) == 0);     // HSI wait
       
@@ -426,6 +426,7 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       
       wait_ms(50);  
       STATUS_LED_1(true);
+      STATUS_LED_2(true);
       
       chSysHalt("ready for disconnect");
       
