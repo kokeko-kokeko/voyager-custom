@@ -407,7 +407,8 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
     usbStop(&USB_DRIVER);
     
     wait_ms(250);
-    
+
+    rgb_matrix_set_color_all(0, 0, 0);
     rgb_matrix_disable_noeeprom();
     
     wait_ms(250);
