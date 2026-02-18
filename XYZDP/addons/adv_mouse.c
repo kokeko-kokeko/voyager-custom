@@ -458,7 +458,6 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
   //}
   
   layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Function);
-  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_OneShot);
 
   if (layer_state_or) {
     set_scrolling = true;
