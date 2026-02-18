@@ -398,6 +398,7 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       // press
       is_halted = true;
       clear_keyboard();
+      rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
       rgb_matrix_disable_noeeprom();
     } else {
       // release
