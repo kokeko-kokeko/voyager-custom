@@ -14,7 +14,6 @@
 #include "addons/status_led.h"
 
 #include "ch.h"
-#include "hal.h"
 #include "usb_main.h"
 
 enum key_position {
@@ -409,23 +408,8 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
 
     wait_ms(250);
 
-    //chSysHalt("ready for disconnect");
     chSysLock();
-
-    // wakeup clear
-    PWR->CR |= PWR_CR_CWUF;
-
-    // Standbyモードを選択
-    PWR->CR |= PWR_CR_PDDS; 
-
-    // Cortex-M4のDeep Sleepを有効化
-    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-
-    chSysUnlock();
-
-    // データ同期バリア + Wait For Interrupt → スタンバイ突入！
-    __DSB();
-    __WFI();
+    chSysHalt("ready for disconnect");
     
     // hang-up
     while (true);
