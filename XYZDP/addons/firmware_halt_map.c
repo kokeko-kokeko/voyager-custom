@@ -421,6 +421,9 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       
       // Flash Wait State to 0（8MHz must）
       FLASH->ACR &= ~FLASH_ACR_LATENCY;
+
+      // AHB prescale /8 to 1MHz
+      RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV8;
       
       chSysUnlock();
       
