@@ -52,22 +52,22 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(9, KC_F6)
-#define DUAL_FUNC_1 LT(12, KC_S)
-#define DUAL_FUNC_2 LT(7, KC_F12)
-#define DUAL_FUNC_3 LT(12, KC_F11)
-#define DUAL_FUNC_4 LT(14, KC_O)
-#define DUAL_FUNC_5 LT(2, KC_R)
-#define DUAL_FUNC_6 LT(5, KC_7)
-#define DUAL_FUNC_7 LT(8, KC_F2)
-#define DUAL_FUNC_8 LT(7, KC_P)
-#define DUAL_FUNC_9 LT(6, KC_G)
-#define DUAL_FUNC_10 LT(9, KC_W)
-#define DUAL_FUNC_11 LT(9, KC_F9)
-#define DUAL_FUNC_12 LT(12, KC_W)
-#define DUAL_FUNC_13 LT(15, KC_3)
-#define DUAL_FUNC_14 LT(9, KC_F3)
-#define DUAL_FUNC_15 LT(8, KC_N)
+#define DUAL_FUNC_0 LT(13, KC_F16)
+#define DUAL_FUNC_1 LT(7, KC_F2)
+#define DUAL_FUNC_2 LT(6, KC_O)
+#define DUAL_FUNC_3 LT(7, KC_F24)
+#define DUAL_FUNC_4 LT(10, KC_F19)
+#define DUAL_FUNC_5 LT(7, KC_G)
+#define DUAL_FUNC_6 LT(12, KC_F22)
+#define DUAL_FUNC_7 LT(10, KC_J)
+#define DUAL_FUNC_8 LT(7, KC_Q)
+#define DUAL_FUNC_9 LT(5, KC_H)
+#define DUAL_FUNC_10 LT(2, KC_F23)
+#define DUAL_FUNC_11 LT(11, KC_F12)
+#define DUAL_FUNC_12 LT(6, KC_Q)
+#define DUAL_FUNC_13 LT(8, KC_F24)
+#define DUAL_FUNC_14 LT(6, KC_S)
+#define DUAL_FUNC_15 LT(9, KC_F22)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -221,7 +221,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,                                  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  
     HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,                                  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  
     HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,                                  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  
-    KC_LEFT_SHIFT,  KC_CAPS,        KC_NO,          HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,                                  KC_NUM,         KC_SCRL,        KC_NO,          HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  
+    KC_LEFT_SHIFT,  KC_CAPS,        KC_NO,          HSV_0_255_200,  KC_NO,          KC_NO,                                          KC_NUM,         KC_SCRL,        KC_NO,          HSV_0_255_200,  HSV_0_255_200,  HSV_0_255_200,  
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 HSV_86_255_200, HSV_86_255_201
   ),
   [22] = LAYOUT_voyager(
