@@ -400,6 +400,8 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       clear_keyboard();
       rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
       rgb_matrix_disable_noeeprom();
+      STATUS_LED_1(true);
+      STATUS_LED_2(true);
     } else {
       // release
       usbDisconnectBus(&USB_DRIVER);
@@ -428,8 +430,8 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       chSysUnlock();
       
       wait_ms(10);  
-      STATUS_LED_1(true);
-      STATUS_LED_2(true);
+      STATUS_LED_1(false);
+      STATUS_LED_2(false);
       
       chSysHalt("ready for disconnect");
       
