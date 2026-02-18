@@ -14,6 +14,7 @@
 #include "addons/status_led.h"
 
 #include "ch.h"
+#include "hal.h"
 #include "usb_main.h"
 
 enum key_position {
