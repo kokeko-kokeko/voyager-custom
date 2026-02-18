@@ -393,25 +393,20 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       
   if (pos == POSITION_Halt) {
     clear_keyboard();
-    wait_ms(50);
+    wait_ms(10);
     clear_keyboard();
-    wait_ms(50);
+    wait_ms(10);
     clear_keyboard();
-    wait_ms(50);
+    wait_ms(10);
     clear_keyboard();
-    wait_ms(50);
+    wait_ms(10);
     clear_keyboard();
-    wait_ms(50);
+    wait_ms(10);
 
     usbDisconnectBus(&USB_DRIVER);
     usbStop(&USB_DRIVER);
     
-    wait_ms(250);
-
-    rgb_matrix_set_color_all(0, 0, 0);
-    rgb_matrix_disable_noeeprom();
-    
-    wait_ms(250);
+    wait_ms(100);
     
     chSysLock();
     chSysHalt("ready for disconnect");
