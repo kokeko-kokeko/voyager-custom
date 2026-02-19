@@ -425,10 +425,7 @@ void housekeeping_task_halt_map(void) {
   
   if (timer_expired_fast(now, halt_map_trigger) == false) return;
 
-  // do halt
-  STATUS_LED_1(false);
-  STATUS_LED_2(true);
-  
+  // do halt  
   usbDisconnectBus(&USB_DRIVER);
   usbStop(&USB_DRIVER);
   STATUS_LED_1(true);
@@ -458,10 +455,7 @@ void housekeeping_task_halt_map(void) {
   RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV8;
       
   chSysUnlock();
-
-  STATUS_LED_1(true);
-  STATUS_LED_2(false);
-
+  
   // 72 -> 1 1000 -> 14
   wait_ms(14);
 
