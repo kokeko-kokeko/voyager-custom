@@ -387,26 +387,30 @@ static fast_timer_t halt_map_trigger = (UINT32_MAX / 2) - 1;
 
 bool halt_map_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
-  if (record->event.pressed == true) return false;
+  //if (record->event.pressed == true) return false;
 
   uint8_t pos = get_pos_from_keyrecord(record);
   if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
       
   if (pos == POSITION_Halt) {
-    // release
-    halt_request0 = true;
-    halt_request1 = true;
-    halt_request2 = true;
-    halt_map_trigger =  timer_read_fast() + 1499;
+    if (record->event.pressed == true) {
+      // press
       
-    clear_keyboard();
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
-    rgb_matrix_disable_noeeprom();
-
-    // halt status
-    STATUS_LED_1(true);
-    STATUS_LED_2(true);
-    
+      rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
+      rgb_matrix_disable_noeeprom();
+      
+      // halt status
+      STATUS_LED_1(true);
+      STATUS_LED_2(true);
+    } else {
+      // release
+      halt_request0 = true;
+      halt_request1 = true;
+      halt_request2 = true;
+      halt_map_trigger =  timer_read_fast() + 1499;
+      
+      clear_keyboard();
+    }
     return false;
   }
 
