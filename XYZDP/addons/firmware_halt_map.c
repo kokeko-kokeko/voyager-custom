@@ -402,6 +402,8 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
     clear_keyboard();
     rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
     rgb_matrix_disable_noeeprom();
+
+    // halt status
     STATUS_LED_1(true);
     STATUS_LED_2(true);
     
@@ -422,6 +424,7 @@ void housekeeping_task_halt_map(void) {
   // do halt
   usbDisconnectBus(&USB_DRIVER);
   usbStop(&USB_DRIVER);
+  STATUS_LED_1(false);
   
   wait_ms(200);
   
@@ -446,7 +449,7 @@ void housekeeping_task_halt_map(void) {
   chSysUnlock();
       
   wait_ms(10);  
-  STATUS_LED_1(false);
+
   STATUS_LED_2(false);
       
   chSysHalt("ready for disconnect");
