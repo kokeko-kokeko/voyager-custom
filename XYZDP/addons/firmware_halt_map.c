@@ -387,13 +387,13 @@ static fast_timer_t halt_map_trigger = (UINT32_MAX / 2) - 1;
 
 bool halt_map_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
-  if (record->event.pressed == false) return false;
+  if (record->event.pressed == true) return false;
 
   uint8_t pos = get_pos_from_keyrecord(record);
   if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
       
   if (pos == POSITION_Halt) {
-    // press
+    // release
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
