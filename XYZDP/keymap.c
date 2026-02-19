@@ -1005,5 +1005,8 @@ void housekeeping_task_user(void) {
   housekeeping_task_ime_state_sync();
   housekeeping_task_status_led();
 
+  // exec halt last
+  housekeeping_task_halt_map();
+
   return;
 }
