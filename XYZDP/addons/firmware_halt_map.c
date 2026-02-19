@@ -410,6 +410,9 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
       rgb_matrix_disable_noeeprom();
       
       clear_keyboard();
+
+      STATUS_LED_1(true);
+      STATUS_LED_2(false);
     }
     return false;
   }
