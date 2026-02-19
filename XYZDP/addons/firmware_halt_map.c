@@ -329,7 +329,7 @@ bool firmware_map_enter_halt_keyrecord(const keyrecord_t * const record) {
   release_time = now;
   if (release_count != 0) release_count++;
 
-  if (5 <= release_count) {
+  if (3 <= release_count) {
     // both on Hue for exit key
     layer_state_t layer_mask = 
       ((layer_state_t)1 << LAYER_Set_Hue)   |
