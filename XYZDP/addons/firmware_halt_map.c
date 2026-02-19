@@ -379,7 +379,7 @@ bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-static bool is_halted = false;
+static volatile bool halt_request0 = false;
 
 bool halt_map_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
@@ -391,7 +391,7 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
   if (pos == POSITION_Halt) {
     if (record->event.pressed) {
       // press
-      is_halted = true;
+      halt_request0 = true;
       clear_keyboard();
       rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
       rgb_matrix_disable_noeeprom();
@@ -453,7 +453,7 @@ void set_layer_color_halt_map(void) {
   const uint8_t q = h >> 1;
   const uint8_t o = q >> 1;
   
-  if (is_halted) {
+  if (halt_request0) {
     rgb_matrix_set_color_all(0, 0, 0);
     return;
   }
