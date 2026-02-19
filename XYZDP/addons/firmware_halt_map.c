@@ -432,9 +432,6 @@ void housekeeping_task_halt_map(void) {
   STATUS_LED_2(false);
   
   wait_ms(1000);
-
-  STATUS_LED_1(false);
-  STATUS_LED_2(true);
   
   chSysLock();
   
@@ -455,6 +452,9 @@ void housekeeping_task_halt_map(void) {
   RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV8;
       
   chSysUnlock();
+  
+  STATUS_LED_1(false);
+  STATUS_LED_2(true);
   
   // 72 -> 1 1000 -> 14
   wait_ms(14);
