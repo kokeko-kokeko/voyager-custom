@@ -31,6 +31,22 @@ void set_layer_color_overlay_layer(void) {
     or_flag = true;
   }
 
+  if (layer_state_is(LAYER_Function)) {
+    rgb_matrix_set_color(24, 0, 0, 0);
+  }
+
+  if (layer_state_is(LAYER_R_thumb_1)) {
+    rgb_matrix_set_color(46, 0, 0, 0);
+  }
+
+  if (layer_state_is(LAYER_L_thumb_2)) {
+    rgb_matrix_set_color(25, 0, 0, 0);
+  }
+
+  if (layer_state_is(LAYER_R_thumb_2)) {
+    rgb_matrix_set_color(50, 0, 0, 0);
+  }
+
   if (layer_state_is(LAYER_L_pinky)) {
     rgb_matrix_set_color(5, 0, 0, 0);
     rgb_matrix_set_color(6, 0, 0, 0);
