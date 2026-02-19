@@ -424,7 +424,7 @@ void housekeeping_task_halt_map(void) {
   // do halt
   usbDisconnectBus(&USB_DRIVER);
   usbStop(&USB_DRIVER);
-  STATUS_LED_1(false);
+  STATUS_LED_2(false);
   
   wait_ms(200);
   
@@ -450,7 +450,7 @@ void housekeeping_task_halt_map(void) {
       
   wait_ms(10);  
 
-  STATUS_LED_2(false);
+  STATUS_LED_1(false);
       
   chSysHalt("ready for disconnect");
       
