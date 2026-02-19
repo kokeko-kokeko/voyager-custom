@@ -379,62 +379,31 @@ bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
+// safety flags
 static volatile bool halt_request0 = false;
+static volatile bool halt_request0 = false;
+static volatile bool halt_request0 = false;
+static fast_timer_t halt_map_trigger = (UINT32_MAX / 2) - 1;
 
 bool halt_map_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
-  //if (record->event.pressed == false) return false;
+  if (record->event.pressed == false) return false;
 
   uint8_t pos = get_pos_from_keyrecord(record);
   if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
       
   if (pos == POSITION_Halt) {
-    if (record->event.pressed) {
-      // press
-      halt_request0 = true;
-      clear_keyboard();
-      rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
-      rgb_matrix_disable_noeeprom();
-      STATUS_LED_1(true);
-      STATUS_LED_2(true);
-    } else {
-      // release
-      wait_ms(200);
+    // press
+    halt_request0 = true;
+    halt_request1 = true;
+    halt_request2 = true;
+    halt_map_trigger =  timer_read_fast() + 500;
       
-      usbDisconnectBus(&USB_DRIVER);
-      usbStop(&USB_DRIVER);
-      
-      wait_ms(200);
-      
-      chSysLock();
-
-      // core clock low down (ai gen)
-      RCC->CR |= RCC_CR_HSION;                    // HSI enable
-      while ((RCC->CR & RCC_CR_HSIRDY) == 0);     // HSI wait
-      
-      RCC->CFGR &= ~RCC_CFGR_SW;                  // SYSCLK = HSI (SW=00)
-      while ((RCC->CFGR & RCC_CFGR_SWS) != 0);    // wait fot change
-      
-      RCC->CR &= ~RCC_CR_PLLON;                   // PLL stop
-      while (RCC->CR & RCC_CR_PLLRDY);            // wait for PLL stop
-      
-      // Flash Wait State to 0（8MHz must）
-      FLASH->ACR &= ~FLASH_ACR_LATENCY;
-
-      // AHB prescale /8 to 1MHz
-      RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV8;
-      
-      chSysUnlock();
-      
-      wait_ms(10);  
-      STATUS_LED_1(false);
-      STATUS_LED_2(false);
-      
-      chSysHalt("ready for disconnect");
-      
-      // hang-up
-      while (true);
-    }
+    clear_keyboard();
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
+    rgb_matrix_disable_noeeprom();
+    STATUS_LED_1(true);
+    STATUS_LED_2(true);
     
     return false;
   }
@@ -444,6 +413,47 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
 }
 
 void housekeeping_task_halt_map(void) {
+  if ((halt_request0 && halt_request1 && halt_request2) == false) return;
+
+  const fast_timer_t now = timer_read_fast();
+  
+  if (timer_expired_fast(now, halt_map_trigger) == false) return;
+
+  // do halt
+  usbDisconnectBus(&USB_DRIVER);
+  usbStop(&USB_DRIVER);
+  
+  wait_ms(200);
+  
+  chSysLock();
+  
+  // core clock low down (ai gen)
+  RCC->CR |= RCC_CR_HSION;                    // HSI enable
+  while ((RCC->CR & RCC_CR_HSIRDY) == 0);     // HSI wait
+      
+  RCC->CFGR &= ~RCC_CFGR_SW;                  // SYSCLK = HSI (SW=00)
+  while ((RCC->CFGR & RCC_CFGR_SWS) != 0);    // wait fot change
+      
+  RCC->CR &= ~RCC_CR_PLLON;                   // PLL stop
+  while (RCC->CR & RCC_CR_PLLRDY);            // wait for PLL stop
+      
+  // Flash Wait State to 0（8MHz must）
+  FLASH->ACR &= ~FLASH_ACR_LATENCY;
+
+  // AHB prescale /8 to 1MHz
+  RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV8;
+      
+  chSysUnlock();
+      
+  wait_ms(10);  
+  STATUS_LED_1(false);
+  STATUS_LED_2(false);
+      
+  chSysHalt("ready for disconnect");
+      
+  // hang-up
+  while (true);
+  
   return;
 }
 
@@ -453,7 +463,7 @@ void set_layer_color_halt_map(void) {
   const uint8_t q = h >> 1;
   const uint8_t o = q >> 1;
   
-  if (halt_request0) {
+  if (halt_request0 && halt_request1 && halt_request2) {
     rgb_matrix_set_color_all(0, 0, 0);
     return;
   }
