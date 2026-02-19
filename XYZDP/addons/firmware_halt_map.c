@@ -443,6 +443,10 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
+void housekeeping_task_halt_map(void) {
+  return;
+}
+
 void set_layer_color_halt_map(void) {
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
