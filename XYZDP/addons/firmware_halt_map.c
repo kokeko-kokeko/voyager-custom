@@ -460,10 +460,10 @@ void housekeeping_task_halt_map(void) {
   chSysUnlock();
 
   STATUS_LED_1(true);
-  STATUS_LED_2(true);
+  STATUS_LED_2(false);
 
-  // 72 -> 1 1000 -> 13
-  wait_ms(13);  
+  // 72 -> 1 1000 -> 14
+  wait_ms(14);
 
   STATUS_LED_1(false);
   STATUS_LED_2(false);
