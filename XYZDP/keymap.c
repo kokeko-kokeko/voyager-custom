@@ -894,14 +894,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       break;
     case LAYER_Function:
     case LAYER_R_thumb_1:
-      status_led(0b1100, led_pattern_off);
-      status_led(0b0011, led_pattern_on);
-      break; 
     case LAYER_L_thumb_2:
     case LAYER_R_thumb_2:
-      status_led(0b1100, led_pattern_off);
-      status_led(0b0011, led_pattern_blink);
-      break; 
     case LAYER_L_pinky:
     case LAYER_R_pinky:  
       status_led(0b1111, led_pattern_off);
