@@ -849,7 +849,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, LAYER_LR_thumb, LAYER_L_pinky, LAYER_LR_thumb_L_pinky);
   
   // call FwSys with Fn and Cursor
-  state = update_tri_layer_state(state, LAYER_Function, LAYER_Cursor, LAYER_Firmware); 
+  state = update_tri_layer_state(state, LAYER_Function, LAYER_L_thumb_2, LAYER_Firmware); 
   
   // color speed select
   state = update_tri_layer_state(state, LAYER_Set_Sat, LAYER_Set_Val, LAYER_Set_Speed);
@@ -885,10 +885,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       // DRAG_SCROLL add on key event
       // aim/turbo change without layer, direct write on process_record
       break;
-    case LAYER_Function:
-      status_led(0b1100, led_pattern_off);
-      status_led(0b0011, led_pattern_on);
-      break; 
     case LAYER_Number:
     case LAYER_Number_ANSI:
     case LAYER_Cursor:
@@ -896,17 +892,27 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b1011, led_pattern_off);
       status_led(0b0100, led_pattern_on);
       break;
-    case LAYER_R_pinky:
+    case LAYER_Function:
+    case LAYER_R_thumb_1:
+      status_led(0b1100, led_pattern_off);
+      status_led(0b0011, led_pattern_on);
+      break; 
+    case LAYER_L_thumb_2:
+    case LAYER_R_thumb_2:
+      status_led(0b1100, led_pattern_off);
+      status_led(0b0011, led_pattern_blink);
+      break; 
     case LAYER_L_pinky:
+    case LAYER_R_pinky:  
       status_led(0b1111, led_pattern_off);
-      break;
-    case LAYER_R_thumb_R_pinky:
-      status_led(0b1010, led_pattern_off);
-      status_led(0b0101, led_pattern_on);
       break;
     case LAYER_L_thumb_L_pinky:
       status_led(0b1001, led_pattern_off);
       status_led(0b0110, led_pattern_on);
+      break;
+    case LAYER_R_thumb_R_pinky:
+      status_led(0b1010, led_pattern_off);
+      status_led(0b0101, led_pattern_on);
       break;
     case LAYER_LR_pinky:
       status_led(0b1100, led_pattern_off);
