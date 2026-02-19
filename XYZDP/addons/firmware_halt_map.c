@@ -397,7 +397,7 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
-    halt_map_trigger =  timer_read_fast() + 500;
+    halt_map_trigger =  timer_read_fast() + 997;
       
     clear_keyboard();
     rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
@@ -430,7 +430,7 @@ void housekeeping_task_halt_map(void) {
   STATUS_LED_1(true);
   STATUS_LED_2(false);
   
-  wait_ms(200);
+  wait_ms(199);
 
   STATUS_LED_1(false);
   STATUS_LED_2(true);
@@ -455,7 +455,7 @@ void housekeeping_task_halt_map(void) {
       
   chSysUnlock();
       
-  wait_ms(10);  
+  wait_ms(11);  
 
   STATUS_LED_1(false);
   STATUS_LED_2(false);
