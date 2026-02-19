@@ -381,8 +381,8 @@ bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
 
 // safety flags
 static volatile bool halt_request0 = false;
-static volatile bool halt_request0 = false;
-static volatile bool halt_request0 = false;
+static volatile bool halt_request1 = false;
+static volatile bool halt_request2 = false;
 static fast_timer_t halt_map_trigger = (UINT32_MAX / 2) - 1;
 
 bool halt_map_main_keyrecord(const keyrecord_t * const record) {
