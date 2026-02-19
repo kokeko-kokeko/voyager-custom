@@ -422,11 +422,18 @@ void housekeeping_task_halt_map(void) {
   if (timer_expired_fast(now, halt_map_trigger) == false) return;
 
   // do halt
+  STATUS_LED_1(false);
+  STATUS_LED_2(true);
+  
   usbDisconnectBus(&USB_DRIVER);
   usbStop(&USB_DRIVER);
+  STATUS_LED_1(true);
   STATUS_LED_2(false);
   
   wait_ms(200);
+
+  STATUS_LED_1(false);
+  STATUS_LED_2(true);
   
   chSysLock();
   
@@ -451,6 +458,7 @@ void housekeeping_task_halt_map(void) {
   wait_ms(10);  
 
   STATUS_LED_1(false);
+  STATUS_LED_2(false);
       
   chSysHalt("ready for disconnect");
       
