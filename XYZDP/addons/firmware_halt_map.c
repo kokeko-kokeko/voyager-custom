@@ -434,7 +434,7 @@ void housekeeping_task_halt_map(void) {
   STATUS_LED_1(true);
   STATUS_LED_2(false);
   
-  wait_ms(251);
+  wait_ms(331);
 
   STATUS_LED_1(false);
   STATUS_LED_2(true);
