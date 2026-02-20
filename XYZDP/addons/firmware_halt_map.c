@@ -482,7 +482,9 @@ void housekeeping_task_halt_map(void) {
   
   // hang-up
   __disable_irq();
+  __DSB();
   while (true) {
+    __WFI();
     
   }
   
