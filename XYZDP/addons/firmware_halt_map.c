@@ -415,6 +415,10 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
   halt_request1 = false;
   halt_request2 = false;
 
+  // halt status
+  STATUS_LED_1(false);
+  STATUS_LED_2(false);
+  
   // default false
   return false;
 }
