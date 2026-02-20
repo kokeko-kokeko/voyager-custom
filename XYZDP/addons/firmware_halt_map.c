@@ -405,7 +405,7 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
     
     // halt status
     STATUS_LED_1(true);
-    STATUS_LED_2(true);
+    STATUS_LED_2(false);
     
     return false;
   }
@@ -430,12 +430,7 @@ void housekeeping_task_halt_map(void) {
   
   if (timer_expired_fast(now, halt_map_trigger) == false) return;
 
-  // do halt  
-  STATUS_LED_1(true);
-  STATUS_LED_2(false);
-
-  wait_ms(199);
-  
+  // do halt
   usbDisconnectBus(&USB_DRIVER);
   usbStop(&USB_DRIVER);
   
