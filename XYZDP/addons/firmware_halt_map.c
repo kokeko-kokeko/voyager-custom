@@ -396,7 +396,7 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
-    halt_map_trigger =  timer_read_fast() + 1000;
+    halt_map_trigger =  timer_read_fast() + 1249;
     
     rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
     rgb_matrix_disable_noeeprom();
@@ -436,7 +436,7 @@ void housekeeping_task_halt_map(void) {
   STATUS_LED_1(true);
   STATUS_LED_2(false);
   
-  wait_ms(1000);
+  wait_ms(997);
   
   chSysLock();
   
