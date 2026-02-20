@@ -433,6 +433,8 @@ void housekeeping_task_halt_map(void) {
   // do halt  
   STATUS_LED_1(true);
   STATUS_LED_2(false);
+
+  wait_ms(199);
   
   usbDisconnectBus(&USB_DRIVER);
   usbStop(&USB_DRIVER);
