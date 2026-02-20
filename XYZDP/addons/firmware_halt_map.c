@@ -442,12 +442,6 @@ void housekeeping_task_halt_map(void) {
   RCC->APB1RSTR |= RCC_APB1RSTR_USBRST;
   RCC->APB1ENR &= ~RCC_APB1ENR_USBEN;
   
-  chSysUnlock();
-
-  wait_ms(997);
-  
-  chSysLock();
-  
   // core clock low down (ai gen)
   RCC->CR |= RCC_CR_HSION;                    // HSI enable
   while ((RCC->CR & RCC_CR_HSIRDY) == 0);     // HSI wait
