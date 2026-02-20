@@ -440,6 +440,11 @@ void housekeeping_task_halt_map(void) {
   chSysLock();
   
   // usb unit disable
+  USB->CNTR = USB_CNTR_FRES   | 
+              USB_CNTR_PDWN   | 
+              USB_CNTR_FSUSP  | 
+              USB_CNTR_LPMODE;
+  
   RCC->APB1RSTR |= RCC_APB1RSTR_USBRST;
   RCC->APB1ENR &= ~RCC_APB1ENR_USBEN;
 
