@@ -446,6 +446,9 @@ void housekeeping_task_halt_map(void) {
   // kill clock
   //RCC->AHBENR &= ~RCC_AHBENR_USBEN;
   
+  palSetPadMode(GPIOA, 11, PAL_MODE_INPUT_ANALOG);  // USB_DM (PA11)
+  palSetPadMode(GPIOA, 12, PAL_MODE_INPUT_ANALOG);  // USB_DP (PA12)
+  
   // core clock low down (ai gen)
   RCC->CR |= RCC_CR_HSION;                    // HSI enable
   while ((RCC->CR & RCC_CR_HSIRDY) == 0);     // HSI wait
