@@ -437,25 +437,13 @@ void housekeeping_task_halt_map(void) {
   usbStop(&USB_DRIVER);
 
   chSysLock();
+  // usb kill
   RCC->APB1ENR &= ~RCC_APB1ENR_USBEN;
   chSysUnlock();
 
   wait_ms(997);
   
   chSysLock();
-
-  // USB unit disable
-  USB->CNTR = USB_CNTR_FRES |              // Force Reset
-              USB_CNTR_PDWN |              // Power Down
-              USB_CNTR_FSUSP |             // Force Suspend
-              USB_CNTR_LPMODE;             // Low Power Mode
-  
-  palSetPadMode(GPIOA, 11, PAL_MODE_INPUT_ANALOG);  // USB_DM (PA11)
-  palSetPadMode(GPIOA, 12, PAL_MODE_INPUT_ANALOG);  // USB_DP (PA12)
-
-  // pull down off
-  GPIOA->PUPDR &= ~((3UL << 22) | (3UL << 24));     // PA11/PA12
-  
   // core clock low down (ai gen)
   RCC->CR |= RCC_CR_HSION;                    // HSI enable
   while ((RCC->CR & RCC_CR_HSIRDY) == 0);     // HSI wait
