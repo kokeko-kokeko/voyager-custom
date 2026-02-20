@@ -456,8 +456,8 @@ void housekeeping_task_halt_map(void) {
   // AHB prescale /8 to 1MHz
   //RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV8;
 
-  // AHB prescale /128 to 62.5KHz
-  RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV128;
+  // AHB prescale /512 to 15.625KHz
+  RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV512;
       
   chSysUnlock();
   
@@ -467,7 +467,7 @@ void housekeeping_task_halt_map(void) {
   // 72 -> 1 1000 -> 14
   //wait_ms(14);
 
-  // 72 -> 0.0625 1000 -> 1
+  // minimal
   wait_ms(1);
 
   STATUS_LED_1(false);
