@@ -453,6 +453,15 @@ void housekeeping_task_halt_map(void) {
   // Flash Wait State to 0（8MHz）
   FLASH->ACR &= ~FLASH_ACR_LATENCY;
 
+  // prepare standby
+  PWR->CR |= PWR_CR_CWUF;          // Wakeup clear
+  PWR->CR |= PWR_CR_PDDS;          // Standby mode（PDDS = 1）
+
+  // LDO Voltage Scaling
+  PMU->CTL = (PMU->CTL & ~PMU_CTL_LDOVS) | (0b01U << PMU_CTL_LDOVS_Pos);  // Low
+
+  SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;   // Deep Sleep
+
   // AHB prescale /8 to 1MHz
   //RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV8;
 
