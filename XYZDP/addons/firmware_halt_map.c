@@ -450,6 +450,9 @@ void housekeeping_task_halt_map(void) {
   
   palSetPadMode(GPIOA, 11, PAL_MODE_INPUT_ANALOG);  // USB_DM (PA11)
   palSetPadMode(GPIOA, 12, PAL_MODE_INPUT_ANALOG);  // USB_DP (PA12)
+
+  // pull down off
+  GPIOA->PUPDR &= ~((3UL << 22) | (3UL << 24));     // PA11/PA12
   
   // core clock low down (ai gen)
   RCC->CR |= RCC_CR_HSION;                    // HSI enable
