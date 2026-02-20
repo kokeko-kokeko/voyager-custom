@@ -450,7 +450,7 @@ void housekeeping_task_halt_map(void) {
   RCC->CR &= ~RCC_CR_PLLON;                   // PLL stop
   while (RCC->CR & RCC_CR_PLLRDY);            // wait for PLL stop
       
-  // Flash Wait State to 0（8MHz must）
+  // Flash Wait State to 0（8MHz）
   FLASH->ACR &= ~FLASH_ACR_LATENCY;
 
   // AHB prescale /8 to 1MHz
