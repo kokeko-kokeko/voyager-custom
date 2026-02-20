@@ -437,13 +437,16 @@ void housekeeping_task_halt_map(void) {
   usbStop(&USB_DRIVER);
 
   chSysLock();
+  
   // usb kill
   RCC->APB1ENR &= ~RCC_APB1ENR_USBEN;
+  
   chSysUnlock();
 
   wait_ms(997);
   
   chSysLock();
+  
   // core clock low down (ai gen)
   RCC->CR |= RCC_CR_HSION;                    // HSI enable
   while ((RCC->CR & RCC_CR_HSIRDY) == 0);     // HSI wait
