@@ -602,7 +602,6 @@ void set_layer_color_overlay_mouse(void) {
     
     rgb_matrix_set_color(22, h, 0, 0);
     rgb_matrix_set_color(45, h, 0, 0);
-    rgb_matrix_set_color(50, h, 0, 0);
   } else {
     if (get_mouse_flag_turbo() && get_mouse_flag_aim()) {
       rgb_matrix_set_color(0, f, f, f);
@@ -616,6 +615,5 @@ void set_layer_color_overlay_mouse(void) {
     
     rgb_matrix_set_color(22, h, h, h);
     rgb_matrix_set_color(45, h, h, h);
-    rgb_matrix_set_color(50, h, h, h);
   }
 }
