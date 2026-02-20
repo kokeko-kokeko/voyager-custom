@@ -472,10 +472,9 @@ void housekeeping_task_halt_map(void) {
 
   STATUS_LED_1(false);
   STATUS_LED_2(false);
-    
-  //chSysHalt("");
+  
   // chSysHalt is while (true) with debug system
-  // use normal while
+  // use normal while true
   
   // hang-up
   __disable_irq();
