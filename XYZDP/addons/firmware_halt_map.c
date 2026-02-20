@@ -478,12 +478,6 @@ void housekeeping_task_halt_map(void) {
   STATUS_LED_1(false);
   STATUS_LED_2(true);
   
-  // 72 -> 1 1000 -> 14
-  //wait_ms(14);
-
-  // 72 -> 0.0625 1000 -> 1
-  //wait_ms(1);
-
   // 72 -> 0.015625 1000 000 -> 217
   wait_us(217);
 
