@@ -442,6 +442,10 @@ void housekeeping_task_halt_map(void) {
   // usb ucit disable
   RCC->APB1RSTR |= RCC_APB1RSTR_USBRST;
   RCC->APB1ENR &= ~RCC_APB1ENR_USBEN;
+
+  // DM DP to Analog
+  palSetPadMode(GPIOA, 11, PAL_MODE_INPUT_ANALOG);  // DM
+  palSetPadMode(GPIOA, 12, PAL_MODE_INPUT_ANALOG);  // DP
   
   // core clock low down (ai gen)
   RCC->CR |= RCC_CR_HSION;                    // HSI enable
