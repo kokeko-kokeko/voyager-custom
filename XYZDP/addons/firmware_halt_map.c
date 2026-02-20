@@ -468,12 +468,12 @@ void housekeeping_task_halt_map(void) {
   //wait_ms(14);
 
   // minimal
-  wait_ms(1);
+  //wait_ms(1);
 
   STATUS_LED_1(false);
   STATUS_LED_2(false);
       
-  chSysHalt("ready for disconnect");
+  chSysHalt("");
       
   // hang-up
   while (true);
