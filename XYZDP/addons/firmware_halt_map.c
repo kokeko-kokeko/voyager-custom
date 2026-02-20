@@ -441,8 +441,10 @@ void housekeeping_task_halt_map(void) {
   chSysLock();
 
   // USB unit disable
-
+  USB->CNTR = USB_CNTR_FRES | USB_CNTR_PDWN;
+  
   // kill clock
+  RCC->AHBENR &= ~RCC_AHBENR_USBEN;
   
   // core clock low down (ai gen)
   RCC->CR |= RCC_CR_HSION;                    // HSI enable
