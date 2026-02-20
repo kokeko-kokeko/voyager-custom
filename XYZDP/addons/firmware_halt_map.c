@@ -431,10 +431,10 @@ void housekeeping_task_halt_map(void) {
   if (timer_expired_fast(now, halt_map_trigger) == false) return;
 
   // do halt  
-  usbDisconnectBus(&USB_DRIVER);
-  usbStop(&USB_DRIVER);
   STATUS_LED_1(true);
   STATUS_LED_2(false);
+  usbDisconnectBus(&USB_DRIVER);
+  usbStop(&USB_DRIVER);
   
   wait_ms(997);
   
