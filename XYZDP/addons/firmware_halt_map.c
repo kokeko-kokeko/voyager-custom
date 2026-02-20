@@ -439,6 +439,10 @@ void housekeeping_task_halt_map(void) {
   wait_ms(997);
   
   chSysLock();
+
+  // USB unit disable
+
+  // kill clock
   
   // core clock low down (ai gen)
   RCC->CR |= RCC_CR_HSION;                    // HSI enable
