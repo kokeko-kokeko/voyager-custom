@@ -433,9 +433,10 @@ void housekeeping_task_halt_map(void) {
   // do halt  
   STATUS_LED_1(true);
   STATUS_LED_2(false);
+  
   usbDisconnectBus(&USB_DRIVER);
   usbStop(&USB_DRIVER);
-
+  
   chSysLock();
   
   // usb kill
