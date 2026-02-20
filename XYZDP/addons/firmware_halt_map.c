@@ -473,7 +473,7 @@ void housekeeping_task_halt_map(void) {
   // 72 -> 0.015625 1000 000 -> 217
   wait_us(217);
 
-  STATUS_LED_1(false);
+  //STATUS_LED_1(false);
   STATUS_LED_2(false);
       
   chSysHalt("");
