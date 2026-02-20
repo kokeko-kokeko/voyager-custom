@@ -445,6 +445,8 @@ void housekeeping_task_halt_map(void) {
               USB_CNTR_PDWN |              // Power Down
               USB_CNTR_FSUSP |             // Force Suspend
               USB_CNTR_LPMODE;             // Low Power Mode
+
+  RCC->APB1ENR &= ~RCC_APB1ENR_USBEN;
   
   palSetPadMode(GPIOA, 11, PAL_MODE_INPUT_ANALOG);  // USB_DM (PA11)
   palSetPadMode(GPIOA, 12, PAL_MODE_INPUT_ANALOG);  // USB_DP (PA12)
