@@ -439,7 +439,7 @@ void housekeeping_task_halt_map(void) {
   
   chSysLock();
   
-  // usb ucit disable
+  // usb unit disable
   RCC->APB1RSTR |= RCC_APB1RSTR_USBRST;
   RCC->APB1ENR &= ~RCC_APB1ENR_USBEN;
 
