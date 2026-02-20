@@ -467,9 +467,6 @@ void housekeeping_task_halt_map(void) {
   
   SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;   // Deep Sleep
   
-  // AHB prescale /8 to 1MHz
-  //RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV8;
-
   // AHB prescale /512 to 15.625KHz
   RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV512;
       
