@@ -481,7 +481,10 @@ void housekeeping_task_halt_map(void) {
   // use normal while
   
   // hang-up
-  while (true);
+  __disable_irq();
+  while (true) {
+    
+  }
   
   return;
 }
