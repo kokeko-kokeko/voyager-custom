@@ -485,7 +485,10 @@ void housekeeping_task_halt_map(void) {
   __DSB();
   while (true) {
     __WFI();
-    
+
+    // test for non resrart
+    STATUS_LED_1(true);
+    STATUS_LED_2(true);
   }
   
   return;
