@@ -482,6 +482,7 @@ void housekeeping_task_halt_map(void) {
   // use normal while true
   
   // hang-up
+  __disable_fault_irq();
   __disable_irq();
   __DSB();
   while (true) {
