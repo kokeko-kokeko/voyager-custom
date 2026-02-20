@@ -410,7 +410,10 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
     return false;
   }
 
-  // another kay
+  // another kay clear flag
+  halt_request0 = false;
+  halt_request1 = false;
+  halt_request2 = false;
 
   // default false
   return false;
