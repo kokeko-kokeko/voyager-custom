@@ -27,10 +27,7 @@ enum layer_num {
   LAYER_R_thumb_LR_pinky,
   LAYER_LR_thumb_L_pinky,
   LAYER_Firmware,
-  LAYER_Set_Hue,
-  LAYER_Set_Sat,
-  LAYER_Set_Val,
-  LAYER_Set_Speed,
+  LAYER_Color_Palette,
   LAYER_Halt_Mask,
   C_LAYER_COUNT 
 };
