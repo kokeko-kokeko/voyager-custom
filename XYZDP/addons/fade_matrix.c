@@ -270,10 +270,22 @@ bool fade_matrix_load_color_palette_keyrecord(const keyrecord_t * const record) 
 }
 
 bool fade_matrix_color_palette_sat_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return false;
+  if (record->event.pressed) {
+    plt_sel |= 0b00000001;
+  } else {
+    plt_sel &= 0b11111110;
+  }
   return false;
 }
 
 bool fade_matrix_color_palette_val_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return false;
+  if (record->event.pressed) {
+    plt_sel |= 0b00000010;
+  } else {
+    plt_sel &= 0b11111101;
+  }
   return false;
 }
 
