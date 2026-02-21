@@ -184,40 +184,21 @@ bool fade_matrix_set_color_palette_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-static bool fade_matrix_load_default_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return false;
-  if (record->event.pressed == false) return false;
-  
-  fade_matrix_load_default();
-  
-  status_led(0b1010, led_pattern_oneshot);
-  
-  // default false
-  return false;
-}
-
-static bool fade_matrix_load_powersave_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return false;
-  if (record->event.pressed == false) return false;
-  
-  fade_matrix_load_powersave();
-  
-  status_led(0b1010, led_pattern_oneshot);
-  
-  // default false
-  return false;
-}
-
 bool fade_matrix_load_color_palette_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return false;
+  if (record->event.pressed == false) return false;
+  
   if (plt_sel == 0) {
-    return fade_matrix_load_default_keyrecord(record);
+    fade_matrix_load_default();
   } else if (plt_sel == 1) {
     return false;
   } else if (plt_sel == 2) {
     return false;
   } else {
-    return fade_matrix_load_powersave_keyrecord(record);
+    fade_matrix_load_powersave();
   }
+
+  status_led(0b1010, led_pattern_oneshot);
 
   // default false
   return false;
