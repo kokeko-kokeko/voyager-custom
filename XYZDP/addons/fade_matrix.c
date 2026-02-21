@@ -218,14 +218,22 @@ static bool fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
 }
 
 bool fade_matrix_set_color_palette_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return false;
+  if (record->event.pressed == false) return false;
+  
+  uint8_t pos = get_pos_from_keyrecord(record);
+  if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
+  uint8_t idx = pos2idx_tbl[pos];
+  if (FADE_MATRIX_INDEX_COUNT <= idx) return false;
+  
   if (plt_sel == 0) {
-    return fade_matrix_set_hue_keyrecord(record);
+    fade_matrix_target.hsv.v = val_tbl[idx];
   } else if (plt_sel == 1) {
-    return fade_matrix_set_sat_keyrecord(record);
+    fade_matrix_target.hsv.s = sat_tbl[idx];
   } else if (plt_sel == 2) {
-    return fade_matrix_set_val_keyrecord(record);
+    fade_matrix_target.hsv.v = val_tbl[idx];
   } else {
-    return fade_matrix_set_speed_keyrecord(record);
+    fade_matrix_target.speed = spd_tbl[idx];
   }
 
   // default false
