@@ -171,7 +171,7 @@ bool fade_matrix_set_color_palette_keyrecord(const keyrecord_t * const record) {
   if (FADE_MATRIX_INDEX_COUNT <= idx) return false;
   
   if (plt_sel == 0) {
-    fade_matrix_target.hsv.v = val_tbl[idx];
+    fade_matrix_target.hsv.h = hue_tbl[idx];
   } else if (plt_sel == 1) {
     fade_matrix_target.hsv.s = sat_tbl[idx];
   } else if (plt_sel == 2) {
