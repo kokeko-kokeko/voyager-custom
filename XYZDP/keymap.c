@@ -682,7 +682,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     // Color Palette
     if (keycode == HSV_0_255_210) return fade_matrix_set_color_palette_keyrecord(record);
-
+    
+    // sel
+    if (keycode == HSV_43_255_210) return fade_matrix_color_palette_sat_keyrecord(record);
+    if (keycode == HSV_43_255_211) return fade_matrix_color_palette_val_keyrecord(record);
+    
     // preset
     if (keycode == HSV_172_255_210) return fade_matrix_load_color_palette_keyrecord(record);
     
