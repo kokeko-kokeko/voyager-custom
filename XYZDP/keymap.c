@@ -682,9 +682,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     // HSV set
     if (keycode == HSV_0_255_210) return fade_matrix_set_hue_keyrecord(record);
-    if (keycode == HSV_0_255_211) return fade_matrix_set_sat_keyrecord(record);
-    if (keycode == HSV_0_255_212) return fade_matrix_set_val_keyrecord(record);
-    if (keycode == HSV_0_255_213) return fade_matrix_set_speed_keyrecord(record);
     
     // layer
     if (keycode == HSV_86_255_200) return firmware_map_enter_hue_keyrecord(record);
@@ -693,9 +690,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     // preset
     if (keycode == HSV_172_255_210) return fade_matrix_load_default_keyrecord(record);
-    if (keycode == HSV_172_255_211) return false;
-    if (keycode == HSV_172_255_212) return false;
-    if (keycode == HSV_172_255_213) return fade_matrix_load_powersave_keyrecord(record);
     
     // mouse
     if (keycode == NAVIGATOR_TURBO) return false;
@@ -826,9 +820,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // call FwSys
   state = update_tri_layer_state(state, LAYER_Function, LAYER_L_thumb_2, LAYER_Firmware); 
   
-  // color speed select
-  state = update_tri_layer_state(state, LAYER_Set_Sat, LAYER_Set_Val, LAYER_Set_Speed);
-
   // ANSI/JIS addiional enable
   state = update_tri_layer_state(state, LAYER_Base_ANSI, LAYER_Number, LAYER_Number_ANSI);
   state = update_tri_layer_state(state, LAYER_Base_ANSI, LAYER_Cursor, LAYER_Cursor_ANSI);
@@ -905,23 +896,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0011, led_pattern_off);
       status_led(0b1100, led_pattern_blink);
       break;
-    case LAYER_Set_Hue:
+    case LAYER_Color_Palette:
       status_led(0b0011, led_pattern_off);
       status_led(0b1100, led_pattern_on);
-      break;
-    case LAYER_Set_Sat:
-      status_led(0b0001, led_pattern_off);
-      status_led(0b1100, led_pattern_on);
-      status_led(0b0010, led_pattern_blink);
-      break;
-    case LAYER_Set_Val:
-      status_led(0b0010, led_pattern_off);
-      status_led(0b1100, led_pattern_on);
-      status_led(0b0001, led_pattern_blink);
-      break;    
-    case LAYER_Set_Speed:
-      status_led(0b1100, led_pattern_on);
-      status_led(0b0011, led_pattern_blink);
       break;
     case LAYER_Halt_Mask:
       status_led(0b1111, led_pattern_off);
@@ -944,17 +921,8 @@ bool rgb_matrix_indicators_user(void) {
     case LAYER_Firmware:
       set_layer_color_firmware_map();
       break;
-    case LAYER_Set_Hue:
+    case LAYER_Color_Palette:
       set_layer_color_hue_map();
-      break;
-    case LAYER_Set_Sat:
-      set_layer_color_sat_map();
-      break;
-    case LAYER_Set_Val:
-      set_layer_color_val_map();
-      break;
-    case LAYER_Set_Speed:
-      set_layer_color_speed_map();
       break;
     case LAYER_Halt_Mask:
       set_layer_color_halt_map();
