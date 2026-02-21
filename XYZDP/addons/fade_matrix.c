@@ -161,7 +161,7 @@ bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-bool fade_matrix_set_hue_keyrecord(const keyrecord_t * const record) {
+static bool fade_matrix_set_hue_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false;
   
@@ -175,7 +175,7 @@ bool fade_matrix_set_hue_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-bool fade_matrix_set_sat_keyrecord(const keyrecord_t * const record) {
+static bool fade_matrix_set_sat_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false; 
   
@@ -189,7 +189,7 @@ bool fade_matrix_set_sat_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-bool fade_matrix_set_val_keyrecord(const keyrecord_t * const record) {
+static bool fade_matrix_set_val_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false; 
   
@@ -203,7 +203,7 @@ bool fade_matrix_set_val_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-bool fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
+static bool fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false; 
   
@@ -217,7 +217,21 @@ bool fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-bool fade_matrix_load_default_keyrecord(const keyrecord_t * const record) {
+bool fade_matrix_set_color_palette_keyrecord(const keyrecord_t * const record) {
+  if (plt_sel == 3) {
+    return fade_matrix_set_speed_keyrecord(record);
+  } else if (plt_sel == 2) {
+    return fade_matrix_set_val_keyrecord(record);
+  } else if (plt_sel == 1) {
+    return fade_matrix_set_sat_keyrecord(record);
+  } else {
+    return fade_matrix_set_hue_keyrecord(record);
+  }
+
+  return false;
+}
+
+static bool fade_matrix_load_default_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false;
   
@@ -229,7 +243,7 @@ bool fade_matrix_load_default_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-bool fade_matrix_load_powersave_keyrecord(const keyrecord_t * const record) {
+static bool fade_matrix_load_powersave_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false;
   
@@ -238,6 +252,28 @@ bool fade_matrix_load_powersave_keyrecord(const keyrecord_t * const record) {
   status_led(0b1010, led_pattern_oneshot);
   
   // default false
+  return false;
+}
+
+bool fade_matrix_load_color_palette_keyrecord(const keyrecord_t * const record) {
+  if (plt_sel == 3) {
+    return fade_matrix_load_powersave_keyrecord(record);
+  } else if (plt_sel == 2) {
+    return false;
+  } else if (plt_sel == 1) {
+    return false;
+  } else {
+    return fade_matrix_load_default_keyrecord(record);
+  }
+
+  return false;
+}
+
+bool fade_matrix_color_palette_sat_keyrecord(const keyrecord_t * const record) {
+  return false;
+}
+
+bool fade_matrix_color_palette_val_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
@@ -462,7 +498,7 @@ void housekeeping_task_fade_matrix(void) {
   }
 }
 
-void set_layer_color_hue_map(void) {
+static void set_layer_color_hue_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
 
@@ -496,7 +532,7 @@ void set_layer_color_hue_map(void) {
   }
 }
 
-void set_layer_color_sat_map(void) {
+static void set_layer_color_sat_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
 
@@ -529,7 +565,7 @@ void set_layer_color_sat_map(void) {
   }
 }
 
-void set_layer_color_val_map(void) {
+static void set_layer_color_val_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
 
@@ -562,7 +598,7 @@ void set_layer_color_val_map(void) {
   }
 }
 
-void set_layer_color_speed_map(void) {
+static void set_layer_color_speed_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
 
@@ -595,6 +631,18 @@ void set_layer_color_speed_map(void) {
       continue;
     }
     rgb_matrix_set_color(idx2pos_tbl[i], rgb.r, rgb.g, rgb.b);
+  }
+}
+
+void set_layer_color_palette_map(void) {
+  if (plt_sel == 3) {
+    set_layer_color_speed_map();
+  } else if (plt_sel == 2) {
+    set_layer_color_val_map();
+  } else if (plt_sel == 1) {
+    set_layer_color_sat_map();
+  } else {
+    set_layer_color_hue_map();
   }
 }
 
