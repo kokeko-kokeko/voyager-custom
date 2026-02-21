@@ -681,15 +681,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (keycode == HSV_0_255_255) return halt_map_main_keyrecord(record);
     
     // Color Palette
-    if (keycode == HSV_0_255_210) return fade_matrix_set_hue_keyrecord(record);
+    if (keycode == HSV_0_255_210) return fade_matrix_set_color_palette_keyrecord(record);
+
+    // preset
+    if (keycode == HSV_172_255_210) return fade_matrix_load_color_palette_keyrecord(record);
     
     // layer
     if (keycode == HSV_86_255_200) return firmware_map_enter_hue_keyrecord(record);
     if (keycode == HSV_86_255_201) return firmware_map_enter_halt_keyrecord(record);
     if (keycode == HSV_86_255_255) return firmware_map_exit_all_keyrecord(record);
-    
-    // preset
-    if (keycode == HSV_172_255_210) return fade_matrix_load_default_keyrecord(record);
     
     // mouse
     if (keycode == NAVIGATOR_TURBO) return false;
@@ -922,7 +922,7 @@ bool rgb_matrix_indicators_user(void) {
       set_layer_color_firmware_map();
       break;
     case LAYER_Color_Palette:
-      set_layer_color_hue_map();
+      set_layer_color_palette_map();
       break;
     case LAYER_Halt_Mask:
       set_layer_color_halt_map();
