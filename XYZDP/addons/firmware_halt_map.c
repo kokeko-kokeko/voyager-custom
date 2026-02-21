@@ -296,7 +296,7 @@ bool firmware_map_enter_hue_keyrecord(const keyrecord_t * const record) {
   }
   
   // hold release
-  layer_on(LAYER_Set_Hue);
+  layer_on(LAYER_Color_Palette);
 
   // default false
   return false;
@@ -332,7 +332,7 @@ bool firmware_map_enter_halt_keyrecord(const keyrecord_t * const record) {
   if (5 <= release_count) {
     // both on Hue for exit key
     layer_state_t layer_mask = 
-      ((layer_state_t)1 << LAYER_Set_Hue)   |
+      ((layer_state_t)1 << LAYER_Color_Palette) |
       ((layer_state_t)1 << LAYER_Halt_Mask);
     layer_or(layer_mask);
       
@@ -364,11 +364,8 @@ bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
   // hold release
   // off all setting layers
   layer_state_t layer_mask = 
-    ((layer_state_t)1 << LAYER_Firmware)  |
-    ((layer_state_t)1 << LAYER_Set_Hue)   |
-    ((layer_state_t)1 << LAYER_Set_Sat)   |
-    ((layer_state_t)1 << LAYER_Set_Val)   |
-    ((layer_state_t)1 << LAYER_Set_Speed) |
+    ((layer_state_t)1 << LAYER_Firmware)      |
+    ((layer_state_t)1 << LAYER_Color_Palette) |
     ((layer_state_t)1 << LAYER_Halt_Mask);
   layer_mask = ~layer_mask;
   layer_and(layer_mask);
