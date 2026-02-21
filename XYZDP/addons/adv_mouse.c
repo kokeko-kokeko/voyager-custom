@@ -417,10 +417,7 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
   bool layer_state_or = false;
   
   layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Halt_Mask);
-  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Set_Speed);
-  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Set_Val);
-  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Set_Sat);
-  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Set_Hue);
+  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Color_Palette);
   layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Firmware);
   
   if (layer_state_or) {
