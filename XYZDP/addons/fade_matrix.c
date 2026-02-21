@@ -228,6 +228,7 @@ bool fade_matrix_set_color_palette_keyrecord(const keyrecord_t * const record) {
     return fade_matrix_set_speed_keyrecord(record);
   }
 
+  // default false
   return false;
 }
 
@@ -266,6 +267,7 @@ bool fade_matrix_load_color_palette_keyrecord(const keyrecord_t * const record) 
     return fade_matrix_load_powersave_keyrecord(record);
   }
 
+  // default false
   return false;
 }
 
@@ -276,6 +278,8 @@ bool fade_matrix_color_palette_sat_keyrecord(const keyrecord_t * const record) {
   } else {
     plt_sel &= 0b11111110;
   }
+
+  // default false
   return false;
 }
 
@@ -286,6 +290,8 @@ bool fade_matrix_color_palette_val_keyrecord(const keyrecord_t * const record) {
   } else {
     plt_sel &= 0b11111101;
   }
+
+  // default false
   return false;
 }
 
