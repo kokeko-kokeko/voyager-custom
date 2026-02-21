@@ -208,8 +208,10 @@ bool fade_matrix_color_palette_sat_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed) {
     plt_sel |= 0b00000001;
+    status_led(0b0010, led_pattern_blink);
   } else {
     plt_sel &= 0b11111110;
+    status_led(0b0010, led_pattern_off);
   }
 
   // default false
@@ -220,8 +222,10 @@ bool fade_matrix_color_palette_val_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed) {
     plt_sel |= 0b00000010;
+    status_led(0b0001, led_pattern_blink);
   } else {
     plt_sel &= 0b11111101;
+    status_led(0b0001, led_pattern_off);
   }
 
   // default false
