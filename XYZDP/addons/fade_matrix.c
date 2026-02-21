@@ -161,62 +161,6 @@ bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-static bool fade_matrix_set_hue_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return false;
-  if (record->event.pressed == false) return false;
-  
-  uint8_t pos = get_pos_from_keyrecord(record);
-  if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
-  uint8_t idx = pos2idx_tbl[pos];
-  if (FADE_MATRIX_INDEX_COUNT <= idx) return false;
-  fade_matrix_target.hsv.h = hue_tbl[idx];
-
-  // default false
-  return false;
-}
-
-static bool fade_matrix_set_sat_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return false;
-  if (record->event.pressed == false) return false; 
-  
-  uint8_t pos = get_pos_from_keyrecord(record);
-  if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
-  uint8_t idx = pos2idx_tbl[pos];
-  if (FADE_MATRIX_INDEX_COUNT <= idx) return false;
-  fade_matrix_target.hsv.s = sat_tbl[idx];
-
-  // default false
-  return false;
-}
-
-static bool fade_matrix_set_val_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return false;
-  if (record->event.pressed == false) return false; 
-  
-  uint8_t pos = get_pos_from_keyrecord(record);
-  if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
-  uint8_t idx = pos2idx_tbl[pos];
-  if (FADE_MATRIX_INDEX_COUNT <= idx) return false;
-  fade_matrix_target.hsv.v = val_tbl[idx];
-
-  // default false
-  return false;
-}
-
-static bool fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return false;
-  if (record->event.pressed == false) return false; 
-  
-  uint8_t pos = get_pos_from_keyrecord(record);
-  if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
-  uint8_t idx = pos2idx_tbl[pos];
-  if (FADE_MATRIX_INDEX_COUNT <= idx) return false;
-  fade_matrix_target.speed = spd_tbl[idx];
-
-  // default false
-  return false;
-}
-
 bool fade_matrix_set_color_palette_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false;
