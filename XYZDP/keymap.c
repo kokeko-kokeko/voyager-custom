@@ -748,8 +748,8 @@ extern bool is_launching;
 #include "ch.h"
 
 void chSysIdleHook(void) {
-    __DSB();
-    __WFI();
+  __DSB();
+  __WFI();
 }
 
 // -----------------------------------------------------------------------------
