@@ -274,13 +274,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #include "addons/layer_mod_overlay.h"
 #include "addons/status_led.h"
 
-#include "ch.h"
-
-void chSysIdleHook(void) {
-    __DSB();
-    __WFI();
-}
-
 // -----------------------------------------------------------------------------
 //
 //
@@ -750,6 +743,14 @@ _Static_assert(LAYER_Mouse == AUTOMOUSE_LAYER, "Auto Mouse layer missmatch!!");
 // access to voyager system-side flag
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
+
+// idle loop
+#include "ch.h"
+
+void chSysIdleHook(void) {
+    __DSB();
+    __WFI();
+}
 
 // -----------------------------------------------------------------------------
 //
