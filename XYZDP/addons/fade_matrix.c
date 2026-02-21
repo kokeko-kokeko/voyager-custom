@@ -113,6 +113,9 @@ static const uint8_t row_col2pos_tbl[MATRIX_ROWS][MATRIX_COLS] = {
   { 255, 255, 255, 255, 255,  50,  51 }
 };
 
+// palette select
+static uint8_t plt_sel = 0;
+
 static void activate_fade_matrix(void) {
   const fast_timer_t now = timer_read_fast();
 
