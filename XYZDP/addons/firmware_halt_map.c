@@ -393,7 +393,7 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
-    halt_map_trigger =  timer_read_fast() + 1999;
+    halt_map_trigger =  timer_read_fast() + 2999;
     
     rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
     rgb_matrix_disable_noeeprom();
