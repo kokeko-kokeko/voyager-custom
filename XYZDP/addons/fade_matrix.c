@@ -218,14 +218,14 @@ static bool fade_matrix_set_speed_keyrecord(const keyrecord_t * const record) {
 }
 
 bool fade_matrix_set_color_palette_keyrecord(const keyrecord_t * const record) {
-  if (plt_sel == 3) {
-    return fade_matrix_set_speed_keyrecord(record);
-  } else if (plt_sel == 2) {
-    return fade_matrix_set_val_keyrecord(record);
+  if (plt_sel == 0) {
+    return fade_matrix_set_hue_keyrecord(record);
   } else if (plt_sel == 1) {
     return fade_matrix_set_sat_keyrecord(record);
+  } else if (plt_sel == 2) {
+    return fade_matrix_set_val_keyrecord(record);
   } else {
-    return fade_matrix_set_hue_keyrecord(record);
+    return fade_matrix_set_speed_keyrecord(record);
   }
 
   return false;
@@ -256,14 +256,14 @@ static bool fade_matrix_load_powersave_keyrecord(const keyrecord_t * const recor
 }
 
 bool fade_matrix_load_color_palette_keyrecord(const keyrecord_t * const record) {
-  if (plt_sel == 3) {
-    return fade_matrix_load_powersave_keyrecord(record);
-  } else if (plt_sel == 2) {
-    return false;
+  if (plt_sel == 0) {
+    return fade_matrix_load_default_keyrecord(record);
   } else if (plt_sel == 1) {
     return false;
+  } else if (plt_sel == 2) {
+    return false;
   } else {
-    return fade_matrix_load_default_keyrecord(record);
+    return fade_matrix_load_powersave_keyrecord(record);
   }
 
   return false;
@@ -647,14 +647,14 @@ static void set_layer_color_speed_map(void) {
 }
 
 void set_layer_color_palette_map(void) {
-  if (plt_sel == 3) {
-    set_layer_color_speed_map();
-  } else if (plt_sel == 2) {
-    set_layer_color_val_map();
+  if (plt_sel == 0) {
+    set_layer_color_hue_map();
   } else if (plt_sel == 1) {
     set_layer_color_sat_map();
+  } else if (plt_sel == 2) {
+    set_layer_color_val_map();
   } else {
-    set_layer_color_hue_map();
+    set_layer_color_speed_map();
   }
 }
 
