@@ -161,7 +161,7 @@ bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-bool fade_matrix_set_color_palette_keyrecord(const keyrecord_t * const record) {
+bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false;
   
@@ -184,7 +184,7 @@ bool fade_matrix_set_color_palette_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-bool fade_matrix_load_color_palette_keyrecord(const keyrecord_t * const record) {
+bool fade_matrix_color_palette_load_preset_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false;
   
@@ -204,7 +204,7 @@ bool fade_matrix_load_color_palette_keyrecord(const keyrecord_t * const record) 
   return false;
 }
 
-bool fade_matrix_color_palette_sat_keyrecord(const keyrecord_t * const record) {
+bool fade_matrix_color_palette_sel_sat_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed) {
     plt_sel |= 0b00000001;
@@ -218,7 +218,7 @@ bool fade_matrix_color_palette_sat_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-bool fade_matrix_color_palette_val_keyrecord(const keyrecord_t * const record) {
+bool fade_matrix_color_palette_sel_val_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed) {
     plt_sel |= 0b00000010;
