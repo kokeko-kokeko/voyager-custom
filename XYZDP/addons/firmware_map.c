@@ -155,7 +155,16 @@ void set_layer_color_firmware_map(void) {
   //rgb_matrix_set_color(44, f, f, 0);
   //rgb_matrix_set_color(45, f, f, 0);
   rgb_matrix_set_color(50, q, q, 0);
-  rgb_matrix_set_color(51, f, 0, 0);
+
+  if (halt_release_count == 1) {
+    rgb_matrix_set_color(51, 0, f, 0);
+  } else if (halt_release_count == 2) {
+    rgb_matrix_set_color(51, f, f, 0);
+  } else if (halt_release_count == 3) {
+    rgb_matrix_set_color(51, f, h, 0);
+  } else {
+    rgb_matrix_set_color(51, f, 0, 0);
+  } 
   
   //ANSI/JIS
   if (layer_state_is(LAYER_Base_ANSI)) {
