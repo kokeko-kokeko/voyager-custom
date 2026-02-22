@@ -375,7 +375,7 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
-    exec_halt_trigger =  timer_read_fast() + 251;
+    exec_halt_trigger =  timer_read_fast() + 199;
     
     rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
     rgb_matrix_disable_noeeprom();
@@ -425,6 +425,8 @@ void housekeeping_task_exec_halt(void) {
               USB_CNTR_LPMODE;
   
   RCC->APB1RSTR |= RCC_APB1RSTR_USBRST;
+  while ((RCC->APB1RSTR & RCC_APB1RSTR_USBRST) != 0);  // wait reset
+  
   RCC->APB1ENR &= ~RCC_APB1ENR_USBEN;
 
   // DM DP to Analog
