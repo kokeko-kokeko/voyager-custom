@@ -332,8 +332,7 @@ bool firmware_map_enter_halt_map_keyrecord(const keyrecord_t * const record) {
   if (5 <= release_count) {
     // both on Hue for exit key
     layer_state_t layer_mask = 
-      ((layer_state_t)1 << LAYER_Color_Palette) |
-      ((layer_state_t)1 << LAYER_Halt_Mask);
+      ((layer_state_t)1 << LAYER_Color_Palette);
     layer_or(layer_mask);
       
     return false;
@@ -365,8 +364,7 @@ bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
   // off all setting layers
   layer_state_t layer_mask = 
     ((layer_state_t)1 << LAYER_Firmware)      |
-    ((layer_state_t)1 << LAYER_Color_Palette) |
-    ((layer_state_t)1 << LAYER_Halt_Mask);
+    ((layer_state_t)1 << LAYER_Color_Palette);
   layer_mask = ~layer_mask;
   layer_and(layer_mask);
 
