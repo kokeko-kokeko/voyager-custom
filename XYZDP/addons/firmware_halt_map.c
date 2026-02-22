@@ -384,7 +384,7 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
     return false;
   }
   
-  if (5 <= release_count) {
+  if (5 == release_count) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
