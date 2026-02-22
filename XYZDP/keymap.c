@@ -896,17 +896,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0011, led_pattern_blink);
       break;
     case LAYER_Firmware:
-      status_led(0b0011, led_pattern_off);
-      status_led(0b1100, led_pattern_blink);
+      status_led(0b1111, led_pattern_off);
       break;
     case LAYER_Color_Palette:
       status_led(0b0011, led_pattern_off);
       status_led(0b1100, led_pattern_on);
       break;
-    case LAYER_Halt_Mask:
-      status_led(0b1111, led_pattern_off);
-      break;
-
+    
     default:
       status_led(0b1111, led_pattern_off);
       break;
@@ -926,9 +922,6 @@ bool rgb_matrix_indicators_user(void) {
       break;
     case LAYER_Color_Palette:
       set_layer_color_palette_map();
-      break;
-    case LAYER_Halt_Mask:
-      set_layer_color_halt_map();
       break;
     
     default:
