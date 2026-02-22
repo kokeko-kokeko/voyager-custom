@@ -676,7 +676,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (keycode == HSV_0_255_210) return fade_matrix_color_palette_main_keyrecord(record);
     
     if (keycode == HSV_43_255_210) return fade_matrix_color_palette_sel_sat_keyrecord(record);
-    if (keycode == HSV_43_255_211) return fade_matrix_color_palette_sel_val_keyrecord(record);
+    if (keycode == HSV_129_255_210) return fade_matrix_color_palette_sel_val_keyrecord(record);
     
     if (keycode == HSV_172_255_210) return fade_matrix_color_palette_load_preset_keyrecord(record);
     
