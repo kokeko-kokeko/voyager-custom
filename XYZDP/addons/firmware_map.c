@@ -429,9 +429,6 @@ void housekeeping_task_exec_halt(void) {
   // DM DP to Analog
   palSetPadMode(GPIOA, 11, PAL_MODE_INPUT_ANALOG);  // DM
   palSetPadMode(GPIOA, 12, PAL_MODE_INPUT_ANALOG);  // DP
-
-  STATUS_LED_1(false);
-  STATUS_LED_2(true);
   
   // core clock low down (ai gen)
   RCC->CR |= RCC_CR_HSION;                    // HSI enable
@@ -461,6 +458,9 @@ void housekeeping_task_exec_halt(void) {
   RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV512;
       
   chSysUnlock();
+  
+  STATUS_LED_1(false);
+  STATUS_LED_2(true);
   
   // 72 -> 0.015625 1000 000 -> 217
   wait_us(217);
