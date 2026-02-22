@@ -28,7 +28,6 @@ enum layer_num {
   LAYER_LR_thumb_L_pinky,
   LAYER_Firmware,
   LAYER_Color_Palette,
-  LAYER_Halt_Mask,
   C_LAYER_COUNT 
 };
 
