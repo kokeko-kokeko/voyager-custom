@@ -47,6 +47,12 @@ void mouse_jiggler_enable(void);
 void mouse_jiggler_disable(void);
 bool mouse_jiggler_is_enabled(void);
 
+// halt safety flags
+static volatile bool halt_request0 = false;
+static volatile bool halt_request1 = false;
+static volatile bool halt_request2 = false;
+static fast_timer_t exec_halt_trigger = (UINT32_MAX / 2) - 1;
+
 bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed == false) return false;
@@ -138,6 +144,10 @@ void set_layer_color_firmware_map(void) {
 
   rgb_matrix_set_color_all(0, 0, 0);
 
+  if (halt_request0 && halt_request1 && halt_request2) {
+    return;
+  }
+  
   //layer indication
   rgb_matrix_set_color(24, f, f, 0);
   rgb_matrix_set_color(25, f, f, 0);
@@ -334,12 +344,6 @@ bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-// safety flags
-static volatile bool halt_request0 = false;
-static volatile bool halt_request1 = false;
-static volatile bool halt_request2 = false;
-static fast_timer_t halt_map_trigger = (UINT32_MAX / 2) - 1;
-
 bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
 
@@ -384,7 +388,7 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
-    halt_map_trigger =  timer_read_fast() + 1999;
+    exec_halt_trigger =  timer_read_fast() + 1999;
     
     rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
     rgb_matrix_disable_noeeprom();
@@ -407,7 +411,7 @@ void housekeeping_task_exec_halt(void) {
 
   const fast_timer_t now = timer_read_fast();
   
-  if (timer_expired_fast(now, halt_map_trigger) == false) return;
+  if (timer_expired_fast(now, exec_halt_trigger) == false) return;
 
   // do halt
   STATUS_LED_1(false);
