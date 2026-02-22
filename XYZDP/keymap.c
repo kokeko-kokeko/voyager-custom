@@ -670,7 +670,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     // Firmware  
     if (keycode == HSV_0_255_200) return firmware_map_main_keyrecord(record);
-    if (keycode == HSV_0_255_255) return firmware_map_invoke_halt_keyrecord(record);
+    if (keycode == HSV_172_255_200) return firmware_map_invoke_halt_keyrecord(record);
     
     // Color Palette
     if (keycode == HSV_0_255_210) return fade_matrix_color_palette_main_keyrecord(record);
