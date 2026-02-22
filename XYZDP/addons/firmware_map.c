@@ -42,16 +42,16 @@ enum key_position {
   POSITION_Halt = 26
 };
 
-// call mouse jiggler
-void mouse_jiggler_enable(void);
-void mouse_jiggler_disable(void);
-bool mouse_jiggler_is_enabled(void);
-
 // halt safety flags
 static volatile bool halt_request0 = false;
 static volatile bool halt_request1 = false;
 static volatile bool halt_request2 = false;
 static fast_timer_t exec_halt_trigger = (UINT32_MAX / 2) - 1;
+
+// call mouse jiggler
+void mouse_jiggler_enable(void);
+void mouse_jiggler_disable(void);
+bool mouse_jiggler_is_enabled(void);
 
 bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
@@ -371,7 +371,7 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   release_time = now;
   if (release_count != 0) release_count++;
 
-  if (7 <= release_count) {
+  if (8 <= release_count) {
     // clear flag
     halt_request0 = false;
     halt_request1 = false;
