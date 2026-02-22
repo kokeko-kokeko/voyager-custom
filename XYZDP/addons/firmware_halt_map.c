@@ -402,7 +402,7 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-void housekeeping_task_halt_map(void) {
+void housekeeping_task_exec_halt(void) {
   if ((halt_request0 && halt_request1 && halt_request2) == false) return;
 
   const fast_timer_t now = timer_read_fast();
