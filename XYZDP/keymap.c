@@ -963,7 +963,7 @@ void housekeeping_task_user(void) {
   housekeeping_task_status_led();
 
   // exec halt last
-  housekeeping_task_halt_map();
+  housekeeping_task_exec_halt();
 
   return;
 }
