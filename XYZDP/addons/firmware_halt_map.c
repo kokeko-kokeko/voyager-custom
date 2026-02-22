@@ -367,6 +367,19 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   release_time = now;
   if (release_count != 0) release_count++;
 
+  if (7 <= release_count) {
+    // clear flag
+    halt_request0 = false;
+    halt_request1 = false;
+    halt_request2 = false;
+    
+    // halt status
+    STATUS_LED_1(false);
+    STATUS_LED_2(false);
+    
+    return false;
+  }
+  
   if (5 <= release_count) {
     halt_request0 = true;
     halt_request1 = true;
@@ -385,31 +398,6 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
     return false;
   }
 
-  // default false
-  return false;
-}
-
-bool halt_map_main_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return false;
-  if (record->event.pressed == true) return false;
-
-  uint8_t pos = get_pos_from_keyrecord(record);
-  if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
-      
-  if (pos == POSITION_Halt) {
-    
-    return false;
-  }
-
-  // another kay clear flag
-  halt_request0 = false;
-  halt_request1 = false;
-  halt_request2 = false;
-
-  // halt status
-  STATUS_LED_1(false);
-  STATUS_LED_2(false);
-  
   // default false
   return false;
 }
