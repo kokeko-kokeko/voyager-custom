@@ -496,23 +496,3 @@ void housekeeping_task_halt_map(void) {
   return;
 }
 
-void set_layer_color_halt_map(void) {
-  const uint8_t f = rgb_matrix_get_val();
-  const uint8_t h = f >> 1;
-  const uint8_t q = h >> 1;
-  const uint8_t o = q >> 1;
-  
-  if (halt_request0 && halt_request1 && halt_request2) {
-    rgb_matrix_set_color_all(0, 0, 0);
-    return;
-  }
-
-  rgb_matrix_set_color_all(q, o, 0);
-
-  rgb_matrix_set_color(POSITION_Halt, f, 0, 0);
-  //rgb_matrix_set_color(49, hsv.v, hsv.v, 0);
-  //rgb_matrix_set_color(24, 0, hsv.v, 0);
-  //rgb_matrix_set_color(25, 0, hsv.v, 0);
-  rgb_matrix_set_color(50, 0, f, 0);
-  //rgb_matrix_set_color(51, 0, hsv.v, 0);
-}
