@@ -416,7 +416,6 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
 static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t state) {
   bool layer_state_or = false;
   
-  layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Halt_Mask);
   layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Color_Palette);
   layer_state_or = layer_state_or || layer_state_cmp(state, LAYER_Firmware);
   
