@@ -371,24 +371,11 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   release_time = now;
   if (release_count != 0) release_count++;
 
-  if (8 <= release_count) {
-    // clear flag
-    halt_request0 = false;
-    halt_request1 = false;
-    halt_request2 = false;
-    
-    // halt status
-    STATUS_LED_1(false);
-    STATUS_LED_2(false);
-    
-    return false;
-  }
-  
-  if (5 == release_count) {
+  if (5 <= release_count) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
-    exec_halt_trigger =  timer_read_fast() + 1999;
+    exec_halt_trigger =  timer_read_fast() + 499;
     
     rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
     rgb_matrix_disable_noeeprom();
@@ -401,6 +388,15 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
       
     return false;
   }
+   
+  // clear flag
+  halt_request0 = false;
+  halt_request1 = false;
+  halt_request2 = false;
+
+  // halt status
+  STATUS_LED_1(false);
+  STATUS_LED_2(false);
 
   // default false
   return false;
