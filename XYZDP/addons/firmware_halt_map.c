@@ -302,46 +302,6 @@ bool firmware_map_enter_color_palette_keyrecord(const keyrecord_t * const record
   return false;
 }
 
-bool firmware_map_enter_halt_map_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return false;
-
-  if (record->event.pressed) {
-    // press
-      
-    return false;
-  }
-    
-  const fast_timer_t now = timer_read_fast();
-
-  // release
-  static fast_timer_t release_time = 0;
-  static uint8_t release_count = 0;
-    
-  if (TIMER_DIFF_FAST(now, release_time) >= 1000) {
-    // single release (far from previous release)
-    release_time = now;
-    release_count = 1;
-      
-    return false;
-  }
-
-  // multi release
-  release_time = now;
-  if (release_count != 0) release_count++;
-
-  if (5 <= release_count) {
-    // both on Hue for exit key
-    layer_state_t layer_mask = 
-      ((layer_state_t)1 << LAYER_Color_Palette);
-    layer_or(layer_mask);
-      
-    return false;
-  }
-
-  // default false
-  return false;
-}
-
 bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
 
@@ -380,14 +340,34 @@ static volatile bool halt_request1 = false;
 static volatile bool halt_request2 = false;
 static fast_timer_t halt_map_trigger = (UINT32_MAX / 2) - 1;
 
-bool halt_map_main_keyrecord(const keyrecord_t * const record) {
+bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
-  if (record->event.pressed == true) return false;
 
-  uint8_t pos = get_pos_from_keyrecord(record);
-  if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
+  if (record->event.pressed) {
+    // press
       
-  if (pos == POSITION_Halt) {
+    return false;
+  }
+    
+  const fast_timer_t now = timer_read_fast();
+
+  // release
+  static fast_timer_t release_time = 0;
+  static uint8_t release_count = 0;
+    
+  if (TIMER_DIFF_FAST(now, release_time) >= 1000) {
+    // single release (far from previous release)
+    release_time = now;
+    release_count = 1;
+      
+    return false;
+  }
+
+  // multi release
+  release_time = now;
+  if (release_count != 0) release_count++;
+
+  if (5 <= release_count) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
@@ -401,6 +381,22 @@ bool halt_map_main_keyrecord(const keyrecord_t * const record) {
     // halt status
     STATUS_LED_1(true);
     STATUS_LED_2(true);
+      
+    return false;
+  }
+
+  // default false
+  return false;
+}
+
+bool halt_map_main_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return false;
+  if (record->event.pressed == true) return false;
+
+  uint8_t pos = get_pos_from_keyrecord(record);
+  if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
+      
+  if (pos == POSITION_Halt) {
     
     return false;
   }
