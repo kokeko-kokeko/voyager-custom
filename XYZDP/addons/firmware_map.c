@@ -47,6 +47,7 @@ static volatile bool halt_request0 = false;
 static volatile bool halt_request1 = false;
 static volatile bool halt_request2 = false;
 static fast_timer_t exec_halt_trigger = (UINT32_MAX / 2) - 1;
+static uint8_t halt_release_count = 1;
 
 // call mouse jiggler
 void mouse_jiggler_enable(void);
@@ -357,21 +358,20 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
 
   // release
   static fast_timer_t release_time = 0;
-  static uint8_t release_count = 0;
     
   if (TIMER_DIFF_FAST(now, release_time) >= 1000) {
     // single release (far from previous release)
     release_time = now;
-    release_count = 1;
+    halt_release_count = 1;
       
     return false;
   }
 
   // multi release
   release_time = now;
-  if (release_count != 0) release_count++;
+  if (halt_release_count != 0) halt_release_count++;
 
-  if (5 <= release_count) {
+  if (5 <= halt_release_count) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
