@@ -670,7 +670,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     // Firmware  
     if (keycode == HSV_0_255_200) return firmware_map_main_keyrecord(record);
-    if (keycode == HSV_0_255_255) return halt_map_main_keyrecord(record);
+    if (keycode == HSV_0_255_255) return firmware_map_invoke_halt_keyrecord(record);
     
     // Color Palette
     if (keycode == HSV_0_255_210) return fade_matrix_set_color_palette_keyrecord(record);
@@ -684,8 +684,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     // layer
     if (keycode == HSV_86_255_200) return firmware_map_enter_color_palette_keyrecord(record);
-    if (keycode == HSV_86_255_201) return firmware_map_enter_halt_map_keyrecord(record);
-    if (keycode == HSV_86_255_255) return firmware_map_exit_all_keyrecord(record);
+    if (keycode == HSV_86_255_210) return firmware_map_exit_all_keyrecord(record);
     
     // mouse
     if (keycode == NAVIGATOR_TURBO) return false;
