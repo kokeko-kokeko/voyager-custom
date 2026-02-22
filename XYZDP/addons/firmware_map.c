@@ -375,7 +375,7 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
-    exec_halt_trigger =  timer_read_fast() + 199;
+    exec_halt_trigger =  timer_read_fast() + 47;
     
     rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
     rgb_matrix_disable_noeeprom();
@@ -409,10 +409,7 @@ void housekeeping_task_exec_halt(void) {
   
   if (timer_expired_fast(now, exec_halt_trigger) == false) return;
 
-  // do halt
-  STATUS_LED_1(false);
-  STATUS_LED_2(true);
-  
+  // do halt  
   usbDisconnectBus(&USB_DRIVER);
   usbStop(&USB_DRIVER);
   
@@ -425,13 +422,16 @@ void housekeeping_task_exec_halt(void) {
               USB_CNTR_LPMODE;
   
   RCC->APB1RSTR |= RCC_APB1RSTR_USBRST;
-  while ((RCC->APB1RSTR & RCC_APB1RSTR_USBRST) != 0);  // wait reset
+  wait_ms(2);
   
   RCC->APB1ENR &= ~RCC_APB1ENR_USBEN;
 
   // DM DP to Analog
   palSetPadMode(GPIOA, 11, PAL_MODE_INPUT_ANALOG);  // DM
   palSetPadMode(GPIOA, 12, PAL_MODE_INPUT_ANALOG);  // DP
+
+  STATUS_LED_1(false);
+  STATUS_LED_2(true);
   
   // core clock low down (ai gen)
   RCC->CR |= RCC_CR_HSION;                    // HSI enable
@@ -445,7 +445,7 @@ void housekeeping_task_exec_halt(void) {
       
   // Flash Wait State to 0（8MHz）
   FLASH->ACR &= ~FLASH_ACR_LATENCY;
-
+  
   // prepare standby
   PWR->CR |= PWR_CR_CWUF;          // Wakeup clear
   PWR->CR |= PWR_CR_PDDS;          // Standby mode（PDDS = 1）
