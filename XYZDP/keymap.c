@@ -746,7 +746,6 @@ extern bool is_launching;
 
 // idle loop
 #include "ch.h"
-
 void chSysIdleHook(void) {
   __DSB();
   __WFI();
