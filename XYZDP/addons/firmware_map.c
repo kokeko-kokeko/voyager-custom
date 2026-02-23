@@ -157,7 +157,9 @@ void set_layer_color_firmware_map(void) {
   //rgb_matrix_set_color(45, f, f, 0);
   rgb_matrix_set_color(50, q, q, 0);
 
-  if (halt_release_count == 1) {
+  if (halt_release_count == 0) {
+    rgb_matrix_set_color(51, 0, 0, f);
+  } else if (halt_release_count == 1) {
     rgb_matrix_set_color(51, 0, f, 0);
   } else if (halt_release_count == 2) {
     rgb_matrix_set_color(51, f, f, 0);
