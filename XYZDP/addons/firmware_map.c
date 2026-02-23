@@ -38,7 +38,8 @@ enum key_position {
 
   POSITION_OS1 = 22,
   POSITION_OS2 = 23,
-  
+
+  POSITION_Color_Plt = 50,
   POSITION_Halt = 51
 };
 
@@ -155,7 +156,8 @@ void set_layer_color_firmware_map(void) {
   rgb_matrix_set_color(25, f, f, 0);
   //rgb_matrix_set_color(44, f, f, 0);
   //rgb_matrix_set_color(45, f, f, 0);
-  rgb_matrix_set_color(50, q, q, 0);
+  
+  rgb_matrix_set_color(POSITION_Color_Plt, q, q, 0);
 
   if (halt_event_count == 0) {
     rgb_matrix_set_color(POSITION_Halt, f, 0, h);
