@@ -392,8 +392,28 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   if (7 <= halt_event_count) {
     // halt status
     STATUS_LED_1(true);
-    STATUS_LED_2(true);
+    STATUS_LED_2(false);
     STATUS_LED_3(false);
+    STATUS_LED_4(false);
+      
+    return false;
+  }
+
+  if (6 <= halt_event_count) {
+    // halt status
+    STATUS_LED_1(true);
+    STATUS_LED_2(false);
+    STATUS_LED_3(false);
+    STATUS_LED_4(true);
+      
+    return false;
+  }
+
+  if (5 <= halt_event_count) {
+    // halt status
+    STATUS_LED_1(true);
+    STATUS_LED_2(false);
+    STATUS_LED_3(true);
     STATUS_LED_4(false);
       
     return false;
@@ -402,23 +422,42 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   if (4 <= halt_event_count) {
     // halt status
     STATUS_LED_1(true);
+    STATUS_LED_2(false);
+    STATUS_LED_3(true);
+    STATUS_LED_4(true);
+      
+    return false;
+  }
+
+  if (3 <= halt_event_count) {
+    // halt status
+    STATUS_LED_1(true);
+    STATUS_LED_2(true);
+    STATUS_LED_3(false);
+    STATUS_LED_4(false);
+      
+    return false;
+  }
+  
+  if (2 <= halt_event_count) {
+    // halt status
+    STATUS_LED_1(true);
+    STATUS_LED_2(true);
+    STATUS_LED_3(false);
+    STATUS_LED_4(true);
+      
+    return false;
+  }
+
+  if (1 <= halt_event_count) {
+    // halt status
+    STATUS_LED_1(true);
     STATUS_LED_2(true);
     STATUS_LED_3(true);
     STATUS_LED_4(false);
       
     return false;
   }
-   
-  // clear flag
-  halt_request0 = false;
-  halt_request1 = false;
-  halt_request2 = false;
-
-  // halt status
-  STATUS_LED_1(true);
-  STATUS_LED_2(true);
-  STATUS_LED_3(true);
-  STATUS_LED_4(true);
   
   // default false
   return false;
@@ -430,6 +469,11 @@ void housekeeping_task_exec_halt(void) {
   if (timer_expired_fast(now, halt_event_count_reset_trigger) == true) {
     halt_event_count = 0;
     halt_event_count_reset_trigger = (UINT32_MAX / 2) - 1;
+
+    // clear flag
+    halt_request0 = false;
+    halt_request1 = false;
+    halt_request2 = false;
 
     // halt status
     STATUS_LED_1(false);
