@@ -159,22 +159,14 @@ void set_layer_color_firmware_map(void) {
   
   rgb_matrix_set_color(POSITION_Color_Plt, q, q, 0);
 
-  if (halt_event_count == 0) {
-    rgb_matrix_set_color(POSITION_Halt, f, 0, h);
-  } else if (halt_event_count == 1) {
-    rgb_matrix_set_color(POSITION_Halt, 0, 0, f);
-  } else if (halt_event_count == 2) {
-    rgb_matrix_set_color(POSITION_Halt, 0, f, f);
-  } else if (halt_event_count == 3) {
-    rgb_matrix_set_color(POSITION_Halt, 0, f, 0);
-  } else if (halt_event_count == 4) {
-    rgb_matrix_set_color(POSITION_Halt, h, f, 0);
-  } else if (halt_event_count == 5) {
-    rgb_matrix_set_color(POSITION_Halt, f, f, 0);
-  } else if (halt_event_count == 6) {
-    rgb_matrix_set_color(POSITION_Halt, f, h, 0);
-  } else if (halt_event_count == 7) {
+  if (halt_event_count == 7) {
     rgb_matrix_set_color(POSITION_Halt, f, 0, 0);
+  } else if (halt_event_count == 6) {
+    rgb_matrix_set_color(POSITION_Halt, h, f, 0);
+  } else if (halt_event_count == 7) {
+    rgb_matrix_set_color(POSITION_Halt, f, f, 0);
+  } else {
+    rgb_matrix_set_color(POSITION_Halt, f, 0, h);
   } 
   
   //ANSI/JIS
