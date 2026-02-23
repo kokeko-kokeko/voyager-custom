@@ -379,9 +379,6 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
     clear_keyboard();
 
     // halt status johnson counter
-    STATUS_LED_4(false);
-    STATUS_LED_3(false);
-    STATUS_LED_2(false);
     STATUS_LED_1(false);
     
     return false;
@@ -389,71 +386,50 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
 
   if (7 <= halt_event_count) {
     // halt status johnson counter
-    STATUS_LED_4(false);
-    STATUS_LED_3(false);
     STATUS_LED_2(false);
-    STATUS_LED_1(true);
-      
+    
     return false;
   }
 
   if (6 <= halt_event_count) {
     // halt status johnson counter
-    STATUS_LED_4(false);
     STATUS_LED_3(false);
-    STATUS_LED_2(true);
-    STATUS_LED_1(true);
-      
+    
     return false;
   }
 
   if (5 <= halt_event_count) {
     // halt status johnson counter
     STATUS_LED_4(false);
-    STATUS_LED_3(true);
-    STATUS_LED_2(true);
-    STATUS_LED_1(true);
-      
+    
     return false;
   }
 
   if (4 <= halt_event_count) {
     // halt status johnson counter
-    STATUS_LED_4(true);
-    STATUS_LED_3(true);
-    STATUS_LED_2(true);
     STATUS_LED_1(true);
-      
+    
     return false;
   }
 
   if (3 <= halt_event_count) {
     // halt status johnson counter
-    STATUS_LED_4(true);
-    STATUS_LED_3(true);
     STATUS_LED_2(true);
-    STATUS_LED_1(false);
-      
+    
     return false;
   }
   
   if (2 <= halt_event_count) {
     // halt status johnson counter
-    STATUS_LED_4(true);
     STATUS_LED_3(true);
-    STATUS_LED_2(false);
-    STATUS_LED_1(false);
-      
+    
     return false;
   }
 
   if (1 <= halt_event_count) {
     // halt status johnson counter
     STATUS_LED_4(true);
-    STATUS_LED_3(false);
-    STATUS_LED_2(false);
-    STATUS_LED_1(false);
-      
+    
     return false;
   }
   
