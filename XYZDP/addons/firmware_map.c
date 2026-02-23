@@ -164,7 +164,13 @@ void set_layer_color_firmware_map(void) {
   } else if (halt_event_count == 2) {
     rgb_matrix_set_color(POSITION_Halt, 0, f, f);
   } else if (halt_event_count == 3) {
-    rgb_matrix_set_color(POSITION_Halt, 0, 0, f);
+    rgb_matrix_set_color(POSITION_Halt, 0, f, 0);
+  } else if (halt_event_count == 4) {
+    rgb_matrix_set_color(POSITION_Halt, h, f, 0);
+  } else if (halt_event_count == 5) {
+    rgb_matrix_set_color(POSITION_Halt, f, f, 0);
+  } else if (halt_event_count == 6) {
+    rgb_matrix_set_color(POSITION_Halt, f, h, 0);
   } else {
     rgb_matrix_set_color(POSITION_Halt, f, 0, 0);
   } 
@@ -367,7 +373,7 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   if (halt_event_count != UINT8_MAX) halt_event_count++;
   halt_event_count_reset_trigger = now + 797;
 
-  if (5 <= halt_event_count) {
+  if (8 <= halt_event_count) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
