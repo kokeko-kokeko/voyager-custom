@@ -389,8 +389,8 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
     // halt status
     STATUS_LED_1(true);
     STATUS_LED_2(true);
-    STATUS_LED_3(true);
-    STATUS_LED_4(true);
+    STATUS_LED_3(false);
+    STATUS_LED_4(false);
       
     return false;
   }
@@ -403,8 +403,8 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   // halt status
   STATUS_LED_1(true);
   STATUS_LED_2(true);
-  STATUS_LED_3(false);
-  STATUS_LED_4(false);
+  STATUS_LED_3(true);
+  STATUS_LED_4(true);
   
   // default false
   return false;
