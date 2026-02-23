@@ -47,7 +47,8 @@ static volatile bool halt_request0 = false;
 static volatile bool halt_request1 = false;
 static volatile bool halt_request2 = false;
 static fast_timer_t exec_halt_trigger = (UINT32_MAX / 2) - 1;
-static uint8_t halt_release_count = 1;
+static uint8_t halt_release_count = 0;
+static fast_timer_t halt_release_count_reset_trigger = (UINT32_MAX / 2) - 1;
 
 // call mouse jiggler
 void mouse_jiggler_enable(void);
@@ -366,19 +367,8 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   const fast_timer_t now = timer_read_fast();
 
   // release
-  static fast_timer_t release_time = 0;
-    
-  if (TIMER_DIFF_FAST(now, release_time) >= 1000) {
-    // single release (far from previous release)
-    release_time = now;
-    halt_release_count = 1;
-      
-    return false;
-  }
-
-  // multi release
-  release_time = now;
-  if (halt_release_count != 0) halt_release_count++;
+  if (halt_release_count != UINT8_MAX) halt_release_count++;
+  halt_release_count_reset_trigger = now + 997;
 
   if (5 <= halt_release_count) {
     halt_request0 = true;
@@ -412,6 +402,11 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
 }
 
 void housekeeping_task_exec_halt(void) {
+  if if (timer_expired_fast(now, halt_release_count_reset_trigger) == true) {
+    halt_release_count_reset_trigger = (UINT32_MAX / 2) - 1;
+    halt_release_count = 0;
+  }
+  
   if ((halt_request0 && halt_request1 && halt_request2) == false) return;
 
   const fast_timer_t now = timer_read_fast();
