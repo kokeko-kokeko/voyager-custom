@@ -162,7 +162,7 @@ void set_layer_color_firmware_map(void) {
   if (halt_event_count == 7) {
     rgb_matrix_set_color(POSITION_Halt, f, 0, 0);
   } else if (halt_event_count == 6) {
-    rgb_matrix_set_color(POSITION_Halt, h, f, 0);
+    rgb_matrix_set_color(POSITION_Halt, f, h, 0);
   } else if (halt_event_count == 7) {
     rgb_matrix_set_color(POSITION_Halt, f, f, 0);
   } else {
