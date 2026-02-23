@@ -47,8 +47,8 @@ static volatile bool halt_request0 = false;
 static volatile bool halt_request1 = false;
 static volatile bool halt_request2 = false;
 static fast_timer_t exec_halt_trigger = (UINT32_MAX / 2) - 1;
-static uint8_t halt_release_count = 0;
-static fast_timer_t halt_release_count_reset_trigger = (UINT32_MAX / 2) - 1;
+static uint8_t halt_event_count = 0;
+static fast_timer_t halt_event_count_reset_trigger = (UINT32_MAX / 2) - 1;
 
 // call mouse jiggler
 void mouse_jiggler_enable(void);
@@ -157,13 +157,13 @@ void set_layer_color_firmware_map(void) {
   //rgb_matrix_set_color(45, f, f, 0);
   rgb_matrix_set_color(50, q, q, 0);
 
-  if (halt_release_count == 0) {
+  if (halt_event_count == 0) {
     rgb_matrix_set_color(51, 0, 0, f);
-  } else if (halt_release_count == 1) {
+  } else if (halt_event_count == 1) {
     rgb_matrix_set_color(51, 0, f, 0);
-  } else if (halt_release_count == 2) {
+  } else if (halt_event_count == 2) {
     rgb_matrix_set_color(51, f, f, 0);
-  } else if (halt_release_count == 3) {
+  } else if (halt_event_count == 3) {
     rgb_matrix_set_color(51, f, h, 0);
   } else {
     rgb_matrix_set_color(51, f, 0, 0);
@@ -369,10 +369,10 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   const fast_timer_t now = timer_read_fast();
 
   // release
-  if (halt_release_count != UINT8_MAX) halt_release_count++;
-  halt_release_count_reset_trigger = now + 997;
+  if (halt_event_count != UINT8_MAX) halt_event_count++;
+  halt_event_count_reset_trigger = now + 997;
 
-  if (5 <= halt_release_count) {
+  if (5 <= halt_event_count) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
@@ -406,9 +406,9 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
 void housekeeping_task_exec_halt(void) {
   const fast_timer_t now = timer_read_fast();
   
-  if (timer_expired_fast(now, halt_release_count_reset_trigger) == true) {
-    halt_release_count = 0;
-    halt_release_count_reset_trigger = (UINT32_MAX / 2) - 1;
+  if (timer_expired_fast(now, halt_event_count_reset_trigger) == true) {
+    halt_event_count = 0;
+    halt_event_count_reset_trigger = (UINT32_MAX / 2) - 1;
   }
   
   if ((halt_request0 && halt_request1 && halt_request2) == false) return;
