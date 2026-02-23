@@ -386,9 +386,7 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
     
     clear_keyboard();
     
-    // halt status
-    STATUS_LED_1(true);
-    STATUS_LED_2(true);
+
       
     return false;
   }
@@ -397,6 +395,10 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   halt_request0 = false;
   halt_request1 = false;
   halt_request2 = false;
+
+  // halt status
+  STATUS_LED_1(true);
+  STATUS_LED_2(true);
   
   // default false
   return false;
@@ -408,6 +410,10 @@ void housekeeping_task_exec_halt(void) {
   if (timer_expired_fast(now, halt_event_count_reset_trigger) == true) {
     halt_event_count = 0;
     halt_event_count_reset_trigger = (UINT32_MAX / 2) - 1;
+
+    // halt status
+    STATUS_LED_1(false);
+    STATUS_LED_2(false);
   }
   
   if ((halt_request0 && halt_request1 && halt_request2) == false) return;
