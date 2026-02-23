@@ -404,14 +404,14 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
 }
 
 void housekeeping_task_exec_halt(void) {
+  const fast_timer_t now = timer_read_fast();
+  
   if (timer_expired_fast(now, halt_release_count_reset_trigger) == true) {
     halt_release_count = 0;
     halt_release_count_reset_trigger = (UINT32_MAX / 2) - 1;
   }
   
   if ((halt_request0 && halt_request1 && halt_request2) == false) return;
-
-  const fast_timer_t now = timer_read_fast();
   
   if (timer_expired_fast(now, exec_halt_trigger) == false) return;
 
