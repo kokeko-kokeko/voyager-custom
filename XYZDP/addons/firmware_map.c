@@ -402,9 +402,9 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
 }
 
 void housekeeping_task_exec_halt(void) {
-  if if (timer_expired_fast(now, halt_release_count_reset_trigger) == true) {
-    halt_release_count_reset_trigger = (UINT32_MAX / 2) - 1;
+  if (timer_expired_fast(now, halt_release_count_reset_trigger) == true) {
     halt_release_count = 0;
+    halt_release_count_reset_trigger = (UINT32_MAX / 2) - 1;
   }
   
   if ((halt_request0 && halt_request1 && halt_request2) == false) return;
