@@ -166,7 +166,7 @@ void set_layer_color_firmware_map(void) {
   } else if (halt_invoke_count == 5) {
     rgb_matrix_set_color(POSITION_Halt, f, f, 0);
   } else {
-    rgb_matrix_set_color(POSITION_Halt, f, 0, h);
+    rgb_matrix_set_color(POSITION_Halt, 0, 0, f);
   } 
   
   //ANSI/JIS
