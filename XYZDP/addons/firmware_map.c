@@ -359,18 +359,13 @@ bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
 
 bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
-
-  if (record->event.pressed) {
-    // press
-      
-    return false;
-  }
-    
+  if (record->event.pressed == false) return false;
+  
   const fast_timer_t now = timer_read_fast();
 
   // release
   if (halt_event_count != UINT8_MAX) halt_event_count++;
-  halt_event_count_reset_trigger = now + 997;
+  halt_event_count_reset_trigger = now + 499;
 
   if (5 <= halt_event_count) {
     halt_request0 = true;
