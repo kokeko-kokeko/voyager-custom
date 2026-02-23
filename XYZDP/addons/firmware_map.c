@@ -373,20 +373,24 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
 
   // release
   if (halt_event_count != UINT8_MAX) halt_event_count++;
-  halt_event_count_reset_trigger = now + 997;
+  halt_event_count_reset_trigger = now + 797;
 
   if (8 <= halt_event_count) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
-    exec_halt_trigger = now + 97;
+    exec_halt_trigger = now + 11;
     
     rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
     rgb_matrix_disable_noeeprom();
     
     clear_keyboard();
-    
 
+    // halt status
+    STATUS_LED_1(true);
+    STATUS_LED_2(true);
+    STATUS_LED_3(true);
+    STATUS_LED_4(true);
       
     return false;
   }
@@ -399,6 +403,8 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   // halt status
   STATUS_LED_1(true);
   STATUS_LED_2(true);
+  STATUS_LED_3(false);
+  STATUS_LED_4(false);
   
   // default false
   return false;
@@ -414,6 +420,8 @@ void housekeeping_task_exec_halt(void) {
     // halt status
     STATUS_LED_1(false);
     STATUS_LED_2(false);
+    STATUS_LED_3(false);
+    STATUS_LED_4(false);
   }
   
   if ((halt_request0 && halt_request1 && halt_request2) == false) return;
