@@ -371,13 +371,13 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
 
   // release
   if (halt_event_count != UINT8_MAX) halt_event_count++;
-  halt_event_count_reset_trigger = now + 797;
+  halt_event_count_reset_trigger = now + 997;
 
   if (8 <= halt_event_count) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
-    exec_halt_trigger = now + 11;
+    exec_halt_trigger = now + 97;
     
     rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
     rgb_matrix_disable_noeeprom();
@@ -416,7 +416,10 @@ void housekeeping_task_exec_halt(void) {
   
   if (timer_expired_fast(now, exec_halt_trigger) == false) return;
 
-  // do halt  
+  // do halt
+  STATUS_LED_1(false);
+  STATUS_LED_2(true);
+  
   usbDisconnectBus(&USB_DRIVER);
   usbStop(&USB_DRIVER);
   
@@ -465,9 +468,6 @@ void housekeeping_task_exec_halt(void) {
   RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV512;
       
   chSysUnlock();
-  
-  STATUS_LED_1(false);
-  STATUS_LED_2(true);
   
   // 72 -> 0.015625 1000 000 -> 217
   wait_us(217);
