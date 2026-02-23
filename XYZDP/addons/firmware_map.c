@@ -160,11 +160,11 @@ void set_layer_color_firmware_map(void) {
   if (halt_event_count == 0) {
     rgb_matrix_set_color(POSITION_Halt, f, 0, h);
   } else if (halt_event_count == 1) {
-    rgb_matrix_set_color(POSITION_Halt, 0, f, 0);
+    rgb_matrix_set_color(POSITION_Halt, f, 0, f);
   } else if (halt_event_count == 2) {
-    rgb_matrix_set_color(POSITION_Halt, f, f, 0);
+    rgb_matrix_set_color(POSITION_Halt, h, 0, f);
   } else if (halt_event_count == 3) {
-    rgb_matrix_set_color(POSITION_Halt, f, h, 0);
+    rgb_matrix_set_color(POSITION_Halt, 0, 0, f);
   } else {
     rgb_matrix_set_color(POSITION_Halt, f, 0, 0);
   } 
