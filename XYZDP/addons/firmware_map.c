@@ -39,7 +39,7 @@ enum key_position {
   POSITION_OS1 = 22,
   POSITION_OS2 = 23,
   
-  POSITION_Halt = 26
+  POSITION_Halt = 51
 };
 
 // halt safety flags
@@ -158,15 +158,15 @@ void set_layer_color_firmware_map(void) {
   rgb_matrix_set_color(50, q, q, 0);
 
   if (halt_event_count == 0) {
-    rgb_matrix_set_color(51, 0, 0, f);
+    rgb_matrix_set_color(POSITION_Halt, f, 0, h);
   } else if (halt_event_count == 1) {
-    rgb_matrix_set_color(51, 0, f, 0);
+    rgb_matrix_set_color(POSITION_Halt, 0, f, 0);
   } else if (halt_event_count == 2) {
-    rgb_matrix_set_color(51, f, f, 0);
+    rgb_matrix_set_color(POSITION_Halt, f, f, 0);
   } else if (halt_event_count == 3) {
-    rgb_matrix_set_color(51, f, h, 0);
+    rgb_matrix_set_color(POSITION_Halt, f, h, 0);
   } else {
-    rgb_matrix_set_color(51, f, 0, 0);
+    rgb_matrix_set_color(POSITION_Halt, f, 0, 0);
   } 
   
   //ANSI/JIS
@@ -365,7 +365,7 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
 
   // release
   if (halt_event_count != UINT8_MAX) halt_event_count++;
-  halt_event_count_reset_trigger = now + 499;
+  halt_event_count_reset_trigger = now + 797;
 
   if (5 <= halt_event_count) {
     halt_request0 = true;
