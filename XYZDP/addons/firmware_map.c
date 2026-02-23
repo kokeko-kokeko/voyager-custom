@@ -398,6 +398,16 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
       
     return false;
   }
+
+  if (4 <= halt_event_count) {
+    // halt status
+    STATUS_LED_1(true);
+    STATUS_LED_2(true);
+    STATUS_LED_3(true);
+    STATUS_LED_4(false);
+      
+    return false;
+  }
    
   // clear flag
   halt_request0 = false;
