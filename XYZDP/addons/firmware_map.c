@@ -48,8 +48,8 @@ static volatile bool halt_request0 = false;
 static volatile bool halt_request1 = false;
 static volatile bool halt_request2 = false;
 static fast_timer_t exec_halt_trigger = (UINT32_MAX / 2) - 1;
-static uint8_t halt_event_count = 0;
-static fast_timer_t halt_event_count_reset_trigger = (UINT32_MAX / 2) - 1;
+static uint8_t halt_invoke_count = 0;
+static fast_timer_t abort_halt_trigger = (UINT32_MAX / 2) - 1;
 
 // call mouse jiggler
 void mouse_jiggler_enable(void);
@@ -159,11 +159,11 @@ void set_layer_color_firmware_map(void) {
   
   rgb_matrix_set_color(POSITION_Color_Plt, q, q, 0);
 
-  if (halt_event_count == 7) {
+  if (halt_invoke_count == 7) {
     rgb_matrix_set_color(POSITION_Halt, f, 0, 0);
-  } else if (halt_event_count == 6) {
+  } else if (halt_invoke_count == 6) {
     rgb_matrix_set_color(POSITION_Halt, f, h, 0);
-  } else if (halt_event_count == 5) {
+  } else if (halt_invoke_count == 5) {
     rgb_matrix_set_color(POSITION_Halt, f, f, 0);
   } else {
     rgb_matrix_set_color(POSITION_Halt, f, 0, h);
@@ -364,10 +364,10 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   const fast_timer_t now = timer_read_fast();
 
   // release
-  if (halt_event_count != UINT8_MAX) halt_event_count++;
-  halt_event_count_reset_trigger = now + 1499;
+  if (halt_invoke_count != UINT8_MAX) halt_invoke_count++;
+  abort_halt_trigger = now + 1499;
 
-  if (8 <= halt_event_count) {
+  if (8 <= halt_invoke_count) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
@@ -384,49 +384,49 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
     return false;
   }
 
-  if (7 <= halt_event_count) {
+  if (7 <= halt_invoke_count) {
     // halt status johnson counter
     STATUS_LED_2(false);
     
     return false;
   }
 
-  if (6 <= halt_event_count) {
+  if (6 <= halt_invoke_count) {
     // halt status johnson counter
     STATUS_LED_3(false);
     
     return false;
   }
 
-  if (5 <= halt_event_count) {
+  if (5 <= halt_invoke_count) {
     // halt status johnson counter
     STATUS_LED_4(false);
     
     return false;
   }
 
-  if (4 <= halt_event_count) {
+  if (4 <= halt_invoke_count) {
     // halt status johnson counter
     STATUS_LED_1(true);
     
     return false;
   }
 
-  if (3 <= halt_event_count) {
+  if (3 <= halt_invoke_count) {
     // halt status johnson counter
     STATUS_LED_2(true);
     
     return false;
   }
   
-  if (2 <= halt_event_count) {
+  if (2 <= halt_invoke_count) {
     // halt status johnson counter
     STATUS_LED_3(true);
     
     return false;
   }
 
-  if (1 <= halt_event_count) {
+  if (1 <= halt_invoke_count) {
     // halt status johnson counter
     STATUS_LED_4(true);
     
@@ -440,9 +440,9 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
 void housekeeping_task_exec_halt(void) {
   const fast_timer_t now = timer_read_fast();
   
-  if (timer_expired_fast(now, halt_event_count_reset_trigger) == true) {
-    halt_event_count = 0;
-    halt_event_count_reset_trigger = (UINT32_MAX / 2) - 1;
+  if (timer_expired_fast(now, abort_halt_trigger) == true) {
+    halt_invoke_count = 0;
+    abort_halt_trigger = (UINT32_MAX / 2) - 1;
 
     // clear flag
     halt_request0 = false;
