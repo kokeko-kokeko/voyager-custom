@@ -27,7 +27,7 @@ enum key_position {
   POSITION_MJ_off = 11,
 
   POSITION_RST = 31,
-  POSITION_SW_RST = 37,
+  POSITION_SW_RST = 43,
   POSITION_CLEAR = 49,
   
   POSITION_Caps_Lock = 19,
