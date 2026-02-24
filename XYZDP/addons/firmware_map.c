@@ -47,9 +47,9 @@ enum key_position {
 static volatile bool halt_request0 = false;
 static volatile bool halt_request1 = false;
 static volatile bool halt_request2 = false;
-static fast_timer_t exec_halt_trigger = (UINT32_MAX / 2) - 1;
 static uint8_t halt_invoke_count = 0;
 static fast_timer_t abort_halt_trigger = (UINT32_MAX / 2) - 1;
+static fast_timer_t exec_halt_trigger = (UINT32_MAX / 2) - 1;
 
 // call mouse jiggler
 void mouse_jiggler_enable(void);
@@ -460,9 +460,9 @@ layer_state_t layer_state_set_firmware_map(const layer_state_t state) {
   halt_request2 = false;
 
   const fast_timer_t now = timer_read_fast();
-  
-  abort_halt_trigger = now + (UINT32_MAX / 2) - 1;
+
   halt_invoke_count = 0;
+  abort_halt_trigger = now + (UINT32_MAX / 2) - 1;
   exec_halt_trigger = now + (UINT32_MAX / 2) - 1;
 
   return state;
