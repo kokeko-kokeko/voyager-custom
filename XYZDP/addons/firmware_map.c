@@ -162,10 +162,13 @@ void set_layer_color_firmware_map(void) {
     rgb_matrix_set_color_all(f, f, 0);
     rgb_matrix_set_color(POSITION_Halt, 0, 0, 0);
     return;
-  } else {
+  } else if (halt_invoke_count >= 1)  {
     rgb_matrix_set_color_all(0, 0, 0);
     rgb_matrix_set_color(POSITION_Halt, 0, 0, f);
+    return;
   }
+
+  rgb_matrix_set_color_all(0, 0, 0);
 
   //layer indication
   rgb_matrix_set_color(24, f, f, 0);
