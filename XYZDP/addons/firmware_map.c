@@ -144,13 +144,29 @@ void set_layer_color_firmware_map(void) {
   const uint8_t h = f >> 1;
   const uint8_t q = h >> 1;
   const uint8_t o = q >> 1;
-
-  rgb_matrix_set_color_all(0, 0, 0);
-
+  
   if (halt_request0 && halt_request1 && halt_request2) {
+    rgb_matrix_set_color_all(0, 0, 0);
     return;
   }
   
+  if (halt_invoke_count == 7) {
+    rgb_matrix_set_color_all(f, 0, 0);
+    rgb_matrix_set_color(POSITION_Halt, 0, 0, 0);
+    return;
+  } else if (halt_invoke_count == 6) {
+    rgb_matrix_set_color_all(f, h, 0);
+    rgb_matrix_set_color(POSITION_Halt, 0, 0, 0);
+    return;
+  } else if (halt_invoke_count == 5) {
+    rgb_matrix_set_color_all(f, f, 0);
+    rgb_matrix_set_color(POSITION_Halt, 0, 0, 0);
+    return;
+  } else {
+    rgb_matrix_set_color_all(0, 0, 0);
+    rgb_matrix_set_color(POSITION_Halt, 0, 0, f);
+  }
+
   //layer indication
   rgb_matrix_set_color(24, f, f, 0);
   rgb_matrix_set_color(25, f, f, 0);
@@ -158,16 +174,6 @@ void set_layer_color_firmware_map(void) {
   //rgb_matrix_set_color(45, f, f, 0);
   
   rgb_matrix_set_color(POSITION_Color_Palette, q, q, 0);
-
-  if (halt_invoke_count == 7) {
-    rgb_matrix_set_color(POSITION_Halt, f, 0, 0);
-  } else if (halt_invoke_count == 6) {
-    rgb_matrix_set_color(POSITION_Halt, f, h, 0);
-  } else if (halt_invoke_count == 5) {
-    rgb_matrix_set_color(POSITION_Halt, f, f, 0);
-  } else {
-    rgb_matrix_set_color(POSITION_Halt, 0, 0, f);
-  } 
   
   //ANSI/JIS
   if (layer_state_is(LAYER_Base_ANSI)) {
