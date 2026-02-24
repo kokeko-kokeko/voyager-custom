@@ -151,19 +151,19 @@ void set_layer_color_firmware_map(void) {
   }
   
   if (halt_invoke_count == 7) {
-    rgb_matrix_set_color_all(f, 0, 0);
+    rgb_matrix_set_color_all(h, 0, 0);
     rgb_matrix_set_color(POSITION_Halt, 0, 0, 0);
     return;
   } else if (halt_invoke_count == 6) {
-    rgb_matrix_set_color_all(f, h, 0);
+    rgb_matrix_set_color_all(h, q, 0);
     rgb_matrix_set_color(POSITION_Halt, 0, 0, 0);
     return;
   } else if (halt_invoke_count == 5) {
-    rgb_matrix_set_color_all(f, f, 0);
+    rgb_matrix_set_color_all(h, h, 0);
     rgb_matrix_set_color(POSITION_Halt, 0, 0, 0);
     return;
   } else if (halt_invoke_count == 4) {
-    rgb_matrix_set_color_all(0, f, 0);
+    rgb_matrix_set_color_all(0, h, 0);
     rgb_matrix_set_color(POSITION_Halt, 0, 0, 0);
     return;
   } else if (halt_invoke_count >= 1)  {
