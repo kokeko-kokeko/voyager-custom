@@ -451,6 +451,23 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
+layer_state_t layer_state_set_firmware_map(const layer_state_t state) {
+  // if enable nothig to do
+  if (layer_state_cmp(state, LAYER_Firmware) == true) return state;
+
+  halt_request0 = false;
+  halt_request1 = false;
+  halt_request2 = false;
+
+  const fast_timer_t now = timer_read_fast();
+  
+  abort_halt_trigger = now + (UINT32_MAX / 2) - 1;
+  halt_invoke_count = 0;
+  exec_halt_trigger = now + (UINT32_MAX / 2) - 1;
+
+  return state;
+}
+
 void housekeeping_task_exec_halt(void) {
   const fast_timer_t now = timer_read_fast();
   
