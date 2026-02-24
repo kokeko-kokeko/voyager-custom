@@ -375,13 +375,13 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
 
   // release
   if (halt_invoke_count != UINT8_MAX) halt_invoke_count++;
-  abort_halt_trigger = now + 1499;
+  abort_halt_trigger = now + 1249;
 
   if (8 <= halt_invoke_count) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
-    exec_halt_trigger = now + 11;
+    exec_halt_trigger = now + 53;
     
     rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
     rgb_matrix_disable_noeeprom();
