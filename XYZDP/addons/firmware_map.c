@@ -456,7 +456,7 @@ void housekeeping_task_exec_halt(void) {
   
   if (timer_expired_fast(now, abort_halt_trigger) == true) {
     halt_invoke_count = 0;
-    abort_halt_trigger = (UINT32_MAX / 2) - 1;
+    abort_halt_trigger = now + (UINT32_MAX / 2) - 1;
 
     // clear flag
     halt_request0 = false;
@@ -473,6 +473,7 @@ void housekeeping_task_exec_halt(void) {
   if ((halt_request0 && halt_request1 && halt_request2) == false) return;
   
   if (timer_expired_fast(now, exec_halt_trigger) == false) return;
+  exec_halt_trigger = now + (UINT32_MAX / 2) - 1;
 
   // do halt
   STATUS_LED_1(false);
