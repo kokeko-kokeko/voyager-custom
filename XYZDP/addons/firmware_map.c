@@ -379,7 +379,7 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
 
   // release
   if (halt_invoke_count != UINT8_MAX) halt_invoke_count++;
-  abort_halt_trigger = now + 3001;
+  abort_halt_trigger = now + 5003;
 
   if (8 <= halt_invoke_count) {
     halt_request0 = true;
