@@ -500,7 +500,7 @@ void housekeeping_task_exec_halt(void) {
 
   // tie low, block re-detect
   //palSetPadMode(GPIOA, 12, PAL_MODE_OUTPUT_OPENDRAIN | PAL_STM32_OSPEED_LOW);
-  palSetPadMode(GPIOA, 12, PAL_MODE_OUTPUT_OPENDRAIN;
+  palSetPadMode(GPIOA, 12, PAL_MODE_OUTPUT_OPENDRAIN);
   palWritePad(GPIOA, 12, 0);
   
   // core clock low down (ai gen)
