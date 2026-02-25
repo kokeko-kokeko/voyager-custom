@@ -168,7 +168,7 @@ void set_layer_color_firmware_map(void) {
     return;
   } else if (halt_invoke_count >= 1)  {
     rgb_matrix_set_color_all(0, 0, 0);
-    rgb_matrix_set_color(POSITION_Halt, 0, h, 0);
+    rgb_matrix_set_color(POSITION_Halt, 0, q, 0);
     return;
   }
 
