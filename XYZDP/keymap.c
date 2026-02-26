@@ -39,30 +39,26 @@ enum custom_keycodes {
   ST_MACRO_20,
   ST_MACRO_21,
   ST_MACRO_22,
-  NAVIGATOR_INC_CPI,
-  NAVIGATOR_DEC_CPI,
-  NAVIGATOR_TURBO,
-  NAVIGATOR_AIM
 };
 
 
 
-#define DUAL_FUNC_0 LT(14, KC_F20)
-#define DUAL_FUNC_1 LT(12, KC_1)
-#define DUAL_FUNC_2 LT(6, KC_F3)
-#define DUAL_FUNC_3 LT(6, KC_F8)
-#define DUAL_FUNC_4 LT(10, KC_4)
-#define DUAL_FUNC_5 LT(9, KC_F23)
-#define DUAL_FUNC_6 LT(13, KC_N)
-#define DUAL_FUNC_7 LT(5, KC_Z)
-#define DUAL_FUNC_8 LT(1, KC_X)
-#define DUAL_FUNC_9 LT(14, KC_F1)
-#define DUAL_FUNC_10 LT(12, KC_F2)
-#define DUAL_FUNC_11 LT(9, KC_W)
-#define DUAL_FUNC_12 LT(10, KC_M)
-#define DUAL_FUNC_13 LT(11, KC_F20)
-#define DUAL_FUNC_14 LT(10, KC_F18)
-#define DUAL_FUNC_15 LT(2, KC_Q)
+#define DUAL_FUNC_0 LT(2, KC_J)
+#define DUAL_FUNC_1 LT(1, KC_A)
+#define DUAL_FUNC_2 LT(5, KC_9)
+#define DUAL_FUNC_3 LT(11, KC_3)
+#define DUAL_FUNC_4 LT(12, KC_F1)
+#define DUAL_FUNC_5 LT(8, KC_I)
+#define DUAL_FUNC_6 LT(14, KC_Q)
+#define DUAL_FUNC_7 LT(9, KC_F12)
+#define DUAL_FUNC_8 LT(6, KC_D)
+#define DUAL_FUNC_9 LT(7, KC_F17)
+#define DUAL_FUNC_10 LT(4, KC_4)
+#define DUAL_FUNC_11 LT(9, KC_F11)
+#define DUAL_FUNC_12 LT(12, KC_F8)
+#define DUAL_FUNC_13 LT(7, KC_F22)
+#define DUAL_FUNC_14 LT(12, KC_F24)
+#define DUAL_FUNC_15 LT(10, KC_9)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -273,10 +269,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //
 // -----------------------------------------------------------------------------
-
-extern bool set_scrolling;
-extern bool navigator_turbo;
-extern bool navigator_aim;
 
 
 
