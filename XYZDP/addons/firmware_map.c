@@ -385,7 +385,7 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
-    exec_halt_trigger = now + 31;
+    exec_halt_trigger = now + 23;
     
     rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
     rgb_matrix_disable_noeeprom();
