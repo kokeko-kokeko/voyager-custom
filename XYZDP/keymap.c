@@ -677,24 +677,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (keycode == HSV_86_255_187) return firmware_map_exit_all_keyrecord(record);
     
     // mouse
-    if (keycode == NAVIGATOR_TURBO) return false;
-    if (keycode == NAVIGATOR_AIM) return false;
-    
-    if (keycode == NAVIGATOR_INC_CPI) {
-      if (record->event.pressed) {
-        pointing_device_set_cpi(1);
-      }
-      
-      return false;
-    }
-    
-    if (keycode == NAVIGATOR_DEC_CPI) {
-      if (record->event.pressed) {
-        pointing_device_set_cpi(0);
-      }
-      
-      return false;
-    }
+    //if (keycode == NAVIGATOR_TURBO) return false;
+    //if (keycode == NAVIGATOR_AIM) return false;
   }
   
   return true;
