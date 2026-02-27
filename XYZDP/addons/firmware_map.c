@@ -493,8 +493,21 @@ void housekeeping_task_exec_halt(void) {
   exec_halt_trigger = now + (UINT32_MAX / 2) - 1;
 
   // do halt 
-  // test
-  is31fl3731_write_register(0, 0, 0);
+  STATUS_LED_1(true);
+  STATUS_LED_2(true);
+  
+  // rgb kill
+  is31fl3731_write_register(0, IS31FL3731_REG_COMMAND, IS31FL3731_COMMAND_FUNCTION);
+  wait_ms(10);
+  
+  is31fl3731_write_register(0, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0);
+  wait_ms(10);
+
+  is31fl3731_write_register(1, IS31FL3731_REG_COMMAND, IS31FL3731_COMMAND_FUNCTION);
+  wait_ms(10);
+  
+  is31fl3731_write_register(1, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0);
+  wait_ms(10);
   
   STATUS_LED_1(false);
   STATUS_LED_2(true);
