@@ -6,6 +6,7 @@ enum layer_num {
   LAYER_Base_ANSI,
   LAYER_Transition,
   LAYER_Mouse,
+  LAYER_Mouse_Upper,
   LAYER_Number,
   LAYER_Number_ANSI,
   LAYER_Cursor,
