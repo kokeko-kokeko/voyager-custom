@@ -492,7 +492,10 @@ void housekeeping_task_exec_halt(void) {
   if (timer_expired_fast(now, exec_halt_trigger) == false) return;
   exec_halt_trigger = now + (UINT32_MAX / 2) - 1;
 
-  // do halt
+  // do halt 
+  // test
+  is31fl3731_write_register(0, 0, 0);
+  
   STATUS_LED_1(false);
   STATUS_LED_2(true);
   
