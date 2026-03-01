@@ -532,6 +532,13 @@ void housekeeping_task_exec_halt(void) {
   
   i2c_transmit(NAVIGATOR_TRACKBALL_ADDRESS, idle_mode, 1, NAVIGATOR_TRACKBALL_TIMEOUT);
   wait_ms(10);
+
+  i2cStop(&I2C_DRIVER);
+  wait_ms(10);
+  
+  palSetLineMode(B6, PAL_MODE_INPUT);
+  palSetLineMode(B7, PAL_MODE_INPUT);
+  wait_ms(10);
   
   STATUS_LED_1(false);
   STATUS_LED_2(true);
