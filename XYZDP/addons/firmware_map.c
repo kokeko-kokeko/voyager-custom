@@ -565,6 +565,8 @@ void housekeeping_task_exec_halt(void) {
   // AHB prescale /512 to 15.625KHz
   RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV512;
 
+  // kill clock
+  RCC->AHBENR = 0;
   RCC->APB1ENR = 0;
   RCC->APB2ENR = 0;
       
