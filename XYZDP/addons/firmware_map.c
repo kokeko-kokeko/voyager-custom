@@ -589,9 +589,10 @@ void housekeeping_task_exec_halt(void) {
   PWR->CR |= PWR_CR_PDDS;          // Standby mode（PDDS = 1）
   PWR->CR |= PWR_CR_LPDS;          // low power（LPDS = 1）
 
-  PWR->CR &= ~PWR_CR_PLS;          // PLS clear
-  PWR->CR |= PWR_CR_PLS_LEV7;      // max level
-  PWR->CR |= PWR_CR_PVDE;          // enable
+  // low vol
+  //PWR->CR &= ~PWR_CR_PLS;          // PLS clear
+  //PWR->CR |= PWR_CR_PLS_LEV7;      // max level
+  //PWR->CR |= PWR_CR_PVDE;          // enable
   
   SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;   // Deep Sleep
   
