@@ -524,8 +524,14 @@ void housekeeping_task_exec_halt(void) {
   wait_ms(10);
 
   // mouse disable (sci18is606 idle)
+  uint8_t clr_int[1] = {SCI18IS606_CLR_INT};
   uint8_t idle_mode[1] = {0xF2};
+  
+  i2c_transmit(NAVIGATOR_TRACKBALL_ADDRESS, clr_int, 1, NAVIGATOR_TRACKBALL_TIMEOUT);
+  wait_ms(10);
+  
   i2c_transmit(NAVIGATOR_TRACKBALL_ADDRESS, idle_mode, 1, NAVIGATOR_TRACKBALL_TIMEOUT);
+  wait_ms(10);
   
   STATUS_LED_1(false);
   STATUS_LED_2(true);
