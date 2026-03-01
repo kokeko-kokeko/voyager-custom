@@ -566,8 +566,7 @@ void housekeeping_task_exec_halt(void) {
       
   // Flash Wait State to 0（8MHz）
   FLASH->ACR &= ~FLASH_ACR_LATENCY;
-
-  /*
+  
   // prepare standby
   PWR->CR |= PWR_CR_CWUF;          // Wakeup clear
   PWR->CR |= PWR_CR_PDDS;          // Standby mode（PDDS = 1）
@@ -578,7 +577,6 @@ void housekeeping_task_exec_halt(void) {
   PWR->CR |= PWR_CR_PVDE;          // enable
   
   SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;   // Deep Sleep
-  */
   
   // AHB prescale /512 to 15.625KHz
   RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV512;
