@@ -563,6 +563,14 @@ void set_layer_color_overlay_mouse(void) {
     
     rgb_matrix_set_color(24, 0, f, 0);
     rgb_matrix_set_color(25, f, 0, 0);
+    
+    // right side
+    rgb_matrix_set_color(26, 0, f, h);
+    rgb_matrix_set_color(27, 0, f, 0);
+    
+    rgb_matrix_set_color(32, 0, 0, f);
+    
+    rgb_matrix_set_color(38, f, 0, 0);
   } else {
     // up
     // left side
@@ -572,21 +580,16 @@ void set_layer_color_overlay_mouse(void) {
     
     rgb_matrix_set_color(24, f, f, 0);
     rgb_matrix_set_color(25, f, 0, h);
+    
+    // right side 
+    rgb_matrix_set_color(26, h, 0, f);
+    rgb_matrix_set_color(27, f, f, 0);
+   
+    rgb_matrix_set_color(32, 0, h, f);
+    
+    rgb_matrix_set_color(38, f, 0, h);
   }
   
-  // right side
-  rgb_matrix_set_color(26, 0, f, h);
-  rgb_matrix_set_color(27, 0, f, 0);
-  rgb_matrix_set_color(28, f, 0, h);
-  rgb_matrix_set_color(29, f, f, 0);
-  rgb_matrix_set_color(30, 0, h, f); 
-  rgb_matrix_set_color(31, h, 0, f);
-
-  rgb_matrix_set_color(32, 0, 0, f);
-  //rgb_matrix_set_color(37, o, q, 0);
-  
-  rgb_matrix_set_color(38, f, 0, 0);
-
   //rgb_matrix_set_color(44, q, q, q);
   rgb_matrix_set_color(47, q, o, 0);
   rgb_matrix_set_color(48, f, h, 0);
