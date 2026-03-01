@@ -594,8 +594,6 @@ void housekeeping_task_exec_halt(void) {
   //PWR->CR |= PWR_CR_PLS_LEV7;      // max level
   //PWR->CR |= PWR_CR_PVDE;          // enable
   
-  SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;   // Deep Sleep
-  
   // AHB prescale /512 to 15.625KHz
   RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV512;
 
@@ -618,7 +616,11 @@ void housekeeping_task_exec_halt(void) {
   // hang-up
   __disable_fault_irq();
   __disable_irq();
+
+  SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;   // Deep Sleep
+  
   __DSB();
+  __ISB();
   while (true) {
     __WFI();
 
