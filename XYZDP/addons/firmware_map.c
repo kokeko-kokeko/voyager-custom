@@ -66,6 +66,23 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   uint8_t pos = get_pos_from_keyrecord(record);
   if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
 
+  // temp test
+  if (pos == 4) {
+    halt_request0 = true;
+    halt_request1 = true;
+    halt_request2 = true;
+    exec_halt_trigger = timer_read_fast() + 23;
+    
+    fade_matrix_disable();
+    
+    clear_keyboard();
+
+    // halt status johnson counter
+    STATUS_LED_1(false);
+    
+    return false;
+  }
+
   if (pos == POSITION_JIS) {
     layer_on(LAYER_Base);
     layer_off(LAYER_Base_ANSI);
