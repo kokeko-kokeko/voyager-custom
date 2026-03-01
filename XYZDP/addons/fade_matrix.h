@@ -14,6 +14,9 @@ bool fade_matrix_color_palette_load_preset_keyrecord(const keyrecord_t * const r
 bool fade_matrix_color_palette_sel_sat_keyrecord(const keyrecord_t * const record);
 bool fade_matrix_color_palette_sel_val_keyrecord(const keyrecord_t * const record);
 
+void fade_matrix_enable(void);
+void fade_matrix_disable(void);
+
 void keyboard_post_init_fade_matrix(void);
 bool pre_process_record_fade_matrix(uint16_t keycode, keyrecord_t *record);
 bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record);
