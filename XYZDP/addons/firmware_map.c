@@ -508,8 +508,8 @@ void housekeeping_task_exec_halt(void) {
   is31fl3731_write_register(1, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0);
   wait_ms(10);
 
-  // dma disable
-  
+  // mouse disable
+  sci18is606_write(0, 0);
   
   STATUS_LED_1(false);
   STATUS_LED_2(true);
