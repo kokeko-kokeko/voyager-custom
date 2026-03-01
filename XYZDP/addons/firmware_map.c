@@ -16,6 +16,9 @@
 #include "ch.h"
 #include "usb_main.h"
 
+#include "i2c_master.h"
+#include "navigator_trackball.h"
+
 enum key_position {
   POSITION_JIS = 0,
   POSITION_ANSI = 6,
