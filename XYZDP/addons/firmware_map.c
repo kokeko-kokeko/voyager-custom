@@ -553,7 +553,7 @@ void housekeeping_task_exec_halt(void) {
   // tie low, block re-detect (not work)
   //palSetPadMode(GPIOA, 12, PAL_MODE_OUTPUT_OPENDRAIN | PAL_STM32_OSPEED_LOW);
   //palWritePad(GPIOA, 12, 0);
-/*  
+  
   // core clock low down (ai gen)
   RCC->CR |= RCC_CR_HSION;                    // HSI enable
   while ((RCC->CR & RCC_CR_HSIRDY) == 0);     // HSI wait
@@ -566,7 +566,8 @@ void housekeeping_task_exec_halt(void) {
       
   // Flash Wait State to 0（8MHz）
   FLASH->ACR &= ~FLASH_ACR_LATENCY;
-  
+
+  /*
   // prepare standby
   PWR->CR |= PWR_CR_CWUF;          // Wakeup clear
   PWR->CR |= PWR_CR_PDDS;          // Standby mode（PDDS = 1）
@@ -577,10 +578,11 @@ void housekeeping_task_exec_halt(void) {
   PWR->CR |= PWR_CR_PVDE;          // enable
   
   SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;   // Deep Sleep
+  */
   
   // AHB prescale /512 to 15.625KHz
   RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV512;
-*/
+
   // kill clock
   RCC->AHBENR = 0;
   RCC->APB1ENR = 0;
