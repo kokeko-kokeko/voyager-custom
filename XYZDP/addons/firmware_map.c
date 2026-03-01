@@ -553,7 +553,7 @@ void housekeeping_task_exec_halt(void) {
   // tie low, block re-detect (not work)
   //palSetPadMode(GPIOA, 12, PAL_MODE_OUTPUT_OPENDRAIN | PAL_STM32_OSPEED_LOW);
   //palWritePad(GPIOA, 12, 0);
-  
+/*  
   // core clock low down (ai gen)
   RCC->CR |= RCC_CR_HSION;                    // HSI enable
   while ((RCC->CR & RCC_CR_HSIRDY) == 0);     // HSI wait
@@ -580,7 +580,7 @@ void housekeeping_task_exec_halt(void) {
   
   // AHB prescale /512 to 15.625KHz
   RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV512;
-
+*/
   // kill clock
   RCC->AHBENR = 0;
   RCC->APB1ENR = 0;
