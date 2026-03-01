@@ -507,6 +507,9 @@ void housekeeping_task_exec_halt(void) {
   
   is31fl3731_write_register(1, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0);
   wait_ms(10);
+
+  // dma disable
+  
   
   STATUS_LED_1(false);
   STATUS_LED_2(true);
@@ -561,6 +564,9 @@ void housekeeping_task_exec_halt(void) {
   
   // AHB prescale /512 to 15.625KHz
   RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV512;
+
+  RCC->APB1ENR = 0;
+  RCC->APB2ENR = 0;
       
   chSysUnlock();
   
