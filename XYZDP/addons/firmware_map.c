@@ -533,6 +533,7 @@ void housekeeping_task_exec_halt(void) {
   i2c_transmit(NAVIGATOR_TRACKBALL_ADDRESS, idle_mode, 1, NAVIGATOR_TRACKBALL_TIMEOUT);
   wait_ms(10);
 
+  // from voyager.c
   i2cStop(&I2CD1);
   wait_ms(10);
   
