@@ -577,6 +577,9 @@ void housekeeping_task_exec_halt(void) {
       
   RCC->CR &= ~RCC_CR_PLLON;                   // PLL stop
   while (RCC->CR & RCC_CR_PLLRDY);            // wait for PLL stop
+
+  RCC->CR &= ~RCC_CR_HSEON;                   // HSE stop
+  while (RCC->CR & RCC_CR_HSERDY);            // wait
       
   // Flash Wait State to 0（8MHz）
   FLASH->ACR &= ~FLASH_ACR_LATENCY;
