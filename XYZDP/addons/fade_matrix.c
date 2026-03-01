@@ -232,7 +232,8 @@ bool fade_matrix_color_palette_sel_val_keyrecord(const keyrecord_t * const recor
   return false;
 }
 
-void keyboard_post_init_fade_matrix(void) {
+void fade_matrix_enable(void) {
+  rgb_matrix_enable_noeeprom();
   rgb_matrix_sethsv_noeeprom(0, 0, 0);
   rgb_matrix_set_speed_noeeprom(0);
   rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
@@ -245,6 +246,24 @@ void keyboard_post_init_fade_matrix(void) {
   fade_matrix_target.mode = RGB_MATRIX_NONE;
 
   activate_fade_matrix();
+}
+
+void fade_matrix_disable(void) {
+  fade_matrix_target.enable = false;
+  fade_matrix_target.hsv.h = 0;
+  fade_matrix_target.hsv.s = 0;
+  fade_matrix_target.hsv.v = 0;
+  fade_matrix_target.speed = 0;
+  fade_matrix_target.mode = RGB_MATRIX_NONE;
+
+  fade_tamrix_trigger = timer_read_fast() + (UINT32_MAX / 2) - 1;
+  
+  rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
+  rgb_matrix_disable_noeeprom();
+}
+
+void keyboard_post_init_fade_matrix(void) {
+  fade_matrix_enable();
 }
 
 bool pre_process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
