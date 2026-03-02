@@ -65,24 +65,7 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
 
   uint8_t pos = get_pos_from_keyrecord(record);
   if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
-
-  // temp test
-  if (pos == 4) {
-    halt_request0 = true;
-    halt_request1 = true;
-    halt_request2 = true;
-    exec_halt_trigger = timer_read_fast() + 23;
-    
-    fade_matrix_disable();
-    
-    clear_keyboard();
-
-    // halt status johnson counter
-    STATUS_LED_1(false);
-    
-    return false;
-  }
-
+  
   if (pos == POSITION_JIS) {
     layer_on(LAYER_Base);
     layer_off(LAYER_Base_ANSI);
@@ -173,22 +156,27 @@ void set_layer_color_firmware_map(void) {
   if (halt_invoke_count == 7) {
     rgb_matrix_set_color_all(q, 0, 0);
     rgb_matrix_set_color(POSITION_Halt, 0, 0, 0);
+    rgb_matrix_set_color(POSITION_Halt_Left, 0, 0, 0);
     return;
   } else if (halt_invoke_count == 6) {
     rgb_matrix_set_color_all(q, o, 0);
     rgb_matrix_set_color(POSITION_Halt, 0, 0, 0);
+    rgb_matrix_set_color(POSITION_Halt_Left, 0, 0, 0);
     return;
   } else if (halt_invoke_count == 5) {
     rgb_matrix_set_color_all(q, q, 0);
     rgb_matrix_set_color(POSITION_Halt, 0, 0, 0);
+    rgb_matrix_set_color(POSITION_Halt_Left, 0, 0, 0);
     return;
   } else if (halt_invoke_count == 4) {
     rgb_matrix_set_color_all(0, q, 0);
     rgb_matrix_set_color(POSITION_Halt, 0, 0, 0);
+    rgb_matrix_set_color(POSITION_Halt_Left, 0, 0, 0);
     return;
   } else if (halt_invoke_count >= 1)  {
     rgb_matrix_set_color_all(0, 0, 0);
     rgb_matrix_set_color(POSITION_Halt, 0, q, 0);
+    rgb_matrix_set_color(POSITION_Halt_Left, 0, q, 0);
     return;
   }
 
@@ -273,7 +261,6 @@ void set_layer_color_firmware_map(void) {
       break;
   }
   rgb_matrix_set_color(POSITION_OS, rgb_os.r, rgb_os.g, rgb_os.b);
-  rgb_matrix_set_color(POSITION_Halt_Left, rgb_os.r, rgb_os.g, rgb_os.b);
   
   //reset clear
   rgb_matrix_set_color(POSITION_RST, f, 0, 0);
