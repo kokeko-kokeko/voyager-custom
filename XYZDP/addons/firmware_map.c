@@ -182,7 +182,8 @@ void set_layer_color_firmware_map(void) {
 
   rgb_matrix_set_color_all(0, 0, 0);
   rgb_matrix_set_color(POSITION_Halt, 0, 0, q);
-
+  rgb_matrix_set_color(POSITION_Halt_Left, 0, 0, q);
+  
   //layer indication
   rgb_matrix_set_color(24, f, f, 0);
   rgb_matrix_set_color(25, f, f, 0);
