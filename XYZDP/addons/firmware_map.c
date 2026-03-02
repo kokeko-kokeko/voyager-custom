@@ -16,7 +16,9 @@
 #include "ch.h"
 #include "usb_main.h"
 
+#include "mcp23018.h"
 #include "i2c_master.h"
+
 #include "navigator_trackball.h"
 
 enum key_position {
