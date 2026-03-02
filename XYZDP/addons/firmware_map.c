@@ -39,11 +39,11 @@ enum key_position {
   POSITION_Compose = 46,
   POSITION_Kana = 20,
 
-  POSITION_OS1 = 22,
-  POSITION_OS2 = 23,
-
+  POSITION_OS = 22,
+  
   POSITION_Color_Palette = 50,
-  POSITION_Halt = 51
+  POSITION_Halt = 51,
+  POSITION_Halt_Left = 23
 };
 
 // halt safety flags
@@ -272,8 +272,8 @@ void set_layer_color_firmware_map(void) {
       rgb_os.b = f;
       break;
   }
-  rgb_matrix_set_color(POSITION_OS1, rgb_os.r, rgb_os.g, rgb_os.b);
-  rgb_matrix_set_color(POSITION_OS2, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(POSITION_OS, rgb_os.r, rgb_os.g, rgb_os.b);
+  rgb_matrix_set_color(POSITION_Halt_Left, rgb_os.r, rgb_os.g, rgb_os.b);
   
   //reset clear
   rgb_matrix_set_color(POSITION_RST, f, 0, 0);
