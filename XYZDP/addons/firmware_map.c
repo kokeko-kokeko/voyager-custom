@@ -603,9 +603,9 @@ void housekeeping_task_exec_halt(void) {
   RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV512;
 
   // kill clock
-  RCC->AHBENR = 0;
-  RCC->APB1ENR = 0;
-  RCC->APB2ENR = 0;
+  //RCC->AHBENR = 0;
+  //RCC->APB1ENR = 0;
+  //RCC->APB2ENR = 0;
       
   chSysUnlock();
   
@@ -627,7 +627,7 @@ void housekeeping_task_exec_halt(void) {
   __DSB();
   __ISB();
   while (true) {
-    __WFI();
+    //__WFI();
 
     // test for non resrart
     STATUS_LED_1(true);
