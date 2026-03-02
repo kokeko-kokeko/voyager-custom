@@ -627,7 +627,7 @@ void housekeeping_task_exec_halt(void) {
   __DSB();
   __ISB();
   while (true) {
-    //__WFI();
+    __WFI();
 
     // test for non resrart
     STATUS_LED_1(true);
