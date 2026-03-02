@@ -555,6 +555,8 @@ void housekeeping_task_exec_halt(void) {
   
   palSetLineMode(B6, PAL_MODE_INPUT);
   palSetLineMode(B7, PAL_MODE_INPUT);
+  gpio_set_pin_input_high(B6);
+  gpio_set_pin_input_high(B7);
   wait_ms(10);
   
   STATUS_LED_1(false);
