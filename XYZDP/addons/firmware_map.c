@@ -504,17 +504,15 @@ void housekeeping_task_exec_halt(void) {
   STATUS_LED_2(true);
   
   // rgb kill
-  is31fl3731_write_register(0, IS31FL3731_REG_COMMAND, IS31FL3731_COMMAND_FUNCTION);
-  wait_ms(10);
-  
-  is31fl3731_write_register(0, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0);
-  wait_ms(10);
+  is31fl3731_select_page(0, IS31FL3731_COMMAND_FUNCTION);
 
-  is31fl3731_write_register(1, IS31FL3731_REG_COMMAND, IS31FL3731_COMMAND_FUNCTION);
-  wait_ms(10);
-  
-  is31fl3731_write_register(1, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0);
-  wait_ms(10);
+  // enable software shutdown
+  is31fl3731_write_register(0, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0x00);
+
+  is31fl3731_select_page(1, IS31FL3731_COMMAND_FUNCTION);
+
+  // enable software shutdown
+  is31fl3731_write_register(1, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0x00);
 
   // mouse sensor reset
   uint8_t disable_protect[3] = {0x01, 0x09 | WRITE_REG_BIT, 0x5A}; // Disable write protection
