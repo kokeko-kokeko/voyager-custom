@@ -502,6 +502,10 @@ void housekeeping_task_exec_halt(void) {
   // do halt 
   STATUS_LED_1(true);
   STATUS_LED_2(true);
+
+  // gpio stop
+  mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTA, ALL_INPUT);
+  mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTB, ALL_INPUT);
   
   // rgb kill
   is31fl3731_select_page(1, IS31FL3731_COMMAND_FUNCTION);
