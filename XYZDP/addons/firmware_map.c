@@ -549,8 +549,8 @@ void housekeeping_task_exec_halt(void) {
   STATUS_LED_1(false);
   STATUS_LED_2(true);
   
-  usbDisconnectBus(&USB_DRIVER);
-  usbStop(&USB_DRIVER);
+  //usbDisconnectBus(&USB_DRIVER);
+  //usbStop(&USB_DRIVER);
   
   chSysLock();
   
