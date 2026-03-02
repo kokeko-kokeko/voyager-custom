@@ -508,6 +508,13 @@ void housekeeping_task_exec_halt(void) {
   // matrix gpio stop (from matrix.c)
   mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTA, ALL_INPUT);
   mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTB, ALL_INPUT);
+
+  gpio_set_pin_input_low(B10);
+  gpio_set_pin_input_low(B11);
+  gpio_set_pin_input_low(B12);
+  gpio_set_pin_input_low(B13);
+  gpio_set_pin_input_low(B14);
+  gpio_set_pin_input_low(B15);
   
   // rgb kill
   is31fl3731_select_page(1, IS31FL3731_COMMAND_FUNCTION);
