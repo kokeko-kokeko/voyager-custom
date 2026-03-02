@@ -605,10 +605,10 @@ void housekeeping_task_exec_halt(void) {
   PWR->CR |= PWR_CR_PDDS;          // Standby mode（PDDS = 1）
   PWR->CR |= PWR_CR_LPDS;          // low power（LPDS = 1）
 
-  // low vol
-  //PWR->CR &= ~PWR_CR_PLS;          // PLS clear
-  //PWR->CR |= PWR_CR_PLS_LEV7;      // max level
-  //PWR->CR |= PWR_CR_PVDE;          // enable
+  // early reset, low v
+  PWR->CR &= ~PWR_CR_PLS;          // PLS clear
+  PWR->CR |= PWR_CR_PLS_LEV7;      // max level
+  PWR->CR |= PWR_CR_PVDE;          // enable
   
   // AHB prescale /512 to 15.625KHz
   RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV512;
