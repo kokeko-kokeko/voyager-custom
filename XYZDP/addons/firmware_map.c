@@ -527,7 +527,7 @@ void housekeeping_task_exec_halt(void) {
   // enable software shutdown
   is31fl3731_write_register(0, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0x00);
 
-  // mouse sensor reset
+  // mouse sensor reset powersave
   uint8_t disable_protect[3] = {0x01, 0x09 | WRITE_REG_BIT, 0x5A}; // Disable write protection
   uint8_t sw_reset[3] = {0x01, 0x06 | WRITE_REG_BIT, 0x80};        // Software reset
   uint8_t power_down[3] = {0x01, 0x06 | WRITE_REG_BIT, 0x08};      // power down
@@ -539,7 +539,7 @@ void housekeeping_task_exec_halt(void) {
   i2c_transmit(NAVIGATOR_TRACKBALL_ADDRESS, power_down, 3, NAVIGATOR_TRACKBALL_TIMEOUT);
   wait_ms(10);
 
-  // mouse disable (sci18is606 idle)
+  // mouse bridge disable (sci18is606 idle)
   uint8_t clr_int[1] = {SCI18IS606_CLR_INT};
   uint8_t idle_mode[1] = {0xF2};
   
