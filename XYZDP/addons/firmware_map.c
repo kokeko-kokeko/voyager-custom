@@ -630,6 +630,12 @@ void housekeeping_task_exec_halt(void) {
   
   // chSysHalt is while (true) with debug system
   // use normal while true
+
+  // from voyager.c void mcu_reset(void)
+  gpio_set_pin_output_push_pull(A9);
+  gpio_set_pin_output_push_pull(A8);
+  gpio_write_pin_low(A8);
+  gpio_write_pin_low(A9);
   
   // hang-up
   __disable_fault_irq();
