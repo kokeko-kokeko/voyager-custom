@@ -563,10 +563,10 @@ void housekeeping_task_exec_halt(void) {
   i2cStop(&I2CD1);
   wait_ms(10);
   
-  palSetLineMode(B6, PAL_MODE_INPUT);
-  palSetLineMode(B7, PAL_MODE_INPUT);
-  gpio_set_pin_input_high(B6);
-  gpio_set_pin_input_high(B7);
+  //palSetLineMode(B6, PAL_MODE_INPUT);
+  //palSetLineMode(B7, PAL_MODE_INPUT);
+  palSetPadMode(GPIOB, 6, PAL_MODE_INPUT_ANALOG);
+  palSetPadMode(GPIOB, 7, PAL_MODE_INPUT_ANALOG);
   wait_ms(10);
   
   STATUS_LED_1(false);
