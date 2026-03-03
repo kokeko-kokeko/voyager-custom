@@ -506,8 +506,8 @@ void housekeeping_task_exec_halt(void) {
   STATUS_LED_2(true);
 
   // matrix gpio stop (from matrix.c)
-  // strobe row line to input
-  mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTA, ALL_INPUT);
+  // row line to input
+  mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTA, 0b01111111);
   
   gpio_set_pin_input_low(B10);
   gpio_set_pin_input_low(B11);
