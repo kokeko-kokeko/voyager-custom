@@ -632,6 +632,10 @@ void housekeeping_task_exec_halt(void) {
 
   STATUS_LED_1(false);
   STATUS_LED_2(false);
+
+  palSetPadMode(GPIOB, 5, PAL_MODE_INPUT_ANALOG);
+  palSetPadMode(GPIOB, 4, PAL_MODE_INPUT_ANALOG);
+  palSetPadMode(GPIOB, 3, PAL_MODE_INPUT_ANALOG);
   
   // chSysHalt is while (true) with debug system
   // use normal while true
@@ -656,6 +660,10 @@ void housekeeping_task_exec_halt(void) {
     __WFI();
 
     // test for non resrart
+    // setup LED & disp
+    gpio_set_pin_output(B5);
+    gpio_set_pin_output(B4);
+    
     STATUS_LED_1(true);
     STATUS_LED_2(true);
   }
