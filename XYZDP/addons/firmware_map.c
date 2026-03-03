@@ -516,6 +516,14 @@ void housekeeping_task_exec_halt(void) {
   gpio_set_pin_input_low(B13);
   gpio_set_pin_input_low(B14);
   gpio_set_pin_input_low(B15);
+
+  gpio_set_pin_input_low(A0);
+  gpio_set_pin_input_low(A1);
+  gpio_set_pin_input_low(A2);
+  gpio_set_pin_input_low(A3);
+  gpio_set_pin_input_low(A6);
+  gpio_set_pin_input_low(A7);
+  gpio_set_pin_input_low(B0);
   
   // rgb kill
   is31fl3731_select_page(1, IS31FL3731_COMMAND_FUNCTION);
