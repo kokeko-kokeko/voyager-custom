@@ -642,7 +642,7 @@ void housekeeping_task_exec_halt(void) {
 
   // from voyager.c
   // void mcu_reset(void)
-  // reset without bootloader
+  // set reset without bootloader
   gpio_set_pin_output_push_pull(A9);
   gpio_set_pin_output_push_pull(A8);
   gpio_write_pin_low(A8);
@@ -657,6 +657,10 @@ void housekeeping_task_exec_halt(void) {
   __DSB();
   __ISB();
   while (true) {
+    __WFI();
+    __WFI();
+    __WFI();
+    __WFI();
     __WFI();
 
     // test for non resrart
