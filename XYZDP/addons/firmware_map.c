@@ -650,8 +650,10 @@ void housekeeping_task_exec_halt(void) {
   // chSysHalt is while (true) with debug system
   // use normal while true
 
-  // A8 keep low, A9 analog
-  palSetPadMode(GPIOA, 9, PAL_MODE_INPUT_ANALOG);
+  // same as void keyboard_pre_init_kb(void) logic
+  // A8 is high z, A9 keep low
+  palSetPadMode(GPIOA, 8, PAL_MODE_INPUT_ANALOG);
+  gpio_write_pin_low(A9);
   
   // hang-up
   __disable_fault_irq();
