@@ -509,21 +509,22 @@ void housekeeping_task_exec_halt(void) {
   // row line to input
   mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTA, ALL_INPUT);
   mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTB, ALL_INPUT);
-  
-  gpio_set_pin_input_low(B10);
-  gpio_set_pin_input_low(B11);
-  gpio_set_pin_input_low(B12);
-  gpio_set_pin_input_low(B13);
-  gpio_set_pin_input_low(B14);
-  gpio_set_pin_input_low(B15);
 
-  gpio_set_pin_input_low(A0);
-  gpio_set_pin_input_low(A1);
-  gpio_set_pin_input_low(A2);
-  gpio_set_pin_input_low(A3);
-  gpio_set_pin_input_low(A6);
-  gpio_set_pin_input_low(A7);
-  gpio_set_pin_input_low(B0);
+  // to analog
+  palSetPadMode(GPIOB, 10, PAL_MODE_INPUT_ANALOG);
+  palSetPadMode(GPIOB, 11, PAL_MODE_INPUT_ANALOG);
+  palSetPadMode(GPIOB, 12, PAL_MODE_INPUT_ANALOG);
+  palSetPadMode(GPIOB, 13, PAL_MODE_INPUT_ANALOG);
+  palSetPadMode(GPIOB, 14, PAL_MODE_INPUT_ANALOG);
+  palSetPadMode(GPIOB, 15, PAL_MODE_INPUT_ANALOG);
+  
+  palSetPadMode(GPIOA, 0, PAL_MODE_INPUT_ANALOG);
+  palSetPadMode(GPIOA, 1, PAL_MODE_INPUT_ANALOG);
+  palSetPadMode(GPIOA, 2, PAL_MODE_INPUT_ANALOG);
+  palSetPadMode(GPIOA, 3, PAL_MODE_INPUT_ANALOG);
+  palSetPadMode(GPIOA, 6, PAL_MODE_INPUT_ANALOG);
+  palSetPadMode(GPIOA, 7, PAL_MODE_INPUT_ANALOG);
+  palSetPadMode(GPIOB, 0, PAL_MODE_INPUT_ANALOG);
   
   // rgb kill
   is31fl3731_select_page(1, IS31FL3731_COMMAND_FUNCTION);
