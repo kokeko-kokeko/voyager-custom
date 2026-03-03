@@ -528,13 +528,9 @@ void housekeeping_task_exec_halt(void) {
   
   // rgb kill
   is31fl3731_select_page(1, IS31FL3731_COMMAND_FUNCTION);
-
-  // enable software shutdown
   is31fl3731_write_register(1, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0x00);
 
   is31fl3731_select_page(0, IS31FL3731_COMMAND_FUNCTION);
-
-  // enable software shutdown
   is31fl3731_write_register(0, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0x00);
 
   // mouse sensor reset powersave
