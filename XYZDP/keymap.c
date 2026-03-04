@@ -735,6 +735,7 @@ void keyboard_post_init_user(void) {
   // config.h
   //keymap_config.nkro = true;
 
+  keyboard_post_init_addtional_power_setting();
   keyboard_post_init_adv_mouse();
   keyboard_post_init_fade_matrix();
   keyboard_post_init_status_led();
