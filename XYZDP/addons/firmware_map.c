@@ -681,3 +681,13 @@ void housekeeping_task_exec_halt(void) {
   return;
 }
 
+void keyboard_post_init_addtional_power_setting(void) {
+  chSysLock();
+
+
+
+  
+  chSysUnlock();
+  return;
+}
+
