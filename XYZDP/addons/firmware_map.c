@@ -508,8 +508,9 @@ void housekeeping_task_exec_halt(void) {
   // matrix gpio stop (from matrix.c)
   mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTA, ALL_INPUT);
   mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTB, ALL_INPUT);
-  mcp23018_set_output(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTA, 0b00000000);
-  mcp23018_set_output(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTB, 0b00000000);
+  mcp23018_set_output_all(MCP23018_DEFAULT_ADDRESS, ALL_LOW, ALL_LOW);
+  //mcp23018_set_output(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTA, 0b00000000);
+  //mcp23018_set_output(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTB, 0b00000000);
   
   // to analog
   palSetPadMode(GPIOB, 10, PAL_MODE_INPUT_ANALOG);
