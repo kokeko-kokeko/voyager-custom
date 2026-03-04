@@ -679,7 +679,7 @@ void housekeeping_task_exec_halt(void) {
 void keyboard_post_init_addtional_power_setting(void) {
   chSysLock();
   
-  // from voyager,c LED output low
+  // from voyager.c LED output low
   palSetPadMode(GPIOB, 5, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
   palSetPadMode(GPIOB, 4, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
   palSetPadMode(GPIOB, 3, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
