@@ -624,7 +624,8 @@ void housekeeping_task_exec_halt(void) {
   
   // 72 -> 0.015625 1000 000 -> 217
   wait_us(217);
-  
+
+  // stop status LED
   palSetPadMode(GPIOB, 5, PAL_MODE_INPUT_ANALOG);
   palSetPadMode(GPIOB, 4, PAL_MODE_INPUT_ANALOG);
   palSetPadMode(GPIOB, 3, PAL_MODE_INPUT_ANALOG);
