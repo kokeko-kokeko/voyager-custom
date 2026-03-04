@@ -625,12 +625,12 @@ void housekeeping_task_exec_halt(void) {
   // 72 -> 0.015625 1000 000 -> 217
   wait_us(217);
 
-  STATUS_LED_1(false);
-  STATUS_LED_2(false);
+  STATUS_LED_1(true);
+  STATUS_LED_2(true);
 
-  palSetPadMode(GPIOB, 5, PAL_MODE_INPUT_ANALOG);
-  palSetPadMode(GPIOB, 4, PAL_MODE_INPUT_ANALOG);
-  palSetPadMode(GPIOB, 3, PAL_MODE_INPUT_ANALOG);
+  //palSetPadMode(GPIOB, 5, PAL_MODE_INPUT_ANALOG);
+  //palSetPadMode(GPIOB, 4, PAL_MODE_INPUT_ANALOG);
+  //palSetPadMode(GPIOB, 3, PAL_MODE_INPUT_ANALOG);
   
   // chSysHalt is while (true) with debug system
   // use normal while true
