@@ -644,7 +644,7 @@ void housekeeping_task_exec_halt(void) {
   gpio_set_pin_output_push_pull(A8);
   gpio_write_pin_low(A8);
   gpio_write_pin_low(A9);
-  // -- keep drive low -- 
+  // ---- keep drive low ----
   
   // hang-up
   __disable_fault_irq();
