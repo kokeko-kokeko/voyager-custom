@@ -626,16 +626,6 @@ void housekeeping_task_exec_halt(void) {
   //RCC->APB2ENR = 0;
       
   chSysUnlock();
-
-  // from voyager.c
-  // void mcu_reset(void)
-  // set reset without bootloader
-  // A8 -> level sense & charge
-  // A9 -> discharge via R
-  gpio_set_pin_output_push_pull(A9);
-  gpio_set_pin_output_push_pull(A8);
-  gpio_write_pin_low(A8);
-  gpio_write_pin_low(A9);
   
   // 72 -> 0.015625 1000 000 -> 217
   wait_us(217);
@@ -650,10 +640,16 @@ void housekeeping_task_exec_halt(void) {
   // chSysHalt is while (true) with debug system
   // use normal while true
 
-  // same as void keyboard_pre_init_kb(void) logic
-  // A8 is high z, A9 keep low
-  palSetPadMode(GPIOA, 8, PAL_MODE_INPUT_ANALOG);
+  // from voyager.c
+  // void mcu_reset(void)
+  // set reset without bootloader
+  // A8 -> level sense & charge
+  // A9 -> discharge via R
+  gpio_set_pin_output_push_pull(A9);
+  gpio_set_pin_output_push_pull(A8);
+  gpio_write_pin_low(A8);
   gpio_write_pin_low(A9);
+  // -- keep drive low -- 
   
   // hang-up
   __disable_fault_irq();
@@ -667,9 +663,7 @@ void housekeeping_task_exec_halt(void) {
     __WFI();
     __WFI();
     __WFI();
-    __WFI();
-    __WFI();
-
+    
     // test for non resrart
     // setup LED & disp
     gpio_set_pin_output(B5);
@@ -679,8 +673,6 @@ void housekeeping_task_exec_halt(void) {
     STATUS_LED_2(true);
 
     // trap
-    while (true);
-    while (true);
     while (true);
     while (true);
     while (true);
