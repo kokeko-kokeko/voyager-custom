@@ -12,6 +12,7 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record);
 layer_state_t layer_state_set_firmware_map(const layer_state_t state);
 
 void housekeeping_task_exec_halt(void);
+void keyboard_post_init_addtional_power_setting(void);
 
 
 
