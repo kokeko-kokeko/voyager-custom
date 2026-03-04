@@ -611,11 +611,6 @@ void housekeeping_task_exec_halt(void) {
   PWR->CR |= PWR_CR_CWUF;          // Wakeup clear
   PWR->CR |= PWR_CR_PDDS;          // Standby mode（PDDS = 1）
   PWR->CR |= PWR_CR_LPDS;          // low power（LPDS = 1）
-
-  // early reset, low v
-  //PWR->CR &= ~PWR_CR_PLS;          // PLS clear
-  //PWR->CR |= PWR_CR_PLS_LEV7;      // max level
-  //PWR->CR |= PWR_CR_PVDE;          // enable
   
   // AHB prescale /512 to 15.625KHz
   RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE) | RCC_CFGR_HPRE_DIV512;
@@ -684,8 +679,18 @@ void housekeeping_task_exec_halt(void) {
 void keyboard_post_init_addtional_power_setting(void) {
   chSysLock();
 
+  // from matrix.c outputs to low power
+  palSetPadMode(GPIOB, 10, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
+  palSetPadMode(GPIOB, 11, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
+  palSetPadMode(GPIOB, 12, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
+  palSetPadMode(GPIOB, 13, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
+  palSetPadMode(GPIOB, 14, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
+  palSetPadMode(GPIOB, 15, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
 
-
+  // early reset, low v
+  PWR->CR &= ~PWR_CR_PLS;          // PLS clear
+  PWR->CR |= PWR_CR_PLS_LEV7;      // max level
+  PWR->CR |= PWR_CR_PVDE;          // enable
   
   chSysUnlock();
   return;
