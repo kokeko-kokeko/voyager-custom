@@ -695,9 +695,10 @@ void keyboard_post_init_addtional_power_setting(void) {
   
   // enable low voltage reset
   // only detect not reset
-  PWR->CR &= ~PWR_CR_PLS;          // PLS clear
-  PWR->CR |= PWR_CR_PLS_LEV7;      // max level
-  PWR->CR |= PWR_CR_PVDE;          // enable
+  // disable now
+  //PWR->CR &= ~PWR_CR_PLS;          // PLS clear
+  //PWR->CR |= PWR_CR_PLS_LEV7;      // max level
+  //PWR->CR |= PWR_CR_PVDE;          // enable
   
   chSysUnlock();
   
