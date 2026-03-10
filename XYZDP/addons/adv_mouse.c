@@ -687,7 +687,7 @@ void set_layer_color_overlay_mouse(void) {
 
   rgb_matrix_set_color_all(o, o, o);
 
-  if (layer_state_is(LAYER_Mouse_Upper) == false) {
+  if (layer_state_is(LAYER_Mouse_Upper_Left) == false) {
     // low
     // left side
     rgb_matrix_set_color(11, 0, f, h);
