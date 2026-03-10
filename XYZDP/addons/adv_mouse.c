@@ -244,9 +244,72 @@ static layer_state_t layer_state_set_mouse_edge_detect(const layer_state_t state
   return state;
 }
 
-static layer_state_t layer_state_set_mouse_upper_edge_detect(const layer_state_t state) {
+static layer_state_t layer_state_set_mouse_upper_left_edge_detect(const layer_state_t state) {
   static bool layer_on = false;
-  if (layer_on == layer_state_cmp(state, LAYER_Mouse_Upper)) return state;
+  if (layer_on == layer_state_cmp(state, LAYER_Mouse_Upper_Left)) return state;
+  layer_on = !layer_on;
+  
+  const fast_timer_t now = timer_read_fast();
+
+  static fast_timer_t enter_time = 0;
+  
+  if (layer_on) {
+    // entered
+    enter_time = now;
+    auto_mouse_early_off_trigger = now + (UINT32_MAX / 2) - 1;
+    
+    return state;
+  }
+  
+  // exited
+  static fast_timer_t exit_time = 0;
+  static uint8_t exit_count = 0;
+  
+  if (TIMER_DIFF_FAST(now, enter_time) >= AUTO_MOUSE_DRAG_THRESHOLD) {
+    // drag, reset all
+    exit_time = now;
+    exit_count = 1;
+    
+    auto_mouse_early_off_trigger = now + (UINT32_MAX / 2) - 1;
+    
+    lock_scrolling = false;
+    
+    navigator_turbo = false;
+    navigator_aim = false;
+    
+    return state;
+  }
+  
+  //tap
+  if (TIMER_DIFF_FAST(now, exit_time) >= AUTO_MOUSE_MULTI_TAP_THRESHOLD) {
+    //1 tap (far from previous release)
+    exit_time = now;
+    exit_count = 1;
+    
+    if (lock_scrolling || navigator_turbo || navigator_aim) {
+      auto_mouse_early_off_trigger = now + AUTO_MOUSE_TIME_LONG;
+    } else {
+      auto_mouse_early_off_trigger = now + AUTO_MOUSE_TIME_SHORT;
+    }
+    
+    lock_scrolling = false;
+    
+    navigator_turbo = false;
+    navigator_aim = false;
+    
+    return state;
+  }
+
+  // multi tap (use ==)
+  exit_time = now;
+  if (exit_count != 0) exit_count++;
+  
+  return state;
+}
+
+static layer_state_t layer_state_set_mouse_upper_right_edge_detect(const layer_state_t state) {
+  static bool layer_on = false;
+  if (layer_on == layer_state_cmp(state, LAYER_Mouse_Upper_Right)) return state;
   layer_on = !layer_on;
   
   const fast_timer_t now = timer_read_fast();
@@ -589,7 +652,8 @@ layer_state_t layer_state_set_adv_mouse(layer_state_t state) {
   state = update_tri_layer_state(state, LAYER_Mouse, LAYER_R_pinky, LAYER_Mouse_Upper_Right);
   
   state = layer_state_set_mouse_edge_detect(state);
-  state = layer_state_set_mouse_upper_edge_detect(state);
+  state = layer_state_set_mouse_upper_left_edge_detect(state);
+  state = layer_state_set_mouse_upper_right_edge_detect(state);
   state = layer_state_set_mouse_number_edge_detect(state);
   state = layer_state_set_mouse_cursor_edge_detect(state);
   state = layer_state_set_mouse_auto_block_scrolling(state);
