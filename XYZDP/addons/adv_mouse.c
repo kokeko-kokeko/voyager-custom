@@ -584,6 +584,10 @@ report_mouse_t pointing_device_task_adv_mouse(report_mouse_t mouse_report) {
 }
 
 layer_state_t layer_state_set_adv_mouse(layer_state_t state) {
+  // update pinkey overwrite
+  state = update_tri_layer_state(state, LAYER_Mouse, LAYER_L_pinky, LAYER_Mouse_Upper_Left);
+  state = update_tri_layer_state(state, LAYER_Mouse, LAYER_R_pinky, LAYER_Mouse_Upper_Right);
+  
   state = layer_state_set_mouse_edge_detect(state);
   state = layer_state_set_mouse_upper_edge_detect(state);
   state = layer_state_set_mouse_number_edge_detect(state);
