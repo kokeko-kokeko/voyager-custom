@@ -16,8 +16,6 @@ enum layer_num {
   LAYER_R_thumb_2,
   LAYER_L_pinky,
   LAYER_R_pinky,
-  LAYER_Mouse_Upper_Left,
-  LAYER_Mouse_Upper_Right,
   LAYER_L_thumb_L_pinky,
   LAYER_R_thumb_R_pinky,
   LAYER_LR_pinky,
@@ -28,6 +26,8 @@ enum layer_num {
   LAYER_L_thumb_LR_pinky,
   LAYER_R_thumb_LR_pinky,
   LAYER_LR_thumb_L_pinky,
+  LAYER_Mouse_Upper_Left,
+  LAYER_Mouse_Upper_Right,
   LAYER_Firmware,
   LAYER_Color_Palette,
   C_LAYER_COUNT 
