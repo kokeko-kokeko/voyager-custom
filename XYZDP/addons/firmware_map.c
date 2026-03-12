@@ -379,13 +379,28 @@ bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
 
 bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
-  if (record->event.pressed == false) return false;
   
   const fast_timer_t now = timer_read_fast();
 
+  // MT template
+  if (record->tap.count > 0) {
+    if (record->event.pressed) {
+      halt_invoke_count = record->tap.count;
+      abort_halt_trigger = now + 5003;
+    } else {
+      
+    }
+  } else {
+    if (record->event.pressed) {
+      halt_invoke_count = 0;
+    } else {
+      
+    }  
+  }
+  
   // release
-  if (halt_invoke_count != UINT8_MAX) halt_invoke_count++;
-  abort_halt_trigger = now + 5003;
+  //if (halt_invoke_count != UINT8_MAX) halt_invoke_count++;
+  
 
   if (8 <= halt_invoke_count) {
     halt_request0 = true;
