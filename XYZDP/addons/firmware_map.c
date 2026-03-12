@@ -335,9 +335,9 @@ bool firmware_map_enter_color_palette_keyrecord(const keyrecord_t * const record
     }
   } else {
     if (record->event.pressed) {
-      
-    } else {
       layer_on(LAYER_Color_Palette);
+    } else {
+      
     }  
   }  
   
