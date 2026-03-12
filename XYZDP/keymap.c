@@ -858,13 +858,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case LAYER_R_pinky:  
       status_led(0b1111, led_pattern_off);
       break;
-    case LAYER_Mouse_Upper_Left:
-    case LAYER_Mouse_Upper_Right:
-      // mouse indication
-      status_led(0b1000, led_pattern_on);
-      // DRAG_SCROLL add on key event
-      // aim/turbo change without layer, direct write on process_record
-      break;
     case LAYER_L_thumb_L_pinky:
       status_led(0b1001, led_pattern_off);
       status_led(0b0110, led_pattern_on);
@@ -891,6 +884,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b0100, led_pattern_on);
       status_led(0b0011, led_pattern_blink);
       break;
+    case LAYER_Mouse_Upper_Left:
+    case LAYER_Mouse_Upper_Right:
+      // mouse indication
+      status_led(0b1000, led_pattern_on);
+      // DRAG_SCROLL add on key event
+      // aim/turbo change without layer, direct write on process_record
+      break;    
     case LAYER_Firmware:
       status_led(0b1111, led_pattern_off);
       break;
