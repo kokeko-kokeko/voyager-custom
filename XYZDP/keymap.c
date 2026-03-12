@@ -689,10 +689,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // layer move
     if (keycode == HSV_86_255_241) return firmware_map_enter_color_palette_keyrecord(record);
     if (keycode == HSV_86_255_242) return firmware_map_exit_all_keyrecord(record);
-    
-    // mouse
-    //if (keycode == NAVIGATOR_TURBO) return false;
-    //if (keycode == NAVIGATOR_AIM) return false;
   }
   
   return true;
