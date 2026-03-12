@@ -327,6 +327,7 @@ void set_layer_color_firmware_map(void) {
 bool firmware_map_enter_color_palette_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
 
+  // MT template
   if (record->tap.count > 0) {
     if (record->event.pressed) {
       
@@ -341,29 +342,6 @@ bool firmware_map_enter_color_palette_keyrecord(const keyrecord_t * const record
     }  
   }  
   
-  return false;
-
-  /*
-  static uint16_t press_time = 0;
-    
-  if (record->event.pressed) {
-    // press
-    press_time = record->event.time;
-      
-    return false;
-  }
-
-  if (TIMER_DIFF_16(record->event.time, press_time) < TAPPING_TERM) {
-    // tap release
-      
-    return false;
-  }
-  
-  // hold release
-  layer_on(LAYER_Color_Palette);
-
-  */
-  // default false
   return false;
 }
 
