@@ -327,6 +327,23 @@ void set_layer_color_firmware_map(void) {
 bool firmware_map_enter_color_palette_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
 
+  if (record->tap.count > 0) {
+    if (record->event.pressed) {
+      
+    } else {
+      
+    }
+  } else {
+    if (record->event.pressed) {
+      
+    } else {
+      layer_on(LAYER_Color_Palette);
+    }  
+  }  
+  
+  return false;
+
+  /*
   static uint16_t press_time = 0;
     
   if (record->event.pressed) {
@@ -345,6 +362,7 @@ bool firmware_map_enter_color_palette_keyrecord(const keyrecord_t * const record
   // hold release
   layer_on(LAYER_Color_Palette);
 
+  */
   // default false
   return false;
 }
