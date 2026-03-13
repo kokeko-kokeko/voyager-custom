@@ -8,12 +8,6 @@
 
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
-  HSV_0_255_241,
-  HSV_0_255_242,
-  HSV_43_255_242,
-  HSV_129_255_242,
-  HSV_86_255_242,
-  HSV_172_255_242,
   ST_MACRO_0,
   ST_MACRO_1,
   ST_MACRO_2,
@@ -41,22 +35,22 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(5, KC_F24)
-#define DUAL_FUNC_1 LT(7, KC_N)
-#define DUAL_FUNC_2 LT(9, KC_O)
-#define DUAL_FUNC_3 LT(8, KC_F14)
-#define DUAL_FUNC_4 LT(9, KC_N)
-#define DUAL_FUNC_5 LT(7, KC_8)
-#define DUAL_FUNC_6 LT(15, KC_F20)
-#define DUAL_FUNC_7 LT(9, KC_G)
-#define DUAL_FUNC_8 LT(10, KC_F16)
-#define DUAL_FUNC_9 LT(5, KC_0)
-#define DUAL_FUNC_10 LT(12, KC_X)
-#define DUAL_FUNC_11 LT(9, KC_W)
-#define DUAL_FUNC_12 LT(4, KC_S)
-#define DUAL_FUNC_13 LT(6, KC_F10)
-#define DUAL_FUNC_14 LT(5, KC_R)
-#define DUAL_FUNC_15 LT(6, KC_L)
+#define DUAL_FUNC_0 LT(14, KC_A)
+#define DUAL_FUNC_1 LT(6, KC_F8)
+#define DUAL_FUNC_2 LT(5, KC_O)
+#define DUAL_FUNC_3 LT(5, KC_F1)
+#define DUAL_FUNC_4 LT(11, KC_S)
+#define DUAL_FUNC_5 LT(10, KC_F)
+#define DUAL_FUNC_6 LT(13, KC_R)
+#define DUAL_FUNC_7 LT(14, KC_M)
+#define DUAL_FUNC_8 LT(5, KC_F12)
+#define DUAL_FUNC_9 LT(1, KC_F6)
+#define DUAL_FUNC_10 LT(14, KC_G)
+#define DUAL_FUNC_11 LT(2, KC_H)
+#define DUAL_FUNC_12 LT(15, KC_F18)
+#define DUAL_FUNC_13 LT(9, KC_X)
+#define DUAL_FUNC_14 LT(2, KC_F18)
+#define DUAL_FUNC_15 LT(2, KC_F12)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -242,18 +236,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [26] = LAYOUT_voyager(
-    HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,                                  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  
-    HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,                                  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  
-    HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,                                  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  
-    KC_LEFT_SHIFT,  KC_CAPS,        KC_NO,          HSV_0_255_241,  KC_NO,          MT(MOD_LGUI | MOD_LSFT | MOD_LCTL, KC_B),                                KC_NUM,         KC_SCRL,        KC_NO,          HSV_0_255_241,  HSV_0_255_241,  HSV_0_255_241,  
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 MT(MOD_LGUI | MOD_LSFT | MOD_LCTL, KC_A),MT(MOD_LGUI | MOD_LSFT | MOD_LCTL, KC_B)
+    MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),                                MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),
+    MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),                                MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),
+    MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),                                MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),
+    KC_LEFT_SHIFT,  KC_CAPS,        KC_NO,          MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),KC_NO,          MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_C),                                KC_NUM,         KC_SCRL,        KC_NO,          MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_A),
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_B),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_C)
   ),
   [27] = LAYOUT_voyager(
-    HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  KC_TRANSPARENT, HSV_0_255_242,                                  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  
-    HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,                                  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  
-    HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,                                  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  
-    HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,                                  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  HSV_0_255_242,  
-                                                    HSV_43_255_242, HSV_129_255_242,                                HSV_86_255_242, HSV_172_255_242
+    MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),                                MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),
+    MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),                                MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),
+    MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),                                MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),
+    MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),                                MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_D),
+                                                    MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_E),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_F),                                MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_G),MT(MOD_RALT | MOD_RGUI | MOD_RSFT, KC_H)
   ),
 };
 
@@ -642,42 +636,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);
-      }
-      return false;
-    case HSV_0_255_241:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,241);
-      }
-      return false;
-    case HSV_0_255_242:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,242);
-      }
-      return false;
-    case HSV_43_255_242:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(43,255,242);
-      }
-      return false;
-    case HSV_129_255_242:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(129,255,242);
-      }
-      return false;
-    case HSV_86_255_242:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(86,255,242);
-      }
-      return false;
-    case HSV_172_255_242:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(172,255,242);
       }
       return false;
   }
