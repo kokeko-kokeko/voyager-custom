@@ -64,6 +64,25 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
     }
   }
 
+  if (id_code == KC_C) {
+    if (jis_flag) {
+      if (get_mods() & MOD_MASK_SHIFT) {
+        send_tap = JP_LPRN;
+        send_hold = JP_LPRN;
+      } else {
+        send_tap = JP_QUOT;
+        send_hold = JP_QUOT;
+      }
+    } else {
+      if (get_mods() & MOD_MASK_SHIFT) {
+        send_tap = KC_LPRN;
+        send_hold = KC_LPRN;
+      } else {
+        send_tap = KC_QUOT;
+        send_hold = KC_QUOT;
+      }
+    }
+  }
   // finalize
   if ((send_tap != 0) && (send_hold != 0)) {
     if (record->tap.count > 0) {
