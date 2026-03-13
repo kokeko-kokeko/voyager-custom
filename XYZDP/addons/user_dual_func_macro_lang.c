@@ -67,7 +67,7 @@ static bool process_record_udfn9(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-bool process_record_user_lang_dual_func_macro(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user_dual_func_macro_lang(uint16_t keycode, keyrecord_t *record) {
   if (IS_QK_MOD_TAP(keycode) == false) return true;
 
   if (process_record_udfn0(keycode, record) == false) return false;
