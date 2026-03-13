@@ -119,7 +119,7 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   }
   
   // finalize
-  if ((send_tap != 0) && (send_hold != 0)) {
+  if ((send_tap != KC_NO) && (send_hold != KC_NO)) {
     if (shift_on) del_mods(MOD_MASK_SHIFT);
     
     if (record->tap.count > 0) {
