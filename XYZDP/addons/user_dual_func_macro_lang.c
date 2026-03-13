@@ -29,6 +29,19 @@ bool jis_is_enabled(void) {
 
 static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN1) return true;
+
+  uint16_t tapcode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+
+  if (tapcode == KC_A) {
+    
+    
+    if (record->event.pressed) {
+      register_code16(JP_LBRC);
+    } else {
+      unregister_code16(JP_LBRC);
+    }
+    return false;
+  }
   
   return true;
 }
