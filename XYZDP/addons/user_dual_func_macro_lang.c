@@ -93,6 +93,7 @@ static bool process_record_udfn10(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user_dual_func_macro_lang(uint16_t keycode, keyrecord_t *record) {
+  // non-MT keycode, skip
   if (IS_QK_MOD_TAP(keycode) == false) return true;
 
   if (process_record_udfn1(keycode, record) == false) return false;
