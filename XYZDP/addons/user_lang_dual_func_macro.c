@@ -6,3 +6,10 @@
 #endif
 
 #include "addons/user_lang_dual_func_macro.h"
+
+
+
+bool process_record_user_lang_dual_func_macro(uint16_t keycode, keyrecord_t *record) {
+
+  return true:
+}
