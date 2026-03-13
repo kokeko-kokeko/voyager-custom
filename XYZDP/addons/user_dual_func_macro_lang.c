@@ -53,6 +53,7 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
     } else {
       unregister_code16(sendcode);
     }
+    
     return false;
   }
   
