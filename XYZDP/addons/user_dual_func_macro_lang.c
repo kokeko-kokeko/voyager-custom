@@ -27,7 +27,6 @@ bool jis_is_enabled(void) {
   return jis_flag;
 }
 
-
 static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN1) return true;
   
