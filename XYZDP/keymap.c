@@ -685,7 +685,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (keycode == HSV_172_255_242) return fade_matrix_color_palette_load_preset_keyrecord(record);
     
     // layer move
-    if (keycode == MT(MOD_LGUI | MOD_LSFT | MOD_LCTL, KC_A)) return firmware_map_enter_color_palette_keyrecord(record);
+    if (keycode == KC_B) return firmware_map_enter_color_palette_keyrecord(record);
     if (keycode == HSV_86_255_242) return firmware_map_exit_all_keyrecord(record);
   }
   
