@@ -5,7 +5,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "addons/user_lang_dual_func_macro.h"
+#include "addons/user_dual_func_macro_lang.h"
 
 static bool process_record_udfn0(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN0) return true;
