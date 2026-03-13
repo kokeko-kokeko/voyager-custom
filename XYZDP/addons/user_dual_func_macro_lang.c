@@ -13,6 +13,20 @@
 // call JP keycode
 #include "keymap_japanese.h"
 
+static bool jis_flag = false;
+
+void jis_enable(void) {
+  jis_flag = true;
+}
+
+void jis_disable(void) {
+  jis_flag = false;
+}
+
+bool jis_is_enabled(void) {
+  return jis_flag;
+}
+
 
 static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN1) return true;
