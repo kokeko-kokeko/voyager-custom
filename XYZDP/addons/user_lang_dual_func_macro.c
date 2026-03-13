@@ -7,7 +7,33 @@
 
 #include "addons/user_lang_dual_func_macro.h"
 
+static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
 
+static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+
+static bool process_record_udfn3(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+
+static bool process_record_udfn4(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+
+static bool process_record_udfn5(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+
+static bool process_record_udfn6(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+
+static bool process_record_udfn7(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
 
 bool process_record_user_lang_dual_func_macro(uint16_t keycode, keyrecord_t *record) {
   if(IS_QK_MOD_TAP(keycode) == false) return true;
