@@ -30,29 +30,45 @@ bool jis_is_enabled(void) {
 static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN1) return true;
 
-  uint16_t tapcode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-  uint16_t sendcode = 0;
+  uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+  uint16_t send_tap = 0;
+  uint16_t send_hold = 0;
   
-  if (tapcode == KC_A) {
+  if (id_code == KC_A) {
     if (jis_flag) {
-       if (get_mods() & MOD_MASK_SHIFT) {
-         sendcode = JP_GRV;
-       } else {
-         sendcode = JP_AT;
-       }
+      if (get_mods() & MOD_MASK_SHIFT) {
+        send_tap = JP_GRV;
+        send_hold = JP_GRV;
+      } else {
+        send_tap = JP_AT;
+        send_hold = JP_AT;
+      }
     } else {
       if (get_mods() & MOD_MASK_SHIFT) {
-         sendcode = KC_GRV;
-       } else {
-         sendcode = KC_AT;
-       }
+        send_tap = KC_GRV;
+        send_hold = KC_GRV;
+      } else {
+        send_tap = KC_AT;
+        send_hold = KC_AT;
+      }
     }
-    
-    if (record->event.pressed) {
-      register_code16(sendcode);
+  }
+
+  // finalize
+  if ((send_tap != 0) && (send_hold != 0)) {
+    if (record->tap.count > 0) {
+      if (record->event.pressed) {
+        register_code16(send_tap);
+      } else {
+        unregister_code16(send_tap);
+      }
     } else {
-      unregister_code16(sendcode);
-    }
+      if (record->event.pressed) {
+        register_code16(send_hold);
+      } else {
+        unregister_code16(send_hold);
+      }  
+    }  
     
     return false;
   }
