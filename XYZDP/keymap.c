@@ -35,26 +35,26 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(7, KC_L)
-#define DUAL_FUNC_1 LT(1, KC_F3)
-#define DUAL_FUNC_2 LT(7, KC_F8)
-#define DUAL_FUNC_3 LT(11, KC_6)
-#define DUAL_FUNC_4 LT(14, KC_V)
-#define DUAL_FUNC_5 LT(5, KC_M)
-#define DUAL_FUNC_6 LT(2, KC_P)
-#define DUAL_FUNC_7 LT(11, KC_F24)
-#define DUAL_FUNC_8 LT(7, KC_B)
-#define DUAL_FUNC_9 LT(9, KC_F5)
-#define DUAL_FUNC_10 LT(1, KC_D)
-#define DUAL_FUNC_11 LT(1, KC_C)
-#define DUAL_FUNC_12 LT(12, KC_A)
-#define DUAL_FUNC_13 LT(13, KC_G)
-#define DUAL_FUNC_14 LT(1, KC_R)
-#define DUAL_FUNC_15 LT(13, KC_P)
+#define DUAL_FUNC_0 LT(15, KC_2)
+#define DUAL_FUNC_1 LT(6, KC_R)
+#define DUAL_FUNC_2 LT(5, KC_F5)
+#define DUAL_FUNC_3 LT(5, KC_E)
+#define DUAL_FUNC_4 LT(10, KC_E)
+#define DUAL_FUNC_5 LT(14, KC_F5)
+#define DUAL_FUNC_6 LT(15, KC_F17)
+#define DUAL_FUNC_7 LT(14, KC_3)
+#define DUAL_FUNC_8 LT(13, KC_P)
+#define DUAL_FUNC_9 LT(5, KC_V)
+#define DUAL_FUNC_10 LT(10, KC_Q)
+#define DUAL_FUNC_11 LT(9, KC_C)
+#define DUAL_FUNC_12 LT(11, KC_B)
+#define DUAL_FUNC_13 LT(1, KC_V)
+#define DUAL_FUNC_14 LT(1, KC_O)
+#define DUAL_FUNC_15 LT(5, KC_F12)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    JP_AT,          KC_1,           MT(MOD_LALT | MOD_LGUI | MOD_LSFT | MOD_LCTL, KC_Y),MT(MOD_LALT | MOD_LSFT, KC_O),MT(MOD_LALT | MOD_LCTL, KC_U),KC_2,                                           KC_3,           MT(MOD_RALT | MOD_RCTL, KC_D),MT(MOD_RALT | MOD_RSFT, KC_N),MT(MOD_LALT | MOD_LSFT | MOD_LCTL, KC_G),KC_SLASH,       CW_TOGG,        
+    JP_AT,          KC_1,           KC_Y,           MT(MOD_LALT | MOD_LSFT, KC_O),MT(MOD_LALT | MOD_LCTL, KC_U),KC_2,                                           KC_3,           MT(MOD_RALT | MOD_RCTL, KC_D),MT(MOD_RALT | MOD_RSFT, KC_N),KC_G,           KC_SLASH,       CW_TOGG,        
     LT(12, KC_B),   MT(MOD_LSFT | MOD_LCTL, KC_H),MT(MOD_LGUI | MOD_LALT, KC_I),MT(MOD_LSFT, KC_A),MT(MOD_LCTL, KC_E),KC_COMMA,                                       KC_DOT,         MT(MOD_RCTL, KC_T),MT(MOD_RSFT, KC_R),MT(MOD_RGUI | MOD_RALT, KC_S),MT(MOD_RSFT | MOD_RCTL, KC_C),LT(13, KC_V),   
     MT(MOD_LCTL, KC_Q),MT(MOD_LGUI, KC_K),MT(MOD_LALT, KC_J),MT(MOD_LGUI | MOD_LSFT, KC_X),MT(MOD_LGUI | MOD_LCTL, KC_W),KC_MINUS,                                       KC_4,           MT(MOD_RGUI | MOD_RCTL, KC_M),MT(MOD_RGUI | MOD_RSFT, KC_L),MT(MOD_RALT, KC_F),MT(MOD_RGUI, KC_P),MT(MOD_RCTL, KC_Z),
     KC_LEFT_SHIFT,  KC_LEFT,        KC_RIGHT,       KC_BSPC,        LT(4, KC_SPACE),KC_NO,                                          KC_NO,          LT(6, KC_SPACE),LT(9, KC_DELETE),KC_UP,          KC_DOWN,        KC_RIGHT_SHIFT, 
