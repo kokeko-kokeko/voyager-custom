@@ -12,6 +12,7 @@
 #include "addons/fade_matrix.h"
 #include "addons/ime_state_sync.h"
 #include "addons/status_led.h"
+#include "addons/user_dual_func_macro_lang.h"
 
 #include "ch.h"
 #include "usb_main.h"
@@ -71,13 +72,17 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   if (pos == POSITION_JIS) {
     layer_on(LAYER_Base);
     layer_off(LAYER_Base_ANSI);
-        
+
+    jis_enable();
+    
     return false;
   }
       
   if (pos == POSITION_ANSI) {
     layer_on(LAYER_Base);
     layer_on(LAYER_Base_ANSI);
+
+    jis_disable();
         
     return false;
   }
@@ -195,14 +200,14 @@ void set_layer_color_firmware_map(void) {
   rgb_matrix_set_color(POSITION_Color_Palette, q, q, 0);
   
   //ANSI/JIS
-  if (layer_state_is(LAYER_Base_ANSI)) {
+  if (jis_is_enabled()) {
+      //JIS
+    rgb_matrix_set_color(POSITION_JIS, 0, f, 0);
+    rgb_matrix_set_color(POSITION_ANSI, q, q, q);  
+  } else {
     //ANSI base enable
     rgb_matrix_set_color(POSITION_JIS, q, q, q);
     rgb_matrix_set_color(POSITION_ANSI, f, 0, 0);
-  } else {
-    //JIS base
-    rgb_matrix_set_color(POSITION_JIS, 0, f, 0);
-    rgb_matrix_set_color(POSITION_ANSI, q, q, q);
   }
 
   // Transition
