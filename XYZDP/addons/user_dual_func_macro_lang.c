@@ -102,6 +102,22 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
       }
     }
   }
+
+  if (id_code == KC_F) {
+    if (jis_flag) {
+      if (shift_on) {
+        send_tap = JP_BSLS;
+      } else {
+        send_tap = JP_SLSH;
+      }
+    } else {
+      if (shift_on) {
+        send_tap = KC_BSLS;
+      } else {
+        send_tap = KC_SLSH;
+      }
+    }
+  }
   
   // finalize
   if (send_tap != KC_NO) {
