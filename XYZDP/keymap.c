@@ -668,20 +668,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (keycode == RGB_SLD) return fade_matrix_rgb_sld_keyrecord(record);
     
     // Firmware  
-    if (keycode == HSV_0_255_241) return firmware_map_main_keyrecord(record);
-    if (keycode == MT(MOD_LGUI | MOD_LSFT | MOD_LCTL, KC_B)) return firmware_map_invoke_halt_keyrecord(record);
+    if (keycode == UDFN7(KC_A)) return firmware_map_main_keyrecord(record);
+    if (keycode == UDFN7(KC_C)) return firmware_map_invoke_halt_keyrecord(record);
     
     // Color Palette
-    if (keycode == HSV_0_255_242) return fade_matrix_color_palette_main_keyrecord(record);
+    if (keycode == UDFN7(KC_D)) return fade_matrix_color_palette_main_keyrecord(record);
     
-    if (keycode == HSV_43_255_242) return fade_matrix_color_palette_sel_sat_keyrecord(record);
-    if (keycode == HSV_129_255_242) return fade_matrix_color_palette_sel_val_keyrecord(record);
+    if (keycode == UDFN7(KC_E)) return fade_matrix_color_palette_sel_sat_keyrecord(record);
+    if (keycode == UDFN7(KC_F)) return fade_matrix_color_palette_sel_val_keyrecord(record);
     
-    if (keycode == HSV_172_255_242) return fade_matrix_color_palette_load_preset_keyrecord(record);
+    if (keycode == UDFN7(KC_H)) return fade_matrix_color_palette_load_preset_keyrecord(record);
     
     // layer move
-    if (keycode == MT(MOD_LGUI | MOD_LSFT | MOD_LCTL, KC_A)) return firmware_map_enter_color_palette_keyrecord(record);
-    if (keycode == HSV_86_255_242) return firmware_map_exit_all_keyrecord(record);
+    if (keycode == UDFN7(KC_B)) return firmware_map_enter_color_palette_keyrecord(record);
+    if (keycode == UDFN7(KC_G)) return firmware_map_exit_all_keyrecord(record);
   }
   
   return true;
