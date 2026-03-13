@@ -273,6 +273,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #include "addons/ime_state_sync.h"
 #include "addons/layer_mod_overlay.h"
 #include "addons/status_led.h"
+#include "addons/user_lang_dual_func_macro.h"
 
 // -----------------------------------------------------------------------------
 //
