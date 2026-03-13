@@ -38,5 +38,13 @@ static bool process_record_udfn7(uint16_t keycode, keyrecord_t *record) {
 bool process_record_user_lang_dual_func_macro(uint16_t keycode, keyrecord_t *record) {
   if(IS_QK_MOD_TAP(keycode) == false) return true;
 
+  if (process_record_udfn1(keycode, record) == false) return false;
+  if (process_record_udfn2(keycode, record) == false) return false;
+  if (process_record_udfn3(keycode, record) == false) return false;
+  if (process_record_udfn4(keycode, record) == false) return false;
+  if (process_record_udfn5(keycode, record) == false) return false;
+  if (process_record_udfn6(keycode, record) == false) return false;
+  if (process_record_udfn7(keycode, record) == false) return false;
+  
   return true;
 }
