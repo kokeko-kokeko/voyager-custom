@@ -33,10 +33,14 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = KC_NO;
   uint16_t send_hold = KC_NO;
+
+  bool l_shift = get_mods() & MOD_BIT_LSHIFT;
+  bool r_shift = get_mods() & MOD_BIT_RSHIFT;
+  bool shift_on = get_mods() & MOD_MASK_SHIFT;
   
   if (id_code == KC_A) {
     if (jis_flag) {
-      if (get_mods() & MOD_MASK_SHIFT) {
+      if (shift_on) {
         send_tap = JP_GRV;
         send_hold = JP_GRV;
       } else {
@@ -44,7 +48,7 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
         send_hold = JP_AT;
       }
     } else {
-      if (get_mods() & MOD_MASK_SHIFT) {
+      if (shift_on) {
         send_tap = KC_GRV;
         send_hold = KC_GRV;
       } else {
@@ -55,7 +59,7 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   }
   
   if (id_code == KC_B) {
-    if (get_mods() & MOD_MASK_SHIFT) {
+    if (shift_on) {
       send_tap = KC_DLR;
       send_hold = KC_DLR;
     } else {
@@ -66,7 +70,7 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
 
   if (id_code == KC_C) {
     if (jis_flag) {
-      if (get_mods() & MOD_MASK_SHIFT) {
+      if (shift_on) {
         send_tap = JP_LPRN;
         send_hold = JP_LPRN;
       } else {
@@ -74,7 +78,7 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
         send_hold = JP_QUOT;
       }
     } else {
-      if (get_mods() & MOD_MASK_SHIFT) {
+      if (shift_on) {
         send_tap = KC_LPRN;
         send_hold = KC_LPRN;
       } else {
@@ -85,7 +89,7 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   }
   
   if (id_code == KC_D) {
-    if (get_mods() & MOD_MASK_SHIFT) {
+    if (shift_on) {
       send_tap = KC_SCLN;
       send_hold = KC_SCLN;
     } else {
@@ -96,7 +100,7 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
 
   if (id_code == KC_E) {
     if (jis_flag) {
-      if (get_mods() & MOD_MASK_SHIFT) {
+      if (shift_on) {
         send_tap = JP_UNDS;
         send_hold = JP_UNDS;
       } else {
@@ -104,7 +108,7 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
         send_hold = JP_MINS;
       }
     } else {
-      if (get_mods() & MOD_MASK_SHIFT) {
+      if (shift_on) {
         send_tap = KC_UNDS;
         send_hold = KC_UNDS;
       } else {
@@ -116,8 +120,7 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   
   // finalize
   if ((send_tap != 0) && (send_hold != 0)) {
-    uint8_t saved = get_mods();
-    clear_mods();
+    if (shift_on) del_mods(MOD_MASK_CTRL);
     
     if (record->tap.count > 0) {
       if (record->event.pressed) {
@@ -132,8 +135,9 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
         unregister_code16(send_hold);
       }  
     }
-    
-    set_mods(saved);
+
+    if (l_shift) add_mods(MOD_BIT_LSHIFT);
+    if (r_shift) add_mods(MOD_BIT_RSHIFT);
     
     return false;
   }
