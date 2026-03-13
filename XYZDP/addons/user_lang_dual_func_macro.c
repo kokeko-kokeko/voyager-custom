@@ -14,26 +14,38 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
 }
 
 static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
+  if (QK_MOD_TAP_GET_MODS(kc) != MOD_UDFN2) return true;
+
   return true;
 }
 
 static bool process_record_udfn3(uint16_t keycode, keyrecord_t *record) {
+  if (QK_MOD_TAP_GET_MODS(kc) != MOD_UDFN3) return true;
+
   return true;
 }
 
 static bool process_record_udfn4(uint16_t keycode, keyrecord_t *record) {
+  if (QK_MOD_TAP_GET_MODS(kc) != MOD_UDFN4) return true;
+
   return true;
 }
 
 static bool process_record_udfn5(uint16_t keycode, keyrecord_t *record) {
+  if (QK_MOD_TAP_GET_MODS(kc) != MOD_UDFN5) return true;
+
   return true;
 }
 
 static bool process_record_udfn6(uint16_t keycode, keyrecord_t *record) {
+  if (QK_MOD_TAP_GET_MODS(kc) != MOD_UDFN6) return true;
+
   return true;
 }
 
 static bool process_record_udfn7(uint16_t keycode, keyrecord_t *record) {
+  if (QK_MOD_TAP_GET_MODS(kc) != MOD_UDFN7) return true;
+
   return true;
 }
 
