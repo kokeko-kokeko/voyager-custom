@@ -29,6 +29,7 @@ SRC += addons/firmware_map.c
 SRC += addons/ime_state_sync.c
 SRC += addons/layer_mod_overlay.c
 SRC += addons/status_led.c
+SRC += addons/user_lang_dual_func_macro.c
 
 LTO_ENABLE = yes
 EXTRAFLAGS += -flto=auto -O3
