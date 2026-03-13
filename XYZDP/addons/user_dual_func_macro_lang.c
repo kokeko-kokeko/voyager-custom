@@ -31,8 +31,8 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN1) return true;
 
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-  uint16_t send_tap = 0;
-  uint16_t send_hold = 0;
+  uint16_t send_tap = KC_NO;
+  uint16_t send_hold = KC_NO;
   
   if (id_code == KC_A) {
     if (jis_flag) {
