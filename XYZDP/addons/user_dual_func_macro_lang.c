@@ -10,6 +10,10 @@
 #include "addons/fade_matrix.h"
 #include "addons/firmware_map.h"
 
+// call JP keycode
+#include "keymap_japanese.h"
+
+
 static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN1) return true;
   
