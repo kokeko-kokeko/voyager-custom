@@ -42,18 +42,14 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
     if (jis_flag) {
       if (shift_on) {
         send_tap = JP_GRV;
-        send_hold = JP_GRV;
       } else {
         send_tap = JP_AT;
-        send_hold = JP_AT;
       }
     } else {
       if (shift_on) {
         send_tap = KC_GRV;
-        send_hold = KC_GRV;
       } else {
         send_tap = KC_AT;
-        send_hold = KC_AT;
       }
     }
   }
@@ -61,10 +57,8 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (id_code == KC_B) {
     if (shift_on) {
       send_tap = KC_DLR;
-      send_hold = KC_DLR;
     } else {
       send_tap = KC_HASH;
-      send_hold = KC_HASH;
     }
   }
 
@@ -72,18 +66,14 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
     if (jis_flag) {
       if (shift_on) {
         send_tap = JP_LPRN;
-        send_hold = JP_LPRN;
       } else {
         send_tap = JP_QUOT;
-        send_hold = JP_QUOT;
       }
     } else {
       if (shift_on) {
         send_tap = KC_LPRN;
-        send_hold = KC_LPRN;
       } else {
         send_tap = KC_QUOT;
-        send_hold = KC_QUOT;
       }
     }
   }
@@ -91,7 +81,6 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (id_code == KC_D) {
     if (shift_on) {
       send_tap = KC_SCLN;
-      send_hold = KC_SCLN;
     } else {
       send_tap = KC_COMM;
       send_hold = HYPR(KC_NO);
@@ -102,24 +91,22 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
     if (jis_flag) {
       if (shift_on) {
         send_tap = JP_UNDS;
-        send_hold = JP_UNDS;
       } else {
         send_tap = JP_MINS;
-        send_hold = JP_MINS;
       }
     } else {
       if (shift_on) {
         send_tap = KC_UNDS;
-        send_hold = KC_UNDS;
       } else {
         send_tap = KC_MINS;
-        send_hold = KC_MINS;
       }
     }
   }
   
   // finalize
-  if ((send_tap != KC_NO) && (send_hold != KC_NO)) {
+  if (send_tap != KC_NO) {
+    if (send_hold == KC_NO) send_hold = send_tap;
+    
     if (shift_on) del_mods(MOD_MASK_SHIFT);
     
     if (record->tap.count > 0) {
