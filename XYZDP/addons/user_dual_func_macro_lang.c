@@ -38,13 +38,13 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
        if (get_mods() & MOD_MASK_SHIFT) {
          sendcode = JP_GRV;
        } else {
-         sendnode = JP_AT;
+         sendcode = JP_AT;
        }
     } else {
       if (get_mods() & MOD_MASK_SHIFT) {
          sendcode = KC_GRV;
        } else {
-         sendnode = KC_AT;
+         sendcode = KC_AT;
        }
     }
     
