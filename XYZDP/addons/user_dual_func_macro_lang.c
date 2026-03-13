@@ -93,6 +93,26 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
       send_hold = HYPR(KC_NO);
     }
   }
+
+  if (id_code == KC_E) {
+    if (jis_flag) {
+      if (get_mods() & MOD_MASK_SHIFT) {
+        send_tap = JP_UNDS;
+        send_hold = JP_UNDS;
+      } else {
+        send_tap = JP_MINS;
+        send_hold = JP_MINS;
+      }
+    } else {
+      if (get_mods() & MOD_MASK_SHIFT) {
+        send_tap = KC_UNDS;
+        send_hold = KC_UNDS;
+      } else {
+        send_tap = KC_MINS;
+        send_hold = KC_MINS;
+      }
+    }
+  }
   
   // finalize
   if ((send_tap != 0) && (send_hold != 0)) {
