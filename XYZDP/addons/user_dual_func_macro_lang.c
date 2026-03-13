@@ -152,6 +152,14 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
       }
     }
   }
+
+  if (id_code == KC_I) {
+    if (shift_on) {
+      send_tap = KC_EXLM;
+    } else {
+      send_tap = KC_QUES;
+    }
+  }
   
   // finalize
   if (send_tap != KC_NO) {
