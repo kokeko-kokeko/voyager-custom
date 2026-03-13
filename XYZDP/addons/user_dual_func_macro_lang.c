@@ -63,6 +63,23 @@ static bool process_record_udfn9(uint16_t keycode, keyrecord_t *record) {
 
 static bool process_record_udfn10(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN10) return true;
+
+  uint16_t tapcode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode); 
+      // Firmware  
+    if (tapcode == KC_A) return firmware_map_main_keyrecord(record);
+    if (tapcode == KC_C) return firmware_map_invoke_halt_keyrecord(record);
+    
+    // Color Palette
+    if (tapcode == KC_D) return fade_matrix_color_palette_main_keyrecord(record);
+    
+    if (tapcode == KC_E) return fade_matrix_color_palette_sel_sat_keyrecord(record);
+    if (tapcode == KC_F) return fade_matrix_color_palette_sel_val_keyrecord(record);
+    
+    if (tapcode == KC_H) return fade_matrix_color_palette_load_preset_keyrecord(record);
+    
+    // layer move
+    if (tapcode == KC_B) return firmware_map_enter_color_palette_keyrecord(record);
+    if (tapcode == KC_G) return firmware_map_exit_all_keyrecord(record);
   
   return true;
 }
