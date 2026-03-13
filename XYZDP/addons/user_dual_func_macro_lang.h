@@ -32,4 +32,4 @@
 #define UDFN8(kc) MT(MOD_UDFN8, kc)
 #define UDFN9(kc) MT(MOD_UDFN9, kc)
 
-bool process_record_user_lang_dual_func_macro(uint16_t keycode, keyrecord_t *record);
+bool process_record_user_dual_func_macro_lang(uint16_t keycode, keyrecord_t *record);
