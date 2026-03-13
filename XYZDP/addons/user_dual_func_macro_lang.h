@@ -32,4 +32,8 @@
 #define UDFN9(kc) MT(MOD_UDFN9, kc)
 #define UDFN10(kc) MT(MOD_UDFN10, kc)
 
+void jis_enable(void);
+void jis_disable(void);
+bool jis_is_enabled(void);
+
 bool process_record_user_dual_func_macro_lang(uint16_t keycode, keyrecord_t *record);
