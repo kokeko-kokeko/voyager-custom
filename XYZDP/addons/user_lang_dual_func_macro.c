@@ -8,6 +8,8 @@
 #include "addons/user_lang_dual_func_macro.h"
 
 static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
+  if (QK_MOD_TAP_GET_MODS(kc) != MOD_UDFN1) return true;
+  
   return true;
 }
 
