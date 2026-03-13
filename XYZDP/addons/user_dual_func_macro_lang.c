@@ -90,7 +90,7 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
       send_hold = KC_SCLN;
     } else {
       send_tap = KC_COMM;
-      send_hold = KC_HYPR;
+      send_hold = HYPR(KC_NO);
     }
   }
   
