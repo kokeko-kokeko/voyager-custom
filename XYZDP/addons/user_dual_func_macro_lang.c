@@ -53,6 +53,16 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
       }
     }
   }
+  
+  if (id_code == KC_B) {
+    if (get_mods() & MOD_MASK_SHIFT) {
+      send_tap = KC_DLR;
+      send_hold = KC_DLR;
+    } else {
+      send_tap = KC_HASH;
+      send_hold = KC_HASH;
+    }
+  }
 
   // finalize
   if ((send_tap != 0) && (send_hold != 0)) {
