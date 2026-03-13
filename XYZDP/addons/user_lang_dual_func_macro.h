@@ -20,3 +20,5 @@
 #define UDFN5(kc) MT(MOD_UDFN5, kc)
 #define UDFN6(kc) MT(MOD_UDFN6, kc)
 #define UDFN7(kc) MT(MOD_UDFN7, kc)
+
+bool process_record_user_lang_dual_func_macro(uint16_t keycode, keyrecord_t *record);
