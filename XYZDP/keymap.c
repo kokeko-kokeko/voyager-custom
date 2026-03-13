@@ -667,7 +667,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   {
     // RGB
     if (keycode == RGB_SLD) return fade_matrix_rgb_sld_keyrecord(record);
-    
+    /*
     // Firmware  
     if (keycode == UDFN10(KC_A)) return firmware_map_main_keyrecord(record);
     if (keycode == UDFN10(KC_C)) return firmware_map_invoke_halt_keyrecord(record);
@@ -683,6 +683,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // layer move
     if (keycode == UDFN10(KC_B)) return firmware_map_enter_color_palette_keyrecord(record);
     if (keycode == UDFN10(KC_G)) return firmware_map_exit_all_keyrecord(record);
+    */
   }
   
   return true;
