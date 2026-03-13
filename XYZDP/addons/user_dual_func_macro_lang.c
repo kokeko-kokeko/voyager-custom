@@ -31,14 +31,27 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN1) return true;
 
   uint16_t tapcode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-
+  uint16_t sendcode = 0;
+  
   if (tapcode == KC_A) {
-    
+    if (jis_flag) {
+       if (get_mods() & MOD_MASK_SHIFT) {
+         sendcode = JP_GRV;
+       } else {
+         sendnode = JP_AT;
+       }
+    } else {
+      if (get_mods() & MOD_MASK_SHIFT) {
+         sendcode = KC_GRV;
+       } else {
+         sendnode = KC_AT;
+       }
+    }
     
     if (record->event.pressed) {
-      register_code16(JP_LBRC);
+      register_code16(sendcode);
     } else {
-      unregister_code16(JP_LBRC);
+      unregister_code16(sendcode);
     }
     return false;
   }
