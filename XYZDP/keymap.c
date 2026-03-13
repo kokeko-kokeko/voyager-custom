@@ -662,6 +662,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   if (process_record_fade_matrix(keycode, record) == false) return false;
   if (process_record_ime_state_sync(keycode, record) == false) return false;
+  if (process_record_user_lang_dual_func_macro(keycode, record) == false) return false;
   
   {
     // RGB
