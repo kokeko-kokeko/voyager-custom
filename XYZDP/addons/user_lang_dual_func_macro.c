@@ -10,6 +10,7 @@
 
 
 bool process_record_user_lang_dual_func_macro(uint16_t keycode, keyrecord_t *record) {
+  if(IS_QK_MOD_TAP(keycode) == false) return true;
 
   return true;
 }
