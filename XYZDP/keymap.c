@@ -725,6 +725,8 @@ void keyboard_post_init_user(void) {
   layer_move(LAYER_Base);
   layer_off(LAYER_Transition);
   layer_off(LAYER_Base_ANSI);
+
+  jis_enable();
 }
 
 bool process_detected_host_os_user(os_variant_t detected_os) {
