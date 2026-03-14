@@ -27,6 +27,15 @@ bool jis_is_enabled(void) {
   return jis_flag;
 }
 
+static uint16_t engram_symbol_shift (uint16_t keycode) {
+  switch (keycode) {
+    case KC_AT:   return KC_GRV;
+    case KC_HASH: return KC_DLR;
+    default:      return keycode;
+  }        
+  return keycode;
+}
+
 static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN1) return true;
 
