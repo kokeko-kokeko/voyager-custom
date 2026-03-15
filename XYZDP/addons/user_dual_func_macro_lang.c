@@ -287,7 +287,7 @@ static bool process_record_udfn3(uint16_t keycode, keyrecord_t *record) {
   uint8_t layer_hold = 0;
 
   if (id_code == KC_L) layer_hold = LAYER_L_pinky;
-  if (id_code == KC_R) layer_hold = LAYER_L_pinky;
+  if (id_code == KC_R) layer_hold = LAYER_R_pinky;
 
   // finalize
   if (send_tap != KC_NO) {
