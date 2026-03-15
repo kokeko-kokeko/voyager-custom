@@ -35,22 +35,22 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(11, KC_F21)
-#define DUAL_FUNC_1 LT(9, KC_5)
-#define DUAL_FUNC_2 LT(5, KC_F12)
-#define DUAL_FUNC_3 LT(6, KC_K)
-#define DUAL_FUNC_4 LT(2, KC_M)
-#define DUAL_FUNC_5 LT(11, KC_D)
-#define DUAL_FUNC_6 LT(10, KC_5)
-#define DUAL_FUNC_7 LT(10, KC_F18)
-#define DUAL_FUNC_8 LT(11, KC_W)
-#define DUAL_FUNC_9 LT(2, KC_F15)
-#define DUAL_FUNC_10 LT(13, KC_F21)
-#define DUAL_FUNC_11 LT(8, KC_F17)
-#define DUAL_FUNC_12 LT(14, KC_2)
-#define DUAL_FUNC_13 LT(1, KC_B)
-#define DUAL_FUNC_14 LT(12, KC_F19)
-#define DUAL_FUNC_15 LT(8, KC_A)
+#define DUAL_FUNC_0 LT(12, KC_6)
+#define DUAL_FUNC_1 LT(1, KC_B)
+#define DUAL_FUNC_2 LT(4, KC_F14)
+#define DUAL_FUNC_3 LT(2, KC_F1)
+#define DUAL_FUNC_4 LT(6, KC_F10)
+#define DUAL_FUNC_5 LT(2, KC_0)
+#define DUAL_FUNC_6 LT(12, KC_V)
+#define DUAL_FUNC_7 LT(4, KC_8)
+#define DUAL_FUNC_8 LT(5, KC_I)
+#define DUAL_FUNC_9 LT(13, KC_X)
+#define DUAL_FUNC_10 LT(11, KC_M)
+#define DUAL_FUNC_11 LT(1, KC_0)
+#define DUAL_FUNC_12 LT(4, KC_J)
+#define DUAL_FUNC_13 LT(2, KC_Q)
+#define DUAL_FUNC_14 LT(14, KC_7)
+#define DUAL_FUNC_15 LT(5, KC_Y)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [4] = LAYOUT_voyager(
     CW_TOGG,        KC_TRANSPARENT, KC_COMMA,       KC_DOT,         KC_6,           KC_RABK,                                        KC_5,           KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    DUAL_FUNC_0,    KC_1,           KC_2,           MT(MOD_LSFT, KC_3),MT(MOD_LCTL, KC_4),KC_5,                                           KC_6,           MT(MOD_RCTL, KC_7),MT(MOD_RSFT, KC_8),KC_9,           KC_0,           DUAL_FUNC_4,    
+    DUAL_FUNC_0,    MT(MOD_LALT | MOD_LSFT | MOD_LCTL, KC_1),MT(MOD_LALT | MOD_LSFT | MOD_LCTL, KC_2),MT(MOD_LALT | MOD_LSFT | MOD_LCTL, KC_3),MT(MOD_LALT | MOD_LSFT | MOD_LCTL, KC_4),MT(MOD_LALT | MOD_LSFT | MOD_LCTL, KC_5),                                MT(MOD_LALT | MOD_LSFT | MOD_LCTL, KC_6),MT(MOD_LALT | MOD_LSFT | MOD_LCTL, KC_7),MT(MOD_LALT | MOD_LSFT | MOD_LCTL, KC_8),MT(MOD_LALT | MOD_LSFT | MOD_LCTL, KC_9),MT(MOD_LALT | MOD_LSFT | MOD_LCTL, KC_0),DUAL_FUNC_4,    
     DUAL_FUNC_1,    DUAL_FUNC_2,    DUAL_FUNC_3,    JP_TILD,        JP_PLUS,        KC_LABK,                                        KC_RABK,        JP_CIRC,        JP_AMPR,        DUAL_FUNC_5,    DUAL_FUNC_6,    DUAL_FUNC_7,    
     KC_TRANSPARENT, KC_MEDIA_STOP,  KC_MEDIA_PLAY_PAUSE,KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,  
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
