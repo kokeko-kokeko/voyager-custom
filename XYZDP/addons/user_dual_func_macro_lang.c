@@ -27,6 +27,34 @@ bool jis_is_enabled(void) {
   return jis_flag;
 }
 
+static uint16_t search_tap_common (uint16_t keycode) {
+  switch (keycode) {
+    case KC_A: return KC_AT;
+    case KC_B: return KC_HASH;
+    case KC_C: return KC_QUOT;
+    case KC_D: return KC_COMM;
+    case KC_E: return KC_MINS;
+    case KC_F: return KC_SLSH;
+    case KC_G: return KC_DQUO;
+    case KC_H: return KC_DOT;
+    case KC_I: return KC_QUES;
+
+    case KC_1: return KC_1;
+    case KC_2: return KC_2;
+    case KC_3: return KC_3;
+    case KC_4: return KC_4;
+    case KC_5: return KC_5;
+    case KC_6: return KC_6;
+    case KC_7: return KC_7;
+    case KC_8: return KC_8;
+    case KC_9: return KC_9;
+    case KC_0: return KC_0;
+    
+    default:      return KC_NO;
+  }        
+  return KC_NO;
+}
+
 static uint16_t engram_symbol_shift (uint16_t keycode) {
   switch (keycode) {
     case KC_NO:   return KC_NO;
@@ -110,66 +138,24 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN1) return true;
 
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-  uint16_t send_tap = KC_NO;
+  uint16_t send_tap = search_tap_common(id_code);
   uint16_t send_hold = KC_NO;
   
-  if (id_code == KC_A) send_tap = KC_AT;
-  if (id_code == KC_B) send_tap = KC_HASH;
-  if (id_code == KC_C) send_tap = KC_QUOT;
-  if (id_code == KC_D) {
-    send_tap = KC_COMM;
-    send_hold = HYPR(KC_NO);
-  }
-  if (id_code == KC_E) send_tap = KC_MINS;
-  if (id_code == KC_F) send_tap = KC_SLSH;
-  if (id_code == KC_G) send_tap = KC_DQUO;
-  if (id_code == KC_H) {
-    send_tap = KC_DOT;
-    send_hold = MEH(KC_NO);
-  }
-  if (id_code == KC_I) send_tap = KC_QUES;
+  if (id_code == KC_D) send_hold = HYPR(KC_NO);
+  if (id_code == KC_H) send_hold = MEH(KC_NO);
 
-  if (id_code == KC_1) {
-    send_tap = KC_1;
-    send_hold = LSFT(LCTL(KC_NO));
-  }
-  if (id_code == KC_2) {
-    send_tap = KC_2;
-    send_hold = LGUI(LALT(KC_NO));
-  }
-  if (id_code == KC_3) {
-    send_tap = KC_3;
-    send_hold = LSFT(KC_NO);
-  }
-    if (id_code == KC_4) {
-    send_tap = KC_4;
-    send_hold = LCTL(KC_NO);
-  }
-  if (id_code == KC_5) {
-    send_tap = KC_5;
-    send_hold = HYPR(KC_NO);
-  }
+  if (id_code == KC_1) send_hold = LSFT(LCTL(KC_NO));
+  if (id_code == KC_2) send_hold = LGUI(LALT(KC_NO));
+  if (id_code == KC_3) send_hold = LSFT(KC_NO);
+  if (id_code == KC_4) send_hold = LCTL(KC_NO);
+  if (id_code == KC_5) send_hold = HYPR(KC_NO);
   
-  if (id_code == KC_6) {
-    send_tap = KC_6;
-    send_hold = MEH(KC_NO);
-  }
-  if (id_code == KC_7) {
-    send_tap = KC_7;
-    send_hold = RCTL(KC_NO);
-  }
-  if (id_code == KC_8) {
-    send_tap = KC_8;
-    send_hold = RSFT(KC_NO);
-  }
-  if (id_code == KC_9) {
-    send_tap = KC_9;
-    send_hold = RGUI(RALT(KC_NO));
-  }
-  if (id_code == KC_0) {
-    send_tap = KC_0;
-    send_hold = RSFT(RCTL(KC_NO));
-  }
+  if (id_code == KC_6) send_hold = MEH(KC_NO);
+  if (id_code == KC_7) send_hold = RCTL(KC_NO);
+  if (id_code == KC_8) send_hold = RSFT(KC_NO);
+  if (id_code == KC_9) send_hold = RGUI(RALT(KC_NO));
+  if (id_code == KC_0) send_hold = RSFT(RCTL(KC_NO));
+  
   // finalize
   if (send_tap != KC_NO) {
     bool l_shift = get_mods() & MOD_BIT_LSHIFT;
@@ -218,66 +204,25 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN2) return true;
   
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-  uint16_t send_tap = KC_NO;
+  uint16_t send_tap = search_tap_common(id_code);
   uint16_t send_hold = KC_NO;
-  
-  if (id_code == KC_A) send_tap = KC_AT;
-  if (id_code == KC_B) send_tap = KC_HASH;
-  if (id_code == KC_C) send_tap = KC_QUOT;
-  if (id_code == KC_D) {
-    send_tap = KC_COMM;
-    send_hold = HYPR(KC_NO);
-  }
-  if (id_code == KC_E) send_tap = KC_MINS;
-  if (id_code == KC_F) send_tap = KC_SLSH;
-  if (id_code == KC_G) send_tap = KC_DQUO;
-  if (id_code == KC_H) {
-    send_tap = KC_DOT;
-    send_hold = MEH(KC_NO);
-  }
-  if (id_code == KC_I) send_tap = KC_QUES;
 
-  if (id_code == KC_1) {
-    send_tap = KC_1;
-    send_hold = LSFT(LCTL(KC_NO));
-  }
-  if (id_code == KC_2) {
-    send_tap = KC_2;
-    send_hold = LGUI(LALT(KC_NO));
-  }
-  if (id_code == KC_3) {
-    send_tap = KC_3;
-    send_hold = LSFT(KC_NO);
-  }
-    if (id_code == KC_4) {
-    send_tap = KC_4;
-    send_hold = LCTL(KC_NO);
-  }
-  if (id_code == KC_5) {
-    send_tap = KC_5;
-    send_hold = HYPR(KC_NO);
-  }
+  if (id_code == KC_D) send_hold = HYPR(KC_NO);
+  if (id_code == KC_H) send_hold = MEH(KC_NO);
+
+  // fix
+  if (id_code == KC_1) send_hold = LSFT(LCTL(KC_NO));
+  if (id_code == KC_2) send_hold = LGUI(LALT(KC_NO));
+  if (id_code == KC_3) send_hold = LSFT(KC_NO);
+  if (id_code == KC_4) send_hold = LCTL(KC_NO);
+  if (id_code == KC_5) send_hold = HYPR(KC_NO);
   
-  if (id_code == KC_6) {
-    send_tap = KC_6;
-    send_hold = MEH(KC_NO);
-  }
-  if (id_code == KC_7) {
-    send_tap = KC_7;
-    send_hold = RCTL(KC_NO);
-  }
-  if (id_code == KC_8) {
-    send_tap = KC_8;
-    send_hold = RSFT(KC_NO);
-  }
-  if (id_code == KC_9) {
-    send_tap = KC_9;
-    send_hold = RGUI(RALT(KC_NO));
-  }
-  if (id_code == KC_0) {
-    send_tap = KC_0;
-    send_hold = RSFT(RCTL(KC_NO));
-  }
+  if (id_code == KC_6) send_hold = MEH(KC_NO);
+  if (id_code == KC_7) send_hold = RCTL(KC_NO);
+  if (id_code == KC_8) send_hold = RSFT(KC_NO);
+  if (id_code == KC_9) send_hold = RGUI(RALT(KC_NO));
+  if (id_code == KC_0) send_hold = RSFT(RCTL(KC_NO));
+
   // finalize
   if (send_tap != KC_NO) {
     bool l_shift = get_mods() & MOD_BIT_LSHIFT;
