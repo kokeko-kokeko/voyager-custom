@@ -29,6 +29,8 @@ bool jis_is_enabled(void) {
 
 static uint16_t engram_symbol_shift (uint16_t keycode) {
   switch (keycode) {
+    case KC_NO:   return KC_NO;
+    
     case KC_AT:   return KC_GRV;
     case KC_HASH: return KC_DLR;
     case KC_SLSH: return KC_BSLS;
@@ -64,7 +66,38 @@ static uint16_t engram_symbol_shift (uint16_t keycode) {
 
 static uint16_t conv_kc_to_jp (uint16_t keycode) {
   switch (keycode) {
+    case KC_NO:   return KC_NO;
+    
+    case KC_DQUO: return JP_DQUO;
+    case KC_AMPR: return JP_AMPR;
+    case KC_QUOT: return JP_QUOT;
+    case KC_LPRN: return JP_LPRN;
+    case KC_RPRN: return JP_RPRN;
 
+    case KC_MINS: return JP_MINS;
+    case KC_EQL:  return JP_EQL;
+
+    case KC_CIRC:  return JP_CIRC;
+    case KC_TILD:  return JP_TILD;
+
+    case KC_BSLS:  return JP_BSLS;
+    case KC_PIPE:  return JP_PIPE;
+
+    case KC_AT:   return JP_AT;
+    case KC_GRV:  return JP_GRV;
+    
+    case KC_LBRC:  return JP_LBRC;
+    case KC_LCBR:  return JP_LCBR;
+    
+    case KC_RBRC:  return JP_RBRC;
+    case KC_RCBR:  return JP_RCBR;
+
+    case KC_SCLN:  return JP_SCLN;
+    case KC_PLUS:  return JP_PLUS;
+
+    case KC_COLN:  return JP_COLN;
+    case KC_ASTR:  return JP_ASTR;
+    
     default:      return keycode;
   }        
   return keycode;
