@@ -112,9 +112,7 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   uint16_t send_tap = KC_NO;
   uint16_t send_hold = KC_NO;
 
-  bool l_shift = get_mods() & MOD_BIT_LSHIFT;
-  bool r_shift = get_mods() & MOD_BIT_RSHIFT;
-  bool shift_on = get_mods() & MOD_MASK_SHIFT;
+
   
   if (id_code == KC_A) send_tap = KC_AT;
   if (id_code == KC_B) send_tap = KC_HASH;
@@ -134,6 +132,10 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
 
   // finalize
   if (send_tap != KC_NO) {
+    bool l_shift = get_mods() & MOD_BIT_LSHIFT;
+    bool r_shift = get_mods() & MOD_BIT_RSHIFT;
+    bool shift_on = get_mods() & MOD_MASK_SHIFT;
+    
     if (send_hold == KC_NO) send_hold = send_tap;
     
     if (shift_on) {
