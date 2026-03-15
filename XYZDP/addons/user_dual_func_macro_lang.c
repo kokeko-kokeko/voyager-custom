@@ -10,6 +10,8 @@
 #include "addons/fade_matrix.h"
 #include "addons/firmware_map.h"
 
+#include "layer_num.h"
+
 // call JP keycode
 #include "keymap_japanese.h"
 
@@ -276,8 +278,52 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+// hold layer op
 static bool process_record_udfn3(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN3) return true;
+
+  uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+  uint16_t send_tap = search_tap_common(id_code);
+  uint8_t layer_hold = 0;
+
+  if (id_code == KC_L) layer_hold = LAYER_L_pinky;
+  if (id_code == KC_R) layer_hold = LAYER_L_pinky;
+
+  // finalize
+  if (send_tap != KC_NO) {
+    bool l_shift = get_mods() & MOD_BIT_LSHIFT;
+    bool r_shift = get_mods() & MOD_BIT_RSHIFT;
+    bool shift_on = get_mods() & MOD_MASK_SHIFT;
+        
+    if (shift_on) {
+      send_tap = engram_symbol_shift(send_tap);
+
+      del_mods(MOD_MASK_SHIFT);
+    }
+
+    if (jis_flag) {
+      send_tap = conv_kc_to_jp(send_tap);
+    }
+    
+    if (record->tap.count > 0) {
+      if (record->event.pressed) {
+        register_code16(send_tap);
+      } else {
+        unregister_code16(send_tap);
+      }
+    } else {
+      if (record->event.pressed) {
+        if (layer_hold != 0) layer_on(layer_hold);
+      } else {
+        if (layer_hold != 0) layer_off(layer_hold);
+      }  
+    }
+
+    if (l_shift) add_mods(MOD_BIT_LSHIFT);
+    if (r_shift) add_mods(MOD_BIT_RSHIFT);
+    
+    return false;
+  }
 
   return true;
 }
