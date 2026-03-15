@@ -1,6 +1,5 @@
 #define JP_LBRC KC_RBRC
 #define JP_LCBR S(KC_RBRC)
-#define JP_PIPE S(KC_INT3)
 #define JP_EQL S(KC_MINS)
 #define JP_TILD S(KC_EQL)
 #define JP_PLUS S(KC_SCLN)
