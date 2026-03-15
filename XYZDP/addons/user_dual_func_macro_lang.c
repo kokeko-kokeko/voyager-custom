@@ -111,8 +111,6 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = KC_NO;
   uint16_t send_hold = KC_NO;
-
-
   
   if (id_code == KC_A) send_tap = KC_AT;
   if (id_code == KC_B) send_tap = KC_HASH;
