@@ -128,6 +128,47 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   }
   if (id_code == KC_I) send_tap = KC_QUES;
 
+  if (id_code == KC_1) {
+    send_tap = KC_1;
+    send_hold = KC_NO;
+  }
+  if (id_code == KC_2) {
+    send_tap = KC_2;
+    send_hold = KC_NO;
+  }
+  if (id_code == KC_3) {
+    send_tap = KC_3;
+    send_hold = KC_NO;
+  }
+    if (id_code == KC_4) {
+    send_tap = KC_4;
+    send_hold = KC_NO;
+  }
+  if (id_code == KC_5) {
+    send_tap = KC_6;
+    send_hold = KC_NO;
+  }
+  
+  if (id_code == KC_6) {
+    send_tap = KC_6;
+    send_hold = KC_NO;
+  }
+  if (id_code == KC_7) {
+    send_tap = KC_7;
+    send_hold = KC_NO;
+  }
+  if (id_code == KC_8) {
+    send_tap = KC_8;
+    send_hold = KC_NO;
+  }
+  if (id_code == KC_9) {
+    send_tap = KC_9;
+    send_hold = KC_NO;
+  }
+  if (id_code == KC_0) {
+    send_tap = KC_0;
+    send_hold = KC_NO;
+  }
   // finalize
   if (send_tap != KC_NO) {
     bool l_shift = get_mods() & MOD_BIT_LSHIFT;
