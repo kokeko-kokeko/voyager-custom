@@ -29,7 +29,7 @@ bool jis_is_enabled(void) {
   return jis_flag;
 }
 
-static uint16_t search_tap_common (uint16_t keycode) {
+static uint16_t search_tap_common(uint16_t keycode) {
   switch (keycode) {
     case KC_A: return KC_AT;
     case KC_B: return KC_HASH;
@@ -60,7 +60,7 @@ static uint16_t search_tap_common (uint16_t keycode) {
   return KC_NO;
 }
 
-static uint16_t engram_symbol_shift (uint16_t keycode) {
+static uint16_t engram_symbol_shift(uint16_t keycode) {
   switch (keycode) {
     case KC_NO:   return KC_NO;
     
@@ -97,7 +97,7 @@ static uint16_t engram_symbol_shift (uint16_t keycode) {
   return keycode;
 }
 
-static uint16_t conv_kc_to_jp (uint16_t keycode) {
+static uint16_t conv_kc_to_jp(uint16_t keycode) {
   switch (keycode) {
     case KC_NO:   return KC_NO;
     
