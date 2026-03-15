@@ -81,6 +81,8 @@ static uint16_t conv_kc_to_jp (uint16_t keycode) {
     case KC_TILD:  return JP_TILD;
 
     case KC_BSLS:  return JP_BSLS;
+    case KC_UNDS:  return JP_UNDS;
+    
     case KC_PIPE:  return JP_PIPE;
 
     case KC_AT:   return JP_AT;
