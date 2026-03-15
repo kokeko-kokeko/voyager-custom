@@ -584,8 +584,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, LAYER_Function, LAYER_L_thumb_2, LAYER_Firmware); 
   
   // ANSI/JIS addiional enable
-  state = update_tri_layer_state(state, LAYER_Base_ANSI, LAYER_Number, LAYER_Number_ANSI);
-  state = update_tri_layer_state(state, LAYER_Base_ANSI, LAYER_Cursor, LAYER_Cursor_ANSI);
   state = update_tri_layer_state(state, LAYER_Base_ANSI, LAYER_LR_thumb, LAYER_LR_thumb_ANSI);
 
   state = layer_state_set_adv_mouse(state);
@@ -616,9 +614,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       // aim/turbo change without layer, direct write on process_record
       break;
     case LAYER_Number:
-    case LAYER_Number_ANSI:
     case LAYER_Cursor:
-    case LAYER_Cursor_ANSI:
       status_led(0b1011, led_pattern_off);
       status_led(0b0100, led_pattern_on);
       break;
