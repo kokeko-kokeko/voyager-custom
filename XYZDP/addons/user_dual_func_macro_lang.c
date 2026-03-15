@@ -105,6 +105,7 @@ static uint16_t conv_kc_to_jp (uint16_t keycode) {
   return keycode;
 }
 
+// key with shift overwrite (same as ko)
 static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN1) return true;
 
@@ -212,9 +213,112 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+// key with always shift on (same as ko)
 static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN2) return true;
+  
+  uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+  uint16_t send_tap = KC_NO;
+  uint16_t send_hold = KC_NO;
+  
+  if (id_code == KC_A) send_tap = KC_AT;
+  if (id_code == KC_B) send_tap = KC_HASH;
+  if (id_code == KC_C) send_tap = KC_QUOT;
+  if (id_code == KC_D) {
+    send_tap = KC_COMM;
+    send_hold = HYPR(KC_NO);
+  }
+  if (id_code == KC_E) send_tap = KC_MINS;
+  if (id_code == KC_F) send_tap = KC_SLSH;
+  if (id_code == KC_G) send_tap = KC_DQUO;
+  if (id_code == KC_H) {
+    send_tap = KC_DOT;
+    send_hold = MEH(KC_NO);
+  }
+  if (id_code == KC_I) send_tap = KC_QUES;
 
+  if (id_code == KC_1) {
+    send_tap = KC_1;
+    send_hold = LSFT(LCTL(KC_NO));
+  }
+  if (id_code == KC_2) {
+    send_tap = KC_2;
+    send_hold = LGUI(LALT(KC_NO));
+  }
+  if (id_code == KC_3) {
+    send_tap = KC_3;
+    send_hold = LSFT(KC_NO);
+  }
+    if (id_code == KC_4) {
+    send_tap = KC_4;
+    send_hold = LCTL(KC_NO);
+  }
+  if (id_code == KC_5) {
+    send_tap = KC_5;
+    send_hold = HYPR(KC_NO);
+  }
+  
+  if (id_code == KC_6) {
+    send_tap = KC_6;
+    send_hold = MEH(KC_NO);
+  }
+  if (id_code == KC_7) {
+    send_tap = KC_7;
+    send_hold = RCTL(KC_NO);
+  }
+  if (id_code == KC_8) {
+    send_tap = KC_8;
+    send_hold = RSFT(KC_NO);
+  }
+  if (id_code == KC_9) {
+    send_tap = KC_9;
+    send_hold = RGUI(RALT(KC_NO));
+  }
+  if (id_code == KC_0) {
+    send_tap = KC_0;
+    send_hold = RSFT(RCTL(KC_NO));
+  }
+  // finalize
+  if (send_tap != KC_NO) {
+    bool l_shift = get_mods() & MOD_BIT_LSHIFT;
+    bool r_shift = get_mods() & MOD_BIT_RSHIFT;
+    //bool shift_on = get_mods() & MOD_MASK_SHIFT;
+    bool shift_on = true;
+    
+    if (send_hold == KC_NO) send_hold = send_tap;
+    
+    if (shift_on) {
+      send_tap = engram_symbol_shift(send_tap);
+      send_hold = engram_symbol_shift(send_hold);
+
+      del_mods(MOD_MASK_SHIFT);
+    }
+
+    if (jis_flag) {
+      send_tap = conv_kc_to_jp(send_tap);
+      send_hold = conv_kc_to_jp(send_hold);
+    }
+    
+    if (record->tap.count > 0) {
+      if (record->event.pressed) {
+        register_code16(send_tap);
+      } else {
+        unregister_code16(send_tap);
+      }
+    } else {
+      if (record->event.pressed) {
+        register_code16(send_hold);
+      } else {
+        unregister_code16(send_hold);
+      }  
+    }
+
+    if (l_shift) add_mods(MOD_BIT_LSHIFT);
+    if (r_shift) add_mods(MOD_BIT_RSHIFT);
+    
+    return false;
+  }
+  
   return true;
 }
 
