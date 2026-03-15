@@ -114,134 +114,37 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   bool r_shift = get_mods() & MOD_BIT_RSHIFT;
   bool shift_on = get_mods() & MOD_MASK_SHIFT;
   
-  if (id_code == KC_A) {
-    if (jis_flag) {
-      if (shift_on) {
-        send_tap = JP_GRV;
-      } else {
-        send_tap = JP_AT;
-      }
-    } else {
-      if (shift_on) {
-        send_tap = KC_GRV;
-      } else {
-        send_tap = KC_AT;
-      }
-    }
-  }
-  
-  if (id_code == KC_B) {
-    if (shift_on) {
-      send_tap = KC_DLR;
-    } else {
-      send_tap = KC_HASH;
-    }
-  }
-
-  if (id_code == KC_C) {
-    if (jis_flag) {
-      if (shift_on) {
-        send_tap = JP_LPRN;
-      } else {
-        send_tap = JP_QUOT;
-      }
-    } else {
-      if (shift_on) {
-        send_tap = KC_LPRN;
-      } else {
-        send_tap = KC_QUOT;
-      }
-    }
-  }
-  
+  if (id_code == KC_A) send_tap = KC_AT;
+  if (id_code == KC_B) send_tap = KC_HASH;
+  if (id_code == KC_C) send_tap = KC_QUOT;
   if (id_code == KC_D) {
-    if (shift_on) {
-      send_tap = KC_SCLN;
-    } else {
-      send_tap = KC_COMM;
-      send_hold = HYPR(KC_NO);
-    }
+    send_tap = KC_COMM;
+    send_hold = HYPR(KC_NO);
   }
-
-  if (id_code == KC_E) {
-    if (jis_flag) {
-      if (shift_on) {
-        send_tap = JP_UNDS;
-      } else {
-        send_tap = JP_MINS;
-      }
-    } else {
-      if (shift_on) {
-        send_tap = KC_UNDS;
-      } else {
-        send_tap = KC_MINS;
-      }
-    }
-  }
-
-  if (id_code == KC_F) {
-    if (jis_flag) {
-      if (shift_on) {
-        send_tap = JP_BSLS;
-      } else {
-        send_tap = JP_SLSH;
-      }
-    } else {
-      if (shift_on) {
-        send_tap = KC_BSLS;
-      } else {
-        send_tap = KC_SLSH;
-      }
-    }
-  }
-
-  if (id_code == KC_G) {
-    if (jis_flag) {
-      if (shift_on) {
-        send_tap = JP_RPRN;
-      } else {
-        send_tap = JP_DQUO;
-      }
-    } else {
-      if (shift_on) {
-        send_tap = KC_RPRN;
-      } else {
-        send_tap = KC_DQUO;
-      }
-    }
-  }
-
+  if (id_code == KC_E) send_tap = KC_MINS;
+  if (id_code == KC_F) send_tap = KC_SLSH;
+  if (id_code == KC_G) send_tap = KC_DQUO;
   if (id_code == KC_H) {
-    if (jis_flag) {
-      if (shift_on) {
-        send_tap = JP_COLN;
-      } else {
-        send_tap = JP_DOT;
-        send_hold = MEH(KC_NO);
-      }
-    } else {
-      if (shift_on) {
-        send_tap = KC_COLN;
-      } else {
-        send_tap = KC_DOT;
-        send_hold = MEH(KC_NO);
-      }
-    }
+    send_tap = KC_DOT;
+    send_hold = MEH(KC_NO);
   }
+  if (id_code == KC_I) send_tap = KC_QUES;
 
-  if (id_code == KC_I) {
-    if (shift_on) {
-      send_tap = KC_EXLM;
-    } else {
-      send_tap = KC_QUES;
-    }
-  }
-  
   // finalize
   if (send_tap != KC_NO) {
     if (send_hold == KC_NO) send_hold = send_tap;
     
-    if (shift_on) del_mods(MOD_MASK_SHIFT);
+    if (shift_on) {
+      send_tap = engram_symbol_shift(send_tap);
+      send_hold = engram_symbol_shift(send_hold);
+
+      del_mods(MOD_MASK_SHIFT);
+    }
+
+    if (jis_flag) {
+      send_tap = conv_kc_to_jp(send_tap);
+      send_hold = conv_kc_to_jp(send_hold);
+    }
     
     if (record->tap.count > 0) {
       if (record->event.pressed) {
