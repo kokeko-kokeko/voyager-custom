@@ -31,6 +31,40 @@ static uint16_t engram_symbol_shift (uint16_t keycode) {
   switch (keycode) {
     case KC_AT:   return KC_GRV;
     case KC_HASH: return KC_DLR;
+    case KC_SLSH: return KC_BSLS;
+    
+    case KC_QUOT: return KC_LPRN;
+    case KC_DQUO: return KC_RPRN;
+    
+    case KC_COMM: return KC_SCLN;
+    case KC_DOT:  return KC_COLN;
+    
+    case KC_MINS: return KC_UNDS;
+    case KC_QUES: return KC_EXLM;
+    
+    case KC_LBRC: return KC_LCBR;
+    case KC_RBRC: return KC_RCBR;
+    
+    case KC_1:    return KC_PIPE;
+    case KC_2:    return KC_EQL;
+    case KC_3:    return KC_TILD;
+    case KC_4:    return KC_PLUS;
+    case KC_5:    return KC_LABK;
+    
+    case KC_6:    return KC_RABK;
+    case KC_7:    return KC_CIRC;
+    case KC_8:    return KC_AMPR;
+    case KC_9:    return KC_PERC;
+    case KC_0:    return KC_ASTR;
+    
+    default:      return keycode;
+  }        
+  return keycode;
+}
+
+static uint16_t conv_kc_to_jp (uint16_t keycode) {
+  switch (keycode) {
+
     default:      return keycode;
   }        
   return keycode;
