@@ -484,8 +484,8 @@ _Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missma
 _Static_assert(LAYER_Mouse == AUTOMOUSE_LAYER, "Auto Mouse layer missmatch!!");
 
 // remove oryx JP keycode, load qmk JP keycode & overrides
-#include "i18n_undef.inc"
-#include "key_overrides.inc"
+//#include "i18n_undef.inc"
+//#include "key_overrides.inc"
 
 // access to voyager system-side flag
 extern keyboard_config_t keyboard_config;
