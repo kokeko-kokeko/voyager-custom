@@ -147,8 +147,8 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (id_code == KC_D) send_hold = HYPR(KC_NO);
   if (id_code == KC_H) send_hold = MEH(KC_NO);
 
-  if (id_code == KC_L) send_hold = LCTL(KC_NO));
-  if (id_code == KC_R) send_hold = RCTL(KC_NO));  
+  if (id_code == KC_L) send_hold = LCTL(KC_NO);
+  if (id_code == KC_R) send_hold = RCTL(KC_NO);  
 
   if (id_code == KC_1) send_hold = LSFT(LCTL(KC_NO));
   if (id_code == KC_2) send_hold = LGUI(LALT(KC_NO));
@@ -216,8 +216,8 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
   if (id_code == KC_D) send_hold = HYPR(KC_NO);
   if (id_code == KC_H) send_hold = MEH(KC_NO);
 
-  if (id_code == KC_L) send_hold = LCTL(KC_NO));
-  if (id_code == KC_R) send_hold = RCTL(KC_NO));
+  if (id_code == KC_L) send_hold = LCTL(KC_NO);
+  if (id_code == KC_R) send_hold = RCTL(KC_NO);
 
   // fix
   if (id_code == KC_1) send_hold = LSFT(LCTL(KC_NO));
