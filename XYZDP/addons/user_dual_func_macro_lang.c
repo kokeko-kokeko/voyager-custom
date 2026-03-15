@@ -130,44 +130,44 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
 
   if (id_code == KC_1) {
     send_tap = KC_1;
-    send_hold = KC_NO;
+    send_hold = LSFT(LCTRL(KC_NO));
   }
   if (id_code == KC_2) {
     send_tap = KC_2;
-    send_hold = KC_NO;
+    send_hold = LGUI(LALT(KC_NO));
   }
   if (id_code == KC_3) {
     send_tap = KC_3;
-    send_hold = KC_NO;
+    send_hold = LSFT(KC_NO);
   }
     if (id_code == KC_4) {
     send_tap = KC_4;
-    send_hold = KC_NO;
+    send_hold = LCRL(KC_NO);
   }
   if (id_code == KC_5) {
-    send_tap = KC_6;
-    send_hold = KC_NO;
+    send_tap = KC_5;
+    send_hold = HYPR(KC_NO);
   }
   
   if (id_code == KC_6) {
     send_tap = KC_6;
-    send_hold = KC_NO;
+    send_hold = MEH(KC_NO);
   }
   if (id_code == KC_7) {
     send_tap = KC_7;
-    send_hold = KC_NO;
+    send_hold = RCRL(KC_NO);
   }
   if (id_code == KC_8) {
     send_tap = KC_8;
-    send_hold = KC_NO;
+    send_hold = RSFT(KC_NO);
   }
   if (id_code == KC_9) {
     send_tap = KC_9;
-    send_hold = KC_NO;
+    send_hold = RGUI(RALT(KC_NO));
   }
   if (id_code == KC_0) {
     send_tap = KC_0;
-    send_hold = KC_NO;
+    send_hold = RSFT(RCTRL(KC_NO));
   }
   // finalize
   if (send_tap != KC_NO) {
