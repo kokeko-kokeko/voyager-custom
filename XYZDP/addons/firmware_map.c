@@ -71,8 +71,7 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   
   if (pos == POSITION_JIS) {
     layer_on(LAYER_Base);
-    layer_off(LAYER_Base_ANSI);
-
+    
     jis_enable();
     
     return false;
@@ -80,8 +79,7 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
       
   if (pos == POSITION_ANSI) {
     layer_on(LAYER_Base);
-    layer_on(LAYER_Base_ANSI);
-
+    
     jis_disable();
         
     return false;
