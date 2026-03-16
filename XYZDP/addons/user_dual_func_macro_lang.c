@@ -29,7 +29,7 @@ bool jis_is_enabled(void) {
   return jis_flag;
 }
 
-static uint16_t search_tap_base_num(uint16_t keycode) {
+static uint16_t search_tap_base_number(uint16_t keycode) {
   switch (keycode) {
     case KC_A: return KC_AT;
     case KC_B: return KC_HASH;
@@ -182,7 +182,7 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN1) return true;
 
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-  uint16_t send_tap = search_tap_base_num(id_code);
+  uint16_t send_tap = search_tap_base_number(id_code);
   uint8_t mods_hold = 0;
   uint8_t layer_hold = 0;
 
@@ -244,7 +244,7 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN2) return true;
   
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-  uint16_t send_tap = search_tap_base_num(id_code);
+  uint16_t send_tap = search_tap_base_number(id_code);
   uint8_t mods_hold = 0;
   uint8_t layer_hold = 0;
 
