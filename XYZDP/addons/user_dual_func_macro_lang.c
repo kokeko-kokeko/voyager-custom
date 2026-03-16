@@ -184,13 +184,8 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
     bool r_shift = get_mods() & MOD_BIT_RSHIFT;
     bool shift_on = get_mods() & MOD_MASK_SHIFT;
     
-    if (shift_on) {
-      send_tap = engram_symbol_shift(send_tap);
-    }
-
-    if (jis_flag) {
-      send_tap = conv_kc_to_jp(send_tap);
-    }
+    if (shift_on) send_tap = engram_symbol_shift(send_tap);
+    if (jis_flag) send_tap = conv_kc_to_jp(send_tap);
     
     if (record->tap.count > 0) {
       if (record->event.pressed) {
