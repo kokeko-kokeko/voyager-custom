@@ -206,6 +206,9 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (id_code == KC_8) mods_hold = MOD_BIT_RSHIFT;
   if (id_code == KC_9) mods_hold = MOD_BIT_RGUI | MOD_BIT_RALT;
   if (id_code == KC_0) mods_hold = MOD_BIT_RSHIFT | MOD_BIT_RCTRL;
+
+  if (id_code == KC_DOT) mods_hold = MOD_BIT_LALT | MOD_BIT_LSHIFT; 
+  if (id_code == KC_PDOT) mods_hold = MOD_BIT_RALT | MOD_BIT_RSHIFT; 
   
   // finalize
   if (send_tap != KC_NO) {
