@@ -151,6 +151,26 @@ static uint16_t conv_kc_to_jp(uint16_t keycode) {
   return keycode;
 }
 
+static void reg16_wo_shift (uint16_t code16) {
+  bool l_shift = get_mods() & MOD_BIT_LSHIFT;
+  bool r_shift = get_mods() & MOD_BIT_RSHIFT;
+
+  del_mods(MOD_MASK_SHIFT);
+  register_code16(code16);
+  if (l_shift) add_mods(MOD_BIT_LSHIFT);
+  if (r_shift) add_mods(MOD_BIT_RSHIFT);      
+}
+
+static void unreg16_wo_shift (uint16_t code16) {
+  bool l_shift = get_mods() & MOD_BIT_LSHIFT;
+  bool r_shift = get_mods() & MOD_BIT_RSHIFT;
+
+  del_mods(MOD_MASK_SHIFT);
+  unregister_code16(code16);
+  if (l_shift) add_mods(MOD_BIT_LSHIFT);
+  if (r_shift) add_mods(MOD_BIT_RSHIFT);    
+}
+
 // key with shift overwrite (same as ko)
 static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN1) return true;
@@ -180,8 +200,6 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   
   // finalize
   if (send_tap != KC_NO) {
-    bool l_shift = get_mods() & MOD_BIT_LSHIFT;
-    bool r_shift = get_mods() & MOD_BIT_RSHIFT;
     bool shift_on = get_mods() & MOD_MASK_SHIFT;
     
     if (shift_on) send_tap = engram_symbol_shift(send_tap);
@@ -189,35 +207,19 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
     
     if (record->tap.count > 0) {
       if (record->event.pressed) {
-        del_mods(MOD_MASK_SHIFT);
-        register_code16(send_tap);
-        if (l_shift) add_mods(MOD_BIT_LSHIFT);
-        if (r_shift) add_mods(MOD_BIT_RSHIFT);      
+        reg16_wo_shift(send_tap);
       } else {
-        del_mods(MOD_MASK_SHIFT);
-        unregister_code16(send_tap);
-        if (l_shift) add_mods(MOD_BIT_LSHIFT);
-        if (r_shift) add_mods(MOD_BIT_RSHIFT);
+        unreg16_wo_shift(send_tap);
       }
     } else {
       if (record->event.pressed) {
         if (layer_hold != 0) layer_on(layer_hold);
         else if (mods_hold != 0) register_mods(mods_hold);
-        else {
-          del_mods(MOD_MASK_SHIFT);
-          register_code16(send_tap);
-          if (l_shift) add_mods(MOD_BIT_LSHIFT);
-          if (r_shift) add_mods(MOD_BIT_RSHIFT);          
-        } 
+        else reg16_wo_shift(send_tap);
       } else {
         if (layer_hold != 0) layer_off(layer_hold);
         else if (mods_hold != 0) unregister_mods(mods_hold);
-        else {
-          del_mods(MOD_MASK_SHIFT);
-          unregister_code16(send_tap);
-          if (l_shift) add_mods(MOD_BIT_LSHIFT);
-          if (r_shift) add_mods(MOD_BIT_RSHIFT);    
-        }
+        else  unreg16_wo_shift(send_tap);
       }  
     }
     
@@ -254,8 +256,6 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
 
   // finalize
   if (send_tap != KC_NO) {
-    bool l_shift = get_mods() & MOD_BIT_LSHIFT;
-    bool r_shift = get_mods() & MOD_BIT_RSHIFT;
     //bool shift_on = get_mods() & MOD_MASK_SHIFT;
     bool shift_on = true;
 
@@ -264,35 +264,19 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
     
     if (record->tap.count > 0) {
       if (record->event.pressed) {
-        del_mods(MOD_MASK_SHIFT);
-        register_code16(send_tap);
-        if (l_shift) add_mods(MOD_BIT_LSHIFT);
-        if (r_shift) add_mods(MOD_BIT_RSHIFT);     
+        reg16_wo_shift(send_tap);
       } else {
-        del_mods(MOD_MASK_SHIFT);
-        unregister_code16(send_tap);
-        if (l_shift) add_mods(MOD_BIT_LSHIFT);
-        if (r_shift) add_mods(MOD_BIT_RSHIFT);     
+        unreg16_wo_shift(send_tap);
       }
     } else {
       if (record->event.pressed) {
         if (layer_hold != 0) layer_on(layer_hold);
         else if (mods_hold != 0) register_mods(mods_hold);
-        else {
-          del_mods(MOD_MASK_SHIFT);
-          register_code16(send_tap);
-          if (l_shift) add_mods(MOD_BIT_LSHIFT);
-          if (r_shift) add_mods(MOD_BIT_RSHIFT);          
-        } 
+        else reg16_wo_shift(send_tap);
       } else {
         if (layer_hold != 0) layer_off(layer_hold);
         else if (mods_hold != 0) unregister_mods(mods_hold);
-        else {
-          del_mods(MOD_MASK_SHIFT);
-          unregister_code16(send_tap);
-          if (l_shift) add_mods(MOD_BIT_LSHIFT);
-          if (r_shift) add_mods(MOD_BIT_RSHIFT);          
-        }       
+        else unreg16_wo_shift(send_tap);      
       }  
     }
 
