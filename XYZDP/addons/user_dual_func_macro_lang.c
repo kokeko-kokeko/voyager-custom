@@ -160,23 +160,23 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   uint8_t mods_hold = 0;
   uint8_t layer_hold = 0;
 
-  if (id_code == KC_D) mods_hold = MOD_HYPR;
-  if (id_code == KC_H) mods_hold = MOD_MEH; 
+  if (id_code == KC_D) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSFT | MOD_BIT_LCTL;
+  if (id_code == KC_H) mods_hold = MOD_BIT_LALT | MOD_BIT_LSFT | MOD_BIT_LCTL; 
   
   if (id_code == KC_L) layer_hold = LAYER_L_pinky;
   if (id_code == KC_R) layer_hold = LAYER_R_pinky;
 
-  if (id_code == KC_1) mods_hold = MOD_LSFT | MOD_LCTL;
-  if (id_code == KC_2) mods_hold = MOD_LGUI | MOD_LALT;
-  if (id_code == KC_3) mods_hold = MOD_LSFT;
-  if (id_code == KC_4) mods_hold = MOD_LCTL;
-  if (id_code == KC_5) mods_hold = MOD_HYPR;
+  if (id_code == KC_1) mods_hold = MOD_BIT_LSFT | MOD_BIT_LCTL;
+  if (id_code == KC_2) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT;
+  if (id_code == KC_3) mods_hold = MOD_BIT_LSFT;
+  if (id_code == KC_4) mods_hold = MOD_BIT_LCTL;
+  if (id_code == KC_5) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSFT | MOD_BIT_LCTL;
   
-  if (id_code == KC_6) mods_hold = MOD_MEH;
-  if (id_code == KC_7) mods_hold = MOD_RCTL;
-  if (id_code == KC_8) mods_hold = MOD_RSFT;
-  if (id_code == KC_9) mods_hold = MOD_RGUI | MOD_RALT;
-  if (id_code == KC_0) mods_hold = MOD_RSFT | MOD_RCTL;
+  if (id_code == KC_6) mods_hold = MOD_BIT_LALT | MOD_BIT_LSFT | MOD_BIT_LCTL; 
+  if (id_code == KC_7) mods_hold = MOD_BIT_RCTL;
+  if (id_code == KC_8) mods_hold = MOD_BIT_RSFT;
+  if (id_code == KC_9) mods_hold = MOD_BIT_RGUI | MOD_BIT_RALT;
+  if (id_code == KC_0) mods_hold = MOD_BIT_RSFT | MOD_BIT_RCTL;
   
   // finalize
   if (send_tap != KC_NO) {
@@ -232,16 +232,16 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
   
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = search_tap_common(id_code);
-  uint16_t mods_hold = KC_NO;
+  uint8_t mods_hold = 0;
+  uint8_t layer_hold = 0;
 
-  if (id_code == KC_D) mods_hold = HYPR(KC_NO);
-  if (id_code == KC_H) mods_hold = MEH(KC_NO);
+  if (id_code == KC_D) mods_hold = MOD_HYPR;
+  if (id_code == KC_H) mods_hold = MOD_MEH;
 
-  if (id_code == KC_L) mods_hold = LCTL(KC_NO);
-  if (id_code == KC_R) mods_hold = RCTL(KC_NO);
+  if (id_code == KC_L) mods_hold = MOD_LCTL;
+  if (id_code == KC_R) mods_hold = MOD_RCTL;
 
-  // fix
-  if (id_code == KC_1) mods_hold = LGUI(KC_NO);
+  if (id_code == KC_1) mods_hold = MOD_LGUI;
   if (id_code == KC_2) mods_hold = LALT(KC_NO);
   if (id_code == KC_3) mods_hold = LGUI(LSFT(KC_NO));
   if (id_code == KC_4) mods_hold = LGUI(LCTL(KC_NO));
