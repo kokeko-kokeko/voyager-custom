@@ -329,12 +329,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
   // both thumb
   state = update_tri_layer_state(state, LAYER_Number, LAYER_Cursor, LAYER_LR_thumb);
-
-  // 3keys
-  state = update_tri_layer_state(state, LAYER_Number, LAYER_LR_pinky, LAYER_L_thumb_LR_pinky);
-  state = update_tri_layer_state(state, LAYER_Cursor, LAYER_LR_pinky, LAYER_R_thumb_LR_pinky);
-  state = update_tri_layer_state(state, LAYER_LR_thumb, LAYER_L_pinky, LAYER_LR_thumb_L_pinky);
-  
+    
   // call FwSys
   state = update_tri_layer_state(state, LAYER_Function, LAYER_L_thumb_2, LAYER_Firmware); 
 
@@ -394,13 +389,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case LAYER_LR_thumb:
       status_led(0b1000, led_pattern_off);
       status_led(0b0111, led_pattern_on);
-      break;
-    case LAYER_L_thumb_LR_pinky:
-    case LAYER_R_thumb_LR_pinky:
-    case LAYER_LR_thumb_L_pinky:
-      status_led(0b1000, led_pattern_off);
-      status_led(0b0100, led_pattern_on);
-      status_led(0b0011, led_pattern_blink);
       break;
     case LAYER_Mouse_Upper_Left:
     case LAYER_Mouse_Upper_Right:
