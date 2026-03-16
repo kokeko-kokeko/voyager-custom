@@ -35,10 +35,10 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(13, KC_K)
-#define DUAL_FUNC_1 LT(1, KC_3)
-#define DUAL_FUNC_2 LT(15, KC_R)
-#define DUAL_FUNC_3 LT(7, KC_Z)
+#define DUAL_FUNC_0 LT(9, KC_F9)
+#define DUAL_FUNC_1 LT(6, KC_I)
+#define DUAL_FUNC_2 LT(13, KC_F13)
+#define DUAL_FUNC_3 LT(13, KC_2)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
