@@ -485,7 +485,6 @@ static bool process_record_udfn9(uint16_t keycode, keyrecord_t *record) {
         }
       }
 
-      //' '
       if (pos == 3) {
         if (jis_flag) {
           
@@ -494,7 +493,6 @@ static bool process_record_udfn9(uint16_t keycode, keyrecord_t *record) {
         }
       }
 
-      //" "
       if (pos == 4) {
         if (jis_flag) {
           
@@ -503,7 +501,6 @@ static bool process_record_udfn9(uint16_t keycode, keyrecord_t *record) {
         }
       }
 
-      //!?
       if (pos == 7) {
         if (jis_flag) {
           
@@ -512,7 +509,6 @@ static bool process_record_udfn9(uint16_t keycode, keyrecord_t *record) {
         }
       }
 
-      //?!
       if (pos == 8) {
         if (jis_flag) {
           
@@ -521,7 +517,6 @@ static bool process_record_udfn9(uint16_t keycode, keyrecord_t *record) {
         }
       }
 
-      ///*
       if (pos == 9) {
         if (jis_flag) {
           
@@ -530,7 +525,6 @@ static bool process_record_udfn9(uint16_t keycode, keyrecord_t *record) {
         }
       }
 
-      //*/
       if (pos == 10) {
         if (jis_flag) {
           
@@ -539,7 +533,6 @@ static bool process_record_udfn9(uint16_t keycode, keyrecord_t *record) {
         }
       }
 
-       ////
       if (pos == 15) {
         if (jis_flag) {
           
@@ -548,7 +541,6 @@ static bool process_record_udfn9(uint16_t keycode, keyrecord_t *record) {
         }
       }
 
-      //\\
       if (pos == 16) {
         if (jis_flag) {
           
