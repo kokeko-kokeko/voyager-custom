@@ -200,9 +200,7 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   
   // finalize
   if (send_tap != KC_NO) {
-    bool shift_on = get_mods() & MOD_MASK_SHIFT;
-    
-    if (shift_on) send_tap = engram_symbol_shift(send_tap);
+    if (get_mods() & MOD_MASK_SHIFT) send_tap = engram_symbol_shift(send_tap);
     if (jis_flag) send_tap = conv_kc_to_jp(send_tap);
     
     if (record->tap.count > 0) {
@@ -256,10 +254,8 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
 
   // finalize
   if (send_tap != KC_NO) {
-    //bool shift_on = get_mods() & MOD_MASK_SHIFT;
-    bool shift_on = true;
-
-    if (shift_on) send_tap = engram_symbol_shift(send_tap);
+    //always shift
+    if (true) send_tap = engram_symbol_shift(send_tap);
     if (jis_flag) send_tap = conv_kc_to_jp(send_tap);
     
     if (record->tap.count > 0) {
