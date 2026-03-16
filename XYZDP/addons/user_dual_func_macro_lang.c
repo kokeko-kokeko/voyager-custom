@@ -301,15 +301,15 @@ static uint16_t search_tap_cursor(uint16_t keycode) {
     case KC_C: return LCTL(KC_C);
     case KC_D: return LCTL(KC_V);
 
-    case KC_E: return KC_HOME;
-    case KC_F: return KC_END;
-    case KC_G: return KC_PGUP;
-    case KC_H: return KC_PGDN;
+    case KC_E: return KC_LPRN;
+    case KC_F: return KC_LABK;
+    case KC_G: return KC_LCBR;
+    case KC_H: return KC_LBRC;
 
-    case KC_I: return KC_LBRC;
-    case KC_J: return KC_LCBR;
-    case KC_K: return KC_LABK;
-    case KC_L: return KC_LPRN;
+    case KC_I: return KC_PGUP;
+    case KC_J: return KC_PGDN;
+    case KC_K: return KC_HOME;
+    case KC_L: return KC_END;
 
     case KC_M: return KC_EXLM;
     case KC_N: return KC_QUES;
