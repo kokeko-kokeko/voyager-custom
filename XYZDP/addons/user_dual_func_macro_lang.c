@@ -238,8 +238,8 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
   if (id_code == KC_D) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
   if (id_code == KC_H) mods_hold = MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
 
-  if (id_code == KC_L) mods_hold = MOD_BIT_LCTL;
-  if (id_code == KC_R) mods_hold = MOD_BIT_RCTL;
+  if (id_code == KC_L) mods_hold = MOD_BIT_LCTRL;
+  if (id_code == KC_R) mods_hold = MOD_BIT_RCTRL;
 
   if (id_code == KC_1) mods_hold = MOD_BIT_LGUI;
   if (id_code == KC_2) mods_hold = MOD_BIT_LALT;
