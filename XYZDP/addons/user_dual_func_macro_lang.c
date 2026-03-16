@@ -235,14 +235,14 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
   uint8_t mods_hold = 0;
   uint8_t layer_hold = 0;
 
-  if (id_code == KC_D) mods_hold = MOD_HYPR;
-  if (id_code == KC_H) mods_hold = MOD_MEH;
+  if (id_code == KC_D) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
+  if (id_code == KC_H) mods_hold = MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
 
-  if (id_code == KC_L) mods_hold = MOD_LCTL;
-  if (id_code == KC_R) mods_hold = MOD_RCTL;
+  if (id_code == KC_L) mods_hold = MOD_BIT_LCTL;
+  if (id_code == KC_R) mods_hold = MOD_BIT_RCTL;
 
-  if (id_code == KC_1) mods_hold = MOD_LGUI;
-  if (id_code == KC_2) mods_hold = LALT(KC_NO);
+  if (id_code == KC_1) mods_hold = MOD_BIT_LGUI;
+  if (id_code == KC_2) mods_hold = MOD_BIT_LALT;
   if (id_code == KC_3) mods_hold = LGUI(LSFT(KC_NO));
   if (id_code == KC_4) mods_hold = LGUI(LCTL(KC_NO));
   //if (id_code == KC_5) mods_hold = HYPR(KC_NO);
