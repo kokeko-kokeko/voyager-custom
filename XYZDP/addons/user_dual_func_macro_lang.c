@@ -197,7 +197,8 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
         del_mods(MOD_MASK_SHIFT);
         unregister_code16(send_tap);
         if (l_shift) add_mods(MOD_BIT_LSHIFT);
-        if (r_shift) add_mods(MOD_BIT_RSHIFT);          }
+        if (r_shift) add_mods(MOD_BIT_RSHIFT);
+      }
     } else {
       if (record->event.pressed) {
         if (layer_hold != 0) layer_on(layer_hold);
