@@ -20,7 +20,6 @@ enum layer_num {
   LAYER_L_thumb_R_pinky,
   LAYER_R_thumb_L_pinky,
   LAYER_LR_thumb,
-  LAYER_LR_thumb_ANSI,
   LAYER_L_thumb_LR_pinky,
   LAYER_R_thumb_LR_pinky,
   LAYER_LR_thumb_L_pinky,
