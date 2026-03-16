@@ -186,7 +186,6 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
     
     if (shift_on) {
       send_tap = engram_symbol_shift(send_tap);
-      del_mods(MOD_MASK_SHIFT);
     }
 
     if (jis_flag) {
@@ -195,24 +194,36 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
     
     if (record->tap.count > 0) {
       if (record->event.pressed) {
+        del_mods(MOD_MASK_SHIFT);
         register_code16(send_tap);
+        if (l_shift) add_mods(MOD_BIT_LSHIFT);
+        if (r_shift) add_mods(MOD_BIT_RSHIFT);      
       } else {
+        del_mods(MOD_MASK_SHIFT);
         unregister_code16(send_tap);
-      }
+        if (l_shift) add_mods(MOD_BIT_LSHIFT);
+        if (r_shift) add_mods(MOD_BIT_RSHIFT);          }
     } else {
       if (record->event.pressed) {
         if (layer_hold != 0) layer_on(layer_hold);
         else if (mods_hold != 0) register_mods(mods_hold);
-        else register_code16(send_tap);
+        else {
+          del_mods(MOD_MASK_SHIFT);
+          register_code16(send_tap);
+          if (l_shift) add_mods(MOD_BIT_LSHIFT);
+          if (r_shift) add_mods(MOD_BIT_RSHIFT);          
+        } 
       } else {
         if (layer_hold != 0) layer_off(layer_hold);
         else if (mods_hold != 0) unregister_mods(mods_hold);
-        else unregister_code16(send_tap);
+        else {
+          del_mods(MOD_MASK_SHIFT);
+          unregister_code16(send_tap);
+          if (l_shift) add_mods(MOD_BIT_LSHIFT);
+          if (r_shift) add_mods(MOD_BIT_RSHIFT);    
+        }
       }  
     }
-
-    if (l_shift) add_mods(MOD_BIT_LSHIFT);
-    if (r_shift) add_mods(MOD_BIT_RSHIFT);
     
     return false;
   }
