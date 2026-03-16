@@ -158,12 +158,13 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = search_tap_common(id_code);
   uint16_t send_hold = KC_NO;
-  
+  uint8_t layer_hold = 0;
+
   if (id_code == KC_D) send_hold = HYPR(KC_NO);
   if (id_code == KC_H) send_hold = MEH(KC_NO);
-
-  if (id_code == KC_L) send_hold = LCTL(KC_NO);
-  if (id_code == KC_R) send_hold = RCTL(KC_NO);  
+  
+  if (id_code == KC_L) layer_hold = LAYER_L_pinky;
+  if (id_code == KC_R) layer_hold = LAYER_R_pinky;
 
   if (id_code == KC_1) send_hold = LSFT(LCTL(KC_NO));
   if (id_code == KC_2) send_hold = LGUI(LALT(KC_NO));
@@ -183,18 +184,13 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
     bool r_shift = get_mods() & MOD_BIT_RSHIFT;
     bool shift_on = get_mods() & MOD_MASK_SHIFT;
     
-    if (send_hold == KC_NO) send_hold = send_tap;
-    
     if (shift_on) {
       send_tap = engram_symbol_shift(send_tap);
-      send_hold = engram_symbol_shift(send_hold);
-
       del_mods(MOD_MASK_SHIFT);
     }
 
     if (jis_flag) {
       send_tap = conv_kc_to_jp(send_tap);
-      send_hold = conv_kc_to_jp(send_hold);
     }
     
     if (record->tap.count > 0) {
@@ -205,9 +201,13 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
       }
     } else {
       if (record->event.pressed) {
-        register_code16(send_hold);
+        if (layer_hold != 0) layer_on(layer_hold);
+        else if (send_hold != 0) register_code16(send_hold);
+        else register_code16(send_tap);
       } else {
-        unregister_code16(send_hold);
+        if (layer_hold != 0) layer_off(layer_hold);
+        else if (send_hold != 0) unregister_code16(send_hold);
+        else unregister_code16(send_tap);
       }  
     }
 
