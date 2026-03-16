@@ -341,7 +341,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  if (keycode == RGB_TOG) {
+  if (keycode == QK_UNDERGLOW_TOGGLE) {
     if (record->event.pressed) {
       fade_matrix_target.enable = !(fade_matrix_target.enable);
     }
@@ -349,7 +349,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  if (keycode == RGB_MODE_FORWARD) {
+  if (keycode == QK_UNDERGLOW_MODE_NEXT) {
     if (record->event.pressed) {
       fade_matrix_target.mode++;
       if (!(fade_matrix_target.mode < RGB_MATRIX_EFFECT_MAX)) fade_matrix_target.mode = 1;
