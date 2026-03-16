@@ -302,8 +302,7 @@ void keyboard_post_init_user(void) {
   //JIS / no transition
   layer_move(LAYER_Base);
   layer_off(LAYER_Transition);
-  layer_off(LAYER_Base_ANSI);
-
+	
   jis_enable();
 }
 
@@ -376,7 +375,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   
   switch (layer) {
     case LAYER_Base:
-    case LAYER_Base_ANSI:
     case LAYER_Transition:
       status_led(0b0011, led_pattern_off);
 
