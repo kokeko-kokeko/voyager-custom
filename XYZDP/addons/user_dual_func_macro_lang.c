@@ -160,23 +160,23 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   uint8_t mods_hold = 0;
   uint8_t layer_hold = 0;
 
-  if (id_code == KC_D) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSFT | MOD_BIT_LCTL;
-  if (id_code == KC_H) mods_hold = MOD_BIT_LALT | MOD_BIT_LSFT | MOD_BIT_LCTL; 
+  if (id_code == KC_D) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
+  if (id_code == KC_H) mods_hold = MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL; 
   
   if (id_code == KC_L) layer_hold = LAYER_L_pinky;
   if (id_code == KC_R) layer_hold = LAYER_R_pinky;
 
-  if (id_code == KC_1) mods_hold = MOD_BIT_LSFT | MOD_BIT_LCTL;
+  if (id_code == KC_1) mods_hold = MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
   if (id_code == KC_2) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT;
-  if (id_code == KC_3) mods_hold = MOD_BIT_LSFT;
-  if (id_code == KC_4) mods_hold = MOD_BIT_LCTL;
-  if (id_code == KC_5) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSFT | MOD_BIT_LCTL;
+  if (id_code == KC_3) mods_hold = MOD_BIT_LSHIFT;
+  if (id_code == KC_4) mods_hold = MOD_BIT_LCTRL;
+  if (id_code == KC_5) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
   
-  if (id_code == KC_6) mods_hold = MOD_BIT_LALT | MOD_BIT_LSFT | MOD_BIT_LCTL; 
-  if (id_code == KC_7) mods_hold = MOD_BIT_RCTL;
-  if (id_code == KC_8) mods_hold = MOD_BIT_RSFT;
+  if (id_code == KC_6) mods_hold = MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL; 
+  if (id_code == KC_7) mods_hold = MOD_BIT_RCTRL;
+  if (id_code == KC_8) mods_hold = MOD_BIT_RSHIFT;
   if (id_code == KC_9) mods_hold = MOD_BIT_RGUI | MOD_BIT_RALT;
-  if (id_code == KC_0) mods_hold = MOD_BIT_RSFT | MOD_BIT_RCTL;
+  if (id_code == KC_0) mods_hold = MOD_BIT_RSHIFT | MOD_BIT_RCTRL;
   
   // finalize
   if (send_tap != KC_NO) {
