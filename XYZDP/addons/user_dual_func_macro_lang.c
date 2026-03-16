@@ -487,34 +487,26 @@ static bool process_record_udfn9(uint16_t keycode, keyrecord_t *record) {
 
       if (pos == 3) {
         if (jis_flag) {
-          
+          SEND_STRING(SS_LSFT(SS_TAP(X_7))SS_DELAY(100)  SS_LSFT(SS_TAP(X_7))SS_DELAY(100)  SS_TAP(X_LEFT));
         } else {
-          
+          SEND_STRING(SS_TAP(X_QUOTE)SS_DELAY(100)  SS_TAP(X_QUOTE)SS_DELAY(100)  SS_TAP(X_LEFT));
         }
       }
 
       if (pos == 4) {
         if (jis_flag) {
-          
+          SEND_STRING(SS_LSFT(SS_TAP(X_2))SS_DELAY(100)  SS_LSFT(SS_TAP(X_2))SS_DELAY(100)  SS_TAP(X_LEFT));
         } else {
-          
+          SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_TAP(X_LEFT));
         }
       }
 
       if (pos == 7) {
-        if (jis_flag) {
-          
-        } else {
-          
-        }
+        SEND_STRING(SS_LSFT(SS_TAP(X_1))SS_DELAY(100)  SS_LSFT(SS_TAP(X_SLASH)));
       }
 
       if (pos == 8) {
-        if (jis_flag) {
-          
-        } else {
-          
-        }
+        SEND_STRING(SS_LSFT(SS_TAP(X_SLASH))SS_DELAY(100)  SS_LSFT(SS_TAP(X_1)));
       }
 
       if (pos == 9) {
