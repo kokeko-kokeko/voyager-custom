@@ -511,83 +511,68 @@ static bool process_record_udfn9(uint16_t keycode, keyrecord_t *record) {
 
       if (pos == 9) {
         if (jis_flag) {
-          
+          SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_LSFT(SS_TAP(X_QUOTE)));
         } else {
-          
+          SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_LSFT(SS_TAP(X_8)));
         }
       }
 
       if (pos == 10) {
         if (jis_flag) {
-          
+          SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_TAP(X_SLASH));
         } else {
-          
+          SEND_STRING(SS_LSFT(SS_TAP(X_8))SS_DELAY(100)  SS_TAP(X_SLASH));
         }
       }
 
       if (pos == 15) {
-        if (jis_flag) {
-          
-        } else {
-          
-        }
+        SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_TAP(X_SLASH));
       }
 
       if (pos == 16) {
         if (jis_flag) {
-          
+          SEND_STRING(SS_TAP(X_INTERNATIONAL_1)SS_DELAY(100)  SS_TAP(X_INTERNATIONAL_1));
         } else {
-          
+          SEND_STRING(SS_TAP(X_BSLS)SS_DELAY(100)  SS_TAP(X_BSLS));
         }
       }
 
       //[]
       if (pos == 33) {
         if (jis_flag) {
-          
+          SEND_STRING(SS_TAP(X_RBRC)SS_DELAY(100)  SS_TAP(X_BSLS)SS_DELAY(100)  SS_TAP(X_LEFT));
         } else {
-          
+          SEND_STRING(SS_TAP(X_LBRC)SS_DELAY(100)  SS_TAP(X_RBRC)SS_DELAY(100)  SS_TAP(X_LEFT));
         }
       }
 
       //{}
       if (pos == 34) {
         if (jis_flag) {
-          
+          SEND_STRING(SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_BSLS))SS_DELAY(100)  SS_TAP(X_LEFT));
         } else {
-          
+          SEND_STRING(SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(100)  SS_TAP(X_LEFT));
         }
       }
 
       //<>
       if (pos == 35) {
-        if (jis_flag) {
-          
-        } else {
-          
-        }
+        SEND_STRING(SS_LSFT(SS_TAP(X_COMMA))SS_DELAY(100)  SS_LSFT(SS_TAP(X_DOT))SS_DELAY(100)  SS_TAP(X_LEFT));
       }
      
       //()
       if (pos == 36) {
         if (jis_flag) {
-          
+          SEND_STRING(SS_LSFT(SS_TAP(X_8))SS_DELAY(100)  SS_LSFT(SS_TAP(X_9))SS_DELAY(100)  SS_TAP(X_LEFT));
         } else {
-          
+          SEND_STRING(SS_LSFT(SS_TAP(X_9))SS_DELAY(100)  SS_LSFT(SS_TAP(X_0))SS_DELAY(100)  SS_TAP(X_LEFT));
         }
       }
             
       // ...(jp)
       if (pos == 37) {
-        if (jis_flag) {
-          
-        } else {
-          
-        }
+        SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_TAP(X_SLASH)SS_DELAY(100)  SS_TAP(X_SLASH));
       }
-    
-    
-    
     }
 
     return false;
