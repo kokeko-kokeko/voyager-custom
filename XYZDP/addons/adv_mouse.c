@@ -126,7 +126,7 @@ static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *reco
 
   const fast_timer_t now = timer_read_fast();
 
-  uint8_t index = keycode - KC_MS_BTN1;
+  uint8_t index = keycode - QK_MOUSE_BUTTON_1;
   
   // right hand
   if (record->event.key.row >= MATRIX_ROWS / 2) index += 8;
