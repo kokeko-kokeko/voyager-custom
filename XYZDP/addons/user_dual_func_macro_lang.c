@@ -310,6 +310,9 @@ static uint16_t search_tap_cursor(uint16_t keycode) {
     case KC_J: return KC_LCBR;
     case KC_K: return KC_LABK;
     case KC_L: return KC_LPRN;
+
+    case KC_M: return KC_EXLM;
+    case KC_N: return KC_QUES;
     
     default:   return KC_NO;
   }        
@@ -352,6 +355,9 @@ static bool process_record_udfn3(uint16_t keycode, keyrecord_t *record) {
   if (id_code == KC_J) mods_hold = MOD_BIT_RGUI | MOD_BIT_RSHIFT;
   if (id_code == KC_K) mods_hold = MOD_BIT_RALT;
   if (id_code == KC_L) mods_hold = MOD_BIT_RGUI;
+
+  if (id_code == KC_M) mods_hold = MOD_BIT_LGUI;
+  if (id_code == KC_N) mods_hold = MOD_BIT_LALT;
   
   // finalize
   if (send_tap != KC_NO) {
@@ -404,6 +410,9 @@ static bool process_record_udfn4(uint16_t keycode, keyrecord_t *record) {
   if (id_code == KC_J) mods_hold = MOD_BIT_RGUI | MOD_BIT_RSHIFT;
   if (id_code == KC_K) mods_hold = MOD_BIT_RALT;
   if (id_code == KC_L) mods_hold = MOD_BIT_RGUI;
+
+  if (id_code == KC_M) mods_hold = MOD_BIT_LGUI;
+  if (id_code == KC_N) mods_hold = MOD_BIT_LALT;
   
   // finalize
   if (send_tap != KC_NO) {
