@@ -243,15 +243,13 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
 
   if (id_code == KC_1) mods_hold = MOD_BIT_LGUI;
   if (id_code == KC_2) mods_hold = MOD_BIT_LALT;
-  if (id_code == KC_3) mods_hold = LGUI(LSFT(KC_NO));
-  if (id_code == KC_4) mods_hold = LGUI(LCTL(KC_NO));
-  //if (id_code == KC_5) mods_hold = HYPR(KC_NO);
-
-  //if (id_code == KC_6) mods_hold = MEH(KC_NO);
-  if (id_code == KC_7) mods_hold = RGUI(RCTL(KC_NO));
-  if (id_code == KC_8) mods_hold = RGUI(RSFT(KC_NO));
-  if (id_code == KC_9) mods_hold = RALT(KC_NO);
-  if (id_code == KC_0) mods_hold = RGUI(KC_NO);
+  if (id_code == KC_3) mods_hold = MOD_BIT_LGUI | MOD_BIT_LSHIFT;
+  if (id_code == KC_4) mods_hold = MOD_BIT_LGUI | MOD_BIT_LCTRL;
+  
+  if (id_code == KC_7) mods_hold = MOD_BIT_RGUI | MOD_BIT_RCTRL;
+  if (id_code == KC_8) mods_hold = MOD_BIT_RGUI | MOD_BIT_RSHIFT;
+  if (id_code == KC_9) mods_hold = MOD_BIT_RALT;
+  if (id_code == KC_0) mods_hold = MOD_BIT_RGUI;
 
   // finalize
   if (send_tap != KC_NO) {
@@ -259,38 +257,44 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
     bool r_shift = get_mods() & MOD_BIT_RSHIFT;
     //bool shift_on = get_mods() & MOD_MASK_SHIFT;
     bool shift_on = true;
-    
-    if (mods_hold == KC_NO) mods_hold = send_tap;
-    
-    if (shift_on) {
-      send_tap = engram_symbol_shift(send_tap);
-      mods_hold = engram_symbol_shift(mods_hold);
 
-      del_mods(MOD_MASK_SHIFT);
-    }
-
-    if (jis_flag) {
-      send_tap = conv_kc_to_jp(send_tap);
-      mods_hold = conv_kc_to_jp(mods_hold);
-    }
+    if (shift_on) send_tap = engram_symbol_shift(send_tap);
+    if (jis_flag) send_tap = conv_kc_to_jp(send_tap);
     
     if (record->tap.count > 0) {
       if (record->event.pressed) {
+        del_mods(MOD_MASK_SHIFT);
         register_code16(send_tap);
+        if (l_shift) add_mods(MOD_BIT_LSHIFT);
+        if (r_shift) add_mods(MOD_BIT_RSHIFT);     
       } else {
+        del_mods(MOD_MASK_SHIFT);
         unregister_code16(send_tap);
+        if (l_shift) add_mods(MOD_BIT_LSHIFT);
+        if (r_shift) add_mods(MOD_BIT_RSHIFT);     
       }
     } else {
       if (record->event.pressed) {
-        register_code16(mods_hold);
+        if (layer_hold != 0) layer_on(layer_hold);
+        else if (mods_hold != 0) register_mods(mods_hold);
+        else {
+          del_mods(MOD_MASK_SHIFT);
+          register_code16(send_tap);
+          if (l_shift) add_mods(MOD_BIT_LSHIFT);
+          if (r_shift) add_mods(MOD_BIT_RSHIFT);          
+        } 
       } else {
-        unregister_code16(mods_hold);
+        if (layer_hold != 0) layer_off(layer_hold);
+        else if (mods_hold != 0) unregister_mods(mods_hold);
+        else {
+          del_mods(MOD_MASK_SHIFT);
+          unregister_code16(send_tap);
+          if (l_shift) add_mods(MOD_BIT_LSHIFT);
+          if (r_shift) add_mods(MOD_BIT_RSHIFT);          
+        }       
       }  
     }
 
-    if (l_shift) add_mods(MOD_BIT_LSHIFT);
-    if (r_shift) add_mods(MOD_BIT_RSHIFT);
-    
     return false;
   }
   
