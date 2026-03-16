@@ -277,7 +277,7 @@ bool pre_process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
 bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   // RGB inc/dec no eeprom override
   // always return false (sometime use upedge)
-  if (keycode == RGB_HUI) {
+  if (keycode == QK_UNDERGLOW_HUE_UP) {
     if (record->event.pressed) {
       fade_matrix_target.hsv.h++;
     }
@@ -285,7 +285,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  if (keycode == RGB_HUD) {
+  if (keycode == QK_UNDERGLOW_HUE_DOWN) {
     if (record->event.pressed) {
       fade_matrix_target.hsv.h--;
     }
@@ -293,7 +293,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  if (keycode == RGB_SAI) {
+  if (keycode == QK_UNDERGLOW_SATURATION_UP) {
     if (record->event.pressed) {
       fade_matrix_target.hsv.s = qadd8(fade_matrix_target.hsv.s, 1);
     }
@@ -301,7 +301,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  if (keycode == RGB_SAD) {
+  if (keycode == QK_UNDERGLOW_SATURATION_DOWN) {
     if (record->event.pressed) {
       fade_matrix_target.hsv.s = qsub8(fade_matrix_target.hsv.s, 1);
     }
@@ -309,7 +309,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  if (keycode == RGB_VAI) {
+  if (keycode == QK_UNDERGLOW_VALUE_UP) {
     if (record->event.pressed) {
       fade_matrix_target.hsv.v = qadd8(fade_matrix_target.hsv.v, 1);
     }
@@ -317,7 +317,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  if (keycode == RGB_VAD) {
+  if (keycode == QK_UNDERGLOW_VALUE_DOWN) {
     if (record->event.pressed) {
       fade_matrix_target.hsv.v = qsub8(fade_matrix_target.hsv.v, 1);
     }
@@ -325,7 +325,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  if (keycode == RGB_SPI) {
+  if (keycode == QK_UNDERGLOW_SPEED_UP) {
     if (record->event.pressed) {
       fade_matrix_target.speed = qadd8(fade_matrix_target.speed, 1);
     }
@@ -333,7 +333,7 @@ bool process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   
-  if (keycode == RGB_SPD) {
+  if (keycode == QK_UNDERGLOW_SPEED_DOWN) {
     if (record->event.pressed) {
       fade_matrix_target.speed = qsub8(fade_matrix_target.speed, 1);
     }
