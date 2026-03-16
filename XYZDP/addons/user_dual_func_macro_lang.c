@@ -294,14 +294,142 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+static uint16_t search_tap_cursor(uint16_t keycode) {
+  switch (keycode) {
+    case KC_A: return LCTL(KC_A);
+    case KC_B: return LCTL(KC_S);
+    case KC_C: return LCTL(KC_C);
+    case KC_D: return LCTL(KC_V);
+
+    case KC_E: return KC_HOME;
+    case KC_F: return KC_END;
+    case KC_G: return KC_PGUP;
+    case KC_H: return KC_PGDN;
+
+    case KC_I: return KC_LBRC;
+    case KC_J: return KC_LCBR;
+    case KC_K: return KC_LABK;
+    case KC_L: return KC_LPRN;
+    
+    default:   return KC_NO;
+  }        
+  return KC_NO;
+}
+
+static uint16_t bracket_counter_shift(uint16_t keycode) {
+  switch (keycode) {
+    case KC_NO:   return KC_NO;
+    
+    case KC_LBRC: return KC_RBRC;
+    case KC_LCBR: return KC_RCBR;
+    case KC_LABK: return KC_RABK;
+    case KC_LPRN: return KC_RPRN;
+    
+    default:      return keycode;
+  }        
+  return keycode;
+}
+
 static bool process_record_udfn3(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN3) return true;
+  
+  uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+  uint16_t send_tap = search_tap_cursor(id_code);
+  uint8_t mods_hold = 0;
+  uint8_t layer_hold = 0;
 
+  if (id_code == KC_A) mods_hold = MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
+  if (id_code == KC_B) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT;
+  if (id_code == KC_C) mods_hold = MOD_BIT_LSHIFT;
+  if (id_code == KC_D) mods_hold = MOD_BIT_LCTRL;
+
+  if (id_code == KC_E) mods_hold = MOD_BIT_LGUI;
+  if (id_code == KC_F) mods_hold = MOD_BIT_LALT;
+  if (id_code == KC_G) mods_hold = MOD_BIT_LGUI | MOD_BIT_LSHIFT;
+  if (id_code == KC_H) mods_hold = MOD_BIT_LGUI | MOD_BIT_LCTRL;
+
+  if (id_code == KC_I) mods_hold = MOD_BIT_RGUI | MOD_BIT_RCTRL;
+  if (id_code == KC_J) mods_hold = MOD_BIT_RGUI | MOD_BIT_RSHIFT;
+  if (id_code == KC_K) mods_hold = MOD_BIT_RALT;
+  if (id_code == KC_L) mods_hold = MOD_BIT_RGUI;
+  
+  // finalize
+  if (send_tap != KC_NO) {
+    if (get_mods() & MOD_MASK_SHIFT) send_tap = bracket_counter_shift(send_tap);
+    if (jis_flag) send_tap = conv_kc_to_jp(send_tap);
+    
+    if (record->tap.count > 0) {
+      if (record->event.pressed) {
+        reg16_wo_shift(send_tap);
+      } else {
+        unreg16_wo_shift(send_tap);
+      }
+    } else {
+      if (record->event.pressed) {
+        if (layer_hold != 0) layer_on(layer_hold);
+        else if (mods_hold != 0) register_mods(mods_hold);
+        else reg16_wo_shift(send_tap);
+      } else {
+        if (layer_hold != 0) layer_off(layer_hold);
+        else if (mods_hold != 0) unregister_mods(mods_hold);
+        else unreg16_wo_shift(send_tap);
+      }  
+    }
+    
+    return false;
+  }
+  
   return true;
 }
 
 static bool process_record_udfn4(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN4) return true;
+
+  uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+  uint16_t send_tap = search_tap_cursor(id_code);
+  uint8_t mods_hold = 0;
+  uint8_t layer_hold = 0;
+
+  if (id_code == KC_A) mods_hold = MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
+  if (id_code == KC_B) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT;
+  if (id_code == KC_C) mods_hold = MOD_BIT_LSHIFT;
+  if (id_code == KC_D) mods_hold = MOD_BIT_LCTRL;
+
+  if (id_code == KC_E) mods_hold = MOD_BIT_LGUI;
+  if (id_code == KC_F) mods_hold = MOD_BIT_LALT;
+  if (id_code == KC_G) mods_hold = MOD_BIT_LGUI | MOD_BIT_LSHIFT;
+  if (id_code == KC_H) mods_hold = MOD_BIT_LGUI | MOD_BIT_LCTRL;
+
+  if (id_code == KC_I) mods_hold = MOD_BIT_RGUI | MOD_BIT_RCTRL;
+  if (id_code == KC_J) mods_hold = MOD_BIT_RGUI | MOD_BIT_RSHIFT;
+  if (id_code == KC_K) mods_hold = MOD_BIT_RALT;
+  if (id_code == KC_L) mods_hold = MOD_BIT_RGUI;
+  
+  // finalize
+  if (send_tap != KC_NO) {
+    if (true) send_tap = bracket_counter_shift(send_tap);
+    if (jis_flag) send_tap = conv_kc_to_jp(send_tap);
+    
+    if (record->tap.count > 0) {
+      if (record->event.pressed) {
+        reg16_wo_shift(send_tap);
+      } else {
+        unreg16_wo_shift(send_tap);
+      }
+    } else {
+      if (record->event.pressed) {
+        if (layer_hold != 0) layer_on(layer_hold);
+        else if (mods_hold != 0) register_mods(mods_hold);
+        else reg16_wo_shift(send_tap);
+      } else {
+        if (layer_hold != 0) layer_off(layer_hold);
+        else if (mods_hold != 0) unregister_mods(mods_hold);
+        else unreg16_wo_shift(send_tap);
+      }  
+    }
+    
+    return false;
+  }
 
   return true;
 }
