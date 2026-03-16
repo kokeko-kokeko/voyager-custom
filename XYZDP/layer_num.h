@@ -3,7 +3,6 @@
 // layer 
 enum layer_num {
   LAYER_Base = 0,
-  LAYER_Base_ANSI,
   LAYER_Transition,
   LAYER_Mouse,
   LAYER_Number,
