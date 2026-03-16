@@ -217,7 +217,7 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
       } else {
         if (layer_hold != 0) layer_off(layer_hold);
         else if (mods_hold != 0) unregister_mods(mods_hold);
-        else  unreg16_wo_shift(send_tap);
+        else unreg16_wo_shift(send_tap);
       }  
     }
     
