@@ -470,6 +470,145 @@ static bool process_record_udfn8(uint16_t keycode, keyrecord_t *record) {
 static bool process_record_udfn9(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN9) return true;
 
+  uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+
+  if (id_code == KC_A) {
+    if (record->event.pressed) {
+      uint8_t pos = get_pos_from_keyrecord(record);
+
+      //` `
+      if (pos == 2) {
+        if (jis_flag) {
+          SEND_STRING(SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_TAP(X_LEFT));
+        } else {
+          SEND_STRING(SS_TAP(X_GRAVE)SS_DELAY(100)  SS_TAP(X_GRAVE)SS_DELAY(100)  SS_TAP(X_LEFT));
+        }
+      }
+
+      //' '
+      if (pos == 3) {
+        if (jis_flag) {
+          
+        } else {
+          
+        }
+      }
+
+      //" "
+      if (pos == 4) {
+        if (jis_flag) {
+          
+        } else {
+          
+        }
+      }
+
+      //!?
+      if (pos == 7) {
+        if (jis_flag) {
+          
+        } else {
+          
+        }
+      }
+
+      //?!
+      if (pos == 8) {
+        if (jis_flag) {
+          
+        } else {
+          
+        }
+      }
+
+      ///*
+      if (pos == 9) {
+        if (jis_flag) {
+          
+        } else {
+          
+        }
+      }
+
+      //*/
+      if (pos == 10) {
+        if (jis_flag) {
+          
+        } else {
+          
+        }
+      }
+
+       ////
+      if (pos == 15) {
+        if (jis_flag) {
+          
+        } else {
+          
+        }
+      }
+
+      //\\
+      if (pos == 16) {
+        if (jis_flag) {
+          
+        } else {
+          
+        }
+      }
+
+      //[]
+      if (pos == 33) {
+        if (jis_flag) {
+          
+        } else {
+          
+        }
+      }
+
+      //{}
+      if (pos == 34) {
+        if (jis_flag) {
+          
+        } else {
+          
+        }
+      }
+
+      //<>
+      if (pos == 35) {
+        if (jis_flag) {
+          
+        } else {
+          
+        }
+      }
+     
+      //()
+      if (pos == 36) {
+        if (jis_flag) {
+          
+        } else {
+          
+        }
+      }
+            
+      // ...(jp)
+      if (pos == 37) {
+        if (jis_flag) {
+          
+        } else {
+          
+        }
+      }
+    
+    
+    
+    }
+
+    return false;
+  }
+
   return true;
 }
 
