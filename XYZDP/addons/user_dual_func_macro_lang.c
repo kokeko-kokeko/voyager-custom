@@ -68,6 +68,9 @@ static uint16_t search_tap_common(uint16_t keycode) {
     case KC_KP_9: return KC_9;
     case KC_KP_0: return KC_0;
 
+    case KC_COMM: return KC_COMM;
+    case KC_DOT:  return KC_DOT;
+
     default:   return KC_NO;
   }        
   return KC_NO;
