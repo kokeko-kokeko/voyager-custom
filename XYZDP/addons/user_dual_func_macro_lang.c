@@ -191,6 +191,9 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   if (id_code == KC_3) mods_hold = MOD_BIT_LSHIFT;
   if (id_code == KC_4) mods_hold = MOD_BIT_LCTRL;
   if (id_code == KC_5) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
+
+  if (id_code == KC_KP_6) mods_hold = MOD_BIT_LALT | MOD_BIT_LCTRL; 
+  if (id_code == KC_KP_5) mods_hold = MOD_BIT_RALT | MOD_BIT_RCTRL; 
   
   if (id_code == KC_6) mods_hold = MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL; 
   if (id_code == KC_7) mods_hold = MOD_BIT_RCTRL;
