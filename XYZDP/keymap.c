@@ -371,9 +371,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   
   // call FwSys
   state = update_tri_layer_state(state, LAYER_Function, LAYER_L_thumb_2, LAYER_Firmware); 
-  
-  // ANSI/JIS addiional enable
-  state = update_tri_layer_state(state, LAYER_Base_ANSI, LAYER_LR_thumb, LAYER_LR_thumb_ANSI);
 
   state = layer_state_set_adv_mouse(state);
   state = layer_state_set_fade_matrix(state);
@@ -430,7 +427,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case LAYER_L_thumb_R_pinky:
     case LAYER_R_thumb_L_pinky:
     case LAYER_LR_thumb:
-    case LAYER_LR_thumb_ANSI:
       status_led(0b1000, led_pattern_off);
       status_led(0b0111, led_pattern_on);
       break;
