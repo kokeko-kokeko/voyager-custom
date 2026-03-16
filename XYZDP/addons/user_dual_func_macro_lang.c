@@ -157,26 +157,26 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
 
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = search_tap_common(id_code);
-  uint16_t send_hold = KC_NO;
+  uint8_t mods_hold = 0;
   uint8_t layer_hold = 0;
 
-  if (id_code == KC_D) send_hold = HYPR(KC_NO);
-  if (id_code == KC_H) send_hold = MEH(KC_NO);
+  if (id_code == KC_D) mods_hold = MOD_HYPR;
+  if (id_code == KC_H) mods_hold = MOD_MEH; 
   
   if (id_code == KC_L) layer_hold = LAYER_L_pinky;
   if (id_code == KC_R) layer_hold = LAYER_R_pinky;
 
-  if (id_code == KC_1) send_hold = LSFT(LCTL(KC_NO));
-  if (id_code == KC_2) send_hold = LGUI(LALT(KC_NO));
-  if (id_code == KC_3) send_hold = LSFT(KC_NO);
-  if (id_code == KC_4) send_hold = LCTL(KC_NO);
-  if (id_code == KC_5) send_hold = HYPR(KC_NO);
+  if (id_code == KC_1) mods_hold = MOD_LSFT | MOD_LCTL;
+  if (id_code == KC_2) mods_hold = MOD_LGUI | MOD_LALT;
+  if (id_code == KC_3) mods_hold = MOD_LSFT;
+  if (id_code == KC_4) mods_hold = MOD_LCTL;
+  if (id_code == KC_5) mods_hold = MOD_HYPR;
   
-  if (id_code == KC_6) send_hold = MEH(KC_NO);
-  if (id_code == KC_7) send_hold = RCTL(KC_NO);
-  if (id_code == KC_8) send_hold = RSFT(KC_NO);
-  if (id_code == KC_9) send_hold = RGUI(RALT(KC_NO));
-  if (id_code == KC_0) send_hold = RSFT(RCTL(KC_NO));
+  if (id_code == KC_6) mods_hold = MOD_MEH;
+  if (id_code == KC_7) mods_hold = MOD_RCTL;
+  if (id_code == KC_8) mods_hold = MOD_RSFT;
+  if (id_code == KC_9) mods_hold = MOD_RGUI | MOD_RALT;
+  if (id_code == KC_0) mods_hold = MOD_RSFT | MOD_RCTL;
   
   // finalize
   if (send_tap != KC_NO) {
@@ -202,11 +202,11 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
     } else {
       if (record->event.pressed) {
         if (layer_hold != 0) layer_on(layer_hold);
-        else if (send_hold != 0) register_code16(send_hold);
+        else if (mods_hold != 0) register_mods(mods_hold);
         else register_code16(send_tap);
       } else {
         if (layer_hold != 0) layer_off(layer_hold);
-        else if (send_hold != 0) unregister_code16(send_hold);
+        else if (mods_hold != 0) unregister_mods(mods_hold);
         else unregister_code16(send_tap);
       }  
     }
@@ -226,26 +226,26 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
   
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = search_tap_common(id_code);
-  uint16_t send_hold = KC_NO;
+  uint16_t mods_hold = KC_NO;
 
-  if (id_code == KC_D) send_hold = HYPR(KC_NO);
-  if (id_code == KC_H) send_hold = MEH(KC_NO);
+  if (id_code == KC_D) mods_hold = HYPR(KC_NO);
+  if (id_code == KC_H) mods_hold = MEH(KC_NO);
 
-  if (id_code == KC_L) send_hold = LCTL(KC_NO);
-  if (id_code == KC_R) send_hold = RCTL(KC_NO);
+  if (id_code == KC_L) mods_hold = LCTL(KC_NO);
+  if (id_code == KC_R) mods_hold = RCTL(KC_NO);
 
   // fix
-  if (id_code == KC_1) send_hold = LGUI(KC_NO);
-  if (id_code == KC_2) send_hold = LALT(KC_NO);
-  if (id_code == KC_3) send_hold = LGUI(LSFT(KC_NO));
-  if (id_code == KC_4) send_hold = LGUI(LCTL(KC_NO));
-  //if (id_code == KC_5) send_hold = HYPR(KC_NO);
+  if (id_code == KC_1) mods_hold = LGUI(KC_NO);
+  if (id_code == KC_2) mods_hold = LALT(KC_NO);
+  if (id_code == KC_3) mods_hold = LGUI(LSFT(KC_NO));
+  if (id_code == KC_4) mods_hold = LGUI(LCTL(KC_NO));
+  //if (id_code == KC_5) mods_hold = HYPR(KC_NO);
 
-  //if (id_code == KC_6) send_hold = MEH(KC_NO);
-  if (id_code == KC_7) send_hold = RGUI(RCTL(KC_NO));
-  if (id_code == KC_8) send_hold = RGUI(RSFT(KC_NO));
-  if (id_code == KC_9) send_hold = RALT(KC_NO);
-  if (id_code == KC_0) send_hold = RGUI(KC_NO);
+  //if (id_code == KC_6) mods_hold = MEH(KC_NO);
+  if (id_code == KC_7) mods_hold = RGUI(RCTL(KC_NO));
+  if (id_code == KC_8) mods_hold = RGUI(RSFT(KC_NO));
+  if (id_code == KC_9) mods_hold = RALT(KC_NO);
+  if (id_code == KC_0) mods_hold = RGUI(KC_NO);
 
   // finalize
   if (send_tap != KC_NO) {
@@ -254,18 +254,18 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
     //bool shift_on = get_mods() & MOD_MASK_SHIFT;
     bool shift_on = true;
     
-    if (send_hold == KC_NO) send_hold = send_tap;
+    if (mods_hold == KC_NO) mods_hold = send_tap;
     
     if (shift_on) {
       send_tap = engram_symbol_shift(send_tap);
-      send_hold = engram_symbol_shift(send_hold);
+      mods_hold = engram_symbol_shift(mods_hold);
 
       del_mods(MOD_MASK_SHIFT);
     }
 
     if (jis_flag) {
       send_tap = conv_kc_to_jp(send_tap);
-      send_hold = conv_kc_to_jp(send_hold);
+      mods_hold = conv_kc_to_jp(mods_hold);
     }
     
     if (record->tap.count > 0) {
@@ -276,9 +276,9 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
       }
     } else {
       if (record->event.pressed) {
-        register_code16(send_hold);
+        register_code16(mods_hold);
       } else {
-        unregister_code16(send_hold);
+        unregister_code16(mods_hold);
       }  
     }
 
