@@ -382,13 +382,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(SS_LSFT(SS_TAP(X_9))SS_DELAY(100)  SS_LSFT(SS_TAP(X_0))SS_DELAY(100)  SS_TAP(X_LEFT));
     }
     break;
+	  
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);
       }
       return false;
   }
-  
+  return true;
+}
   // -----------------------------------------------------------------------------
   // extra process_record, return false, break
   // -----------------------------------------------------------------------------
