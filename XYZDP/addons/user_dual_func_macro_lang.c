@@ -452,7 +452,7 @@ static bool process_record_udfn7(uint16_t keycode, keyrecord_t *record) {
 
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
 
-  if (id_code == KC_A) {
+  if (id_code == KC_F1) {
     if (record->event.pressed) {
       uint8_t pos = get_pos_from_keyrecord(record);
 
