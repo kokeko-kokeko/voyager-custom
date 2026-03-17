@@ -229,6 +229,7 @@ bool fade_matrix_color_palette_load_preset_keyrecord(const keyrecord_t * const r
   }
 
   activate_fade_matrix();
+  
   status_led(0b1010, led_pattern_oneshot);
 
   // default false
