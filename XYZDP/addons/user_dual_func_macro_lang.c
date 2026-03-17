@@ -92,15 +92,15 @@ static uint16_t conv_kc_to_jp(uint16_t keycode) {
 
 static uint16_t search_tap_base_number(uint16_t keycode) {
   switch (keycode) {
-    case KC_A: return KC_AT;
-    case KC_B: return KC_HASH;
-    case KC_C: return KC_QUOT;
-    case KC_D: return KC_COMM;
-    case KC_E: return KC_MINS;
-    case KC_F: return KC_SLSH;
-    case KC_G: return KC_DQUO;
-    case KC_H: return KC_DOT;
-    case KC_I: return KC_QUES;
+    case KC_F1: return KC_AT;
+    case KC_F2: return KC_HASH;
+    case KC_F3: return KC_QUOT;
+    case KC_F4: return KC_COMM;
+    case KC_F5: return KC_MINS;
+    case KC_F6: return KC_SLSH;
+    case KC_F7: return KC_DQUO;
+    case KC_F8: return KC_DOT;
+    case KC_F9: return KC_QUES;
 
     case KC_L: return KC_LBRC;
     case KC_R: return KC_RBRC;
@@ -186,8 +186,8 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   uint8_t mods_hold = 0;
   uint8_t layer_hold = 0;
 
-  if (id_code == KC_D) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
-  if (id_code == KC_H) mods_hold = MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL; 
+  if (id_code == KC_F4) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
+  if (id_code == KC_F8) mods_hold = MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL; 
   
   if (id_code == KC_L) layer_hold = LAYER_L_pinky;
   if (id_code == KC_R) layer_hold = LAYER_R_pinky;
@@ -248,8 +248,8 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
   uint8_t mods_hold = 0;
   uint8_t layer_hold = 0;
 
-  if (id_code == KC_D) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
-  if (id_code == KC_H) mods_hold = MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
+  if (id_code == KC_F4) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
+  if (id_code == KC_F8) mods_hold = MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
 
   if (id_code == KC_L) mods_hold = MOD_BIT_LCTRL;
   if (id_code == KC_R) mods_hold = MOD_BIT_RCTRL;
