@@ -450,18 +450,6 @@ static bool process_record_udfn6(uint16_t keycode, keyrecord_t *record) {
 static bool process_record_udfn7(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN7) return true;
 
-  return true;
-}
-
-static bool process_record_udfn8(uint16_t keycode, keyrecord_t *record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN8) return true;
-
-  return true;
-}
-
-static bool process_record_udfn9(uint16_t keycode, keyrecord_t *record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN9) return true;
-
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
 
   if (id_code == KC_A) {
@@ -573,8 +561,8 @@ static bool process_record_udfn9(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-static bool process_record_udfn10(uint16_t keycode, keyrecord_t *record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN10) return true;
+static bool process_record_udfn8(uint16_t keycode, keyrecord_t *record) {
+  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN8) return true;
 
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode); 
       
@@ -609,8 +597,6 @@ bool process_record_user_dual_func_macro_lang(uint16_t keycode, keyrecord_t *rec
   if (process_record_udfn6(keycode, record) == false) return false;
   if (process_record_udfn7(keycode, record) == false) return false;
   if (process_record_udfn8(keycode, record) == false) return false;
-  if (process_record_udfn9(keycode, record) == false) return false;
-  if (process_record_udfn10(keycode, record) == false) return false;
   
   return true;
 }
