@@ -194,6 +194,8 @@ bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) 
     fade_matrix_target.speed = spd_tbl[idx];
   }
 
+  activate_fade_matrix();
+
   // default false
   return false;
 }
@@ -226,6 +228,7 @@ bool fade_matrix_color_palette_load_preset_keyrecord(const keyrecord_t * const r
     fade_matrix_load_powersave();
   }
 
+  activate_fade_matrix();
   status_led(0b1010, led_pattern_oneshot);
 
   // default false
@@ -255,7 +258,7 @@ bool fade_matrix_color_palette_sel_val_keyrecord(const keyrecord_t * const recor
     plt_sel &= 0b11111101;
     status_led(0b0001, led_pattern_off);
   }
-
+  
   // default false
   return false;
 }
