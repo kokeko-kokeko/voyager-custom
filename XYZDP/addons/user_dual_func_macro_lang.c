@@ -567,20 +567,20 @@ static bool process_record_udfn8(uint16_t keycode, keyrecord_t *record) {
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode); 
       
   // Firmware  
-  if (id_code == KC_A) return firmware_map_main_keyrecord(record);
-  if (id_code == KC_C) return firmware_map_invoke_halt_keyrecord(record);
+  if (id_code == KC_F1) return firmware_map_main_keyrecord(record);
+  if (id_code == KC_F3) return firmware_map_invoke_halt_keyrecord(record);
     
   // Color Palette
-  if (id_code == KC_D) return fade_matrix_color_palette_main_keyrecord(record);
+  if (id_code == KC_F4) return fade_matrix_color_palette_main_keyrecord(record);
     
-  if (id_code == KC_E) return fade_matrix_color_palette_sel_sat_keyrecord(record);
-  if (id_code == KC_F) return fade_matrix_color_palette_sel_val_keyrecord(record);
+  if (id_code == KC_F5) return fade_matrix_color_palette_sel_sat_keyrecord(record);
+  if (id_code == KC_F6) return fade_matrix_color_palette_sel_val_keyrecord(record);
     
-  if (id_code == KC_H) return fade_matrix_color_palette_load_preset_keyrecord(record);
+  if (id_code == KC_F8) return fade_matrix_color_palette_load_preset_keyrecord(record);
     
   // layer move
-  if (id_code == KC_B) return firmware_map_enter_color_palette_keyrecord(record);
-  if (id_code == KC_G) return firmware_map_exit_all_keyrecord(record);
+  if (id_code == KC_F2) return firmware_map_enter_color_palette_keyrecord(record);
+  if (id_code == KC_F7) return firmware_map_exit_all_keyrecord(record);
   
   return true;
 }
