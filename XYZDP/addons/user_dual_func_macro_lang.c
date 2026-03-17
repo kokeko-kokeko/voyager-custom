@@ -301,15 +301,15 @@ static uint16_t search_tap_cursor(uint16_t keycode) {
     case KC_C: return LCTL(KC_C);
     case KC_D: return LCTL(KC_V);
 
-    case KC_E: return KC_LPRN;
-    case KC_F: return KC_LABK;
-    case KC_G: return KC_LCBR;
-    case KC_H: return KC_LBRC;
+    case KC_E: return KC_HOME;
+    case KC_F: return KC_END;
+    case KC_G: return KC_PGUP;
+    case KC_H: return KC_PGDN;
 
-    case KC_I: return KC_PGUP;
-    case KC_J: return KC_PGDN;
-    case KC_K: return KC_HOME;
-    case KC_L: return KC_END;
+    case KC_I: return KC_LBRC;
+    case KC_J: return KC_LCBR;
+    case KC_K: return KC_LABK;
+    case KC_L: return KC_LPRN;
 
     case KC_M: return KC_EXLM;
     case KC_N: return KC_QUES;
@@ -327,6 +327,11 @@ static uint16_t bracket_counter_shift(uint16_t keycode) {
     case KC_LCBR: return KC_RCBR;
     case KC_LABK: return KC_RABK;
     case KC_LPRN: return KC_RPRN;
+
+    case KC_RBRC: return KC_LBRC;
+    case KC_RCBR: return KC_LCBR;
+    case KC_RABK: return KC_LABK;
+    case KC_RPRN: return KC_LPRN;
     
     default:      return keycode;
   }        
@@ -396,10 +401,10 @@ static bool process_record_udfn4(uint16_t keycode, keyrecord_t *record) {
   uint8_t mods_hold = 0;
   uint8_t layer_hold = 0;
 
-  if (id_code == KC_E) mods_hold = MOD_BIT_RGUI;
-  if (id_code == KC_F) mods_hold = MOD_BIT_RALT;
-  if (id_code == KC_G) mods_hold = MOD_BIT_RGUI | MOD_BIT_RSHIFT;
-  if (id_code == KC_H) mods_hold = MOD_BIT_RGUI | MOD_BIT_RCTRL;
+  if (id_code == KC_I) mods_hold = MOD_BIT_RGUI | MOD_BIT_RCTRL;
+  if (id_code == KC_J) mods_hold = MOD_BIT_RGUI | MOD_BIT_RSHIFT;
+  if (id_code == KC_K) mods_hold = MOD_BIT_RALT;
+  if (id_code == KC_L) mods_hold = MOD_BIT_RGUI;
   
   // finalize
   if (send_tap != KC_NO) {
