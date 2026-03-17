@@ -64,7 +64,21 @@ bool mouse_jiggler_is_enabled(void);
 
 bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
-  if (record->event.pressed == false) return false;
+
+  // MT template
+  if (record->tap.count > 0) {
+    if (record->event.pressed) {
+      
+    } else {
+      return false;
+    }
+  } else {
+    if (record->event.pressed) {
+      
+    } else {
+      return false;
+    }  
+  }
 
   uint8_t pos = get_pos_from_keyrecord(record);
   if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
