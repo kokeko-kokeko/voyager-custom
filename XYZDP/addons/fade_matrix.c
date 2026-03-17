@@ -163,7 +163,21 @@ bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record) {
 
 bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
-  if (record->event.pressed == false) return false;
+
+  // MT template
+  if (record->tap.count > 0) {
+    if (record->event.pressed) {
+      
+    } else {
+      return false;
+    }
+  } else {
+    if (record->event.pressed) {
+      
+    } else {
+      return false;
+    }  
+  }
   
   uint8_t pos = get_pos_from_keyrecord(record);
   if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
@@ -186,7 +200,21 @@ bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) 
 
 bool fade_matrix_color_palette_load_preset_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
-  if (record->event.pressed == false) return false;
+
+  // MT template
+  if (record->tap.count > 0) {
+    if (record->event.pressed) {
+      return false;
+    } else {
+      return false;
+    }
+  } else {
+    if (record->event.pressed) {
+      
+    } else {
+      return false;
+    }  
+  }
   
   if (plt_sel == 0) {
     fade_matrix_load_default();
