@@ -351,32 +351,28 @@ bool firmware_map_enter_color_palette_keyrecord(const keyrecord_t * const record
 bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
 
-  static uint16_t press_time = 0;
-    
-  if (record->event.pressed) {
-    // press
-    press_time = record->event.time;
+  // MT template
+  if (record->tap.count > 0) {
+    if (record->event.pressed) {
       
-    return false;
-  }
-
-  if (TIMER_DIFF_16(record->event.time, press_time) < TAPPING_TERM) {
-    // tap release
+    } else {
       
-    return false;
+    }
+  } else {
+    if (record->event.pressed) {
+      // off all setting layers
+      layer_state_t layer_mask = 
+        ((layer_state_t)1 << LAYER_Firmware)      |
+        ((layer_state_t)1 << LAYER_Color_Palette);
+      layer_mask = ~layer_mask;
+      layer_and(layer_mask);
+      
+      status_led(0b1111, led_pattern_oneshot);
+    } else {
+      
+    }  
   }
-    
-  // hold release
-  // off all setting layers
-  layer_state_t layer_mask = 
-    ((layer_state_t)1 << LAYER_Firmware)      |
-    ((layer_state_t)1 << LAYER_Color_Palette);
-  layer_mask = ~layer_mask;
-  layer_and(layer_mask);
-
-  status_led(0b1111, led_pattern_oneshot);
-
-  // default false
+  
   return false;
 }
 
@@ -395,9 +391,9 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
     }
   } else {
     if (record->event.pressed) {
-      halt_invoke_count = 0;
-    } else {
       
+    } else {
+      halt_invoke_count = 0;
     }  
   }
   
