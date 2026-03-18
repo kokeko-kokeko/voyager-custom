@@ -90,6 +90,31 @@ static uint16_t conv_kc_to_jp(uint16_t keycode) {
   return keycode;
 }
 
+static uint8_t pos_to_mods(uint8_t pos) {
+  switch (pos) {
+    case  3: return MOD_BIT_LALT | MOD_BIT_LSHIFT;
+    case  4: return MOD_BIT_LALT | MOD_BIT_LCTRL;
+    case  5: return MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
+
+    case 28: return MOD_BIT_RALT | MOD_BIT_RSHIFT;
+    case 27: return MOD_BIT_RALT | MOD_BIT_RCTRL;
+    case 26: return MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
+    
+    default:   return 0;
+  }        
+  return 0;
+}
+
+static uint8_t pos_to_layer(uint8_t pos) {
+  switch (pos) {
+    case  6: return LAYER_L_pinky;
+    case 37: return LAYER_R_pinky;
+    
+    default:   return 0;
+  }        
+  return 0;
+}
+
 static uint16_t search_tap_base_number(uint16_t keycode) {
   switch (keycode) {
     case KC_F1: return KC_AT;
@@ -183,8 +208,9 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
 
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = search_tap_base_number(id_code);
-  uint8_t mods_hold = 0;
-  uint8_t layer_hold = 0;
+  uint8_t pos = get_pos_from_keyrecord(record);
+  uint8_t mods_hold = pos_to_mods(pos);
+  uint8_t layer_hold = pos_to_layer(pos);
 
   if (id_code == KC_F4) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
   if (id_code == KC_F8) mods_hold = MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL; 
@@ -245,8 +271,9 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
   
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = search_tap_base_number(id_code);
-  uint8_t mods_hold = 0;
-  uint8_t layer_hold = 0;
+  uint8_t pos = get_pos_from_keyrecord(record);
+  uint8_t mods_hold = pos_to_mods(pos);
+  uint8_t layer_hold = pos_to_layer(pos);;
 
   if (id_code == KC_F4) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
   if (id_code == KC_F8) mods_hold = MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
@@ -343,8 +370,9 @@ static bool process_record_udfn3(uint16_t keycode, keyrecord_t *record) {
   
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = search_tap_cursor(id_code);
-  uint8_t mods_hold = 0;
-  uint8_t layer_hold = 0;
+  uint8_t pos = get_pos_from_keyrecord(record);
+  uint8_t mods_hold = pos_to_mods(pos);
+  uint8_t layer_hold = pos_to_layer(pos);
 
   if (id_code == KC_A) mods_hold = MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
   if (id_code == KC_B) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT;
@@ -398,8 +426,9 @@ static bool process_record_udfn4(uint16_t keycode, keyrecord_t *record) {
 
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = search_tap_cursor(id_code);
-  uint8_t mods_hold = 0;
-  uint8_t layer_hold = 0;
+  uint8_t pos = get_pos_from_keyrecord(record);
+  uint8_t mods_hold = pos_to_mods(pos);
+  uint8_t layer_hold = pos_to_layer(pos);
 
   if (id_code == KC_I) mods_hold = MOD_BIT_RGUI | MOD_BIT_RCTRL;
   if (id_code == KC_J) mods_hold = MOD_BIT_RGUI | MOD_BIT_RSHIFT;
