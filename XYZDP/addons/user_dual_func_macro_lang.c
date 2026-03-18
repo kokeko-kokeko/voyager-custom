@@ -123,6 +123,10 @@ static uint8_t conv_pos_to_mods(uint8_t pos) {
     case 40: return MOD_BIT_RGUI | MOD_BIT_RSHIFT;
     case 39: return MOD_BIT_RGUI | MOD_BIT_RCTRL;
     case 38: return MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL;
+
+    case 18: return MOD_BIT_LSHIFT;
+
+    case 49: return MOD_BIT_RSHIFT;
     
     default:   return 0;
   }        
