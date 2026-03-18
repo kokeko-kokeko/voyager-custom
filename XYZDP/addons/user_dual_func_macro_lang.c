@@ -143,15 +143,15 @@ static uint8_t pos_to_layer(uint8_t pos) {
 
 static uint16_t search_tap_base_number(uint16_t keycode) {
   switch (keycode) {
-    case KC_F1: return KC_AT;
-    case KC_F2: return KC_HASH;
-    case KC_F3: return KC_QUOT;
-    case KC_F4: return KC_COMM;
-    case KC_F5: return KC_MINS;
-    case KC_F6: return KC_SLSH;
-    case KC_F7: return KC_DQUO;
-    case KC_F8: return KC_DOT;
-    case KC_F9: return KC_QUES;
+    case KC_A: return KC_AT;
+    case KC_B: return KC_HASH;
+    case KC_C: return KC_QUOT;
+    case KC_D: return KC_COMM;
+    case KC_E: return KC_MINS;
+    case KC_F: return KC_SLSH;
+    case KC_G: return KC_DQUO;
+    case KC_H: return KC_DOT;
+    case KC_I: return KC_QUES;
 
     case KC_L: return KC_LBRC;
     case KC_R: return KC_RBRC;
