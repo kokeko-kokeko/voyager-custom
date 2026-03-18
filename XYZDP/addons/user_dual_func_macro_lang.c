@@ -88,7 +88,7 @@ static uint16_t conv_kc_to_jp(uint16_t keycode) {
   return keycode;
 }
 
-static uint8_t pos_to_mods(uint8_t pos) {
+static uint8_t conv_pos_to_mods(uint8_t pos) {
   switch (pos) {
     case  3: return MOD_BIT_LALT | MOD_BIT_LSHIFT;
     case  4: return MOD_BIT_LALT | MOD_BIT_LCTRL;
@@ -129,7 +129,7 @@ static uint8_t pos_to_mods(uint8_t pos) {
   return 0;
 }
 
-static uint8_t pos_to_layer(uint8_t pos) {
+static uint8_t conv_pos_to_layer(uint8_t pos) {
   switch (pos) {
     case  6: return LAYER_L_pinky;
     case 37: return LAYER_R_pinky;
@@ -231,8 +231,8 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = search_tap_base_number(id_code);
   uint8_t pos = get_pos_from_keyrecord(record);
-  uint8_t mods_hold = pos_to_mods(pos);
-  uint8_t layer_hold = pos_to_layer(pos);
+  uint8_t mods_hold = conv_pos_to_mods(pos);
+  uint8_t layer_hold = conv_pos_to_layer(pos);
   
   // finalize
   if (send_tap != KC_NO) {
@@ -270,8 +270,8 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = search_tap_base_number(id_code);
   uint8_t pos = get_pos_from_keyrecord(record);
-  uint8_t mods_hold = pos_to_mods(pos);
-  uint8_t layer_hold = pos_to_layer(pos);;
+  uint8_t mods_hold = conv_pos_to_mods(pos);
+  uint8_t layer_hold = conv_pos_to_layer(pos);;
   
   // finalize
   if (send_tap != KC_NO) {
@@ -351,8 +351,8 @@ static bool process_record_udfn3(uint16_t keycode, keyrecord_t *record) {
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = search_tap_cursor(id_code);
   uint8_t pos = get_pos_from_keyrecord(record);
-  uint8_t mods_hold = pos_to_mods(pos);
-  uint8_t layer_hold = pos_to_layer(pos);
+  uint8_t mods_hold = conv_pos_to_mods(pos);
+  uint8_t layer_hold = conv_pos_to_layer(pos);
   
   // finalize
   if (send_tap != KC_NO) {
@@ -389,8 +389,8 @@ static bool process_record_udfn4(uint16_t keycode, keyrecord_t *record) {
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = search_tap_cursor(id_code);
   uint8_t pos = get_pos_from_keyrecord(record);
-  uint8_t mods_hold = pos_to_mods(pos);
-  uint8_t layer_hold = pos_to_layer(pos);
+  uint8_t mods_hold = conv_pos_to_mods(pos);
+  uint8_t layer_hold = conv_pos_to_layer(pos);
   
   // finalize
   if (send_tap != KC_NO) {
