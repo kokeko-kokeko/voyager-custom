@@ -211,30 +211,6 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
   uint8_t pos = get_pos_from_keyrecord(record);
   uint8_t mods_hold = pos_to_mods(pos);
   uint8_t layer_hold = pos_to_layer(pos);
-
-  if (id_code == KC_F4) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
-  if (id_code == KC_F8) mods_hold = MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL; 
-  
-  if (id_code == KC_L) layer_hold = LAYER_L_pinky;
-  if (id_code == KC_R) layer_hold = LAYER_R_pinky;
-
-  if (id_code == KC_1) mods_hold = MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
-  if (id_code == KC_2) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT;
-  if (id_code == KC_3) mods_hold = MOD_BIT_LSHIFT;
-  if (id_code == KC_4) mods_hold = MOD_BIT_LCTRL;
-  if (id_code == KC_5) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
-
-  if (id_code == KC_KP_6) mods_hold = MOD_BIT_LALT | MOD_BIT_LCTRL; 
-  if (id_code == KC_KP_5) mods_hold = MOD_BIT_RALT | MOD_BIT_RCTRL; 
-  
-  if (id_code == KC_6) mods_hold = MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL; 
-  if (id_code == KC_7) mods_hold = MOD_BIT_RCTRL;
-  if (id_code == KC_8) mods_hold = MOD_BIT_RSHIFT;
-  if (id_code == KC_9) mods_hold = MOD_BIT_RGUI | MOD_BIT_RALT;
-  if (id_code == KC_0) mods_hold = MOD_BIT_RSHIFT | MOD_BIT_RCTRL;
-
-  if (id_code == KC_DOT) mods_hold = MOD_BIT_LALT | MOD_BIT_LSHIFT; 
-  if (id_code == KC_PDOT) mods_hold = MOD_BIT_RALT | MOD_BIT_RSHIFT; 
   
   // finalize
   if (send_tap != KC_NO) {
@@ -274,23 +250,7 @@ static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
   uint8_t pos = get_pos_from_keyrecord(record);
   uint8_t mods_hold = pos_to_mods(pos);
   uint8_t layer_hold = pos_to_layer(pos);;
-
-  if (id_code == KC_F4) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
-  if (id_code == KC_F8) mods_hold = MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
-
-  if (id_code == KC_L) mods_hold = MOD_BIT_LCTRL;
-  if (id_code == KC_R) mods_hold = MOD_BIT_RCTRL;
-
-  if (id_code == KC_1) mods_hold = MOD_BIT_LGUI;
-  if (id_code == KC_2) mods_hold = MOD_BIT_LALT;
-  if (id_code == KC_3) mods_hold = MOD_BIT_LGUI | MOD_BIT_LSHIFT;
-  if (id_code == KC_4) mods_hold = MOD_BIT_LGUI | MOD_BIT_LCTRL;
   
-  if (id_code == KC_7) mods_hold = MOD_BIT_RGUI | MOD_BIT_RCTRL;
-  if (id_code == KC_8) mods_hold = MOD_BIT_RGUI | MOD_BIT_RSHIFT;
-  if (id_code == KC_9) mods_hold = MOD_BIT_RALT;
-  if (id_code == KC_0) mods_hold = MOD_BIT_RGUI;
-
   // finalize
   if (send_tap != KC_NO) {
     //always shift
@@ -373,24 +333,6 @@ static bool process_record_udfn3(uint16_t keycode, keyrecord_t *record) {
   uint8_t pos = get_pos_from_keyrecord(record);
   uint8_t mods_hold = pos_to_mods(pos);
   uint8_t layer_hold = pos_to_layer(pos);
-
-  if (id_code == KC_A) mods_hold = MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
-  if (id_code == KC_B) mods_hold = MOD_BIT_LGUI | MOD_BIT_LALT;
-  if (id_code == KC_C) mods_hold = MOD_BIT_LSHIFT;
-  if (id_code == KC_D) mods_hold = MOD_BIT_LCTRL;
-
-  if (id_code == KC_E) mods_hold = MOD_BIT_LGUI;
-  if (id_code == KC_F) mods_hold = MOD_BIT_LALT;
-  if (id_code == KC_G) mods_hold = MOD_BIT_LGUI | MOD_BIT_LSHIFT;
-  if (id_code == KC_H) mods_hold = MOD_BIT_LGUI | MOD_BIT_LCTRL;
-
-  if (id_code == KC_I) mods_hold = MOD_BIT_RGUI | MOD_BIT_RCTRL;
-  if (id_code == KC_J) mods_hold = MOD_BIT_RGUI | MOD_BIT_RSHIFT;
-  if (id_code == KC_K) mods_hold = MOD_BIT_RALT;
-  if (id_code == KC_L) mods_hold = MOD_BIT_RGUI;
-
-  if (id_code == KC_M) mods_hold = MOD_BIT_LGUI;
-  if (id_code == KC_N) mods_hold = MOD_BIT_LALT;
   
   // finalize
   if (send_tap != KC_NO) {
@@ -429,11 +371,6 @@ static bool process_record_udfn4(uint16_t keycode, keyrecord_t *record) {
   uint8_t pos = get_pos_from_keyrecord(record);
   uint8_t mods_hold = pos_to_mods(pos);
   uint8_t layer_hold = pos_to_layer(pos);
-
-  if (id_code == KC_I) mods_hold = MOD_BIT_RGUI | MOD_BIT_RCTRL;
-  if (id_code == KC_J) mods_hold = MOD_BIT_RGUI | MOD_BIT_RSHIFT;
-  if (id_code == KC_K) mods_hold = MOD_BIT_RALT;
-  if (id_code == KC_L) mods_hold = MOD_BIT_RGUI;
   
   // finalize
   if (send_tap != KC_NO) {
