@@ -51,8 +51,6 @@ static void unreg16_wo_shift (uint16_t code16) {
 
 static uint16_t conv_kc_to_jp(uint16_t keycode) {
   switch (keycode) {
-    case KC_NO:   return KC_NO;
-    
     case KC_DQUO: return JP_DQUO;
     case KC_AMPR: return JP_AMPR;
     case KC_QUOT: return JP_QUOT;
@@ -193,8 +191,6 @@ static uint16_t search_tap_base_number(uint16_t keycode) {
 
 static uint16_t engram_symbol_shift(uint16_t keycode) {
   switch (keycode) {
-    case KC_NO:   return KC_NO;
-    
     case KC_AT:   return KC_GRV;
     case KC_HASH: return KC_DLR;
     case KC_SLSH: return KC_BSLS;
@@ -334,8 +330,6 @@ static uint16_t search_tap_cursor(uint16_t keycode) {
 
 static uint16_t bracket_counter_shift(uint16_t keycode) {
   switch (keycode) {
-    case KC_NO:   return KC_NO;
-    
     case KC_LBRC: return KC_RBRC;
     case KC_LCBR: return KC_RCBR;
     case KC_LABK: return KC_RABK;
