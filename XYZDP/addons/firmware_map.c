@@ -11,8 +11,8 @@
 
 #include "addons/fade_matrix.h"
 #include "addons/ime_state_sync.h"
+#include "addons/orthogonal_mod_layer_lang.h"
 #include "addons/status_led.h"
-#include "addons/user_dual_func_macro_lang.h"
 
 #include "ch.h"
 #include "usb_main.h"
