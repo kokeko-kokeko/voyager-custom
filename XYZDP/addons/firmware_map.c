@@ -11,7 +11,7 @@
 
 #include "addons/fade_matrix.h"
 #include "addons/ime_state_sync.h"
-#include "addons/orthogonal_mod_layer_lang.h"
+#include "addons/orthogonality_mod_layer_lang.h"
 #include "addons/status_led.h"
 
 #include "ch.h"
