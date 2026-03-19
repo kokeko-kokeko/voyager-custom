@@ -137,6 +137,15 @@ static uint8_t conv_pos_to_layer(uint8_t pos) {
   switch (pos) {
     case  6: return LAYER_L_pinky;
     case 37: return LAYER_R_pinky;
+
+    case 22: return LAYER_Number;
+    case 45: return LAYER_Cursor;
+
+    case 24: return LAYER_Function;
+    case 46: return LAYER_R_thumb_1;
+    
+    case 25: return LAYER_L_thumb_2;
+    case 50: return LAYER_R_thumb_2;
     
     default:   return 0;
   }        
