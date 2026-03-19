@@ -29,26 +29,6 @@ bool jis_is_enabled(void) {
   return jis_flag;
 }
 
-static void reg16_wo_shift (uint16_t code16) {
-  bool l_shift = get_mods() & MOD_BIT_LSHIFT;
-  bool r_shift = get_mods() & MOD_BIT_RSHIFT;
-
-  del_mods(MOD_MASK_SHIFT);
-  register_code16(code16);
-  if (l_shift) add_mods(MOD_BIT_LSHIFT);
-  if (r_shift) add_mods(MOD_BIT_RSHIFT);      
-}
-
-static void unreg16_wo_shift (uint16_t code16) {
-  bool l_shift = get_mods() & MOD_BIT_LSHIFT;
-  bool r_shift = get_mods() & MOD_BIT_RSHIFT;
-
-  del_mods(MOD_MASK_SHIFT);
-  unregister_code16(code16);
-  if (l_shift) add_mods(MOD_BIT_LSHIFT);
-  if (r_shift) add_mods(MOD_BIT_RSHIFT);    
-}
-
 static uint8_t conv_pos_to_mods(uint8_t pos) {
   switch (pos) {
     case  3: return MOD_BIT_LALT | MOD_BIT_LSHIFT;
@@ -116,6 +96,7 @@ static uint8_t conv_pos_to_layer(uint8_t pos) {
 static bool process_record_hoor(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_HOOR) return true;
   
+  uint16_t send_tap = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint8_t pos = get_pos_from_keyrecord(record);
   uint8_t mods_hold = conv_pos_to_mods(pos);
   uint8_t layer_hold = conv_pos_to_layer(pos);
@@ -131,17 +112,39 @@ static bool process_record_hoor(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       if (layer_hold != 0) layer_on(layer_hold);
       else if (mods_hold != 0) register_mods(mods_hold);
+      else register_code16(send_tap); 
         
       return false;
     } else {
       if (layer_hold != 0) layer_off(layer_hold);
       else if (mods_hold != 0) unregister_mods(mods_hold);
+      else unregister_code16(send_tap); 
         
       return false;
-    }  
+    }
   }
   
   return true;
+}
+
+static void reg16_wo_shift (uint16_t code16) {
+  bool l_shift = get_mods() & MOD_BIT_LSHIFT;
+  bool r_shift = get_mods() & MOD_BIT_RSHIFT;
+
+  del_mods(MOD_MASK_SHIFT);
+  register_code16(code16);
+  if (l_shift) add_mods(MOD_BIT_LSHIFT);
+  if (r_shift) add_mods(MOD_BIT_RSHIFT);      
+}
+
+static void unreg16_wo_shift (uint16_t code16) {
+  bool l_shift = get_mods() & MOD_BIT_LSHIFT;
+  bool r_shift = get_mods() & MOD_BIT_RSHIFT;
+
+  del_mods(MOD_MASK_SHIFT);
+  unregister_code16(code16);
+  if (l_shift) add_mods(MOD_BIT_LSHIFT);
+  if (r_shift) add_mods(MOD_BIT_RSHIFT);    
 }
 
 static uint16_t conv_kc_to_jp(uint16_t keycode) {
