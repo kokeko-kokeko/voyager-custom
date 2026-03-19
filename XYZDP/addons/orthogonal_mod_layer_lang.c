@@ -49,45 +49,6 @@ static void unreg16_wo_shift (uint16_t code16) {
   if (r_shift) add_mods(MOD_BIT_RSHIFT);    
 }
 
-static uint16_t conv_kc_to_jp(uint16_t keycode) {
-  switch (keycode) {
-    case KC_DQUO: return JP_DQUO;
-    case KC_AMPR: return JP_AMPR;
-    case KC_QUOT: return JP_QUOT;
-    case KC_LPRN: return JP_LPRN;
-    case KC_RPRN: return JP_RPRN;
-
-    case KC_MINS: return JP_MINS;
-    case KC_EQL:  return JP_EQL;
-
-    case KC_CIRC: return JP_CIRC;
-    case KC_TILD: return JP_TILD;
-
-    case KC_PIPE: return JP_PIPE;
-
-    case KC_AT:   return JP_AT;
-    case KC_GRV:  return JP_GRV;
-    
-    case KC_LBRC: return JP_LBRC;
-    case KC_LCBR: return JP_LCBR;
-    
-    case KC_RBRC: return JP_RBRC;
-    case KC_RCBR: return JP_RCBR;
-
-    case KC_SCLN: return JP_SCLN;
-    case KC_PLUS: return JP_PLUS;
-
-    case KC_COLN: return JP_COLN;
-    case KC_ASTR: return JP_ASTR;
-
-    case KC_BSLS: return JP_BSLS;
-    case KC_UNDS: return JP_UNDS;
-    
-    default:      return keycode;
-  }        
-  return keycode;
-}
-
 static uint8_t conv_pos_to_mods(uint8_t pos) {
   switch (pos) {
     case  3: return MOD_BIT_LALT | MOD_BIT_LSHIFT;
@@ -183,6 +144,45 @@ static bool process_record_hoor(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+static uint16_t conv_kc_to_jp(uint16_t keycode) {
+  switch (keycode) {
+    case KC_DQUO: return JP_DQUO;
+    case KC_AMPR: return JP_AMPR;
+    case KC_QUOT: return JP_QUOT;
+    case KC_LPRN: return JP_LPRN;
+    case KC_RPRN: return JP_RPRN;
+
+    case KC_MINS: return JP_MINS;
+    case KC_EQL:  return JP_EQL;
+
+    case KC_CIRC: return JP_CIRC;
+    case KC_TILD: return JP_TILD;
+
+    case KC_PIPE: return JP_PIPE;
+
+    case KC_AT:   return JP_AT;
+    case KC_GRV:  return JP_GRV;
+    
+    case KC_LBRC: return JP_LBRC;
+    case KC_LCBR: return JP_LCBR;
+    
+    case KC_RBRC: return JP_RBRC;
+    case KC_RCBR: return JP_RCBR;
+
+    case KC_SCLN: return JP_SCLN;
+    case KC_PLUS: return JP_PLUS;
+
+    case KC_COLN: return JP_COLN;
+    case KC_ASTR: return JP_ASTR;
+
+    case KC_BSLS: return JP_BSLS;
+    case KC_UNDS: return JP_UNDS;
+    
+    default:      return keycode;
+  }        
+  return keycode;
+}
+
 static uint16_t search_tap_base_number(uint16_t keycode) {
   switch (keycode) {
     case KC_A: return KC_AT;
@@ -269,8 +269,8 @@ static uint16_t engram_symbol_shift(uint16_t keycode) {
 }
 
 // key with shift overwrite (same as ko)
-static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN1) return true;
+static bool process_record_thor1(uint16_t keycode, keyrecord_t *record) {
+  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_THOR1) return true;
 
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = search_tap_base_number(id_code);
@@ -308,8 +308,8 @@ static bool process_record_udfn1(uint16_t keycode, keyrecord_t *record) {
 }
 
 // key with always shift on (same as ko)
-static bool process_record_udfn2(uint16_t keycode, keyrecord_t *record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN2) return true;
+static bool process_record_thor1s(uint16_t keycode, keyrecord_t *record) {
+  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_THOR1S) return true;
   
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = search_tap_base_number(id_code);
@@ -389,8 +389,8 @@ static uint16_t bracket_counter_shift(uint16_t keycode) {
   return keycode;
 }
 
-static bool process_record_udfn3(uint16_t keycode, keyrecord_t *record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN3) return true;
+static bool process_record_thor2(uint16_t keycode, keyrecord_t *record) {
+  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_THOR2) return true;
   
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = search_tap_cursor(id_code);
@@ -427,8 +427,8 @@ static bool process_record_udfn3(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-static bool process_record_udfn4(uint16_t keycode, keyrecord_t *record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN4) return true;
+static bool process_record_htor2s(uint16_t keycode, keyrecord_t *record) {
+  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_THOR2S) return true;
 
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = search_tap_cursor(id_code);
@@ -465,38 +465,8 @@ static bool process_record_udfn4(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-static bool process_record_udfn5(uint16_t keycode, keyrecord_t *record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN5) return true;
-
-  return true;
-}
-
-static bool process_record_udfn6(uint16_t keycode, keyrecord_t *record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN6) return true;
-
-  return true;
-}
-
-static bool process_record_udfn7(uint16_t keycode, keyrecord_t *record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN7) return true;
-
-  return true;
-}
-
-static bool process_record_udfn8(uint16_t keycode, keyrecord_t *record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN8) return true;
-
-  return true;
-}
-
-static bool process_record_udfn9(uint16_t keycode, keyrecord_t *record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN9) return true;
-
-  return true;
-}
-
-static bool process_record_udfn10(uint16_t keycode, keyrecord_t *record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_UDFN10) return true;
+static bool process_record_mcfw(uint16_t keycode, keyrecord_t *record) {
+  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_MCFW) return true;
 
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode); 
 
@@ -630,16 +600,13 @@ bool process_record_orthogonal_mod_layer_lang(uint16_t keycode, keyrecord_t *rec
 
   if (process_record_hoor(keycode, record) == false) return false;
   
-  if (process_record_udfn1(keycode, record) == false) return false;
-  if (process_record_udfn2(keycode, record) == false) return false;
-  if (process_record_udfn3(keycode, record) == false) return false;
-  if (process_record_udfn4(keycode, record) == false) return false;
-  if (process_record_udfn5(keycode, record) == false) return false;
-  if (process_record_udfn6(keycode, record) == false) return false;
-  if (process_record_udfn7(keycode, record) == false) return false;
-  if (process_record_udfn8(keycode, record) == false) return false;
-  if (process_record_udfn9(keycode, record) == false) return false;
-  if (process_record_udfn10(keycode, record) == false) return false;
+  if (process_record_thor1(keycode, record) == false) return false;
+  if (process_record_thor1s(keycode, record) == false) return false;
+  
+  if (process_record_thor2(keycode, record) == false) return false;
+  if (process_record_thor2s(keycode, record) == false) return false;
+  
+  if (process_record_mcfw(keycode, record) == false) return false;
   
   return true;
 }
