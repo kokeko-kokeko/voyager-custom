@@ -33,4 +33,4 @@ void jis_enable(void);
 void jis_disable(void);
 bool jis_is_enabled(void);
 
-bool process_record_user_dual_func_macro_lang(uint16_t keycode, keyrecord_t *record);
+bool process_record_orthogonal_mod_layer_lang(uint16_t keycode, keyrecord_t *record);
