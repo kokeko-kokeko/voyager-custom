@@ -22,8 +22,8 @@
 #define THOR1(kc) MT(MOD_THOR1, kc)
 #define THOR1S(kc) MT(MOD_THOR1S, kc)
 
-#define THOR2(kc) MT(MOD_THOR1, kc)
-#define THOR2S(kc) MT(MOD_THOR1S, kc)
+#define THOR2(kc) MT(MOD_THOR2, kc)
+#define THOR2S(kc) MT(MOD_THOR2S, kc)
 
 #define MCFW(kc) MT(MOD_MCFW, kc)
 
