@@ -177,7 +177,7 @@ typedef struct thor_setting {
   const bool force_shift;
 } thor_setting_t;
 
-static bool process_record_thor_skel(thor_setting_t * const setting, uint16_t keycode, keyrecord_t *record) {
+static bool process_record_thor_skel(const thor_setting_t * const setting, uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != setting->match) return true;
 
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
