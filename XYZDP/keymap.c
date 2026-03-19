@@ -177,7 +177,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #include "addons/firmware_map.h"
 #include "addons/ime_state_sync.h"
 #include "addons/layer_mod_overlay.h"
-#include "addons/orthogonal_mod_layer_lang.h"
+#include "addons/orthogonality_mod_layer_lang.h"
 #include "addons/status_led.h"
 
 // -----------------------------------------------------------------------------
@@ -220,7 +220,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   if (process_record_fade_matrix(keycode, record) == false) return false;
   if (process_record_ime_state_sync(keycode, record) == false) return false;
-  if (process_record_orthogonal_mod_layer_lang(keycode, record) == false) return false;
+  if (process_record_orthogonality_mod_layer_lang(keycode, record) == false) return false;
   
   return true;
 }
