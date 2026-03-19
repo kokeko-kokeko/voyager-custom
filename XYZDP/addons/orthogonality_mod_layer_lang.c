@@ -170,6 +170,51 @@ static uint16_t conv_kc_to_jp(uint16_t keycode) {
   return keycode;
 }
 
+typedef struct thor_setting {
+  uint16_t (*const search_tap_func)(uint16_t);
+  uint16_t (*const shift_func)(uint16_t);
+  const uint16_t match;
+  const bool force_shift;
+} thor_setting_t;
+
+static bool process_record_thor_skel(thor_setting_t * const setting, uint16_t keycode, keyrecord_t *record) {
+  if (QK_MOD_TAP_GET_MODS(keycode) != setting->match) return true;
+
+  uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+  uint16_t send_tap = setting->search_tap_func(id_code);
+  uint8_t pos = get_pos_from_keyrecord(record);
+  uint8_t mods_hold = conv_pos_to_mods(pos);
+  uint8_t layer_hold = conv_pos_to_layer(pos);
+  
+  // finalize
+  if (send_tap != KC_NO) {
+    if ((get_mods() & MOD_MASK_SHIFT) || setting->force_shift) send_tap = setting->shift_func(send_tap);
+    if (jis_flag) send_tap = conv_kc_to_jp(send_tap);
+    
+    if (record->tap.count > 0) {
+      if (record->event.pressed) {
+        reg16_wo_shift(send_tap);
+      } else {
+        unreg16_wo_shift(send_tap);
+      }
+    } else {
+      if (record->event.pressed) {
+        if (layer_hold != 0) layer_on(layer_hold);
+        else if (mods_hold != 0) register_mods(mods_hold);
+        else reg16_wo_shift(send_tap);
+      } else {
+        if (layer_hold != 0) layer_off(layer_hold);
+        else if (mods_hold != 0) unregister_mods(mods_hold);
+        else unreg16_wo_shift(send_tap);
+      }  
+    }
+    
+    return false;
+  }
+  
+  return true;
+}
+
 static uint16_t search_tap_base_number(uint16_t keycode) {
   switch (keycode) {
     case KC_A: return KC_AT;
@@ -580,6 +625,8 @@ static bool process_record_mcfw(uint16_t keycode, keyrecord_t *record) {
   
   return true;
 }
+
+const thor_setting_t thor1 = {};
 
 void jis_enable(void) {
   jis_flag = true;
