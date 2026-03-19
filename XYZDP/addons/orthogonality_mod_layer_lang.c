@@ -649,11 +649,11 @@ bool process_record_orthogonality_mod_layer_lang(uint16_t keycode, keyrecord_t *
 
   if (process_record_hoor(keycode, record) == false) return false;
   
-  if (process_record_thor_skel(thor1,  keycode, record) == false) return false;
-  if (process_record_thor_skel(thor1s, keycode, record) == false) return false;
+  if (process_record_thor_skel(&thor1,  keycode, record) == false) return false;
+  if (process_record_thor_skel(&thor1s, keycode, record) == false) return false;
   
-  if (process_record_thor_skel(thor2,  keycode, record) == false) return false;
-  if (process_record_thor_skel(thor2s, keycode, record) == false) return false;
+  if (process_record_thor_skel(&thor2,  keycode, record) == false) return false;
+  if (process_record_thor_skel(&thor2s, keycode, record) == false) return false;
   
   if (process_record_mcfw(keycode, record) == false) return false;
   
