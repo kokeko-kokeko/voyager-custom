@@ -292,16 +292,16 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
                            uint16_t prev_keycode) {
   if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
     switch (keycode) {
-			case HOOR(KC_SPACE);
+			case HOOR(KC_SPACE):
 			
-			case HOOR(KC_B); 
-			case HOOR(KC_F11);
+			case HOOR(KC_B):
+			case HOOR(KC_F11):
 			
-			case HOOR(KC_V); 
-			case HOOR(KC_F12);
+			case HOOR(KC_V):
+			case HOOR(KC_F12):
 
-			case THOR1(KC_L); 
-			case THOR1(KC_R);
+			case THOR1(KC_L): 
+			case THOR1(KC_R):
         return 0;
 
       default:
