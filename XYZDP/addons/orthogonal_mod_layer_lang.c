@@ -152,6 +152,37 @@ static uint8_t conv_pos_to_layer(uint8_t pos) {
   return 0;
 }
 
+static bool process_record_hoor(uint16_t keycode, keyrecord_t *record) {
+  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_HOOR) return true;
+  
+  uint8_t pos = get_pos_from_keyrecord(record);
+  uint8_t mods_hold = conv_pos_to_mods(pos);
+  uint8_t layer_hold = conv_pos_to_layer(pos);
+  
+  // finalize
+  if (record->tap.count > 0) {
+    if (record->event.pressed) {
+      return true;
+    } else {
+      return true;
+    }
+  } else {
+    if (record->event.pressed) {
+      if (layer_hold != 0) layer_on(layer_hold);
+      else if (mods_hold != 0) register_mods(mods_hold);
+        
+      return false;
+    } else {
+      if (layer_hold != 0) layer_off(layer_hold);
+      else if (mods_hold != 0) unregister_mods(mods_hold);
+        
+      return false;
+    }  
+  }
+  
+  return true;
+}
+
 static uint16_t search_tap_base_number(uint16_t keycode) {
   switch (keycode) {
     case KC_A: return KC_AT;
@@ -597,6 +628,8 @@ bool process_record_orthogonal_mod_layer_lang(uint16_t keycode, keyrecord_t *rec
   // non-MT keycode, skip
   if (IS_QK_MOD_TAP(keycode) == false) return true;
 
+  if (process_record_hoor(keycode, record) == false) return false;
+  
   if (process_record_udfn1(keycode, record) == false) return false;
   if (process_record_udfn2(keycode, record) == false) return false;
   if (process_record_udfn3(keycode, record) == false) return false;
