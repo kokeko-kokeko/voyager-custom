@@ -1,6 +1,6 @@
 #pragma once
 
-// use MT with 1 or 2 mod, must override hold side
+// use MT with 1 or 2 mod, must mod override hold side
 // HOOR : Hold Only OverRide, tap pass to normal process
 // THORn : Tap Hold OverRide, both override, shift and land handle
 // THORnS : Tap Hold OverRide, both override, fix shift
