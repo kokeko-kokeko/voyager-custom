@@ -295,13 +295,13 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 			case HOOR(KC_SPACE):
 			
 			case HOOR(KC_B):
-			case HOOR(KC_F11):
-			
 			case HOOR(KC_V):
-			case HOOR(KC_F12):
-
+		
 			case THOR1(KC_L): 
 			case THOR1(KC_R):
+		
+			case HOOR(KC_F11):
+			case HOOR(KC_F12):
         return 0;
 
       default:
