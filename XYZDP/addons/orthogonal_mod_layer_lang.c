@@ -5,7 +5,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "addons/user_dual_func_macro_lang.h"
+#include "addons/orthogonal_mod_layer_lang.h"
 
 #include "addons/fade_matrix.h"
 #include "addons/firmware_map.h"
