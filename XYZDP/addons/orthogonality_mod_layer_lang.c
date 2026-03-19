@@ -17,18 +17,6 @@
 
 static bool jis_flag = false;
 
-void jis_enable(void) {
-  jis_flag = true;
-}
-
-void jis_disable(void) {
-  jis_flag = false;
-}
-
-bool jis_is_enabled(void) {
-  return jis_flag;
-}
-
 static uint8_t conv_pos_to_mods(uint8_t pos) {
   switch (pos) {
     case  3: return MOD_BIT_LALT | MOD_BIT_LSHIFT;
@@ -591,6 +579,18 @@ static bool process_record_mcfw(uint16_t keycode, keyrecord_t *record) {
   if (id_code == KC_7) return firmware_map_exit_all_keyrecord(record);
   
   return true;
+}
+
+void jis_enable(void) {
+  jis_flag = true;
+}
+
+void jis_disable(void) {
+  jis_flag = false;
+}
+
+bool jis_is_enabled(void) {
+  return jis_flag;
 }
 
 bool process_record_orthogonality_mod_layer_lang(uint16_t keycode, keyrecord_t *record) {
