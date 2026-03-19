@@ -4,6 +4,7 @@
 // HOOR : Hold Only OverRide, tap pass to normal process
 // THORn : Tap Hold OverRide, both override, shift and land handle
 // THORnS : Tap Hold OverRide, both override, fix shift
+// MCFW : MaCro FirmWare
 
 #define MOD_UDFN1 (MOD_LCTL | MOD_LSFT | MOD_LALT)
 #define MOD_UDFN2 (MOD_RCTL | MOD_RSFT | MOD_RALT)
