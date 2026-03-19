@@ -427,7 +427,7 @@ static bool process_record_thor2(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-static bool process_record_htor2s(uint16_t keycode, keyrecord_t *record) {
+static bool process_record_thor2s(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_THOR2S) return true;
 
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
