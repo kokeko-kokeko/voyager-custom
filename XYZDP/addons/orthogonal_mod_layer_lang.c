@@ -103,25 +103,21 @@ static bool process_record_hoor(uint16_t keycode, keyrecord_t *record) {
   
   // finalize
   if (record->tap.count > 0) {
-    if (record->event.pressed) {
-      return true;
-    } else {
-      return true;
-    }
+    // tap, pass to normal logic 
+    return true;
   } else {
     if (record->event.pressed) {
       if (layer_hold != 0) layer_on(layer_hold);
       else if (mods_hold != 0) register_mods(mods_hold);
       else register_code16(send_tap); 
-        
-      return false;
     } else {
       if (layer_hold != 0) layer_off(layer_hold);
       else if (mods_hold != 0) unregister_mods(mods_hold);
-      else unregister_code16(send_tap); 
-        
-      return false;
+      else unregister_code16(send_tap);   
     }
+    
+    // hold, terminate here
+    return false;
   }
   
   return true;
