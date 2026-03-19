@@ -220,7 +220,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   if (process_record_fade_matrix(keycode, record) == false) return false;
   if (process_record_ime_state_sync(keycode, record) == false) return false;
-  if (process_record_user_dual_func_macro_lang(keycode, record) == false) return false;
+  if (process_record_orthogonal_mod_layer_lang(keycode, record) == false) return false;
   
   return true;
 }
