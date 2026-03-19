@@ -111,6 +111,135 @@ static bool process_record_hoor(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+static bool process_record_mcfw(uint16_t keycode, keyrecord_t *record) {
+  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_MCFW) return true;
+
+  uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode); 
+
+  if (id_code == KC_M) {
+    if (record->event.pressed) {
+      uint8_t pos = get_pos_from_keyrecord(record);
+
+      //` `
+      if (pos == 2) {
+        if (jis_flag) {
+          SEND_STRING(SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_TAP(X_LEFT));
+        } else {
+          SEND_STRING(SS_TAP(X_GRAVE)SS_DELAY(100)  SS_TAP(X_GRAVE)SS_DELAY(100)  SS_TAP(X_LEFT));
+        }
+      }
+
+      if (pos == 3) {
+        if (jis_flag) {
+          SEND_STRING(SS_LSFT(SS_TAP(X_7))SS_DELAY(100)  SS_LSFT(SS_TAP(X_7))SS_DELAY(100)  SS_TAP(X_LEFT));
+        } else {
+          SEND_STRING(SS_TAP(X_QUOTE)SS_DELAY(100)  SS_TAP(X_QUOTE)SS_DELAY(100)  SS_TAP(X_LEFT));
+        }
+      }
+
+      if (pos == 4) {
+        if (jis_flag) {
+          SEND_STRING(SS_LSFT(SS_TAP(X_2))SS_DELAY(100)  SS_LSFT(SS_TAP(X_2))SS_DELAY(100)  SS_TAP(X_LEFT));
+        } else {
+          SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_TAP(X_LEFT));
+        }
+      }
+
+      if (pos == 7) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_1))SS_DELAY(100)  SS_LSFT(SS_TAP(X_SLASH)));
+      }
+
+      if (pos == 8) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_SLASH))SS_DELAY(100)  SS_LSFT(SS_TAP(X_1)));
+      }
+
+      if (pos == 9) {
+        if (jis_flag) {
+          SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_LSFT(SS_TAP(X_QUOTE)));
+        } else {
+          SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_LSFT(SS_TAP(X_8)));
+        }
+      }
+
+      if (pos == 10) {
+        if (jis_flag) {
+          SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_TAP(X_SLASH));
+        } else {
+          SEND_STRING(SS_LSFT(SS_TAP(X_8))SS_DELAY(100)  SS_TAP(X_SLASH));
+        }
+      }
+
+      if (pos == 15) {
+        SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_TAP(X_SLASH));
+      }
+
+      if (pos == 16) {
+        if (jis_flag) {
+          SEND_STRING(SS_TAP(X_INTERNATIONAL_1)SS_DELAY(100)  SS_TAP(X_INTERNATIONAL_1));
+        } else {
+          SEND_STRING(SS_TAP(X_BSLS)SS_DELAY(100)  SS_TAP(X_BSLS));
+        }
+      }
+
+      //[]
+      if (pos == 33) {
+        if (jis_flag) {
+          SEND_STRING(SS_TAP(X_RBRC)SS_DELAY(100)  SS_TAP(X_BSLS)SS_DELAY(100)  SS_TAP(X_LEFT));
+        } else {
+          SEND_STRING(SS_TAP(X_LBRC)SS_DELAY(100)  SS_TAP(X_RBRC)SS_DELAY(100)  SS_TAP(X_LEFT));
+        }
+      }
+
+      //{}
+      if (pos == 34) {
+        if (jis_flag) {
+          SEND_STRING(SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_BSLS))SS_DELAY(100)  SS_TAP(X_LEFT));
+        } else {
+          SEND_STRING(SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(100)  SS_TAP(X_LEFT));
+        }
+      }
+
+      //<>
+      if (pos == 35) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_COMMA))SS_DELAY(100)  SS_LSFT(SS_TAP(X_DOT))SS_DELAY(100)  SS_TAP(X_LEFT));
+      }
+     
+      //()
+      if (pos == 36) {
+        if (jis_flag) {
+          SEND_STRING(SS_LSFT(SS_TAP(X_8))SS_DELAY(100)  SS_LSFT(SS_TAP(X_9))SS_DELAY(100)  SS_TAP(X_LEFT));
+        } else {
+          SEND_STRING(SS_LSFT(SS_TAP(X_9))SS_DELAY(100)  SS_LSFT(SS_TAP(X_0))SS_DELAY(100)  SS_TAP(X_LEFT));
+        }
+      }
+            
+      // ...(jp)
+      if (pos == 37) {
+        SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_TAP(X_SLASH)SS_DELAY(100)  SS_TAP(X_SLASH));
+      }
+    }
+
+    return false;
+  }
+  // Firmware  
+  if (id_code == KC_1) return firmware_map_main_keyrecord(record);
+  if (id_code == KC_3) return firmware_map_invoke_halt_keyrecord(record);
+    
+  // Color Palette
+  if (id_code == KC_4) return fade_matrix_color_palette_main_keyrecord(record);
+    
+  if (id_code == KC_5) return fade_matrix_color_palette_sel_sat_keyrecord(record);
+  if (id_code == KC_6) return fade_matrix_color_palette_sel_val_keyrecord(record);
+    
+  if (id_code == KC_8) return fade_matrix_color_palette_load_preset_keyrecord(record);
+    
+  // layer move
+  if (id_code == KC_2) return firmware_map_enter_color_palette_keyrecord(record);
+  if (id_code == KC_7) return firmware_map_exit_all_keyrecord(record);
+  
+  return true;
+}
+
 static void reg16_wo_shift (uint16_t code16) {
   bool l_shift = get_mods() & MOD_BIT_LSHIFT;
   bool r_shift = get_mods() & MOD_BIT_RSHIFT;
@@ -342,135 +471,6 @@ static uint16_t bracket_counter_shift(uint16_t keycode) {
   return keycode;
 }
 
-static bool process_record_mcfw(uint16_t keycode, keyrecord_t *record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_MCFW) return true;
-
-  uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode); 
-
-  if (id_code == KC_M) {
-    if (record->event.pressed) {
-      uint8_t pos = get_pos_from_keyrecord(record);
-
-      //` `
-      if (pos == 2) {
-        if (jis_flag) {
-          SEND_STRING(SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_TAP(X_LEFT));
-        } else {
-          SEND_STRING(SS_TAP(X_GRAVE)SS_DELAY(100)  SS_TAP(X_GRAVE)SS_DELAY(100)  SS_TAP(X_LEFT));
-        }
-      }
-
-      if (pos == 3) {
-        if (jis_flag) {
-          SEND_STRING(SS_LSFT(SS_TAP(X_7))SS_DELAY(100)  SS_LSFT(SS_TAP(X_7))SS_DELAY(100)  SS_TAP(X_LEFT));
-        } else {
-          SEND_STRING(SS_TAP(X_QUOTE)SS_DELAY(100)  SS_TAP(X_QUOTE)SS_DELAY(100)  SS_TAP(X_LEFT));
-        }
-      }
-
-      if (pos == 4) {
-        if (jis_flag) {
-          SEND_STRING(SS_LSFT(SS_TAP(X_2))SS_DELAY(100)  SS_LSFT(SS_TAP(X_2))SS_DELAY(100)  SS_TAP(X_LEFT));
-        } else {
-          SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_TAP(X_LEFT));
-        }
-      }
-
-      if (pos == 7) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_1))SS_DELAY(100)  SS_LSFT(SS_TAP(X_SLASH)));
-      }
-
-      if (pos == 8) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_SLASH))SS_DELAY(100)  SS_LSFT(SS_TAP(X_1)));
-      }
-
-      if (pos == 9) {
-        if (jis_flag) {
-          SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_LSFT(SS_TAP(X_QUOTE)));
-        } else {
-          SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_LSFT(SS_TAP(X_8)));
-        }
-      }
-
-      if (pos == 10) {
-        if (jis_flag) {
-          SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_TAP(X_SLASH));
-        } else {
-          SEND_STRING(SS_LSFT(SS_TAP(X_8))SS_DELAY(100)  SS_TAP(X_SLASH));
-        }
-      }
-
-      if (pos == 15) {
-        SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_TAP(X_SLASH));
-      }
-
-      if (pos == 16) {
-        if (jis_flag) {
-          SEND_STRING(SS_TAP(X_INTERNATIONAL_1)SS_DELAY(100)  SS_TAP(X_INTERNATIONAL_1));
-        } else {
-          SEND_STRING(SS_TAP(X_BSLS)SS_DELAY(100)  SS_TAP(X_BSLS));
-        }
-      }
-
-      //[]
-      if (pos == 33) {
-        if (jis_flag) {
-          SEND_STRING(SS_TAP(X_RBRC)SS_DELAY(100)  SS_TAP(X_BSLS)SS_DELAY(100)  SS_TAP(X_LEFT));
-        } else {
-          SEND_STRING(SS_TAP(X_LBRC)SS_DELAY(100)  SS_TAP(X_RBRC)SS_DELAY(100)  SS_TAP(X_LEFT));
-        }
-      }
-
-      //{}
-      if (pos == 34) {
-        if (jis_flag) {
-          SEND_STRING(SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_BSLS))SS_DELAY(100)  SS_TAP(X_LEFT));
-        } else {
-          SEND_STRING(SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(100)  SS_TAP(X_LEFT));
-        }
-      }
-
-      //<>
-      if (pos == 35) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_COMMA))SS_DELAY(100)  SS_LSFT(SS_TAP(X_DOT))SS_DELAY(100)  SS_TAP(X_LEFT));
-      }
-     
-      //()
-      if (pos == 36) {
-        if (jis_flag) {
-          SEND_STRING(SS_LSFT(SS_TAP(X_8))SS_DELAY(100)  SS_LSFT(SS_TAP(X_9))SS_DELAY(100)  SS_TAP(X_LEFT));
-        } else {
-          SEND_STRING(SS_LSFT(SS_TAP(X_9))SS_DELAY(100)  SS_LSFT(SS_TAP(X_0))SS_DELAY(100)  SS_TAP(X_LEFT));
-        }
-      }
-            
-      // ...(jp)
-      if (pos == 37) {
-        SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_TAP(X_SLASH)SS_DELAY(100)  SS_TAP(X_SLASH));
-      }
-    }
-
-    return false;
-  }
-  // Firmware  
-  if (id_code == KC_1) return firmware_map_main_keyrecord(record);
-  if (id_code == KC_3) return firmware_map_invoke_halt_keyrecord(record);
-    
-  // Color Palette
-  if (id_code == KC_4) return fade_matrix_color_palette_main_keyrecord(record);
-    
-  if (id_code == KC_5) return fade_matrix_color_palette_sel_sat_keyrecord(record);
-  if (id_code == KC_6) return fade_matrix_color_palette_sel_val_keyrecord(record);
-    
-  if (id_code == KC_8) return fade_matrix_color_palette_load_preset_keyrecord(record);
-    
-  // layer move
-  if (id_code == KC_2) return firmware_map_enter_color_palette_keyrecord(record);
-  if (id_code == KC_7) return firmware_map_exit_all_keyrecord(record);
-  
-  return true;
-}
-
 static const thor_setting_t thor1  = {search_tap_base_number, engram_symbol_shift, MOD_THOR1, false};
 static const thor_setting_t thor1s = {search_tap_base_number, engram_symbol_shift, MOD_THOR1S, true};
 static const thor_setting_t thor2  = {search_tap_cursor, bracket_counter_shift, MOD_THOR2, false};
@@ -493,14 +493,14 @@ bool process_record_orthogonality_mod_layer_lang(uint16_t keycode, keyrecord_t *
   if (IS_QK_MOD_TAP(keycode) == false) return true;
 
   if (process_record_hoor(keycode, record) == false) return false;
+
+  if (process_record_mcfw(keycode, record) == false) return false;  
   
   if (process_record_thor_skel(&thor1,  keycode, record) == false) return false;
   if (process_record_thor_skel(&thor1s, keycode, record) == false) return false;
   
   if (process_record_thor_skel(&thor2,  keycode, record) == false) return false;
   if (process_record_thor_skel(&thor2s, keycode, record) == false) return false;
-  
-  if (process_record_mcfw(keycode, record) == false) return false;
-  
+    
   return true;
 }
