@@ -1,8 +1,9 @@
 #pragma once
 
 // use MT with 1 or 2 mod, must override hold side
-// HOOR : hold only override, tap pass to normal process
-// 
+// HOOR : Hold Only OverRide, tap pass to normal process
+// THORn : Tap Hold OverRide, both override, shift and land handle
+// THORnS : Tap Hold OverRide, both override, fix shift
 
 #define MOD_UDFN1 (MOD_LCTL | MOD_LSFT | MOD_LALT)
 #define MOD_UDFN2 (MOD_RCTL | MOD_RSFT | MOD_RALT)
