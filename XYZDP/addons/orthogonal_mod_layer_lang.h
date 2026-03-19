@@ -1,6 +1,8 @@
 #pragma once
 
 // use MT with 3,4 mod for dual func include Meh Hyper, if use passthrough
+// HOOR : hold only override, tap pass to normal
+// 
 
 #define MOD_UDFN1 (MOD_LCTL | MOD_LSFT | MOD_LALT)
 #define MOD_UDFN2 (MOD_RCTL | MOD_RSFT | MOD_RALT)
