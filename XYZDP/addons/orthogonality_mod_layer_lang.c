@@ -626,7 +626,10 @@ static bool process_record_mcfw(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-const thor_setting_t thor1 = {};
+const thor_setting_t thor1  = {search_tap_base_number, engram_symbol_shift, MOD_THOR1, false};
+const thor_setting_t thor1s = {search_tap_base_number, engram_symbol_shift, MOD_THOR1S, true};
+const thor_setting_t thor2  = {search_tap_cursor, bracket_counter_shift, MOD_THOR2, false};
+const thor_setting_t thor2s = {search_tap_cursor, bracket_counter_shift, MOD_THOR2S, true};
 
 void jis_enable(void) {
   jis_flag = true;
@@ -646,11 +649,11 @@ bool process_record_orthogonality_mod_layer_lang(uint16_t keycode, keyrecord_t *
 
   if (process_record_hoor(keycode, record) == false) return false;
   
-  if (process_record_thor1(keycode, record) == false) return false;
-  if (process_record_thor1s(keycode, record) == false) return false;
+  if (process_record_thor_skel(thor1,  keycode, record) == false) return false;
+  if (process_record_thor_skel(thor1s, keycode, record) == false) return false;
   
-  if (process_record_thor2(keycode, record) == false) return false;
-  if (process_record_thor2s(keycode, record) == false) return false;
+  if (process_record_thor_skel(thor2,  keycode, record) == false) return false;
+  if (process_record_thor_skel(thor2s, keycode, record) == false) return false;
   
   if (process_record_mcfw(keycode, record) == false) return false;
   
