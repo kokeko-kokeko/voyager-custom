@@ -177,8 +177,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #include "addons/firmware_map.h"
 #include "addons/ime_state_sync.h"
 #include "addons/layer_mod_overlay.h"
+#include "addons/orthogonal_mod_layer_lang.h"
 #include "addons/status_led.h"
-#include "addons/user_dual_func_macro_lang.h"
 
 // -----------------------------------------------------------------------------
 //
