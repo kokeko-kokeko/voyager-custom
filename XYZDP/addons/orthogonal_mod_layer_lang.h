@@ -1,6 +1,6 @@
 #pragma once
 
-// use MT with 3,4 mod for dual func include Meh Hyper, if use passthrough
+// use MT with 1 or 2 mod, must override hold side
 // HOOR : hold only override, tap pass to normal
 // 
 
