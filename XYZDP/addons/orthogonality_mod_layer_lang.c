@@ -290,7 +290,7 @@ static bool process_record_thor_skel(const thor_setting_t * const setting, uint1
 
   // finalize
   if (record->tap.count > 0) {
-    // tap, if no hit replace pass to normal
+    // tap, if no hit replace, pass to normal
     if (record->event.pressed) {
       if (send_tap != KC_NO) reg16_wo_shift(send_tap);
       else return true;
@@ -298,6 +298,9 @@ static bool process_record_thor_skel(const thor_setting_t * const setting, uint1
       if (send_tap != KC_NO) unreg16_wo_shift(send_tap);
       else return true;
     }
+    
+    // tap, non-raplace, terminate here
+    return false;
   } else {
     if (record->event.pressed) {
       if (layer_hold != 0) layer_on(layer_hold);
