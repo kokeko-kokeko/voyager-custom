@@ -269,12 +269,12 @@ static uint16_t conv_kc_to_jp(uint16_t keycode) {
 typedef struct thor_setting {
   uint16_t (*const search_tap_func)(uint16_t);
   uint16_t (*const shift_func)(uint16_t);
-  const uint16_t match;
+  const uint16_t match_mod;
   const bool force_shift;
 } thor_setting_t;
 
 static bool process_record_thor_skel(const thor_setting_t * const setting, uint16_t keycode, keyrecord_t *record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != setting->match) return true;
+  if (QK_MOD_TAP_GET_MODS(keycode) != setting->match_mod) return true;
 
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = setting->search_tap_func(id_code);
