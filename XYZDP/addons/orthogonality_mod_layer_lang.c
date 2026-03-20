@@ -267,7 +267,7 @@ static uint16_t conv_kc_to_jp(uint16_t keycode) {
 }
 
 typedef struct user_override_conf {
-  uint16_t (*const search_tap_func)(uint16_t);
+  uint16_t (*const replace_func)(uint16_t);
   uint16_t (*const shift_func)(uint16_t);
   const uint16_t match_mod;
   const bool force_shift;
@@ -277,7 +277,7 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
   if (QK_MOD_TAP_GET_MODS(keycode) != conf->match_mod) return true;
 
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-  uint16_t send_tap = conf->search_tap_func(id_code);
+  uint16_t send_tap = conf->replace_func(id_code);
   uint8_t pos = get_pos_from_keyrecord(record);
   uint8_t mods_hold = conv_pos_to_mods(pos);
   uint8_t layer_hold = conv_pos_to_layer(pos);
@@ -322,11 +322,11 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
   return true;
 }
 
-static uint16_t search_nop(uint16_t keycode) {  
+static uint16_t replace_nop(uint16_t keycode) {  
   return KC_NO;
 }
 
-static uint16_t search_tap_base_number(uint16_t keycode) {
+static uint16_t replace_base_number(uint16_t keycode) {
   switch (keycode) {
     case KC_A: return KC_AT;
     case KC_B: return KC_HASH;
@@ -409,7 +409,7 @@ static uint16_t engram_symbol_shift(uint16_t keycode) {
   return keycode;
 }
 
-static uint16_t search_tap_cursor(uint16_t keycode) {
+static uint16_t replace_cursor(uint16_t keycode) {
   switch (keycode) {
     case KC_A: return LCTL(KC_A);
     case KC_B: return LCTL(KC_S);
@@ -449,11 +449,11 @@ static uint16_t bracket_counter_shift(uint16_t keycode) {
   return keycode;
 }
 
-static const user_override_conf_t hoor   = {search_nop, search_nop, MOD_HOOR, false};
-static const user_override_conf_t thor1  = {search_tap_base_number, engram_symbol_shift, MOD_THOR1, false};
-static const user_override_conf_t thor1s = {search_tap_base_number, engram_symbol_shift, MOD_THOR1S, true};
-static const user_override_conf_t thor2  = {search_tap_cursor, bracket_counter_shift, MOD_THOR2, false};
-static const user_override_conf_t thor2s = {search_tap_cursor, bracket_counter_shift, MOD_THOR2S, true};
+static const user_override_conf_t hoor   = {replace_nop, replace_nop, MOD_HOOR, false};
+static const user_override_conf_t thor1  = {replace_base_number, engram_symbol_shift, MOD_THOR1, false};
+static const user_override_conf_t thor1s = {replace_base_number, engram_symbol_shift, MOD_THOR1S, true};
+static const user_override_conf_t thor2  = {replace_cursor, bracket_counter_shift, MOD_THOR2, false};
+static const user_override_conf_t thor2s = {replace_cursor, bracket_counter_shift, MOD_THOR2S, true};
 
 void jis_enable(void) {
   jis_flag = true;
