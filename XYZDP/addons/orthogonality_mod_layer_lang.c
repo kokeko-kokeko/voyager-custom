@@ -312,33 +312,44 @@ static bool process_record_thor_skel(const thor_setting_t * const setting, uint1
   uint8_t mods_hold = conv_pos_to_mods(pos);
   uint8_t layer_hold = conv_pos_to_layer(pos);
   
-  // finalize
+  // process shift & lang
   if (send_tap != KC_NO) {
     if ((get_mods() & MOD_MASK_SHIFT) || setting->force_shift) send_tap = setting->shift_func(send_tap);
     if (jis_flag) send_tap = conv_kc_to_jp(send_tap);
-    
-    if (record->tap.count > 0) {
-      if (record->event.pressed) {
-        reg16_wo_shift(send_tap);
-      } else {
-        unreg16_wo_shift(send_tap);
-      }
+  }
+
+  // finalize
+  if (record->tap.count > 0) {
+    // tap, if no hit replace pass to normal
+    if (record->event.pressed) {
+      if (send_tap != KC_NO) reg16_wo_shift(send_tap);
+      else return true;
     } else {
-      if (record->event.pressed) {
-        if (layer_hold != 0) layer_on(layer_hold);
-        else if (mods_hold != 0) register_mods(mods_hold);
-        else reg16_wo_shift(send_tap);
-      } else {
-        if (layer_hold != 0) layer_off(layer_hold);
-        else if (mods_hold != 0) unregister_mods(mods_hold);
-        else unreg16_wo_shift(send_tap);
-      }  
+      if (send_tap != KC_NO) unreg16_wo_shift(send_tap);
+      else return true;
     }
-    
+  } else {
+    if (record->event.pressed) {
+      if (layer_hold != 0) layer_on(layer_hold);
+      else if (mods_hold != 0) register_mods(mods_hold);
+      else if (send_tap != KC_NO) reg16_wo_shift(send_tap);
+      else register_code16(id_code); 
+    } else {
+      if (layer_hold != 0) layer_off(layer_hold);
+      else if (mods_hold != 0) unregister_mods(mods_hold);
+      else if (send_tap != KC_NO) unreg16_wo_shift(send_tap);
+      else unregister_code16(id_code); 
+    }  
+
+    // hold, terminate here
     return false;
   }
   
   return true;
+}
+
+static uint16_t search_nop(uint16_t keycode) {  
+  return KC_NO;
 }
 
 static uint16_t search_tap_base_number(uint16_t keycode) {
