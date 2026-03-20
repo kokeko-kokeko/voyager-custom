@@ -56,9 +56,8 @@ static uint8_t conv_pos_to_mods(uint8_t pos) {
     case 18: return MOD_BIT_LSHIFT;
 
     case 49: return MOD_BIT_RSHIFT;
-    
-    default:   return 0;
-  }        
+  }     
+  
   return 0;
 }
 
@@ -75,9 +74,8 @@ static uint8_t conv_pos_to_layer(uint8_t pos) {
     
     case 25: return LAYER_L_thumb_2;
     case 50: return LAYER_R_thumb_2;
-    
-    default:   return 0;
-  }        
+  }
+  
   return 0;
 }
 
@@ -293,9 +291,8 @@ static uint16_t conv_kc_to_jp(uint16_t keycode) {
 
     case KC_BSLS: return JP_BSLS;
     case KC_UNDS: return JP_UNDS;
-    
-    default:      return keycode;
-  }        
+  }
+  
   return keycode;
 }
 
@@ -388,9 +385,8 @@ static uint16_t search_tap_base_number(uint16_t keycode) {
 
     //case KC_PCMM: return KC_COMM;
     //case KC_PDOT: return KC_DOT;
-
-    default:   return KC_NO;
-  }        
+  }
+  
   return KC_NO;
 }
 
@@ -423,9 +419,8 @@ static uint16_t engram_symbol_shift(uint16_t keycode) {
     case KC_8:    return KC_AMPR;
     case KC_9:    return KC_PERC;
     case KC_0:    return KC_ASTR;
-    
-    default:      return keycode;
-  }        
+  }
+  
   return keycode;
 }
 
@@ -448,9 +443,8 @@ static uint16_t search_tap_cursor(uint16_t keycode) {
 
     case KC_M: return KC_EXLM;
     case KC_N: return KC_QUES;
-    
-    default:   return KC_NO;
-  }        
+  }
+  
   return KC_NO;
 }
 
@@ -465,9 +459,8 @@ static uint16_t bracket_counter_shift(uint16_t keycode) {
     case KC_RCBR: return KC_LCBR;
     case KC_RABK: return KC_LABK;
     case KC_RPRN: return KC_LPRN;
-    
-    default:      return keycode;
-  }        
+  }
+  
   return keycode;
 }
 
