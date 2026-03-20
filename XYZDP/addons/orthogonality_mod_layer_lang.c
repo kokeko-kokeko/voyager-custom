@@ -79,36 +79,6 @@ static uint8_t conv_pos_to_layer(uint8_t pos) {
   return 0;
 }
 
-static bool process_record_hoor(uint16_t keycode, keyrecord_t *record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_HOOR) return true;
-  
-  uint16_t send_tap = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-  uint8_t pos = get_pos_from_keyrecord(record);
-  uint8_t mods_hold = conv_pos_to_mods(pos);
-  uint8_t layer_hold = conv_pos_to_layer(pos);
-  
-  // finalize
-  if (record->tap.count > 0) {
-    // tap, pass to normal logic 
-    return true;
-  } else {
-    if (record->event.pressed) {
-      if (layer_hold != 0) layer_on(layer_hold);
-      else if (mods_hold != 0) register_mods(mods_hold);
-      else register_code16(send_tap); 
-    } else {
-      if (layer_hold != 0) layer_off(layer_hold);
-      else if (mods_hold != 0) unregister_mods(mods_hold);
-      else unregister_code16(send_tap);   
-    }
-    
-    // hold, terminate here
-    return false;
-  }
-  
-  return true;
-}
-
 static bool process_record_mcfw(uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_MCFW) return true;
 
@@ -475,6 +445,7 @@ static uint16_t bracket_counter_shift(uint16_t keycode) {
   return keycode;
 }
 
+static const thor_setting_t hoor  = {search_nop, search_nop, MOD_HOOR, false};
 static const thor_setting_t thor1  = {search_tap_base_number, engram_symbol_shift, MOD_THOR1, false};
 static const thor_setting_t thor1s = {search_tap_base_number, engram_symbol_shift, MOD_THOR1S, true};
 static const thor_setting_t thor2  = {search_tap_cursor, bracket_counter_shift, MOD_THOR2, false};
@@ -495,10 +466,10 @@ bool jis_is_enabled(void) {
 bool process_record_orthogonality_mod_layer_lang(uint16_t keycode, keyrecord_t *record) {
   // non-MT keycode, skip
   if (IS_QK_MOD_TAP(keycode) == false) return true;
-
-  if (process_record_hoor(keycode, record) == false) return false;
-
+  
   if (process_record_mcfw(keycode, record) == false) return false;  
+
+  if (process_record_thor_skel(&hoor, keycode, record) == false) return false;
   
   if (process_record_thor_skel(&thor1,  keycode, record) == false) return false;
   if (process_record_thor_skel(&thor1s, keycode, record) == false) return false;
