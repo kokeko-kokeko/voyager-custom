@@ -273,7 +273,7 @@ typedef struct user_override_conf {
   const bool force_shift;
 } user_override_conf_t;
 
-static bool process_record_thor_skel(const user_override_conf_t * const conf, uint16_t keycode, keyrecord_t *record) {
+static bool process_record_user_override_skel(const user_override_conf_t * const conf, uint16_t keycode, keyrecord_t *record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != conf->match_mod) return true;
 
   uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
@@ -472,13 +472,13 @@ bool process_record_orthogonality_mod_layer_lang(uint16_t keycode, keyrecord_t *
   
   if (process_record_mcfw(keycode, record) == false) return false;  
 
-  if (process_record_thor_skel(&hoor, keycode, record) == false) return false;
+  if (process_record_user_override_skel(&hoor, keycode, record) == false) return false;
   
-  if (process_record_thor_skel(&thor1,  keycode, record) == false) return false;
-  if (process_record_thor_skel(&thor1s, keycode, record) == false) return false;
+  if (process_record_user_override_skel(&thor1,  keycode, record) == false) return false;
+  if (process_record_user_override_skel(&thor1s, keycode, record) == false) return false;
   
-  if (process_record_thor_skel(&thor2,  keycode, record) == false) return false;
-  if (process_record_thor_skel(&thor2s, keycode, record) == false) return false;
+  if (process_record_user_override_skel(&thor2,  keycode, record) == false) return false;
+  if (process_record_user_override_skel(&thor2s, keycode, record) == false) return false;
     
   return true;
 }
