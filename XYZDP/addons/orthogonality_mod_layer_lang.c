@@ -302,6 +302,7 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
     // tap, non-raplace, terminate here
     return false;
   } else {
+    // hold, no pass to normal
     if (record->event.pressed) {
       if (layer_hold != 0) layer_on(layer_hold);
       else if (mods_hold != 0) register_mods(mods_hold);
