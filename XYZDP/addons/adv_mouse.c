@@ -528,7 +528,8 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
 
   if (layer_state_or) {
     set_scrolling = true;
-    activate_mouse_flag(true);
+
+    status_led(0b0100, led_pattern_delayed_on);
     
     return state;
   }
@@ -569,7 +570,6 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
 
     status_led(0b0100, led_pattern_off);
 
-    activate_mouse_flag(false);
     //set_auto_mouse_enable(true);
     automouse_enable();
   
