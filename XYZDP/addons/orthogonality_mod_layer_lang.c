@@ -208,7 +208,7 @@ static bool process_record_mcfw(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-static void reg16_wo_shift (uint16_t code16) {
+static void reg16_wo_shift (const uint16_t code16) {
   bool l_shift = get_mods() & MOD_BIT_LSHIFT;
   bool r_shift = get_mods() & MOD_BIT_RSHIFT;
 
@@ -218,7 +218,7 @@ static void reg16_wo_shift (uint16_t code16) {
   if (r_shift) add_mods(MOD_BIT_RSHIFT);      
 }
 
-static void unreg16_wo_shift (uint16_t code16) {
+static void unreg16_wo_shift (const uint16_t code16) {
   bool l_shift = get_mods() & MOD_BIT_LSHIFT;
   bool r_shift = get_mods() & MOD_BIT_RSHIFT;
 
@@ -228,7 +228,7 @@ static void unreg16_wo_shift (uint16_t code16) {
   if (r_shift) add_mods(MOD_BIT_RSHIFT);    
 }
 
-static uint16_t conv_kc_to_jp(uint16_t keycode) {
+static uint16_t conv_kc_to_jp(const uint16_t keycode) {
   switch (keycode) {
     case KC_DQUO: return JP_DQUO;
     case KC_AMPR: return JP_AMPR;
@@ -267,20 +267,20 @@ static uint16_t conv_kc_to_jp(uint16_t keycode) {
 }
 
 typedef struct user_override_conf {
-  uint16_t (*const replace_func)(uint16_t);
-  uint16_t (*const shift_func)(uint16_t);
+  uint16_t (* const replace_func)(uint16_t);
+  uint16_t (* const shift_func)(uint16_t);
   const uint16_t match_mod;
   const bool force_shift;
 } user_override_conf_t;
 
-static bool process_record_user_override_skel(const user_override_conf_t * const conf, uint16_t keycode, keyrecord_t *record) {
+static bool process_record_user_override_skel(const user_override_conf_t * const conf, const uint16_t keycode, const keyrecord_t * const record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != conf->match_mod) return true;
 
-  uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+  const uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = conf->replace_func(id_code);
-  uint8_t pos = get_pos_from_keyrecord(record);
-  uint8_t mods_hold = conv_pos_to_mods(pos);
-  uint8_t layer_hold = conv_pos_to_layer(pos);
+  const uint8_t pos = get_pos_from_keyrecord(record);
+  const uint8_t mods_hold = conv_pos_to_mods(pos);
+  const uint8_t layer_hold = conv_pos_to_layer(pos);
   
   // process shift & lang
   if (send_tap != KC_NO) {
