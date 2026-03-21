@@ -478,10 +478,10 @@ bool process_record_orthogonality_mod_layer_lang(uint16_t keycode, keyrecord_t *
 
   if (process_record_user_override_skel(&hoor, keycode, record) == false) return false;
   
-  if (process_record_user_override_skel(&thor1,  keycode, record) == false) return false;
+  if (process_record_user_override_skel(&thor1, keycode, record) == false) return false;
   if (process_record_user_override_skel(&thor1s, keycode, record) == false) return false;
   
-  if (process_record_user_override_skel(&thor2,  keycode, record) == false) return false;
+  if (process_record_user_override_skel(&thor2, keycode, record) == false) return false;
   if (process_record_user_override_skel(&thor2s, keycode, record) == false) return false;
     
   return true;
