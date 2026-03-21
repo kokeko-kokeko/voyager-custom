@@ -31,4 +31,8 @@ void jis_enable(void);
 void jis_disable(void);
 bool jis_is_enabled(void);
 
+void mac_enable(void);
+void mac_disable(void);
+bool mac_is_enabled(void);
+
 bool process_record_orthogonality_mod_layer_lang(uint16_t keycode, keyrecord_t *record);
