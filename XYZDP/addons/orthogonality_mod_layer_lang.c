@@ -16,6 +16,7 @@
 #include "keymap_japanese.h"
 
 static bool jis_flag = false;
+static bool mac_flag = false;
 
 static uint8_t conv_pos_to_mods(const uint8_t pos) {
   switch (pos) {
@@ -455,6 +456,18 @@ void jis_disable(void) {
 
 bool jis_is_enabled(void) {
   return jis_flag;
+}
+
+void mac_enable(void) {
+  mac_flag = true;
+}
+
+void mac_disable(void) {
+  mac_flag = false;
+}
+
+bool mac_is_enabled(void) {
+  return mac_flag;
 }
 
 bool process_record_orthogonality_mod_layer_lang(uint16_t keycode, keyrecord_t *record) {
