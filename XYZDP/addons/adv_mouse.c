@@ -601,8 +601,6 @@ layer_state_t layer_state_set_adv_mouse(layer_state_t state) {
 
 void housekeeping_task_adv_mouse(void) {
   const fast_timer_t now = timer_read_fast();
-  
-  update_mouse_flag(); 
 
   if (timer_expired_fast(now, auto_mouse_early_off_trigger)) {
     auto_mouse_early_off_trigger = now + (UINT32_MAX / 2) - 1;
