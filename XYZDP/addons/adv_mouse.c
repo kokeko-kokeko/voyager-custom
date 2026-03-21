@@ -177,7 +177,7 @@ static layer_state_t layer_state_set_mouse_edge_detect(const layer_state_t state
   navigator_turbo = false;
   navigator_aim = false;
 
-  activate_mouse_flag(false);
+  
 
   return state;
 }
