@@ -327,6 +327,10 @@ static uint16_t replace_nop(const uint16_t keycode) {
   return KC_NO;
 }
 
+static uint16_t nop_shift(const uint16_t keycode) {  
+  return keycode;
+}
+
 static uint16_t replace_base_number(const uint16_t keycode) {
   switch (keycode) {
     case KC_A: return KC_AT;
@@ -450,7 +454,7 @@ static uint16_t bracket_counter_shift(const uint16_t keycode) {
   return keycode;
 }
 
-static const user_override_conf_t hoor   = {replace_nop, replace_nop, MOD_HOOR, false};
+static const user_override_conf_t hoor   = {replace_nop, nop_shift, MOD_HOOR, false};
 static const user_override_conf_t thor1  = {replace_base_number, engram_symbol_shift, MOD_THOR1, false};
 static const user_override_conf_t thor1s = {replace_base_number, engram_symbol_shift, MOD_THOR1S, true};
 static const user_override_conf_t thor2  = {replace_cursor, bracket_counter_shift, MOD_THOR2, false};
