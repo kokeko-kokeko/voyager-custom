@@ -5,6 +5,7 @@ extern const uint8_t led_pattern_on[];
 extern const uint8_t led_pattern_blink[];
 extern const uint8_t led_pattern_single[];
 extern const uint8_t led_pattern_oneshot[];
+extern const uint8_t led_pattern_delayed_on[];
 
 void status_led(const uint8_t mask, const uint8_t * const pattern);
 
