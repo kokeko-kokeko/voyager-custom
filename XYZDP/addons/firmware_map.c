@@ -99,6 +99,18 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
         
     return false;
   }
+
+  if (pos == POSITION_Mac_off) {
+    mac_disable();
+        
+    return false;
+  }
+
+  if (pos == POSITION_Mac_on) {
+    mac_enable();
+        
+    return false;
+  }
       
   if (pos == POSITION_Tran_off) {
     layer_on(LAYER_Base);
@@ -214,7 +226,7 @@ void set_layer_color_firmware_map(void) {
   
   //ANSI/JIS
   if (jis_is_enabled()) {
-      //JIS
+    //JIS
     rgb_matrix_set_color(POSITION_JIS, 0, f, 0);
     rgb_matrix_set_color(POSITION_ANSI, q, q, q);  
   } else {
@@ -222,6 +234,17 @@ void set_layer_color_firmware_map(void) {
     rgb_matrix_set_color(POSITION_JIS, q, q, q);
     rgb_matrix_set_color(POSITION_ANSI, f, 0, 0);
   }
+  
+  if (mac_is_enabled()) {
+    //Mac
+    rgb_matrix_set_color(POSITION_Mac_off, q, q, q);
+    rgb_matrix_set_color(POSITION_Mac_on, f, 0, 0);  
+  } else {
+    //Win
+    rgb_matrix_set_color(POSITION_Mac_off, 0, 0, f);
+    rgb_matrix_set_color(POSITION_Mac_on, q, q, q);
+  }
+  
 
   // Transition
   if (layer_state_is(LAYER_Transition)) {
