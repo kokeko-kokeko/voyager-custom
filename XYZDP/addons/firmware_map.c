@@ -25,8 +25,8 @@
 enum key_position {
   POSITION_JIS = 0,
   POSITION_ANSI = 6,
-  POSITION_Tran_off = 1,
-  POSITION_Tran_on = 7,
+  POSITION_Tran_off = 2,
+  POSITION_Tran_on = 8,
   POSITION_ISS_on = 4,
   POSITION_ISS_off = 10,
   POSITION_MJ_on = 5,
