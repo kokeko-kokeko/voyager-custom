@@ -275,6 +275,7 @@ void keyboard_post_init_user(void) {
   layer_off(LAYER_Transition);
 	
   jis_enable();
+  mac_disable();
 }
 
 bool process_detected_host_os_user(os_variant_t detected_os) {
