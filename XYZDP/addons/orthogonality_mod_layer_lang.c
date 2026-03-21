@@ -327,7 +327,7 @@ static uint16_t replace_nop(const uint16_t keycode) {
   return KC_NO;
 }
 
-static uint16_t nop_shift(const uint16_t keycode) {  
+static uint16_t shift_nop(const uint16_t keycode) {  
   return keycode;
 }
 
@@ -380,7 +380,7 @@ static uint16_t replace_base_number(const uint16_t keycode) {
   return KC_NO;
 }
 
-static uint16_t engram_symbol_shift(const uint16_t keycode) {
+static uint16_t shift_engram_symbol(const uint16_t keycode) {
   switch (keycode) {
     case KC_AT:   return KC_GRV;
     case KC_HASH: return KC_DLR;
@@ -438,7 +438,7 @@ static uint16_t replace_cursor(const uint16_t keycode) {
   return KC_NO;
 }
 
-static uint16_t bracket_counter_shift(const uint16_t keycode) {
+static uint16_t shift_bracket_counter(const uint16_t keycode) {
   switch (keycode) {
     case KC_LBRC: return KC_RBRC;
     case KC_LCBR: return KC_RCBR;
@@ -454,11 +454,11 @@ static uint16_t bracket_counter_shift(const uint16_t keycode) {
   return keycode;
 }
 
-static const user_override_conf_t hoor   = {replace_nop, nop_shift, MOD_HOOR, false};
-static const user_override_conf_t thor1  = {replace_base_number, engram_symbol_shift, MOD_THOR1, false};
-static const user_override_conf_t thor1s = {replace_base_number, engram_symbol_shift, MOD_THOR1S, true};
-static const user_override_conf_t thor2  = {replace_cursor, bracket_counter_shift, MOD_THOR2, false};
-static const user_override_conf_t thor2s = {replace_cursor, bracket_counter_shift, MOD_THOR2S, true};
+static const user_override_conf_t hoor   = {replace_nop, shift_nop, MOD_HOOR, false};
+static const user_override_conf_t thor1  = {replace_base_number, shift_engram_symbol, MOD_THOR1, false};
+static const user_override_conf_t thor1s = {replace_base_number, shift_engram_symbol, MOD_THOR1S, true};
+static const user_override_conf_t thor2  = {replace_cursor, shift_bracket_counter, MOD_THOR2, false};
+static const user_override_conf_t thor2s = {replace_cursor, shift_bracket_counter, MOD_THOR2S, true};
 
 void jis_enable(void) {
   jis_flag = true;
