@@ -17,7 +17,7 @@
 
 static bool jis_flag = false;
 
-static uint8_t conv_pos_to_mods(uint8_t pos) {
+static uint8_t conv_pos_to_mods(const uint8_t pos) {
   switch (pos) {
     case  3: return MOD_BIT_LALT | MOD_BIT_LSHIFT;
     case  4: return MOD_BIT_LALT | MOD_BIT_LCTRL;
@@ -61,7 +61,7 @@ static uint8_t conv_pos_to_mods(uint8_t pos) {
   return 0;
 }
 
-static uint8_t conv_pos_to_layer(uint8_t pos) {
+static uint8_t conv_pos_to_layer(const uint8_t pos) {
   switch (pos) {
     case  6: return LAYER_L_pinky;
     case 37: return LAYER_R_pinky;
@@ -79,10 +79,10 @@ static uint8_t conv_pos_to_layer(uint8_t pos) {
   return 0;
 }
 
-static bool process_record_mcfw(uint16_t keycode, keyrecord_t *record) {
+static bool process_record_mcfw(const uint16_t keycode, const keyrecord_t * const record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_MCFW) return true;
 
-  uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode); 
+  const uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode); 
 
   if (id_code == KC_M) {
     if (record->event.pressed) {
@@ -189,6 +189,7 @@ static bool process_record_mcfw(uint16_t keycode, keyrecord_t *record) {
 
     return false;
   }
+  
   // Firmware  
   if (id_code == KC_1) return firmware_map_main_keyrecord(record);
   if (id_code == KC_3) return firmware_map_invoke_halt_keyrecord(record);
@@ -322,11 +323,11 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
   return true;
 }
 
-static uint16_t replace_nop(uint16_t keycode) {  
+static uint16_t replace_nop(const uint16_t keycode) {  
   return KC_NO;
 }
 
-static uint16_t replace_base_number(uint16_t keycode) {
+static uint16_t replace_base_number(const uint16_t keycode) {
   switch (keycode) {
     case KC_A: return KC_AT;
     case KC_B: return KC_HASH;
@@ -375,7 +376,7 @@ static uint16_t replace_base_number(uint16_t keycode) {
   return KC_NO;
 }
 
-static uint16_t engram_symbol_shift(uint16_t keycode) {
+static uint16_t engram_symbol_shift(const uint16_t keycode) {
   switch (keycode) {
     case KC_AT:   return KC_GRV;
     case KC_HASH: return KC_DLR;
@@ -409,7 +410,7 @@ static uint16_t engram_symbol_shift(uint16_t keycode) {
   return keycode;
 }
 
-static uint16_t replace_cursor(uint16_t keycode) {
+static uint16_t replace_cursor(const uint16_t keycode) {
   switch (keycode) {
     case KC_A: return LCTL(KC_A);
     case KC_B: return LCTL(KC_S);
@@ -433,7 +434,7 @@ static uint16_t replace_cursor(uint16_t keycode) {
   return KC_NO;
 }
 
-static uint16_t bracket_counter_shift(uint16_t keycode) {
+static uint16_t bracket_counter_shift(const uint16_t keycode) {
   switch (keycode) {
     case KC_LBRC: return KC_RBRC;
     case KC_LCBR: return KC_RCBR;
