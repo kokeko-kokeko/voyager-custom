@@ -200,7 +200,7 @@ static bool process_record_mcfw(const uint16_t keycode, const keyrecord_t * cons
   if (base_code == KC_5) return fade_matrix_color_palette_sel_sat_keyrecord(record);
   if (base_code == KC_6) return fade_matrix_color_palette_sel_val_keyrecord(record);
     
-  if (base_code == KC_8) return fade_matrix_color_palette_load_preset_keyrecord(record);
+  if (base_code == KC_P) return fade_matrix_color_palette_load_preset_keyrecord(record);
     
   // layer move
   if (base_code == KC_2) return firmware_map_enter_color_palette_keyrecord(record);
