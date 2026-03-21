@@ -675,11 +675,11 @@ void set_layer_color_overlay_mouse(void) {
   
   // scroll
   if (get_mouse_flag_scrolling()) {
-    if (get_mouse_flag_turbo() && get_mouse_flag_aim()) {
+    if (navigator_turbo && navigator_aim) {
       rgb_matrix_set_color(0, f, f, 0);
-    } else if (get_mouse_flag_turbo()) {
+    } else if (navigator_turbo) {
       rgb_matrix_set_color(0, f, h, 0);
-    } else if (get_mouse_flag_aim()) {
+    } else if (navigator_aim) {
       rgb_matrix_set_color(0, 0, f, h);
     } else {
       rgb_matrix_set_color(0, 0, h, f);
