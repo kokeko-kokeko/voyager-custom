@@ -177,7 +177,7 @@ static layer_state_t layer_state_set_mouse_edge_detect(const layer_state_t state
   navigator_turbo = false;
   navigator_aim = false;
 
-  
+  status_led(0b0111, led_pattern_off);
 
   return state;
 }
@@ -214,6 +214,8 @@ static layer_state_t layer_state_set_mouse_upper_left_edge_detect(const layer_st
     
     navigator_turbo = false;
     navigator_aim = false;
+
+    status_led(0b0111, led_pattern_off);
     
     return state;
   }
@@ -234,6 +236,8 @@ static layer_state_t layer_state_set_mouse_upper_left_edge_detect(const layer_st
     
     navigator_turbo = false;
     navigator_aim = false;
+
+    status_led(0b0111, led_pattern_off);
     
     return state;
   }
@@ -277,6 +281,8 @@ static layer_state_t layer_state_set_mouse_upper_right_edge_detect(const layer_s
     
     navigator_turbo = false;
     navigator_aim = false;
+
+    status_led(0b0111, led_pattern_off);
     
     return state;
   }
@@ -297,6 +303,8 @@ static layer_state_t layer_state_set_mouse_upper_right_edge_detect(const layer_s
     
     navigator_turbo = false;
     navigator_aim = false;
+
+    status_led(0b0111, led_pattern_off);
     
     return state;
   }
@@ -340,6 +348,8 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
     
     navigator_turbo = false;
     navigator_aim = false;
+
+    status_led(0b0011, led_pattern_off);
     
     return state;
   }
@@ -360,6 +370,8 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
     
     navigator_turbo = false;
     navigator_aim = false;
+
+    status_led(0b0111, led_pattern_off);
     
     return state;
   }
@@ -375,6 +387,9 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
 
     navigator_turbo = false;
     navigator_aim = false;
+
+    status_led(0b0011, led_pattern_off);
+    status_led(0b0100, led_pattern_delayed_on);
       
     return state;
   }  
@@ -386,6 +401,9 @@ static layer_state_t layer_state_set_mouse_number_edge_detect(const layer_state_
     
     navigator_turbo = true;
     navigator_aim = false;
+
+    status_led(0b0010, led_pattern_off);
+    status_led(0b0101, led_pattern_delayed_on);
 
     return state;
   }
@@ -425,6 +443,8 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
   
     navigator_turbo = false;
     navigator_aim = false;
+
+    status_led(0b0111, led_pattern_off);
     
     return state;
   }
@@ -445,6 +465,8 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
     
     navigator_turbo = false;
     navigator_aim = false;
+
+    status_led(0b0111, led_pattern_off);
     
     return state;
   }
@@ -460,6 +482,9 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
       
     navigator_turbo = false;
     navigator_aim = true;
+
+    status_led(0b0001, led_pattern_off);
+    status_led(0b0110, led_pattern_delayed_on);
     
     return state;
   }
@@ -471,6 +496,9 @@ static layer_state_t layer_state_set_mouse_cursor_edge_detect(const layer_state_
     
     navigator_turbo = true;
     navigator_aim = false;
+
+    status_led(0b0010, led_pattern_off);
+    status_led(0b0101, led_pattern_delayed_on);
     
     return state;
   }
@@ -526,6 +554,8 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
     //if (is_auto_mouse_active() == false) {
     //  set_auto_mouse_enable(false);
     //}
+    status_led(0b0100, led_pattern_delayed_on);
+    
     if (automouse_is_active() == false) {
       automouse_disable();
     }
@@ -536,6 +566,9 @@ static layer_state_t layer_state_set_mouse_auto_block_scrolling(layer_state_t st
   if (layer_state_cmp(state, LAYER_Mouse)) {
     // update LED, no scroll
     set_scrolling = false;
+
+    status_led(0b0100, led_pattern_off);
+
     activate_mouse_flag(false);
     //set_auto_mouse_enable(true);
     automouse_enable();
