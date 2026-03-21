@@ -82,9 +82,9 @@ static uint8_t conv_pos_to_layer(const uint8_t pos) {
 static bool process_record_mcfw(const uint16_t keycode, const keyrecord_t * const record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_MCFW) return true;
 
-  const uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode); 
+  const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode); 
 
-  if (id_code == KC_M) {
+  if (base_code == KC_M) {
     if (record->event.pressed) {
       uint8_t pos = get_pos_from_keyrecord(record);
 
@@ -191,20 +191,20 @@ static bool process_record_mcfw(const uint16_t keycode, const keyrecord_t * cons
   }
   
   // Firmware  
-  if (id_code == KC_1) return firmware_map_main_keyrecord(record);
-  if (id_code == KC_3) return firmware_map_invoke_halt_keyrecord(record);
+  if (base_code == KC_1) return firmware_map_main_keyrecord(record);
+  if (base_code == KC_3) return firmware_map_invoke_halt_keyrecord(record);
     
   // Color Palette
-  if (id_code == KC_4) return fade_matrix_color_palette_main_keyrecord(record);
+  if (base_code == KC_4) return fade_matrix_color_palette_main_keyrecord(record);
     
-  if (id_code == KC_5) return fade_matrix_color_palette_sel_sat_keyrecord(record);
-  if (id_code == KC_6) return fade_matrix_color_palette_sel_val_keyrecord(record);
+  if (base_code == KC_5) return fade_matrix_color_palette_sel_sat_keyrecord(record);
+  if (base_code == KC_6) return fade_matrix_color_palette_sel_val_keyrecord(record);
     
-  if (id_code == KC_8) return fade_matrix_color_palette_load_preset_keyrecord(record);
+  if (base_code == KC_8) return fade_matrix_color_palette_load_preset_keyrecord(record);
     
   // layer move
-  if (id_code == KC_2) return firmware_map_enter_color_palette_keyrecord(record);
-  if (id_code == KC_7) return firmware_map_exit_all_keyrecord(record);
+  if (base_code == KC_2) return firmware_map_enter_color_palette_keyrecord(record);
+  if (base_code == KC_7) return firmware_map_exit_all_keyrecord(record);
   
   return true;
 }
@@ -277,8 +277,8 @@ typedef struct user_override_conf {
 static bool process_record_user_override_skel(const user_override_conf_t * const conf, const uint16_t keycode, const keyrecord_t * const record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != conf->match_mod) return true;
 
-  const uint16_t id_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-  uint16_t send_tap = conf->replace_func(id_code);
+  const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+  uint16_t send_tap = conf->replace_func(base_code);
   const uint8_t pos = get_pos_from_keyrecord(record);
   const uint8_t mods_hold = conv_pos_to_mods(pos);
   const uint8_t layer_hold = conv_pos_to_layer(pos);
@@ -308,12 +308,12 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
       if (layer_hold != 0) layer_on(layer_hold);
       else if (mods_hold != 0) register_mods(mods_hold);
       else if (send_tap != KC_NO) reg16_wo_shift(send_tap);
-      else register_code16(id_code); 
+      else register_code16(base_code); 
     } else {
       if (layer_hold != 0) layer_off(layer_hold);
       else if (mods_hold != 0) unregister_mods(mods_hold);
       else if (send_tap != KC_NO) unreg16_wo_shift(send_tap);
-      else unregister_code16(id_code); 
+      else unregister_code16(base_code); 
     }  
 
     // hold, terminate here
