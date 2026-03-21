@@ -54,7 +54,6 @@ static volatile bool halt_request0 = false;
 static volatile bool halt_request1 = false;
 static volatile bool halt_request2 = false;
 static uint8_t halt_invoke_count = 0;
-static fast_timer_t abort_halt_trigger = (UINT32_MAX / 2) - 1;
 static fast_timer_t exec_halt_trigger = (UINT32_MAX / 2) - 1;
 
 // call mouse jiggler
@@ -399,7 +398,6 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   if (record->tap.count > 0) {
     if (record->event.pressed) {
       halt_invoke_count = record->tap.count;
-      abort_halt_trigger = now + 5003;
     } else {
       
     }
@@ -495,7 +493,6 @@ layer_state_t layer_state_set_firmware_map(const layer_state_t state) {
   const fast_timer_t now = timer_read_fast();
 
   halt_invoke_count = 0;
-  abort_halt_trigger = now + (UINT32_MAX / 2) - 1;
   exec_halt_trigger = now + (UINT32_MAX / 2) - 1;
 
   return state;
@@ -503,22 +500,6 @@ layer_state_t layer_state_set_firmware_map(const layer_state_t state) {
 
 void housekeeping_task_exec_halt(void) {
   const fast_timer_t now = timer_read_fast();
-  
-  if (timer_expired_fast(now, abort_halt_trigger) == true) {
-    halt_invoke_count = 0;
-    abort_halt_trigger = now + (UINT32_MAX / 2) - 1;
-
-    // clear flag
-    halt_request0 = false;
-    halt_request1 = false;
-    halt_request2 = false;
-
-    // halt status
-    STATUS_LED_1(false);
-    STATUS_LED_2(false);
-    STATUS_LED_3(false);
-    STATUS_LED_4(false);
-  }
   
   if ((halt_request0 && halt_request1 && halt_request2) == false) return;
   
