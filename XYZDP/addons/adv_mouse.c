@@ -674,7 +674,7 @@ void set_layer_color_overlay_mouse(void) {
   rgb_matrix_set_color(48, f, h, 0);
   
   // scroll
-  if (get_mouse_flag_scrolling()) {
+  if (set_scrolling) {
     if (navigator_turbo && navigator_aim) {
       rgb_matrix_set_color(0, f, f, 0);
     } else if (navigator_turbo) {
@@ -688,11 +688,11 @@ void set_layer_color_overlay_mouse(void) {
     rgb_matrix_set_color(22, h, 0, 0);
     rgb_matrix_set_color(45, h, 0, 0);
   } else {
-    if (get_mouse_flag_turbo() && get_mouse_flag_aim()) {
+    if (navigator_turbo && navigator_aim) {
       rgb_matrix_set_color(0, f, f, f);
-    } else if (get_mouse_flag_turbo()) {
+    } else if (navigator_turbo) {
       rgb_matrix_set_color(0, f, 0, 0);
-    } else if (get_mouse_flag_aim()) {
+    } else if (navigator_aim) {
       rgb_matrix_set_color(0, 0, f, 0);
     } else {
       rgb_matrix_set_color(0, 0, 0, f);
