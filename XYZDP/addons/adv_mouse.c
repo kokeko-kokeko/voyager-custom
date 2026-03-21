@@ -30,69 +30,6 @@ static const fast_timer_t btn_early_off_delay[16] = {
   AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT, AUTO_MOUSE_TIME_SHORT
 };
 
-// mouse status delayed display
-static bool set_scrolling_delayed = false;
-static bool navigator_turbo_delayed = false;
-static bool navigator_aim_delayed = false;
-
-static fast_timer_t mouse_flag_update_trigger = 0;
-
-bool get_mouse_flag_scrolling(void) {
-  return set_scrolling_delayed;
-}
-
-bool get_mouse_flag_turbo(void) {
-  return navigator_turbo_delayed;
-}
-
-bool get_mouse_flag_aim(void) {
-  return navigator_aim_delayed;
-}
-
-static void activate_mouse_flag(const bool pressed) {
-  const fast_timer_t now = timer_read_fast();
-
-  if (pressed) {
-    mouse_flag_update_trigger = now + TAPPING_TERM;
-  } else {
-    mouse_flag_update_trigger = now + 1;
-  }
-  
-  return;
-}
-
-static void update_mouse_flag(void) {
-  const fast_timer_t now = timer_read_fast();
-  
-  if (timer_expired_fast(now, mouse_flag_update_trigger) == false) return;
-  mouse_flag_update_trigger = now + (UINT32_MAX / 2) - 1;
-  
-  // update
-  set_scrolling_delayed = set_scrolling;
-  navigator_turbo_delayed = navigator_turbo;
-  navigator_aim_delayed = navigator_aim;
-  
-  if (get_mouse_flag_scrolling()) {
-    status_led(0b0100, led_pattern_on);
-  } else {
-    status_led(0b0100, led_pattern_off);
-  }
-    
-  if (get_mouse_flag_turbo()) {
-    status_led(0b0001, led_pattern_on);
-  } else {
-    status_led(0b0001, led_pattern_off);
-  }
-    
-  if (get_mouse_flag_aim()) {
-    status_led(0b0010, led_pattern_on);
-  } else {
-    status_led(0b0010, led_pattern_off);
-  }
-  return;
-}
-
-
 static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record) {
   // mouse non-active skip
   if (layer_state_is(LAYER_Mouse) == false) return;
