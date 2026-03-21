@@ -86,7 +86,7 @@ static bool process_record_mcfw(const uint16_t keycode, const keyrecord_t * cons
 
   if (base_code == KC_M) {
     if (record->event.pressed) {
-      uint8_t pos = get_pos_from_keyrecord(record);
+      const uint8_t pos = get_pos_from_keyrecord(record);
 
       //` `
       if (pos == 2) {
