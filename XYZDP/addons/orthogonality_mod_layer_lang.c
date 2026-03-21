@@ -191,11 +191,11 @@ static bool process_record_mcfw(const uint16_t keycode, const keyrecord_t * cons
   }
   
   // Firmware  
-  if (base_code == KC_1) return firmware_map_main_keyrecord(record);
-  if (base_code == KC_3) return firmware_map_invoke_halt_keyrecord(record);
+  if (base_code == KC_F) return firmware_map_main_keyrecord(record);
+  if (base_code == KC_H) return firmware_map_invoke_halt_keyrecord(record);
     
   // Color Palette
-  if (base_code == KC_4) return fade_matrix_color_palette_main_keyrecord(record);
+  if (base_code == KC_C) return fade_matrix_color_palette_main_keyrecord(record);
     
   if (base_code == KC_5) return fade_matrix_color_palette_sel_sat_keyrecord(record);
   if (base_code == KC_6) return fade_matrix_color_palette_sel_val_keyrecord(record);
@@ -357,24 +357,9 @@ static uint16_t replace_base_number(const uint16_t keycode) {
     case KC_8: return KC_8;
     case KC_9: return KC_9;
     case KC_0: return KC_0;
-
-    //case KC_KP_1: return KC_1;
-    //case KC_KP_2: return KC_2;
-    //case KC_KP_3: return KC_3;
-    //case KC_KP_4: return KC_4;
-    //case KC_KP_5: return KC_5;
     
-    //case KC_KP_6: return KC_6;
-    //case KC_KP_7: return KC_7;
-    //case KC_KP_8: return KC_8;
-    //case KC_KP_9: return KC_9;
-    //case KC_KP_0: return KC_0;
-
     case KC_COMM: return KC_COMM;
     case KC_DOT:  return KC_DOT;
-
-    //case KC_PCMM: return KC_COMM;
-    //case KC_PDOT: return KC_DOT;
   }
   
   return KC_NO;
