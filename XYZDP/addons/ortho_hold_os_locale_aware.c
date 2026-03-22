@@ -337,6 +337,7 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
     } else {
       if (mods_hold != 0) unregister_mods(mods_hold);
       else if (layer_hold != 0) layer_off(layer_hold);
+      else if (caps_word_flag) return false;
       else if (swap_hands_flag) swap_hands_off();
       else if (send_tap != KC_NO) unreg16_wo_shift(send_tap);
       else unregister_code16(base_code); 
