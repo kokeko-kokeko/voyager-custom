@@ -5,7 +5,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "addons/orthogonality_mod_layer_lang.h"
+#include "addons/ortho_hold_os_locale_aware.h"
 
 #include "addons/fade_matrix.h"
 #include "addons/firmware_map.h"
