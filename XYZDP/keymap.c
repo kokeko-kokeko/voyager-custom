@@ -344,12 +344,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case LAYER_Base:
     case LAYER_Transition:
       status_led(0b0011, led_pattern_off);
-
-      if (is_swap_hands_on()) {
-        status_led(0b1100, led_pattern_on);
-      } else {
-        status_led(0b1100, led_pattern_off);
-      }
       break;
     case LAYER_Mouse:
       // mouse indication
