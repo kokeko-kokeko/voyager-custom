@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MT(MOD_RCTL, KC_A),MT(MOD_RCTL, KC_B),MT(MOD_LCTL, KC_Y),MT(MOD_LCTL, KC_O),MT(MOD_LCTL, KC_U),MT(MOD_RCTL, KC_C),                                MT(MOD_RCTL, KC_G),MT(MOD_LCTL, KC_D),MT(MOD_LCTL, KC_N),MT(MOD_LCTL, KC_G),MT(MOD_RCTL, KC_F),CW_TOGG,        
     MT(MOD_LCTL, KC_B),MT(MOD_LCTL, KC_H),MT(MOD_LCTL, KC_I),MT(MOD_LCTL, KC_A),MT(MOD_LCTL, KC_E),MT(MOD_RCTL, KC_D),                                MT(MOD_RCTL, KC_H),MT(MOD_LCTL, KC_T),MT(MOD_LCTL, KC_R),MT(MOD_LCTL, KC_S),MT(MOD_LCTL, KC_C),MT(MOD_LCTL, KC_V),
     MT(MOD_LCTL, KC_Q),MT(MOD_LCTL, KC_K),MT(MOD_LCTL, KC_J),MT(MOD_LCTL, KC_X),MT(MOD_LCTL, KC_W),MT(MOD_RCTL, KC_E),                                MT(MOD_RCTL, KC_I),MT(MOD_LCTL, KC_M),MT(MOD_LCTL, KC_L),MT(MOD_LCTL, KC_F),MT(MOD_LCTL, KC_P),MT(MOD_LCTL, KC_Z),
-    KC_LEFT_SHIFT,  KC_LEFT,        KC_RIGHT,       KC_BSPC,        MT(MOD_LCTL, KC_SPACE),KC_NO,                                          KC_NO,          MT(MOD_LCTL, KC_SPACE),MT(MOD_LCTL, KC_DELETE),KC_UP,          KC_DOWN,        KC_RIGHT_SHIFT, 
+    KC_LEFT_SHIFT,  KC_LEFT,        KC_RIGHT,       KC_BSPC,        MT(MOD_LCTL, KC_SPACE),MT(MOD_LCTL, KC_LANGUAGE_2),                                MT(MOD_LCTL, KC_LANGUAGE_1),MT(MOD_LCTL, KC_SPACE),MT(MOD_LCTL, KC_DELETE),KC_UP,          KC_DOWN,        KC_RIGHT_SHIFT, 
                                                     MT(MOD_LCTL, KC_TAB),MT(MOD_LCTL, KC_ESCAPE),                                MT(MOD_LCTL, KC_BSPC),KC_ENTER
   ),
   [1] = LAYOUT_voyager(
