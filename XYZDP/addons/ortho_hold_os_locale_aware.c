@@ -80,6 +80,25 @@ static uint8_t conv_pos_to_layer(const uint8_t pos) {
   return 0;
 }
 
+static bool conv_pos_to_caps_word_flag(const uint8_t pos) {
+  switch (pos) {
+    case  0: return true;
+    case 31: return true;
+  }
+
+  return false;
+}
+
+
+static bool conv_pos_to_swap_hands_flag(const uint8_t pos) {
+  switch (pos) {
+    case 23: return true;
+    case 44: return true;
+  }
+
+  return false;
+}
+
 static bool process_record_mcfw(const uint16_t keycode, const keyrecord_t * const record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_MCFW) return true;
 
@@ -283,6 +302,8 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
   const uint8_t pos = get_pos_from_keyrecord(record);
   const uint8_t mods_hold = conv_pos_to_mods(pos);
   const uint8_t layer_hold = conv_pos_to_layer(pos);
+  const bool caps_word_flag = conv_pos_to_caps_word_flag(pos);
+  const bool swap_hands_flag = conv_pos_to_swap_hands_flag(pos);
   
   // process shift & lang
   if (send_tap != KC_NO) {
@@ -306,12 +327,15 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
   } else {
     // hold, no pass to normal
     if (record->event.pressed) {
-      if (layer_hold != 0) layer_on(layer_hold);
+      if (swap_hands_flag) swap_hands_on();
+      else if (caps_word_flag) caps_word_toggle();
+      else if (layer_hold != 0) layer_on(layer_hold);
       else if (mods_hold != 0) register_mods(mods_hold);
       else if (send_tap != KC_NO) reg16_wo_shift(send_tap);
       else register_code16(base_code); 
     } else {
-      if (layer_hold != 0) layer_off(layer_hold);
+      if (swap_hands_flag) swap_hands_off();
+      else if (layer_hold != 0) layer_off(layer_hold);
       else if (mods_hold != 0) unregister_mods(mods_hold);
       else if (send_tap != KC_NO) unreg16_wo_shift(send_tap);
       else unregister_code16(base_code); 
