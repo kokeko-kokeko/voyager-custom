@@ -470,7 +470,7 @@ bool mac_is_enabled(void) {
   return mac_flag;
 }
 
-bool process_record_orthogonality_mod_layer_lang(uint16_t keycode, keyrecord_t *record) {
+bool process_record_ortho_hold_os_locale_aware(uint16_t keycode, keyrecord_t *record) {
   // non-MT keycode, skip
   if (IS_QK_MOD_TAP(keycode) == false) return true;
   
