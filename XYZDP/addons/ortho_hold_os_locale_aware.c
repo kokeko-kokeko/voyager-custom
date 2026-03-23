@@ -341,34 +341,55 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
   } else {
     // hold, no pass to normal
     const uint8_t pos = get_pos_from_keyrecord(record);
-    uint8_t mods_hold = conv_pos_to_mods(pos);
-    const uint8_t layer_hold = conv_pos_to_layer(pos);
-    const bool caps_word_flag = conv_pos_to_caps_word_flag(pos);
-    const bool swap_hands_flag = conv_pos_to_swap_hands_flag(pos);
-
-    if (mac_flag) mods_hold = conv_mods_pc_to_mac(mods_hold);
     
-    if (record->event.pressed) {
-      if (mods_hold != 0) register_mods(mods_hold);
-      else if (layer_hold != 0) layer_on(layer_hold);
-      else if (caps_word_flag) caps_word_toggle();
-      else if (swap_hands_flag) {
-        swap_hands_on();
-        status_led(0b1100, led_pattern_on);
-      } else if (send_tap != KC_NO) reg16_wo_shift(send_tap);
-      else register_code16(base_code); 
-    } else {
-      if (mods_hold != 0) unregister_mods(mods_hold);
-      else if (layer_hold != 0) layer_off(layer_hold);
-      else if (caps_word_flag) return false;
-      else if (swap_hands_flag) {
-        swap_hands_off();
-        status_led(0b1100, led_pattern_off);
-      } else if (send_tap != KC_NO) unreg16_wo_shift(send_tap);
-      else unregister_code16(base_code); 
+    uint8_t mods_hold = conv_pos_to_mods(pos);
+    if (mac_flag) mods_hold = conv_mods_pc_to_mac(mods_hold);
+
+    if (mods_hold != 0) {
+      if (record->event.pressed) register_mods(mods_hold);
+      else unregister_mods(mods_hold);
+
+      return false;
     }
     
-    // hold, terminate here
+    const uint8_t layer_hold = conv_pos_to_layer(pos);
+    
+    if (layer_hold != 0) {
+      if (record->event.pressed) layer_on(layer_hold);
+      else layer_off(layer_hold);
+
+      return false;
+    }
+
+    if (conv_pos_to_caps_word_flag(pos)) {
+      if (record->event.pressed) caps_word_toggle();
+
+      return false;
+    }
+
+    if (conv_pos_to_swap_hands_flag(pos)) {
+      if (record->event.pressed) {
+        swap_hands_on();
+        status_led(0b1100, led_pattern_on);
+      } else {
+        swap_hands_off();
+        status_led(0b1100, led_pattern_off);
+      }
+
+      return false;
+    }
+
+    if (send_tap != KC_NO) {
+      if (record->event.pressed) reg16_wo_shift(send_tap);
+      else unreg16_wo_shift(send_tap);
+
+      return false;
+    }
+
+    if (record->event.pressed) register_code16(base_code);
+    else unregister_code16(base_code);
+        
+    // hold, must terminate here
     return false;
   }
   
