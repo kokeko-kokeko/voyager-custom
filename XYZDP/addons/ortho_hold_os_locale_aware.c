@@ -495,12 +495,6 @@ static uint16_t shift_bracket_counter(const uint16_t keycode) {
   return keycode;
 }
 
-static const user_override_conf_t hoor   = {replace_nop, shift_nop, MOD_HOOR, false};
-static const user_override_conf_t thor1  = {replace_base_number, shift_engram_symbol, MOD_THOR1, false};
-static const user_override_conf_t thor1s = {replace_base_number, shift_engram_symbol, MOD_THOR1S, true};
-static const user_override_conf_t thor2  = {replace_cursor, shift_bracket_counter, MOD_THOR2, false};
-static const user_override_conf_t thor2s = {replace_cursor, shift_bracket_counter, MOD_THOR2S, true};
-
 void jis_enable(void) {
   jis_flag = true;
 }
@@ -524,6 +518,12 @@ void mac_disable(void) {
 bool mac_is_enabled(void) {
   return mac_flag;
 }
+
+static const user_override_conf_t hoor   = {replace_nop, shift_nop, MOD_HOOR, false};
+static const user_override_conf_t thor1  = {replace_base_number, shift_engram_symbol, MOD_THOR1, false};
+static const user_override_conf_t thor1s = {replace_base_number, shift_engram_symbol, MOD_THOR1S, true};
+static const user_override_conf_t thor2  = {replace_cursor, shift_bracket_counter, MOD_THOR2, false};
+static const user_override_conf_t thor2s = {replace_cursor, shift_bracket_counter, MOD_THOR2S, true};
 
 bool process_record_ortho_hold_os_locale_aware(uint16_t keycode, keyrecord_t *record) {
   // non-MT keycode, skip
