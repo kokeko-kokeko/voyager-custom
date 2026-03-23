@@ -431,11 +431,14 @@ static uint16_t shift_engram_symbol(const uint16_t keycode) {
 }
 
 static uint16_t replace_cursor(const uint16_t keycode) {
+  uint16_t sc_mod = QK_LCTL;
+  if (mac_flag) sc_mod = QK_LGUI;
+  
   switch (keycode) {
-    case KC_A: return LCTL(KC_A);
-    case KC_B: return LCTL(KC_S);
-    case KC_C: return LCTL(KC_C);
-    case KC_D: return LCTL(KC_V);
+    case KC_A: return sc_mod | KC_A;
+    case KC_B: return sc_mod | KC_S;
+    case KC_C: return sc_mod | KC_C;
+    case KC_D: return sc_mod | KC_V;
 
     case KC_E: return KC_HOME;
     case KC_F: return KC_END;
