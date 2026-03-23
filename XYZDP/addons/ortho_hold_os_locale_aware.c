@@ -362,6 +362,7 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
       else unregister_code16(base_code); 
     }
 
+    // overwrite only swap indication
     if (is_swap_hands_on()) status_led(0b1111, led_pattern_on);
     
     // hold, terminate here
