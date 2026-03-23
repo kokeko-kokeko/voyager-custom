@@ -315,11 +315,13 @@ typedef struct user_override_conf {
 
 static bool process_record_user_override_skel(const user_override_conf_t * const conf, const uint16_t keycode, const keyrecord_t * const record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != conf->match_mod) return true;
-
-  const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-  uint16_t send_tap = conf->replace_func(base_code);
   
+  // branch tap/hold first
   if (record->tap.count > 0) {
+    // tap
+    const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+    uint16_t send_tap = conf->replace_func(base_code);
+    
     // tap, if no hit replace, pass to normal (send base_code)
     if (send_tap == KC_NO) return true;
 
@@ -372,6 +374,9 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
 
       return false;
     }
+
+    const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+    uint16_t send_tap = conf->replace_func(base_code);
 
     if (send_tap != KC_NO) {
       // process shift & lang
