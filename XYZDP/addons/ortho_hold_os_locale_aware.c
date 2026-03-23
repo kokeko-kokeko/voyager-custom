@@ -519,6 +519,31 @@ bool mac_is_enabled(void) {
   return mac_flag;
 }
 
+bool process_detected_host_os_ortho_hold_os_locale_aware(os_variant_t detected_os) {
+  switch (detected_os) {
+    case OS_MACOS:
+      jis_flag = true;
+      mac_flag = true;
+      break;
+    case OS_IOS:
+      jis_flag = false;
+      mac_flag = true;
+      break;
+    case OS_WINDOWS:
+      jis_flag = true;
+      mac_flag = false;
+      break;
+    case OS_LINUX:
+      jis_flag = false;
+      mac_flag = false;
+      break;
+    case OS_UNSURE:
+      break;
+  }
+  
+  return true;
+}
+
 static const user_override_conf_t hoor   = {replace_nop, shift_nop, MOD_HOOR, false};
 static const user_override_conf_t thor1  = {replace_base_number, shift_engram_symbol, MOD_THOR1, false};
 static const user_override_conf_t thor1s = {replace_base_number, shift_engram_symbol, MOD_THOR1S, true};
