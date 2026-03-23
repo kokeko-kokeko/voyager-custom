@@ -288,6 +288,22 @@ static uint16_t conv_kc_to_jp(const uint16_t keycode) {
   return keycode;
 }
 
+static uint8_t conv_mods_pc_to_mac(uint8_t mods) {
+  bool l_ctrl = mods & MOD_BIT_LCTRL;
+  bool r_ctrl = mods & MOD_BIT_RCTRL;
+  bool l_gui = mods & MOD_BIT_LGUI;
+  bool r_gui = mods & MOD_BIT_RGUI;
+
+  mods &= ~MOD_MASK_CG;
+
+  if (l_ctrl) mods |= MOD_BIT_LGUI;
+  if (r_ctrl) mods |= MOD_BIT_RGUI;
+  if (l_gui) mods |= MOD_BIT_LCTRL;
+  if (r_gui) mods |= MOD_BIT_RCTRL;
+
+  return mods;
+}
+
 typedef struct user_override_conf {
   uint16_t (* const replace_func)(uint16_t);
   uint16_t (* const shift_func)(uint16_t);
@@ -323,10 +339,12 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
   } else {
     // hold, no pass to normal
     const uint8_t pos = get_pos_from_keyrecord(record);
-    const uint8_t mods_hold = conv_pos_to_mods(pos);
+    uint8_t mods_hold = conv_pos_to_mods(pos);
     const uint8_t layer_hold = conv_pos_to_layer(pos);
     const bool caps_word_flag = conv_pos_to_caps_word_flag(pos);
     const bool swap_hands_flag = conv_pos_to_swap_hands_flag(pos);
+
+    if (mac_flag) mods_hold = conv_mods_pc_to_mac(mods_hold);
     
     if (record->event.pressed) {
       if (mods_hold != 0) register_mods(mods_hold);
