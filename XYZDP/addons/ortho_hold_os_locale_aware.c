@@ -319,21 +319,18 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
   const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   uint16_t send_tap = conf->replace_func(base_code);
   
-  // process shift & lang
-  if (send_tap != KC_NO) {
+  if (record->tap.count > 0) {
+    // tap, if no hit replace, pass to normal (send base_code)
+    if (send_tap == KC_NO) return true;
+
+    // process shift & lang
     if ((get_mods() & MOD_MASK_SHIFT) || conf->force_shift) send_tap = conf->shift_func(send_tap);
     if (jis_flag) send_tap = conv_kc_to_jp(send_tap);
-  }
-
-  // finalize
-  if (record->tap.count > 0) {
-    // tap, if no hit replace, pass to normal
-    if (send_tap == KC_NO) return true;
     
     if (record->event.pressed) reg16_wo_shift(send_tap);
     else unreg16_wo_shift(send_tap);
     
-    // tap, non-raplace, terminate here
+    // tap, with raplace, terminate here
     return false;
   } else {
     // hold, no pass to normal
@@ -377,6 +374,10 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
     }
 
     if (send_tap != KC_NO) {
+      // process shift & lang
+      if ((get_mods() & MOD_MASK_SHIFT) || conf->force_shift) send_tap = conf->shift_func(send_tap);
+      if (jis_flag) send_tap = conv_kc_to_jp(send_tap);
+      
       if (record->event.pressed) reg16_wo_shift(send_tap);
       else unreg16_wo_shift(send_tap);
 
