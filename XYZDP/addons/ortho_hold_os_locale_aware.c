@@ -344,7 +344,7 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
       else unregister_code16(base_code); 
     }
 
-    if (is_swap_hands_on()) status_led(0b1111, led_pattern_delayed_on);
+    if (is_swap_hands_on()) status_led(0b1111, led_pattern_on);
     else status_led(0b1111, led_pattern_off);
 
     // hold, terminate here
