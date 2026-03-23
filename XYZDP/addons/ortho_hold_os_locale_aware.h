@@ -35,4 +35,5 @@ void mac_enable(void);
 void mac_disable(void);
 bool mac_is_enabled(void);
 
+bool process_detected_host_os_ortho_hold_os_locale_aware(os_variant_t detected_os);
 bool process_record_ortho_hold_os_locale_aware(uint16_t keycode, keyrecord_t *record);
