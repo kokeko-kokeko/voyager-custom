@@ -350,20 +350,21 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
       if (mods_hold != 0) register_mods(mods_hold);
       else if (layer_hold != 0) layer_on(layer_hold);
       else if (caps_word_flag) caps_word_toggle();
-      else if (swap_hands_flag) swap_hands_on();
-      else if (send_tap != KC_NO) reg16_wo_shift(send_tap);
+      else if (swap_hands_flag) {
+        swap_hands_on();
+        status_led(0b1111, led_pattern_on);
+      } else if (send_tap != KC_NO) reg16_wo_shift(send_tap);
       else register_code16(base_code); 
     } else {
       if (mods_hold != 0) unregister_mods(mods_hold);
       else if (layer_hold != 0) layer_off(layer_hold);
       else if (caps_word_flag) return false;
-      else if (swap_hands_flag) swap_hands_off();
-      else if (send_tap != KC_NO) unreg16_wo_shift(send_tap);
+      else if (swap_hands_flag) {
+        swap_hands_off();
+        status_led(0b1111, led_pattern_off);
+      } else if (send_tap != KC_NO) unreg16_wo_shift(send_tap);
       else unregister_code16(base_code); 
     }
-
-    // overwrite only swap indication
-    if (is_swap_hands_on()) status_led(0b1111, led_pattern_on);
     
     // hold, terminate here
     return false;
@@ -449,8 +450,9 @@ static uint16_t shift_engram_symbol(const uint16_t keycode) {
 }
 
 static uint16_t replace_cursor(const uint16_t keycode) {
-  uint16_t sc_mod = MOD_LCTL;
-  if (mac_flag) sc_mod = MOD_LGUI;
+  // must use QK_ for bit position
+  uint16_t sc_mod = QK_LCTL;
+  if (mac_flag) sc_mod = QK_LGUI;
   
   switch (keycode) {
     case KC_A: return sc_mod | KC_A;
