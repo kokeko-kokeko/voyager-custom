@@ -289,6 +289,8 @@ static uint16_t conv_kc_to_jp(const uint16_t keycode) {
 }
 
 static uint8_t conv_mods_pc_to_mac(uint8_t mods) {
+  if ((mods & MOD_MASK_CG) == 0) return mods;
+  
   bool l_ctrl = mods & MOD_BIT_LCTRL;
   bool r_ctrl = mods & MOD_BIT_RCTRL;
   bool l_gui = mods & MOD_BIT_LGUI;
