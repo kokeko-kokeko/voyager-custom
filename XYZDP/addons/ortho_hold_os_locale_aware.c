@@ -328,13 +328,10 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
   // finalize
   if (record->tap.count > 0) {
     // tap, if no hit replace, pass to normal
-    if (record->event.pressed) {
-      if (send_tap != KC_NO) reg16_wo_shift(send_tap);
-      else return true;
-    } else {
-      if (send_tap != KC_NO) unreg16_wo_shift(send_tap);
-      else return true;
-    }
+    if (send_tap == KC_NO) return true;
+    
+    if (record->event.pressed) reg16_wo_shift(send_tap);
+    else unreg16_wo_shift(send_tap);
     
     // tap, non-raplace, terminate here
     return false;
