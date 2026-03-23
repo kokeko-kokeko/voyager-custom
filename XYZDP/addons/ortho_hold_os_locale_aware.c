@@ -354,7 +354,7 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
       else if (caps_word_flag) caps_word_toggle();
       else if (swap_hands_flag) {
         swap_hands_on();
-        status_led(0b1111, led_pattern_on);
+        status_led(0b1100, led_pattern_on);
       } else if (send_tap != KC_NO) reg16_wo_shift(send_tap);
       else register_code16(base_code); 
     } else {
@@ -363,7 +363,7 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
       else if (caps_word_flag) return false;
       else if (swap_hands_flag) {
         swap_hands_off();
-        status_led(0b1111, led_pattern_off);
+        status_led(0b1100, led_pattern_off);
       } else if (send_tap != KC_NO) unreg16_wo_shift(send_tap);
       else unregister_code16(base_code); 
     }
