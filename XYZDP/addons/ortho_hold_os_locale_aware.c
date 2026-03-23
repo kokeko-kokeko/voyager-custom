@@ -449,8 +449,8 @@ static uint16_t shift_engram_symbol(const uint16_t keycode) {
 }
 
 static uint16_t replace_cursor(const uint16_t keycode) {
-  uint16_t sc_mod = QK_LCTL;
-  if (mac_flag) sc_mod = QK_LGUI;
+  uint16_t sc_mod = MOD_LCTL;
+  if (mac_flag) sc_mod = MOD_LGUI;
   
   switch (keycode) {
     case KC_A: return sc_mod | KC_A;
