@@ -341,7 +341,10 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
       else if (swap_hands_flag) swap_hands_off();
       else if (send_tap != KC_NO) unreg16_wo_shift(send_tap);
       else unregister_code16(base_code); 
-    }  
+    }
+
+    if (is_swap_hands_on()) status_led(0b1111, led_pattern_delayed_on);
+    else status_led(0b1111, led_pattern_off);
 
     // hold, terminate here
     return false;
