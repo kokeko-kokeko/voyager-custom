@@ -342,21 +342,21 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
     // hold, no pass to normal
     const uint8_t pos = get_pos_from_keyrecord(record);
     
-    uint8_t mods_hold = conv_pos_to_mods(pos);
-    if (mac_flag) mods_hold = conv_mods_pc_to_mac(mods_hold);
+    uint8_t temp_8 = conv_pos_to_mods(pos);
+    if (mac_flag) temp_8 = conv_mods_pc_to_mac(temp_8);
 
-    if (mods_hold != 0) {
-      if (record->event.pressed) register_mods(mods_hold);
-      else unregister_mods(mods_hold);
+    if (temp_8 != 0) {
+      if (record->event.pressed) register_mods(temp_8);
+      else unregister_mods(temp_8);
 
       return false;
     }
     
-    const uint8_t layer_hold = conv_pos_to_layer(pos);
+    temp_8 = conv_pos_to_layer(pos);
     
-    if (layer_hold != 0) {
-      if (record->event.pressed) layer_on(layer_hold);
-      else layer_off(layer_hold);
+    if (temp_8 != 0) {
+      if (record->event.pressed) layer_on(temp_8);
+      else layer_off(temp_8);
 
       return false;
     }
