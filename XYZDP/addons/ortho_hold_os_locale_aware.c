@@ -9,6 +9,7 @@
 
 #include "addons/fade_matrix.h"
 #include "addons/firmware_map.h"
+#include "addons/status_led.h"
 
 #include "layer_num.h"
 
