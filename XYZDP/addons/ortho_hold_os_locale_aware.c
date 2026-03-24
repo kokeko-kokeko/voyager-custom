@@ -29,7 +29,7 @@ typedef struct hold_action {
 // check udner 32-bit
 _Static_assert(sizeof(hold_action_t) <= 4, "Hold action struct too large!!");
 
-static hold_action_t conv_pos_to_mods(const uint8_t pos) {
+static hold_action_t conv_pos_to_hold_action(const uint8_t pos) {
   switch (pos) {
     case  0: return (hold_action_t){0, 0, true, false};
     case  3: return (hold_action_t){MOD_BIT_LALT | MOD_BIT_LSHIFT, 0, false, false};
@@ -361,33 +361,31 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
   } else {
     // hold, no pass to normal
     const uint8_t pos = get_pos_from_keyrecord(record);
+    conv_pos_to_hold_action send_hold = conv_pos_to_hold_action(pos);
     
-    uint8_t temp = conv_pos_to_mods(pos);
-    if (mac_flag) temp = conv_mods_pc_to_mac(temp);
+    if (mac_flag) send_hold.mods = conv_mods_pc_to_mac(send_hold.mods);
 
-    if (temp != 0) {
-      if (record->event.pressed) register_mods(temp);
-      else unregister_mods(temp);
+    if (send_hold.mods != 0) {
+      if (record->event.pressed) register_mods(send_hold.mods);
+      else unregister_mods(send_hold.mods);
 
       return false;
     }
     
-    temp = conv_pos_to_layer(pos);
-    
-    if (temp != 0) {
-      if (record->event.pressed) layer_on(temp);
-      else layer_off(temp);
+    if (send_hold.layer != 0) {
+      if (record->event.pressed) layer_on(send_hold.layer);
+      else layer_off(send_hold.layer);
 
       return false;
     }
 
-    if (conv_pos_to_caps_word_flag(pos)) {
+    if (send_hold.caps_word_flag) {
       if (record->event.pressed) caps_word_toggle();
 
       return false;
     }
 
-    if (conv_pos_to_swap_hands_flag(pos)) {
+    if (send_hold.swap_hands_flag) {
       if (record->event.pressed) {
         swap_hands_on();
         status_led(0b1100, led_pattern_on);
