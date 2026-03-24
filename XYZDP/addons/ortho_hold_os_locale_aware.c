@@ -31,7 +31,7 @@ _Static_assert(sizeof(hold_action_t) <= 4, "Hold action struct too large!!");
 
 static hold_action_t conv_pos_to_mods(const uint8_t pos) {
   switch (pos) {
-    case  3: return ({MOD_BIT_LALT | MOD_BIT_LSHIFT, 0, false, false});
+    case  3: return {(MOD_BIT_LALT | MOD_BIT_LSHIFT), 0, false, false};
     case  4: return {MOD_BIT_LALT | MOD_BIT_LCTRL, 0, false, false};
     case  5: return {MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
 
