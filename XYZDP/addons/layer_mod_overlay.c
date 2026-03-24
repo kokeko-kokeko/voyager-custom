@@ -211,11 +211,15 @@ void set_layer_color_overlay_mod(void) {
   if (get_mods() & MOD_BIT_LCTRL) {
     rgb_matrix_set_color(10, 0, 0, 0);
     rgb_matrix_set_color(16, 0, 0, 0);
+
+    rgb_matrix_set_color(12, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_LSHIFT) {
     rgb_matrix_set_color(9, 0, 0, 0);
     rgb_matrix_set_color(15, 0, 0, 0);
+
+    rgb_matrix_set_color(18, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_LALT) {
@@ -231,11 +235,15 @@ void set_layer_color_overlay_mod(void) {
   if (get_mods() & MOD_BIT_RCTRL) {
     rgb_matrix_set_color(33, 0, 0, 0);
     rgb_matrix_set_color(39, 0, 0, 0);
+
+    rgb_matrix_set_color(43, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_RSHIFT) {
     rgb_matrix_set_color(34, 0, 0, 0);
     rgb_matrix_set_color(40, 0, 0, 0);
+
+    rgb_matrix_set_color(49, 0, 0, 0);
   }
 
   if (get_mods() & MOD_BIT_RALT) {
