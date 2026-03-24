@@ -27,7 +27,7 @@ typedef struct hold_action {
 } hold_action_t;
 
 // check udner 32-bit
-_Static_assert(sizeof(hold_action_t) <= 4, "Hold action struct too large!!");
+_Static_assert(sizeof(hold_action_t) <= 2, "Hold action struct too large!!");
 
 static hold_action_t conv_pos_to_hold_action(const uint8_t pos) {
   switch (pos) {
