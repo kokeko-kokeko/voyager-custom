@@ -361,7 +361,7 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
   } else {
     // hold, no pass to normal
     const uint8_t pos = get_pos_from_keyrecord(record);
-    conv_pos_to_hold_action send_hold = conv_pos_to_hold_action(pos);
+    hold_action_t send_hold = conv_pos_to_hold_action(pos);
     
     if (mac_flag) send_hold.mods = conv_mods_pc_to_mac(send_hold.mods);
 
