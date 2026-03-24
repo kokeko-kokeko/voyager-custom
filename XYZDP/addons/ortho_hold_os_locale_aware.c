@@ -29,45 +29,45 @@ typedef struct hold_action {
 // check udner 32-bit
 _Static_assert(sizeof(hold_action_t) <= 4, "Hold action struct too large!!");
 
-static uint8_t conv_pos_to_mods(const uint8_t pos) {
+static hold_action_t conv_pos_to_mods(const uint8_t pos) {
   switch (pos) {
-    case  3: return MOD_BIT_LALT | MOD_BIT_LSHIFT;
-    case  4: return MOD_BIT_LALT | MOD_BIT_LCTRL;
-    case  5: return MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
+    case  3: return {MOD_BIT_LALT | MOD_BIT_LSHIFT, 0, false, false};
+    case  4: return {MOD_BIT_LALT | MOD_BIT_LCTRL, 0, false, false};
+    case  5: return {MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
 
-    case 28: return MOD_BIT_RALT | MOD_BIT_RSHIFT;
-    case 27: return MOD_BIT_RALT | MOD_BIT_RCTRL;
-    case 26: return MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
+    case 28: return {MOD_BIT_RALT | MOD_BIT_RSHIFT, 0, false, false};
+    case 27: return {MOD_BIT_RALT | MOD_BIT_RCTRL, 0, false, false};
+    case 26: return {MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
 
-    case  7: return MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
-    case  8: return MOD_BIT_LGUI | MOD_BIT_LALT;
-    case  9: return MOD_BIT_LSHIFT;
-    case 10: return MOD_BIT_LCTRL;
-    case 11: return MOD_BIT_LGUI | MOD_BIT_LSHIFT | MOD_BIT_LCTRL;
+    case  7: return {MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
+    case  8: return {MOD_BIT_LGUI | MOD_BIT_LALT, 0, false, false};
+    case  9: return {MOD_BIT_LSHIFT, 0, false, false};
+    case 10: return {MOD_BIT_LCTRL, 0, false, false};
+    case 11: return {MOD_BIT_LGUI | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
 
-    case 36: return MOD_BIT_RSHIFT | MOD_BIT_RCTRL;
-    case 35: return MOD_BIT_RGUI | MOD_BIT_RALT;
-    case 34: return MOD_BIT_RSHIFT;
-    case 33: return MOD_BIT_RCTRL;
-    case 32: return MOD_BIT_RGUI | MOD_BIT_RSHIFT | MOD_BIT_RCTRL;
+    case 36: return {MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0, false, false};
+    case 35: return {MOD_BIT_RGUI | MOD_BIT_RALT, 0, false, false};
+    case 34: return {MOD_BIT_RSHIFT, 0, false, false};
+    case 33: return {MOD_BIT_RCTRL, 0, false, false};
+    case 32: return {MOD_BIT_RGUI | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0, false, false};
 
-    case 12: return MOD_BIT_LCTRL;
-    case 13: return MOD_BIT_LGUI;
-    case 14: return MOD_BIT_LALT;
-    case 15: return MOD_BIT_LGUI | MOD_BIT_LSHIFT;
-    case 16: return MOD_BIT_LGUI | MOD_BIT_LCTRL;
-    case 17: return MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LCTRL;
+    case 12: return {MOD_BIT_LCTRL, 0, false, false};
+    case 13: return {MOD_BIT_LGUI, 0, false, false};
+    case 14: return {MOD_BIT_LALT, 0, false, false};
+    case 15: return {MOD_BIT_LGUI | MOD_BIT_LSHIFT, 0, false, false};
+    case 16: return {MOD_BIT_LGUI | MOD_BIT_LCTRL, 0, false, false};
+    case 17: return {MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LCTRL, 0, false, false};
 
-    case 43: return MOD_BIT_RCTRL;
-    case 42: return MOD_BIT_RGUI;
-    case 41: return MOD_BIT_RALT;
-    case 40: return MOD_BIT_RGUI | MOD_BIT_RSHIFT;
-    case 39: return MOD_BIT_RGUI | MOD_BIT_RCTRL;
-    case 38: return MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL;
+    case 43: return {MOD_BIT_RCTRL, 0, false, false};
+    case 42: return {MOD_BIT_RGUI, 0, false, false};
+    case 41: return {MOD_BIT_RALT, 0, false, false};
+    case 40: return {MOD_BIT_RGUI | MOD_BIT_RSHIFT, 0, false, false};
+    case 39: return {MOD_BIT_RGUI | MOD_BIT_RCTRL, 0, false, false};
+    case 38: return {MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL, 0, false, false};
 
-    case 18: return MOD_BIT_LSHIFT;
+    case 18: return {MOD_BIT_LSHIFT, 0, false, false};
 
-    case 49: return MOD_BIT_RSHIFT;
+    case 49: return {MOD_BIT_RSHIFT, 0, false, false};
   }     
   
   return 0;
