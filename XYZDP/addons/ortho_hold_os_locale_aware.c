@@ -27,7 +27,7 @@ typedef struct hold_action {
 
 } hold_action_t;
 
-_Static_assert(sizeof(hold_action_t)== 3, "Hold action struct too large!!");
+_Static_assert(sizeof(hold_action_t) == 4, "Hold action struct too large!!");
 
 static uint8_t conv_pos_to_mods(const uint8_t pos) {
   switch (pos) {
