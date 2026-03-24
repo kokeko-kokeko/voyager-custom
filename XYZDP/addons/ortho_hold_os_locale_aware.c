@@ -19,6 +19,16 @@
 static bool jis_flag = false;
 static bool mac_flag = false;
 
+typedef struct hold_action {
+  uint8_t mods  : 8 ;
+  uint8_t layer : 5 ;
+  bool caps_word_flag : 1 ;
+  bool swap_hands_flag : 1 ;
+
+} hold_action_t;
+
+_Static_assert(sizeof(hold_action_t)== 3, "Hold action struct too large!!");
+
 static uint8_t conv_pos_to_mods(const uint8_t pos) {
   switch (pos) {
     case  3: return MOD_BIT_LALT | MOD_BIT_LSHIFT;
