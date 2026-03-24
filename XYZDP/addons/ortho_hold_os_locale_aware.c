@@ -296,12 +296,12 @@ static uint8_t conv_mods_pc_to_mac(uint8_t mods) {
 typedef struct user_override_conf {
   uint16_t (* const replace_func)(uint16_t);
   uint16_t (* const shift_func)(uint16_t);
-  const uint16_t match_mod;
+  const uint16_t match_mods;
   const bool force_shift;
 } user_override_conf_t;
 
 static bool process_record_user_override_skel(const user_override_conf_t * const conf, const uint16_t keycode, const keyrecord_t * const record) {
-  if (QK_MOD_TAP_GET_MODS(keycode) != conf->match_mod) return true;
+  if (QK_MOD_TAP_GET_MODS(keycode) != conf->match_mods) return true;
   
   // branch tap/hold first
   if (record->tap.count > 0) {
@@ -553,11 +553,11 @@ bool process_detected_host_os_ortho_hold_os_locale_aware(os_variant_t detected_o
   return true;
 }
 
-static const user_override_conf_t hoor   = {replace_nop, shift_nop, MOD_HOOR, false};
-static const user_override_conf_t thor1  = {replace_base_number, shift_engram_symbol, MOD_THOR1, false};
-static const user_override_conf_t thor1s = {replace_base_number, shift_engram_symbol, MOD_THOR1S, true};
-static const user_override_conf_t thor2  = {replace_cursor, shift_bracket_counter, MOD_THOR2, false};
-static const user_override_conf_t thor2s = {replace_cursor, shift_bracket_counter, MOD_THOR2S, true};
+static const user_override_conf_t hoor   = (user_override_conf_t){replace_nop, shift_nop, MOD_HOOR, false};
+static const user_override_conf_t thor1  = (user_override_conf_t){replace_base_number, shift_engram_symbol, MOD_THOR1, false};
+static const user_override_conf_t thor1s = (user_override_conf_t){replace_base_number, shift_engram_symbol, MOD_THOR1S, true};
+static const user_override_conf_t thor2  = (user_override_conf_t){replace_cursor, shift_bracket_counter, MOD_THOR2, false};
+static const user_override_conf_t thor2s = (user_override_conf_t){replace_cursor, shift_bracket_counter, MOD_THOR2S, true};
 
 bool process_record_ortho_hold_os_locale_aware(uint16_t keycode, keyrecord_t *record) {
   // non-MT keycode, skip
