@@ -24,10 +24,9 @@ typedef struct hold_action {
   uint8_t layer : 5 ;
   bool caps_word_flag : 1 ;
   bool swap_hands_flag : 1 ;
-
 } hold_action_t;
 
-_Static_assert(sizeof(hold_action_t) == 4, "Hold action struct too large!!");
+_Static_assert(sizeof(hold_action_t) <= 4, "Hold action struct too large!!");
 
 static uint8_t conv_pos_to_mods(const uint8_t pos) {
   switch (pos) {
