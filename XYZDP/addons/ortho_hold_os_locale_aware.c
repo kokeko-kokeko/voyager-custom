@@ -87,43 +87,6 @@ static hold_action_t conv_pos_to_hold_action(const uint8_t pos) {
   return (hold_action_t){0, 0, false, false};
 }
 
-static uint8_t conv_pos_to_layer(const uint8_t pos) {
-  switch (pos) {
-    case  6: return LAYER_L_pinky;
-    case 37: return LAYER_R_pinky;
-
-    case 22: return LAYER_Number;
-    case 45: return LAYER_Cursor;
-
-    case 24: return LAYER_Function;
-    case 46: return LAYER_R_thumb_1;
-    
-    case 25: return LAYER_L_thumb_2;
-    case 50: return LAYER_R_thumb_2;
-  }
-  
-  return 0;
-}
-
-static bool conv_pos_to_caps_word_flag(const uint8_t pos) {
-  switch (pos) {
-    case  0: return true;
-    case 31: return true;
-  }
-
-  return false;
-}
-
-
-static bool conv_pos_to_swap_hands_flag(const uint8_t pos) {
-  switch (pos) {
-    case 23: return true;
-    case 44: return true;
-  }
-
-  return false;
-}
-
 static bool process_record_mcfw(const uint16_t keycode, const keyrecord_t * const record) {
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_MCFW) return true;
 
