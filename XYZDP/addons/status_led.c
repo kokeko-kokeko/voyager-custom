@@ -56,6 +56,22 @@ static status_led_state_t status_led_state_2 = {(UINT32_MAX / 2) - 1, led_patter
 static status_led_state_t status_led_state_3 = {(UINT32_MAX / 2) - 1, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, status_led_out_func_3, false, 0};
 static status_led_state_t status_led_state_4 = {(UINT32_MAX / 2) - 1, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, status_led_out_func_4, false, 0};
 
+static void status_led_state_return_to_start(status_led_state_t * const state) {
+  state->ptr = state->ptr_0;
+  state->out_val = *(state->ptr++);
+  state->scale = *(state->ptr++);
+}
+
+static void status_led_state_calc_delay(status_led_state_t * const state) {
+  fast_timer_t delay = *(state->ptr++);
+  if (delay == 0) {
+    delay = (UINT32_MAX / 2) - UINT8_MAX;  // safety
+  } else {
+    delay <<= state->scale;
+  }
+  state->trigger += delay;
+}
+
 static void status_led_push_func(status_led_state_t * const state, const fast_timer_t trigger, const uint8_t * const pattern) {
   state->trigger = trigger;
 
@@ -63,19 +79,11 @@ static void status_led_push_func(status_led_state_t * const state, const fast_ti
   state->ptr_2 = state->ptr_1;
   state->ptr_1 = state->ptr_0;
   state->ptr_0 = pattern;
-    
-  state->ptr = state->ptr_0;
-  state->out_val = *(state->ptr++);
-  state->scale = *(state->ptr++);
 
-  fast_timer_t delay = *(state->ptr++);
-  if (delay == 0) {
-    delay = (UINT32_MAX / 2) - 1;
-  } else {
-    delay <<= state->scale;
-  }
-  state->trigger += delay;
+  status_led_state_return_to_start(state);
 
+  status_led_state_calc_delay(state);
+  
   return;
 }
 
@@ -87,17 +95,9 @@ static void status_led_pop_func(status_led_state_t * const state, const fast_tim
   state->ptr_1 = state->ptr_2;
   state->ptr_2 = led_pattern_off;
     
-  state->ptr = state->ptr_0;
-  state->out_val = *(state->ptr++);
-  state->scale = *(state->ptr++);
+  status_led_state_return_to_start(state);
 
-  fast_timer_t delay = *(state->ptr++);
-  if (delay == 0) {
-    delay = (UINT32_MAX / 2) - 1;
-  } else {
-    delay <<= state->scale;
-  }
-  state->trigger += delay;
+  status_led_state_calc_delay(state);
 
   return;
 }
@@ -107,30 +107,28 @@ static void status_led_update_func(status_led_state_t * const state, const fast_
 
   if (*(state->ptr) == UINT8_MAX) {
     // return to start
-    state->ptr = state->ptr_0;
-    state->out_val = *(state->ptr++);
-    state->scale = *(state->ptr++);
+    status_led_state_return_to_start(state);
+    
+    status_led_state_calc_delay(state);
+
+    return;
   } else if (*(state->ptr) == UINT8_MAX - 1) {
     // stack pop
     state->ptr_0 = state->ptr_1;
     state->ptr_1 = state->ptr_2;
     state->ptr_2 = led_pattern_off;
+    
+    status_led_state_return_to_start(state);
+    
+    status_led_state_calc_delay(state);
 
-    state->ptr = state->ptr_0;
-    state->out_val = *(state->ptr++);
-    state->scale = *(state->ptr++);
+    return;
+  } else {
+    status_led_state_calc_delay(state);
   }
   
   state->out_func(state->out_val);
   state->out_val = !(state->out_val);
-
-  fast_timer_t delay = *(state->ptr++);
-  if (delay == 0) {
-    delay = (UINT32_MAX / 2) - 1;
-  } else {
-    delay <<= state->scale;
-  }
-  state->trigger += delay;
   
   return;
 }
