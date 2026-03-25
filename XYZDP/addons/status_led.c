@@ -53,7 +53,7 @@ static status_led_state_t status_led_state_2 = {(UINT32_MAX / 2) - 1, led_patter
 static status_led_state_t status_led_state_3 = {(UINT32_MAX / 2) - 1, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, status_led_out_func_3, false, 0};
 static status_led_state_t status_led_state_4 = {(UINT32_MAX / 2) - 1, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, status_led_out_func_4, false, 0};
 
-static void status_led_set_func(status_led_state_t * const state, const fast_timer_t trigger, const uint8_t * const pattern) {
+static void status_led_push_func(status_led_state_t * const state, const fast_timer_t trigger, const uint8_t * const pattern) {
   state->trigger = trigger;
 
   // stack push
@@ -128,16 +128,16 @@ void status_led(const uint8_t mask, const uint8_t * const pattern) {
   
   //add prime pseudo rendom start
   if (mask & 0b1000) {
-    status_led_set_func(&status_led_state_1, now + 2, pattern);
+    status_led_push_func(&status_led_state_1, now + 2, pattern);
   }
   if (mask & 0b0100) {
-    status_led_set_func(&status_led_state_3, now + 4, pattern);
+    status_led_push_func(&status_led_state_3, now + 4, pattern);
   }
   if (mask & 0b0010) {
-    status_led_set_func(&status_led_state_2, now + 6, pattern);
+    status_led_push_func(&status_led_state_2, now + 6, pattern);
   }
   if (mask & 0b0001) {
-    status_led_set_func(&status_led_state_4, now + 8, pattern);
+    status_led_push_func(&status_led_state_4, now + 8, pattern);
   }
   return;
 }
