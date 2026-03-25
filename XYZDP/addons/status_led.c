@@ -66,7 +66,7 @@ static void status_led_state_calc_delay(status_led_state_t * const state) {
   fast_timer_t delay = *(state->ptr++);
   
   if (delay == 0) {
-    delay = (UINT32_MAX / 2) - UINT16_MAX;  // safety
+    delay = (UINT32_MAX / 2) - UINT16_MAX;  // safety margin
   } else {
     delay <<= state->scale;
   }
