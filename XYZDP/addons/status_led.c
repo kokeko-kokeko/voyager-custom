@@ -66,10 +66,20 @@ static void status_led_set_func(status_led_state_t * const state, const fast_tim
   return;
 }
 
+static void status_led_pop_func(status_led_state_t * const state, const fast_timer_t trigger) {
+  state->trigger = trigger;
+  state->ptr_0 = state->ptr_1;
+  state->ptr_1 = state->ptr_2;
+  state->ptr_2 = led_pattern_off;
+    
+  state->ptr = state->ptr_0;
+  state->out_val = *(state->ptr++);
+  state->scale = *(state->ptr++);
+
+  return;
+}
+
 static void status_led_update_func(status_led_state_t * const state, const fast_timer_t now) {
-  // wnite everytime
-  //state->out_func(state->out_val);
-  
   if (timer_expired_fast(now, state->trigger) == false) return;
 
   if (*(state->ptr) == UINT8_MAX) {
@@ -122,6 +132,25 @@ void status_led(const uint8_t mask, const uint8_t * const pattern) {
   }
   if (mask & 0b0001) {
     status_led_set_func(&status_led_state_4, now + 8, pattern);
+  }
+  return;
+}
+
+void pop_status_led(const uint8_t mask) {  
+  const fast_timer_t now = timer_read_fast();
+  
+  //add prime pseudo rendom start
+  if (mask & 0b1000) {
+    status_led_pop_func(&status_led_state_1, now + 2);
+  }
+  if (mask & 0b0100) {
+    status_led_pop_func(&status_led_state_3, now + 4);
+  }
+  if (mask & 0b0010) {
+    status_led_pop_func(&status_led_state_2, now + 6);
+  }
+  if (mask & 0b0001) {
+    status_led_pop_func(&status_led_state_4, now + 8);
   }
   return;
 }
