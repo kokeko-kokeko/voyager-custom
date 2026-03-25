@@ -470,6 +470,11 @@ static uint16_t replace_cursor(const uint16_t keycode) {
   if (mac_flag) sc_mod = QK_LGUI;
   
   switch (keycode) {
+    case KC_Q: return sc_mod | KC_Q;
+    case KC_W: return sc_mod | KC_W;
+    case KC_P: return sc_mod | LSFT(KC_TAB);
+    case KC_N: return sc_mod | KC_TAB;
+    
     case KC_A: return sc_mod | KC_A;
     case KC_S: return sc_mod | KC_S;
     case KC_C: return sc_mod | KC_C;
