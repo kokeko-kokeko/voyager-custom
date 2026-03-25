@@ -356,7 +356,7 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
         status_led(0b1100, led_pattern_on);
       } else {
         swap_hands_off();
-        status_led(0b1100, led_pattern_off);
+        pop_status_led(0b1100);
       }
 
       return false;
