@@ -15,7 +15,7 @@
 // init_value, scale, init_delay, delay, ...
 // value output after init_delay
 // delay reduce data with shift by scale value
-// 0: terminate, stop exec
+// 0: terminate, stop exec, set to far
 // MAX: restart pattern 
 // MAX - 1: move to before patten (stack)
 const uint8_t led_pattern_off[]        = {0, 0, 1, 0, UINT8_MAX, UINT8_MAX};
