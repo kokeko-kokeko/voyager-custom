@@ -12,18 +12,21 @@
 // write direct
 
 // status LED pattern list, no const limit, terminate symbol
-// init value, scale, delay, delay, ...
+// init_value, scale, init_delay, delay, ...
+// value output after init_delay
 // delay reduce data with shift by scale value
 // 0: terminate, stop exec
 // MAX: restart pattern 
 // MAX - 1: move to before patten (stack)
-const uint8_t led_pattern_off[] = {0, 0, 0, UINT8_MAX, UINT8_MAX};
-const uint8_t led_pattern_on[] = {1, 0, 0, UINT8_MAX, UINT8_MAX};
-const uint8_t led_pattern_blink[] = {1, 2, 125, 62, UINT8_MAX, UINT8_MAX};
-const uint8_t led_pattern_single[] = {1, 2, 125, 0, UINT8_MAX, UINT8_MAX};
-const uint8_t led_pattern_oneshot[] = {1, 1, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, UINT8_MAX - 1 , UINT8_MAX - 1};
+const uint8_t led_pattern_off[]        = {0, 0, 1, 0, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_on[]         = {1, 0, 1, 0, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_blink[]      = {1, 2, 1, 125, 62, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_single[]     = {1, 2, 1, 125, 0, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_oneshot[]    = {1, 1, 1, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, UINT8_MAX - 1 , UINT8_MAX - 1};
+const uint8_t led_pattern_delayed_on[] = {1, 2, (1 + TAPPING_TERM / 4), 0, UINT8_MAX, UINT8_MAX};
+
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
-const uint8_t led_pattern_delayed_on[] = {0, 2, (1 + TAPPING_TERM / 4), 0, UINT8_MAX, UINT8_MAX};
+
 
 typedef struct status_led_state {
   fast_timer_t trigger;
@@ -65,6 +68,14 @@ static void status_led_push_func(status_led_state_t * const state, const fast_ti
   state->out_val = *(state->ptr++);
   state->scale = *(state->ptr++);
 
+  fast_timer_t delay = *(state->ptr++);
+  if (delay == 0) {
+    delay = (UINT32_MAX / 2) - 1;
+  } else {
+    delay <<= state->scale;
+  }
+  state->trigger += delay;
+
   return;
 }
 
@@ -79,6 +90,14 @@ static void status_led_pop_func(status_led_state_t * const state, const fast_tim
   state->ptr = state->ptr_0;
   state->out_val = *(state->ptr++);
   state->scale = *(state->ptr++);
+
+  fast_timer_t delay = *(state->ptr++);
+  if (delay == 0) {
+    delay = (UINT32_MAX / 2) - 1;
+  } else {
+    delay <<= state->scale;
+  }
+  state->trigger += delay;
 
   return;
 }
