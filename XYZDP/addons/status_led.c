@@ -112,7 +112,9 @@ static void status_led_update_func(status_led_state_t * const state, const fast_
 
     // output naxt
     return;
-  } else if (*(state->ptr) == UINT8_MAX - 1) {
+  }
+  
+  if (*(state->ptr) == UINT8_MAX - 1) {
     // stack pop
     state->ptr_0 = state->ptr_1;
     state->ptr_1 = state->ptr_2;
@@ -124,6 +126,7 @@ static void status_led_update_func(status_led_state_t * const state, const fast_
     // output naxt
     return;
   }
+  
   status_led_state_calc_delay(state);
   
   state->out_func(state->out_val);
