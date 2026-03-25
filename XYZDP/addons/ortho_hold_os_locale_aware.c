@@ -32,12 +32,14 @@ _Static_assert(sizeof(hold_action_t) <= 4, "Hold action struct too large!!");
 static hold_action_t conv_pos_to_hold_action(const uint8_t pos) {
   switch (pos) {
     case  0: return (hold_action_t){0, 0, true, false};
+    case  1: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
     case  2: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LCTRL, 0, false, false};
     case  3: return (hold_action_t){MOD_BIT_LALT | MOD_BIT_LSHIFT, 0, false, false};
     case  4: return (hold_action_t){MOD_BIT_LALT | MOD_BIT_LCTRL, 0, false, false};
     case  5: return (hold_action_t){MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
 
     case 31: return (hold_action_t){0, 0, true, false};
+    case 30: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0, false, false};
     case 29: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL, 0, false, false};
     case 28: return (hold_action_t){MOD_BIT_RALT | MOD_BIT_RSHIFT, 0, false, false};
     case 27: return (hold_action_t){MOD_BIT_RALT | MOD_BIT_RCTRL, 0, false, false};
