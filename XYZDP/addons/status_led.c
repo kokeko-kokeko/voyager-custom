@@ -55,6 +55,8 @@ static status_led_state_t status_led_state_4 = {(UINT32_MAX / 2) - 1, led_patter
 
 static void status_led_set_func(status_led_state_t * const state, const fast_timer_t trigger, const uint8_t * const pattern) {
   state->trigger = trigger;
+
+  // stack push
   state->ptr_2 = state->ptr_1;
   state->ptr_1 = state->ptr_0;
   state->ptr_0 = pattern;
@@ -68,6 +70,8 @@ static void status_led_set_func(status_led_state_t * const state, const fast_tim
 
 static void status_led_pop_func(status_led_state_t * const state, const fast_timer_t trigger) {
   state->trigger = trigger;
+
+  // stack pop
   state->ptr_0 = state->ptr_1;
   state->ptr_1 = state->ptr_2;
   state->ptr_2 = led_pattern_off;
@@ -83,10 +87,12 @@ static void status_led_update_func(status_led_state_t * const state, const fast_
   if (timer_expired_fast(now, state->trigger) == false) return;
 
   if (*(state->ptr) == UINT8_MAX) {
+    // return to start
     state->ptr = state->ptr_0;
     state->out_val = *(state->ptr++);
     state->scale = *(state->ptr++);
   } else if (*(state->ptr) == UINT8_MAX - 1) {
+    // stack pop
     state->ptr_0 = state->ptr_1;
     state->ptr_1 = state->ptr_2;
     state->ptr_2 = led_pattern_off;
