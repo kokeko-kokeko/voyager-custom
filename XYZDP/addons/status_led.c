@@ -62,7 +62,7 @@ static void status_led_state_return_to_start(status_led_state_t * const state) {
   state->scale = *(state->ptr++);
 }
 
-static void status_led_state_calc_delay(status_led_state_t * const state) {
+static void status_led_state_update_trigger(status_led_state_t * const state) {
   fast_timer_t delay = *(state->ptr++);
   
   if (delay == 0) {
@@ -74,7 +74,7 @@ static void status_led_state_calc_delay(status_led_state_t * const state) {
   state->trigger += delay;
 }
 
-static void status_led_push_func(status_led_state_t * const state, const fast_timer_t trigger, const uint8_t * const pattern) {
+static void status_led_set_func(status_led_state_t * const state, const fast_timer_t trigger, const uint8_t * const pattern) {
   state->trigger = trigger;
 
   // stack push
@@ -83,7 +83,7 @@ static void status_led_push_func(status_led_state_t * const state, const fast_ti
   state->ptr_0 = pattern;
 
   status_led_state_return_to_start(state);
-  status_led_state_calc_delay(state);
+  status_led_state_update_trigger(state);
   
   return;
 }
@@ -97,7 +97,7 @@ static void status_led_pop_func(status_led_state_t * const state, const fast_tim
   state->ptr_2 = led_pattern_off;
     
   status_led_state_return_to_start(state);
-  status_led_state_calc_delay(state);
+  status_led_state_update_trigger(state);
 
   return;
 }
@@ -108,7 +108,7 @@ static void status_led_update_func(status_led_state_t * const state, const fast_
   if (*(state->ptr) == UINT8_MAX) {
     // return to start
     status_led_state_return_to_start(state);
-    status_led_state_calc_delay(state);
+    status_led_state_update_trigger(state);
 
     // output naxt
     return;
@@ -121,13 +121,13 @@ static void status_led_update_func(status_led_state_t * const state, const fast_
     state->ptr_2 = led_pattern_off;
     
     status_led_state_return_to_start(state);
-    status_led_state_calc_delay(state);
+    status_led_state_update_trigger(state);
 
     // output naxt
     return;
   }
   
-  status_led_state_calc_delay(state);
+  status_led_state_update_trigger(state);
   
   state->out_func(state->out_val);
   state->out_val = !(state->out_val);
@@ -147,16 +147,16 @@ void status_led(const uint8_t mask, const uint8_t * const pattern) {
   
   //add prime pseudo rendom start
   if (mask & 0b1000) {
-    status_led_push_func(&status_led_state_1, now + 2, pattern);
+    status_led_set_func(&status_led_state_1, now + 2, pattern);
   }
   if (mask & 0b0100) {
-    status_led_push_func(&status_led_state_3, now + 4, pattern);
+    status_led_set_func(&status_led_state_3, now + 4, pattern);
   }
   if (mask & 0b0010) {
-    status_led_push_func(&status_led_state_2, now + 6, pattern);
+    status_led_set_func(&status_led_state_2, now + 6, pattern);
   }
   if (mask & 0b0001) {
-    status_led_push_func(&status_led_state_4, now + 8, pattern);
+    status_led_set_func(&status_led_state_4, now + 8, pattern);
   }
   return;
 }
