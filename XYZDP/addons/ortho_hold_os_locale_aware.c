@@ -32,44 +32,44 @@ _Static_assert(sizeof(hold_action_t) <= 4, "Hold action struct too large!!");
 static hold_action_t conv_pos_to_hold_action(const uint8_t pos) {
   switch (pos) {
     case  0: return (hold_action_t){0, 0, true, false};
-    case  2: return (hold_action_t){MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
+    case  2: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LCTRL, 0, false, false};
     case  3: return (hold_action_t){MOD_BIT_LALT | MOD_BIT_LSHIFT, 0, false, false};
     case  4: return (hold_action_t){MOD_BIT_LALT | MOD_BIT_LCTRL, 0, false, false};
-    case  5: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
+    case  5: return (hold_action_t){MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
 
     case 31: return (hold_action_t){0, 0, true, false};
-    case 29: return (hold_action_t){MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0, false, false};
+    case 29: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL, 0, false, false};
     case 28: return (hold_action_t){MOD_BIT_RALT | MOD_BIT_RSHIFT, 0, false, false};
     case 27: return (hold_action_t){MOD_BIT_RALT | MOD_BIT_RCTRL, 0, false, false};
-    case 26: return (hold_action_t){MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
+    case 26: return (hold_action_t){MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0, false, false};
 
     case  6: return (hold_action_t){0, LAYER_L_pinky, false, false};
-    case  7: return (hold_action_t){MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
+    case  7: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT, 0, false, false};
     case  8: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LALT, 0, false, false};
     case  9: return (hold_action_t){MOD_BIT_LSHIFT, 0, false, false};
     case 10: return (hold_action_t){MOD_BIT_LCTRL, 0, false, false};
-    case 11: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
+    case 11: return (hold_action_t){MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
 
     case 37: return (hold_action_t){0, LAYER_R_pinky, false, false};
-    case 36: return (hold_action_t){MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0, false, false};
+    case 36: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT, 0, false, false};
     case 35: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RALT, 0, false, false};
     case 34: return (hold_action_t){MOD_BIT_RSHIFT, 0, false, false};
     case 33: return (hold_action_t){MOD_BIT_RCTRL, 0, false, false};
-    case 32: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0, false, false};
+    case 32: return (hold_action_t){MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0, false, false};
 
     case 12: return (hold_action_t){MOD_BIT_LCTRL, 0, false, false};
     case 13: return (hold_action_t){MOD_BIT_LGUI, 0, false, false};
     case 14: return (hold_action_t){MOD_BIT_LALT, 0, false, false};
     case 15: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LSHIFT, 0, false, false};
     case 16: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LCTRL, 0, false, false};
-    case 17: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LCTRL, 0, false, false};
+    case 17: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
 
     case 43: return (hold_action_t){MOD_BIT_RCTRL, 0, false, false};
     case 42: return (hold_action_t){MOD_BIT_RGUI, 0, false, false};
     case 41: return (hold_action_t){MOD_BIT_RALT, 0, false, false};
     case 40: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RSHIFT, 0, false, false};
     case 39: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RCTRL, 0, false, false};
-    case 38: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL, 0, false, false};
+    case 38: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0, false, false};
 
     case 18: return (hold_action_t){MOD_BIT_LSHIFT, 0, false, false};
     case 22: return (hold_action_t){0, LAYER_Number, false, false};
