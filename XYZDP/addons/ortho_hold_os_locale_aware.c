@@ -225,6 +225,11 @@ static bool process_record_user_task_switch(const uint16_t keycode, const keyrec
   static bool is_active = false;
   if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_TKSW)) {
     if (is_active) {
+      if (keycode == KC_RIGHT) return true;
+      if (keycode == KC_LEFT) return true;
+      if (keycode == KC_DOWN) return true;
+      if (keycode == KC_UP) return true;
+      
       is_active = false;
       unregister_mods(MOD_BIT_RALT);
     }
