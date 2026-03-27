@@ -221,6 +221,15 @@ static bool process_record_mcfw(const uint16_t keycode, const keyrecord_t * cons
   return true;
 }
 
+static bool process_record_user_task_switch(const uint16_t keycode, const keyrecord_t * const record) {
+  if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_TKSW)) return true;
+  
+
+    
+
+  return true;
+}
+
 static void reg16_wo_shift (const uint16_t code16) {
   bool l_shift = get_mods() & MOD_BIT_LSHIFT;
   bool r_shift = get_mods() & MOD_BIT_RSHIFT;
@@ -513,6 +522,8 @@ static uint16_t shift_bracket_counter(const uint16_t keycode) {
   return keycode;
 }
 
+
+
 void jis_enable(void) {
   jis_flag = true;
 }
@@ -569,7 +580,9 @@ static const user_override_conf_t thor2  = (user_override_conf_t){replace_cursor
 static const user_override_conf_t thor2s = (user_override_conf_t){replace_cursor, shift_bracket_counter, MOD_THOR2S, true};
 
 bool process_record_ortho_hold_os_locale_aware(uint16_t keycode, keyrecord_t *record) {  
-  if (process_record_mcfw(keycode, record) == false) return false;  
+  if (process_record_mcfw(keycode, record) == false) return false;
+  
+  if (process_record_user_task_switch(keycode, record) == false) return false;
 
   if (process_record_user_override_skel(&hoor, keycode, record) == false) return false;
   
