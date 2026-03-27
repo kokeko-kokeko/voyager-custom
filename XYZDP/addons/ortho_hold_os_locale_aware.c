@@ -221,7 +221,7 @@ static bool process_record_macro_firmware(const uint16_t keycode, const keyrecor
   return true;
 }
 
-static bool process_record_user_task_switch(const uint16_t keycode, const keyrecord_t * const record) {
+static bool process_record_user_task_switch_next_prev(const uint16_t keycode, const keyrecord_t * const record) {
   static bool is_active = false;
   
   if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_TKSW)) {
@@ -649,7 +649,7 @@ static const user_override_conf_t thor2s = (user_override_conf_t){replace_cursor
 bool process_record_ortho_hold_os_locale_aware(uint16_t keycode, keyrecord_t *record) {  
   if (process_record_macro_firmware(keycode, record) == false) return false;
   
-  if (process_record_user_task_switch(keycode, record) == false) return false;
+  if (process_record_user_task_switch_next_prev(keycode, record) == false) return false;
 
   if (process_record_user_override_skel(&hoor, keycode, record) == false) return false;
   
