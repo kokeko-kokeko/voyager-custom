@@ -92,8 +92,7 @@ static hold_action_t conv_pos_to_hold_action(const uint8_t pos) {
 }
 
 static bool process_record_mcfw(const uint16_t keycode, const keyrecord_t * const record) {
-  if (IS_QK_MOD_TAP(keycode) == false) return true;
-  if (QK_MOD_TAP_GET_MODS(keycode) != MOD_MCFW) return true;
+  if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_MCFW)) return true;
 
   const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode); 
 
@@ -306,8 +305,7 @@ typedef struct user_override_conf {
 } user_override_conf_t;
 
 static bool process_record_user_override_skel(const user_override_conf_t * const conf, const uint16_t keycode, const keyrecord_t * const record) {
-  if (IS_QK_MOD_TAP(keycode) == false) return true;
-  if (QK_MOD_TAP_GET_MODS(keycode) != conf->match_mods) return true;
+  if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != conf->match_mods)) return true;
   
   // branch tap/hold first
   if (record->tap.count > 0) {
