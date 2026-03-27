@@ -5,6 +5,7 @@
 // MCFW : MaCro FirmWare
 // THORn : Tap Hold OverRide, both override, shift and land handle
 // THORnS : Tap Hold OverRide, both override, fix shift
+// TKSW : TasK SWitch OverRide, handle RALT 
 
 #define MOD_HOOR (MOD_LCTL)
 
@@ -16,6 +17,8 @@
 #define MOD_THOR2 (MOD_LALT)
 #define MOD_THOR2S (MOD_LALT | MOD_LSFT)
 
+#define MOD_TKSW (MOD_RALT)
+
 //#define MT(mod, kc) (QK_MOD_TAP | (((mod)&0x1F) << 8) | ((kc)&0xFF))
 #define HOOR(kc) MT(MOD_HOOR, kc)
 
@@ -26,6 +29,8 @@
 
 #define THOR2(kc) MT(MOD_THOR2, kc)
 #define THOR2S(kc) MT(MOD_THOR2S, kc)
+
+#define TKSW(kc) MT(MOD_TKSW, kc)
 
 void jis_enable(void);
 void jis_disable(void);
