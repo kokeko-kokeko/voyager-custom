@@ -43,8 +43,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [4] = LAYOUT_voyager(
     CW_TOGG,        MT(MOD_LALT, KC_Q),MT(MOD_LALT, KC_W),MT(MOD_LALT, KC_P),MT(MOD_LALT, KC_N),MT(MOD_RSFT | MOD_RCTL, KC_C),                                MT(MOD_RSFT | MOD_RCTL, KC_G),LCTL(KC_V),     KC_UP,          LCTL(KC_C),     KC_APPLICATION, KC_BSPC,        
-    MO(9),          MT(MOD_RALT, KC_P),MT(MOD_RALT, KC_N),MT(MOD_LALT, KC_C),MT(MOD_LALT, KC_V),MT(MOD_RSFT | MOD_RCTL, KC_D),                                MT(MOD_RSFT | MOD_RCTL, KC_H),KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_DELETE,      MO(10),         
-    KC_LEFT_CTRL,   MT(MOD_LALT, KC_1),MT(MOD_LALT, KC_2),MT(MOD_LALT, KC_3),MT(MOD_LALT, KC_4),MT(MOD_RSFT | MOD_RCTL, KC_E),                                MT(MOD_RSFT | MOD_RCTL, KC_I),MT(MOD_LALT, KC_5),MT(MOD_LALT, KC_6),MT(MOD_LALT, KC_7),MT(MOD_LALT, KC_8),KC_RIGHT_CTRL,  
+    MO(9),          MT(MOD_LALT, KC_1),MT(MOD_LALT, KC_2),MT(MOD_LALT, KC_C),MT(MOD_LALT, KC_V),MT(MOD_RSFT | MOD_RCTL, KC_D),                                MT(MOD_RSFT | MOD_RCTL, KC_H),KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_DELETE,      MO(10),         
+    KC_LEFT_CTRL,   MT(MOD_LALT, KC_3),MT(MOD_LALT, KC_4),MT(MOD_RALT, KC_P),MT(MOD_RALT, KC_N),MT(MOD_RSFT | MOD_RCTL, KC_E),                                MT(MOD_RSFT | MOD_RCTL, KC_I),MT(MOD_LALT, KC_5),MT(MOD_LALT, KC_6),MT(MOD_LALT, KC_7),MT(MOD_LALT, KC_8),KC_RIGHT_CTRL,  
     KC_TRANSPARENT, KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_TRANSPARENT, 
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
