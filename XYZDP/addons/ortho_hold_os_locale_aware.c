@@ -559,10 +559,10 @@ static uint16_t replace_cursor(const uint16_t keycode) {
     case KC_C: return sc_mod | KC_C;
     case KC_V: return sc_mod | KC_V;
 
-    case KC_1: return KC_HOME;
-    case KC_2: return KC_END;
-    case KC_3: return KC_PGUP;
-    case KC_4: return KC_PGDN;
+    case KC_1: return KC_PGUP;
+    case KC_2: return KC_PGDN;
+    case KC_3: return KC_HOME;
+    case KC_4: return KC_END;
 
     case KC_5: return KC_LBRC;
     case KC_6: return KC_LCBR;
