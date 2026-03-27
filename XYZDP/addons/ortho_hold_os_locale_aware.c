@@ -91,7 +91,7 @@ static hold_action_t conv_pos_to_hold_action(const uint8_t pos) {
   return (hold_action_t){0, 0, false, false};
 }
 
-static bool process_record_mcfw(const uint16_t keycode, const keyrecord_t * const record) {
+static bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * const record) {
   if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_MCFW)) return true;
 
   const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode); 
@@ -643,7 +643,7 @@ static const user_override_conf_t thor2  = (user_override_conf_t){replace_cursor
 static const user_override_conf_t thor2s = (user_override_conf_t){replace_cursor, shift_bracket_counter, MOD_THOR2S, true};
 
 bool process_record_ortho_hold_os_locale_aware(uint16_t keycode, keyrecord_t *record) {  
-  if (process_record_mcfw(keycode, record) == false) return false;
+  if (process_record_macro_firmware(keycode, record) == false) return false;
   
   if (process_record_user_task_switch(keycode, record) == false) return false;
 
