@@ -255,11 +255,11 @@ static bool process_record_user_task_switch(const uint16_t keycode, const keyrec
       }
     } else {
       if (record->event.pressed) {
-        if (is_active == false) {
-          is_active = true;
-          register_mods(MOD_BIT_RALT);
-        }
-        register_code16(KC_TAB);
+        //if (is_active == false) {
+        //  is_active = true;
+        //  register_mods(MOD_BIT_RALT);
+        //}
+        //register_code16(KC_TAB);
       } else {
         unregister_code16(KC_TAB);
         unregister_mods(MOD_BIT_RALT);
@@ -282,11 +282,11 @@ static bool process_record_user_task_switch(const uint16_t keycode, const keyrec
       }
     } else {
       if (record->event.pressed) {
-        if (is_active == false) {
-          is_active = true;
-          register_mods(MOD_BIT_RALT);
-        }
-        register_code16(LSFT(KC_TAB));
+        //if (is_active == false) {
+        //  is_active = true;
+        //  register_mods(MOD_BIT_RALT);
+        //}
+        //register_code16(LSFT(KC_TAB));
       } else {
         unregister_code16(LSFT(KC_TAB));
         unregister_mods(MOD_BIT_RALT);
