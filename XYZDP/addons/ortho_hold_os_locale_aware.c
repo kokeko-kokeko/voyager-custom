@@ -222,11 +222,50 @@ static bool process_record_mcfw(const uint16_t keycode, const keyrecord_t * cons
 }
 
 static bool process_record_user_task_switch(const uint16_t keycode, const keyrecord_t * const record) {
-  if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_TKSW)) return true;
-  
-
+  static bool is_active = false;
+  if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_TKSW)) {
+    if (is_active) {
+      is_active = false;
+      unregister_mods(MOD_BIT_RALT);
+    }
     
+    return true;
+  }
 
+  const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+
+  if (base_code == KC_N) {
+    // MT template
+    if (record->tap.count > 0) {
+      if (record->event.pressed) {
+        if (is_active == false) {
+          is_active = true;
+          register_mods(MOD_BIT_RALT);
+        }
+        register_code16(KC_TAB);
+      } else {
+        unregister_code16(KC_TAB);
+      }
+    } else {
+      if (record->event.pressed) {
+        if (is_active == false) {
+          is_active = true;
+          register_mods(MOD_BIT_RALT);
+        }
+        register_code16(KC_TAB);
+      } else {
+        unregister_code16(KC_TAB);
+        unregister_mods(MOD_BIT_RALT);
+        is_active = false;
+      }
+    }
+
+    return false;
+  } else if (base_code == KC_P) {
+
+    return false;
+  }
+  
   return true;
 }
 
