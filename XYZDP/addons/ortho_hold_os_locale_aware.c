@@ -286,6 +286,7 @@ static bool process_record_user_task_switch(const uint16_t keycode, const keyrec
         is_active = false;
       }
     }
+    
     return false;
   }
   
