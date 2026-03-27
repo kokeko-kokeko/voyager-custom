@@ -2,9 +2,9 @@
 
 // use MT with 1 or 2 mod, must mod override hold side
 // HOOR : Hold Only OverRide, tap pass to normal process
+// MCFW : MaCro FirmWare
 // THORn : Tap Hold OverRide, both override, shift and land handle
 // THORnS : Tap Hold OverRide, both override, fix shift
-// MCFW : MaCro FirmWare
 
 #define MOD_HOOR (MOD_LCTL)
 
