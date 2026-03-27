@@ -223,6 +223,7 @@ static bool process_record_macro_firmware(const uint16_t keycode, const keyrecor
 
 static bool process_record_user_task_switch(const uint16_t keycode, const keyrecord_t * const record) {
   static bool is_active = false;
+  
   if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_TKSW)) {
     if (is_active) {
       if (keycode == KC_RIGHT) return true;
