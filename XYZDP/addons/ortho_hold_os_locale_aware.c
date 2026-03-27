@@ -221,6 +221,26 @@ static bool process_record_macro_firmware(const uint16_t keycode, const keyrecor
   return true;
 }
 
+static void reg16_wo_shift(const uint16_t code16) {
+  bool l_shift = get_mods() & MOD_BIT_LSHIFT;
+  bool r_shift = get_mods() & MOD_BIT_RSHIFT;
+
+  del_mods(MOD_MASK_SHIFT);
+  register_code16(code16);
+  if (l_shift) add_mods(MOD_BIT_LSHIFT);
+  if (r_shift) add_mods(MOD_BIT_RSHIFT);      
+}
+
+static void unreg16_wo_shift(const uint16_t code16) {
+  bool l_shift = get_mods() & MOD_BIT_LSHIFT;
+  bool r_shift = get_mods() & MOD_BIT_RSHIFT;
+
+  del_mods(MOD_MASK_SHIFT);
+  unregister_code16(code16);
+  if (l_shift) add_mods(MOD_BIT_LSHIFT);
+  if (r_shift) add_mods(MOD_BIT_RSHIFT);    
+}
+
 static bool process_record_user_task_switch_next_prev(const uint16_t keycode, const keyrecord_t * const record) {
   static bool is_active = false;
   
@@ -302,26 +322,6 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
   }
   
   return true;
-}
-
-static void reg16_wo_shift (const uint16_t code16) {
-  bool l_shift = get_mods() & MOD_BIT_LSHIFT;
-  bool r_shift = get_mods() & MOD_BIT_RSHIFT;
-
-  del_mods(MOD_MASK_SHIFT);
-  register_code16(code16);
-  if (l_shift) add_mods(MOD_BIT_LSHIFT);
-  if (r_shift) add_mods(MOD_BIT_RSHIFT);      
-}
-
-static void unreg16_wo_shift (const uint16_t code16) {
-  bool l_shift = get_mods() & MOD_BIT_LSHIFT;
-  bool r_shift = get_mods() & MOD_BIT_RSHIFT;
-
-  del_mods(MOD_MASK_SHIFT);
-  unregister_code16(code16);
-  if (l_shift) add_mods(MOD_BIT_LSHIFT);
-  if (r_shift) add_mods(MOD_BIT_RSHIFT);    
 }
 
 static uint16_t conv_kc_to_jp(const uint16_t keycode) {
