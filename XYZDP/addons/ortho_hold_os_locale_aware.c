@@ -226,7 +226,7 @@ static bool process_record_user_task_switch(const uint16_t keycode, const keyrec
   
   if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_TKSW)) {
     if (is_active) {
-      // keep task switch
+      // keep task switch for cursor
       if (keycode == KC_RIGHT) return true;
       if (keycode == KC_LEFT) return true;
       if (keycode == KC_DOWN) return true;
