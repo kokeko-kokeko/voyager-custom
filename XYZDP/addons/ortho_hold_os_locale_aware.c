@@ -92,6 +92,7 @@ static hold_action_t conv_pos_to_hold_action(const uint8_t pos) {
 }
 
 static bool process_record_mcfw(const uint16_t keycode, const keyrecord_t * const record) {
+  if (IS_QK_MOD_TAP(keycode) == false) return true;
   if (QK_MOD_TAP_GET_MODS(keycode) != MOD_MCFW) return true;
 
   const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode); 
@@ -305,6 +306,7 @@ typedef struct user_override_conf {
 } user_override_conf_t;
 
 static bool process_record_user_override_skel(const user_override_conf_t * const conf, const uint16_t keycode, const keyrecord_t * const record) {
+  if (IS_QK_MOD_TAP(keycode) == false) return true;
   if (QK_MOD_TAP_GET_MODS(keycode) != conf->match_mods) return true;
   
   // branch tap/hold first
@@ -568,10 +570,7 @@ static const user_override_conf_t thor1s = (user_override_conf_t){replace_base_n
 static const user_override_conf_t thor2  = (user_override_conf_t){replace_cursor, shift_bracket_counter, MOD_THOR2, false};
 static const user_override_conf_t thor2s = (user_override_conf_t){replace_cursor, shift_bracket_counter, MOD_THOR2S, true};
 
-bool process_record_ortho_hold_os_locale_aware(uint16_t keycode, keyrecord_t *record) {
-  // non-MT keycode, skip
-  if (IS_QK_MOD_TAP(keycode) == false) return true;
-  
+bool process_record_ortho_hold_os_locale_aware(uint16_t keycode, keyrecord_t *record) {  
   if (process_record_mcfw(keycode, record) == false) return false;  
 
   if (process_record_user_override_skel(&hoor, keycode, record) == false) return false;
