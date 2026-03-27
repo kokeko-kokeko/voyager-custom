@@ -271,9 +271,9 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
           is_active = true;
           register_mods(MOD_BIT_RALT);
         }
-        register_code16(KC_TAB);
+        reg16_wo_shift(KC_TAB);
       } else {
-        unregister_code16(KC_TAB);
+        unreg16_wo_shift(KC_TAB);
       }
     } else {
       if (record->event.pressed) {
@@ -283,7 +283,7 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
         //}
         //register_code16(KC_TAB);
       } else {
-        unregister_code16(KC_TAB);
+        unreg16_wo_shift(KC_TAB);
         unregister_mods(MOD_BIT_RALT);
         is_active = false;
       }
@@ -300,9 +300,9 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
           is_active = true;
           register_mods(MOD_BIT_RALT);
         }
-        register_code16(LSFT(KC_TAB));
+        reg16_wo_shift(LSFT(KC_TAB));
       } else {
-        unregister_code16(LSFT(KC_TAB));
+        unreg16_wo_shift(LSFT(KC_TAB));
       }
     } else {
       if (record->event.pressed) {
@@ -312,7 +312,7 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
         //}
         //register_code16(LSFT(KC_TAB));
       } else {
-        unregister_code16(LSFT(KC_TAB));
+        unreg16_wo_shift(LSFT(KC_TAB));
         unregister_mods(MOD_BIT_RALT);
         is_active = false;
       }
