@@ -268,7 +268,9 @@ static bool process_record_user_task_switch(const uint16_t keycode, const keyrec
     }
 
     return false;
-  } else if (base_code == KC_P) {
+  } 
+  
+  if (base_code == KC_P) {
     // MT template
     if (record->tap.count > 0) {
       if (record->event.pressed) {
