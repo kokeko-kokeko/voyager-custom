@@ -247,8 +247,6 @@ static void tap16_wo_shift(const uint16_t code16) {
 
 static bool process_record_user_task_switch_next_prev(const uint16_t keycode, const keyrecord_t * const record) {
   static bool is_active = false;
-  static bool n_hold = false;
-  static bool p_hold = false;
   
   if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_TKSW)) {
     if (is_active) {
@@ -285,20 +283,14 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
       }
     } else {
       if (record->event.pressed) {
-        n_hold = true;
-        if (p_hold) {
-          is_active = false;
-          if (mac_flag) unregister_mods(MOD_BIT_RGUI);
-          else unregister_mods(MOD_BIT_RALT);
-
-          if (mac_flag) tap16_wo_shift(LCTL(KC_UP));
-          else tap16_wo_shift(LGUI(KC_TAB));
-        }
-      } else {
-        n_hold = false;
         is_active = false;
         if (mac_flag) unregister_mods(MOD_BIT_RGUI);
         else unregister_mods(MOD_BIT_RALT);
+
+        if (mac_flag) tap16_wo_shift(LCTL(KC_UP));
+        else tap16_wo_shift(LGUI(KC_TAB));
+      } else {
+        
       }
     }
 
@@ -320,20 +312,14 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
       }
     } else {
       if (record->event.pressed) {
-        p_hold = true;
-        if (n_hold) {
-          is_active = false;
-          if (mac_flag) unregister_mods(MOD_BIT_RGUI);
-          else unregister_mods(MOD_BIT_RALT);
-
-          if (mac_flag) tap16_wo_shift(LCTL(KC_UP));
-          else tap16_wo_shift(LGUI(KC_TAB));
-        }
-      } else {
-        n_hold = false;
         is_active = false;
         if (mac_flag) unregister_mods(MOD_BIT_RGUI);
         else unregister_mods(MOD_BIT_RALT);
+
+        //if (mac_flag) tap16_wo_shift(LCTL(KC_UP));
+        //else tap16_wo_shift(LGUI(KC_TAB));
+      } else {
+        
       }
     }
     
