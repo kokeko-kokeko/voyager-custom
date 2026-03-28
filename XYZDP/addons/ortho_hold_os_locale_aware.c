@@ -222,23 +222,19 @@ static bool process_record_macro_firmware(const uint16_t keycode, const keyrecor
 }
 
 static void reg16_wo_shift(const uint16_t code16) {
-  bool l_shift = get_mods() & MOD_BIT_LSHIFT;
-  bool r_shift = get_mods() & MOD_BIT_RSHIFT;
-
+  uint8_t seved_mods = get_mods();
+  
   del_mods(MOD_MASK_SHIFT);
   register_code16(code16);
-  if (l_shift) add_mods(MOD_BIT_LSHIFT);
-  if (r_shift) add_mods(MOD_BIT_RSHIFT);      
+  add_mods(seved_mods);   
 }
 
 static void unreg16_wo_shift(const uint16_t code16) {
-  bool l_shift = get_mods() & MOD_BIT_LSHIFT;
-  bool r_shift = get_mods() & MOD_BIT_RSHIFT;
+  uint8_t seved_mods = get_mods();
 
   del_mods(MOD_MASK_SHIFT);
   unregister_code16(code16);
-  if (l_shift) add_mods(MOD_BIT_LSHIFT);
-  if (r_shift) add_mods(MOD_BIT_RSHIFT);    
+  add_mods(seved_mods);
 }
 
 static bool process_record_user_task_switch_next_prev(const uint16_t keycode, const keyrecord_t * const record) {
