@@ -259,7 +259,8 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
         ) return true;
       
       is_active = false;
-      unregister_mods(MOD_BIT_RALT);
+      if (mac_flag) unregister_mods(MOD_BIT_RGUI);
+      else unregister_mods(MOD_BIT_RALT);
     }
     
     return true;
@@ -273,7 +274,8 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
       if (record->event.pressed) {
         if (is_active == false) {
           is_active = true;
-          register_mods(MOD_BIT_RALT);
+          if (mac_flag) register_mods(MOD_BIT_RGUI);
+          else register_mods(MOD_BIT_RALT);
         }
         tap16_wo_shift(KC_TAB);
       } else {
@@ -288,8 +290,9 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
         //register_code16(KC_TAB);
       } else {
         //unreg16_wo_shift(KC_TAB);
-        unregister_mods(MOD_BIT_RALT);
         is_active = false;
+        if (mac_flag) unregister_mods(MOD_BIT_RGUI);
+        else unregister_mods(MOD_BIT_RALT);
       }
     }
 
@@ -302,7 +305,8 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
       if (record->event.pressed) {
         if (is_active == false) {
           is_active = true;
-          register_mods(MOD_BIT_RALT);
+          if (mac_flag) register_mods(MOD_BIT_RGUI);
+          else register_mods(MOD_BIT_RALT);
         }
         tap16_wo_shift(LSFT(KC_TAB));
       } else {
@@ -317,8 +321,9 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
         //register_code16(LSFT(KC_TAB));
       } else {
         //unreg16_wo_shift(LSFT(KC_TAB));
-        unregister_mods(MOD_BIT_RALT);
         is_active = false;
+        if (mac_flag) unregister_mods(MOD_BIT_RGUI);
+        else unregister_mods(MOD_BIT_RALT);
       }
     }
     
