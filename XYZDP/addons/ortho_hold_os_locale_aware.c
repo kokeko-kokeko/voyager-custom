@@ -247,6 +247,8 @@ static void tap16_wo_shift(const uint16_t code16) {
 
 static bool process_record_user_task_switch_next_prev(const uint16_t keycode, const keyrecord_t * const record) {
   static bool is_active = false;
+  static bool n_hold = false;
+  static bool p_hold = false;
   
   if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_TKSW)) {
     if (is_active) {
@@ -279,17 +281,21 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
         }
         tap16_wo_shift(KC_TAB);
       } else {
-        //unreg16_wo_shift(KC_TAB);
+        
       }
     } else {
       if (record->event.pressed) {
-        //if (is_active == false) {
-        //  is_active = true;
-        //  register_mods(MOD_BIT_RALT);
-        //}
-        //register_code16(KC_TAB);
+        n_hold = true;
+        if (p_hold) {
+          is_active = false;
+          if (mac_flag) unregister_mods(MOD_BIT_RGUI);
+          else unregister_mods(MOD_BIT_RALT);
+
+          if (mac_flag) tap16_wo_shift(LCTL(KC_UP));
+          else tap16_wo_shift(LGUI(KC_TAB));
+        }
       } else {
-        //unreg16_wo_shift(KC_TAB);
+        n_hold = false;
         is_active = false;
         if (mac_flag) unregister_mods(MOD_BIT_RGUI);
         else unregister_mods(MOD_BIT_RALT);
@@ -310,17 +316,21 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
         }
         tap16_wo_shift(LSFT(KC_TAB));
       } else {
-        //unreg16_wo_shift(LSFT(KC_TAB));
+        
       }
     } else {
       if (record->event.pressed) {
-        //if (is_active == false) {
-        //  is_active = true;
-        //  register_mods(MOD_BIT_RALT);
-        //}
-        //register_code16(LSFT(KC_TAB));
+        p_hold = true;
+        if (n_hold) {
+          is_active = false;
+          if (mac_flag) unregister_mods(MOD_BIT_RGUI);
+          else unregister_mods(MOD_BIT_RALT);
+
+          if (mac_flag) tap16_wo_shift(LCTL(KC_UP));
+          else tap16_wo_shift(LGUI(KC_TAB));
+        }
       } else {
-        //unreg16_wo_shift(LSFT(KC_TAB));
+        n_hold = false;
         is_active = false;
         if (mac_flag) unregister_mods(MOD_BIT_RGUI);
         else unregister_mods(MOD_BIT_RALT);
