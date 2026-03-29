@@ -329,6 +329,31 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
   return true;
 }
 
+static bool process_record_user_hold_back(const uint16_t keycode, const keyrecord_t * const record) { 
+  if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_THOR2)) return true;
+
+  const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+
+  if (base_code == KC_P) {
+    // MT template
+    if (record->tap.count > 0) {
+      // tap pass after
+      return true;
+    } else {
+      if (record->event.pressed) {
+        if (mac_flag) tap16_wo_shift(LGUI(KC_LEFT));
+        else tap16_wo_shift(LALT(KC_LEFT));
+      } else {
+        
+      }
+    }
+
+    return false;
+  } 
+    
+  return true;
+}
+
 static bool process_record_user_hold_reload(const uint16_t keycode, const keyrecord_t * const record) { 
   if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_THOR2)) return true;
 
@@ -703,10 +728,11 @@ static const user_override_conf_t thor2s = (user_override_conf_t){replace_cursor
 
 bool process_record_ortho_hold_os_locale_aware(uint16_t keycode, keyrecord_t *record) {  
   if (process_record_macro_firmware(keycode, record) == false) return false;
-  
+
+  if (process_record_user_task_switch_next_prev(keycode, record) == false) return false;
+  if (process_record_user_hold_back(keycode, record) == false) return false;
   if (process_record_user_hold_reload(keycode, record) == false) return false;
   if (process_record_user_hold_force_reload(keycode, record) == false) return false;
-  if (process_record_user_task_switch_next_prev(keycode, record) == false) return false;
 
   if (process_record_user_override_skel(&hoor, keycode, record) == false) return false;
   
