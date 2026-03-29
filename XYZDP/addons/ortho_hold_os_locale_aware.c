@@ -366,8 +366,8 @@ static bool process_record_user_hold_force_reload(const uint16_t keycode, const 
       return true;
     } else {
       if (record->event.pressed) {
-        if (mac_flag) tap16_wo_shift(LGUI(LSFT((KC_R)));
-        else tap16_wo_shift(LCTL(LSFT((KC_R)));
+        if (mac_flag) tap16_wo_shift(LGUI(LSFT(KC_R)));
+        else tap16_wo_shift(LCTL(LSFT(KC_R)));
       } else {
         
       }
