@@ -248,27 +248,7 @@ static void tap16_wo_shift(const uint16_t code16) {
 static bool process_record_user_task_switch_next_prev(const uint16_t keycode, const keyrecord_t * const record) {
   static bool is_active = false;
   
-  if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_TKSW)) {
-    if (is_active) {
-      // keep task switch for cursor
-      if (
-        (keycode == KC_RIGHT) || 
-        (keycode == KC_LEFT) ||
-        (keycode == KC_DOWN) ||
-        (keycode == KC_UP)
-        ) return true;
-      
-      is_active = false;
-      if (mac_flag) unregister_mods(MOD_BIT_RGUI);
-      else unregister_mods(MOD_BIT_RALT);
-    }
-    
-    return true;
-  }
-
-  const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-
-  if (base_code == KC_N) {
+  if (keycode == TKSW(KC_N)) {
     // MT template
     if (record->tap.count > 0) {
       if (record->event.pressed) {
@@ -297,7 +277,7 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
     return false;
   } 
   
-  if (base_code == KC_P) {
+  if (keycode == TKSW(KC_P)) {
     // MT template
     if (record->tap.count > 0) {
       if (record->event.pressed) {
@@ -324,6 +304,20 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
     }
     
     return false;
+  }
+
+  if (is_active) {
+    // keep task switch for cursor
+    if (
+      (keycode == KC_RIGHT) || 
+      (keycode == KC_LEFT) ||
+      (keycode == KC_DOWN) ||
+      (keycode == KC_UP)
+      ) return true;
+      
+    is_active = false;
+    if (mac_flag) unregister_mods(MOD_BIT_RGUI);
+    else unregister_mods(MOD_BIT_RALT);
   }
   
   return true;
