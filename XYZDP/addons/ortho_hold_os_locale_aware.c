@@ -330,11 +330,7 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
 }
 
 static bool process_record_user_hold_back(const uint16_t keycode, const keyrecord_t * const record) { 
-  if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_THOR2)) return true;
-
-  const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-
-  if (base_code == KC_P) {
+  if (keycode == THOR2(KC_P)) {
     // MT template
     if (record->tap.count > 0) {
       // tap pass after
@@ -355,11 +351,7 @@ static bool process_record_user_hold_back(const uint16_t keycode, const keyrecor
 }
 
 static bool process_record_user_hold_reload(const uint16_t keycode, const keyrecord_t * const record) { 
-  if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_THOR2)) return true;
-
-  const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-
-  if (base_code == KC_N) {
+  if (keycode == THOR2(KC_N)) {
     // MT template
     if (record->tap.count > 0) {
       // tap pass after
@@ -380,11 +372,7 @@ static bool process_record_user_hold_reload(const uint16_t keycode, const keyrec
 }
 
 static bool process_record_user_hold_force_reload(const uint16_t keycode, const keyrecord_t * const record) { 
-  if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_THOR1S)) return true;
-
-  const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-
-  if (base_code == KC_E) {
+  if (keycode == THOR1S(KC_E)) {
     // MT template
     if (record->tap.count > 0) {
       // tap pass after
