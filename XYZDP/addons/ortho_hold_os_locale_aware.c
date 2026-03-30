@@ -306,6 +306,7 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
     return false;
   }
 
+  // another key, release manu setting
   if (is_active) {
     // keep task switch for cursor
     if (
