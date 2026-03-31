@@ -140,7 +140,7 @@ static void fade_matrix_load_default(void) {
   fade_matrix_target.speed = 80;
   fade_matrix_target.mode = RGB_MATRIX_FLOWER_BLOOMING;
   
-  fade_matrix_idle_delay = 180001; // use prime
+  fade_matrix_idle_delay = 600011; // 10 min
 }
 
 static void fade_matrix_load_powersave(void) {
