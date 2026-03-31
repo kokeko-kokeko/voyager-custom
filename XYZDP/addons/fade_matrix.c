@@ -149,7 +149,7 @@ static void fade_matrix_load_powersave(void) {
   fade_matrix_target.enable = true;
   //fade_matrix_target.hsv.h = 0;
   fade_matrix_target.hsv.s = 0;
-  fade_matrix_target.hsv.v = 71;
+  fade_matrix_target.hsv.v = 70;
   //fade_matrix_target.speed = 128;
   fade_matrix_target.mode = RGB_MATRIX_SOLID_COLOR;
 
