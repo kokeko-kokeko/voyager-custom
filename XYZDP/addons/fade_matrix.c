@@ -17,7 +17,7 @@
 // fade color system
 static fast_timer_t fade_tamrix_trigger = (UINT32_MAX / 2) - 1;
 static const fast_timer_t fade_matrix_activate_delay = 31; // use prime
-static const fast_timer_t fade_matrix_repeat_delay = 13; // use prime
+static const fast_timer_t fade_matrix_repeat_delay = 7; // use prime
 static const fast_timer_t fade_matrix_dimming_delay = 10007; // fixed
 static fast_timer_t fade_matrix_idle_delay = 30011; // valiable
 
