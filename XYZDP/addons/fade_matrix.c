@@ -305,7 +305,8 @@ void keyboard_post_init_fade_matrix(void) {
 bool pre_process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   // first activate
   if (record->event.pressed) {
-      activate_fade_matrix();
+    activate_fade_matrix();
+    fade_tamrix_trigger += 3001;  // keep dim on start up
   }
   return true;
 }
