@@ -153,7 +153,7 @@ static void fade_matrix_load_powersave(void) {
   fade_matrix_target.speed = 20;
   fade_matrix_target.mode = RGB_MATRIX_SOLID_COLOR;
 
-  fade_matrix_idle_delay = 10007; // use prime
+  fade_matrix_idle_delay = 30011; // use prime
 }
 
 bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record) {
