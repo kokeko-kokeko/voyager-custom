@@ -17,6 +17,7 @@
 // fade color system
 static fast_timer_t fade_tamrix_trigger = (UINT32_MAX / 2) - 1;
 static const fast_timer_t fade_matrix_activate_delay = 31; // use prime
+static const fast_timer_t fade_matrix_activate_key_add_delay = 4001; // use prime
 static const fast_timer_t fade_matrix_repeat_delay = 7; // use prime
 static const fast_timer_t fade_matrix_dimming_delay = 8009; // fixed
 static const fast_timer_t fade_matrix_dimming_repeat_add_delay = 24; // fixed
@@ -304,9 +305,10 @@ void keyboard_post_init_fade_matrix(void) {
 
 bool pre_process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   // first activate
-  if (record->event.pressed) {
+  if (record->event.pressed == false) {
+    // release
     activate_fade_matrix();
-    fade_tamrix_trigger += 3001;  // keep dim on start up
+    fade_tamrix_trigger += fade_matrix_activate_key_add_delay;  // keep dim on start up
   }
   return true;
 }
