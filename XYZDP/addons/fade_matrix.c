@@ -18,7 +18,7 @@
 static fast_timer_t fade_tamrix_trigger = (UINT32_MAX / 2) - 1;
 static const fast_timer_t fade_matrix_activate_delay = 29; // use prime
 static const fast_timer_t fade_matrix_repeat_delay = 5; // use prime
-static const fast_timer_t fade_matrix_dimming_delay = 8009; // fixed
+static const fast_timer_t fade_matrix_dimming_delay = 5003; // fixed
 static fast_timer_t fade_matrix_idle_delay = 30011; // valiable
 
 // system side rgb
@@ -26,7 +26,7 @@ extern rgb_config_t rgb_matrix_config;
 
 // target setting
 static rgb_config_t fade_matrix_target;
-static const uint8_t dimming_value = 51;  // only value
+static const uint8_t dimming_value = 46;  // only value
 
 static bool fade_matrix_active = false;
 static bool fade_matrix_dimming = false;
