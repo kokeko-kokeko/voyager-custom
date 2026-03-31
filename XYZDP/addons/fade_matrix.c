@@ -18,6 +18,7 @@
 static fast_timer_t fade_tamrix_trigger = (UINT32_MAX / 2) - 1;
 static const fast_timer_t fade_matrix_activate_delay = 29; // use prime
 static const fast_timer_t fade_matrix_repeat_delay = 5; // use prime
+static const fast_timer_t fade_matrix_dimming_delay = 10007; // fixed
 static fast_timer_t fade_matrix_idle_delay = 30011; // valiable
 
 // system side rgb
@@ -25,8 +26,10 @@ extern rgb_config_t rgb_matrix_config;
 
 // target setting
 static rgb_config_t fade_matrix_target;
+static const uint8_t dimming_value = 24;  // only value
 
 static bool fade_matrix_active = false;
+static bool fade_matrix_dimming = false;
 
 // hue value 6 * 8 like NCS
 static const uint8_t hue_tbl[FADE_MATRIX_INDEX_COUNT] = {
@@ -488,6 +491,16 @@ void housekeeping_task_fade_matrix(void) {
       }
     } else {
       fade_matrix_active = false;
+      fade_matrix_dimming = true;
+      fade_tamrix_trigger += fade_matrix_dimming_delay;
+    }
+  } else if (fade_matrix_dimming) {
+    // dimming mode
+    if (rgb_matrix_config.hsv.v > dimming_value) {
+      rgb_matrix_config.hsv.v--;
+    } else {
+      fade_matrix_active = false;
+      fade_matrix_dimming = false;
       fade_tamrix_trigger += fade_matrix_idle_delay;
     }
   } else {
