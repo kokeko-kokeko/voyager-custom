@@ -370,16 +370,18 @@ bool firmware_map_enter_color_palette_keyrecord(const keyrecord_t * const record
 
   // MT template
   if (record->tap.count > 0) {
+    // tap to enter palette
     if (record->event.pressed) {
       
     } else {
-      
+      layer_on(LAYER_Color_Palette);
     }
   } else {
+    // hold to peek to palette
     if (record->event.pressed) {
       layer_on(LAYER_Color_Palette);
     } else {
-      
+      layer_off(LAYER_Color_Palette);
     }  
   }  
   
