@@ -505,7 +505,6 @@ void housekeeping_task_fade_matrix(void) {
       rgb_matrix_config.hsv.v--;
       fade_tamrix_trigger += fade_matrix_dimming_repeat_add_delay;
     } else {
-      fade_matrix_sync_target = false;
       fade_matrix_dimming = true;
       fade_tamrix_trigger += fade_matrix_idle_delay;
     }
@@ -517,6 +516,7 @@ void housekeeping_task_fade_matrix(void) {
       rgb_matrix_config.hsv.v--;
     } else {
       fade_tamrix_trigger = now + (UINT32_MAX / 2) - 1;
+      fade_matrix_dimming = false;
       rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
       rgb_matrix_disable_noeeprom();
     }
