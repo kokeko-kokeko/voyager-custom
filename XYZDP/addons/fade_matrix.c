@@ -140,7 +140,7 @@ static void fade_matrix_load_default(void) {
   fade_matrix_target.hsv.h = 250;
   fade_matrix_target.hsv.s = 128;
   fade_matrix_target.hsv.v = 106;
-  fade_matrix_target.speed = 75;
+  fade_matrix_target.speed = 60;
   fade_matrix_target.mode = RGB_MATRIX_FLOWER_BLOOMING;
   
   fade_matrix_idle_delay = 600011; // 10 min
@@ -151,7 +151,7 @@ static void fade_matrix_load_powersave(void) {
   fade_matrix_target.hsv.h = 92;
   fade_matrix_target.hsv.s = 255;
   fade_matrix_target.hsv.v = 70;
-  fade_matrix_target.speed = 20;
+  fade_matrix_target.speed = 60;
   fade_matrix_target.mode = RGB_MATRIX_SOLID_COLOR;
 
   fade_matrix_idle_delay = 90001; // use prime
