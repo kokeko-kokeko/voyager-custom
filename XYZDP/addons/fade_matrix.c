@@ -309,7 +309,7 @@ bool pre_process_record_fade_matrix(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed == false) {
     // release
     activate_fade_matrix();
-    fade_tamrix_trigger += fade_matrix_activate_dim_key_add_delay;  // keep dim on start up
+    if (fade_matrix_dimming) fade_tamrix_trigger += fade_matrix_activate_dim_key_add_delay;  // keep dim on start up
   }
   return true;
 }
