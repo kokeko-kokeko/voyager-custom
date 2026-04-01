@@ -30,6 +30,7 @@ extern rgb_config_t rgb_matrix_config;
 static rgb_config_t fade_matrix_target;
 static const uint8_t dimming_value = 51;  // only value
 
+// flags, means current state 
 static bool fade_matrix_sync_target = false;
 static bool fade_matrix_dimming = false;
 
@@ -460,7 +461,7 @@ void housekeeping_task_fade_matrix(void) {
   if (timer_expired_fast(now, fade_tamrix_trigger) == false) return;
   fade_tamrix_trigger += fade_matrix_repeat_delay;
 
-  if (fade_matrix_sync_target) {
+  if (fade_matrix_sync_target == true) {
     // rgb to enable
     rgb_matrix_enable_noeeprom();
     if ((rgb_matrix_config.speed != fade_matrix_target.speed) || (rgb_matrix_config.mode != fade_matrix_target.mode)) {
@@ -495,17 +496,17 @@ void housekeeping_task_fade_matrix(void) {
       }
     } else {
       fade_matrix_sync_target = false;
-      fade_matrix_dimming = true;
+      fade_matrix_dimming = false;
       fade_tamrix_trigger += fade_matrix_dimming_delay;
     }
-  } else if (fade_matrix_dimming) {
-    // dimming mode
+  } else if (fade_matrix_dimming == false) {
+    // not dim, do dimming mode
     if (rgb_matrix_config.hsv.v > dimming_value) {
       rgb_matrix_config.hsv.v--;
       fade_tamrix_trigger += fade_matrix_dimming_repeat_add_delay;
     } else {
       fade_matrix_sync_target = false;
-      fade_matrix_dimming = false;
+      fade_matrix_dimming = true;
       fade_tamrix_trigger += fade_matrix_idle_delay;
     }
   } else {
