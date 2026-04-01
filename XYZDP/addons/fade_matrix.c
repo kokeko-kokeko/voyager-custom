@@ -28,7 +28,7 @@ extern rgb_config_t rgb_matrix_config;
 
 // target setting
 static rgb_config_t fade_matrix_target;
-static const uint8_t dimming_value = 37;  // only value
+static const uint8_t dimming_value = 34;  // minimal
 
 // flags, means current state 
 static bool fade_matrix_active = false;
@@ -57,7 +57,7 @@ static const uint8_t sat_tbl[FADE_MATRIX_INDEX_COUNT] = {
 
 // val value max limit 175
 static const uint8_t val_tbl[FADE_MATRIX_INDEX_COUNT] = {
-  1,   37,  40,  43,  46,  49,  52,  55,
+  34,  37,  40,  43,  46,  49,  52,  55,
   58,  61,  64,  67,  70,  73,  76,  79,
   82,  85,  88,  91,  94,  97,  100, 103,
   106, 109, 112, 115, 118, 121, 124, 127,
