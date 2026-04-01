@@ -645,8 +645,6 @@ void set_layer_color_overlay_mouse(void) {
     rgb_matrix_set_color(11, 0, 0, f);
     
     rgb_matrix_set_color(17, 0, f, 0);
-    
-    rgb_matrix_set_color(25, f, 0, 0);
   } else {
     // up
     
@@ -657,15 +655,17 @@ void set_layer_color_overlay_mouse(void) {
     
     rgb_matrix_set_color(17, f, f, 0);
     
-    rgb_matrix_set_color(25, f, 0, h);
+    rgb_matrix_set_color(23, f, 0, h);
   }
+
+  // both up/low
+  rgb_matrix_set_color(25, f, 0, 0);
 
   if (layer_state_is(LAYER_Mouse_Upper_Right) == false) {
     // low
     
     // right side
     rgb_matrix_set_color(26, 0, f, h);
-    rgb_matrix_set_color(27, 0, f, 0);
     
     rgb_matrix_set_color(32, 0, 0, f);
     
@@ -675,12 +675,16 @@ void set_layer_color_overlay_mouse(void) {
     
     // right side 
     rgb_matrix_set_color(26, h, 0, f);
-    rgb_matrix_set_color(27, f, f, 0);
    
     rgb_matrix_set_color(32, 0, h, f);
     
     rgb_matrix_set_color(38, f, 0, h);
+
+    rgb_matrix_set_color(44, f, f, 0);    
   }
+
+  // both up/low
+  rgb_matrix_set_color(27, 0, f, 0);
   
   //rgb_matrix_set_color(44, q, q, q);
   rgb_matrix_set_color(47, q, o, 0);
