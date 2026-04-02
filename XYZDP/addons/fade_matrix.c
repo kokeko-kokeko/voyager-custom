@@ -20,7 +20,7 @@ static const fast_timer_t fade_matrix_activate_delay = 31; // use prime
 static const fast_timer_t fade_matrix_activate_dim_key_add_delay = 2003; // when dimmed more slow start-up
 static const fast_timer_t fade_matrix_repeat_delay = 7; // use prime
 static const fast_timer_t fade_matrix_dimming_delay = 10007; // fixed
-static const fast_timer_t fade_matrix_dimming_repeat_add_delay = 24; // fixed
+static const fast_timer_t fade_matrix_dimming_repeat_add_delay = 12; // fixed
 static fast_timer_t fade_matrix_off_delay = 30011; // valiable
 
 // system side rgb
