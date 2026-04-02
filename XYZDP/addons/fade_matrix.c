@@ -21,7 +21,7 @@ static const fast_timer_t fade_matrix_activate_dim_key_add_delay = 2003; // when
 static const fast_timer_t fade_matrix_repeat_delay = 7; // use prime
 static const fast_timer_t fade_matrix_dimming_delay = 8009; // fixed
 static const fast_timer_t fade_matrix_dimming_repeat_add_delay = 24; // fixed
-static fast_timer_t fade_matrix_idle_delay = 30011; // valiable
+static fast_timer_t fade_matrix_off_delay = 30011; // valiable
 
 // system side rgb
 extern rgb_config_t rgb_matrix_config;
@@ -143,7 +143,7 @@ static void fade_matrix_load_default(void) {
   fade_matrix_target.speed = 60;
   fade_matrix_target.mode = RGB_MATRIX_FLOWER_BLOOMING;
   
-  fade_matrix_idle_delay = 600011; // 10 min
+  fade_matrix_off_delay = 600011; // 10 min
 }
 
 static void fade_matrix_load_powersave(void) {
@@ -154,7 +154,7 @@ static void fade_matrix_load_powersave(void) {
   fade_matrix_target.speed = 60;
   fade_matrix_target.mode = RGB_MATRIX_SOLID_COLOR;
 
-  fade_matrix_idle_delay = 90001; // use prime
+  fade_matrix_off_delay = 90001; // use prime
 }
 
 bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record) {
@@ -506,7 +506,7 @@ void housekeeping_task_fade_matrix(void) {
       fade_tamrix_trigger += fade_matrix_dimming_repeat_add_delay;
     } else {
       fade_matrix_dimmed = true;
-      fade_tamrix_trigger += fade_matrix_idle_delay;
+      fade_tamrix_trigger += fade_matrix_off_delay;
     }
   } else {
     // rgb to disable
