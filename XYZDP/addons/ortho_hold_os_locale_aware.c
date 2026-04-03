@@ -325,7 +325,7 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
 }
 
 static bool process_record_user_hold_back(const uint16_t keycode, const keyrecord_t * const record) { 
-  if (keycode == THOR2(KC_P)) {
+  if (keycode == THOR1S(KC_E)) {
     // MT template
     if (record->tap.count > 0) {
       // tap pass after
@@ -367,7 +367,7 @@ static bool process_record_user_hold_reload(const uint16_t keycode, const keyrec
 }
 
 static bool process_record_user_hold_force_reload(const uint16_t keycode, const keyrecord_t * const record) { 
-  if (keycode == THOR1S(KC_E)) {
+  if (keycode == THOR2(KC_P)) {
     // MT template
     if (record->tap.count > 0) {
       // tap pass after
