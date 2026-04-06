@@ -365,61 +365,6 @@ void set_layer_color_firmware_map(void) {
   }
 }
 
-/*
-bool firmware_map_enter_color_palette_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return false;
-
-  // MT template
-  if (record->tap.count > 0) {
-    // tap to enter palette
-    if (record->event.pressed) {
-      layer_on(LAYER_Color_Palette);
-    } else {
-      
-    }
-  } else {
-    // hold to peek to palette
-    if (record->event.pressed) {
-      layer_on(LAYER_Color_Palette);
-    } else {
-      layer_off(LAYER_Color_Palette);
-    }  
-  }  
-  
-  return false;
-}
-*/
-
-/*
-bool firmware_map_exit_all_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return false;
-
-  // MT template
-  if (record->tap.count > 0) {
-    if (record->event.pressed) {
-      
-    } else {
-      
-    }
-  } else {
-    if (record->event.pressed) {
-      // off all setting layers
-      layer_state_t layer_mask = 
-        ((layer_state_t)1 << LAYER_Firmware)      |
-        ((layer_state_t)1 << LAYER_Color_Palette);
-      layer_mask = ~layer_mask;
-      layer_and(layer_mask);
-      
-      status_led(0b1111, led_pattern_oneshot);
-    } else {
-      
-    }  
-  }
-  
-  return false;
-}
-*/
-
 bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   
