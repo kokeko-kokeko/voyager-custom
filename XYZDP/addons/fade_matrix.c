@@ -242,7 +242,7 @@ bool fade_matrix_color_palette_load_preset_keyrecord(const keyrecord_t * const r
   return false;
 }
 
-bool fade_matrix_color_palette_sel_hue_keyrecord(const keyrecord_t * const record) {
+bool fade_matrix_color_palette_sel_bit_0_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed) {
     plt_sel |= 0b00000001;
@@ -256,7 +256,7 @@ bool fade_matrix_color_palette_sel_hue_keyrecord(const keyrecord_t * const recor
   return false;
 }
 
-bool fade_matrix_color_palette_sel_sat_keyrecord(const keyrecord_t * const record) {
+bool fade_matrix_color_palette_sel_bit_1_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
   if (record->event.pressed) {
     plt_sel |= 0b00000010;
