@@ -647,6 +647,8 @@ static void set_layer_color_speed_map(void) {
 }
 
 void set_layer_color_palette_map(void) {
+  HSV hsv = rgb_matrix_get_hsv();
+  
   if (plt_sel == 1) {
     rgb_matrix_set_color(24, 0, 0, 0);
     set_layer_color_hue_map();
