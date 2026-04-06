@@ -213,10 +213,6 @@ static bool process_record_macro_firmware(const uint16_t keycode, const keyrecor
   if (base_code == KC_7) return fade_matrix_color_palette_sel_sat_keyrecord(record);
     
   if (base_code == KC_P) return fade_matrix_color_palette_load_preset_keyrecord(record);
-    
-  // layer move
-  //if (base_code == KC_1) return firmware_map_enter_color_palette_keyrecord(record);
-  //if (base_code == KC_2) return firmware_map_exit_all_keyrecord(record);
   
   return true;
 }
