@@ -46,8 +46,8 @@ enum key_position {
 
   POSITION_OS = 22,
   
-  POSITION_Color_Palette = 50,
-  POSITION_Halt = 51,
+  POSITION_Color_Palette = 51,
+  POSITION_Halt = 50,
   POSITION_Halt_Left = 23
 };
 
