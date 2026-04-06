@@ -28,7 +28,7 @@ extern rgb_config_t rgb_matrix_config;
 
 // target setting
 static rgb_config_t fade_matrix_target;
-static const uint8_t dimming_value = 31;  // linear [-1] value
+static const uint8_t dimming_value = 31;  // linear val_tbl[-1] value
 
 // flags, means current state 
 static bool fade_matrix_active = false;
