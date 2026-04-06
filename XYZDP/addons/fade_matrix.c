@@ -190,14 +190,14 @@ bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) 
   uint8_t idx = pos2idx_tbl[pos];
   if (FADE_MATRIX_INDEX_COUNT <= idx) return false;
   
-  if (plt_sel == 0) {
-    fade_matrix_target.hsv.v = val_tbl[idx];   
-  } else if (plt_sel == 1) {
+  if (plt_sel == 1) {
     fade_matrix_target.hsv.h = hue_tbl[idx];
   } else if (plt_sel == 2) {
     fade_matrix_target.hsv.s = sat_tbl[idx];
-  } else {
+  } else if (plt_sel == 3) {
     fade_matrix_target.speed = spd_tbl[idx];
+  } else {
+    fade_matrix_target.hsv.v = val_tbl[idx];   
   }
 
   activate_fade_matrix();
@@ -526,13 +526,6 @@ void housekeeping_task_fade_matrix(void) {
 static void set_layer_color_hue_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
-
-  // neg
-  //rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
-  rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
-  
-  rgb_matrix_set_color(50, 0, 0, 0);
-  rgb_matrix_set_color(51, 0, hsv.v, 0);
   
   uint8_t key = hsv.h;
   uint8_t i = 0;
@@ -563,13 +556,6 @@ static void set_layer_color_hue_map(void) {
 static void set_layer_color_sat_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
-
-  // neg
-  rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
-  //rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
-  
-  rgb_matrix_set_color(50, 0, 0, 0);
-  rgb_matrix_set_color(51, 0, hsv.v, 0);
   
   uint8_t key = hsv.s;
   uint8_t i = 0;
@@ -600,13 +586,6 @@ static void set_layer_color_sat_map(void) {
 static void set_layer_color_val_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
-
-  // neg
-  rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
-  rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
-  
-  rgb_matrix_set_color(50, hsv.v, hsv.v, 0);
-  rgb_matrix_set_color(51, 0, hsv.v, 0);
   
   uint8_t key = hsv.v;
   uint8_t i = 0;
@@ -637,9 +616,6 @@ static void set_layer_color_val_map(void) {
 static void set_layer_color_speed_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
-
-  rgb_matrix_set_color(50, 0, 0, hsv.v);
-  rgb_matrix_set_color(51, 0, hsv.v, 0);
   
   // copy logic from breathing_anim.h   
   uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
@@ -671,14 +647,20 @@ static void set_layer_color_speed_map(void) {
 }
 
 void set_layer_color_palette_map(void) {
-  if (plt_sel == 0) {
-    set_layer_color_val_map();
-  } else if (plt_sel == 1) {
+  if (plt_sel == 1) {
+    rgb_matrix_set_color(24, 0, 0, 0);
     set_layer_color_hue_map();
   } else if (plt_sel == 2) {
+    rgb_matrix_set_color(25, 0, 0, 0);
     set_layer_color_sat_map();
-  } else {
+  } else if (plt_sel == 3) {
+    rgb_matrix_set_color(24, 0, 0, 0);
+    rgb_matrix_set_color(25, 0, 0, 0);
     set_layer_color_speed_map();
+  } else {
+    set_layer_color_val_map();
   }
+
+  rgb_matrix_set_color(51, 0, hsv.v, 0);
 }
 
