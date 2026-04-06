@@ -222,7 +222,7 @@ void set_layer_color_firmware_map(void) {
   //rgb_matrix_set_color(44, f, f, 0);
   //rgb_matrix_set_color(45, f, f, 0);
   
-  rgb_matrix_set_color(POSITION_Color_Palette, q, q, 0);
+  rgb_matrix_set_color(POSITION_Color_Palette, 0, q, 0);
   
   //ANSI/JIS
   if (jis_is_enabled()) {
