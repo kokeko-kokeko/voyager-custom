@@ -196,6 +196,10 @@ bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) 
     fade_matrix_target.hsv.s = sat_tbl[idx];
   } else if (plt_sel == 3) {
     fade_matrix_target.speed = spd_tbl[idx];
+  } else if (plt_sel == 4) {
+  } else if (plt_sel == 5) {
+  } else if (plt_sel == 6) {
+  } else if (plt_sel == 7) {
   } else {
     fade_matrix_target.hsv.v = val_tbl[idx];   
   }
