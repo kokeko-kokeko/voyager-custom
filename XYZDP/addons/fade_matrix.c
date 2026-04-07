@@ -249,7 +249,7 @@ bool fade_matrix_color_palette_sel_bit_0_keyrecord(const keyrecord_t * const rec
     status_led(0b0010, led_pattern_blink);
   } else {
     plt_sel &= 0b11111110;
-    status_led(0b0010, led_pattern_off);
+    pop_status_led(0b0010);
   }
 
   // default false
@@ -263,7 +263,21 @@ bool fade_matrix_color_palette_sel_bit_1_keyrecord(const keyrecord_t * const rec
     status_led(0b0001, led_pattern_blink);
   } else {
     plt_sel &= 0b11111101;
-    status_led(0b0001, led_pattern_off);
+    pop_status_led(0b0001);
+  }
+  
+  // default false
+  return false;
+}
+
+bool fade_matrix_color_palette_sel_bit_2_keyrecord(const keyrecord_t * const record) {
+  if (record == NULL) return false;
+  if (record->event.pressed) {
+    plt_sel |= 0b00000100;
+    status_led(0b0011, led_pattern_on);
+  } else {
+    plt_sel &= 0b11111011;
+    pop_status_led(0b0011);
   }
   
   // default false
