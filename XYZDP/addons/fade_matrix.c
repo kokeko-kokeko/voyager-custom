@@ -197,6 +197,13 @@ bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) 
   } else if (plt_sel == 3) {
     fade_matrix_target.speed = spd_tbl[idx];
   } else if (plt_sel == 4) {
+    // mode 1 origin
+    uint8_t mode = idx + 1;
+
+    if (mode >= RGB_MATRIX_EFFECT_MAX) mode = RGB_MATRIX_EFFECT_MAX - 1;
+    
+    fade_matrix_target.mode = mode;
+    
   } else if (plt_sel == 5) {
   } else if (plt_sel == 6) {
   } else if (plt_sel == 7) {
