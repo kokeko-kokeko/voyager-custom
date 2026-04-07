@@ -211,8 +211,7 @@ static bool process_record_macro_firmware(const uint16_t keycode, const keyrecor
     
   if (base_code == KC_0) return fade_matrix_color_palette_sel_bit_0_keyrecord(record);
   if (base_code == KC_1) return fade_matrix_color_palette_sel_bit_1_keyrecord(record);
-    
-  if (base_code == KC_2) return fade_matrix_color_palette_load_preset_keyrecord(record);
+  if (base_code == KC_2) return fade_matrix_color_palette_sel_bit_2_keyrecord(record);
   
   return true;
 }
