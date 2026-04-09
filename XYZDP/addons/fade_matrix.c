@@ -260,20 +260,19 @@ bool fade_matrix_color_palette_sel_next_keyrecord(const keyrecord_t * const reco
   // MT template
   if (record->tap.count > 0) {
     if (record->event.pressed) {
-      return false;
+      
     } else {
       // palette select
       // 3-bit Johnson counter (0-5)
       plt_sel++;
-      if (plt_sel == 6) plt_sel = 0:
+      if (plt_sel == 6) plt_sel = 0;
       
-      return false;
     }
   } else {
     if (record->event.pressed) {
-      plt_sel = 0:
+      plt_sel = 0;
     } else {
-      return false;
+      
     }  
   }
 
