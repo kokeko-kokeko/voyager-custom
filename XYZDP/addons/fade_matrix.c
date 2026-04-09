@@ -120,6 +120,7 @@ static const uint8_t row_col2pos_tbl[MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // palette select
+// 3-bit Johnson counter (0-5)
 static uint8_t plt_sel = 0;
 
 static void activate_fade_matrix(void) {
@@ -253,44 +254,29 @@ bool fade_matrix_color_palette_load_preset_keyrecord(const keyrecord_t * const r
   return false;
 }
 
-bool fade_matrix_color_palette_sel_bit_0_keyrecord(const keyrecord_t * const record) {
+bool fade_matrix_color_palette_sel_next_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
-  if (record->event.pressed) {
-    plt_sel |= 0b00000001;
-    status_led(0b0010, led_pattern_blink);
+
+  // MT template
+  if (record->tap.count > 0) {
+    if (record->event.pressed) {
+      return false;
+    } else {
+      // palette select
+      // 3-bit Johnson counter (0-5)
+      plt_sel++;
+      if (plt_sel == 6) plt_sel = 0:
+      
+      return false;
+    }
   } else {
-    plt_sel &= 0b11111110;
-    pop_status_led(0b0010);
+    if (record->event.pressed) {
+      plt_sel = 0:
+    } else {
+      return false;
+    }  
   }
 
-  // default false
-  return false;
-}
-
-bool fade_matrix_color_palette_sel_bit_1_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return false;
-  if (record->event.pressed) {
-    plt_sel |= 0b00000010;
-    status_led(0b0001, led_pattern_blink);
-  } else {
-    plt_sel &= 0b11111101;
-    pop_status_led(0b0001);
-  }
-  
-  // default false
-  return false;
-}
-
-bool fade_matrix_color_palette_sel_bit_2_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return false;
-  if (record->event.pressed) {
-    plt_sel |= 0b00000100;
-    status_led(0b0011, led_pattern_on);
-  } else {
-    plt_sel &= 0b11111011;
-    pop_status_led(0b0011);
-  }
-  
   // default false
   return false;
 }
