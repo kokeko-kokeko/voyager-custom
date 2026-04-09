@@ -206,8 +206,6 @@ bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) 
     fade_matrix_target.mode = mode;
     
   } else if (plt_sel == 5) {
-  } else if (plt_sel == 6) {
-  } else if (plt_sel == 7) {
   } else {
     fade_matrix_target.hsv.v = val_tbl[idx];   
   }
@@ -663,23 +661,18 @@ void set_layer_color_palette_map(void) {
     rgb_matrix_set_color(24, 0, 0, 0);
     set_layer_color_hue_map();
   } else if (plt_sel == 2) {
+    rgb_matrix_set_color(24, 0, 0, 0);
     rgb_matrix_set_color(25, 0, 0, 0);
     set_layer_color_sat_map();
   } else if (plt_sel == 3) {
     rgb_matrix_set_color(24, 0, 0, 0);
     rgb_matrix_set_color(25, 0, 0, 0);
+    rgb_matrix_set_color(50, 0, 0, 0);
     set_layer_color_speed_map();
   } else if (plt_sel == 4) {
+    rgb_matrix_set_color(25, 0, 0, 0);
     rgb_matrix_set_color(50, 0, 0, 0);
   } else if (plt_sel == 5) {
-    rgb_matrix_set_color(24, 0, 0, 0);
-    rgb_matrix_set_color(50, 0, 0, 0);
-  } else if (plt_sel == 6) {
-    rgb_matrix_set_color(25, 0, 0, 0);
-    rgb_matrix_set_color(50, 0, 0, 0);
-  } else if (plt_sel == 7) {
-    rgb_matrix_set_color(24, 0, 0, 0);
-    rgb_matrix_set_color(25, 0, 0, 0);
     rgb_matrix_set_color(50, 0, 0, 0);
   } else {
     set_layer_color_val_map();
