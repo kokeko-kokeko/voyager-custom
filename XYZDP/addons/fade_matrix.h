@@ -11,9 +11,7 @@ bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record);
 
 bool fade_matrix_color_palette_load_preset_keyrecord(const keyrecord_t * const record);
 
-bool fade_matrix_color_palette_sel_bit_0_keyrecord(const keyrecord_t * const record);
-bool fade_matrix_color_palette_sel_bit_1_keyrecord(const keyrecord_t * const record);
-bool fade_matrix_color_palette_sel_bit_2_keyrecord(const keyrecord_t * const record);
+bool fade_matrix_color_palette_sel_next_keyrecord(const keyrecord_t * const record);
 
 void fade_matrix_enable(void);
 void fade_matrix_disable(void);
