@@ -201,7 +201,7 @@ bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) 
     if (idx == (FADE_MATRIX_INDEX_COUNT - 1)) {
       fade_matrix_load_powersave();
       status_led(0b1010, led_pattern_oneshot);
-    } else if  (idx == (FADE_MATRIX_INDEX_COUNT - 2)) {
+    } else if (idx == (FADE_MATRIX_INDEX_COUNT - 2)) {
       fade_matrix_load_default();
       status_led(0b1010, led_pattern_oneshot);
     } else {
