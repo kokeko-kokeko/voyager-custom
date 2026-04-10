@@ -223,42 +223,6 @@ bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) 
   return false;
 }
 
-bool fade_matrix_color_palette_load_preset_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return false;
-
-  // MT template
-  if (record->tap.count > 0) {
-    if (record->event.pressed) {
-      return false;
-    } else {
-      return false;
-    }
-  } else {
-    if (record->event.pressed) {
-      
-    } else {
-      return false;
-    }  
-  }
-  
-  if (plt_sel == 0) {
-    fade_matrix_load_default();
-  } else if (plt_sel == 1) {
-    return false;
-  } else if (plt_sel == 2) {
-    return false;
-  } else {
-    fade_matrix_load_powersave();
-  }
-
-  activate_fade_matrix();
-  
-  status_led(0b1010, led_pattern_oneshot);
-
-  // default false
-  return false;
-}
-
 bool fade_matrix_color_palette_sel_next_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
 
