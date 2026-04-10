@@ -9,7 +9,7 @@ bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record);
 
 bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record);
 
-bool fade_matrix_color_palette_sel_next_keyrecord(const keyrecord_t * const record);
+bool fade_matrix_color_palette_sel_keyrecord(const keyrecord_t * const record);
 
 void fade_matrix_enable(void);
 void fade_matrix_disable(void);
