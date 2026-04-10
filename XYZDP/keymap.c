@@ -392,11 +392,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       // aim/turbo change without layer, direct write on process_record
       break;    
     case LAYER_Firmware:
-      status_led(0b1111, led_pattern_off);
+      status_led(0b0011, led_pattern_off);
+	  status_led(0b1100, led_pattern_on);
       break;
     case LAYER_Color_Palette:
-      status_led(0b0011, led_pattern_off);
-      status_led(0b1100, led_pattern_on);
+      status_led(0b0010, led_pattern_off);
+      status_led(0b1101, led_pattern_on);
       break;
     
     default:
