@@ -489,7 +489,10 @@ void housekeeping_task_fade_matrix(void) {
     }
   } else if (fade_matrix_dimmed == false) {
     // not dim, do dimming mode
-    if (rgb_matrix_config.hsv.v > dimming_value) {
+    if (layer_state_is(LAYER_Color_Palette)) {
+      // if palette enable skip
+      fade_tamrix_trigger += fade_matrix_dimming_delay;
+    } else if (rgb_matrix_config.hsv.v > dimming_value) {
       rgb_matrix_config.hsv.v--;
       fade_tamrix_trigger += fade_matrix_dimming_repeat_add_delay;
     } else {
