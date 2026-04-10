@@ -655,14 +655,17 @@ void set_layer_color_palette_map(void) {
   if (plt_sel == 1) {
     rgb_matrix_set_color(25, 0, 0, 0);
     rgb_matrix_set_color(50, 0, 0, 0);
+    
     set_layer_color_hue_map();
   } else if (plt_sel == 2) {
     rgb_matrix_set_color(50, 0, 0, 0);
+    
     set_layer_color_sat_map();
   } else if (plt_sel == 3) {
     set_layer_color_speed_map();
   } else if (plt_sel == 4) {
     rgb_matrix_set_color(24, 0, 0, 0);
+    
     set_layer_color_mode_map();
   } else if (plt_sel == 5) {
     rgb_matrix_set_color(24, 0, 0, 0);
@@ -671,6 +674,7 @@ void set_layer_color_palette_map(void) {
     rgb_matrix_set_color(24, 0, 0, 0);
     rgb_matrix_set_color(25, 0, 0, 0);
     rgb_matrix_set_color(50, 0, 0, 0);
+    
     set_layer_color_val_map();
   }
 
