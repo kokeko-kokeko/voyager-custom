@@ -630,7 +630,6 @@ static void set_layer_color_speed_map(void) {
 
 static void set_layer_color_mode_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
-  RGB rgb = hsv_to_rgb(hsv);
   
   rgb_matrix_set_color(idx2pos_tbl[FADE_MATRIX_INDEX_COUNT - 1], 0, hsv.v, 0);
   rgb_matrix_set_color(idx2pos_tbl[FADE_MATRIX_INDEX_COUNT - 2], 0, 0, hsv.v);
