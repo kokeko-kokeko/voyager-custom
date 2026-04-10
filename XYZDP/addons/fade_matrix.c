@@ -204,9 +204,12 @@ bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) 
     } else if (idx == (FADE_MATRIX_INDEX_COUNT - 2)) {
       fade_matrix_load_default();
       status_led(0b1010, led_pattern_oneshot);
+    } else if (idx == 0) {
+      // idx 0 to disable
+      fade_matrix_target.enable = false;
     } else {
       // mode 1 origin
-      uint8_t mode = idx + 1;
+      uint8_t mode = idx;
       
       if (mode >= RGB_MATRIX_EFFECT_MAX) mode = RGB_MATRIX_EFFECT_MAX - 1;
       
