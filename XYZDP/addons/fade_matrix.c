@@ -208,6 +208,9 @@ bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) 
       // idx 0 to disable
       fade_matrix_target.enable = false;
     } else {
+      // not 0 enable
+      fade_matrix_target.enable = true;
+      
       // mode 1 origin
       uint8_t mode = idx;
       
