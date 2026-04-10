@@ -643,7 +643,10 @@ static void set_layer_color_mode_map(void) {
   rgb_matrix_set_color(idx2pos_tbl[FADE_MATRIX_INDEX_COUNT - 1], 0, hsv.v, 0);
   rgb_matrix_set_color(idx2pos_tbl[FADE_MATRIX_INDEX_COUNT - 2], 0, 0, hsv.v);
 
+  
+  // mode 1 origin
   rgb_matrix_set_color(idx2pos_tbl[rgb_matrix_config.mode], 0, 0, 0);
+  rgb_matrix_set_color(idx2pos_tbl[RGB_MATRIX_EFFECT_MAX], hsv.v, hsv.v, 0);
 }
 
 void set_layer_color_palette_map(void) {
