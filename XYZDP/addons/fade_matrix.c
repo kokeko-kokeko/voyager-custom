@@ -460,6 +460,8 @@ layer_state_t layer_state_set_fade_matrix(layer_state_t state) {
   // layer change activate
   activate_fade_matrix();
   
+  if (layer_state_cmp(state, LAYER_Color_Palette) == false) plt_sel = 0;
+  
   return state;
 }
 
