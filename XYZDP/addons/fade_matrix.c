@@ -655,33 +655,23 @@ static void (* set_layer_color_palette_map_array[FADE_MATRIX_INDEX_COUNT]) (void
   set_layer_color_hue_map,
   set_layer_color_sat_map,
   set_layer_color_speed_map,
+  set_layer_color_mode_map,
   set_layer_color_mode_map
+
 };
 
 void set_layer_color_palette_map(void) {
   set_layer_color_palette_map_array[plt_select]();
-
-  /*
-  if (plt_select == 1) {    
-    set_layer_color_hue_map();
-  } else if (plt_select == 2) {
-    set_layer_color_sat_map();
-  } else if (plt_select == 3) {
-    set_layer_color_speed_map();
-  } else if (plt_select == 4) {    
-    set_layer_color_mode_map();
-  } else if (plt_select == 5) {
-  } else {
-    set_layer_color_val_map();
-  }
-  */
-
+  
   HSV hsv = rgb_matrix_get_hsv();
   hsv.h = hue_tbl[hue_step * plt_select];
   hsv.s = 255;
 
   RGB rgb = hsv_to_rgb(hsv);
   rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
+
+  rgb_matrix_set_color(25, 0, 0, 0);
+  rgb_matrix_set_color(50, 0, 0, 0);
   
   rgb_matrix_set_color(51, 0, hsv.v, 0);
 }
