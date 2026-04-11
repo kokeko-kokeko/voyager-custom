@@ -121,7 +121,7 @@ static const uint8_t row_col2pos_tbl[MATRIX_ROWS][MATRIX_COLS] = {
 
 // palette select
 // 3-bit Johnson counter (0-5)
-static uint8_t plt_sel = 0;
+static uint8_t plt_select = 0;
 
 static void activate_fade_matrix(void) {
   const fast_timer_t now = timer_read_fast();
@@ -191,13 +191,13 @@ bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) 
   uint8_t idx = pos2idx_tbl[pos];
   if (FADE_MATRIX_INDEX_COUNT <= idx) return false;
   
-  if (plt_sel == 1) {
+  if (plt_select == 1) {
     fade_matrix_target.hsv.h = hue_tbl[idx];
-  } else if (plt_sel == 2) {
+  } else if (plt_select == 2) {
     fade_matrix_target.hsv.s = sat_tbl[idx];
-  } else if (plt_sel == 3) {
+  } else if (plt_select == 3) {
     fade_matrix_target.speed = spd_tbl[idx];
-  } else if (plt_sel == 4) {
+  } else if (plt_select == 4) {
     if (idx == (FADE_MATRIX_INDEX_COUNT - 1)) {
       fade_matrix_load_powersave();
       status_led(0b1010, led_pattern_oneshot);
@@ -218,7 +218,7 @@ bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) 
       
       fade_matrix_target.mode = mode;
     }
-  } else if (plt_sel == 5) {
+  } else if (plt_select == 5) {
   } else {
     fade_matrix_target.hsv.v = val_tbl[idx];   
   }
@@ -239,13 +239,13 @@ bool fade_matrix_color_palette_select_keyrecord(const keyrecord_t * const record
     } else {
       // palette select
       // 3-bit Johnson counter (0-5)
-      plt_sel++;
-      if (plt_sel == 6) plt_sel = 0;
+      plt_select++;
+      if (plt_select == 6) plt_select = 0;
       
     }
   } else {
     if (record->event.pressed) {
-      plt_sel = 0;
+      plt_select = 0;
     } else {
       
     }  
@@ -438,7 +438,7 @@ layer_state_t layer_state_set_fade_matrix(layer_state_t state) {
   activate_fade_matrix();
 
   // clear select
-  if (layer_state_cmp(state, LAYER_Color_Palette) == false) plt_sel = 0;
+  if (layer_state_cmp(state, LAYER_Color_Palette) == false) plt_select = 0;
   
   return state;
 }
@@ -652,22 +652,22 @@ static void set_layer_color_mode_map(void) {
 void set_layer_color_palette_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
   
-  if (plt_sel == 1) {
+  if (plt_select == 1) {
     rgb_matrix_set_color(25, 0, 0, 0);
     rgb_matrix_set_color(50, 0, 0, 0);
     
     set_layer_color_hue_map();
-  } else if (plt_sel == 2) {
+  } else if (plt_select == 2) {
     rgb_matrix_set_color(50, 0, 0, 0);
     
     set_layer_color_sat_map();
-  } else if (plt_sel == 3) {
+  } else if (plt_select == 3) {
     set_layer_color_speed_map();
-  } else if (plt_sel == 4) {
+  } else if (plt_select == 4) {
     rgb_matrix_set_color(24, 0, 0, 0);
     
     set_layer_color_mode_map();
-  } else if (plt_sel == 5) {
+  } else if (plt_select == 5) {
     rgb_matrix_set_color(24, 0, 0, 0);
     rgb_matrix_set_color(25, 0, 0, 0);
   } else {
