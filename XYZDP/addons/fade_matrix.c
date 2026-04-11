@@ -649,7 +649,7 @@ static void set_layer_color_mode_map(void) {
 
 static uint8_t const hue_idx_step = FADE_MATRIX_INDEX_COUNT / FADE_MATRIX_SELECT_COUNT;
 
-static void (* set_layer_color_palette_map_array[FADE_MATRIX_INDEX_COUNT]) (void) = {
+static void (*const set_layer_color_palette_map_array[FADE_MATRIX_INDEX_COUNT]) (void) = {
   set_layer_color_val_map,
   set_layer_color_hue_map,
   set_layer_color_sat_map,
