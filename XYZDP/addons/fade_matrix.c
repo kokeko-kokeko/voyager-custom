@@ -229,7 +229,7 @@ bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) 
   return false;
 }
 
-bool fade_matrix_color_palette_sel_keyrecord(const keyrecord_t * const record) {
+bool fade_matrix_color_palette_select_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
 
   // MT template
