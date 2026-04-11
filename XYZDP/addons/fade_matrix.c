@@ -648,7 +648,15 @@ static void set_layer_color_mode_map(void) {
   rgb_matrix_set_color(idx2pos_tbl[RGB_MATRIX_EFFECT_MAX], hsv.v, hsv.v, 0);
 }
 
-int8_t const hue_step = FADE_MATRIX_INDEX_COUNT / FADE_MATRIX_SELECT_COUNT;
+static uint8_t const hue_step = FADE_MATRIX_INDEX_COUNT / FADE_MATRIX_SELECT_COUNT;
+
+static void (* set_layer_color_palette_map_array[FADE_MATRIX_INDEX_COUNT]) (void) = {
+  &set_layer_color_val_map,
+  &set_layer_color_hue_map,
+  &set_layer_color_sat_map,
+  &set_layer_color_speed_map,
+  &set_layer_color_mode_map
+}
 
 void set_layer_color_palette_map(void) {
 
