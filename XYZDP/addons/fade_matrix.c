@@ -240,8 +240,7 @@ bool fade_matrix_color_palette_select_keyrecord(const keyrecord_t * const record
       // palette select
       // 3-bit Johnson counter (0-5)
       plt_select++;
-      if (plt_select == 6) plt_select = 0;
-      
+      if (plt_select >= FADE_MATRIX_SELECT_COUNT) plt_select = 0;
     }
   } else {
     if (record->event.pressed) {
@@ -649,35 +648,31 @@ static void set_layer_color_mode_map(void) {
   rgb_matrix_set_color(idx2pos_tbl[RGB_MATRIX_EFFECT_MAX], hsv.v, hsv.v, 0);
 }
 
+int8_t const hue_step = FADE_MATRIX_INDEX_COUNT / FADE_MATRIX_SELECT_COUNT;
+
 void set_layer_color_palette_map(void) {
-  HSV hsv = rgb_matrix_get_hsv();
+
   
-  if (plt_select == 1) {
-    rgb_matrix_set_color(25, 0, 0, 0);
-    rgb_matrix_set_color(50, 0, 0, 0);
-    
+  if (plt_select == 1) {    
     set_layer_color_hue_map();
   } else if (plt_select == 2) {
-    rgb_matrix_set_color(50, 0, 0, 0);
-    
     set_layer_color_sat_map();
   } else if (plt_select == 3) {
     set_layer_color_speed_map();
-  } else if (plt_select == 4) {
-    rgb_matrix_set_color(24, 0, 0, 0);
-    
+  } else if (plt_select == 4) {    
     set_layer_color_mode_map();
   } else if (plt_select == 5) {
-    rgb_matrix_set_color(24, 0, 0, 0);
-    rgb_matrix_set_color(25, 0, 0, 0);
   } else {
-    rgb_matrix_set_color(24, 0, 0, 0);
-    rgb_matrix_set_color(25, 0, 0, 0);
-    rgb_matrix_set_color(50, 0, 0, 0);
-    
     set_layer_color_val_map();
   }
 
+  HSV hsv = rgb_matrix_get_hsv();
+  hsv.h = hue_tbl[hue_step * plt_select];
+  hsv.s = 255;
+
+  RGB rgb = hsv_to_rgb(hsv);
+  rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
+  
   rgb_matrix_set_color(51, 0, hsv.v, 0);
 }
 
