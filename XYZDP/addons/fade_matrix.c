@@ -662,8 +662,7 @@ static void (*const set_layer_color_palette_map_array[]) (void) = {
   set_layer_color_hue_map,
   set_layer_color_sat_map,
   set_layer_color_speed_map,
-  set_layer_color_mode_map,
-  set_layer_color_mode_map,
+  set_layer_color_mode_map
 };
 
 #define SEL_LAYER_FUNC_COUNT (sizeof(set_layer_color_palette_map_array) / sizeof(set_layer_color_palette_map_array[0]))
