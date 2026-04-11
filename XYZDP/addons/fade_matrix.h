@@ -2,6 +2,7 @@
 
 #define FADE_MATRIX_POSITION_COUNT 52
 #define FADE_MATRIX_INDEX_COUNT 48
+#define FADE_MATRIX_SELECT_COUNT 5
 
 uint8_t get_pos_from_keyrecord(const keyrecord_t * const record);
 
@@ -9,7 +10,7 @@ bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record);
 
 bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record);
 
-bool fade_matrix_color_palette_sel_keyrecord(const keyrecord_t * const record);
+bool fade_matrix_color_palette_select_keyrecord(const keyrecord_t * const record);
 
 void fade_matrix_enable(void);
 void fade_matrix_disable(void);
