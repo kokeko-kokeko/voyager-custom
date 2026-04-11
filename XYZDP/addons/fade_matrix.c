@@ -641,14 +641,13 @@ static void set_layer_color_mode_map(void) {
   
   rgb_matrix_set_color(idx2pos_tbl[FADE_MATRIX_INDEX_COUNT - 1], 0, hsv.v, 0);
   rgb_matrix_set_color(idx2pos_tbl[FADE_MATRIX_INDEX_COUNT - 2], 0, 0, hsv.v);
-
   
   // mode 1 origin
   rgb_matrix_set_color(idx2pos_tbl[rgb_matrix_config.mode], 0, 0, 0);
   rgb_matrix_set_color(idx2pos_tbl[RGB_MATRIX_EFFECT_MAX], hsv.v, hsv.v, 0);
 }
 
-static uint8_t const hue_step = FADE_MATRIX_INDEX_COUNT / FADE_MATRIX_SELECT_COUNT;
+static uint8_t const hue_idx_step = FADE_MATRIX_INDEX_COUNT / FADE_MATRIX_SELECT_COUNT;
 
 static void (* set_layer_color_palette_map_array[FADE_MATRIX_INDEX_COUNT]) (void) = {
   set_layer_color_val_map,
@@ -656,15 +655,13 @@ static void (* set_layer_color_palette_map_array[FADE_MATRIX_INDEX_COUNT]) (void
   set_layer_color_sat_map,
   set_layer_color_speed_map,
   set_layer_color_mode_map,
-  set_layer_color_mode_map
-
 };
 
 void set_layer_color_palette_map(void) {
   set_layer_color_palette_map_array[plt_select]();
   
   HSV hsv = rgb_matrix_get_hsv();
-  hsv.h = hue_tbl[hue_step * plt_select];
+  hsv.h = hue_tbl[hue_idx_step * plt_select];
   hsv.s = 255;
 
   RGB rgb = hsv_to_rgb(hsv);
