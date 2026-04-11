@@ -195,13 +195,17 @@ static void set_mode_idx (const uint8_t idx) {
   }
 }
 
-static void (*const set_func_array[FADE_MATRIX_INDEX_COUNT]) (const uint8_t) = {
+static void (*const set_func_array[]) (const uint8_t) = {
   set_val_idx,
   set_hue_idx,
   set_sat_idx,
   set_speed_idx,
   set_mode_idx
 };
+
+#define SEL_FUNC_COUNT (sizeof(set_func_array) / sizeof(set_func_array[0]))
+_Static_assert(SEL_FUNC_COUNT == FADE_MATRIX_SELECT_COUNT, "fade matrix select set function count missmatch!!");
+#undef SEL_FUNC_COUNT
 
 bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
@@ -654,13 +658,17 @@ static void set_layer_color_mode_map(void) {
 
 static uint8_t const hue_idx_step = FADE_MATRIX_INDEX_COUNT / FADE_MATRIX_SELECT_COUNT;
 
-static void (*const set_layer_color_palette_map_array[FADE_MATRIX_INDEX_COUNT]) (void) = {
+static void (*const set_layer_color_palette_map_array[]) (void) = {
   set_layer_color_val_map,
   set_layer_color_hue_map,
   set_layer_color_sat_map,
   set_layer_color_speed_map,
   set_layer_color_mode_map,
 };
+
+#define SEL_FUNC_COUNT (sizeof(set_layer_color_palette_map_array) / sizeof(set_layer_color_palette_map_array[0]))
+_Static_assert(SEL_FUNC_COUNT == FADE_MATRIX_SELECT_COUNT, "fade matrix select color function count missmatch!!");
+#undef SEL_FUNC_COUNT
 
 void set_layer_color_palette_map(void) {
   set_layer_color_palette_map_array[plt_select]();
