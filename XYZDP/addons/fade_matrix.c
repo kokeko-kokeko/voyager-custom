@@ -660,7 +660,8 @@ static void (* set_layer_color_palette_map_array[FADE_MATRIX_INDEX_COUNT]) (void
 
 void set_layer_color_palette_map(void) {
   set_layer_color_palette_map_array[plt_select]();
-  
+
+  /*
   if (plt_select == 1) {    
     set_layer_color_hue_map();
   } else if (plt_select == 2) {
@@ -673,6 +674,7 @@ void set_layer_color_palette_map(void) {
   } else {
     set_layer_color_val_map();
   }
+  */
 
   HSV hsv = rgb_matrix_get_hsv();
   hsv.h = hue_tbl[hue_step * plt_select];
