@@ -200,6 +200,7 @@ static void (*const set_func_array[]) (const uint8_t) = {
   set_hue_idx,
   set_sat_idx,
   set_speed_idx,
+  set_mode_idx,
   set_mode_idx
 };
 
@@ -663,6 +664,7 @@ static void (*const set_layer_color_palette_map_array[]) (void) = {
   set_layer_color_hue_map,
   set_layer_color_sat_map,
   set_layer_color_speed_map,
+  set_layer_color_mode_map,
   set_layer_color_mode_map,
 };
 
