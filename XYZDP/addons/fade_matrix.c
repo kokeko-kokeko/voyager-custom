@@ -200,13 +200,11 @@ static void (*const set_func_array[]) (const uint8_t) = {
   set_hue_idx,
   set_sat_idx,
   set_speed_idx,
-  set_mode_idx,
   set_mode_idx
 };
 
-#define SEL_FUNC_COUNT (sizeof(set_func_array) / sizeof(set_func_array[0]))
-_Static_assert(SEL_FUNC_COUNT == FADE_MATRIX_SELECT_COUNT, "fade matrix select set function count missmatch!!");
-#undef SEL_FUNC_COUNT
+#define SEL_SET_FUNC_COUNT (sizeof(set_func_array) / sizeof(set_func_array[0]))
+_Static_assert(SEL_SET_FUNC_COUNT == FADE_MATRIX_SELECT_COUNT, "fade matrix select set function count missmatch!!");
 
 bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
@@ -668,9 +666,11 @@ static void (*const set_layer_color_palette_map_array[]) (void) = {
   set_layer_color_mode_map,
 };
 
-#define SEL_FUNC_COUNT (sizeof(set_layer_color_palette_map_array) / sizeof(set_layer_color_palette_map_array[0]))
-_Static_assert(SEL_FUNC_COUNT == FADE_MATRIX_SELECT_COUNT, "fade matrix select color function count missmatch!!");
-#undef SEL_FUNC_COUNT
+#define SEL_LAYER_FUNC_COUNT (sizeof(set_layer_color_palette_map_array) / sizeof(set_layer_color_palette_map_array[0]))
+_Static_assert(SEL_LAYER_FUNC_COUNT == FADE_MATRIX_SELECT_COUNT, "fade matrix select color function count missmatch!!");
+_Static_assert(SEL_LAYER_FUNC_COUNT == SEL_SET_FUNC_COUNT, "fade matrix select set & color function count missmatch!!");
+#undef SEL_LAYER_FUNC_COUNT
+#undef SEL_SET_FUNC_COUNT
 
 void set_layer_color_palette_map(void) {
   set_layer_color_palette_map_array[plt_select]();
