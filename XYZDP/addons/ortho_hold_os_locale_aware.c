@@ -209,7 +209,7 @@ static bool process_record_macro_firmware(const uint16_t keycode, const keyrecor
   // Color Palette
   if (base_code == KC_C) return fade_matrix_color_palette_main_keyrecord(record);
     
-  if (base_code == KC_S) return fade_matrix_color_palette_sel_keyrecord(record);
+  if (base_code == KC_S) return fade_matrix_color_palette_select_keyrecord(record);
   if (base_code == KC_D) return false;
   if (base_code == KC_I) return false;
   
