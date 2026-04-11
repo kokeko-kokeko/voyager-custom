@@ -168,6 +168,41 @@ bool fade_matrix_rgb_sld_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
+static void set_hue_idx (const uint8_t idx) { fade_matrix_target.hsv.h = hue_tbl[idx]; };
+static void set_sat_idx (const uint8_t idx) { fade_matrix_target.hsv.s = sat_tbl[idx]; };
+static void set_val_idx (const uint8_t idx) { fade_matrix_target.hsv.v = val_tbl[idx]; };
+static void set_speed_idx (const uint8_t idx) { fade_matrix_target.speed = spd_tbl[idx]; };
+static void set_mode_idx (const uint8_t idx) {
+  if (idx == (FADE_MATRIX_INDEX_COUNT - 1)) {
+    fade_matrix_load_powersave();
+    status_led(0b1010, led_pattern_oneshot);
+  } else if (idx == (FADE_MATRIX_INDEX_COUNT - 2)) {
+    fade_matrix_load_default();
+    status_led(0b1010, led_pattern_oneshot);
+  } else if (idx == 0) {
+    // idx 0 to disable
+    fade_matrix_target.enable = false;
+  } else {
+    // not 0 enable
+    fade_matrix_target.enable = true;
+      
+    // mode 1 origin
+    uint8_t mode = idx;
+      
+    if (mode >= RGB_MATRIX_EFFECT_MAX) mode = RGB_MATRIX_EFFECT_MAX - 1;
+      
+    fade_matrix_target.mode = mode;
+  }
+}
+
+static void (*const set_func_array[FADE_MATRIX_INDEX_COUNT]) (const uint8_t) = {
+  set_val_idx,
+  set_hue_idx,
+  set_sat_idx,
+  set_speed_idx,
+  set_mode_idx
+};
+
 bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
 
@@ -190,38 +225,8 @@ bool fade_matrix_color_palette_main_keyrecord(const keyrecord_t * const record) 
   if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
   uint8_t idx = pos2idx_tbl[pos];
   if (FADE_MATRIX_INDEX_COUNT <= idx) return false;
-  
-  if (plt_select == 1) {
-    fade_matrix_target.hsv.h = hue_tbl[idx];
-  } else if (plt_select == 2) {
-    fade_matrix_target.hsv.s = sat_tbl[idx];
-  } else if (plt_select == 3) {
-    fade_matrix_target.speed = spd_tbl[idx];
-  } else if (plt_select == 4) {
-    if (idx == (FADE_MATRIX_INDEX_COUNT - 1)) {
-      fade_matrix_load_powersave();
-      status_led(0b1010, led_pattern_oneshot);
-    } else if (idx == (FADE_MATRIX_INDEX_COUNT - 2)) {
-      fade_matrix_load_default();
-      status_led(0b1010, led_pattern_oneshot);
-    } else if (idx == 0) {
-      // idx 0 to disable
-      fade_matrix_target.enable = false;
-    } else {
-      // not 0 enable
-      fade_matrix_target.enable = true;
-      
-      // mode 1 origin
-      uint8_t mode = idx;
-      
-      if (mode >= RGB_MATRIX_EFFECT_MAX) mode = RGB_MATRIX_EFFECT_MAX - 1;
-      
-      fade_matrix_target.mode = mode;
-    }
-  } else if (plt_select == 5) {
-  } else {
-    fade_matrix_target.hsv.v = val_tbl[idx];   
-  }
+
+  set_func_array[plt_select](idx);
 
   activate_fade_matrix();
 
