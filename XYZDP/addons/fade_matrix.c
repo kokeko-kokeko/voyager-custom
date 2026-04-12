@@ -196,10 +196,10 @@ static void set_mode_idx (const uint8_t idx) {
 
 static void (*const set_func_array[]) (const uint8_t) = {
   set_val_idx,
-  set_hue_idx,
   set_sat_idx,
-  set_speed_idx,
-  set_mode_idx
+  set_hue_idx,
+  set_mode_idx,
+  set_speed_id
 };
 
 #define SEL_SET_FUNC_COUNT (sizeof(set_func_array) / sizeof(set_func_array[0]))
@@ -658,10 +658,10 @@ static uint8_t const hue_idx_step = FADE_MATRIX_INDEX_COUNT / FADE_MATRIX_SELECT
 
 static void (*const set_layer_color_palette_map_array[]) (void) = {
   set_layer_color_val_map,
-  set_layer_color_hue_map,
   set_layer_color_sat_map,
-  set_layer_color_speed_map,
-  set_layer_color_mode_map
+  set_layer_color_hue_map,
+  set_layer_color_mode_map,
+  set_layer_color_speed_map
 };
 
 #define SEL_LAYER_FUNC_COUNT (sizeof(set_layer_color_palette_map_array) / sizeof(set_layer_color_palette_map_array[0]))
