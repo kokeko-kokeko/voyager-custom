@@ -187,8 +187,9 @@ static void set_mode_idx (const uint8_t idx) {
       
     // mode 1 origin
     uint8_t mode = idx;
-      
-    if (mode >= RGB_MATRIX_EFFECT_MAX) mode = RGB_MATRIX_EFFECT_MAX - 1;
+
+    // if out of range, keep 
+    if (mode >= RGB_MATRIX_EFFECT_MAX) mode = fade_matrix_target.mode;
       
     fade_matrix_target.mode = mode;
   }
