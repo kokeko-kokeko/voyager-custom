@@ -525,6 +525,9 @@ static void set_layer_color_hue_map(void) {
   RGB rgb = hsv_to_rgb(hsv);
   
   uint8_t key = hsv.h;
+  // fix for disp color
+  hsv.s = 255;
+  
   uint8_t i = 0;
   for (i = 0; i < FADE_MATRIX_INDEX_COUNT; i++) {
     hsv.h = hue_tbl[i];
