@@ -199,7 +199,7 @@ static void (*const set_func_array[]) (const uint8_t) = {
   set_sat_idx,
   set_hue_idx,
   set_mode_idx,
-  set_speed_id
+  set_speed_idx
 };
 
 #define SEL_SET_FUNC_COUNT (sizeof(set_func_array) / sizeof(set_func_array[0]))
