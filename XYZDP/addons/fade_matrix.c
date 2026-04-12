@@ -120,7 +120,6 @@ static const uint8_t row_col2pos_tbl[MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // palette select
-// 3-bit Johnson counter (0-5)
 static uint8_t plt_select = 0;
 
 static void activate_fade_matrix(void) {
