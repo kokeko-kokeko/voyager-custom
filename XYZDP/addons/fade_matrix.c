@@ -453,10 +453,7 @@ layer_state_t layer_state_set_fade_matrix(layer_state_t state) {
 void housekeeping_task_fade_matrix(void) {
   const fast_timer_t now = timer_read_fast();
 
-  // non expire, connect
-  if ((timer_expired_fast(now, fade_tamrix_trigger) == false) && is_transport_connected()) return;
-  fade_tamrix_trigger += fade_matrix_repeat_delay;
-
+  // connect check
   if (is_transport_connected() == false) {
     // connection error
     rgb_matrix_enable_noeeprom();
@@ -465,7 +462,16 @@ void housekeeping_task_fade_matrix(void) {
     rgb_matrix_config.hsv.s = 255;
     rgb_matrix_config.hsv.v = 128;
     rgb_matrix_config.speed = 224;
-  } else if (fade_matrix_active == true) {
+
+    // after connect update fast
+    activate_fade_matrix();
+  } 
+
+  // timer
+  if (timer_expired_fast(now, fade_tamrix_trigger) == false) return;
+  fade_tamrix_trigger += fade_matrix_repeat_delay;
+  
+  if (fade_matrix_active == true) {
     // rgb to enable
     rgb_matrix_enable_noeeprom();
     if ((rgb_matrix_config.speed != fade_matrix_target.speed) || (rgb_matrix_config.mode != fade_matrix_target.mode)) {
