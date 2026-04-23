@@ -456,7 +456,14 @@ void housekeeping_task_fade_matrix(void) {
   if (timer_expired_fast(now, fade_tamrix_trigger) == false) return;
   fade_tamrix_trigger += fade_matrix_repeat_delay;
 
-  if (fade_matrix_active == true) {
+  if (is_transport_connected() == false) {
+    rgb_matrix_enable_noeeprom();
+    rgb_matrix_config.mode = RGB_MATRIX_BREATHING;
+    rgb_matrix_config.hsv.h = 0;
+    rgb_matrix_config.hsv.s = 255;
+    rgb_matrix_config.hsv.v = 128;
+    rgb_matrix_config.speed = 128;
+  } else if (fade_matrix_active == true) {
     // rgb to enable
     rgb_matrix_enable_noeeprom();
     if ((rgb_matrix_config.speed != fade_matrix_target.speed) || (rgb_matrix_config.mode != fade_matrix_target.mode)) {
