@@ -462,7 +462,7 @@ void housekeeping_task_fade_matrix(void) {
     rgb_matrix_config.hsv.h = 0;
     rgb_matrix_config.hsv.s = 255;
     rgb_matrix_config.hsv.v = 128;
-    rgb_matrix_config.speed = 128;
+    rgb_matrix_config.speed = 192;
   } else if (fade_matrix_active == true) {
     // rgb to enable
     rgb_matrix_enable_noeeprom();
