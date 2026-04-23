@@ -458,7 +458,7 @@ void housekeeping_task_fade_matrix(void) {
     // connection error
     rgb_matrix_enable_noeeprom();
     rgb_matrix_config.mode = RGB_MATRIX_BREATHING;
-    rgb_matrix_config.hsv.h = 0;
+    rgb_matrix_config.hsv.h = 43;
     rgb_matrix_config.hsv.s = 255;
     rgb_matrix_config.hsv.v = fade_matrix_target.hsv.v;
     rgb_matrix_config.speed = 255;
