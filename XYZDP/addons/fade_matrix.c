@@ -465,6 +465,8 @@ void housekeeping_task_fade_matrix(void) {
 
     // after connect update fast
     activate_fade_matrix();
+
+    return;
   } 
 
   // timer
