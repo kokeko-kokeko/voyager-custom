@@ -461,8 +461,8 @@ void housekeeping_task_fade_matrix(void) {
     rgb_matrix_config.hsv.h = 43;
     rgb_matrix_config.hsv.s = 255;
 
-    if (fade_matrix_target.hsv.v < 128) {
-      rgb_matrix_config.hsv.v = 128;
+    if (fade_matrix_target.hsv.v < val_tbl[FADE_MATRIX_INDEX_COUNT / 2]) {
+      rgb_matrix_config.hsv.v = val_tbl[FADE_MATRIX_INDEX_COUNT / 2];
     } else {
       rgb_matrix_config.hsv.v = fade_matrix_target.hsv.v;
     }
