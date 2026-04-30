@@ -634,8 +634,12 @@ void set_layer_color_overlay_mouse(void) {
   const uint8_t q = h >> 1;
   const uint8_t o = q >> 1;
 
-  rgb_matrix_set_color_all(o, o, o);
-
+  if (is_transport_connected() == false) {
+    rgb_matrix_set_color_all(o, o, 0);
+  } else {
+    rgb_matrix_set_color_all(o, o, o);
+  }
+  
   if (layer_state_is(LAYER_Mouse_Upper_Left) == false) {
     // low
     
