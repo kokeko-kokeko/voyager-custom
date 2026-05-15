@@ -207,15 +207,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     break;
 
-	case RGB_SLD:
-      return fade_matrix_rgb_sld_keyrecord(record);
+    case RGB_SLD:
+      //if (record->event.pressed) {
+      //  rgblight_mode(1);
+      //}
+      return false;
   }
   
   // -----------------------------------------------------------------------------
   // extra process_record, return false, break
   // -----------------------------------------------------------------------------
 
-  if (process_record_fade_matrix(keycode, record) == false) return false;
+  //if (process_record_fade_matrix(keycode, record) == false) return false;
   if (process_record_ime_state_sync(keycode, record) == false) return false;
   if (process_record_ortho_hold_os_locale_aware(keycode, record) == false) return false;
   
