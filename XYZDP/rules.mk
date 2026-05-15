@@ -24,7 +24,7 @@ OS_DETECTION_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
 SWAP_HANDS_ENABLE = yes
 
-SRC += keymap_additional_function.c
+SRC += qmk_additional_callbacks.c
 
 SRC += addons/adv_mouse.c
 SRC += addons/fade_matrix.c
