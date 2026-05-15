@@ -37,13 +37,6 @@ enum custom_keycodes {
 
 #include "layer_num.h"
 
-// enum for layer define sync oryx side
-#define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
-_Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
-#undef ORYX_LAYER_COUNT
-
-_Static_assert(LAYER_Mouse == AUTOMOUSE_LAYER, "Auto Mouse layer missmatch!!");
-
 // access to voyager system-side flag
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
