@@ -1,6 +1,5 @@
 {
     "modules": [
-        "zsa/navigator_trackball",
         "zsa/navigator_trackpad",
         "zsa/automouse",
         "zsa/defaults",
