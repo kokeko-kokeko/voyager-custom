@@ -237,7 +237,7 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// process_record_user in waymap.c, use _additional
+// process_record_user in waymap.c, use _additional and insert it
 bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
   //if (process_record_fade_matrix(keycode, record) == false) return false;
   if (process_record_ime_state_sync(keycode, record) == false) return false;
