@@ -237,6 +237,15 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+// process_record_user in waymap.c, use _additional
+bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
+  //if (process_record_fade_matrix(keycode, record) == false) return false;
+  if (process_record_ime_state_sync(keycode, record) == false) return false;
+  if (process_record_ortho_hold_os_locale_aware(keycode, record) == false) return false;
+  
+  return true;
+}
+
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   post_process_record_adv_mouse(keycode, record);
   post_process_record_ime_state_sync(keycode, record);
