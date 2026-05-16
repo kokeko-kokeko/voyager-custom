@@ -187,8 +187,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //
 // -----------------------------------------------------------------------------
+bool process_record_additional(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (process_record_additional(keycode, record) == false) return false;
+  
   switch (keycode) {
   case QK_MODS ... QK_MODS_MAX: 
     // Mouse and consumer keys (volume, media) with modifiers work inconsistently across operating systems,
