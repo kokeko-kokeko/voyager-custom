@@ -5,14 +5,6 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-// -----------------------------------------------------------------------------
-//
-//
-// GitHub C additional callbacks
-//
-//
-// -----------------------------------------------------------------------------
-
 // module impl
 #include "addons/adv_mouse.h"
 #include "addons/fade_matrix.h"
@@ -34,14 +26,6 @@ void chSysIdleHook(void) {
   __DSB();
   __WFI();
 }
-
-// -----------------------------------------------------------------------------
-//
-//
-// GitHub C QMK callback definition
-//
-//
-// -----------------------------------------------------------------------------
 
 void keyboard_post_init_user(void) {
   // config.h
