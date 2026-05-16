@@ -33,10 +33,6 @@
 
 #include "layer_num.h"
 
-extern const uint16_t PROGMEM keymaps[][][];
-
-
-
 // access to voyager system-side flag
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
