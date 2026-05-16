@@ -5,10 +5,6 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-enum custom_keycodes {
-  RGB_SLD = ZSA_SAFE_RANGE,
-};
-
 // -----------------------------------------------------------------------------
 //
 //
