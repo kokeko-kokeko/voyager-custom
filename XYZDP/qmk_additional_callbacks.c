@@ -8,8 +8,7 @@
 // -----------------------------------------------------------------------------
 //
 //
-// GitHub C additional declaration
-// declaration berofe process_record_user
+// GitHub C additional callbacks
 //
 //
 // -----------------------------------------------------------------------------
@@ -22,14 +21,6 @@
 #include "addons/layer_mod_overlay.h"
 #include "addons/ortho_hold_os_locale_aware.h"
 #include "addons/status_led.h"
-
-// -----------------------------------------------------------------------------
-//
-//
-// GitHub C additional definition
-//
-//
-// -----------------------------------------------------------------------------
 
 #include "layer_num.h"
 
