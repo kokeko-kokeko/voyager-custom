@@ -167,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  
 
 
-// declaration first
+// declaration first, replace true to this funcrion
 bool process_record_additional(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -194,11 +194,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_mode(1);
       }
       return false;
-  }
-  
-  if (process_record_additional(keycode, record) == false) return false;
-  
-  return true;
+  }  
+  return process_record_additional(keycode, record);
 }
 
 // -----------------------------------------------------------------------------
