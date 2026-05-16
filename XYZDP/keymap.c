@@ -200,9 +200,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // -----------------------------------------------------------------------------
 //
-//
 // layer count, mouse layer check, use literal value here
-//
 //
 // -----------------------------------------------------------------------------
 
