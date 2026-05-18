@@ -20,7 +20,7 @@
 extern keyboard_config_t keyboard_config;
 extern bool is_launching;
 
-// idle loop
+// idle loop to sleep 
 #include "ch.h"
 void chSysIdleHook(void) {
   __DSB();
@@ -36,7 +36,7 @@ void keyboard_post_init_user(void) {
   keyboard_post_init_fade_matrix();
   keyboard_post_init_status_led();
   
-  //JIS / no transition
+  // no transition / jis / pc mode
   layer_move(LAYER_Base);
   layer_off(LAYER_Transition);
 	
