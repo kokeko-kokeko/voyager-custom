@@ -5,9 +5,6 @@ COMMAND_ENABLE = no
 SPACE_CADET_ENABLE = no
 CAPS_WORD_ENABLE = yes
 
-PRECISION_TRACKPAD_ENABLE = yes
-PRECISION_TRACKPAD_DRIVER = navigator_trackpad
-
 BOOTMAGIC_ENABLE = no
 GRAVE_ESC_ENABLE = no 
 KEY_OVERRIDE_ENABLE = no
@@ -48,5 +45,3 @@ EXTRAFLAGS += -mthumb
 EXTRAFLAGS += -fsingle-precision-constant 
 EXTRAFLAGS += -fstack-protector-strong
 EXTRAFLAGS += -fstack-clash-protection
-EXTRAFLAGS += -ftrivial-auto-var-init=zero
-
