@@ -4,6 +4,7 @@ COMMAND_ENABLE = no
 
 SPACE_CADET_ENABLE = no
 CAPS_WORD_ENABLE = yes
+<<<<<<< HEAD
 
 
 BOOTMAGIC_ENABLE = no
@@ -48,3 +49,7 @@ EXTRAFLAGS += -fstack-protector-strong
 EXTRAFLAGS += -fstack-clash-protection
 EXTRAFLAGS += -ftrivial-auto-var-init=zero
 
+=======
+PRECISION_TRACKPAD_ENABLE = yes
+PRECISION_TRACKPAD_DRIVER = navigator_trackpad
+>>>>>>> origin/oryx
