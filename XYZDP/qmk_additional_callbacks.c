@@ -32,7 +32,7 @@ void keyboard_post_init_user(void) {
   //keymap_config.nkro = true;
 
   keyboard_post_init_addtional_power_setting();
-  keyboard_post_init_adv_mouse();
+  //keyboard_post_init_adv_mouse();
   keyboard_post_init_fade_matrix();
   keyboard_post_init_status_led();
   
@@ -98,7 +98,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // call FwSys
   state = update_tri_layer_state(state, LAYER_Function, LAYER_L_thumb_2, LAYER_Firmware); 
 
-  state = layer_state_set_adv_mouse(state);
+  //state = layer_state_set_adv_mouse(state);
   state = layer_state_set_fade_matrix(state);
   state = layer_state_set_firmware_map(state);
   
@@ -191,7 +191,7 @@ bool rgb_matrix_indicators_user(void) {
       if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
         rgb_matrix_set_color_all(0, 0, 0);
       } else {
-        set_layer_color_overlay_mouse();
+        //set_layer_color_overlay_mouse();
         set_layer_color_overlay_mod();
         set_layer_color_overlay_ime_state_sync();
         set_layer_color_overlay_layer();
@@ -218,21 +218,21 @@ bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  post_process_record_adv_mouse(keycode, record);
+  //post_process_record_adv_mouse(keycode, record);
   post_process_record_ime_state_sync(keycode, record);
   
   return;
 }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-  mouse_report = pointing_device_task_adv_mouse(mouse_report);
+  //mouse_report = pointing_device_task_adv_mouse(mouse_report);
   mouse_report = pointing_device_task_fade_matrix(mouse_report);
   
   return mouse_report;
 }
 
 void housekeeping_task_user(void) {
-  housekeeping_task_adv_mouse();
+  //housekeeping_task_adv_mouse();
   housekeeping_task_fade_matrix();
   housekeeping_task_ime_state_sync();
   housekeeping_task_status_led();
