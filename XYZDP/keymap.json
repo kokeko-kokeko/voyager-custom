@@ -1,5 +1,6 @@
 {
     "modules": [
+        "zsa/navigator_trackpad",
         "zsa/defaults",
         "zsa/mousejiggler"
     ],
