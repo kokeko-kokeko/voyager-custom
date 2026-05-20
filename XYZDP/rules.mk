@@ -4,6 +4,7 @@ COMMAND_ENABLE = no
 
 SPACE_CADET_ENABLE = no
 CAPS_WORD_ENABLE = yes
+
 PRECISION_TRACKPAD_ENABLE = yes
 PRECISION_TRACKPAD_DRIVER = navigator_trackpad
 
@@ -46,3 +47,5 @@ EXTRAFLAGS += -mthumb
 EXTRAFLAGS += -fsingle-precision-constant 
 EXTRAFLAGS += -fstack-protector-strong
 EXTRAFLAGS += -fstack-clash-protection
+
+
