@@ -6,7 +6,7 @@
 #endif
 
 // module impl
-#include "addons/adv_mouse.h"
+//#include "addons/adv_mouse.h"
 #include "addons/fade_matrix.h"
 #include "addons/firmware_map.h"
 #include "addons/ime_state_sync.h"
