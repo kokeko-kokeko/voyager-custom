@@ -5,8 +5,8 @@
 #define RGB_MATRIX_STARTUP_SPD 60
 
 
-#define MOUSE_EXTENDED_REPORT
-#define WHEEL_EXTENDED_REPORT
+//#define MOUSE_EXTENDED_REPORT
+//#define WHEEL_EXTENDED_REPORT
 // #define NAVIGATOR_TRACKBALL_ROTATION 1
 
 // more short timeout, normal 100
