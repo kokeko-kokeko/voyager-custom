@@ -15,7 +15,7 @@
 
 static fast_timer_t auto_mouse_early_off_trigger = 0;
 
-void keyboard_post_init_adv_mouse(void) {
+void keyboard_post_init_adv_trackpad(void) {
   const fast_timer_t now = timer_read_fast();
 
   auto_mouse_early_off_trigger = now + (UINT32_MAX / 2) - 1;
@@ -23,9 +23,19 @@ void keyboard_post_init_adv_mouse(void) {
   return;
 }
 
+void housekeeping_task_adv_trackpad(void) {
+  const fast_timer_t now = timer_read_fast();
 
-
-
+  if (timer_expired_fast(now, auto_mouse_early_off_trigger)) {
+    auto_mouse_early_off_trigger = now + (UINT32_MAX / 2) - 1;
+    //auto_mouse_layer_off();
+    //automouse_disable();
+    layer_off(LAYER_Mouse);
+    //automouse_enable();
+  }
+  
+  return;
+}
 
 void set_layer_color_overlay_trackpad(void) {
   if (layer_state_is(LAYER_Mouse) == false) return;
