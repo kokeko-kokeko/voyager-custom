@@ -33,10 +33,10 @@ static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record)
   
   if (record->event.pressed) {
     // non-mouse key press 
-    auto_mouse_early_off_trigger = timer_read_fast() + (UINT32_MAX / 2) - 1;
+    trackpad_early_off_trigger = timer_read_fast() + (UINT32_MAX / 2) - 1;
   } else {
     // non-mouse key release, exit 
-    auto_mouse_early_off_trigger = timer_read_fast() + 1;
+    trackpad_early_off_trigger = timer_read_fast() + 1;
   } 
 
   return;
@@ -46,6 +46,13 @@ void keyboard_post_init_adv_trackpad(void) {
   const fast_timer_t now = timer_read_fast();
 
   trackpad_early_off_trigger = now + (UINT32_MAX / 2) - 1;
+
+  return;
+}
+
+
+void post_process_record_adv_trackpad(uint16_t keycode, keyrecord_t *record) {
+  post_process_record_non_mouse(keycode, record);
 
   return;
 }
