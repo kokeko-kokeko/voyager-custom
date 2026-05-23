@@ -15,6 +15,33 @@
 
 static fast_timer_t trackpad_early_off_trigger = 0;
 
+static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record) {
+  // mouse non-active skip
+  if (layer_state_is(LAYER_Mouse) == false) return;
+
+  // keep on mouse number and cursor
+  if (layer_state_is(LAYER_Mouse_Upper_Left) == true) return;
+  if (layer_state_is(LAYER_Mouse_Upper_Right) == true) return;
+  if (layer_state_is(LAYER_Number) == true) return;
+  if (layer_state_is(LAYER_Cursor) == true) return;
+
+  // keycode check
+  if (IS_MOUSEKEY(keycode) == true) return;
+  if (IS_QK_MOMENTARY(keycode) == true) return;
+  //if (IS_QK_LAYER_TAP(keycode) == true) return;
+  if (keycode ==  LGUI(KC_TAB)) return;
+  
+  if (record->event.pressed) {
+    // non-mouse key press 
+    auto_mouse_early_off_trigger = timer_read_fast() + (UINT32_MAX / 2) - 1;
+  } else {
+    // non-mouse key release, exit 
+    auto_mouse_early_off_trigger = timer_read_fast() + 1;
+  } 
+
+  return;
+}
+
 void keyboard_post_init_adv_trackpad(void) {
   const fast_timer_t now = timer_read_fast();
 
