@@ -6,7 +6,7 @@
 #endif
 
 // module impl
-//#include "addons/adv_mouse.h"
+#include "addons/adv_trackpad.h"
 #include "addons/fade_matrix.h"
 #include "addons/firmware_map.h"
 #include "addons/ime_state_sync.h"
@@ -32,7 +32,7 @@ void keyboard_post_init_user(void) {
   //keymap_config.nkro = true;
 
   keyboard_post_init_addtional_power_setting();
-  //keyboard_post_init_adv_mouse();
+  keyboard_post_init_adv_trackpad();
   keyboard_post_init_fade_matrix();
   keyboard_post_init_status_led();
   
@@ -191,7 +191,7 @@ bool rgb_matrix_indicators_user(void) {
       if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
         rgb_matrix_set_color_all(0, 0, 0);
       } else {
-        //set_layer_color_overlay_mouse();
+        set_layer_color_overlay_trackpad();
         set_layer_color_overlay_mod();
         set_layer_color_overlay_ime_state_sync();
         set_layer_color_overlay_layer();
@@ -232,7 +232,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 }
 
 void housekeeping_task_user(void) {
-  //housekeeping_task_adv_mouse();
+  housekeeping_task_adv_trackpad();
   housekeeping_task_fade_matrix();
   housekeeping_task_ime_state_sync();
   housekeeping_task_status_led();
