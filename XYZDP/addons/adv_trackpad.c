@@ -150,13 +150,9 @@ void set_layer_color_overlay_trackpad(void) {
   rgb_matrix_set_color(27, 0, f, 0);  //2
   
   //rgb_matrix_set_color(44, q, q, q);
-  rgb_matrix_set_color(47, q, o, 0);
-  rgb_matrix_set_color(48, f, h, 0);
+  //rgb_matrix_set_color(47, q, o, 0);
+  //rgb_matrix_set_color(48, f, h, 0);
   
-  // scroll
+  // task veiw
   rgb_matrix_set_color(0, 0, 0, f);
-    
-    
-  rgb_matrix_set_color(22, h, h, h);
-  rgb_matrix_set_color(45, h, h, h);
 }
