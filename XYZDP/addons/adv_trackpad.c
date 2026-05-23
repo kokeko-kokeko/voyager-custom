@@ -13,12 +13,12 @@
 // costom expose count
 #include "navigator_trackpad_ptp.h"
 
-static fast_timer_t auto_mouse_early_off_trigger = 0;
+static fast_timer_t trackpad_early_off_trigger = 0;
 
 void keyboard_post_init_adv_trackpad(void) {
   const fast_timer_t now = timer_read_fast();
 
-  auto_mouse_early_off_trigger = now + (UINT32_MAX / 2) - 1;
+  trackpad_early_off_trigger = now + (UINT32_MAX / 2) - 1;
 
   return;
 }
@@ -26,8 +26,8 @@ void keyboard_post_init_adv_trackpad(void) {
 void housekeeping_task_adv_trackpad(void) {
   const fast_timer_t now = timer_read_fast();
 
-  if (timer_expired_fast(now, auto_mouse_early_off_trigger)) {
-    auto_mouse_early_off_trigger = now + (UINT32_MAX / 2) - 1;
+  if (timer_expired_fast(now, trackpad_early_off_trigger)) {
+    trackpad_early_off_trigger = now + (UINT32_MAX / 2) - 1;
     //auto_mouse_layer_off();
     //automouse_disable();
     layer_off(LAYER_Mouse);
