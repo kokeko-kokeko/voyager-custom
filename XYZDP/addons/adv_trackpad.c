@@ -106,31 +106,9 @@ void set_layer_color_overlay_trackpad(void) {
   rgb_matrix_set_color(48, f, h, 0);
   
   // scroll
-  if (set_scrolling) {
-    if (navigator_turbo && navigator_aim) {
-      rgb_matrix_set_color(0, f, f, 0);
-    } else if (navigator_turbo) {
-      rgb_matrix_set_color(0, f, h, 0);
-    } else if (navigator_aim) {
-      rgb_matrix_set_color(0, 0, f, h);
-    } else {
-      rgb_matrix_set_color(0, 0, h, f);
-    }
+  rgb_matrix_set_color(0, 0, 0, f);
     
-    rgb_matrix_set_color(22, h, 0, 0);
-    rgb_matrix_set_color(45, h, 0, 0);
-  } else {
-    if (navigator_turbo && navigator_aim) {
-      rgb_matrix_set_color(0, f, f, f);
-    } else if (navigator_turbo) {
-      rgb_matrix_set_color(0, f, 0, 0);
-    } else if (navigator_aim) {
-      rgb_matrix_set_color(0, 0, f, 0);
-    } else {
-      rgb_matrix_set_color(0, 0, 0, f);
-    }
     
-    rgb_matrix_set_color(22, h, h, h);
-    rgb_matrix_set_color(45, h, h, h);
-  }
+  rgb_matrix_set_color(22, h, h, h);
+  rgb_matrix_set_color(45, h, h, h);
 }
