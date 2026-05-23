@@ -13,6 +13,10 @@
 // costom expose count
 #include "navigator_trackpad_ptp.h"
 
+static fast_timer_t auto_mouse_early_off_trigger = 0;
+
+
+
 
 
 void set_layer_color_overlay_trackpad(void) {
