@@ -26,7 +26,7 @@ void keyboard_post_init_adv_trackpad(void) {
 void housekeeping_task_adv_trackpad(void) {
   const fast_timer_t now = timer_read_fast();
 
-  if (navigator_trackpad_contact_count != 0) {
+  if (navigator_trackpad_finger_count > 0) {
     trackpad_early_off_trigger = now + AUTO_MOUSE_TIME_SHORT;
     layer_on(LAYER_Mouse);
     return;
