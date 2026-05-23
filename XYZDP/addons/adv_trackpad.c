@@ -15,6 +15,14 @@
 
 static fast_timer_t auto_mouse_early_off_trigger = 0;
 
+void keyboard_post_init_adv_mouse(void) {
+  const fast_timer_t now = timer_read_fast();
+
+  auto_mouse_early_off_trigger = now + (UINT32_MAX / 2) - 1;
+
+  return;
+}
+
 
 
 
