@@ -7,6 +7,7 @@
 
 #include "layer_num.h"
 
-#include "addons/adv_mouse.h"
+#include "addons/adv_trackpad.h"
 #include "addons/status_led.h"
 
+#include "navigator_trackpad_ptp.h"
