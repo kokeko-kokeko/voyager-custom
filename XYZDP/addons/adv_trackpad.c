@@ -57,6 +57,14 @@ void post_process_record_adv_trackpad(uint16_t keycode, keyrecord_t *record) {
   return;
 }
 
+layer_state_t layer_state_set_adv_trackpad(layer_state_t state) {
+  // update pinkey overwrite
+  state = update_tri_layer_state(state, LAYER_Mouse, LAYER_L_pinky, LAYER_Mouse_Upper_Left);
+  state = update_tri_layer_state(state, LAYER_Mouse, LAYER_R_pinky, LAYER_Mouse_Upper_Right);
+  
+  return state;
+}
+
 void housekeeping_task_adv_trackpad(void) {
   const fast_timer_t now = timer_read_fast();
 
