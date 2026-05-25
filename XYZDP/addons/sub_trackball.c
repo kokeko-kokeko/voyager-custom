@@ -36,6 +36,14 @@ static uint8_t tb_state = TB_S_CONF;
 
 static fast_timer_t tb_trigger = 0;
 
+static uint8_t x_l = 0;
+static uint8_t y_l = 0;
+static uint8_t x_h = 0;
+static uint8_t y_h = 0;
+
+static int16_t delta_x = 0;
+static int16_t delta_y = 0;
+
 // copy and mod zsa code
 
 // The sequence of commands to configure and boot the paw3805ek sensor.
@@ -141,4 +149,67 @@ bool paw3805ek_configure(void) {
     return true;
 }
 
+void pointing_device_driver_init(void) {
+  const fast_timer_t now = timer_read_fast();
+  
+  current_cpi = 0;
+  new_cpi = NAVIGATOR_TRACKBALL_CPI;
+  
+  tb_state = TB_S_I2C_CONF;
+  tb_trigger = now + 5000;
+}
+
+report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
+  const fast_timer_t now = timer_read_fast();
+
+  // early exit
+  if (timer_expired_fast(now, tb_trigger) == false) return mouse_report;
+
+  if (tb_state == TB_S_I2C_CONF) {
+    if (sci18is606_configure() != I2C_STATUS_SUCCESS) {
+      current_cpi = 0;
+      tb_state = TB_S_I2C_CONF;
+      tb_trigger = now + NAVIGATOR_TRACKBALL_PROBE;
+      return mouse_report:
+    }
+    
+    tb_state = TB_S_SPI_CONF;
+    tb_trigger = now + 10;
+  } else if (tb_state == TB_S_SPI_CONF) {
+    paw3805ek_configure():
+
+    tb_state = TB_S_SET_CPI;
+    tb_trigger = now + 10;
+  } else if (tb_state == TB_S_SET_CPI) {
+    if (current_cpi != new_cpi) {
+      current_cpi = new_cpi;
+      paw3805ek_set_cpi();
+    }
+
+    tb_state = TB_S_QUEUE_MOTION;
+    tb_trigger = now + 10;
+  } else if (tb_state == TB_S_QUEUE_MOTION) {
+    
+  } else if (tb_state == TB_S_READ_MOTION) {
+    
+  } else if (tb_state == TB_S_QUEUE_X_L) {
+    
+  } else if (tb_state == TB_S_READ_X_L) {
+    
+  } else if (tb_state == TB_S_QUEUE_Y_L) {
+    
+  } else if (tb_state == TB_S_READ_Y_L) {
+    
+  } else if (tb_state == TB_S_QUEUE_X_H) {
+    
+  } else if (tb_state == TB_S_READ_X_H) {
+    
+  } else if (tb_state == TB_S_QUEUE_Y_H) {
+    
+  } else if (tb_state == TB_S_SEND_REPORT) {
+    
+  } 
+
+  return mouse_report;
+}
 
