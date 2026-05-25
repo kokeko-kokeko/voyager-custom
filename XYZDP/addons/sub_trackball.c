@@ -306,7 +306,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     mouse_report.y = (int16_t)(((int16_t)y_h << 8) | y_l);
 
     tb_state = TB_S_SET_CPI_ISSUE_MOTION;
-    tb_trigger = now + NAVIGATOR_TRACKBALL_READ;
+    tb_trigger = now + 1;
   } 
 
   return mouse_report;
