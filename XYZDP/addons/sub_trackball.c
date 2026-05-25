@@ -12,9 +12,7 @@
 
 #include "addons/sub_trackball.h"
 
-static uint8_t current_cpi = 0;
-static uint8_t new_cpi = NAVIGATOR_TRACKBALL_CPI;
-
+// issue / read state machine
 enum trackball_state {
   TB_S_I2C_CONF = 0,
   TB_S_SPI_CONF,
@@ -32,8 +30,10 @@ enum trackball_state {
   TB_S_SEND_REPORT
 };
 
-static uint8_t tb_state = TB_S_I2C_CONF;
+static uint8_t current_cpi = 0;
+static uint8_t new_cpi = NAVIGATOR_TRACKBALL_CPI;
 
+static uint8_t tb_state = TB_S_I2C_CONF;
 static fast_timer_t tb_trigger = 0;
 
 static uint8_t x_l = 0;
