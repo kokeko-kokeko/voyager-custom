@@ -58,11 +58,6 @@ static volatile bool halt_request2 = false;
 static uint8_t halt_invoke_count = 0;
 static fast_timer_t exec_halt_trigger = (UINT32_MAX / 2) - 1;
 
-// call mouse jiggler
-void mouse_jiggler_enable(void);
-void mouse_jiggler_disable(void);
-bool mouse_jiggler_is_enabled(void);
-
 bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
 
