@@ -212,7 +212,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       tb_trigger = now + 3;
     } else {
       tb_state = TB_S_SET_CPI_QUEUE_MOTION;
-      tb_trigger = now + 10;
+      tb_trigger = now + NAVIGATOR_TRACKBALL_READ;
     }
   } else if (tb_state == TB_S_READ_X_L_QUEUE_Y_L) {
     uint8_t delta_x_l[3] = {0x01, 0x03, 0x00};
@@ -292,7 +292,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     mouse_report.y = (int16_t)(((int16_t)y_h << 8) | y_l);
 
     tb_state = TB_S_SET_CPI_QUEUE_MOTION;
-    tb_trigger = now + 3;
+    tb_trigger = now + NAVIGATOR_TRACKBALL_READ;
   } 
 
   return mouse_report;
