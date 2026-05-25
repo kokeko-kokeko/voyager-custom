@@ -71,6 +71,10 @@ void housekeeping_task_adv_trackpad(void) {
   if (navigator_trackpad_finger_count > 0) {
     trackpad_early_off_trigger = now + AUTO_MOUSE_TIME_MID;
     layer_on(LAYER_Mouse);
+
+    // clear flag
+    navigator_trackpad_finger_count = 0;
+    
     return;
   }
 
