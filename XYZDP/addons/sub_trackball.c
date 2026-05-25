@@ -32,7 +32,7 @@ enum layer_num {
   TB_S_SEND_REPORT
 };
 
-static uint8_t tb_state = TB_S_CONF;
+static uint8_t tb_state = TB_S_I2C_CONF;
 
 static fast_timer_t tb_trigger = 0;
 
@@ -98,9 +98,9 @@ i2c_status_t sci18is606_configure(void) {
     uint8_t      spi_conf[2] = {SCI18IS606_CONF_SPI, SCI18IS606_CONF};
     i2c_status_t status      = sci18is606_write(spi_conf, 2);
     wait_ms(10);
-    if (status != I2C_STATUS_SUCCESS) {
-        trackball_init = 0;
-    }
+    //if (status != I2C_STATUS_SUCCESS) {
+    //    trackball_init = 0;
+    //}
     return status;
 }
 
