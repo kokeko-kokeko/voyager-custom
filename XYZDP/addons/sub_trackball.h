@@ -53,3 +53,16 @@ typedef struct {
 #ifndef WHEEL_EXTENDED_REPORT
 #    define WHEEL_EXTENDED_REPORT
 #endif
+
+// mouse jiggler
+#ifndef MOUSE_JIGGLER_INTERVAL_MS
+#    define MOUSE_JIGGLER_INTERVAL_MS 1000
+#endif
+
+#ifndef MOUSE_JIGGLER_MOVEMENT
+#    define MOUSE_JIGGLER_MOVEMENT 1
+#endif
+
+extern void mouse_jiggler_enable(void);
+extern void mouse_jiggler_disable(void);
+extern bool mouse_jiggler_is_enabled(void);
