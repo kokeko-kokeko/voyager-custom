@@ -16,11 +16,11 @@
 enum trackball_state {
   TB_S_I2C_CONF = 0,
   TB_S_SPI_CONF,
-  TB_S_SET_CPI_QUEUE_MOTION,
-  TB_S_READ_MOTION_QUEUE_X_L,
-  TB_S_READ_X_L_QUEUE_Y_L,
-  TB_S_READ_Y_L_QUEUE_X_H,
-  TB_S_READ_X_H_QUEUE_Y_H,
+  TB_S_SET_CPI_ISSUE_MOTION,
+  TB_S_READ_MOTION_ISSUE_X_L,
+  TB_S_READ_X_L_ISSUE_Y_L,
+  TB_S_READ_Y_L_ISSUE_X_H,
+  TB_S_READ_X_H_ISSUE_Y_H,
   TB_S_READ_Y_H_SEND_REPORT
 };
 
@@ -172,9 +172,9 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   } else if (tb_state == TB_S_SPI_CONF) {
     paw3805ek_configure();
 
-    tb_state = TB_S_SET_CPI_QUEUE_MOTION;
+    tb_state = TB_S_SET_CPI_ISSUE_MOTION;
     tb_trigger = now + 10;
-  } else if (tb_state == TB_S_SET_CPI_QUEUE_MOTION) {
+  } else if (tb_state == TB_S_SET_CPI_ISSUE_MOTION) {
     if (current_cpi != new_cpi) {
       current_cpi = new_cpi;
       paw3805ek_set_cpi();
@@ -188,9 +188,9 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       return mouse_report;
     }
 
-    tb_state = TB_S_READ_MOTION_QUEUE_X_L;
+    tb_state = TB_S_READ_MOTION_ISSUE_X_L;
     tb_trigger = now + 3;
-  } else if (tb_state == TB_S_READ_MOTION_QUEUE_X_L) {
+  } else if (tb_state == TB_S_READ_MOTION_ISSUE_X_L) {
     uint8_t motion[3] = {0x01, 0x02, 0x00};
     if (sci18is606_spi_read(motion, 3) != I2C_STATUS_SUCCESS) {
       current_cpi = 0;
@@ -208,13 +208,13 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
         return mouse_report;
       }
       
-      tb_state = TB_S_READ_X_L_QUEUE_Y_L;
+      tb_state = TB_S_READ_X_L_ISSUE_Y_L;
       tb_trigger = now + 3;
     } else {
-      tb_state = TB_S_SET_CPI_QUEUE_MOTION;
+      tb_state = TB_S_SET_CPI_ISSUE_MOTION;
       tb_trigger = now + NAVIGATOR_TRACKBALL_READ;
     }
-  } else if (tb_state == TB_S_READ_X_L_QUEUE_Y_L) {
+  } else if (tb_state == TB_S_READ_X_L_ISSUE_Y_L) {
     uint8_t delta_x_l[3] = {0x01, 0x03, 0x00};
     if (sci18is606_spi_read(delta_x_l, 3) != I2C_STATUS_SUCCESS) {
       current_cpi = 0;
@@ -233,9 +233,9 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       return mouse_report;
     }
     
-    tb_state = TB_S_READ_Y_L_QUEUE_X_H;
+    tb_state = TB_S_READ_Y_L_ISSUE_X_H;
     tb_trigger = now + 3;    
-  } else if (tb_state == TB_S_READ_Y_L_QUEUE_X_H) {
+  } else if (tb_state == TB_S_READ_Y_L_ISSUE_X_H) {
     uint8_t delta_y_l[3] = {0x01, 0x04, 0x00};
     if (sci18is606_spi_read(delta_y_l, 3) != I2C_STATUS_SUCCESS) {
       current_cpi = 0;
@@ -254,9 +254,9 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       return mouse_report;
     }
     
-    tb_state = TB_S_READ_X_H_QUEUE_Y_H;
+    tb_state = TB_S_READ_X_H_ISSUE_Y_H;
     tb_trigger = now + 3;
-  } else if (tb_state == TB_S_READ_X_H_QUEUE_Y_H) {
+  } else if (tb_state == TB_S_READ_X_H_ISSUE_Y_H) {
     uint8_t delta_x_h[3] = {0x01, 0x11, 0x00};
     if (sci18is606_spi_read(delta_x_h, 3) != I2C_STATUS_SUCCESS) {
       current_cpi = 0;
@@ -291,7 +291,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     mouse_report.x = (int16_t)(((int16_t)x_h << 8) | x_l);
     mouse_report.y = (int16_t)(((int16_t)y_h << 8) | y_l);
 
-    tb_state = TB_S_SET_CPI_QUEUE_MOTION;
+    tb_state = TB_S_SET_CPI_ISSUE_MOTION;
     tb_trigger = now + NAVIGATOR_TRACKBALL_READ;
   } 
 
