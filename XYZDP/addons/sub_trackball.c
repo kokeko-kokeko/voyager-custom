@@ -41,7 +41,7 @@ static uint8_t y_h = 0;
 // copy and mod zsa code
 
 // The sequence of commands to configure and boot the paw3805ek sensor.
-paw3805ek_reg_seq_t paw3805ek_configure_seq[] = {
+static paw3805ek_reg_seq_t paw3805ek_configure_seq[] = {
     {0x06, 0x80},                 // Software reset
     {0x00, 0x00},                 // Request the sensor ID
     {0x09 | WRITE_REG_BIT, 0x5A}, // Disable the write protection
@@ -55,17 +55,17 @@ paw3805ek_reg_seq_t paw3805ek_configure_seq[] = {
 };
 
 // A wrapper function for i2c_transmit that adds the address of the bridge chip to the data.
-i2c_status_t sci18is606_write(uint8_t *data, uint8_t length) {
+static i2c_status_t sci18is606_write(uint8_t *data, uint8_t length) {
     return i2c_transmit(NAVIGATOR_TRACKBALL_ADDRESS, data, length, NAVIGATOR_TRACKBALL_TIMEOUT);
 }
 
 // A wrapper function for i2c_receive that adds the address of the bridge chip to the data.
-i2c_status_t sci18is606_read(uint8_t *data, uint8_t length) {
+static i2c_status_t sci18is606_read(uint8_t *data, uint8_t length) {
     return i2c_receive(NAVIGATOR_TRACKBALL_ADDRESS, data, length, NAVIGATOR_TRACKBALL_TIMEOUT);
 }
 
 // A wrapper function that allows to write and optionally read from the bridge chip.
-i2c_status_t sci18is606_spi_tx(uint8_t *data, uint8_t length, bool read) {
+static i2c_status_t sci18is606_spi_tx(uint8_t *data, uint8_t length, bool read) {
     i2c_status_t status = sci18is606_write(data, length);
     wait_us(length * 15);
     // Read the SPI response if the command expects it
@@ -79,16 +79,16 @@ i2c_status_t sci18is606_spi_tx(uint8_t *data, uint8_t length, bool read) {
 }
 
 // split queue 
-i2c_status_t sci18is606_spi_issue(uint8_t *data, uint8_t length) {
+static i2c_status_t sci18is606_spi_issue(uint8_t *data, uint8_t length) {
     return sci18is606_write(data, length);
 }
 
-i2c_status_t sci18is606_spi_read(uint8_t *data, uint8_t length) {
+static i2c_status_t sci18is606_spi_read(uint8_t *data, uint8_t length) {
     return sci18is606_read(data, length);
 }
 
 // Configure the bridge chip to enable SPI mode.
-i2c_status_t sci18is606_configure(void) {
+static i2c_status_t sci18is606_configure(void) {
     uint8_t      spi_conf[2] = {SCI18IS606_CONF_SPI, SCI18IS606_CONF};
     i2c_status_t status      = sci18is606_write(spi_conf, 2);
     wait_ms(10);
@@ -98,7 +98,7 @@ i2c_status_t sci18is606_configure(void) {
     return status;
 }
 
-bool paw3805ek_set_cpi(void) {
+static bool paw3805ek_set_cpi(void) {
 
     paw3805ek_reg_seq_t cpi_reg_seq[] = {
         {0x09 | WRITE_REG_BIT, 0x5A}, // Disable write protection
@@ -122,7 +122,7 @@ bool paw3805ek_set_cpi(void) {
 }
 
 // Run the paw3805ek configuration sequence.
-bool paw3805ek_configure(void) {
+static bool paw3805ek_configure(void) {
     for (uint8_t i = 0; i < sizeof(paw3805ek_configure_seq) / sizeof(paw3805ek_reg_seq_t); i++) {
         uint8_t buf[3];
         buf[0] = NCS_PIN;
