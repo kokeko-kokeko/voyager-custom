@@ -196,6 +196,9 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       tb_trigger = now + NAVIGATOR_TRACKBALL_PROBE;
       return mouse_report;
     }
+
+    tb_state = TB_S_READ_MOTION;
+    tb_trigger = now + 3;
   } else if (tb_state == TB_S_READ_MOTION) {
     uint8_t motion[3] = {0x01, 0x02, 0x00};
     if (sci18is606_spi_read(motion, 3) != I2C_STATUS_SUCCESS) {
