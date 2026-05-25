@@ -176,7 +176,7 @@ void pointing_device_driver_init(void) {
 }
 
 // i2c tx/rx buffer with guard
-uint8_t i2c_buf[8] = {0}; 
+static uint8_t i2c_buf[8] = {0}; 
 
 // POINTING_DEVICE_DRIVER = custom
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
