@@ -150,7 +150,7 @@ void pointing_device_driver_init(void) {
   new_cpi = NAVIGATOR_TRACKBALL_CPI;
   
   tb_state = TB_S_I2C_CONF;
-  tb_trigger = now + 5000;
+  tb_trigger = now + 3000;
 }
 
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
@@ -189,7 +189,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     }
 
     tb_state = TB_S_READ_MOTION_ISSUE_X_L;
-    tb_trigger = now + 3;
+    tb_trigger = now + 1;
   } else if (tb_state == TB_S_READ_MOTION_ISSUE_X_L) {
     uint8_t motion[3] = {0x01, 0x02, 0x00};
     if (sci18is606_spi_read(motion, 3) != I2C_STATUS_SUCCESS) {
@@ -209,7 +209,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       }
       
       tb_state = TB_S_READ_X_L_ISSUE_Y_L;
-      tb_trigger = now + 3;
+      tb_trigger = now + 1;
     } else {
       tb_state = TB_S_SET_CPI_ISSUE_MOTION;
       tb_trigger = now + NAVIGATOR_TRACKBALL_READ;
@@ -234,7 +234,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     }
     
     tb_state = TB_S_READ_Y_L_ISSUE_X_H;
-    tb_trigger = now + 3;    
+    tb_trigger = now + 1;    
   } else if (tb_state == TB_S_READ_Y_L_ISSUE_X_H) {
     uint8_t delta_y_l[3] = {0x01, 0x04, 0x00};
     if (sci18is606_spi_read(delta_y_l, 3) != I2C_STATUS_SUCCESS) {
@@ -255,7 +255,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     }
     
     tb_state = TB_S_READ_X_H_ISSUE_Y_H;
-    tb_trigger = now + 3;
+    tb_trigger = now + 1;
   } else if (tb_state == TB_S_READ_X_H_ISSUE_Y_H) {
     uint8_t delta_x_h[3] = {0x01, 0x11, 0x00};
     if (sci18is606_spi_read(delta_x_h, 3) != I2C_STATUS_SUCCESS) {
@@ -276,7 +276,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     }
     
     tb_state = TB_S_READ_Y_H_SEND_REPORT;
-    tb_trigger = now + 3;
+    tb_trigger = now + 1;
   } else if (tb_state == TB_S_READ_Y_H_SEND_REPORT) {
     uint8_t delta_y_h[3] = {0x01, 0x12, 0x00};
     if (sci18is606_spi_read(delta_y_h, 3) != I2C_STATUS_SUCCESS) {
