@@ -41,8 +41,8 @@ static uint8_t y_l = 0;
 static uint8_t x_h = 0;
 static uint8_t y_h = 0;
 
-static int16_t delta_x = 0;
-static int16_t delta_y = 0;
+//static int16_t delta_x = 0;
+//static int16_t delta_y = 0;
 
 // copy and mod zsa code
 
