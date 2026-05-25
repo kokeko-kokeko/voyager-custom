@@ -180,7 +180,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   const fast_timer_t now = timer_read_fast();
 
   if (mouse_jiggler_enabled) {
-    if (timer_expired_fast(now, mouse_jiggler_trigger) {
+    if (timer_expired_fast(now, mouse_jiggler_trigger)) {
       mouse_jiggler_trigger += MOUSE_JIGGLER_INTERVAL_MS;
 
       mouse_report.x = MOUSE_JIGGLER_MOVEMENT * jiggle_direction;
