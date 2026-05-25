@@ -216,7 +216,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     
     i2c_buf[0] = 0x01;
     i2c_buf[1] = 0x02;
-    if (sci18is606_spi_issue(motion, 3) != I2C_STATUS_SUCCESS) {
+    if (sci18is606_spi_issue(i2c_buf, 3) != I2C_STATUS_SUCCESS) {
       reset_trackball_state(now);
       return mouse_report;
     }
