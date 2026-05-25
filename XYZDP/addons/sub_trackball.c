@@ -172,7 +172,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   } else if (tb_state == TB_S_SPI_CONF) {
     paw3805ek_configure();
 
-    tb_state = TB_S_SET_CPI;
+    tb_state = TB_S_SET_CPI_QUEUE_MOTION;
     tb_trigger = now + 10;
   } else if (tb_state == TB_S_SET_CPI_QUEUE_MOTION) {
     if (current_cpi != new_cpi) {
@@ -208,7 +208,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
         return mouse_report;
       }
       
-      tb_state = TB_S_ISSUE_X_L;
+      tb_state = TB_S_READ_X_L_QUEUE_Y_L;
       tb_trigger = now + 3;
     } else {
       tb_state = TB_S_SET_CPI_QUEUE_MOTION;
@@ -266,10 +266,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     }
 
     x_h =  delta_x_h[1];
-
-    tb_state = TB_S_ISSUE_Y_H;
-    tb_trigger = now + 3;
-  } else if (tb_state == TB_S_ISSUE_Y_H) {
+    
     uint8_t delta_y_h[3] = {0x01, 0x12, 0x00};
     if (sci18is606_spi_issue(delta_y_h, 3) != I2C_STATUS_SUCCESS) {
       current_cpi = 0;
