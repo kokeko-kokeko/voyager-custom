@@ -20,7 +20,7 @@
 #include "mcp23018.h"
 #include "i2c_master.h"
 
-//#include "navigator_trackball.h"
+#include "addons/sub_trackball.h"
 
 enum key_position {
   POSITION_JIS = 0,
@@ -516,7 +516,6 @@ void housekeeping_task_exec_halt(void) {
   is31fl3731_select_page(0, IS31FL3731_COMMAND_FUNCTION);
   is31fl3731_write_register(0, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0x00);
 
-  /*
   // mouse sensor reset powersave
   uint8_t disable_protect[3] = {0x01, 0x09 | WRITE_REG_BIT, 0x5A}; // Disable write protection
   uint8_t sw_reset[3] = {0x01, 0x06 | WRITE_REG_BIT, 0x80};        // Software reset
@@ -538,7 +537,6 @@ void housekeeping_task_exec_halt(void) {
   
   i2c_transmit(NAVIGATOR_TRACKBALL_ADDRESS, idle_mode, 1, NAVIGATOR_TRACKBALL_TIMEOUT);
   wait_ms(10);
-  */
 
   // from voyager.c
   i2cStop(&I2CD1);
