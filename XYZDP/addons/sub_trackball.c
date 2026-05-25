@@ -38,6 +38,23 @@ static uint8_t y_h = 0;
 //static int16_t delta_x = 0;
 //static int16_t delta_y = 0;
 
+static bool mouse_jiggler_enabled = false;
+static fast_timer_t mouse_jiggler_trigger = 0;
+static int8_t jiggle_direction = 1;
+
+bool mouse_jiggler_is_enabled(void) {
+    return mouse_jiggler_enabled;
+}
+
+void mouse_jiggler_enable(void) {
+    mouse_jiggler_enabled = true;
+    mouse_jiggler_trigger = timer_read_fast() + MOUSE_JIGGLER_INTERVAL_MS;
+}
+
+void mouse_jiggler_disable(void) {
+    mouse_jiggler_enabled = false;
+}
+
 // copy and mod zsa code
 
 // The sequence of commands to configure and boot the paw3805ek sensor.
@@ -162,6 +179,16 @@ void pointing_device_driver_init(void) {
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   const fast_timer_t now = timer_read_fast();
 
+  if (mouse_jiggler_enabled) {
+    if (timer_expired_fast(now, mouse_jiggler_trigger) {
+      mouse_jiggler_trigger += MOUSE_JIGGLER_INTERVAL_MS;
+
+      mouse_report.x = MOUSE_JIGGLER_MOVEMENT * jiggle_direction;
+
+      jiggle_direction = -jiggle_direction;
+    }
+  }
+  
   // early exit
   if (timer_expired_fast(now, tb_trigger) == false) return mouse_report;
 
