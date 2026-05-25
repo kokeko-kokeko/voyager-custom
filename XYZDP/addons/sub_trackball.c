@@ -19,15 +19,15 @@ enum layer_num {
   TB_S_I2C_CONF = 0,
   TB_S_SPI_CONF,
   TB_S_SET_CPI,
-  TB_S_QUEUE_MOTION,
+  TB_S_ISSUE_MOTION,
   TB_S_READ_MOTION,
-  TB_S_QUEUE_X_L,
+  TB_S_ISSUE_X_L,
   TB_S_READ_X_L,
-  TB_S_QUEUE_Y_L,
+  TB_S_ISSUE_Y_L,
   TB_S_READ_Y_L,
-  TB_S_QUEUE_X_H,
+  TB_S_ISSUE_X_H,
   TB_S_READ_X_H,
-  TB_S_QUEUE_Y_H,
+  TB_S_ISSUE_Y_H,
   TB_S_READ_Y_H,
   TB_S_SEND_REPORT
 };
@@ -85,7 +85,7 @@ i2c_status_t sci18is606_spi_tx(uint8_t *data, uint8_t length, bool read) {
 }
 
 // split queue 
-i2c_status_t sci18is606_spi_queue(uint8_t *data, uint8_t length) {
+i2c_status_t sci18is606_spi_issue(uint8_t *data, uint8_t length) {
     return sci18is606_write(data, length);
 }
 
@@ -186,11 +186,11 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       paw3805ek_set_cpi();
     }
 
-    tb_state = TB_S_QUEUE_MOTION;
+    tb_state = TB_S_ISSUE_MOTION;
     tb_trigger = now + 10;
-  } else if (tb_state == TB_S_QUEUE_MOTION) {
+  } else if (tb_state == TB_S_ISSUE_MOTION) {
     uint8_t motion[3] = {0x01, 0x02, 0x00};
-    if (sci18is606_spi_queue(motion, 3) != I2C_STATUS_SUCCESS) {
+    if (sci18is606_spi_issue(motion, 3) != I2C_STATUS_SUCCESS) {
       current_cpi = 0;
       tb_state = TB_S_I2C_CONF;
       tb_trigger = now + NAVIGATOR_TRACKBALL_PROBE;
@@ -208,15 +208,15 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       return mouse_report;
     }
     if (motion[1] & 0x80) {
-      tb_state = TB_S_QUEUE_X_L;
+      tb_state = TB_S_ISSUE_X_L;
       tb_trigger = now + 10;
     } else {
-      tb_state = TB_S_QUEUE_MOTION;
+      tb_state = TB_S_ISSUE_MOTION;
       tb_trigger = now + 10;
     }
-  } else if (tb_state == TB_S_QUEUE_X_L) {
+  } else if (tb_state == TB_S_ISSUE_X_L) {
     uint8_t delta_x_l[3] = {0x01, 0x03, 0x00};
-    if (sci18is606_spi_queue(delta_x_l, 3) != I2C_STATUS_SUCCESS) {
+    if (sci18is606_spi_issue(delta_x_l, 3) != I2C_STATUS_SUCCESS) {
       current_cpi = 0;
       tb_state = TB_S_I2C_CONF;
       tb_trigger = now + NAVIGATOR_TRACKBALL_PROBE;
@@ -236,11 +236,11 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
 
     x_l =  delta_x_l[1];
 
-    tb_state = TB_S_QUEUE_Y_L;
+    tb_state = TB_S_ISSUE_Y_L;
     tb_trigger = now + 3;
-  } else if (tb_state == TB_S_QUEUE_Y_L) {
+  } else if (tb_state == TB_S_ISSUE_Y_L) {
     uint8_t delta_y_l[3] = {0x01, 0x04, 0x00};
-    if (sci18is606_spi_queue(delta_y_l, 3) != I2C_STATUS_SUCCESS) {
+    if (sci18is606_spi_issue(delta_y_l, 3) != I2C_STATUS_SUCCESS) {
       current_cpi = 0;
       tb_state = TB_S_I2C_CONF;
       tb_trigger = now + NAVIGATOR_TRACKBALL_PROBE;
@@ -260,11 +260,11 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
 
     y_l =  delta_y_l[1];
 
-    tb_state = TB_S_QUEUE_X_H;
+    tb_state = TB_S_ISSUE_X_H;
     tb_trigger = now + 3;
-  } else if (tb_state == TB_S_QUEUE_X_H) {
+  } else if (tb_state == TB_S_ISSUE_X_H) {
     uint8_t delta_x_h[3] = {0x01, 0x11, 0x00};
-    if (sci18is606_spi_queue(delta_x_h, 3) != I2C_STATUS_SUCCESS) {
+    if (sci18is606_spi_issue(delta_x_h, 3) != I2C_STATUS_SUCCESS) {
       current_cpi = 0;
       tb_state = TB_S_I2C_CONF;
       tb_trigger = now + NAVIGATOR_TRACKBALL_PROBE;
@@ -284,11 +284,11 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
 
     x_h =  delta_x_h[1];
 
-    tb_state = TB_S_QUEUE_Y_H;
+    tb_state = TB_S_ISSUE_Y_H;
     tb_trigger = now + 3;
-  } else if (tb_state == TB_S_QUEUE_Y_H) {
+  } else if (tb_state == TB_S_ISSUE_Y_H) {
     uint8_t delta_y_h[3] = {0x01, 0x12, 0x00};
-    if (sci18is606_spi_queue(delta_y_h, 3) != I2C_STATUS_SUCCESS) {
+    if (sci18is606_spi_issue(delta_y_h, 3) != I2C_STATUS_SUCCESS) {
       current_cpi = 0;
       tb_state = TB_S_I2C_CONF;
       tb_trigger = now + NAVIGATOR_TRACKBALL_PROBE;
@@ -314,7 +314,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     mouse_report.x = (int16_t)(((int16_t)x_h << 8) | x_l);
     mouse_report.y = (int16_t)(((int16_t)y_h << 8) | y_l);
 
-    tb_state = TB_S_QUEUE_MOTION;
+    tb_state = TB_S_ISSUE_MOTION;
     tb_trigger = now + 10;
   } 
 
