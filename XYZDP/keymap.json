@@ -1,8 +1,8 @@
 {
     "modules": [
-        "zsa/navigator_trackpad",
         "zsa/defaults",
-        "zsa/mousejiggler"
+        "zsa/mousejiggler",
+        "zsa/navigator_trackpad"
     ],
     "features": {
         "nkro": true

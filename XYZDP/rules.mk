@@ -4,11 +4,12 @@ COMMAND_ENABLE = no
 
 SPACE_CADET_ENABLE = no
 CAPS_WORD_ENABLE = yes
-PRECISION_TRACKPAD_ENABLE = yes
-PRECISION_TRACKPAD_DRIVER = navigator_trackpad
 
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = custom
+
+PRECISION_TRACKPAD_ENABLE = yes
+PRECISION_TRACKPAD_DRIVER = navigator_trackpad
 
 BOOTMAGIC_ENABLE = no
 GRAVE_ESC_ENABLE = no 
@@ -52,5 +53,4 @@ EXTRAFLAGS += -mthumb
 EXTRAFLAGS += -fsingle-precision-constant 
 EXTRAFLAGS += -fstack-protector-strong
 EXTRAFLAGS += -fstack-clash-protection
-
 
