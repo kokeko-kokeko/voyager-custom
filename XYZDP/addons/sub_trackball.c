@@ -143,6 +143,7 @@ static bool paw3805ek_configure(void) {
     return true;
 }
 
+// POINTING_DEVICE_DRIVER = custom
 void pointing_device_driver_init(void) {
   const fast_timer_t now = timer_read_fast();
   
@@ -153,6 +154,7 @@ void pointing_device_driver_init(void) {
   tb_trigger = now + 3000;
 }
 
+// POINTING_DEVICE_DRIVER = custom
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   const fast_timer_t now = timer_read_fast();
 
