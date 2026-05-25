@@ -13,6 +13,7 @@
 #include "addons/layer_mod_overlay.h"
 #include "addons/ortho_hold_os_locale_aware.h"
 #include "addons/status_led.h"
+#include "addons/sub_trackball.h"
 
 #include "layer_num.h"
 
