@@ -15,7 +15,7 @@
 static uint8_t current_cpi = 0;
 static uint8_t new_cpi = NAVIGATOR_TRACKBALL_CPI;
 
-enum layer_num {
+enum trackball_state {
   TB_S_I2C_CONF = 0,
   TB_S_SPI_CONF,
   TB_S_SET_CPI,
