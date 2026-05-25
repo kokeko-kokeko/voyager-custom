@@ -303,13 +303,13 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       return mouse_report;
     }
 
-    x_y =  delta_y_h[1];
+    y_h =  delta_y_h[1];
 
     tb_state = TB_S_SEND_REPORT;
     tb_trigger = now + 3;
   } else if (tb_state == TB_S_SEND_REPORT) {
-    mouse_report.x = (int16_t)((x_h << 8) | x_l);
-    mouse_report.y = (int16_t)((y_h << 8) | y_l);
+    mouse_report.x = (int16_t)(((int16_t)x_h << 8) | x_l);
+    mouse_report.y = (int16_t)(((int16_t)y_h << 8) | y_l);
 
     tb_state = TB_S_QUEUE_MOTION;
     tb_trigger = now + 10;
