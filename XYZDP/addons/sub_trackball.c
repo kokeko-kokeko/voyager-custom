@@ -197,7 +197,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       return mouse_report;
     }
   } else if (tb_state == TB_S_READ_MOTION) {
-    int8_t motion[3] = {0x01, 0x02, 0x00};
+    uint8_t motion[3] = {0x01, 0x02, 0x00};
     if (sci18is606_spi_read(motion, 3) != I2C_STATUS_SUCCESS) {
       current_cpi = 0;
       tb_state = TB_S_I2C_CONF;
