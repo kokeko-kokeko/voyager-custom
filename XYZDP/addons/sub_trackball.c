@@ -37,8 +37,8 @@ static uint8_t y_l = 0;
 static uint8_t x_h = 0;
 static uint8_t y_h = 0;
 
-//static int16_t delta_x = 0;
-//static int16_t delta_y = 0;
+static int16_t delta_x = 0;
+static int16_t delta_y = 0;
 
 static bool mouse_jiggler_enabled = false;
 static fast_timer_t mouse_jiggler_trigger = 0;
@@ -319,8 +319,21 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     trackball_early_off_trigger = now + AUTO_MOUSE_TIME_MID;
     layer_on(TRACKBALL_AUTO_LAYER);
     
-    mouse_report.x = (int16_t)(((int16_t)x_h << 8) | x_l);
-    mouse_report.y = (int16_t)(((int16_t)y_h << 8) | y_l);
+    delta_x = (int16_t)(((int16_t)x_h << 8) | x_l);
+    delta_y = (int16_t)(((int16_t)y_h << 8) | y_l);
+
+    bool or_scroll = false;
+
+    or_scroll = or_scroll || layer_state_is(LAYER_Number);
+    or_scroll = or_scroll || layer_state_is(LAYER_Cursor);
+
+    if (or_scroll) {
+      mouse_report.h = delta_x;
+      mouse_report.v = delta_y;
+    } else {
+      mouse_report.x = delta_x;
+      mouse_report.y = delta_y;
+    }
 
     tb_state = TB_S_READ_MOTION_ISSUE_X_L;
     tb_trigger = now + 1;
