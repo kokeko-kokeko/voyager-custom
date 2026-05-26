@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include "quantum.h"
 
+#include "layer_num.h"
+
 #include "addons/sub_trackball.h"
 
 // issue / read state machine
