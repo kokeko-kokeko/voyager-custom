@@ -1,1 +1,73 @@
 
+void set_layer_color_overlay_mouse_button(void) {
+  if (layer_state_is(LAYER_Mouse_L) == false) return;
+  
+  const uint8_t f = rgb_matrix_get_val();
+  const uint8_t h = f >> 1;
+  const uint8_t q = h >> 1;
+  const uint8_t o = q >> 1;
+
+  if (is_transport_connected() == false) {
+    rgb_matrix_set_color_all(o, o, 0);
+  } else {
+    rgb_matrix_set_color_all(o, o, o);
+  }
+  
+  if (layer_state_is(LAYER_Mouse_Upper_L) == false) {
+    // low
+    
+    // left side
+    rgb_matrix_set_color(5, 0, f, h);  //4
+    
+    rgb_matrix_set_color(11, 0, 0, f);  //3
+    
+    rgb_matrix_set_color(17, 0, f, 0);  //2
+  } else {
+    // up
+    
+    // left side
+    rgb_matrix_set_color(5, h, 0, f);  //8
+    
+    rgb_matrix_set_color(11, 0, h, f);  //7
+    
+    rgb_matrix_set_color(17, f, f, 0);  //6
+    
+    rgb_matrix_set_color(23, f, 0, h);  //5
+  }
+
+  // both up/low
+  rgb_matrix_set_color(25, f, 0, 0);  //1
+
+  if (layer_state_is(LAYER_Mouse_Upper_R) == false) {
+    // low
+    
+    // right side
+    rgb_matrix_set_color(26, 0, f, h);  //4
+    
+    rgb_matrix_set_color(32, 0, 0, f);  //3
+    
+    rgb_matrix_set_color(38, f, 0, 0);  //1
+  } else {
+    // up
+    
+    // right side 
+    rgb_matrix_set_color(26, h, 0, f);  //8
+   
+    rgb_matrix_set_color(32, 0, h, f);  //7
+    
+    rgb_matrix_set_color(38, f, 0, h);  //5
+
+    rgb_matrix_set_color(44, f, f, 0);  //6
+  }
+
+  // both up/low
+  rgb_matrix_set_color(27, 0, f, 0);  //2
+  
+  //rgb_matrix_set_color(44, q, q, q);
+  //rgb_matrix_set_color(47, q, o, 0);
+  //rgb_matrix_set_color(48, f, h, 0);
+  
+  // task veiw
+  rgb_matrix_set_color(0, 0, 0, f);
+}
+
