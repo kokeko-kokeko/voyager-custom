@@ -19,7 +19,7 @@ static fast_timer_t trackpad_early_off_trigger = 0;
 
 static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record) {
   // mouse non-active skip
-  //if (layer_state_is(TRACKPAD_AUTO_LAYER) == false) return;
+  if (layer_state_is(TRACKPAD_AUTO_LAYER) == false) return;
 
   // keep on mouse number and cursor
   if (layer_state_is(LAYER_Mouse_Upper_L) == true) return;
