@@ -61,6 +61,8 @@ static fast_timer_t trackball_early_off_trigger = 0;
 
 #define TRACKBALL_AUTO_LAYER LAYER_Mouse_L
 
+#define TRACKPAD_AUTO_LAYER LAYER_Mouse_R
+
 // copy and mod zsa code
 
 // The sequence of commands to configure and boot the paw3805ek sensor.
@@ -316,7 +318,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       return mouse_report;
     }
 
-    trackball_early_off_trigger = now + AUTO_MOUSE_TIME_MID;
+    trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
     layer_on(TRACKBALL_AUTO_LAYER);
     
     delta_x = (int16_t)(((int16_t)x_h << 8) | x_l);
@@ -324,6 +326,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
 
     bool or_scroll = false;
 
+    or_scroll = or_scroll || layer_state_is(TRACKPAD_AUTO_LAYER);
     or_scroll = or_scroll || layer_state_is(LAYER_Number);
     or_scroll = or_scroll || layer_state_is(LAYER_Cursor);
 
