@@ -20,8 +20,8 @@ static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record)
   if (layer_state_is(LAYER_Mouse_L) == false) return;
 
   // keep on mouse number and cursor
-  if (layer_state_is(LAYER_Mouse_Upper_Left) == true) return;
-  if (layer_state_is(LAYER_Mouse_Upper_Right) == true) return;
+  if (layer_state_is(LAYER_Mouse_Upper_L) == true) return;
+  if (layer_state_is(LAYER_Mouse_Upper_R) == true) return;
   if (layer_state_is(LAYER_Number) == true) return;
   if (layer_state_is(LAYER_Cursor) == true) return;
 
