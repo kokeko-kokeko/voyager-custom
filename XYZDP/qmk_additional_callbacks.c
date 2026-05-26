@@ -37,6 +37,7 @@ void keyboard_post_init_user(void) {
   keyboard_post_init_adv_trackpad();
   keyboard_post_init_fade_matrix();
   keyboard_post_init_status_led();
+	keyboard_post_init_sub_trackball();
   
   // no transition / jis / pc mode
   layer_move(LAYER_Base);
