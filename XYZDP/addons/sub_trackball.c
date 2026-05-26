@@ -387,6 +387,14 @@ void post_process_record_sub_trackball(uint16_t keycode, keyrecord_t *record) {
   return;
 }
 
+layer_state_t layer_state_set_sub_trackball(layer_state_t state) {
+  // update pinkey overwrite
+  //state = update_tri_layer_state(state, LAYER_Mouse, LAYER_L_pinky, LAYER_Mouse_Upper_Left);
+  //state = update_tri_layer_state(state, LAYER_Mouse, LAYER_R_pinky, LAYER_Mouse_Upper_Right);
+  
+  return state;
+}
+
 void housekeeping_task_sub_trackball(void) {
   const fast_timer_t now = timer_read_fast();
 
