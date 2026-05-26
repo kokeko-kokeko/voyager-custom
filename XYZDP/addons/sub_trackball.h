@@ -66,3 +66,11 @@ typedef struct {
 extern void mouse_jiggler_enable(void);
 extern void mouse_jiggler_disable(void);
 extern bool mouse_jiggler_is_enabled(void);
+
+// auto layers
+
+#define AUTO_MOUSE_TIME_MID 1999
+
+void keyboard_post_init_sub_trackball(void);
+void post_process_record_sub_trackball(uint16_t keycode, keyrecord_t *record);
+void housekeeping_task_sub_trackball(void);
