@@ -37,6 +37,7 @@ SRC += addons/fade_matrix.c
 SRC += addons/firmware_map.c
 SRC += addons/ime_state_sync.c
 SRC += addons/layer_mod_overlay.c
+SRC += addons/mouse_button_overlay.h
 SRC += addons/ortho_hold_os_locale_aware.c
 SRC += addons/status_led.c
 SRC += addons/sub_trackball.c
