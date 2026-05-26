@@ -17,7 +17,8 @@ void set_layer_color_overlay_layer(void) {
   bool or_flag = false;
 
   // if mouse on exit
-  if (layer_state_is(LAYER_Mouse)) return;
+  if (layer_state_is(LAYER_Mouse_L)) return;
+  if (layer_state_is(LAYER_Mouse_R)) return;
   
   // layer display with priority
   if (layer_state_is(LAYER_Number)) {
