@@ -103,7 +103,7 @@ void set_layer_color_overlay_trackpad(void) {
     rgb_matrix_set_color_all(o, o, o);
   }
   
-  if (layer_state_is(LAYER_Mouse_Upper_Left) == false) {
+  if (layer_state_is(LAYER_Mouse_Upper_L) == false) {
     // low
     
     // left side
@@ -128,7 +128,7 @@ void set_layer_color_overlay_trackpad(void) {
   // both up/low
   rgb_matrix_set_color(25, f, 0, 0);  //1
 
-  if (layer_state_is(LAYER_Mouse_Upper_Right) == false) {
+  if (layer_state_is(LAYER_Mouse_Upper_R) == false) {
     // low
     
     // right side
