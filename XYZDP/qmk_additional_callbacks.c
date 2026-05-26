@@ -113,7 +113,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case LAYER_Transition:
       status_led(0b1111, led_pattern_off);
       break;
-    case LAYER_Mouse:
+    case LAYER_Mouse_L:
+	case LAYER_Mouse_R:
       // mouse indication
       status_led(0b1000, led_pattern_on);
       // DRAG_SCROLL add on key event
