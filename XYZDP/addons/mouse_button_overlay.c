@@ -69,6 +69,14 @@ void set_layer_color_overlay_mouse_button(void) {
     rgb_matrix_set_color(44, f, 0, h);  //5
   }
 
+  if (layer_state_is(LAYER_Number)) {
+    rgb_matrix_set_color(22, f, 0, 0);
+  }
+  
+  if (layer_state_is(LAYER_Cursor)) {
+    rgb_matrix_set_color(45, f, 0, 0);
+  }
+
   // both up/low
   
   
