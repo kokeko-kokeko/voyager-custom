@@ -82,7 +82,7 @@ void housekeeping_task_adv_trackpad(void) {
     trackpad_early_off_trigger = now + (UINT32_MAX / 2) - 1;
     //auto_mouse_layer_off();
     //automouse_disable();
-    layer_off(LAYER_Mouse);
+    layer_off(LAYER_Mouse_L);
     //automouse_enable();
   }
   
