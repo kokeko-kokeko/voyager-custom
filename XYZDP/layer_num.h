@@ -4,7 +4,8 @@
 enum layer_num {
   LAYER_Base = 0,
   LAYER_Transition,
-  LAYER_Mouse,
+  LAYER_Mouse_L,
+  LAYER_Mouse_R,
   LAYER_Number,
   LAYER_Cursor,
   LAYER_Function,
