@@ -17,7 +17,7 @@ static fast_timer_t trackpad_early_off_trigger = 0;
 
 static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record) {
   // mouse non-active skip
-  if (layer_state_is(LAYER_Mouse) == false) return;
+  if (layer_state_is(LAYER_Mouse_L) == false) return;
 
   // keep on mouse number and cursor
   if (layer_state_is(LAYER_Mouse_Upper_Left) == true) return;
@@ -59,8 +59,8 @@ void post_process_record_adv_trackpad(uint16_t keycode, keyrecord_t *record) {
 
 layer_state_t layer_state_set_adv_trackpad(layer_state_t state) {
   // update pinkey overwrite
-  state = update_tri_layer_state(state, LAYER_Mouse, LAYER_L_pinky, LAYER_Mouse_Upper_Left);
-  state = update_tri_layer_state(state, LAYER_Mouse, LAYER_R_pinky, LAYER_Mouse_Upper_Right);
+  //state = update_tri_layer_state(state, LAYER_Mouse, LAYER_L_pinky, LAYER_Mouse_Upper_Left);
+  //state = update_tri_layer_state(state, LAYER_Mouse, LAYER_R_pinky, LAYER_Mouse_Upper_Right);
   
   return state;
 }
@@ -70,7 +70,7 @@ void housekeeping_task_adv_trackpad(void) {
 
   if (navigator_trackpad_finger_count > 0) {
     trackpad_early_off_trigger = now + AUTO_MOUSE_TIME_MID;
-    layer_on(LAYER_Mouse);
+    layer_on(LAYER_Mouse_L);
 
     // clear flag
     navigator_trackpad_finger_count = 0;
@@ -90,7 +90,7 @@ void housekeeping_task_adv_trackpad(void) {
 }
 
 void set_layer_color_overlay_trackpad(void) {
-  if (layer_state_is(LAYER_Mouse) == false) return;
+  if (layer_state_is(LAYER_Mouse_L) == false) return;
   
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
