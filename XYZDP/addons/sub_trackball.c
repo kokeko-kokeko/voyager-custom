@@ -320,9 +320,6 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       return mouse_report;
     }
 
-    trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
-    layer_on(TRACKBALL_AUTO_LAYER);
-    
     delta_x = (int16_t)(((int16_t)x_h << 8) | x_l);
     delta_y = (int16_t)(((int16_t)y_h << 8) | y_l);
 
@@ -332,6 +329,9 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     } else {
       mouse_report.x = delta_x;
       mouse_report.y = delta_y;
+
+      trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
+      layer_on(TRACKBALL_AUTO_LAYER);
     }
 
     tb_state = TB_S_READ_MOTION_ISSUE_X_L;
