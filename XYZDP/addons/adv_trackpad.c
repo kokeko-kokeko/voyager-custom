@@ -15,9 +15,11 @@
 
 static fast_timer_t trackpad_early_off_trigger = 0;
 
+#define TRACKPAD_AUTO_LAYER LAYER_Mouse_R
+
 static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record) {
   // mouse non-active skip
-  if (layer_state_is(LAYER_Mouse_L) == false) return;
+  if (layer_state_is(TRACKPAD_AUTO_LAYER) == false) return;
 
   // keep on mouse number and cursor
   if (layer_state_is(LAYER_Mouse_Upper_L) == true) return;
@@ -70,7 +72,7 @@ void housekeeping_task_adv_trackpad(void) {
 
   if (navigator_trackpad_finger_count > 0) {
     trackpad_early_off_trigger = now + AUTO_MOUSE_TIME_MID;
-    layer_on(LAYER_Mouse_L);
+    layer_on(TRACKPAD_AUTO_LAYER);
 
     // clear flag
     navigator_trackpad_finger_count = 0;
@@ -82,7 +84,7 @@ void housekeeping_task_adv_trackpad(void) {
     trackpad_early_off_trigger = now + (UINT32_MAX / 2) - 1;
     //auto_mouse_layer_off();
     //automouse_disable();
-    layer_off(LAYER_Mouse_L);
+    layer_off(TRACKPAD_AUTO_LAYER);
     //automouse_enable();
   }
   
