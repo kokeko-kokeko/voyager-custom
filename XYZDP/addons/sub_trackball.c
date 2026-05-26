@@ -315,6 +315,9 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       reset_trackball_state(now);
       return mouse_report;
     }
+
+    trackball_early_off_trigger = now + AUTO_MOUSE_TIME_MID;
+    layer_on(TRACKBALL_AUTO_LAYER);
     
     mouse_report.x = (int16_t)(((int16_t)x_h << 8) | x_l);
     mouse_report.y = (int16_t)(((int16_t)y_h << 8) | y_l);
