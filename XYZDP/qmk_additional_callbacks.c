@@ -104,7 +104,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = layer_state_set_adv_trackpad(state);
   state = layer_state_set_fade_matrix(state);
   state = layer_state_set_firmware_map(state);
-  
+	state = layer_state_set_sub_trackball(state);
+	
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   if (is_launching || !keyboard_config.led_level) return state;
   
