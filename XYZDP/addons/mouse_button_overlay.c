@@ -1,3 +1,13 @@
+#include QMK_KEYBOARD_H
+#include "version.h"
+#define MOON_LED_LEVEL LED_LEVEL
+#ifndef ZSA_SAFE_RANGE
+#define ZSA_SAFE_RANGE SAFE_RANGE
+#endif
+
+#include "layer_num.h"
+
+#include "addons/mouse_button_overlay.h"
 
 void set_layer_color_overlay_mouse_button(void) {
   if (layer_state_is(LAYER_Mouse_L) == false) return;
