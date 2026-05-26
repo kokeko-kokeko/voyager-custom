@@ -21,7 +21,7 @@ enum trackball_state {
   TB_S_READ_X_L_ISSUE_Y_L,
   TB_S_READ_Y_L_ISSUE_X_H,
   TB_S_READ_X_H_ISSUE_Y_H,
-  TB_S_READ_Y_H_SEND_REPORT
+  TB_S_READ_Y_H_ISSUE_MOTION_SEND_REPORT
 };
 
 static uint8_t current_cpi = 0;
@@ -293,20 +293,27 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       return mouse_report;
     }
     
-    tb_state = TB_S_READ_Y_H_SEND_REPORT;
+    tb_state = TB_S_READ_Y_H_ISSUE_MOTION_SEND_REPORT;
     tb_trigger = now + 1;
-  } else if (tb_state == TB_S_READ_Y_H_SEND_REPORT) {
+  } else if (tb_state == TB_S_READ_Y_H_ISSUE_MOTION_SEND_REPORT) {
     if (sci18is606_spi_read(i2c_read_buf, 2) != I2C_STATUS_SUCCESS) {
       reset_trackball_state(now);
       return mouse_report;
     }
 
     y_h =  i2c_read_buf[1];
+
+    i2c_issue_buf[0] = 0x01;
+    i2c_issue_buf[1] = 0x02;
+    if (sci18is606_spi_issue(i2c_issue_buf, 3) != I2C_STATUS_SUCCESS) {
+      reset_trackball_state(now);
+      return mouse_report;
+    }
     
     mouse_report.x = (int16_t)(((int16_t)x_h << 8) | x_l);
     mouse_report.y = (int16_t)(((int16_t)y_h << 8) | y_l);
 
-    tb_state = TB_S_SET_CPI_ISSUE_MOTION;
+    tb_state = TB_S_READ_MOTION_ISSUE_X_L;
     tb_trigger = now + 1;
   } 
 
