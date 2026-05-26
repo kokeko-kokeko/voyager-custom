@@ -224,7 +224,8 @@ bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   post_process_record_adv_trackpad(keycode, record);
   post_process_record_ime_state_sync(keycode, record);
-  
+  post_process_record_sub_trackball(keycode, record);
+	
   return;
 }
 
@@ -240,6 +241,7 @@ void housekeeping_task_user(void) {
   housekeeping_task_fade_matrix();
   housekeeping_task_ime_state_sync();
   housekeeping_task_status_led();
+	housekeeping_task_sub_trackball();
 
   // exec halt last
   housekeeping_task_exec_halt();
