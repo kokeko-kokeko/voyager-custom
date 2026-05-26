@@ -151,7 +151,8 @@ void housekeeping_task_ime_state_sync(void) {
 
 void set_layer_color_overlay_ime_state_sync(void) {
   // if mouse on exit
-  if (layer_state_is(LAYER_Mouse)) return;
+  if (layer_state_is(LAYER_Mouse_L)) return;
+  if (layer_state_is(LAYER_Mouse_R)) return;
   
   // IME state sync syntem state
   if (ime_on) {
