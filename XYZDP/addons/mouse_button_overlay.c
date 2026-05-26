@@ -10,7 +10,7 @@
 #include "addons/mouse_button_overlay.h"
 
 void set_layer_color_overlay_mouse_button(void) {
-  if (layer_state_is(LAYER_Mouse_L) == false) return;
+  if ((layer_state_is(LAYER_Mouse_L) || layer_state_is(LAYER_Mouse_R))== false) return;
   
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
@@ -22,16 +22,31 @@ void set_layer_color_overlay_mouse_button(void) {
   } else {
     rgb_matrix_set_color_all(o, o, o);
   }
+
+  if (layer_state_is(LAYER_Mouse_L) {
+    // task veiw
+    rgb_matrix_set_color(0, 0, 0, f);
+    
+    rgb_matrix_set_color(5, 0, f, h);   //4
+    rgb_matrix_set_color(11, 0, 0, f);  //3
+    rgb_matrix_set_color(17, 0, f, 0);  //2
+    rgb_matrix_set_color(25, f, 0, 0);  //1
+
+    rgb_matrix_set_color(26, 0, f, h);  //4
+    rgb_matrix_set_color(27, 0, f, 0);  //2
+    rgb_matrix_set_color(32, 0, 0, f);  //3
+    rgb_matrix_set_color(38, f, 0, 0);  //1
+  }
   
   if (layer_state_is(LAYER_Mouse_Upper_L) == false) {
     // low
     
     // left side
-    rgb_matrix_set_color(5, 0, f, h);  //4
     
-    rgb_matrix_set_color(11, 0, 0, f);  //3
     
-    rgb_matrix_set_color(17, 0, f, 0);  //2
+    
+    
+    
   } else {
     // up
     
@@ -46,17 +61,13 @@ void set_layer_color_overlay_mouse_button(void) {
   }
 
   // both up/low
-  rgb_matrix_set_color(25, f, 0, 0);  //1
+  
 
   if (layer_state_is(LAYER_Mouse_Upper_R) == false) {
     // low
     
     // right side
-    rgb_matrix_set_color(26, 0, f, h);  //4
-    
-    rgb_matrix_set_color(32, 0, 0, f);  //3
-    
-    rgb_matrix_set_color(38, f, 0, 0);  //1
+
   } else {
     // up
     
@@ -71,13 +82,12 @@ void set_layer_color_overlay_mouse_button(void) {
   }
 
   // both up/low
-  rgb_matrix_set_color(27, 0, f, 0);  //2
+  
   
   //rgb_matrix_set_color(44, q, q, q);
   //rgb_matrix_set_color(47, q, o, 0);
   //rgb_matrix_set_color(48, f, h, 0);
   
-  // task veiw
-  rgb_matrix_set_color(0, 0, 0, f);
+  
 }
 
