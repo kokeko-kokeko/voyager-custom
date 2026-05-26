@@ -40,6 +40,8 @@ static uint8_t y_h = 0;
 static int16_t delta_x = 0;
 static int16_t delta_y = 0;
 
+static bool or_scroll = false;
+
 static bool mouse_jiggler_enabled = false;
 static fast_timer_t mouse_jiggler_trigger = 0;
 static int8_t jiggle_direction = 1;
@@ -324,12 +326,6 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     delta_x = (int16_t)(((int16_t)x_h << 8) | x_l);
     delta_y = (int16_t)(((int16_t)y_h << 8) | y_l);
 
-    bool or_scroll = false;
-
-    or_scroll = or_scroll || layer_state_is(TRACKPAD_AUTO_LAYER);
-    or_scroll = or_scroll || layer_state_is(LAYER_Number);
-    or_scroll = or_scroll || layer_state_is(LAYER_Cursor);
-
     if (or_scroll) {
       mouse_report.h = delta_x;
       mouse_report.v = delta_y;
@@ -388,9 +384,11 @@ void post_process_record_sub_trackball(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_sub_trackball(layer_state_t state) {
-  // update pinkey overwrite
-  //state = update_tri_layer_state(state, LAYER_Mouse, LAYER_L_pinky, LAYER_Mouse_Upper_Left);
-  //state = update_tri_layer_state(state, LAYER_Mouse, LAYER_R_pinky, LAYER_Mouse_Upper_Right);
+  or_scroll = false;
+    
+  or_scroll = or_scroll || layer_state_cmp(state, TRACKPAD_AUTO_LAYER);
+  or_scroll = or_scroll || layer_state_cmp(state, LAYER_Number);
+  or_scroll = or_scroll || layer_state_cmp(state, LAYER_Cursor);
   
   return state;
 }
