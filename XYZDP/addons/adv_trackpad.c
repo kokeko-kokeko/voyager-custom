@@ -71,7 +71,7 @@ void housekeeping_task_adv_trackpad(void) {
   const fast_timer_t now = timer_read_fast();
 
   if (navigator_trackpad_finger_count > 0) {
-    trackpad_early_off_trigger = now + AUTO_MOUSE_TIME_MID;
+    trackpad_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKPAD;
     layer_on(TRACKPAD_AUTO_LAYER);
 
     // clear flag
