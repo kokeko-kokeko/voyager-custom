@@ -69,7 +69,7 @@ extern bool mouse_jiggler_is_enabled(void);
 
 // auto layers
 
-#define AUTO_MOUSE_TIME_MID 1999
+#define AUTO_MOUSE_TIME_TRACKBALL 7993
 
 void keyboard_post_init_sub_trackball(void);
 void post_process_record_sub_trackball(uint16_t keycode, keyrecord_t *record);
