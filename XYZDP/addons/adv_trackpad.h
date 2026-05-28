@@ -1,6 +1,6 @@
 #pragma once
 
-#define AUTO_MOUSE_TIME_TRACKPAD 1327
+#define AUTO_MOUSE_TIME_TRACKPAD 997
 
 void keyboard_post_init_adv_trackpad(void);
 void post_process_record_adv_trackpad(uint16_t keycode, keyrecord_t *record);
