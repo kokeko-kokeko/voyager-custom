@@ -52,8 +52,8 @@ static int32_t accumulator_h = 0;
 static int32_t accumulator_v = 0;
 
 // temp
-static const int32_t add_coeff = 512 * 16;  //coeff muti guard
-static const int32_t dump_coeff = 511;
+static const int32_t add_coeff = 768 * 16;  //coeff muti guard
+static const int32_t dump_coeff = 255;
 
 static bool or_scroll = false;
 
