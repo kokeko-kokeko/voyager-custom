@@ -46,10 +46,10 @@ static int16_t delta_y = 0;
 //  4bit guard (final output shift out)
 // int coeff 1024 * [0 - 1.0)
 // on memory format 18bit int _ 14bit frac
-static int32_t accumulator_x = 0
-static int32_t accumulator_y = 0
-static int32_t accumulator_h = 0
-static int32_t accumulator_v = 0
+static int32_t accumulator_x = 0;
+static int32_t accumulator_y = 0;
+static int32_t accumulator_h = 0;
+static int32_t accumulator_v = 0;
 
 // temp
 static const int32_t add_coeff = 512 * 16;  //coeff muti guard
