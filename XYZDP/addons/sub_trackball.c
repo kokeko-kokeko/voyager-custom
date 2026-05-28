@@ -219,10 +219,10 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   }
 
   // digital filter
-  accumulator_x >>= 10;
-  accumulator_y >>= 10;
-  accumulator_h >>= 10;
-  accumulator_v >>= 10;
+  accumulator_x /= 1024;
+  accumulator_y /= 1024;
+  accumulator_h /= 1024;
+  accumulator_v /= 1024;
 
   accumulator_x *= dump_coeff;
   accumulator_y *= dump_coeff;
@@ -230,10 +230,10 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   accumulator_v *= dump_coeff;
 
   // int part
-  mouse_report.x = (int16_t)(accumulator_x >> 14);
-  mouse_report.y = (int16_t)(accumulator_y >> 14);
-  mouse_report.h = (int16_t)(accumulator_h >> 14);
-  mouse_report.v = (int16_t)(accumulator_v >> 14);
+  mouse_report.x = (int16_t)(accumulator_x / 16384);
+  mouse_report.y = (int16_t)(accumulator_y / 16384);
+  mouse_report.h = (int16_t)(accumulator_h / 16384);
+  mouse_report.v = (int16_t)(accumulator_v / 16384);
   
   // early exit
   if (timer_expired_fast(now, tb_trigger) == false) return mouse_report;
