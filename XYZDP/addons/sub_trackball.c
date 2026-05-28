@@ -37,9 +37,6 @@ static uint8_t y_l = 0;
 static uint8_t x_h = 0;
 static uint8_t y_h = 0;
 
-static int16_t delta_x = 0;
-static int16_t delta_y = 0;
-
 // 32-bit accumulator
 // 16bit raw
 // 10bit coeff
@@ -189,6 +186,11 @@ static void reset_trackball_state(const fast_timer_t now) {
   current_cpi = 0;
   tb_state = TB_S_I2C_CONF;
   tb_trigger = now + NAVIGATOR_TRACKBALL_PROBE;
+
+  accumulator_x = 0;
+  accumulator_y = 0;
+  accumulator_h = 0;
+  accumulator_v = 0;
 }
 
 // POINTING_DEVICE_DRIVER = custom
@@ -334,8 +336,8 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
         return mouse_report;
       }
 
-      delta_x = (int16_t)(((int16_t)x_h << 8) | x_l);
-      delta_y = (int16_t)(((int16_t)y_h << 8) | y_l);
+      int16_t delta_x = (int16_t)(((int16_t)x_h << 8) | x_l);
+      int16_t delta_y = (int16_t)(((int16_t)y_h << 8) | y_l);
 
       if (or_scroll) {
         accumulator_h = ((int32_t)delta_x) * add_coeff;
