@@ -360,25 +360,25 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   // 16384
   if (accumulator_x != 0) {
     mouse_report.x = (accumulator_x >= 0) ? (int16_t)(accumulator_x >> 14) : (int16_t)((accumulator_x + 16383) >> 14);
-    accumulator_x /= 1024;
+    accumulator_x  = (accumulator_x >= 0) ? (int16_t)(accumulator_x >> 10) : (int16_t)((accumulator_x + 1023) >> 10);
     accumulator_x *= dump_coeff;
   }
 
   if (accumulator_y != 0) {
-    mouse_report.y = (int16_t)(accumulator_y / 16384);
-    accumulator_y /= 1024;
+    mouse_report.y = (accumulator_y >= 0) ? (int16_t)(accumulator_y >> 14) : (int16_t)((accumulator_y + 16383) >> 14);
+    accumulator_y  = (accumulator_y >= 0) ? (int16_t)(accumulator_y >> 10) : (int16_t)((accumulator_y + 1023) >> 10);
     accumulator_y *= dump_coeff;
   }
   
   if (accumulator_h != 0) {
-    mouse_report.h = (int16_t)(accumulator_h / 16384);   
-    accumulator_h /= 1024;
+    mouse_report.h = (accumulator_h >= 0) ? (int16_t)(accumulator_h >> 14) : (int16_t)((accumulator_h + 16383) >> 14);
+    accumulator_h  = (accumulator_h >= 0) ? (int16_t)(accumulator_h >> 10) : (int16_t)((accumulator_h + 1023) >> 10);
     accumulator_h *= dump_coeff;
   }
 
   if (accumulator_v != 0) {
-    mouse_report.v = (int16_t)(accumulator_v / 16384); 
-    accumulator_v /= 1024;
+    mouse_report.v = (accumulator_v >= 0) ? (int16_t)(accumulator_v >> 14) : (int16_t)((accumulator_v + 16383) >> 14);
+    accumulator_v  = (accumulator_v >= 0) ? (int16_t)(accumulator_v >> 10) : (int16_t)((accumulator_v + 1023) >> 10);
     accumulator_v *= dump_coeff;
   }
 
