@@ -356,8 +356,10 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   }
 
    // digital filter
+  // 1024
+  // 16384
   if (accumulator_x != 0) {
-    mouse_report.x = (int16_t)(accumulator_x / 16384);
+    mouse_report.x = (accumulator_x >= 0) ? (int16_t)(accumulator_x >> 14) : (int16_t)((accumulator_x + 16383) >> 14);
     accumulator_x /= 1024;
     accumulator_x *= dump_coeff;
   }
