@@ -40,9 +40,9 @@ static uint8_t y_h = 0;
 // 32-bit accumulator
 // on memory format 3bit margin _ 16bit int part int (with sign) _ 13bit frac uint
 // 16bit raw int
-// 10bit coeff int
-//  4bit guard (final output shift out)
-// int coeff 1024 * [0 - 1.0)
+// 11bit coeff int
+//  3bit guard margin (final output shift out)
+// int coeff 2048 * [0 - 1.0)
 
 static int32_t accumulator_x = 0;
 static int32_t accumulator_y = 0;
@@ -51,7 +51,7 @@ static int32_t accumulator_v = 0;
 
 // temp
 static const int32_t add_coeff = 8192;  //raw move to int part 10_0000_0000_0000
-static const int32_t dump_coeff = 511;
+static const int32_t dump_coeff = 1023;
 
 static bool or_scroll = false;
 
@@ -358,29 +358,29 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
 
    // digital filter
   // shift with bias
-  // 1024
+  // 2048
   // 8192
   if (accumulator_x != 0) {
     mouse_report.x = (accumulator_x >= 0) ? (int16_t)(accumulator_x >> 13) : (int16_t)((accumulator_x + 8191) >> 13);
-    accumulator_x  = (accumulator_x >= 0) ? (int16_t)(accumulator_x >> 10) : (int16_t)((accumulator_x + 1023) >> 10);
+    accumulator_x  = (accumulator_x >= 0) ? (int16_t)(accumulator_x >> 11) : (int16_t)((accumulator_x + 2047) >> 11);
     accumulator_x *= dump_coeff;
   }
 
   if (accumulator_y != 0) {
     mouse_report.y = (accumulator_y >= 0) ? (int16_t)(accumulator_y >> 13) : (int16_t)((accumulator_y + 8191) >> 13);
-    accumulator_y  = (accumulator_y >= 0) ? (int16_t)(accumulator_y >> 10) : (int16_t)((accumulator_y + 1023) >> 10);
+    accumulator_y  = (accumulator_y >= 0) ? (int16_t)(accumulator_y >> 11) : (int16_t)((accumulator_y + 2047) >> 11);
     accumulator_y *= dump_coeff;
   }
   
   if (accumulator_h != 0) {
     mouse_report.h = (accumulator_h >= 0) ? (int16_t)(accumulator_h >> 13) : (int16_t)((accumulator_h + 8191) >> 13);
-    accumulator_h  = (accumulator_h >= 0) ? (int16_t)(accumulator_h >> 10) : (int16_t)((accumulator_h + 1023) >> 10);
+    accumulator_h  = (accumulator_h >= 0) ? (int16_t)(accumulator_h >> 11) : (int16_t)((accumulator_h + 2047) >> 11);
     accumulator_h *= dump_coeff;
   }
 
   if (accumulator_v != 0) {
     mouse_report.v = (accumulator_v >= 0) ? (int16_t)(accumulator_v >> 13) : (int16_t)((accumulator_v + 8191) >> 13);
-    accumulator_v  = (accumulator_v >= 0) ? (int16_t)(accumulator_v >> 10) : (int16_t)((accumulator_v + 1023) >> 10);
+    accumulator_v  = (accumulator_v >= 0) ? (int16_t)(accumulator_v >> 11) : (int16_t)((accumulator_v + 2047) >> 11);
     accumulator_v *= dump_coeff;
   }
 
