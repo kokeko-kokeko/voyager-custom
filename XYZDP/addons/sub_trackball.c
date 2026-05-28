@@ -219,22 +219,30 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   }
 
   // digital filter
-  accumulator_x /= 1024;
-  accumulator_y /= 1024;
-  accumulator_h /= 1024;
-  accumulator_v /= 1024;
+  if (accumulator_x != 0) {
+    accumulator_x /= 1024;
+    accumulator_x *= dump_coeff;
+    mouse_report.x = (int16_t)(accumulator_x / 16384);
+  }
 
-  accumulator_x *= dump_coeff;
-  accumulator_y *= dump_coeff;
-  accumulator_h *= dump_coeff;
-  accumulator_v *= dump_coeff;
-
-  // int part
-  mouse_report.x = (int16_t)(accumulator_x / 16384);
-  mouse_report.y = (int16_t)(accumulator_y / 16384);
-  mouse_report.h = (int16_t)(accumulator_h / 16384);
-  mouse_report.v = (int16_t)(accumulator_v / 16384);
+  if (accumulator_y != 0) {
+    accumulator_y /= 1024;
+    accumulator_y *= dump_coeff;
+    mouse_report.y = (int16_t)(accumulator_y / 16384);
+  }
   
+  if (accumulator_h != 0) {
+    accumulator_h /= 1024;
+    accumulator_h *= dump_coeff;
+    mouse_report.h = (int16_t)(accumulator_h / 16384);   
+  }
+
+  if (accumulator_v != 0) {
+    accumulator_v /= 1024;
+    accumulator_v *= dump_coeff;
+    mouse_report.v = (int16_t)(accumulator_v / 16384); 
+  }
+ 
   // early exit
   if (timer_expired_fast(now, tb_trigger) == false) return mouse_report;
 
