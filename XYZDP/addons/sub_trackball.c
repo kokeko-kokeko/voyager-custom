@@ -40,6 +40,13 @@ static uint8_t y_h = 0;
 static int16_t delta_x = 0;
 static int16_t delta_y = 0;
 
+// 32-bit accumulator
+// 16bit raw
+// 10bit coeff
+//  4bit guard (final output shift out)
+// int coeff 1024 * [0 - 1.0)
+static accumulator_x = 0
+
 static bool or_scroll = false;
 
 static bool mouse_jiggler_enabled = false;
