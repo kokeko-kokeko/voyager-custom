@@ -415,6 +415,21 @@ static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record)
   return;
 }
 
+static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *record) {
+  // only mouse button
+  if (IS_MOUSEKEY_BUTTON(keycode) == false) return;
+  
+  if (record->event.pressed) {
+    // non-mouse key press 
+    trackball_early_off_trigger = timer_read_fast() + (UINT32_MAX / 2) - 1;
+  } else {
+    // non-mouse key release, exit 
+    trackball_early_off_trigger = timer_read_fast() + AUTO_MOUSE_TIME_MOUSEKEY_BUTTON;
+  }
+  
+  return;
+}
+
 void keyboard_post_init_sub_trackball(void) {
   const fast_timer_t now = timer_read_fast();
 
@@ -426,7 +441,8 @@ void keyboard_post_init_sub_trackball(void) {
 
 void post_process_record_sub_trackball(uint16_t keycode, keyrecord_t *record) {
   post_process_record_non_mouse(keycode, record);
-
+  post_process_record_mouse_button(keycode, record);
+  
   return;
 }
 
