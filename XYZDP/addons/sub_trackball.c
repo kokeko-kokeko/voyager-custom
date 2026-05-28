@@ -438,7 +438,6 @@ void keyboard_post_init_sub_trackball(void) {
   return;
 }
 
-
 void post_process_record_sub_trackball(uint16_t keycode, keyrecord_t *record) {
   post_process_record_non_mouse(keycode, record);
   post_process_record_mouse_button(keycode, record);
