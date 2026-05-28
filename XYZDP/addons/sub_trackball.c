@@ -54,7 +54,7 @@ static int32_t accumulator_v = 0;
 static const int32_t add_coeff = 16;  //raw move to int part 1_0000
 static const int32_t dump_coeff = 512;
 
-static bool or_scroll = false;
+static bool scroll_flag = false;
 
 static bool mouse_jiggler_enabled = false;
 static fast_timer_t mouse_jiggler_trigger = 0;
@@ -341,7 +341,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       int16_t delta_x = (int16_t)(((int16_t)x_h << 8) | x_l);
       int16_t delta_y = (int16_t)(((int16_t)y_h << 8) | y_l);
 
-      if (or_scroll) {
+      if (scroll_flag) {
         accumulator_h = ((int32_t)delta_x) * add_coeff;
         accumulator_v = ((int32_t)delta_y) * add_coeff;
       } else {
@@ -431,11 +431,11 @@ void post_process_record_sub_trackball(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_sub_trackball(layer_state_t state) {
-  or_scroll = false;
+  scroll_flag = false;
     
-  or_scroll = or_scroll || layer_state_cmp(state, TRACKPAD_AUTO_LAYER);
-  or_scroll = or_scroll || layer_state_cmp(state, LAYER_Number);
-  or_scroll = or_scroll || layer_state_cmp(state, LAYER_Cursor);
+  scroll_flag = scroll_flag || layer_state_cmp(state, TRACKPAD_AUTO_LAYER);
+  scroll_flag = scroll_flag || layer_state_cmp(state, LAYER_Number);
+  scroll_flag = scroll_flag || layer_state_cmp(state, LAYER_Cursor);
   
   return state;
 }
