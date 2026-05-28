@@ -1,9 +1,6 @@
 #pragma once
 
-#define AUTO_MOUSE_TIME_TRACKPAD 1999
-
-#define AUTO_MOUSE_DRAG_THRESHOLD 599
-#define AUTO_MOUSE_MULTI_TAP_THRESHOLD 797
+#define AUTO_MOUSE_TIME_TRACKPAD 1499
 
 void keyboard_post_init_adv_trackpad(void);
 void post_process_record_adv_trackpad(uint16_t keycode, keyrecord_t *record);
