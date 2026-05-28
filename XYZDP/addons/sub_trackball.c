@@ -29,8 +29,8 @@ enum trackball_sensor_state {
 static uint8_t current_cpi = 0;
 static uint8_t new_cpi = NAVIGATOR_TRACKBALL_CPI;
 
-static uint8_t tb_state = TB_S_I2C_CONF;
-static fast_timer_t tb_trigger = 0;
+static uint8_t tb_sensor_state = TB_S_I2C_CONF;
+static fast_timer_t tb_sensor_trigger = 0;
 
 static uint8_t x_l = 0;
 static uint8_t y_l = 0;
@@ -186,8 +186,8 @@ static bool paw3805ek_configure(void) {
 
 static void reset_trackball_state(const fast_timer_t now) {
   current_cpi = 0;
-  tb_state = TB_S_I2C_CONF;
-  tb_trigger = now + NAVIGATOR_TRACKBALL_PROBE;
+  tb_sensor_state = TB_S_I2C_CONF;
+  tb_sensor_trigger = now + NAVIGATOR_TRACKBALL_PROBE;
 
   accumulator_x = 0;
   accumulator_y = 0;
@@ -223,21 +223,21 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   }
   
   // sensor pbobe
-  if (timer_expired_fast(now, tb_trigger)){  
-    if (tb_state == TB_S_I2C_CONF) {
+  if (timer_expired_fast(now, tb_sensor_trigger)){  
+    if (tb_sensor_state == TB_S_I2C_CONF) {
       if (sci18is606_configure() != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
         return mouse_report;
       }
     
-      tb_state = TB_S_SPI_CONF;
-      tb_trigger = now + 10;
-    } else if (tb_state == TB_S_SPI_CONF) {
+      tb_sensor_state = TB_S_SPI_CONF;
+      tb_sensor_trigger = now + 10;
+    } else if (tb_sensor_state == TB_S_SPI_CONF) {
       paw3805ek_configure();
 
-      tb_state = TB_S_SET_CPI_ISSUE_MOTION;
-      tb_trigger = now + 10;
-    } else if (tb_state == TB_S_SET_CPI_ISSUE_MOTION) {
+      tb_sensor_state = TB_S_SET_CPI_ISSUE_MOTION;
+      tb_sensor_trigger = now + 10;
+    } else if (tb_sensor_state == TB_S_SET_CPI_ISSUE_MOTION) {
       if (current_cpi != new_cpi) {
         current_cpi = new_cpi;
         paw3805ek_set_cpi();
@@ -250,9 +250,9 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
         return mouse_report;
       }
 
-      tb_state = TB_S_READ_MOTION_ISSUE_X_L;
-      tb_trigger = now + 1;
-    } else if (tb_state == TB_S_READ_MOTION_ISSUE_X_L) {
+      tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
+      tb_sensor_trigger = now + 1;
+    } else if (tb_sensor_state == TB_S_READ_MOTION_ISSUE_X_L) {
       if (sci18is606_spi_read(i2c_read_buf, 2) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
         return mouse_report;
@@ -266,13 +266,13 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
           return mouse_report;
         }
       
-        tb_state = TB_S_READ_X_L_ISSUE_Y_L;
-        tb_trigger = now + 1;
+        tb_sensor_state = TB_S_READ_X_L_ISSUE_Y_L;
+        tb_sensor_trigger = now + 1;
       } else {
-        tb_state = TB_S_SET_CPI_ISSUE_MOTION;
-        tb_trigger = now + NAVIGATOR_TRACKBALL_READ;
+        tb_sensor_state = TB_S_SET_CPI_ISSUE_MOTION;
+        tb_sensor_trigger = now + NAVIGATOR_TRACKBALL_READ;
       }
-    } else if (tb_state == TB_S_READ_X_L_ISSUE_Y_L) {
+    } else if (tb_sensor_state == TB_S_READ_X_L_ISSUE_Y_L) {
       if (sci18is606_spi_read(i2c_read_buf, 2) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
         return mouse_report;
@@ -287,9 +287,9 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
         return mouse_report;
       }
     
-      tb_state = TB_S_READ_Y_L_ISSUE_X_H;
-      tb_trigger = now + 1;    
-    } else if (tb_state == TB_S_READ_Y_L_ISSUE_X_H) {
+      tb_sensor_state = TB_S_READ_Y_L_ISSUE_X_H;
+      tb_sensor_trigger = now + 1;    
+    } else if (tb_sensor_state == TB_S_READ_Y_L_ISSUE_X_H) {
       if (sci18is606_spi_read(i2c_read_buf, 2) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
         return mouse_report;
@@ -304,9 +304,9 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
         return mouse_report;
       }
     
-      tb_state = TB_S_READ_X_H_ISSUE_Y_H;
-      tb_trigger = now + 1;
-    } else if (tb_state == TB_S_READ_X_H_ISSUE_Y_H) {
+      tb_sensor_state = TB_S_READ_X_H_ISSUE_Y_H;
+      tb_sensor_trigger = now + 1;
+    } else if (tb_sensor_state == TB_S_READ_X_H_ISSUE_Y_H) {
       if (sci18is606_spi_read(i2c_read_buf, 2) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
         return mouse_report;
@@ -321,9 +321,9 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
         return mouse_report;
       }
     
-      tb_state = TB_S_READ_Y_H_ISSUE_MOTION_SEND_REPORT;
-      tb_trigger = now + 1;
-    } else if (tb_state == TB_S_READ_Y_H_ISSUE_MOTION_SEND_REPORT) {
+      tb_sensor_state = TB_S_READ_Y_H_ISSUE_MOTION_SEND_REPORT;
+      tb_sensor_trigger = now + 1;
+    } else if (tb_sensor_state == TB_S_READ_Y_H_ISSUE_MOTION_SEND_REPORT) {
       if (sci18is606_spi_read(i2c_read_buf, 2) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
         return mouse_report;
@@ -352,8 +352,8 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
         layer_on(TRACKBALL_AUTO_LAYER);
       }
 
-      tb_state = TB_S_READ_MOTION_ISSUE_X_L;
-      tb_trigger = now + 1;
+      tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
+      tb_sensor_trigger = now + 1;
     }
   }
 
