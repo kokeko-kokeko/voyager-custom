@@ -38,7 +38,7 @@ static uint8_t x_h = 0;
 static uint8_t y_h = 0;
 
 // 32-bit accumulator
-// on memory format 17bit int _ 15bit frac
+// on memory format 17bit int (with sign) _ 15bit frac (uint)
 // 16bit raw
 // 10bit coeff
 //  4bit guard (final output shift out)
