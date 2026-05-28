@@ -45,7 +45,15 @@ static int16_t delta_y = 0;
 // 10bit coeff
 //  4bit guard (final output shift out)
 // int coeff 1024 * [0 - 1.0)
-static accumulator_x = 0
+// on memory format 18bit int _ 14bit frac
+static int32_t accumulator_x = 0
+static int32_t accumulator_y = 0
+static int32_t accumulator_h = 0
+static int32_t accumulator_v = 0
+
+// temp
+static const int32_t add_coeff = 512 * 16;  //coeff muti guard
+static const int32_t dump_coeff = 511;
 
 static bool or_scroll = false;
 
@@ -209,6 +217,23 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       jiggle_direction = -jiggle_direction;
     }
   }
+
+  // digital filter
+  accumulator_x >>= 10;
+  accumulator_y >>= 10;
+  accumulator_h >>= 10;
+  accumulator_v >>= 10;
+
+  accumulator_x *= dump_coeff;
+  accumulator_y *= dump_coeff;
+  accumulator_h *= dump_coeff;
+  accumulator_v *= dump_coeff;
+
+  // int part
+  mouse_report.x = (int16_t)(accumulator_x >> 14);
+  mouse_report.y = (int16_t)(accumulator_y >> 14);
+  mouse_report.h = (int16_t)(accumulator_h >> 14);
+  mouse_report.v = (int16_t)(accumulator_v >> 14);
   
   // early exit
   if (timer_expired_fast(now, tb_trigger) == false) return mouse_report;
@@ -331,11 +356,11 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     delta_y = (int16_t)(((int16_t)y_h << 8) | y_l);
 
     if (or_scroll) {
-      mouse_report.h = delta_x;
-      mouse_report.v = delta_y;
+      accumulator_h = ((int32_t)delta_x) * add_coeff;
+      accumulator_v = ((int32_t)delta_y) * add_coeff;
     } else {
-      mouse_report.x = delta_x;
-      mouse_report.y = delta_y;
+      accumulator_x = ((int32_t)delta_x) * add_coeff;
+      accumulator_y = ((int32_t)delta_y) * add_coeff;
 
       trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
       layer_on(TRACKBALL_AUTO_LAYER);
