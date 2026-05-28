@@ -1,4 +1,4 @@
-name: Fetch oryx only
+name: Fetch merge oryx
 
 on:
   workflow_dispatch:
