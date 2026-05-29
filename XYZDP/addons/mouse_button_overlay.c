@@ -58,7 +58,7 @@ void set_layer_color_overlay_mouse_button(void) {
 
   if (layer_state_is(LAYER_Mouse_R)) {
     // task veiw
-    rgb_matrix_set_color(0, 0, 0, f);
+    rgb_matrix_set_color(0, 0, 0, f); 
     
     rgb_matrix_set_color(26, 0, f, h);   //4
     rgb_matrix_set_color(32, 0, 0, f);  //3
@@ -86,14 +86,5 @@ void set_layer_color_overlay_mouse_button(void) {
     rgb_matrix_set_color(38, f, f, 0);  //6
     rgb_matrix_set_color(44, f, 0, h);  //5
   }
-
-  // both up/low
-  
-  
-  //rgb_matrix_set_color(44, q, q, q);
-  //rgb_matrix_set_color(47, q, o, 0);
-  //rgb_matrix_set_color(48, f, h, 0);
-  
-  
 }
 
