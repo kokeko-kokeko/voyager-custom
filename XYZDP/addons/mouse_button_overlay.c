@@ -40,7 +40,7 @@ void set_layer_color_overlay_mouse_button(void) {
     if (layer_state_is(LAYER_Number)) {
       rgb_matrix_set_color(22, f, h, 0);
     } else {
-      rgb_matrix_set_color(22, q, o, 0);
+      //rgb_matrix_set_color(22, q, o, 0);
     }
   
     if (layer_state_is(LAYER_Cursor)) {
