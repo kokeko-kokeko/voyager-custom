@@ -449,7 +449,8 @@ layer_state_t layer_state_set_sub_trackball(layer_state_t state) {
   scroll_flag = layer_state_cmp(state, TRACKPAD_AUTO_LAYER);
   scroll_flag = scroll_flag || layer_state_cmp(state, LAYER_Number);
   scroll_flag = scroll_flag || layer_state_cmp(state, LAYER_Cursor);
-  
+  scroll_flag = scroll_flag || layer_state_cmp(state, LAYER_Function);
+
   return state;
 }
 

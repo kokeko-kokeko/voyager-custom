@@ -36,6 +36,24 @@ void set_layer_color_overlay_mouse_button(void) {
     rgb_matrix_set_color(27, 0, f, 0);  //2
     rgb_matrix_set_color(32, 0, 0, f);  //3
     rgb_matrix_set_color(38, f, 0, 0);  //1
+
+    if (layer_state_is(LAYER_Number)) {
+      rgb_matrix_set_color(22, f, h, 0);
+    } else {
+      rgb_matrix_set_color(22, q, o, 0);
+    }
+  
+    if (layer_state_is(LAYER_Cursor)) {
+      rgb_matrix_set_color(45, f, h, 0);
+    } else {
+      rgb_matrix_set_color(45, q, o, 0);
+    }
+
+    if (layer_state_is(LAYER_Function)) {
+      rgb_matrix_set_color(24, f, h, 0);
+    } else {
+      rgb_matrix_set_color(24 , q, o, 0);
+    }
   }
 
   if (layer_state_is(LAYER_Mouse_R)) {
@@ -67,14 +85,6 @@ void set_layer_color_overlay_mouse_button(void) {
     rgb_matrix_set_color(32, 0, h, f);  //7
     rgb_matrix_set_color(38, f, f, 0);  //6
     rgb_matrix_set_color(44, f, 0, h);  //5
-  }
-
-  if (layer_state_is(LAYER_Number)) {
-    rgb_matrix_set_color(22, f, 0, 0);
-  }
-  
-  if (layer_state_is(LAYER_Cursor)) {
-    rgb_matrix_set_color(45, f, 0, 0);
   }
 
   // both up/low

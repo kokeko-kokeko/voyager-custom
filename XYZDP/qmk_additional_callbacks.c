@@ -125,11 +125,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       break;
     case LAYER_Number:
     case LAYER_Cursor:
+    case LAYER_Function:   
 	  // mouse on keep top bit
       status_led(0b0011, led_pattern_off);
       status_led(0b0100, led_pattern_delayed_on);
       break;
-    case LAYER_Function:
     case LAYER_R_thumb_1:
     case LAYER_L_thumb_2:
     case LAYER_R_thumb_2:
