@@ -32,11 +32,6 @@ static uint8_t new_cpi = NAVIGATOR_TRACKBALL_CPI;
 static uint8_t tb_sensor_state = TB_S_I2C_CONF;
 static fast_timer_t tb_sensor_trigger = 0;
 
-static uint8_t x_l = 0;
-static uint8_t y_l = 0;
-static uint8_t x_h = 0;
-static uint8_t y_h = 0;
-
 // 32-bit accumulator
 // on memory format 30bit total
 // 10bit coeff _ 16bit int part int (with sign) _ 4 bit frac uint for guard
@@ -196,11 +191,31 @@ static void reset_trackball_state(const fast_timer_t now) {
   accumulator_v = 0;
 }
 
-// i2c tx/rx buffer with guard
-static uint8_t i2c_issue_buf[8] = {0x01, 0}; 
-static uint8_t i2c_read_buf[8] = {0}; 
-
 static bool sensor_to_accumulator(const fast_timer_t now) {
+  // i2c tx/rx buffer with guard
+  // motion, x_l, y_l, x_h, y_h, guard
+  static uint8_t i2c_issue_buf[12] = {0x01, 0x02, 0x01, 0x03, 0x01, 0x04, 0x01, 0x11, 0x01, 0x12, 0x00, 0x00}; 
+  
+  static uint8_t * const issue_motion = &i2c_issue_buf[0];
+  static uint8_t * const issue_x_l = &i2c_issue_buf[2];
+  static uint8_t * const issue_y_l = &i2c_issue_buf[4];
+  static uint8_t * const issue_x_h = &i2c_issue_buf[6];
+  static uint8_t * const issue_y_h = &i2c_issue_buf[8];
+  
+  static uint8_t i2c_read_buf[12] = {0}; 
+
+  static uint8_t * const read_motion = &i2c_read_buf[0];
+  static uint8_t * const read_x_l = &i2c_read_buf[2];
+  static uint8_t * const read_y_l = &i2c_read_buf[4];
+  static uint8_t * const read_x_h = &i2c_read_buf[6];
+  static uint8_t * const read_y_h = &i2c_read_buf[8];
+
+  static uint8_t * const value_motion = &i2c_read_buf[1];
+  static uint8_t * const value_x_l = &i2c_read_buf[3];
+  static uint8_t * const value_y_l = &i2c_read_buf[5];
+  static uint8_t * const value_x_h = &i2c_read_buf[7];
+  static uint8_t * const value_y_h = &i2c_read_buf[9];
+
   // sensor pbobe function
   if (timer_expired_fast(now, tb_sensor_trigger) == false) return true;
   
@@ -223,23 +238,20 @@ static bool sensor_to_accumulator(const fast_timer_t now) {
       paw3805ek_set_cpi();
     }
     
-    i2c_issue_buf[0] = 0x01;  // CS bit set once
-    i2c_issue_buf[1] = 0x02;  // SPI address
-    if (sci18is606_spi_issue(i2c_issue_buf, 3) != I2C_STATUS_SUCCESS) {
+    if (sci18is606_spi_issue(issue_motion, 3) != I2C_STATUS_SUCCESS) {
       reset_trackball_state(now);
       return false;
     }
     tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
 
   } else if (tb_sensor_state == TB_S_READ_MOTION_ISSUE_X_L) {
-    if (sci18is606_spi_read(i2c_read_buf, 2) != I2C_STATUS_SUCCESS) {
+    if (sci18is606_spi_read(read_motion, 2) != I2C_STATUS_SUCCESS) {
       reset_trackball_state(now);
       return false;
     }
     
-    if (i2c_read_buf[1] & 0x80) {
-      i2c_issue_buf[1] = 0x03;  // SPI address
-      if (sci18is606_spi_issue(i2c_issue_buf, 3) != I2C_STATUS_SUCCESS) {
+    if (*value_motion & 0x80) {
+      if (sci18is606_spi_issue(issue_x_l, 3) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
         return false;
       }      
@@ -250,63 +262,55 @@ static bool sensor_to_accumulator(const fast_timer_t now) {
       tb_sensor_trigger = now + NAVIGATOR_TRACKBALL_READ;
     }
   } else if (tb_sensor_state == TB_S_READ_X_L_ISSUE_Y_L) {
-    if (sci18is606_spi_read(i2c_read_buf, 2) != I2C_STATUS_SUCCESS) {
+    if (sci18is606_spi_read(read_x_l, 2) != I2C_STATUS_SUCCESS) {
       reset_trackball_state(now);
       return false;
     }
-    x_l =  i2c_read_buf[1];
 
-    i2c_issue_buf[1] = 0x04;  // SPI address
-    if (sci18is606_spi_issue(i2c_issue_buf, 3) != I2C_STATUS_SUCCESS) {
+    if (sci18is606_spi_issue(issue_y_l, 3) != I2C_STATUS_SUCCESS) {
       reset_trackball_state(now);
       return false;
     }
     tb_sensor_state = TB_S_READ_Y_L_ISSUE_X_H;
 
   } else if (tb_sensor_state == TB_S_READ_Y_L_ISSUE_X_H) {
-    if (sci18is606_spi_read(i2c_read_buf, 2) != I2C_STATUS_SUCCESS) {
+    if (sci18is606_spi_read(read_y_l, 2) != I2C_STATUS_SUCCESS) {
       reset_trackball_state(now);
       return false;
     }
-    y_l =  i2c_read_buf[1];
     
-    i2c_issue_buf[1] = 0x11;  // SPI address
-    if (sci18is606_spi_issue(i2c_issue_buf, 3) != I2C_STATUS_SUCCESS) {
+    if (sci18is606_spi_issue(issue_x_h, 3) != I2C_STATUS_SUCCESS) {
       reset_trackball_state(now);
       return false;
      }
     tb_sensor_state = TB_S_READ_X_H_ISSUE_Y_H;
 
   } else if (tb_sensor_state == TB_S_READ_X_H_ISSUE_Y_H) {
-    if (sci18is606_spi_read(i2c_read_buf, 2) != I2C_STATUS_SUCCESS) {
+    if (sci18is606_spi_read(read_x_h, 2) != I2C_STATUS_SUCCESS) {
       reset_trackball_state(now);
       return false;
     }
-    x_h =  i2c_read_buf[1];
     
-    i2c_issue_buf[1] = 0x12;  // SPI address
-    if (sci18is606_spi_issue(i2c_issue_buf, 3) != I2C_STATUS_SUCCESS) {
+    if (sci18is606_spi_issue(issue_y_h, 3) != I2C_STATUS_SUCCESS) {
       reset_trackball_state(now);
       return false;
     }
     tb_sensor_state = TB_S_READ_Y_H_ISSUE_MOTION_SEND_REPORT;
 
   } else if (tb_sensor_state == TB_S_READ_Y_H_ISSUE_MOTION_SEND_REPORT) {
-    if (sci18is606_spi_read(i2c_read_buf, 2) != I2C_STATUS_SUCCESS) {
+    if (sci18is606_spi_read(read_y_h, 2) != I2C_STATUS_SUCCESS) {
       reset_trackball_state(now);
       return false;
     }
-    y_h =  i2c_read_buf[1];
 
-    i2c_issue_buf[1] = 0x02;  // SPI address
-    if (sci18is606_spi_issue(i2c_issue_buf, 3) != I2C_STATUS_SUCCESS) {
+    if (sci18is606_spi_issue(issue_motion, 3) != I2C_STATUS_SUCCESS) {
       reset_trackball_state(now);
       return false;
     }
     tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
 
-    int16_t delta_x = (int16_t)(((int16_t)x_h << 8) | x_l);
-    int16_t delta_y = (int16_t)(((int16_t)y_h << 8) | y_l);
+    int16_t delta_x = (int16_t)(((int16_t)*value_x_h << 8) | *value_x_l);
+    int16_t delta_y = (int16_t)(((int16_t)*value_y_h << 8) | *value_y_l);
 
     if (scroll_flag) {
       accumulator_h = ((int32_t)delta_x) * add_coeff;
