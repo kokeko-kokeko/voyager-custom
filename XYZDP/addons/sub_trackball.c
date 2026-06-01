@@ -244,15 +244,15 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
         paw3805ek_set_cpi();
       }
     
-      i2c_issue_buf[0] = 0x01;
-      i2c_issue_buf[1] = 0x02;
+      i2c_issue_buf[0] = 0x01;  // CS bit set once
+      i2c_issue_buf[1] = 0x02;  // SPI address
       if (sci18is606_spi_issue(i2c_issue_buf, 3) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
         return mouse_report;
       }
 
       tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
-      tb_sensor_trigger = now + 1;
+      //tb_sensor_trigger = now + 1;
     } else if (tb_sensor_state == TB_S_READ_MOTION_ISSUE_X_L) {
       if (sci18is606_spi_read(i2c_read_buf, 2) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
@@ -260,15 +260,15 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       }
     
       if (i2c_read_buf[1] & 0x80) {
-        i2c_issue_buf[0] = 0x01;
-        i2c_issue_buf[1] = 0x03;
+        //i2c_issue_buf[0] = 0x01;
+        i2c_issue_buf[1] = 0x03;  // SPI address
         if (sci18is606_spi_issue(i2c_issue_buf, 3) != I2C_STATUS_SUCCESS) {
           reset_trackball_state(now);
           return mouse_report;
         }
       
         tb_sensor_state = TB_S_READ_X_L_ISSUE_Y_L;
-        tb_sensor_trigger = now + 1;
+        //tb_sensor_trigger = now + 1;
       } else {
         tb_sensor_state = TB_S_SET_CPI_ISSUE_MOTION;
         tb_sensor_trigger = now + NAVIGATOR_TRACKBALL_READ;
@@ -281,15 +281,15 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
 
       x_l =  i2c_read_buf[1];
 
-      i2c_issue_buf[0] = 0x01;
-      i2c_issue_buf[1] = 0x04;
+      //i2c_issue_buf[0] = 0x01;
+      i2c_issue_buf[1] = 0x04;  // SPI address
       if (sci18is606_spi_issue(i2c_issue_buf, 3) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
         return mouse_report;
       }
     
       tb_sensor_state = TB_S_READ_Y_L_ISSUE_X_H;
-      tb_sensor_trigger = now + 1;    
+      //tb_sensor_trigger = now + 1;    
     } else if (tb_sensor_state == TB_S_READ_Y_L_ISSUE_X_H) {
       if (sci18is606_spi_read(i2c_read_buf, 2) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
@@ -298,15 +298,15 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
 
       y_l =  i2c_read_buf[1];
     
-      i2c_issue_buf[0] = 0x01;
-      i2c_issue_buf[1] = 0x11;
+      //i2c_issue_buf[0] = 0x01;
+      i2c_issue_buf[1] = 0x11;  // SPI address
       if (sci18is606_spi_issue(i2c_issue_buf, 3) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
         return mouse_report;
       }
     
       tb_sensor_state = TB_S_READ_X_H_ISSUE_Y_H;
-      tb_sensor_trigger = now + 1;
+      //tb_sensor_trigger = now + 1;
     } else if (tb_sensor_state == TB_S_READ_X_H_ISSUE_Y_H) {
       if (sci18is606_spi_read(i2c_read_buf, 2) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
@@ -315,15 +315,15 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
 
       x_h =  i2c_read_buf[1];
     
-      i2c_issue_buf[0] = 0x01;
-      i2c_issue_buf[1] = 0x12;
+      //i2c_issue_buf[0] = 0x01;
+      i2c_issue_buf[1] = 0x12;  // SPI address
       if (sci18is606_spi_issue(i2c_issue_buf, 3) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
         return mouse_report;
       }
     
       tb_sensor_state = TB_S_READ_Y_H_ISSUE_MOTION_SEND_REPORT;
-      tb_sensor_trigger = now + 1;
+      //tb_sensor_trigger = now + 1;
     } else if (tb_sensor_state == TB_S_READ_Y_H_ISSUE_MOTION_SEND_REPORT) {
       if (sci18is606_spi_read(i2c_read_buf, 2) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
@@ -332,12 +332,15 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
 
       y_h =  i2c_read_buf[1];
 
-      i2c_issue_buf[0] = 0x01;
-      i2c_issue_buf[1] = 0x02;
+      //i2c_issue_buf[0] = 0x01;
+      i2c_issue_buf[1] = 0x02;  // SPI address
       if (sci18is606_spi_issue(i2c_issue_buf, 3) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
         return mouse_report;
       }
+
+      tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
+      //tb_sensor_trigger = now + 1;
 
       int16_t delta_x = (int16_t)(((int16_t)x_h << 8) | x_l);
       int16_t delta_y = (int16_t)(((int16_t)y_h << 8) | y_l);
@@ -348,13 +351,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       } else {
         accumulator_x = ((int32_t)delta_x) * add_coeff;
         accumulator_y = ((int32_t )delta_y) * add_coeff;
-
-        //trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
-        //layer_on(TRACKBALL_AUTO_LAYER);
       }
-
-      tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
-      tb_sensor_trigger = now + 1;
     }
   }
   
