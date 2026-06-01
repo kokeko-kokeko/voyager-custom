@@ -198,7 +198,7 @@ static bool sensor_to_accumulator(const fast_timer_t now) {
   // pre-load commands
   static uint8_t i2c_buf[22] = {0x01, 0x02, 0x01, 0x03, 0x01, 0x04, 0x01, 0x11, 0x01, 0x12, 0x00, 0x00}; 
   
-  // write 3 byte but last 1 byte is dummy
+  // write 3 byte but last 1 byte is dummy (owerwrite from sensor)
   static uint8_t * const issue_motion = &i2c_buf[0];
   static uint8_t * const issue_x_l = &i2c_buf[2];
   static uint8_t * const issue_y_l = &i2c_buf[4];
