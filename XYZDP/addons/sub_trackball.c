@@ -359,8 +359,14 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   }
   
   // move detect, layer on
+  // pseudo vector length
   // https://dora.bk.tsukuba.ac.jp/~takeuchi/?%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/%E5%B9%B3%E6%96%B9%E6%A0%B9%E3%82%92%E4%BD%BF%E3%82%8F%E3%81%9A%E3%81%AB%E8%B7%9D%E9%9B%A2%E3%82%92%E6%B1%82%E3%82%81%E3%82%8B
   // https://qiita.com/Mya-Mya/items/68f6cafb4619c76956d6
+
+  // output, digital filter
+  // shift with bias
+  // 16
+  // 1024
 
   if ((accumulator_x != 0) || (accumulator_y != 0)) {
     int32_t abs_x = (accumulator_x >= 0) ? accumulator_x : -accumulator_x;
@@ -369,26 +375,18 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     int32_t max = (abs_x > abs_y) ? abs_x : abs_y;
     int32_t min = (abs_x < abs_y) ? abs_x : abs_y;
  
-    int32_t pseudo_r = (983 * max) + (407 * min);  // 1024 besa
+    int32_t pseudo_r = (983 * max) + (407 * min);  // 1024 base
     pseudo_r >>= 10;
     
     if (pseudo_r > move_det_th) {
-        trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
-        layer_on(TRACKBALL_AUTO_LAYER);
+      trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
+      layer_on(TRACKBALL_AUTO_LAYER);
     }
-  }
 
-  // output, digital filter
-  // shift with bias
-  // 16
-  // 1024
-  if (accumulator_x != 0) {
     mouse_report.x = (accumulator_x >= 0) ? (int16_t)(accumulator_x >> 4) : (int16_t)((accumulator_x + 15) >> 4);
     accumulator_x = accumulator_x * reten_coeff;
     accumulator_x = (accumulator_x >= 0) ? (int16_t)(accumulator_x >> 10) : (int16_t)((accumulator_x + 1023) >> 10);
-  }
 
-  if (accumulator_y != 0) {
     mouse_report.y = (accumulator_y >= 0) ? (int16_t)(accumulator_y >> 4) : (int16_t)((accumulator_y + 15) >> 4);
     accumulator_y = accumulator_y * reten_coeff;
     accumulator_y = (accumulator_y >= 0) ? (int16_t)(accumulator_y >> 10) : (int16_t)((accumulator_y + 1023) >> 10);
