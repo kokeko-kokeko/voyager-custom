@@ -193,28 +193,31 @@ static void reset_trackball_state(const fast_timer_t now) {
 
 static bool sensor_to_accumulator(const fast_timer_t now) {
   // i2c tx/rx buffer with guard
-  // motion, x_l, y_l, x_h, y_h, guard
-  static uint8_t i2c_issue_buf[12] = {0x01, 0x02, 0x01, 0x03, 0x01, 0x04, 0x01, 0x11, 0x01, 0x12, 0x00, 0x00}; 
+  // motion, x_l, y_l, x_h, y_h
+  // use common buffer issue, read, guard
+  // pre-load commands
+  static uint8_t i2c_buf[22] = {0x01, 0x02, 0x01, 0x03, 0x01, 0x04, 0x01, 0x11, 0x01, 0x12, 0x00, 0x00}; 
   
-  static uint8_t * const issue_motion = &i2c_issue_buf[0];
-  static uint8_t * const issue_x_l = &i2c_issue_buf[2];
-  static uint8_t * const issue_y_l = &i2c_issue_buf[4];
-  static uint8_t * const issue_x_h = &i2c_issue_buf[6];
-  static uint8_t * const issue_y_h = &i2c_issue_buf[8];
+  // write 3 byte but last 1 byte is dummy
+  static uint8_t * const issue_motion = &i2c_buf[0];
+  static uint8_t * const issue_x_l = &i2c_buf[2];
+  static uint8_t * const issue_y_l = &i2c_buf[4];
+  static uint8_t * const issue_x_h = &i2c_buf[6];
+  static uint8_t * const issue_y_h = &i2c_buf[8];
   
-  static uint8_t i2c_read_buf[12] = {0}; 
+  // read 2 byte first 1 byte is dummy
+  static uint8_t * const read_motion = &i2c_buf[10];
+  static uint8_t * const read_x_l = &i2c_buf[12];
+  static uint8_t * const read_y_l = &i2c_buf[14];
+  static uint8_t * const read_x_h = &i2c_buf[16];
+  static uint8_t * const read_y_h = &i2c_buf[18];
 
-  static uint8_t * const read_motion = &i2c_read_buf[0];
-  static uint8_t * const read_x_l = &i2c_read_buf[2];
-  static uint8_t * const read_y_l = &i2c_read_buf[4];
-  static uint8_t * const read_x_h = &i2c_read_buf[6];
-  static uint8_t * const read_y_h = &i2c_read_buf[8];
-
-  static uint8_t * const value_motion = &i2c_read_buf[1];
-  static uint8_t * const value_x_l = &i2c_read_buf[3];
-  static uint8_t * const value_y_l = &i2c_read_buf[5];
-  static uint8_t * const value_x_h = &i2c_read_buf[7];
-  static uint8_t * const value_y_h = &i2c_read_buf[9];
+  // value on second byte
+  static uint8_t * const value_motion = &i2c_buf[11];
+  static uint8_t * const value_x_l = &i2c_buf[13];
+  static uint8_t * const value_y_l = &i2c_buf[15];
+  static uint8_t * const value_x_h = &i2c_buf[17];
+  static uint8_t * const value_y_h = &i2c_buf[19];
 
   // sensor pbobe function
   if (timer_expired_fast(now, tb_sensor_trigger) == false) return true;
