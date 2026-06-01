@@ -39,10 +39,8 @@ void set_layer_color_overlay_mouse_button(void) {
 
     if (layer_state_is(LAYER_Number)) {
       rgb_matrix_set_color(22, f, h, 0);
-    } else {
-      //rgb_matrix_set_color(22, q, o, 0);
     }
-  
+      
     if (layer_state_is(LAYER_Cursor)) {
       rgb_matrix_set_color(45, f, h, 0);
     } else {
@@ -60,20 +58,20 @@ void set_layer_color_overlay_mouse_button(void) {
     // task veiw
     rgb_matrix_set_color(0, 0, 0, f); 
     
-    rgb_matrix_set_color(26, 0, f, h);   //4
+    rgb_matrix_set_color(26, 0, f, h);  //4
     rgb_matrix_set_color(32, 0, 0, f);  //3
     rgb_matrix_set_color(38, 0, f, 0);  //2
     rgb_matrix_set_color(50, f, 0, 0);  //1
 
-    rgb_matrix_set_color(5, 0, f, h);  //4
-    rgb_matrix_set_color(4, 0, f, 0);  //2
+    rgb_matrix_set_color(5, 0, f, h);   //4
+    rgb_matrix_set_color(4, 0, f, 0);   //2
     rgb_matrix_set_color(11, 0, 0, f);  //3
     rgb_matrix_set_color(17, f, 0, 0);  //1
   }
   
   if (layer_state_is(LAYER_Mouse_Upper_L)) {  
     // left side
-    rgb_matrix_set_color(5, h, 0, f);  //8
+    rgb_matrix_set_color(5, h, 0, f);   //8
     rgb_matrix_set_color(11, 0, h, f);  //7
     rgb_matrix_set_color(17, f, f, 0);  //6
     rgb_matrix_set_color(23, f, 0, h);  //5
