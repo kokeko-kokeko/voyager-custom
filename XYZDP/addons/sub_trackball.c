@@ -196,7 +196,7 @@ static bool sensor_to_accumulator(const fast_timer_t now) {
   // motion, x_l, y_l, x_h, y_h
   // use common buffer issue, read, guard
   // pre-load commands
-  static uint8_t i2c_buf[22] = {0x01, 0x02, 0x01, 0x03, 0x01, 0x04, 0x01, 0x11, 0x01, 0x12, 0x00, 0x00}; 
+  static uint8_t i2c_buf[24] = {0x01, 0x02, 0x01, 0x03, 0x01, 0x04, 0x01, 0x11, 0x01, 0x12, 0x00, 0x00}; 
   
   // write 3 byte but last 1 byte is dummy (owerwrite from sensor)
   static uint8_t * const issue_motion = &i2c_buf[0];
@@ -220,6 +220,7 @@ static bool sensor_to_accumulator(const fast_timer_t now) {
   static uint8_t * const value_y_h = &i2c_buf[19];
 
   // sensor pbobe function
+  // early return to trigger
   if (timer_expired_fast(now, tb_sensor_trigger) == false) return true;
   
   switch (tb_sensor_state) {
