@@ -52,19 +52,10 @@ void keyboard_post_init_adv_trackpad(void) {
   return;
 }
 
-
 void post_process_record_adv_trackpad(uint16_t keycode, keyrecord_t *record) {
   post_process_record_non_mouse(keycode, record);
 
   return;
-}
-
-layer_state_t layer_state_set_adv_trackpad(layer_state_t state) {
-  // update pinkey overwrite
-  //state = update_tri_layer_state(state, LAYER_Mouse, LAYER_L_pinky, LAYER_Mouse_Upper_Left);
-  //state = update_tri_layer_state(state, LAYER_Mouse, LAYER_R_pinky, LAYER_Mouse_Upper_Right);
-  
-  return state;
 }
 
 void housekeeping_task_adv_trackpad(void) {
@@ -82,10 +73,7 @@ void housekeeping_task_adv_trackpad(void) {
 
   if (timer_expired_fast(now, trackpad_early_off_trigger)) {
     trackpad_early_off_trigger = now + (UINT32_MAX / 2) - 1;
-    //auto_mouse_layer_off();
-    //automouse_disable();
     layer_off(TRACKPAD_AUTO_LAYER);
-    //automouse_enable();
   }
   
   return;

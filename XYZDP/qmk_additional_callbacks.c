@@ -101,7 +101,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // call FwSys
   state = update_tri_layer_state(state, LAYER_Function, LAYER_L_thumb_2, LAYER_Firmware); 
 
-  state = layer_state_set_adv_trackpad(state);
   state = layer_state_set_fade_matrix(state);
   state = layer_state_set_firmware_map(state);
 	state = layer_state_set_sub_trackball(state);
