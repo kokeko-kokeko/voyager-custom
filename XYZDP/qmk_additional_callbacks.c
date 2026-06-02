@@ -116,9 +116,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       status_led(0b1111, led_pattern_off);
       break;
     case LAYER_Mouse_L:
-	case LAYER_Mouse_R:
+    case LAYER_Mouse_R:
       // mouse indication
       status_led(0b1000, led_pattern_on);
+      // clear scroll bit
+      status_led(0b0100, led_pattern_off);
       // DRAG_SCROLL add on key event
       // aim/turbo change without layer, direct write on process_record
       break;
