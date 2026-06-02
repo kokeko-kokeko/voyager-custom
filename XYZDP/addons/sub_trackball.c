@@ -252,6 +252,7 @@ static bool sensor_to_accumulator(const fast_timer_t now) {
         reset_trackball_state(now);
         return false;
       }
+
       tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
       return true;
     } 
@@ -266,13 +267,14 @@ static bool sensor_to_accumulator(const fast_timer_t now) {
         if (sci18is606_spi_issue(issue_x_l, 3) != I2C_STATUS_SUCCESS) {
           reset_trackball_state(now);
           return false;
-        }      
-        tb_sensor_state = TB_S_READ_X_L_ISSUE_Y_L;
-      } else {
-        tb_sensor_state = TB_S_SET_CPI_ISSUE_MOTION;
-        tb_sensor_trigger = now + NAVIGATOR_TRACKBALL_READ;
-      }
+        }
 
+        tb_sensor_state = TB_S_READ_X_L_ISSUE_Y_L;
+        return true;
+      } 
+        
+      tb_sensor_state = TB_S_SET_CPI_ISSUE_MOTION;
+      tb_sensor_trigger = now + NAVIGATOR_TRACKBALL_READ;
       return true;
     } 
     
@@ -334,7 +336,7 @@ static bool sensor_to_accumulator(const fast_timer_t now) {
         accumulator_x = ((int32_t)delta_x) * add_coeff;
         accumulator_y = ((int32_t)delta_y) * add_coeff;
       }
-      
+
       tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
       return true;
     }
