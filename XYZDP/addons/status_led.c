@@ -186,13 +186,7 @@ void keyboard_post_init_status_led(void) {
   status_led(0b1111, led_pattern_off);
 }
 
-// access to voyager system-side flag
-extern bool is_launching;
-
 void housekeeping_task_status_led(void) {
-  // start up ignore
-  if (is_launching) return;
-  
   const fast_timer_t now = timer_read_fast();
 
   status_led_update_func(&status_led_state_1, now);

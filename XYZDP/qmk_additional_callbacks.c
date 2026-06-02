@@ -19,8 +19,8 @@
 #include "layer_num.h"
 
 // access to voyager system-side flag
-extern keyboard_config_t keyboard_config;
-extern bool is_launching;
+//extern keyboard_config_t keyboard_config;
+//extern bool is_launching;
 
 // idle loop to sleep 
 #include "ch.h"
@@ -106,7 +106,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	state = layer_state_set_sub_trackball(state);
 	
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
-  if (is_launching || !keyboard_config.led_level) return state;
+  //if (is_launching || !keyboard_config.led_level) return state;
   
   uint8_t layer = get_highest_layer(state);
   
