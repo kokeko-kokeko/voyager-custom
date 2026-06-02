@@ -23,7 +23,7 @@ enum trackball_sensor_state {
   TB_S_READ_X_L_ISSUE_Y_L,
   TB_S_READ_Y_L_ISSUE_X_H,
   TB_S_READ_X_H_ISSUE_Y_H,
-  TB_S_READ_Y_H_ISSUE_MOTION_SEND_REPORT
+  TB_S_READ_Y_H_ISSUE_MOTION_ADD_ACC
 };
 
 static uint8_t current_cpi = 0;
@@ -222,105 +222,120 @@ static bool sensor_to_accumulator(const fast_timer_t now) {
   // sensor pbobe function
   if (timer_expired_fast(now, tb_sensor_trigger) == false) return true;
   
-  if (tb_sensor_state == TB_S_I2C_CONF) {
-    if (sci18is606_configure() != I2C_STATUS_SUCCESS) {
-      reset_trackball_state(now);
-      return false;
-    }
-    
-    tb_sensor_state = TB_S_SPI_CONF;
-    tb_sensor_trigger = now + 10;
-  } else if (tb_sensor_state == TB_S_SPI_CONF) {
-    paw3805ek_configure();
-
-    tb_sensor_state = TB_S_SET_CPI_ISSUE_MOTION;
-    tb_sensor_trigger = now + 10;
-  } else if (tb_sensor_state == TB_S_SET_CPI_ISSUE_MOTION) {
-    if (current_cpi != new_cpi) {
-      current_cpi = new_cpi;
-      paw3805ek_set_cpi();
-    }
-    
-    if (sci18is606_spi_issue(issue_motion, 3) != I2C_STATUS_SUCCESS) {
-      reset_trackball_state(now);
-      return false;
-    }
-    tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
-
-  } else if (tb_sensor_state == TB_S_READ_MOTION_ISSUE_X_L) {
-    if (sci18is606_spi_read(read_motion, 2) != I2C_STATUS_SUCCESS) {
-      reset_trackball_state(now);
-      return false;
-    }
-    
-    if (*value_motion & 0x80) {
-      if (sci18is606_spi_issue(issue_x_l, 3) != I2C_STATUS_SUCCESS) {
+  switch (tb_sensor_state) {
+    case TB_S_I2C_CONF: {
+      if (sci18is606_configure() != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
         return false;
-      }      
-      tb_sensor_state = TB_S_READ_X_L_ISSUE_Y_L;
+      }
+    
+      tb_sensor_state = TB_S_SPI_CONF;
+      tb_sensor_trigger = now + NAVIGATOR_TRACKBALL_READ;
+      return true;
+    }
+    
+    case TB_S_SPI_CONF: {
+      paw3805ek_configure();
 
-    } else {
       tb_sensor_state = TB_S_SET_CPI_ISSUE_MOTION;
       tb_sensor_trigger = now + NAVIGATOR_TRACKBALL_READ;
-    }
-  } else if (tb_sensor_state == TB_S_READ_X_L_ISSUE_Y_L) {
-    if (sci18is606_spi_read(read_x_l, 2) != I2C_STATUS_SUCCESS) {
-      reset_trackball_state(now);
-      return false;
-    }
-
-    if (sci18is606_spi_issue(issue_y_l, 3) != I2C_STATUS_SUCCESS) {
-      reset_trackball_state(now);
-      return false;
-    }
-    tb_sensor_state = TB_S_READ_Y_L_ISSUE_X_H;
-
-  } else if (tb_sensor_state == TB_S_READ_Y_L_ISSUE_X_H) {
-    if (sci18is606_spi_read(read_y_l, 2) != I2C_STATUS_SUCCESS) {
-      reset_trackball_state(now);
-      return false;
-    }
+      return true;
+    } 
     
-    if (sci18is606_spi_issue(issue_x_h, 3) != I2C_STATUS_SUCCESS) {
-      reset_trackball_state(now);
-      return false;
-     }
-    tb_sensor_state = TB_S_READ_X_H_ISSUE_Y_H;
-
-  } else if (tb_sensor_state == TB_S_READ_X_H_ISSUE_Y_H) {
-    if (sci18is606_spi_read(read_x_h, 2) != I2C_STATUS_SUCCESS) {
-      reset_trackball_state(now);
-      return false;
-    }
+    case TB_S_SET_CPI_ISSUE_MOTION: {
+      if (current_cpi != new_cpi) {
+        current_cpi = new_cpi;
+        paw3805ek_set_cpi();
+      }
     
-    if (sci18is606_spi_issue(issue_y_h, 3) != I2C_STATUS_SUCCESS) {
-      reset_trackball_state(now);
-      return false;
-    }
-    tb_sensor_state = TB_S_READ_Y_H_ISSUE_MOTION_SEND_REPORT;
+      if (sci18is606_spi_issue(issue_motion, 3) != I2C_STATUS_SUCCESS) {
+        reset_trackball_state(now);
+        return false;
+      }
+      tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
+      return true;
+    } 
+    
+    case TB_S_READ_MOTION_ISSUE_X_L: {
+      if (sci18is606_spi_read(read_motion, 2) != I2C_STATUS_SUCCESS) {
+        reset_trackball_state(now);
+        return false;
+      }
 
-  } else if (tb_sensor_state == TB_S_READ_Y_H_ISSUE_MOTION_SEND_REPORT) {
-    if (sci18is606_spi_read(read_y_h, 2) != I2C_STATUS_SUCCESS) {
-      reset_trackball_state(now);
-      return false;
-    }
+      if (*value_motion & 0x80) {
+        if (sci18is606_spi_issue(issue_x_l, 3) != I2C_STATUS_SUCCESS) {
+          reset_trackball_state(now);
+          return false;
+        }      
+        tb_sensor_state = TB_S_READ_X_L_ISSUE_Y_L;
+      } else {
+        tb_sensor_state = TB_S_SET_CPI_ISSUE_MOTION;
+        tb_sensor_trigger = now + NAVIGATOR_TRACKBALL_READ;
+      }
+      return true;
+    } 
+    
+    case TB_S_READ_X_L_ISSUE_Y_L: {
+      if (sci18is606_spi_read(read_x_l, 2) != I2C_STATUS_SUCCESS) {
+        reset_trackball_state(now);
+        return false;
+      }
+      if (sci18is606_spi_issue(issue_y_l, 3) != I2C_STATUS_SUCCESS) {
+        reset_trackball_state(now);
+        return false;
+      }
+      tb_sensor_state = TB_S_READ_Y_L_ISSUE_X_H;
+      return true;
+    } 
+    
+    case TB_S_READ_Y_L_ISSUE_X_H: {
+      if (sci18is606_spi_read(read_y_l, 2) != I2C_STATUS_SUCCESS) {
+        reset_trackball_state(now);
+        return false;
+      }
+      if (sci18is606_spi_issue(issue_x_h, 3) != I2C_STATUS_SUCCESS) {
+        reset_trackball_state(now);
+        return false;
+      }
+      tb_sensor_state = TB_S_READ_X_H_ISSUE_Y_H;
+      return true;
+    } 
+    
+    case TB_S_READ_X_H_ISSUE_Y_H: {
+      if (sci18is606_spi_read(read_x_h, 2) != I2C_STATUS_SUCCESS) {
+        reset_trackball_state(now);
+        return false;
+      }
+      if (sci18is606_spi_issue(issue_y_h, 3) != I2C_STATUS_SUCCESS) {
+        reset_trackball_state(now);
+        return false;
+      }
+      tb_sensor_state = TB_S_READ_Y_H_ISSUE_MOTION_ADD_ACC;
+      return true;
+    } 
+    
+    case TB_S_READ_Y_H_ISSUE_MOTION_ADD_ACC: {
+      if (sci18is606_spi_read(read_y_h, 2) != I2C_STATUS_SUCCESS) {
+        reset_trackball_state(now);
+        return false;
+      }
+      if (sci18is606_spi_issue(issue_motion, 3) != I2C_STATUS_SUCCESS) {
+        reset_trackball_state(now);
+        return false;
+      }
 
-    if (sci18is606_spi_issue(issue_motion, 3) != I2C_STATUS_SUCCESS) {
-      reset_trackball_state(now);
-      return false;
-    }
-    tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
+      int16_t delta_x = (int16_t)(((int16_t)*value_x_h << 8) | *value_x_l);
+      int16_t delta_y = (int16_t)(((int16_t)*value_y_h << 8) | *value_y_l);
 
-    int16_t delta_x = (int16_t)(((int16_t)*value_x_h << 8) | *value_x_l);
-    int16_t delta_y = (int16_t)(((int16_t)*value_y_h << 8) | *value_y_l);
-
-    if (scroll_flag) {
-      accumulator_h = ((int32_t)delta_x) * add_coeff;
-      accumulator_v = ((int32_t)delta_y) * add_coeff;
-    } else {
-      accumulator_x = ((int32_t)delta_x) * add_coeff;
-      accumulator_y = ((int32_t)delta_y) * add_coeff;
+      if (scroll_flag) {
+        accumulator_h = ((int32_t)delta_x) * add_coeff;
+        accumulator_v = ((int32_t)delta_y) * add_coeff;
+      } else {
+        accumulator_x = ((int32_t)delta_x) * add_coeff;
+        accumulator_y = ((int32_t)delta_y) * add_coeff;
+      }
+      tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
+      return true;
     }
   }
 
