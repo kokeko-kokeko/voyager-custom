@@ -48,7 +48,7 @@ static int32_t accumulator_v = 0;
 // temp
 static const int32_t add_coeff = 16;  //raw move to int part 1_0000
 static const int32_t reten_coeff = 512;
-static const int32_t move_det_th = 320;
+static const int32_t move_det_th = 160;
 
 static bool scroll_flag = false;
 
