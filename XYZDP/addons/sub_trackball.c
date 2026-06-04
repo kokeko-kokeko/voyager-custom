@@ -385,15 +385,34 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     int32_t abs_x = (accumulator_x >= 0) ? accumulator_x : -accumulator_x;
     int32_t abs_y = (accumulator_y >= 0) ? accumulator_y : -accumulator_y;
 
-    int32_t max = (abs_x > abs_y) ? abs_x : abs_y;
-    int32_t min = (abs_x < abs_y) ? abs_x : abs_y;
+    //int32_t max = (abs_x > abs_y) ? abs_x : abs_y;
+    //int32_t min = (abs_x < abs_y) ? abs_x : abs_y;
  
-    int32_t pseudo_r = (983 * max) + (407 * min);  // 1024 base
-    pseudo_r >>= 10;
+    //int32_t pseudo_r = (983 * max) + (407 * min);  // 1024 base
+    //pseudo_r >>= 10;
     
-    if (pseudo_r > move_det_th) {
+    //if (pseudo_r > move_det_th) {
+    //  trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
+    //  layer_on(TRACKBALL_AUTO_LAYER);
+    //}
+
+    // octa - shape check
+    if (
+      (abs_x > move_det_th) ||
+      (abs_y > move_det_th) 
+    ) {
       trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
       layer_on(TRACKBALL_AUTO_LAYER);
+    } else {
+      // Mod Manhattan distance
+      // root(2) * 1024 {Q10} = 1448
+      int32_t d_m_mh = 1448 * (abs_x + abs_y);
+      d_m_mh >>= 10;
+
+      if (d_m_mh > move_det_th) {
+        trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
+        layer_on(TRACKBALL_AUTO_LAYER);
+      }
     }
 
     mouse_report.x = (accumulator_x >= 0) ? (int16_t)(accumulator_x >> 4) : (int16_t)((accumulator_x + 15) >> 4);
