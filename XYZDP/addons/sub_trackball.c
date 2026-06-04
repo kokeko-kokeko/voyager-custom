@@ -397,14 +397,11 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     //}
 
     // octa - shape check
-    if (
-      (abs_x > move_det_th) ||
-      (abs_y > move_det_th) 
-    ) {
+    if ((abs_x > move_det_th) || (abs_y > move_det_th)) {
       trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
       layer_on(TRACKBALL_AUTO_LAYER);
     } else {
-      // Mod Manhattan distance, r = 1 mimic
+      // Mod Manhattan distance, mimic r = 1 circle
       // root(2) * 1024 {Q10} = 1448
       int32_t d_m_mh = 1448 * (abs_x + abs_y);
       d_m_mh >>= 10;
