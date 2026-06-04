@@ -404,7 +404,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
       layer_on(TRACKBALL_AUTO_LAYER);
     } else {
-      // Mod Manhattan distance
+      // Mod Manhattan distance, r = 1 mimic
       // root(2) * 1024 {Q10} = 1448
       int32_t d_m_mh = 1448 * (abs_x + abs_y);
       d_m_mh >>= 10;
