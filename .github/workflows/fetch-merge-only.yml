@@ -28,7 +28,7 @@ permissions:
   contents: write
 
 jobs:
-  fetch-oryx-only:
+  fetch-merge-oryx:
     runs-on: ubuntu-latest
 
     steps:
