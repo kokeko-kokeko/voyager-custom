@@ -47,6 +47,10 @@ void keyboard_post_init_user(void) {
   mac_disable();
 }
 
+void matrix_scan_user(void) {
+  matrix_scan_sub_trackball();
+}
+
 bool process_detected_host_os_user(os_variant_t detected_os) {
   if (process_detected_host_os_fade_matrix(detected_os) == false) return false;
   if (process_detected_host_os_ortho_hold_os_locale_aware(detected_os) == false) return false;
