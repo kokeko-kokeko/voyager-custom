@@ -192,10 +192,10 @@ void keyboard_post_init_status_led(void) {
   status_led(0b1111, led_pattern_off);
   status_led(0b1111, led_pattern_off);
 
-  status_led(0b1000, led_pattern_boot0);
-  status_led(0b0010, led_pattern_boot1);
-  status_led(0b0100, led_pattern_boot2);
-  status_led(0b0001, led_pattern_boot3);
+  //status_led(0b1000, led_pattern_boot0);
+  //status_led(0b0010, led_pattern_boot1);
+  //status_led(0b0100, led_pattern_boot2);
+  //status_led(0b0001, led_pattern_boot3);
 }
 
 void housekeeping_task_status_led(void) {
