@@ -25,6 +25,12 @@ const uint8_t led_pattern_single[]     = {1, 2, 1, 125, 0, UINT8_MAX, UINT8_MAX}
 const uint8_t led_pattern_oneshot[]    = {1, 1, 1, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, UINT8_MAX - 1 , UINT8_MAX - 1};
 const uint8_t led_pattern_delayed_on[] = {1, 2, (1 + TAPPING_TERM / 4), 0, UINT8_MAX, UINT8_MAX};
 
+// voyader boot-up animation 250ms animation on voyager.c on -> off 1000ms, scale 3 (8)
+const uint8_t led_pattern_boot0[] = {1, 3,  32, 128, 0, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_boot1[] = {1, 3,  64, 128, 0, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_boot2[] = {1, 3,  92, 128, 0, UINT8_MAX, UINT8_MAX}; 
+const uint8_t led_pattern_boot3[] = {1, 3, 128, 128, 0, UINT8_MAX, UINT8_MAX};
+
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
 
@@ -185,6 +191,11 @@ void keyboard_post_init_status_led(void) {
   status_led(0b1111, led_pattern_off);
   status_led(0b1111, led_pattern_off);
   status_led(0b1111, led_pattern_off);
+
+  status_led(0b1000, led_pattern_boot0);
+  status_led(0b0010, led_pattern_boot1);
+  status_led(0b0100, led_pattern_boot2);
+  status_led(0b0001, led_pattern_boot3);
 }
 
 void housekeeping_task_status_led(void) {
