@@ -7,6 +7,8 @@
 
 #include "addons/status_led.h"
 
+#include "layer_num.h"
+
 // timer maximum delay
 // #define timer_expired32(current, future) ((uint32_t)(current - future) < UINT32_MAX / 2)
 // write direct
@@ -196,6 +198,109 @@ void keyboard_post_init_status_led(void) {
   //status_led(0b0010, led_pattern_boot1);
   //status_led(0b0100, led_pattern_boot2);
   //status_led(0b0001, led_pattern_boot3);
+}
+
+bool process_detected_host_os_status_led(os_variant_t detected_os) {
+  switch (detected_os) {
+    case OS_MACOS:
+      status_led(0b1000, led_pattern_oneshot);
+      break;
+    case OS_IOS:
+      status_led(0b0100, led_pattern_oneshot);
+      break;
+    case OS_WINDOWS:
+      //status_led(0b0010, led_pattern_oneshot);
+
+      status_led(0b0010, led_pattern_boot0);
+      status_led(0b0001, led_pattern_boot1);
+      status_led(0b0100, led_pattern_boot2);
+      status_led(0b1000, led_pattern_boot3);
+      break;
+    case OS_LINUX:
+      status_led(0b0001, led_pattern_oneshot);
+      break;
+    case OS_UNSURE:
+      status_led(0b1111, led_pattern_oneshot);
+      status_led(0b1111, led_pattern_oneshot);
+      status_led(0b1111, led_pattern_oneshot);
+      break;
+  }
+   
+  return true;
+}
+
+layer_state_t layer_state_set_status_led(layer_state_t state) {
+  // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
+  //if (is_launching || !keyboard_config.led_level) return state;
+  
+  uint8_t layer = get_highest_layer(state);
+  
+  switch (layer) {
+    case LAYER_Base:
+    case LAYER_Transition:
+      status_led(0b1111, led_pattern_off);
+      break;
+    case LAYER_Mouse_L:
+    case LAYER_Mouse_R:
+      // mouse indication
+      status_led(0b1000, led_pattern_on);
+      // clear scroll bit
+      status_led(0b0100, led_pattern_off);
+      break;
+    case LAYER_Number:
+    case LAYER_Cursor: 
+    case LAYER_Function:   
+	  // mouse on keep top bit
+      status_led(0b0011, led_pattern_off);
+      status_led(0b0100, led_pattern_delayed_on);
+      break;
+    case LAYER_R_thumb_1:
+    case LAYER_L_thumb_2:
+    case LAYER_R_thumb_2:
+    case LAYER_L_pinky:
+    case LAYER_R_pinky:  
+      status_led(0b1111, led_pattern_off);
+      break;
+    case LAYER_L_thumb_L_pinky:
+      status_led(0b1001, led_pattern_off);
+      status_led(0b0110, led_pattern_on);
+      break;
+    case LAYER_R_thumb_R_pinky:
+      status_led(0b1010, led_pattern_off);
+      status_led(0b0101, led_pattern_on);
+      break;
+    case LAYER_LR_pinky:
+      status_led(0b1100, led_pattern_off);
+      status_led(0b0011, led_pattern_on);
+      break;
+    case LAYER_L_thumb_R_pinky:
+    case LAYER_R_thumb_L_pinky:
+    case LAYER_LR_thumb:
+      status_led(0b1000, led_pattern_off);
+      status_led(0b0111, led_pattern_on);
+      break;
+    case LAYER_Mouse_Upper_L:
+    case LAYER_Mouse_Upper_R:
+      // mouse indication
+      status_led(0b1000, led_pattern_on);
+      // DRAG_SCROLL add on key event
+      // aim/turbo change without layer, direct write on process_record
+      break;    
+    case LAYER_Firmware:
+      status_led(0b0101, led_pattern_off);
+	  status_led(0b1010, led_pattern_on);
+      break;
+    case LAYER_Color_Palette:
+      status_led(0b0100, led_pattern_off);
+      status_led(0b1011, led_pattern_on);
+      break;
+    
+    default:
+      status_led(0b1111, led_pattern_off);
+      break;
+  }
+  
+  return state;
 }
 
 void housekeeping_task_status_led(void) {

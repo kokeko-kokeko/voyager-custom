@@ -397,29 +397,17 @@ bool process_detected_host_os_fade_matrix(os_variant_t detected_os) {
   switch (detected_os) {
     case OS_MACOS:
       fade_matrix_load_default();
-      status_led(0b1000, led_pattern_oneshot);
       break;
     case OS_IOS:
       fade_matrix_load_powersave();
-      status_led(0b0100, led_pattern_oneshot);
       break;
     case OS_WINDOWS:
       fade_matrix_load_default();
-      //status_led(0b0010, led_pattern_oneshot);
-
-      status_led(0b0010, led_pattern_boot0);
-      status_led(0b0001, led_pattern_boot1);
-      status_led(0b0100, led_pattern_boot2);
-      status_led(0b1000, led_pattern_boot3);
       break;
     case OS_LINUX:
       fade_matrix_load_powersave();
-      status_led(0b0001, led_pattern_oneshot);
       break;
     case OS_UNSURE:
-      status_led(0b1111, led_pattern_oneshot);
-      status_led(0b1111, led_pattern_oneshot);
-      status_led(0b1111, led_pattern_oneshot);
       break;
   }
   
