@@ -15,7 +15,7 @@
 
 static fast_timer_t trackpad_early_off_trigger = 0;
 
-#define TRACKPAD_AUTO_LAYER LAYER_Mouse_R
+#define TRACKPAD_AUTO_LAYER LAYER_Mouse_L
 
 static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record) {
   // mouse non-active skip

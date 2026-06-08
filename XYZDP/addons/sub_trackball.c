@@ -75,9 +75,9 @@ void mouse_jiggler_disable(void) {
 
 static fast_timer_t trackball_early_off_trigger = 0;
 
-#define TRACKBALL_AUTO_LAYER LAYER_Mouse_L
+#define TRACKBALL_AUTO_LAYER LAYER_Mouse_R
 
-#define TRACKPAD_AUTO_LAYER LAYER_Mouse_R
+#define TRACKPAD_AUTO_LAYER LAYER_Mouse_L
 
 // copy and mod zsa code
 
