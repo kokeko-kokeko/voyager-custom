@@ -48,7 +48,10 @@ static int32_t accumulator_v = 0;
 // conv
 static const int32_t add_coeff_xy = 8;  //raw move to int part 1_0000
 static const int32_t add_coeff_hv = 16; //raw move to int part 1_0000
-static const int32_t reten_coeff = 512;
+
+static const int32_t reten_coeff_xy = 256;
+static const int32_t reten_coeff_hv = 768;
+
 static const int32_t move_det_th = 160;
 
 static bool scroll_flag = false;
@@ -257,23 +260,23 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     }
 
     mouse_report.x = (accumulator_x >= 0) ? (int16_t)(accumulator_x >> 4) : (int16_t)((accumulator_x + 15) >> 4);
-    accumulator_x = accumulator_x * reten_coeff;
+    accumulator_x = accumulator_x * reten_coeff_xy; 
     accumulator_x = (accumulator_x >= 0) ? (int16_t)(accumulator_x >> 10) : (int16_t)((accumulator_x + 1023) >> 10);
 
     mouse_report.y = (accumulator_y >= 0) ? (int16_t)(accumulator_y >> 4) : (int16_t)((accumulator_y + 15) >> 4);
-    accumulator_y = accumulator_y * reten_coeff;
+    accumulator_y = accumulator_y * reten_coeff_xy;
     accumulator_y = (accumulator_y >= 0) ? (int16_t)(accumulator_y >> 10) : (int16_t)((accumulator_y + 1023) >> 10);
   }
   
   if (accumulator_h != 0) {
     mouse_report.h = (accumulator_h >= 0) ? (int16_t)(accumulator_h >> 4) : (int16_t)((accumulator_h + 15) >> 4);
-    accumulator_h = accumulator_h * reten_coeff;
+    accumulator_h = accumulator_h * reten_coeff_hv;
     accumulator_h = (accumulator_h >= 0) ? (int16_t)(accumulator_h >> 10) : (int16_t)((accumulator_h + 1023) >> 10);
   }
 
   if (accumulator_v != 0) {
     mouse_report.v = (accumulator_v >= 0) ? (int16_t)(accumulator_v >> 4) : (int16_t)((accumulator_v + 15) >> 4);
-    accumulator_v = accumulator_v * reten_coeff;
+    accumulator_v = accumulator_v * reten_coeff_hv;
     accumulator_v = (accumulator_v >= 0) ? (int16_t)(accumulator_v >> 10) : (int16_t)((accumulator_v + 1023) >> 10);
   }
 
