@@ -45,8 +45,9 @@ static int32_t accumulator_y = 0;
 static int32_t accumulator_h = 0;
 static int32_t accumulator_v = 0;
 
-// temp
-static const int32_t add_coeff = 16;  //raw move to int part 1_0000
+// conv
+static const int32_t add_coeff_xy = 8;  //raw move to int part 1_0000
+static const int32_t add_coeff_hv = 16; //raw move to int part 1_0000
 static const int32_t reten_coeff = 512;
 static const int32_t move_det_th = 160;
 
@@ -472,11 +473,11 @@ void matrix_scan_sub_trackball(void) {
       int16_t delta_y = (int16_t)(((int16_t)*value_y_h << 8) | *value_y_l);
 
       if (scroll_flag) {
-        accumulator_h += ((int32_t)delta_x) * add_coeff;
-        accumulator_v += ((int32_t)delta_y) * add_coeff;
+        accumulator_h += ((int32_t)delta_x) * add_coeff_hv;
+        accumulator_v += ((int32_t)delta_y) * add_coeff_hv;
       } else {
-        accumulator_x += ((int32_t)delta_x) * add_coeff;
-        accumulator_y += ((int32_t)delta_y) * add_coeff;
+        accumulator_x += ((int32_t)delta_x) * add_coeff_xy;
+        accumulator_y += ((int32_t)delta_y) * add_coeff_xy;
       }
 
       tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
