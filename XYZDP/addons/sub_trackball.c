@@ -46,7 +46,7 @@ static int32_t accumulator_h = 0;
 static int32_t accumulator_v = 0;
 
 // conv
-static const int32_t add_coeff_xy = 8;  //raw move to int part 1_0000
+static const int32_t add_coeff_xy = 32;  //raw move to int part 1_0000
 static const int32_t add_coeff_hv = 16; //raw move to int part 1_0000
 
 static const int32_t reten_coeff_xy = 256;
@@ -54,7 +54,7 @@ static const int32_t reten_coeff_hv = 768;
 
 static const int32_t move_det_th = 160;
 
-static bool scroll_flag = false;
+static bool move_xy_flag = false;
 
 static bool mouse_jiggler_enabled = false;
 static fast_timer_t mouse_jiggler_trigger = 0;
@@ -475,12 +475,12 @@ void matrix_scan_sub_trackball(void) {
       int16_t delta_x = (int16_t)(((int16_t)*value_x_h << 8) | *value_x_l);
       int16_t delta_y = (int16_t)(((int16_t)*value_y_h << 8) | *value_y_l);
 
-      if (scroll_flag) {
-        accumulator_h += ((int32_t)delta_x) * add_coeff_hv;
-        accumulator_v += ((int32_t)delta_y) * add_coeff_hv;
-      } else {
+      if (move_xy_flag) {
         accumulator_x += ((int32_t)delta_x) * add_coeff_xy;
         accumulator_y += ((int32_t)delta_y) * add_coeff_xy;
+      } else {
+        accumulator_h += ((int32_t)delta_x) * add_coeff_hv;
+        accumulator_v += ((int32_t)delta_y) * add_coeff_hv; 
       }
 
       tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
@@ -499,10 +499,10 @@ void post_process_record_sub_trackball(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_sub_trackball(layer_state_t state) {    
-  scroll_flag = layer_state_cmp(state, TRACKPAD_AUTO_LAYER);
-  scroll_flag = scroll_flag || layer_state_cmp(state, LAYER_Number);
-  scroll_flag = scroll_flag || layer_state_cmp(state, LAYER_Cursor);
-  scroll_flag = scroll_flag || layer_state_cmp(state, LAYER_Function);
+  //move_xy_flag = layer_state_cmp(state, TRACKPAD_AUTO_LAYER);
+  move_xy_flag = move_xy_flag || layer_state_cmp(state, LAYER_Number);
+  move_xy_flag = move_xy_flag || layer_state_cmp(state, LAYER_Cursor);
+  move_xy_flag = move_xy_flag || layer_state_cmp(state, LAYER_Function);
 
   return state;
 }
