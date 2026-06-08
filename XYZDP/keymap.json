@@ -1,9 +1,10 @@
 {
     "modules": [
+        "zsa/navigator_trackpad",
         "zsa/defaults",
-        "zsa/navigator_trackpad"
     ],
     "features": {
         "nkro": true
     }
+    ]
 }
