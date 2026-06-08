@@ -500,6 +500,8 @@ void post_process_record_sub_trackball(uint16_t keycode, keyrecord_t *record) {
 
 layer_state_t layer_state_set_sub_trackball(layer_state_t state) {    
   //move_xy_flag = layer_state_cmp(state, TRACKPAD_AUTO_LAYER);
+  move_xy_flag = false;
+  
   move_xy_flag = move_xy_flag || layer_state_cmp(state, LAYER_Number);
   move_xy_flag = move_xy_flag || layer_state_cmp(state, LAYER_Cursor);
   move_xy_flag = move_xy_flag || layer_state_cmp(state, LAYER_Function);
