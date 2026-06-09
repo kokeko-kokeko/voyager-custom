@@ -12,6 +12,7 @@
 #define POINTING_DEVICE_HIRES_SCROLL_EXPONENT 0
 
 // #define NAVIGATOR_TRACKBALL_ROTATION 1
+// #define NAVIGATOR_TRACKPAD_ROTATION 359
 
 // more short timeout, normal 100
 // on voyager/config.h  
