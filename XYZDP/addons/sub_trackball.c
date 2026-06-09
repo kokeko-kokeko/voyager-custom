@@ -32,27 +32,9 @@ static uint8_t new_cpi = NAVIGATOR_TRACKBALL_CPI;
 static uint8_t tb_sensor_state = TB_S_I2C_CONF;
 static fast_timer_t tb_sensor_trigger = 0;
 
-// 32-bit accumulator
-// on memory format 30bit total
-// 10bit coeff _ 16bit int part int (with sign) _ 4 bit frac uint for guard
-// 16bit raw int
-// 10bit coeff int
-//  4bit frac guard margin (final output shift out)
-// int coeff 1024 * [0 - 1.0)
-
+// simple int 32-bit accumulator (w/o coeff)
 static int32_t accumulator_x = 0;
 static int32_t accumulator_y = 0;
-static int32_t accumulator_h = 0;
-static int32_t accumulator_v = 0;
-
-// conv
-static const int32_t add_coeff_xy = 32;  //raw move to int part 1_0000
-static const int32_t add_coeff_hv = 16; //raw move to int part 1_0000
-
-static const int32_t reten_coeff_xy = 256;
-static const int32_t reten_coeff_hv = 768;
-
-static const int32_t move_det_th = 160;
 
 static bool move_xy_flag = false;
 
@@ -191,8 +173,6 @@ static void reset_trackball_state(const fast_timer_t now) {
 
   accumulator_x = 0;
   accumulator_y = 0;
-  accumulator_h = 0;
-  accumulator_v = 0;
 }
 
 // POINTING_DEVICE_DRIVER = custom
@@ -217,69 +197,20 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       jiggle_direction = -jiggle_direction;
     }
   }
-    
-  // move detect, layer on
-  // pseudo vector length
-  // https://dora.bk.tsukuba.ac.jp/~takeuchi/?%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/%E5%B9%B3%E6%96%B9%E6%A0%B9%E3%82%92%E4%BD%BF%E3%82%8F%E3%81%9A%E3%81%AB%E8%B7%9D%E9%9B%A2%E3%82%92%E6%B1%82%E3%82%81%E3%82%8B
-  // https://qiita.com/Mya-Mya/items/68f6cafb4619c76956d6
-
-  // output, digital filter
-  // shift with bias
-  // 16
-  // 1024
-
+  
   if ((accumulator_x != 0) || (accumulator_y != 0)) {
-    int32_t abs_x = (accumulator_x >= 0) ? accumulator_x : -accumulator_x;
-    int32_t abs_y = (accumulator_y >= 0) ? accumulator_y : -accumulator_y;
-
-    //int32_t max = (abs_x > abs_y) ? abs_x : abs_y;
-    //int32_t min = (abs_x < abs_y) ? abs_x : abs_y;
- 
-    //int32_t pseudo_r = (983 * max) + (407 * min);  // 1024 base
-    //pseudo_r >>= 10;
-    
-    //if (pseudo_r > move_det_th) {
-    //  trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
-    //  layer_on(TRACKBALL_AUTO_LAYER);
-    //}
-
-    // octa - shape check
-    if ((abs_x > move_det_th) || (abs_y > move_det_th)) {
-      trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
-      layer_on(TRACKBALL_AUTO_LAYER);
+    if (move_xy_flag) {
+      mouse_report.x = (int16_t) accumulator_x;
+      mouse_report.y = (int16_t) accumulator_y;
     } else {
-      // Mod Manhattan distance, mimic r = 1 circle
-      // root(2) * 1024 {Q10} = 1448
-      int32_t d_m_mh = 1448 * (abs_x + abs_y);
-      d_m_mh >>= 10;
-
-      if (d_m_mh > move_det_th) {
-        trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
-        layer_on(TRACKBALL_AUTO_LAYER);
-      }
+      mouse_report.h = (int16_t) accumulator_x;
+      mouse_report.v = (int16_t) accumulator_y;
     }
 
-    mouse_report.x = (accumulator_x >= 0) ? (int16_t)(accumulator_x >> 4) : (int16_t)((accumulator_x + 15) >> 4);
-    accumulator_x = accumulator_x * reten_coeff_xy; 
-    accumulator_x = (accumulator_x >= 0) ? (int16_t)(accumulator_x >> 10) : (int16_t)((accumulator_x + 1023) >> 10);
-
-    mouse_report.y = (accumulator_y >= 0) ? (int16_t)(accumulator_y >> 4) : (int16_t)((accumulator_y + 15) >> 4);
-    accumulator_y = accumulator_y * reten_coeff_xy;
-    accumulator_y = (accumulator_y >= 0) ? (int16_t)(accumulator_y >> 10) : (int16_t)((accumulator_y + 1023) >> 10);
+    accumulator_x = 0;
+    accumulator_y = 0;
   }
   
-  if (accumulator_h != 0) {
-    mouse_report.h = (accumulator_h >= 0) ? (int16_t)(accumulator_h >> 4) : (int16_t)((accumulator_h + 15) >> 4);
-    accumulator_h = accumulator_h * reten_coeff_hv;
-    accumulator_h = (accumulator_h >= 0) ? (int16_t)(accumulator_h >> 10) : (int16_t)((accumulator_h + 1023) >> 10);
-  }
-
-  if (accumulator_v != 0) {
-    mouse_report.v = (accumulator_v >= 0) ? (int16_t)(accumulator_v >> 4) : (int16_t)((accumulator_v + 15) >> 4);
-    accumulator_v = accumulator_v * reten_coeff_hv;
-    accumulator_v = (accumulator_v >= 0) ? (int16_t)(accumulator_v >> 10) : (int16_t)((accumulator_v + 1023) >> 10);
-  }
-
   return mouse_report;
 }
 
@@ -475,13 +406,8 @@ void matrix_scan_sub_trackball(void) {
       int16_t delta_x = (int16_t)(((int16_t)*value_x_h << 8) | *value_x_l);
       int16_t delta_y = (int16_t)(((int16_t)*value_y_h << 8) | *value_y_l);
 
-      if (move_xy_flag) {
-        accumulator_x += ((int32_t)delta_x) * add_coeff_xy;
-        accumulator_y += ((int32_t)delta_y) * add_coeff_xy;
-      } else {
-        accumulator_h += ((int32_t)delta_x) * add_coeff_hv;
-        accumulator_v += ((int32_t)delta_y) * add_coeff_hv; 
-      }
+      accumulator_x += (int32_t)delta_x;
+      accumulator_y += (int32_t)delta_y;
 
       tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
       return;
