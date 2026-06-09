@@ -29,10 +29,10 @@ const uint8_t led_pattern_delayed_on[] = {1, 2, (1 + TAPPING_TERM / 4), 0, UINT8
 
 // voyader boot-up animation 250ms animation on voyager.c on -> off 1000ms, scale 3 (8)
 // zero start
-const uint8_t led_pattern_boot0[] = {0, 3, 32,  32, 128, 0, UINT8_MAX, UINT8_MAX};
-const uint8_t led_pattern_boot1[] = {0, 3, 32,  64, 128, 0, UINT8_MAX, UINT8_MAX};
-const uint8_t led_pattern_boot2[] = {0, 3, 32,  92, 128, 0, UINT8_MAX, UINT8_MAX}; 
-const uint8_t led_pattern_boot3[] = {0, 3, 32, 128, 128, 0, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_boot0[] = {0, 3, 16,  32, 128, 0, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_boot1[] = {0, 3, 16,  64, 128, 0, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_boot2[] = {0, 3, 16,  92, 128, 0, UINT8_MAX, UINT8_MAX}; 
+const uint8_t led_pattern_boot3[] = {0, 3, 16, 128, 128, 0, UINT8_MAX, UINT8_MAX};
 
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
@@ -205,12 +205,7 @@ bool process_detected_host_os_status_led(os_variant_t detected_os) {
       status_led(0b0100, led_pattern_oneshot);
       break;
     case OS_WINDOWS:
-      //status_led(0b0010, led_pattern_oneshot);
-
-      status_led(0b0010, led_pattern_boot0);
-      status_led(0b0001, led_pattern_boot1);
-      status_led(0b0100, led_pattern_boot2);
-      status_led(0b1000, led_pattern_boot3);
+      status_led(0b0010, led_pattern_oneshot);
       break;
     case OS_LINUX:
       status_led(0b0001, led_pattern_oneshot);
