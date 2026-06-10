@@ -29,10 +29,10 @@ const uint8_t led_pattern_delayed_on[] = {1, 2, (1 + TAPPING_TERM / 4), 0, UINT8
 
 // voyader boot-up animation 250ms animation on voyager.c on -> off 1000ms, scale 3 (8)
 // zero start
-const uint8_t led_pattern_boot0[] = {0, 3, 16,  32, 125, 0, UINT8_MAX, UINT8_MAX};
-const uint8_t led_pattern_boot1[] = {0, 3, 16,  64, 125, 0, UINT8_MAX, UINT8_MAX};
-const uint8_t led_pattern_boot2[] = {0, 3, 16,  92, 125, 0, UINT8_MAX, UINT8_MAX}; 
-const uint8_t led_pattern_boot3[] = {0, 3, 16, 128, 125, 0, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_boot0[] = {0, 3, 15,  31, 125, 0, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_boot1[] = {0, 3, 15,  63, 125, 0, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_boot2[] = {0, 3, 15,  94, 125, 0, UINT8_MAX, UINT8_MAX}; 
+const uint8_t led_pattern_boot3[] = {0, 3, 15, 125, 125, 0, UINT8_MAX, UINT8_MAX};
 
 //static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
