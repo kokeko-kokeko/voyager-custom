@@ -4,7 +4,7 @@
 
 #define RGB_MATRIX_STARTUP_SPD 60
 
-
+// must use 16bit extended report for sub_trackball
 #define MOUSE_EXTENDED_REPORT
 #define WHEEL_EXTENDED_REPORT
 #define POINTING_DEVICE_HIRES_SCROLL_ENABLE
