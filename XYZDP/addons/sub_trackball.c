@@ -197,18 +197,41 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       jiggle_direction = -jiggle_direction;
     }
   }
-  
-  if ((accumulator_x != 0) || (accumulator_y != 0)) {
-    if (move_xy_flag) {
-      mouse_report.x = (int16_t) accumulator_x;
-      mouse_report.y = (int16_t) accumulator_y;
-    } else {
-      mouse_report.h = (int16_t) accumulator_x;
-      mouse_report.v = (int16_t) accumulator_y;
-    }
 
-    accumulator_x = 0;
-    accumulator_y = 0;
+  // 32 to 16 conv with limit split
+  int16_t output_x = 0;
+  int16_t output_y = 0;
+
+  if (accumulator_x != 0) {
+    if (accumulator_x > 0) {
+      //pos
+      output_x = (accumulator_x > (int32_t)INT16_MAX) ? INT16_MAX : (int16_t)accumulator_x;
+      accumulator_x = (accumulator_x > (int32_t)INT16_MAX) ? (accumulator_x - (int32_t)INT16_MAX) : 0;
+    } else {
+      //neg
+      output_x = (accumulator_x < (int32_t)INT16_MIN) ? INT16_MIN : (int16_t)accumulator_x;
+      accumulator_x = (accumulator_x < (int32_t)INT16_MIN) ? (accumulator_x - (int32_t)INT16_MIN) : 0;
+    }
+  }
+
+  if (accumulator_y != 0) {
+    if (accumulator_y > 0) {
+      //pos
+      output_y = (accumulator_y > (int32_t)INT16_MAX) ? INT16_MAX : (int16_t)accumulator_y;
+      accumulator_y = (accumulator_y > (int32_t)INT16_MAX) ? (accumulator_y - (int32_t)INT16_MAX) : 0;
+    } else {
+      //neg
+      output_y = (accumulator_y < (int32_t)INT16_MIN) ? INT16_MIN : (int16_t)accumulator_y;
+      accumulator_y = (accumulator_y < (int32_t)INT16_MIN) ? (accumulator_y - (int32_t)INT16_MIN) : 0;
+    }
+  }
+
+  if (move_xy_flag) {
+    mouse_report.x = output_x;
+    mouse_report.y = output_y;
+  } else {
+    mouse_report.h = output_x;
+    mouse_report.v = output_y;
   }
   
   return mouse_report;
