@@ -203,26 +203,34 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   int16_t output_y = 0;
 
   if (accumulator_x != 0) {
-    if (accumulator_x > 0) {
-      //pos
-      output_x = (accumulator_x > (int32_t)INT16_MAX) ? INT16_MAX : (int16_t)accumulator_x;
-      accumulator_x = (accumulator_x > (int32_t)INT16_MAX) ? (accumulator_x - (int32_t)INT16_MAX) : 0;
+    if (accumulator_x > (int32_t)INT16_MAX) {
+      // pos
+      output_x = INT16_MAX;
+      accumulator_x = accumulator_x - (int32_t)INT16_MAX;
+    } else if (accumulator_x < (int32_t)INT16_MIN) {
+      // neg
+      output_x = INT16_MIN;
+      accumulator_x = accumulator_x - (int32_t)INT16_MIN;
     } else {
-      //neg
-      output_x = (accumulator_x < (int32_t)INT16_MIN) ? INT16_MIN : (int16_t)accumulator_x;
-      accumulator_x = (accumulator_x < (int32_t)INT16_MIN) ? (accumulator_x - (int32_t)INT16_MIN) : 0;
+      // in range
+      output_x = (int16_t)accumulator_x;
+      accumulator_x = 0;
     }
   }
 
   if (accumulator_y != 0) {
-    if (accumulator_y > 0) {
-      //pos
-      output_y = (accumulator_y > (int32_t)INT16_MAX) ? INT16_MAX : (int16_t)accumulator_y;
-      accumulator_y = (accumulator_y > (int32_t)INT16_MAX) ? (accumulator_y - (int32_t)INT16_MAX) : 0;
+    if (accumulator_y > (int32_t)INT16_MAX) {
+      // pos
+      output_y = INT16_MAX;
+      accumulator_y = accumulator_y - (int32_t)INT16_MAX;
+    } else if (accumulator_y < (int32_t)INT16_MIN) {
+      // neg
+      output_y = INT16_MIN;
+      accumulator_y = accumulator_y - (int32_t)INT16_MIN;
     } else {
-      //neg
-      output_y = (accumulator_y < (int32_t)INT16_MIN) ? INT16_MIN : (int16_t)accumulator_y;
-      accumulator_y = (accumulator_y < (int32_t)INT16_MIN) ? (accumulator_y - (int32_t)INT16_MIN) : 0;
+      // in range
+      output_y = (int16_t)accumulator_y;
+      accumulator_y = 0;
     }
   }
 
