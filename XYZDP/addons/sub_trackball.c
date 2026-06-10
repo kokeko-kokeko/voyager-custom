@@ -331,6 +331,7 @@ void matrix_scan_sub_trackball(void) {
       }
 
       tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
+      tb_sensor_trigger = now + 1;
       return;
     } 
     
@@ -347,6 +348,7 @@ void matrix_scan_sub_trackball(void) {
         }
 
         tb_sensor_state = TB_S_READ_X_L_ISSUE_Y_L;
+        tb_sensor_trigger = now + 1;
         return;
       } 
         
@@ -365,6 +367,7 @@ void matrix_scan_sub_trackball(void) {
       }
 
       tb_sensor_state = TB_S_READ_Y_L_ISSUE_X_H;
+      tb_sensor_trigger = now + 1;
       return;
     } 
     
@@ -378,6 +381,7 @@ void matrix_scan_sub_trackball(void) {
       }
 
       tb_sensor_state = TB_S_READ_X_H_ISSUE_Y_H;
+      tb_sensor_trigger = now + 1;
       return;
     } 
     
@@ -391,6 +395,7 @@ void matrix_scan_sub_trackball(void) {
       }
 
       tb_sensor_state = TB_S_READ_Y_H_ISSUE_MOTION_ADD_ACC;
+      tb_sensor_trigger = now + 1;
       return;
     } 
     
@@ -410,6 +415,7 @@ void matrix_scan_sub_trackball(void) {
       accumulator_y += (int32_t)delta_y;
 
       tb_sensor_state = TB_S_READ_MOTION_ISSUE_X_L;
+      tb_sensor_trigger = now + 1;
       return;
     }
   }
