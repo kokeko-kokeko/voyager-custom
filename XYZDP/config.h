@@ -11,8 +11,8 @@
 #define POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER 120
 #define POINTING_DEVICE_HIRES_SCROLL_EXPONENT 0
 
-// wait sensor update (on matrix_scan) & 125 fps 
-#define POINTING_DEVICE_TASK_THROTTLE_MS 8
+// wait sensor update (on matrix_scan) & 100 fps 
+#define POINTING_DEVICE_TASK_THROTTLE_MS 10
 
 // #define NAVIGATOR_TRACKBALL_ROTATION 1
 // #define NAVIGATOR_TRACKPAD_ROTATION 359
