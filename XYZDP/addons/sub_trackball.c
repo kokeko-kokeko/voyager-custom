@@ -192,7 +192,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     if (timer_expired_fast(now, mouse_jiggler_trigger)) {
       mouse_jiggler_trigger += MOUSE_JIGGLER_INTERVAL_MS;
 
-      mouse_report.x = MOUSE_JIGGLER_MOVEMENT * jiggle_direction;
+      mouse_report.y = MOUSE_JIGGLER_MOVEMENT * jiggle_direction;
 
       jiggle_direction = -jiggle_direction;
     }
