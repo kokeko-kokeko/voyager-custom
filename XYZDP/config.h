@@ -3,8 +3,8 @@
 #define LAYER_STATE_32BIT
 
 #define AUTOMOUSE_LAYER 2
-#define AUTOMOUSE_TIMEOUT 650
-#define AUTOMOUSE_THRESHOLD 10
+#define AUTOMOUSE_TIMEOUT 751
+#define AUTOMOUSE_THRESHOLD 1
 #define RGB_MATRIX_STARTUP_SPD 60
 
 // must use 16bit extended report for sub_trackball
@@ -39,10 +39,6 @@
 #define DEBOUNCE 8
 
 #define NKRO_DEFAULT_ON true
-
-// near 16bit max value
-#undef AUTOMOUSE_TIMEOUT
-#define AUTOMOUSE_TIMEOUT 59999
 
 #define MOUSE_JIGGLER_INTERVAL_MS 6007
 #define MOUSE_JIGGLER_MOVEMENT 1

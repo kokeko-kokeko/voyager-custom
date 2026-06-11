@@ -20,7 +20,7 @@ RGBLIGHT_ENABLE = no
 SPACE_CADET_ENABLE = no
  
 DEBOUNCE_TYPE = asym_eager_defer_pk
-EEPROM_DRIVER = transient
+EEPROM_DRIVER = transient	
 
 CAPS_WORD_ENABLE = yes
 MOUSEKEY_ENABLE = yes
@@ -31,7 +31,6 @@ SWAP_HANDS_ENABLE = yes
 
 SRC += qmk_additional_callbacks.c
 
-SRC += addons/adv_trackpad.c
 SRC += addons/fade_matrix.c
 SRC += addons/firmware_map.c
 SRC += addons/ime_state_sync.c
