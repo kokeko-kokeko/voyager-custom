@@ -1,9 +1,10 @@
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "XYZDP/Lvm6y0"
+#define SERIAL_NUMBER "XYZDP/7vmrYA"
 #define LAYER_STATE_32BIT
 
 #define AUTOMOUSE_LAYER 2
-#define AUTOMOUSE_THRESHOLD 10
+#define AUTOMOUSE_TIMEOUT 651
+#define AUTOMOUSE_THRESHOLD 9
 #define RGB_MATRIX_STARTUP_SPD 60
 
 // must use 16bit extended report for sub_trackball
