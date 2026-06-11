@@ -217,4 +217,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
 _Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
 
-//_Static_assert(LAYER_Mouse == AUTOMOUSE_LAYER, "Auto Mouse layer missmatch!!");
+_Static_assert(LAYER_Mouse_L == AUTOMOUSE_LAYER, "Auto Mouse layer missmatch!!");

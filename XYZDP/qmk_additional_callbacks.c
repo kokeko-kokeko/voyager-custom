@@ -6,7 +6,6 @@
 #endif
 
 // module impl
-//#include "addons/adv_trackpad.h"
 #include "addons/fade_matrix.h"
 #include "addons/firmware_map.h"
 #include "addons/ime_state_sync.h"
@@ -34,7 +33,6 @@ void keyboard_post_init_user(void) {
   //keymap_config.nkro = true;
 
   keyboard_post_init_addtional_power_setting();
-  //keyboard_post_init_adv_trackpad();
   keyboard_post_init_fade_matrix();
   keyboard_post_init_status_led();
 	keyboard_post_init_sub_trackball();
@@ -165,7 +163,6 @@ bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  //post_process_record_adv_trackpad(keycode, record);
   post_process_record_ime_state_sync(keycode, record);
   post_process_record_sub_trackball(keycode, record);
 	
@@ -173,14 +170,12 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-  //mouse_report = pointing_device_task_adv_mouse(mouse_report);
   mouse_report = pointing_device_task_fade_matrix(mouse_report);
   
   return mouse_report;
 }
 
 void housekeeping_task_user(void) {
-  //housekeeping_task_adv_trackpad();
   housekeeping_task_fade_matrix();
   housekeeping_task_ime_state_sync();
   housekeeping_task_status_led();
