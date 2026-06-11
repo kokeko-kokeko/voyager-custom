@@ -3,11 +3,14 @@
 #define LAYER_STATE_32BIT
 
 #define AUTOMOUSE_LAYER 2
-#define AUTOMOUSE_TIMEOUT 701
-#define AUTOMOUSE_THRESHOLD 0
-#define AUTOMOUSE_SCROLL_THRESHOLD 32765
+#define AUTOMOUSE_TIMEOUT 661
+#define AUTOMOUSE_THRESHOLD 1               // without jiggler
+#define AUTOMOUSE_SCROLL_THRESHOLD 32512    // disable move value from sub_trackball limit
 
 #define RGB_MATRIX_STARTUP_SPD 60
+
+#define MOUSE_JIGGLER_MOVEMENT 1
+#define MOUSE_JIGGLER_INTERVAL_MS 3001
 
 // must use 16bit extended report for sub_trackball
 #define MOUSE_EXTENDED_REPORT
@@ -42,9 +45,6 @@
 #define DEBOUNCE 8
 
 #define NKRO_DEFAULT_ON true
-
-#define MOUSE_JIGGLER_INTERVAL_MS 6007
-#define MOUSE_JIGGLER_MOVEMENT 1
 
 #define MOONLANDER_USER_LED
 #define VOYAGER_USER_LED
@@ -86,7 +86,7 @@
 #undef LED_MATRIX_SLEEP
 
 // RAM eeprom minimal safety size
-#define TRANSIENT_EEPROM_SIZE 512
+#define TRANSIENT_EEPROM_SIZE 1024
 
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
 #undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
