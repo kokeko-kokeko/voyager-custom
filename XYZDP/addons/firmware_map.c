@@ -27,12 +27,15 @@ enum key_position {
   POSITION_ANSI = 6,
   POSITION_Mac_off = 1,
   POSITION_Mac_on = 7,
-  POSITION_Tran_off = 2,
-  POSITION_Tran_on = 8,
-  POSITION_ISS_on = 4,
-  POSITION_ISS_off = 10,
-  POSITION_MJ_on = 5,
-  POSITION_MJ_off = 11,
+  
+  POSITION_Tran_off = 3,
+  POSITION_Tran_on = 9,
+
+  POSITION_ISS_on = 5,
+  POSITION_ISS_off = 11,
+
+  POSITION_MJ_on = 26,
+  POSITION_MJ_off = 32,
 
   POSITION_RST = 31,
   POSITION_SW_RST = 43,
