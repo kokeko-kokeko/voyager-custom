@@ -4,8 +4,7 @@
 
 #define AUTOMOUSE_LAYER 2
 #define AUTOMOUSE_TIMEOUT 661
-#define AUTOMOUSE_THRESHOLD 1               // without jiggler
-#define AUTOMOUSE_SCROLL_THRESHOLD 32512    // disable move value from sub_trackball limit
+#define AUTOMOUSE_THRESHOLD -1              // must use mod automouse (disable normal path)
 
 #define RGB_MATRIX_STARTUP_SPD 60
 
