@@ -198,10 +198,20 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     }
   }
 
+  // move from housekeeping, off automouse
+  if (timer_expired_fast(now, trackball_early_off_trigger)) {
+    trackball_early_off_trigger = now + (UINT32_MAX / 2) - 1;
+    //auto_mouse_layer_off();
+    //automouse_disable();
+    layer_off(TRACKBALL_AUTO_LAYER);
+    //automouse_enable();
+  }
+
   // 32 to 16 conv with limit split
   // pos max 32767 -> use 32512 limit 32768 - 256
   int16_t output_x = 0;
   int16_t output_y = 0;
+  bool output_flag = false;
 
   if (accumulator_x != 0) {
     if (accumulator_x > 32512) {
@@ -217,6 +227,8 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       output_x = (int16_t)accumulator_x;
       accumulator_x = 0;
     }
+
+    output_flag = true;
   }
 
   if (accumulator_y != 0) {
@@ -233,14 +245,21 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
       output_y = (int16_t)accumulator_y;
       accumulator_y = 0;
     }
+
+    output_flag = true;
   }
 
-  if (move_xy_flag) {
-    mouse_report.x = output_x;
-    mouse_report.y = output_y;
-  } else {
-    mouse_report.h = output_x;
-    mouse_report.v = output_y;
+  if (output_flag) {
+    if (move_xy_flag) {
+      trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
+      layer_on(TRACKBALL_AUTO_LAYER);
+      
+      mouse_report.x = output_x;
+      mouse_report.y = output_y;
+    } else {
+      mouse_report.h = output_x;
+      mouse_report.v = output_y;
+    }
   }
   
   return mouse_report;
@@ -471,18 +490,4 @@ layer_state_t layer_state_set_sub_trackball(layer_state_t state) {
   move_xy_flag = move_xy_flag || layer_state_cmp(state, LAYER_Function);
 
   return state;
-}
-
-void housekeeping_task_sub_trackball(void) {
-  const fast_timer_t now = timer_read_fast();
-
-  if (timer_expired_fast(now, trackball_early_off_trigger)) {
-    trackball_early_off_trigger = now + (UINT32_MAX / 2) - 1;
-    //auto_mouse_layer_off();
-    //automouse_disable();
-    layer_off(TRACKBALL_AUTO_LAYER);
-    //automouse_enable();
-  }
-  
-  return;
 }
