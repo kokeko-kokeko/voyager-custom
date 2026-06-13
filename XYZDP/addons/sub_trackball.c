@@ -201,10 +201,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   // move from housekeeping, off automouse
   if (timer_expired_fast(now, trackball_early_off_trigger)) {
     trackball_early_off_trigger = now + (UINT32_MAX / 2) - 1;
-    //auto_mouse_layer_off();
-    //automouse_disable();
     layer_off(TRACKBALL_AUTO_LAYER);
-    //automouse_enable();
   }
 
   // 32 to 16 conv with limit split
