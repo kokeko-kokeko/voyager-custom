@@ -213,15 +213,18 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   int16_t output_y = 0;
   bool output_flag = false;
 
+  const int32_t output_max = (int32_t)INT16_MAX;
+  const int32_t output_min = (int32_t)INT16_MIN;
+
   if (accumulator_x != 0) {
-    if (accumulator_x > 32512) {
+    if (accumulator_x > output_max) {
       // pos
-      output_x = 32512;
-      accumulator_x -= 32512;
-    } else if (accumulator_x < -32512) {
+      output_x = (int16_t)output_max;
+      accumulator_x -= output_max;
+    } else if (accumulator_x < output_min) {
       // neg
-      output_x = -32512;
-      accumulator_x -= -32512;
+      output_x = (int16_t)output_min;
+      accumulator_x -= output_min;
     } else {
       // in range
       output_x = (int16_t)accumulator_x;
@@ -232,14 +235,14 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   }
 
   if (accumulator_y != 0) {
-    if (accumulator_y > 32512) {
+    if (accumulator_y > output_max) {
       // pos
-      output_y = 32512;
-      accumulator_y -= 32512;
-    } else if (accumulator_y < -32512) {
+      output_y = (int16_t)output_max;
+      accumulator_y -= output_max;
+    } else if (accumulator_y < output_min) {
       // neg
-      output_y = -32512;
-      accumulator_y -= -32512;
+      output_y = (int16_t)output_min;
+      accumulator_y -= output_min;
     } else {
       // in range
       output_y = (int16_t)accumulator_y;
