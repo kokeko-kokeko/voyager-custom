@@ -3,13 +3,13 @@
 #define LAYER_STATE_32BIT
 
 #define AUTOMOUSE_LAYER 2
-#define AUTOMOUSE_TIMEOUT 661
-#define AUTOMOUSE_THRESHOLD -1              // must use mod automouse (disable normal path)
+#define AUTOMOUSE_TIMEOUT 673
+#define AUTOMOUSE_THRESHOLD -1  // must use mod automouse (disable normal path)
 
 #define RGB_MATRIX_STARTUP_SPD 60
 
 #define MOUSE_JIGGLER_MOVEMENT 1
-#define MOUSE_JIGGLER_INTERVAL_MS 3001
+#define MOUSE_JIGGLER_INTERVAL_MS 3331
 
 // must use 16bit extended report for sub_trackball
 #define MOUSE_EXTENDED_REPORT
@@ -24,16 +24,6 @@
 
 // #define NAVIGATOR_TRACKBALL_ROTATION 1
 // #define NAVIGATOR_TRACKPAD_ROTATION 359
-
-// more short timeout, normal 100
-// on voyager/config.h  
-// #define MCP23018_TIMEOUT 10
-// #define IS31FL3731_I2C_TIMEOUT 5
-// use dafaults for safe, non effective
-//#define VOYAGER_I2C_TIMEOUT 10
-//#define IS31FL3731_I2C_TIMEOUT 25 
-//#define NAVIGATOR_TRACKBALL_TIMEOUT 10
-//#define NAVIGATOR_TRACKPAD_TIMEOUT 10
 
 #undef USB_SUSPEND_WAKEUP_DELAY
 #define USB_SUSPEND_WAKEUP_DELAY 1999
@@ -86,6 +76,16 @@
 
 // RAM eeprom minimal safety size
 #define TRANSIENT_EEPROM_SIZE 1024
+
+// more short timeout, normal 100
+// on voyager/config.h  
+// #define MCP23018_TIMEOUT 10
+// #define IS31FL3731_I2C_TIMEOUT 5
+// use dafaults for safe, non effective
+//#define VOYAGER_I2C_TIMEOUT 10
+//#define IS31FL3731_I2C_TIMEOUT 25 
+//#define NAVIGATOR_TRACKBALL_TIMEOUT 10
+//#define NAVIGATOR_TRACKPAD_TIMEOUT 10
 
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
 #undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
