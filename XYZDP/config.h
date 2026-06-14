@@ -77,16 +77,6 @@
 // RAM eeprom minimal safety size
 #define TRANSIENT_EEPROM_SIZE 1024
 
-// more short timeout, normal 100
-// on voyager/config.h  
-// #define MCP23018_TIMEOUT 10
-// #define IS31FL3731_I2C_TIMEOUT 5
-// use dafaults for safe, non effective
-//#define VOYAGER_I2C_TIMEOUT 10
-//#define IS31FL3731_I2C_TIMEOUT 25 
-//#define NAVIGATOR_TRACKBALL_TIMEOUT 10
-//#define NAVIGATOR_TRACKPAD_TIMEOUT 10
-
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
 #undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #undef ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
@@ -136,3 +126,14 @@
 #undef ENABLE_RGB_MATRIX_STARLIGHT_DUAL_SAT
 #undef ENABLE_RGB_MATRIX_RIVERFLOW
 
+// obsolete
+
+// more short timeout, normal 100
+// on voyager/config.h  
+// #define MCP23018_TIMEOUT 10
+// #define IS31FL3731_I2C_TIMEOUT 5
+// use dafaults for safe, non effective
+//#define VOYAGER_I2C_TIMEOUT 10
+//#define IS31FL3731_I2C_TIMEOUT 25 
+//#define NAVIGATOR_TRACKBALL_TIMEOUT 10
+//#define NAVIGATOR_TRACKPAD_TIMEOUT 10
