@@ -28,3 +28,5 @@ pushd qmk_firmware
 qmk compile -kb zsa/voyager -km XYZDP
 popd
 
+echo -e "\n\t---- done! ---- \a"
+
