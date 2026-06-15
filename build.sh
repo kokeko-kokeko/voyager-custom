@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "    ---- fetch user side code ---- "
+git fetch --all
+
 echo "    ---- update qmk firmware ---- "
 pushd qmk_firmware
 git fetch --all
@@ -13,15 +16,11 @@ git fetch --all
 git pull
 popd
 
-echo "    ---- fetch user side code ---- "
-git fetch --all
-git status
-
 echo "    ---- sync file ---- "
 rsync --archive --checksum --delete --verbose XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
 
-#rsync --archive --checksum --delete --verbose zsa_qmk_firmware/modules/zsa/ qmk_firmware/modules/zsa/
-#rsync --archive --checksum --delete --verbose zsa_qmk_firmware/keyboards/zsa/ qmk_firmware/keyboards/zsa/
+echo "    ---- git status ---- "
+git status
 
 echo "    ---- build! ---- "
 pushd qmk_firmware
