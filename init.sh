@@ -5,8 +5,6 @@
 #
 # curl -fsSL https://raw.githubusercontent.com/kokeko-kokeko/voyager-custom/refs/heads/main/init.sh | bash
 #
-#
-#
 
 echo -e "\n\t---- init build env ---- "
 git clone https://github.com/kokeko-kokeko/voyager-custom.git
