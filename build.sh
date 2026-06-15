@@ -17,7 +17,7 @@ git pull
 popd
 
 echo "    ---- sync file ---- "
-rsync --archive --checksum --delete --verbose XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
+rsync --archive --checksum --delete --open-noatime --verbose XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
 
 echo "    ---- git status ---- "
 git status
