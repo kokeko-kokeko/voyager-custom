@@ -32,13 +32,7 @@ git fetch --all
 git checkout -B firmware25 origin/firmware25
 git submodule update --init --recursive
 
-popd
-
-git add qmk_firmware
-git commit -m "✨(qmk): Update firmware" || echo "No QMK change"
-git push
-
-pushd qmk_firmware/modules/zsa
+pushd modules/zsa
 
 git remote add upstream https://github.com/zsa/qmk_modules.git
 git remote set-url --push origin git@github.com:kokeko-kokeko/zsa_qmk_modules.git
@@ -48,5 +42,16 @@ git fetch --all
 git checkout -B main origin/main
 
 popd
+
+git add modules/zsa
+git commit -m "✨(qmk modules): Update modules" || echo "No Modules change"
+git push
+
+popd
+
+git add qmk_firmware
+git commit -m "✨(qmk): Update firmware" || echo "No QMK change"
+git push
+
 popd
 
