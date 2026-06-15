@@ -1,0 +1,55 @@
+CONSOLE_ENABLE = no
+COMMAND_ENABLE = no
+
+
+SPACE_CADET_ENABLE = no
+CAPS_WORD_ENABLE = yes
+PRECISION_TRACKPAD_ENABLE = yes
+PRECISION_TRACKPAD_DRIVER = navigator_trackpad
+
+POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = custom
+
+BOOTMAGIC_ENABLE = no
+DEFERRED_EXEC_ENABLE = no
+GRAVE_ESC_ENABLE = no 
+KEY_OVERRIDE_ENABLE = no
+MAGIC_ENABLE = no
+BACKLIGHT_ENABLE = no
+RGBLIGHT_ENABLE = no
+SPACE_CADET_ENABLE = no
+ 
+DEBOUNCE_TYPE = asym_eager_defer_pk
+EEPROM_DRIVER = transient	
+
+CAPS_WORD_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+NKRO_ENABLE = yes
+OS_DETECTION_ENABLE = yes
+RGB_MATRIX_ENABLE = yes
+SWAP_HANDS_ENABLE = yes
+
+SRC += qmk_additional_callbacks.c
+
+SRC += addons/fade_matrix.c
+SRC += addons/firmware_map.c
+SRC += addons/ime_state_sync.c
+SRC += addons/layer_mod_overlay.c
+SRC += addons/mouse_button_overlay.c
+SRC += addons/ortho_hold_os_locale_aware.c
+SRC += addons/status_led.c
+SRC += addons/sub_trackball.c
+
+LTO_ENABLE = yes
+EXTRAFLAGS += -flto=auto -O3
+EXTRAFLAGS += -Werror
+EXTRAFLAGS += -march=armv7e-m+fp
+EXTRAFLAGS += -mtune=cortex-m4
+EXTRAFLAGS += -mcpu=cortex-m4
+EXTRAFLAGS += -mfloat-abi=hard
+EXTRAFLAGS += -mfpu=fpv4-sp-d16
+EXTRAFLAGS += -mthumb 
+EXTRAFLAGS += -fsingle-precision-constant 
+EXTRAFLAGS += -fstack-protector-strong
+EXTRAFLAGS += -fstack-clash-protection
+

@@ -1,0 +1,306 @@
+#include QMK_KEYBOARD_H
+#include "version.h"
+#define MOON_LED_LEVEL LED_LEVEL
+#ifndef ZSA_SAFE_RANGE
+#define ZSA_SAFE_RANGE SAFE_RANGE
+#endif
+
+#include "addons/status_led.h"
+
+#include "layer_num.h"
+
+// timer maximum delay
+// #define timer_expired32(current, future) ((uint32_t)(current - future) < UINT32_MAX / 2)
+// write direct
+
+// status LED pattern list, no const limit, terminate symbol
+// init_value, scale, init_delay, delay, ...
+// value output after init_delay
+// delay reduce data with shift by scale value
+// 0: terminate, stop exec, set to far trigger
+// MAX: restart current pattern 
+// MAX - 1: move to before patten (stack)
+const uint8_t led_pattern_off[]        = {0, 0, 1, 0, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_on[]         = {1, 0, 1, 0, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_blink[]      = {1, 2, 1, 125, 62, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_single[]     = {1, 2, 1, 125, 0, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_oneshot[]    = {1, 1, 1, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50, UINT8_MAX - 1 , UINT8_MAX - 1};
+const uint8_t led_pattern_delayed_on[] = {1, 2, (1 + TAPPING_TERM / 4), 0, UINT8_MAX, UINT8_MAX};
+
+// voyader boot-up animation 250ms animation on voyager.c on -> off 1000ms, scale 3 (8)
+// zero start
+const uint8_t led_pattern_boot0[] = {0, 3, 15,  31, 125, 0, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_boot1[] = {0, 3, 15,  63, 125, 0, UINT8_MAX, UINT8_MAX};
+const uint8_t led_pattern_boot2[] = {0, 3, 15,  94, 125, 0, UINT8_MAX, UINT8_MAX}; 
+const uint8_t led_pattern_boot3[] = {0, 3, 15, 125, 125, 0, UINT8_MAX, UINT8_MAX};
+
+//static const uint8_t * const led_pattern_heartbeat = (uint8_t[]){250, 125, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+
+typedef struct status_led_state {
+  fast_timer_t trigger;
+  const uint8_t * ptr;
+  // 3-level pattern stack
+  const uint8_t * ptr_0;
+  const uint8_t * ptr_1;
+  const uint8_t * ptr_2;
+  void (*const out_func)(const bool);
+  bool out_val;
+  uint8_t scale;
+} status_led_state_t;
+
+// ref voyager.h
+//#define STATUS_LED_1(status) gpio_write_pin(B5, (bool)(status))
+//#define STATUS_LED_2(status) gpio_write_pin(B4, (bool)(status))
+//#define STATUS_LED_3(status) mcp23018_leds[0] = (bool)(status)
+//#define STATUS_LED_4(status) mcp23018_leds[1] = (bool)(status)
+
+static void status_led_out_func_1(const bool out_val) { gpio_write_pin(B5, out_val); }
+static void status_led_out_func_2(const bool out_val) { gpio_write_pin(B4, out_val); }
+static void status_led_out_func_3(const bool out_val) { mcp23018_leds[0] = out_val; }
+static void status_led_out_func_4(const bool out_val) { mcp23018_leds[1] = out_val; }
+
+static status_led_state_t status_led_state_1 = {(UINT32_MAX / 2) - 1, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, status_led_out_func_1, false, 0};
+static status_led_state_t status_led_state_2 = {(UINT32_MAX / 2) - 1, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, status_led_out_func_2, false, 0};
+static status_led_state_t status_led_state_3 = {(UINT32_MAX / 2) - 1, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, status_led_out_func_3, false, 0};
+static status_led_state_t status_led_state_4 = {(UINT32_MAX / 2) - 1, led_pattern_off, led_pattern_off, led_pattern_off, led_pattern_off, status_led_out_func_4, false, 0};
+
+static void status_led_state_return_to_start(status_led_state_t * const state) {
+  state->ptr = state->ptr_0;
+  state->out_val = *(state->ptr++);
+  state->scale = *(state->ptr++);
+}
+
+static void status_led_state_update_trigger(status_led_state_t * const state) {
+  fast_timer_t delay = *(state->ptr++);
+  
+  if (delay == 0) {
+    delay = (UINT32_MAX / 2) - UINT16_MAX;  // safety margin
+  } else {
+    delay <<= state->scale;
+  }
+  
+  state->trigger += delay;
+}
+
+static void status_led_set_func(status_led_state_t * const state, const fast_timer_t trigger, const uint8_t * const pattern) {
+  state->trigger = trigger;
+
+  // stack push
+  state->ptr_2 = state->ptr_1;
+  state->ptr_1 = state->ptr_0;
+  state->ptr_0 = pattern;
+
+  status_led_state_return_to_start(state);
+  status_led_state_update_trigger(state);
+  
+  return;
+}
+
+static void status_led_pop_func(status_led_state_t * const state, const fast_timer_t trigger) {
+  state->trigger = trigger;
+
+  // stack pop
+  state->ptr_0 = state->ptr_1;
+  state->ptr_1 = state->ptr_2;
+  state->ptr_2 = led_pattern_off;
+    
+  status_led_state_return_to_start(state);
+  status_led_state_update_trigger(state);
+
+  return;
+}
+
+static void status_led_update_func(status_led_state_t * const state, const fast_timer_t now) {
+  // early return to trigger
+  if (timer_expired_fast(now, state->trigger) == false) return;
+
+  if (*(state->ptr) == UINT8_MAX) {
+    // return to start
+    status_led_state_return_to_start(state);
+    status_led_state_update_trigger(state);
+
+    // output naxt
+    return;
+  }
+  
+  if (*(state->ptr) == UINT8_MAX - 1) {
+    // stack pop
+    state->ptr_0 = state->ptr_1;
+    state->ptr_1 = state->ptr_2;
+    state->ptr_2 = led_pattern_off;
+    
+    status_led_state_return_to_start(state);
+    status_led_state_update_trigger(state);
+
+    // output naxt
+    return;
+  }
+  
+  status_led_state_update_trigger(state);
+  
+  state->out_func(state->out_val);
+  state->out_val = !(state->out_val);
+  
+  return;
+}
+
+// 1 -> Red Left
+// 3 -> Red Right
+// 2 -> Green Left
+// 4 -> Green Right
+// re-order bit position
+void status_led(const uint8_t mask, const uint8_t * const pattern) {
+  if (pattern == NULL) return;
+  
+  const fast_timer_t now = timer_read_fast();
+  
+  //add prime pseudo rendom start
+  if (mask & 0b1000) {
+    status_led_set_func(&status_led_state_1, now + 2, pattern);
+  }
+  if (mask & 0b0100) {
+    status_led_set_func(&status_led_state_3, now + 4, pattern);
+  }
+  if (mask & 0b0010) {
+    status_led_set_func(&status_led_state_2, now + 6, pattern);
+  }
+  if (mask & 0b0001) {
+    status_led_set_func(&status_led_state_4, now + 8, pattern);
+  }
+  return;
+}
+
+void pop_status_led(const uint8_t mask) {  
+  const fast_timer_t now = timer_read_fast();
+  
+  //add prime pseudo rendom start
+  if (mask & 0b1000) {
+    status_led_pop_func(&status_led_state_1, now + 2);
+  }
+  if (mask & 0b0100) {
+    status_led_pop_func(&status_led_state_3, now + 4);
+  }
+  if (mask & 0b0010) {
+    status_led_pop_func(&status_led_state_2, now + 6);
+  }
+  if (mask & 0b0001) {
+    status_led_pop_func(&status_led_state_4, now + 8);
+  }
+  return;
+}
+
+void keyboard_post_init_status_led(void) {
+  // fill stack
+  status_led(0b1111, led_pattern_off);
+  status_led(0b1111, led_pattern_off);
+  status_led(0b1111, led_pattern_off);
+}
+
+bool process_detected_host_os_status_led(os_variant_t detected_os) {
+  switch (detected_os) {
+    case OS_MACOS:
+      status_led(0b1000, led_pattern_oneshot);
+      break;
+    case OS_IOS:
+      status_led(0b0100, led_pattern_oneshot);
+      break;
+    case OS_WINDOWS:
+      status_led(0b0010, led_pattern_oneshot);
+      break;
+    case OS_LINUX:
+      status_led(0b0001, led_pattern_oneshot);
+      break;
+    case OS_UNSURE:
+      status_led(0b1111, led_pattern_oneshot);
+      status_led(0b1111, led_pattern_oneshot);
+      status_led(0b1111, led_pattern_oneshot);
+      break;
+  }
+   
+  return true;
+}
+
+layer_state_t layer_state_set_status_led(layer_state_t state) {
+  // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
+  //if (is_launching || !keyboard_config.led_level) return state;
+  
+  uint8_t layer = get_highest_layer(state);
+  
+  switch (layer) {
+    case LAYER_Base:
+    case LAYER_Transition:
+      status_led(0b1111, led_pattern_off);
+      break;
+    case LAYER_Mouse_L:
+    case LAYER_Mouse_R:
+      // mouse indication
+      status_led(0b1000, led_pattern_on);
+      // clear scroll bit
+      status_led(0b0100, led_pattern_off);
+      break;
+    case LAYER_Number:
+    case LAYER_Cursor: 
+    case LAYER_Function:   
+	  // mouse on keep top bit
+      status_led(0b0011, led_pattern_off);
+      status_led(0b0100, led_pattern_delayed_on);
+      break;
+    case LAYER_R_thumb_1:
+    case LAYER_L_thumb_2:
+    case LAYER_R_thumb_2:
+    case LAYER_L_pinky:
+    case LAYER_R_pinky:  
+      status_led(0b1111, led_pattern_off);
+      break;
+    case LAYER_L_thumb_L_pinky:
+      status_led(0b1001, led_pattern_off);
+      status_led(0b0110, led_pattern_on);
+      break;
+    case LAYER_R_thumb_R_pinky:
+      status_led(0b1010, led_pattern_off);
+      status_led(0b0101, led_pattern_on);
+      break;
+    case LAYER_LR_pinky:
+      status_led(0b1100, led_pattern_off);
+      status_led(0b0011, led_pattern_on);
+      break;
+    case LAYER_L_thumb_R_pinky:
+    case LAYER_R_thumb_L_pinky:
+    case LAYER_LR_thumb:
+      status_led(0b1000, led_pattern_off);
+      status_led(0b0111, led_pattern_on);
+      break;
+    case LAYER_Mouse_Upper_L:
+    case LAYER_Mouse_Upper_R:
+      // mouse indication
+      status_led(0b1000, led_pattern_on);
+      // DRAG_SCROLL add on key event
+      // aim/turbo change without layer, direct write on process_record
+      break;    
+    case LAYER_Firmware:
+      status_led(0b0101, led_pattern_off);
+	  status_led(0b1010, led_pattern_on);
+      break;
+    case LAYER_Color_Palette:
+      status_led(0b0100, led_pattern_off);
+      status_led(0b1011, led_pattern_on);
+      break;
+    
+    default:
+      status_led(0b1111, led_pattern_off);
+      break;
+  }
+  
+  return state;
+}
+
+void housekeeping_task_status_led(void) {
+  const fast_timer_t now = timer_read_fast();
+
+  status_led_update_func(&status_led_state_1, now);
+  status_led_update_func(&status_led_state_3, now);
+  status_led_update_func(&status_led_state_2, now);
+  status_led_update_func(&status_led_state_4, now);
+  
+  return;
+}
