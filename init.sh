@@ -1,15 +1,17 @@
 #!/bin/bash
 
 #
+# first run one liner
 #
 # curl -fsSL https://raw.githubusercontent.com/kokeko-kokeko/voyager-custom/refs/heads/main/init.sh | bash
+#
 #
 #
 
 echo -e "\n\t---- init build env ---- "
 git clone https://github.com/kokeko-kokeko/voyager-custom.git
 
-pushd voyager-custom
+cd voyager-custom
 
 git remote add upstream https://github.com/poulainpi/oryx-with-custom-qmk.git
 git remote add zsa https://github.com/zsa/oryx-with-custom-qmk.git
@@ -52,6 +54,3 @@ popd
 git add qmk_firmware
 git commit -m "✨(qmk): Update firmware" || echo "No QMK change"
 git push
-
-popd
-
