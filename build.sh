@@ -17,8 +17,8 @@ git pull
 popd
 
 echo -e "\n\t---- sync file ---- "
-#rsync --archive --checksum --delete --open-noatime --verbose XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
-cp -r XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
+rsync --archive --checksum --delete --open-noatime --verbose XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
+#cp -r XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
 
 echo -e "\n\t---- git status ---- "
 git status
@@ -28,7 +28,7 @@ pushd qmk_firmware
 #make zsa/voyager:XYZDP
 qmk compile -kb zsa/voyager -km XYZDP
 
-rm -r keyboards/zsa/voyager/keymaps/XYZDP/
+#rm -r keyboards/zsa/voyager/keymaps/XYZDP/
 
 popd
 
