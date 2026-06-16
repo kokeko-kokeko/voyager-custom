@@ -9,7 +9,7 @@
 
 #include "addons/mouse_button_overlay.h"
 
-void set_layer_color_overlay_mouse_button(void) {
+void rgb_matrix_indicators_mouse_button_overlay(void) {
   if ((layer_state_is(LAYER_Mouse_L) || layer_state_is(LAYER_Mouse_R)) == false) return;
   
   const uint8_t f = rgb_matrix_get_val();

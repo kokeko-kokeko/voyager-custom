@@ -676,7 +676,7 @@ static void set_layer_color_mode_map(void) {
 
 static uint8_t const hue_idx_step = FADE_MATRIX_INDEX_COUNT / FADE_MATRIX_SELECT_COUNT;
 
-static void (*const set_layer_color_palette_map_array[]) (void) = {
+static void (*const rgb_matrix_indicators_fade_matrix_array[]) (void) = {
   set_layer_color_val_map,
   set_layer_color_sat_map,
   set_layer_color_hue_map,
@@ -684,14 +684,14 @@ static void (*const set_layer_color_palette_map_array[]) (void) = {
   set_layer_color_speed_map
 };
 
-#define SEL_LAYER_FUNC_COUNT (sizeof(set_layer_color_palette_map_array) / sizeof(set_layer_color_palette_map_array[0]))
+#define SEL_LAYER_FUNC_COUNT (sizeof(rgb_matrix_indicators_fade_matrix_array) / sizeof(rgb_matrix_indicators_fade_matrix_array[0]))
 _Static_assert(SEL_LAYER_FUNC_COUNT == FADE_MATRIX_SELECT_COUNT, "fade matrix select color function count missmatch!!");
 _Static_assert(SEL_LAYER_FUNC_COUNT == SEL_SET_FUNC_COUNT, "fade matrix select set & color function count missmatch!!");
 #undef SEL_LAYER_FUNC_COUNT
 #undef SEL_SET_FUNC_COUNT
 
-void set_layer_color_palette_map(void) {
-  set_layer_color_palette_map_array[plt_select]();
+void rgb_matrix_indicators_fade_matrix(void) {
+  rgb_matrix_indicators_fade_matrix_array[plt_select]();
   
   HSV hsv = rgb_matrix_get_hsv();
   hsv.h = hue_tbl[hue_idx_step * plt_select];

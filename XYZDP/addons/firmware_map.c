@@ -172,7 +172,7 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-void set_layer_color_firmware_map(void) {
+void rgb_matrix_indicators_firmware_map(void) {
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
   const uint8_t q = h >> 1;

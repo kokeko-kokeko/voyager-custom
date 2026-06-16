@@ -149,7 +149,7 @@ void housekeeping_task_ime_state_sync(void) {
   return;
 }
 
-void set_layer_color_overlay_ime_state_sync(void) {
+void rgb_matrix_indicators_ime_state_sync(void) {
   // if mouse on exit
   if (layer_state_is(LAYER_Mouse_L)) return;
   if (layer_state_is(LAYER_Mouse_R)) return;

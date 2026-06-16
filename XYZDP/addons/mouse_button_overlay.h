@@ -1,3 +1,3 @@
 #pragma once
 
-void set_layer_color_overlay_mouse_button(void);
+void rgb_matrix_indicators_mouse_button_overlay(void);

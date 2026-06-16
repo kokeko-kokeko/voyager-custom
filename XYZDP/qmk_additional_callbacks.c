@@ -126,20 +126,19 @@ bool rgb_matrix_indicators_user(void) {
   if (keyboard_config.disable_layer_led) { return false; }
   switch (get_highest_layer(layer_state)) {
     case LAYER_Firmware:
-      set_layer_color_firmware_map();
+      rgb_matrix_indicators_firmware_map();
       break;
     case LAYER_Color_Palette:
-      set_layer_color_palette_map();
+      rgb_matrix_indicators_fade_matrix();
       break;
     
     default:
       if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
         rgb_matrix_set_color_all(0, 0, 0);
       } else {
-        set_layer_color_overlay_mouse_button();
-        set_layer_color_overlay_mod();
-        set_layer_color_overlay_ime_state_sync();
-        set_layer_color_overlay_layer();
+        rgb_matrix_indicators_mouse_button_overlay();
+        rgb_matrix_indicators_layer_mod_overlay();
+        rgb_matrix_indicators_ime_state_sync();
       }
       break;
   }

@@ -9,4 +9,4 @@ bool process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record);
 void post_process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record);
 void housekeeping_task_ime_state_sync(void);
 
-void set_layer_color_overlay_ime_state_sync(void);
+void rgb_matrix_indicators_ime_state_sync(void);
