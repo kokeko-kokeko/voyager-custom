@@ -5,7 +5,6 @@
 #define AUTOMOUSE_LAYER 2
 #define AUTOMOUSE_TIMEOUT 997
 #define AUTOMOUSE_THRESHOLD -1  // must use mod automouse (disable normal path)
-
 #define RGB_MATRIX_STARTUP_SPD 60
 
 #define MOUSE_JIGGLER_MOVEMENT 1
