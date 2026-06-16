@@ -9,8 +9,9 @@
 
 #include "addons/mouse_button_overlay.h"
 
-void rgb_matrix_indicators_mouse_button_overlay(void) {
-  if ((layer_state_is(LAYER_Mouse_L) || layer_state_is(LAYER_Mouse_R)) == false) return;
+bool rgb_matrix_indicators_mouse_button_overlay(void) {
+  // if no active nothing to do, pass next
+  if ((layer_state_is(LAYER_Mouse_L) || layer_state_is(LAYER_Mouse_R)) == false) return true;
   
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
@@ -94,5 +95,8 @@ void rgb_matrix_indicators_mouse_button_overlay(void) {
     rgb_matrix_set_color(38, f, f, 0);  //6
     rgb_matrix_set_color(44, f, 0, h);  //5
   }
+
+  // overlay pass to next
+  return true;
 }
 

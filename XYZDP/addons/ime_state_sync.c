@@ -149,10 +149,10 @@ void housekeeping_task_ime_state_sync(void) {
   return;
 }
 
-void rgb_matrix_indicators_ime_state_sync(void) {
+bool rgb_matrix_indicators_ime_state_sync(void) {
   // if mouse on exit
-  if (layer_state_is(LAYER_Mouse_L)) return;
-  if (layer_state_is(LAYER_Mouse_R)) return;
+  if (layer_state_is(LAYER_Mouse_L)) return true;
+  if (layer_state_is(LAYER_Mouse_R)) return true;
   
   // IME state sync syntem state
   if (ime_on) {
@@ -204,4 +204,7 @@ void rgb_matrix_indicators_ime_state_sync(void) {
   //  rgb_matrix_set_color(26, 0, 0, 0);
   //  rgb_matrix_set_color(32, 0, 0, 0);
   //}
+
+  // overlay pass to next
+  return true;
 }

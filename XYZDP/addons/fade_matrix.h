@@ -23,5 +23,5 @@ report_mouse_t pointing_device_task_fade_matrix(report_mouse_t mouse_report);
 layer_state_t layer_state_set_fade_matrix(layer_state_t state);
 void housekeeping_task_fade_matrix(void);
 
-void rgb_matrix_indicators_fade_matrix(void);
+bool rgb_matrix_indicators_fade_matrix(void);
 

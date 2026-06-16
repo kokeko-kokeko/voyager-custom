@@ -172,7 +172,10 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   return false;
 }
 
-void rgb_matrix_indicators_firmware_map(void) {
+bool rgb_matrix_indicators_firmware_map(void) {
+  // if no active nothing to do, pass next
+  if (layer_state_is(LAYER_Firmware) == false) return true;
+
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
   const uint8_t q = h >> 1;
@@ -180,34 +183,35 @@ void rgb_matrix_indicators_firmware_map(void) {
   
   if (halt_request0 && halt_request1 && halt_request2) {
     rgb_matrix_set_color_all(0, 0, 0);
-    return;
+    // if run display terminate here
+    return false;  
   }
   
   if (halt_invoke_count == 7) {
     rgb_matrix_set_color_all(q, 0, 0);
     rgb_matrix_set_color(POSITION_Halt, 0, 0, 0);
     rgb_matrix_set_color(POSITION_Halt_Left, 0, 0, 0);
-    return;
+    return false;
   } else if (halt_invoke_count == 6) {
     rgb_matrix_set_color_all(q, o, 0);
     rgb_matrix_set_color(POSITION_Halt, 0, 0, 0);
     rgb_matrix_set_color(POSITION_Halt_Left, 0, 0, 0);
-    return;
+    return false;
   } else if (halt_invoke_count == 5) {
     rgb_matrix_set_color_all(q, q, 0);
     rgb_matrix_set_color(POSITION_Halt, 0, 0, 0);
     rgb_matrix_set_color(POSITION_Halt_Left, 0, 0, 0);
-    return;
+    return false;
   } else if (halt_invoke_count == 4) {
     rgb_matrix_set_color_all(0, q, 0);
     rgb_matrix_set_color(POSITION_Halt, 0, 0, 0);
     rgb_matrix_set_color(POSITION_Halt_Left, 0, 0, 0);
-    return;
+    return false;
   } else if (halt_invoke_count >= 1)  {
     rgb_matrix_set_color_all(0, 0, 0);
     rgb_matrix_set_color(POSITION_Halt, 0, q, 0);
     rgb_matrix_set_color(POSITION_Halt_Left, 0, q, 0);
-    return;
+    return false;
   }
 
   rgb_matrix_set_color_all(0, 0, 0);
@@ -361,6 +365,9 @@ void rgb_matrix_indicators_firmware_map(void) {
   } else {
     rgb_matrix_set_color(POSITION_Kana, q, q, q);
   }
+
+  // if run display terminate here
+  return false;
 }
 
 bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {

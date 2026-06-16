@@ -690,7 +690,10 @@ _Static_assert(SEL_LAYER_FUNC_COUNT == SEL_SET_FUNC_COUNT, "fade matrix select s
 #undef SEL_LAYER_FUNC_COUNT
 #undef SEL_SET_FUNC_COUNT
 
-void rgb_matrix_indicators_fade_matrix(void) {
+bool rgb_matrix_indicators_fade_matrix(void) {
+  // if no active nothing to do, pass next
+  if (layer_state_is(LAYER_Color_Palette) == false) return true;
+
   rgb_matrix_indicators_fade_matrix_array[plt_select]();
   
   HSV hsv = rgb_matrix_get_hsv();
@@ -704,5 +707,8 @@ void rgb_matrix_indicators_fade_matrix(void) {
   rgb_matrix_set_color(50, 0, 0, 0);
   
   rgb_matrix_set_color(51, 0, hsv.v, 0);
+
+  // if run display terminate here
+  return false;
 }
 

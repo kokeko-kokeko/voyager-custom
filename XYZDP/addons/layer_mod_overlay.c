@@ -338,7 +338,10 @@ static void set_layer_color_overlay_mod(void) {
   //}
 }
 
-void rgb_matrix_indicators_layer_mod_overlay(void) {
+bool rgb_matrix_indicators_layer_mod_overlay(void) {
   set_layer_color_overlay_mod();
   set_layer_color_overlay_layer();
+
+  // overlay pass to next
+  return true;
 }

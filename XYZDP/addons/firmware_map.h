@@ -2,7 +2,7 @@
 
 bool firmware_map_main_keyrecord(const keyrecord_t * const record);
 
-void rgb_matrix_indicators_firmware_map(void);
+bool rgb_matrix_indicators_firmware_map(void);
 
 bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record);
 
