@@ -13,7 +13,7 @@
 // use abs path
 #include "lib/lib8tion/lib8tion.h"
 
-static void set_layer_color_overlay_layer(void) {
+static void rgb_matrix_indicators_layer_overlay(void) {
   bool or_flag = false;
 
   // if mouse on exit
@@ -181,7 +181,7 @@ static void set_layer_color_overlay_layer(void) {
   //}
 }
 
-static void set_layer_color_overlay_mod(void) {
+static void rgb_matrix_indicators_mod_overlay(void) {
   // CAPS WORD inidication
   if (is_caps_word_on()) {
     rgb_matrix_set_color(0, 0, 0, 0);
@@ -339,8 +339,8 @@ static void set_layer_color_overlay_mod(void) {
 }
 
 bool rgb_matrix_indicators_layer_mod_overlay(void) {
-  set_layer_color_overlay_mod();
-  set_layer_color_overlay_layer();
+  rgb_matrix_indicators_mod_overlay();
+  rgb_matrix_indicators_layer_overlay();
 
   // overlay pass to next
   return true;
