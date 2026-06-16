@@ -47,18 +47,10 @@
 //#define OS_DETECTION_KEYBOARD_RESET
 //#define OS_DETECTION_SINGLE_REPORT
 
-//#define LAYER_LOCK_IDLE_TIMEOUT 59999
-
 #undef TAPPING_TERM
 #define TAPPING_TERM 293
 
 #define FLOW_TAP_TERM 199
-
-#undef ONESHOT_TIMEOUT
-#define ONESHOT_TIMEOUT 7993
-
-//#undef ONESHOT_TAP_TOGGLE
-//#define ONESHOT_TAP_TOGGLE 5  
 
 #undef USE_CIE1931_CURVE
 #define USE_CIE1931_CURVE
@@ -126,6 +118,8 @@
 #undef ENABLE_RGB_MATRIX_RIVERFLOW
 
 // obsolete
+
+//#define LAYER_LOCK_IDLE_TIMEOUT 59999
 
 // more short timeout, normal 100
 // on voyager/config.h  
