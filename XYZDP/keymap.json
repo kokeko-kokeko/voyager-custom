@@ -6,5 +6,12 @@
     ],
     "features": {
         "nkro": true
+    },
+    "config": {
+        "host": { 
+            "default": { 
+                "nkro": true
+            } 
+        } 
     }
 }
