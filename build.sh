@@ -8,13 +8,26 @@ pushd qmk_firmware
 git fetch --all
 git pull
 git submodule update --init --recursive
-popd
 
 echo -e "\n\t---- update zsa qmk modules ---- "
-pushd qmk_firmware/modules/zsa
+pushd modules/zsa
 git fetch --all
 git pull
+
 popd
+
+echo -e "\n\t---- commit zsa qmk modules ---- "
+git add modules/zsa
+git commit -m "✨(qmk modules): Update modules" || echo "No Modules change"
+git push
+
+popd
+
+echo -e "\n\t---- commit qmk firmware ---- "
+
+git add qmk_firmware
+git commit -m "✨(qmk): Update firmware" || echo "No QMK change"
+git push
 
 echo -e "\n\t---- sync file ---- "
 rsync --archive --checksum --delete --open-noatime --verbose XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
