@@ -16,18 +16,17 @@ git pull
 
 popd
 
-echo -e "\n\t---- commit zsa qmk modules to qmk firmware ---- "
-git add modules/zsa
-git commit -m "✨(qmk modules): Update modules" || echo "No Modules change"
-git push
+#echo -e "\n\t---- commit zsa qmk modules to qmk firmware ---- "
+#git add modules/zsa
+#git commit -m "✨(qmk modules): Update modules" || echo "No Modules change"
+#git push
 
 popd
 
-echo -e "\n\t---- commit qmk firmware to voyager-custom ---- "
-
-git add qmk_firmware
-git commit -m "✨(qmk): Update firmware" || echo "No QMK change"
-git push
+#echo -e "\n\t---- commit qmk firmware to voyager-custom ---- "
+#git add qmk_firmware
+#git commit -m "✨(qmk): Update firmware" || echo "No QMK change"
+#git push
 
 echo -e "\n\t---- sync file ---- "
 rsync --archive --checksum --delete --open-noatime --verbose XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
