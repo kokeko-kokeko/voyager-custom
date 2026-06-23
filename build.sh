@@ -1,5 +1,20 @@
 #!/bin/bash
 
+echo -e "\n\t---- check git version, if exist use win git ---- "
+declare -r old_path="$PATH"
+git --version
+
+if [ -f "/c/Program Files/Git/bin/git.exe" ]
+then
+    export PATH="/c/Program Files/Git/bin:$PATH"
+    export PATH="/c/Program Files/Git/usr/bin:$PATH"
+else
+    echo "not found Git for Windows"
+fi
+git --version
+#echo "$PATH"
+#echo "$old_path"
+
 echo -e "\n\t---- fetch user side code ---- "
 git fetch --all
 
@@ -34,6 +49,10 @@ rsync --archive --checksum --delete --open-noatime --verbose XYZDP/ qmk_firmware
 
 echo -e "\n\t---- git status ---- "
 git status
+
+echo -e "\n\t---- restore old path ---- "
+export PATH="$old_path"
+#echo "$PATH"
 
 echo -e "\n\t---- build! ---- "
 pushd qmk_firmware
