@@ -9,13 +9,13 @@ pushd qmk_firmware
 git fetch --all
 git pull
 git submodule update --init --recursive
-git diff --stat HEAD..zsa/firmware25
+git diff --stat origin/firmware25..zsa/firmware25
 
 echo -e "\n\t---- update zsa qmk modules ---- "
 pushd modules/zsa
 git fetch --all
 git pull
-git diff --stat HEAD..upstream/main
+git diff --stat origin/main..upstream/main
 
 popd
 
