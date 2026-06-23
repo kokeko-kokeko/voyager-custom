@@ -2,17 +2,20 @@
 
 echo -e "\n\t---- fetch user side code ---- "
 git fetch --all
+git diff --stat HEAD..origin/main
 
 echo -e "\n\t---- update qmk firmware ---- "
 pushd qmk_firmware
 git fetch --all
 git pull
 git submodule update --init --recursive
+git diff --stat HEAD..zsa/firmware25
 
 echo -e "\n\t---- update zsa qmk modules ---- "
 pushd modules/zsa
 git fetch --all
 git pull
+git diff --stat HEAD..upstream/main
 
 popd
 
