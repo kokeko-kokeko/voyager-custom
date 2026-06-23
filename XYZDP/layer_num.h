@@ -26,4 +26,3 @@ enum layer_num {
   LAYER_Color_Palette,
   C_LAYER_COUNT 
 };
-
