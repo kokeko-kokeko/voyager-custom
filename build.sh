@@ -35,10 +35,6 @@ rsync --archive --checksum --delete --open-noatime --verbose XYZDP/ qmk_firmware
 echo -e "\n\t---- git status ---- "
 git status
 
-echo -e "\n\t---- restore old path ---- "
-export PATH="$old_path"
-#echo "$PATH"
-
 echo -e "\n\t---- build! ---- "
 pushd qmk_firmware
 #make zsa/voyager:XYZDP
