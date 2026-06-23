@@ -6,21 +6,6 @@
 # curl -fsSL https://raw.githubusercontent.com/kokeko-kokeko/voyager-custom/refs/heads/main/init.sh | bash
 #
 
-echo -e "\n\t---- check git version, if exist use win git ---- "
-declare -r old_path="$PATH"
-git --version
-
-if [ -f "/c/Program Files/Git/bin/git.exe" ]
-then
-    export PATH="/c/Program Files/Git/bin:$PATH"
-    export PATH="/c/Program Files/Git/usr/bin:$PATH"
-else
-    echo "not found Git for Windows"
-fi
-git --version
-#echo "$PATH"
-#echo "$old_path"
-
 echo -e "\n\t---- init build env ---- "
 git clone https://github.com/kokeko-kokeko/voyager-custom.git
 
