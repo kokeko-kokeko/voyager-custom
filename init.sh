@@ -13,20 +13,25 @@ cd voyager-custom
 
 git remote add upstream https://github.com/poulainpi/oryx-with-custom-qmk.git
 git remote add zsa https://github.com/zsa/oryx-with-custom-qmk.git
-git remote set-url --push origin git@github.com:kokeko-kokeko/voyager-custom.git
+
 git remote set-url --push upstream no-push
 git remote set-url --push zsa no-push
+
+git remote set-url --push origin git@github.com:kokeko-kokeko/voyager-custom.git
 
 git fetch --all
 git submodule update --init --remote --depth=1 --no-single-branch
 
 pushd qmk_firmware
 
-git remote add upstream https://github.com/qmk/qmk_firmware.git
-git remote add zsa https://github.com/zsa/qmk_firmware.git
-git remote set-url --push origin git@github.com:kokeko-kokeko/zsa_qmk_firmware.git
+git remote add upstream https://github.com/zsa/qmk_firmware.git
+git remote add qmk https://github.com/qmk/qmk_firmware.git
+
 git remote set-url --push upstream no-push
-git remote set-url --push zsa no-push
+git remote set-url --push qmk no-push
+
+git remote set-url --push origin git@github.com:kokeko-kokeko/zsa_qmk_firmware.git
+
 
 git fetch --all
 git checkout -B firmware25 origin/firmware25
@@ -35,8 +40,10 @@ git submodule update --init --recursive
 pushd modules/zsa
 
 git remote add upstream https://github.com/zsa/qmk_modules.git
-git remote set-url --push origin git@github.com:kokeko-kokeko/zsa_qmk_modules.git
+
 git remote set-url --push upstream no-push
+
+git remote set-url --push origin git@github.com:kokeko-kokeko/zsa_qmk_modules.git
 
 git fetch --all
 git checkout -B main origin/main
