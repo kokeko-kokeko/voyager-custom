@@ -36,6 +36,11 @@ bool rgb_matrix_indicators_mouse_button_overlay(void) {
     rgb_matrix_set_color(26, 0, f, h);  //4
     rgb_matrix_set_color(27, 0, f, 0);  //2
     rgb_matrix_set_color(32, 0, 0, f);  //3
+
+    rgb_matrix_set_color(33, h, 0, 0);  //1
+    rgb_matrix_set_color(34, h, 0, 0);  //1
+    rgb_matrix_set_color(35, h, 0, 0);  //1
+    rgb_matrix_set_color(36, h, 0, 0);  //1
     rgb_matrix_set_color(38, f, 0, 0);  //1
 
     if (layer_state_is(LAYER_Number)) {
