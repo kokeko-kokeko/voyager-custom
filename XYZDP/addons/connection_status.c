@@ -21,7 +21,7 @@ static bool trackpad_flag = false;
 static bool trackball_flag = false;
 
 layer_state_t layer_state_set_connection_status(layer_state_t state) {
-    // state change overwrite status
+    // state change overwrite status LED, re-calc
     connection_update_flag = true;
 
     return state;
@@ -35,20 +35,21 @@ void housekeeping_task_connection_status(void) {
   connection_status_trigger += CONNECTION_STATUS_PROBE_DELAY;
 
   if (is_transport_connected() != right_side_flag) {
-    connection_update_flag = true;
     right_side_flag = is_transport_connected();
+    connection_update_flag = true;
   }
 
   if (trackpad_init != trackpad_flag) {
-    connection_update_flag = true;
     trackpad_flag = trackpad_init; 
+    connection_update_flag = true;
   }
   
   if (trackball_init != trackball_flag) {
-    connection_update_flag = true;
     trackball_flag = trackball_init; 
+    connection_update_flag = true;
   }
-
+  
+  // both on, both off, no error
   if (connection_update_flag) {
     // reset flag
     connection_update_flag = false;
