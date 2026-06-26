@@ -67,6 +67,9 @@ void housekeeping_task_connection_status(void) {
       status_led(0b0010, led_pattern_off);
     }
   }
+
+  // reset flag
+  connection_update_flag = false;
 }
 
 /*
