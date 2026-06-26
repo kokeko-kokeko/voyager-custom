@@ -5,6 +5,8 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
+#include "layer_num.h"
+
 #include "addons/connection_status.h"
 #include "addons/status_led.h"
 
@@ -22,7 +24,12 @@ static bool trackball_flag = false;
 
 layer_state_t layer_state_set_connection_status(layer_state_t state) {
     // state change overwrite status LED, re-calc
-    connection_update_flag = true;
+    // return to base layer update
+    uint8_t layer = get_highest_layer(state);
+
+    if (layer <= LAYER_Transition) {
+      connection_update_flag = true;
+    }
 
     return state;
 }
@@ -54,22 +61,24 @@ void housekeeping_task_connection_status(void) {
     // reset flag
     connection_update_flag = false;
     
+    // Green for Right side
     if (right_side_flag == false) {
-      status_led(0b1100, led_pattern_blink);
+      status_led(0b0011, led_pattern_blink);
     } else {
-      status_led(0b1100, led_pattern_off);  
+      status_led(0b0011, led_pattern_off);  
     }
 
+    // Red for mouse
     if (trackpad_flag != trackball_flag) {
       if (trackpad_flag == false) {
-        status_led(0b0010, led_pattern_blink);
+        status_led(0b1000, led_pattern_blink);
       }
 
       if (trackball_flag == false) {
-        status_led(0b0001, led_pattern_blink);
+        status_led(0b0100, led_pattern_blink);
       }
     } else {
-      status_led(0b0011, led_pattern_off);
+      status_led(0b1100, led_pattern_off);
     }
   }
 }
