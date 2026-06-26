@@ -27,7 +27,7 @@ static const fast_timer_t fade_matrix_dimming_delay = 8009; // fixed
 static const fast_timer_t fade_matrix_dimming_repeat_add_delay = 12; // fixed
 static fast_timer_t fade_matrix_off_delay = 30011; // valiable
 
-static const fast_timer_t fade_matrix_init_trigger = 7507; // fixed
+static const fast_timer_t fade_matrix_init_trigger = 5501; // fixed
 
 // system side rgb
 extern rgb_config_t rgb_matrix_config;
