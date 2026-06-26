@@ -10,6 +10,10 @@
 #include "addons/fade_matrix.h"
 #include "addons/status_led.h"
 
+#include "addons/sub_trackball.h"
+
+#include "navigator_trackpad_common.h"
+
 // use animation logic
 // use abs path
 #include "lib/lib8tion/lib8tion.h"
@@ -22,6 +26,8 @@ static const fast_timer_t fade_matrix_repeat_delay = 7; // use prime
 static const fast_timer_t fade_matrix_dimming_delay = 8009; // fixed
 static const fast_timer_t fade_matrix_dimming_repeat_add_delay = 12; // fixed
 static fast_timer_t fade_matrix_off_delay = 30011; // valiable
+
+static const fast_timer_t fade_matrix_init_trigger = 10007; // fixed
 
 // system side rgb
 extern rgb_config_t rgb_matrix_config;
@@ -446,27 +452,75 @@ layer_state_t layer_state_set_fade_matrix(layer_state_t state) {
 void housekeeping_task_fade_matrix(void) {
   const fast_timer_t now = timer_read_fast();
 
+  if (timer_expired_fast(now, fade_matrix_init_trigger)) {
   // connect check
-  if (is_transport_connected() == false) {
-    // connection error
-    rgb_matrix_enable_noeeprom();
-    rgb_matrix_config.mode = RGB_MATRIX_BREATHING;
-    rgb_matrix_config.hsv.h = 43;
-    rgb_matrix_config.hsv.s = 255;
+    if (is_transport_connected() == false) {
+      // connection error
+      rgb_matrix_enable_noeeprom();
+      rgb_matrix_config.mode = RGB_MATRIX_BREATHING;
+      rgb_matrix_config.hsv.h = 43;
+      rgb_matrix_config.hsv.s = 255;
 
-    if (fade_matrix_target.hsv.v < val_tbl[FADE_MATRIX_INDEX_COUNT / 2]) {
-      rgb_matrix_config.hsv.v = val_tbl[FADE_MATRIX_INDEX_COUNT / 2];
-    } else {
-      rgb_matrix_config.hsv.v = fade_matrix_target.hsv.v;
+      if (fade_matrix_target.hsv.v < val_tbl[FADE_MATRIX_INDEX_COUNT / 2]) {
+        rgb_matrix_config.hsv.v = val_tbl[FADE_MATRIX_INDEX_COUNT / 2];
+      } else {
+        rgb_matrix_config.hsv.v = fade_matrix_target.hsv.v;
+      }
+      
+      rgb_matrix_config.speed = 255;
+
+      // after connect update fast
+      activate_fade_matrix();
+
+      return;
     }
-    
-    rgb_matrix_config.speed = 255;
 
-    // after connect update fast
-    activate_fade_matrix();
+    // trackpad & trackball check
+    if (trackpad_init != trackball_init) {
+      // both connect or both disconnect, nothing do
+      if (trackpad_init == false) {
+        // trackpad connection error
+        rgb_matrix_enable_noeeprom();
+        rgb_matrix_config.mode = RGB_MATRIX_BREATHING;
+        rgb_matrix_config.hsv.h = 200;
+        rgb_matrix_config.hsv.s = 255;
 
-    return;
-  } 
+        if (fade_matrix_target.hsv.v < val_tbl[FADE_MATRIX_INDEX_COUNT / 2]) {
+          rgb_matrix_config.hsv.v = val_tbl[FADE_MATRIX_INDEX_COUNT / 2];
+        } else {
+          rgb_matrix_config.hsv.v = fade_matrix_target.hsv.v;
+        }
+      
+        rgb_matrix_config.speed = 255;
+
+        // after connect update fast
+        activate_fade_matrix();
+        
+        return;
+      }
+
+      if (trackball_init == false) {
+        // trackball connection error
+        rgb_matrix_enable_noeeprom();
+        rgb_matrix_config.mode = RGB_MATRIX_BREATHING;
+        rgb_matrix_config.hsv.h = 0;
+        rgb_matrix_config.hsv.s = 255;
+
+        if (fade_matrix_target.hsv.v < val_tbl[FADE_MATRIX_INDEX_COUNT / 2]) {
+          rgb_matrix_config.hsv.v = val_tbl[FADE_MATRIX_INDEX_COUNT / 2];
+        } else {
+          rgb_matrix_config.hsv.v = fade_matrix_target.hsv.v;
+        }
+      
+        rgb_matrix_config.speed = 255;
+
+        // after connect update fast
+        activate_fade_matrix();
+        
+        return;
+      }
+    }
+  }
 
   // timer
   if (timer_expired_fast(now, fade_tamrix_trigger) == false) return;

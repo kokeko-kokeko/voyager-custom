@@ -71,6 +71,8 @@ extern bool mouse_jiggler_is_enabled(void);
 #define AUTO_MOUSE_TIME_MOUSEKEY_BUTTON 997
 #define AUTO_MOUSE_TIME_TRACKBALL 7993
 
+extern bool           trackball_init;
+
 void keyboard_post_init_sub_trackball(void);
 void matrix_scan_sub_trackball(void);
 void post_process_record_sub_trackball(uint16_t keycode, keyrecord_t *record);

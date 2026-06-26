@@ -28,6 +28,7 @@ enum trackball_sensor_state {
 
 static uint8_t current_cpi = 0;
 static uint8_t new_cpi = NAVIGATOR_TRACKBALL_CPI;
+bool           trackball_init = false;
 
 static uint8_t tb_sensor_state = TB_S_I2C_CONF;
 static fast_timer_t tb_sensor_trigger = 0;
@@ -170,6 +171,8 @@ static void reset_trackball_state(const fast_timer_t now) {
   current_cpi = 0;
   tb_sensor_state = TB_S_I2C_CONF;
   tb_sensor_trigger = now + NAVIGATOR_TRACKBALL_PROBE;
+
+  trackball_init = false;
 
   accumulator_x = 0;
   accumulator_y = 0;
@@ -367,6 +370,8 @@ void matrix_scan_sub_trackball(void) {
 
       tb_sensor_state = TB_S_SET_CPI_ISSUE_MOTION;
       tb_sensor_trigger = now + NAVIGATOR_TRACKBALL_READ;
+
+      trackball_init = true;
       return;
     } 
     
