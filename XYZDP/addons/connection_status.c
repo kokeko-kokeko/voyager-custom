@@ -21,6 +21,7 @@ static bool trackpad_flag = false;
 static bool trackball_flag = false;
 
 layer_state_t layer_state_set_connection_status(layer_state_t state) {
+    // state change overwrite status
     connection_update_flag = true;
 
     return state;
@@ -53,21 +54,21 @@ void housekeeping_task_connection_status(void) {
     connection_update_flag = false;
     
     if (right_side_flag == false) {
-      status_led(0b1000, led_pattern_blink);
+      status_led(0b1100, led_pattern_blink);
     } else {
-      status_led(0b1000, led_pattern_off);  
+      status_led(0b1100, led_pattern_off);  
     }
 
     if (trackpad_flag != trackball_flag) {
       if (trackpad_flag == false) {
-        status_led(0b0010, led_pattern_on);
+        status_led(0b0010, led_pattern_blink);
       }
 
       if (trackball_flag == false) {
-        status_led(0b0010, led_pattern_blink);
+        status_led(0b0001, led_pattern_blink);
       }
     } else {
-      status_led(0b0010, led_pattern_off);
+      status_led(0b0011, led_pattern_off);
     }
   }
 }
