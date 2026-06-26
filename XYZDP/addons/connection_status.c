@@ -49,6 +49,9 @@ void housekeeping_task_connection_status(void) {
   }
 
   if (connection_update_flag) {
+    // reset flag
+    connection_update_flag = false;
+    
     if (right_side_flag == false) {
       status_led(0b1000, led_pattern_blink);
     } else {
@@ -67,9 +70,6 @@ void housekeeping_task_connection_status(void) {
       status_led(0b0010, led_pattern_off);
     }
   }
-
-  // reset flag
-  connection_update_flag = false;
 }
 
 /*
