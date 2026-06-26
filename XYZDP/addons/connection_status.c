@@ -5,8 +5,6 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "layer_num.h"
-
 #include "addons/connection_status.h"
 #include "addons/status_led.h"
 
@@ -15,6 +13,7 @@
 #include "navigator_trackpad_common.h"
 
 static fast_timer_t connection_status_trigger = CONNECTION_STATUS_INIT_DELAY;
+
 static bool connection_update_flag = false;
 
 static bool right_side_flag = false;
