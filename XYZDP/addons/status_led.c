@@ -178,13 +178,13 @@ void pop_status_led(const uint8_t mask) {
     status_led_pop_func(&status_led_state_1, now + 2);
   }
   if (mask & 0b0100) {
-    status_led_pop_func(&status_led_state_3, now + 4);
+    status_led_pop_func(&status_led_state_3, now + 3);
   }
   if (mask & 0b0010) {
-    status_led_pop_func(&status_led_state_2, now + 6);
+    status_led_pop_func(&status_led_state_2, now + 5);
   }
   if (mask & 0b0001) {
-    status_led_pop_func(&status_led_state_4, now + 8);
+    status_led_pop_func(&status_led_state_4, now + 7);
   }
   return;
 }
