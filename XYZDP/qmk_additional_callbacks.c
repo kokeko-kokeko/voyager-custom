@@ -6,7 +6,7 @@
 #endif
 
 // module impl
-#include "addons/connection_status.h"
+#include "addons/connection_layer_status.h"
 #include "addons/fade_matrix.h"
 #include "addons/firmware_map.h"
 #include "addons/ime_state_sync.h"
@@ -111,10 +111,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // call FwSys
   state = update_tri_layer_state(state, LAYER_Function, LAYER_L_thumb_2, LAYER_Firmware); 
 
-  state = layer_state_set_connection_status(state);
+  state = layer_state_set_connection_layer_status(state);
   state = layer_state_set_fade_matrix(state);
   state = layer_state_set_firmware_map(state);
-  state = layer_state_set_status_led(state);
 	state = layer_state_set_sub_trackball(state);
 	
   return state;
@@ -185,7 +184,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 }
 
 void housekeeping_task_user(void) {
-  housekeeping_task_connection_status();
+  housekeeping_task_connection_layer_status();
   housekeeping_task_fade_matrix();
   housekeeping_task_ime_state_sync();
   housekeeping_task_status_led();

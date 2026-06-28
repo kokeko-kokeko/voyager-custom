@@ -31,7 +31,7 @@ SWAP_HANDS_ENABLE = yes
 
 SRC += qmk_additional_callbacks.c
 
-SRC += addons/connection_status.c
+SRC += addons/connection_layer_status.c
 SRC += addons/fade_matrix.c
 SRC += addons/firmware_map.c
 SRC += addons/ime_state_sync.c
