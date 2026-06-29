@@ -130,6 +130,15 @@ bool process_detected_host_os_connection_layer_os_swap_status(os_variant_t detec
 void housekeeping_task_connection_layer_os_swap_status(void) {
   const fast_timer_t now = timer_read_fast();
 
+  // swap check every cycle
+  if (is_swap_hands_on() != swap_hands_flag) {
+    swap_hands_flag = is_swap_hands_on();
+    connection_update_flag = true;
+
+    // run next cycle
+    connection_status_trigger = now + 1;
+  }
+
   // timer
   if (timer_expired_fast(now, connection_status_trigger) == false) return;
   connection_status_trigger += CONNECTION_STATUS_PROBE_DELAY;
@@ -149,11 +158,6 @@ void housekeeping_task_connection_layer_os_swap_status(void) {
     connection_update_flag = true;
   }
 
-  if (is_swap_hands_on() != swap_hands_flag) {
-    swap_hands_flag = is_swap_hands_on();
-    connection_update_flag = true;
-  }
-  
   // both on, both off, no error
   if (connection_update_flag) {
     // reset flag
