@@ -7,7 +7,7 @@
 
 #include "layer_num.h"
 
-#include "addons/connection_layer_status.h"
+#include "addons/connection_layer_os_status.h"
 #include "addons/status_led.h"
 
 #include "addons/sub_trackball.h"
@@ -22,7 +22,7 @@ static bool right_side_flag = false;
 static bool trackpad_flag = false;
 static bool trackball_flag = false;
 
-layer_state_t layer_state_set_connection_layer_status(layer_state_t state) {
+layer_state_t layer_state_set_connection_layer_os_status(layer_state_t state) {
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   //if (is_launching || !keyboard_config.led_level) return state;
   
@@ -100,7 +100,31 @@ layer_state_t layer_state_set_connection_layer_status(layer_state_t state) {
   return state;
 }
 
-void housekeeping_task_connection_layer_status(void) {
+bool process_detected_host_os_connection_layer_os_status(os_variant_t detected_os) {
+  switch (detected_os) {
+    case OS_MACOS:
+      status_led(0b1000, led_pattern_oneshot);
+      break;
+    case OS_IOS:
+      status_led(0b0100, led_pattern_oneshot);
+      break;
+    case OS_WINDOWS:
+      status_led(0b0010, led_pattern_oneshot);
+      break;
+    case OS_LINUX:
+      status_led(0b0001, led_pattern_oneshot);
+      break;
+    case OS_UNSURE:
+      status_led(0b1111, led_pattern_oneshot);
+      status_led(0b1111, led_pattern_oneshot);
+      status_led(0b1111, led_pattern_oneshot);
+      break;
+  }
+   
+  return true;
+}
+
+void housekeeping_task_connection_layer_os_status(void) {
   const fast_timer_t now = timer_read_fast();
 
   // timer

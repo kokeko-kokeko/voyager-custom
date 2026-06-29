@@ -196,30 +196,6 @@ void keyboard_post_init_status_led(void) {
   status_led(0b1111, led_pattern_off);
 }
 
-bool process_detected_host_os_status_led(os_variant_t detected_os) {
-  switch (detected_os) {
-    case OS_MACOS:
-      status_led(0b1000, led_pattern_oneshot);
-      break;
-    case OS_IOS:
-      status_led(0b0100, led_pattern_oneshot);
-      break;
-    case OS_WINDOWS:
-      status_led(0b0010, led_pattern_oneshot);
-      break;
-    case OS_LINUX:
-      status_led(0b0001, led_pattern_oneshot);
-      break;
-    case OS_UNSURE:
-      status_led(0b1111, led_pattern_oneshot);
-      status_led(0b1111, led_pattern_oneshot);
-      status_led(0b1111, led_pattern_oneshot);
-      break;
-  }
-   
-  return true;
-}
-
 void housekeeping_task_status_led(void) {
   const fast_timer_t now = timer_read_fast();
 

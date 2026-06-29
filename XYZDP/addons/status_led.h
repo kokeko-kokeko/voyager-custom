@@ -16,5 +16,4 @@ void status_led(const uint8_t mask, const uint8_t * const pattern);
 void pop_status_led(const uint8_t mask);
 
 void keyboard_post_init_status_led(void);
-bool process_detected_host_os_status_led(os_variant_t detected_os);
 void housekeeping_task_status_led(void);
