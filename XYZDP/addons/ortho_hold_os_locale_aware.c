@@ -28,34 +28,41 @@ typedef struct hold_action {
 // check udner 32-bit
 _Static_assert(sizeof(hold_action_t) <= 4, "Hold action struct too large!!");
 
-// use KC_
+// use 8bit mod bitmask
 // KC_NO = 0x0000,
-// KC_TRANSPARENT = 0x0001,
+// MOD_BIT_LCTRL  = 0b00000001,
+// MOD_BIT_LSHIFT = 0b00000010,
+// MOD_BIT_LALT   = 0b00000100,
+// MOD_BIT_LGUI   = 0b00001000,
+// MOD_BIT_RCTRL  = 0b00010000,
+// MOD_BIT_RSHIFT = 0b00100000,
+// MOD_BIT_RALT   = 0b01000000,
+// MOD_BIT_RGUI   = 0b10000000,
 
 static hold_action_t conv_pos_to_hold_action(const uint8_t pos) {
   switch (pos) {
-    case  0: return (hold_action_t){KC_NO, 0, true, false};
+    case  0: return (hold_action_t){0, 0, true, false};
     case  1: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
     case  2: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LCTRL, 0, false, false};
     case  3: return (hold_action_t){MOD_BIT_LALT | MOD_BIT_LSHIFT, 0, false, false};
     case  4: return (hold_action_t){MOD_BIT_LALT | MOD_BIT_LCTRL, 0, false, false};
     case  5: return (hold_action_t){MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
 
-    case 31: return (hold_action_t){KC_NO, 0, true, false};
+    case 31: return (hold_action_t){0, 0, true, false};
     case 30: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0, false, false};
     case 29: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL, 0, false, false};
     case 28: return (hold_action_t){MOD_BIT_RALT | MOD_BIT_RSHIFT, 0, false, false};
     case 27: return (hold_action_t){MOD_BIT_RALT | MOD_BIT_RCTRL, 0, false, false};
     case 26: return (hold_action_t){MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0, false, false};
 
-    case  6: return (hold_action_t){KC_NO, LAYER_L_pinky, false, false};
+    case  6: return (hold_action_t){0, LAYER_L_pinky, false, false};
     case  7: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT, 0, false, false};
     case  8: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LALT, 0, false, false};
     case  9: return (hold_action_t){MOD_BIT_LSHIFT, 0, false, false};
     case 10: return (hold_action_t){MOD_BIT_LCTRL, 0, false, false};
     case 11: return (hold_action_t){MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
 
-    case 37: return (hold_action_t){KC_NO, LAYER_R_pinky, false, false};
+    case 37: return (hold_action_t){0, LAYER_R_pinky, false, false};
     case 36: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT, 0, false, false};
     case 35: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RALT, 0, false, false};
     case 34: return (hold_action_t){MOD_BIT_RSHIFT, 0, false, false};
@@ -77,21 +84,21 @@ static hold_action_t conv_pos_to_hold_action(const uint8_t pos) {
     case 38: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0, false, false};
 
     case 18: return (hold_action_t){MOD_BIT_LSHIFT, 0, false, false};
-    case 22: return (hold_action_t){KC_NO, LAYER_Number, false, false};
-    case 23: return (hold_action_t){KC_NO, 0, false, true};
+    case 22: return (hold_action_t){0, LAYER_Number, false, false};
+    case 23: return (hold_action_t){0, 0, false, true};
 
     case 49: return (hold_action_t){MOD_BIT_RSHIFT, 0, false, false};
-    case 46: return (hold_action_t){KC_NO, LAYER_R_thumb_1, false, false};    
-    case 45: return (hold_action_t){KC_NO, LAYER_Cursor, false, false};
-    case 44: return (hold_action_t){KC_NO, 0, false, true};
+    case 46: return (hold_action_t){0, LAYER_R_thumb_1, false, false};    
+    case 45: return (hold_action_t){0, LAYER_Cursor, false, false};
+    case 44: return (hold_action_t){0, 0, false, true};
 
-    case 24: return (hold_action_t){KC_NO, LAYER_Function, false, false};
-    case 25: return (hold_action_t){KC_NO, LAYER_L_thumb_2, false, false};
+    case 24: return (hold_action_t){0, LAYER_Function, false, false};
+    case 25: return (hold_action_t){0, LAYER_L_thumb_2, false, false};
 
-    case 50: return (hold_action_t){KC_NO, LAYER_R_thumb_2, false, false};
+    case 50: return (hold_action_t){0, LAYER_R_thumb_2, false, false};
   }     
   
-  return (hold_action_t){KC_NO, 0, false, false};
+  return (hold_action_t){0, 0, false, false};
 }
 
 static bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * const record) {
@@ -470,7 +477,7 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
     // tap, with raplace, terminate here
     return false;
   } else {
-    // hold, no pass to normal
+    // hold, no pass to normal, find operation quick exit
     const uint8_t pos = get_pos_from_keyrecord(record);
     hold_action_t send_hold = conv_pos_to_hold_action(pos);
     
