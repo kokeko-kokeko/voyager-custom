@@ -31,11 +31,13 @@ layer_state_t layer_state_set_connection_layer_os_status(layer_state_t state) {
   switch (layer) {
     case LAYER_Base:
     case LAYER_Transition:
-      status_led(0b1111, led_pattern_off);
+      // update on housekeeping
+      //status_led(0b1111, led_pattern_off);
 
       // state change overwrite status LED, re-calc
       // return to base layer update
       connection_update_flag = true;
+      connection_status_trigger = timer_read_fast() + 1;
       break;
     case LAYER_Mouse_L:
     case LAYER_Mouse_R:
