@@ -7,7 +7,7 @@
 
 #include "layer_num.h"
 
-#include "addons/connection_layer_os_status.h"
+#include "addons/connection_layer_os_swap_status.h"
 #include "addons/status_led.h"
 
 #include "addons/sub_trackball.h"
@@ -21,8 +21,9 @@ static bool connection_update_flag = false;
 static bool right_side_flag = false;
 static bool trackpad_flag = false;
 static bool trackball_flag = false;
+static bool swap_hands_flag = false;
 
-layer_state_t layer_state_set_connection_layer_os_status(layer_state_t state) {
+layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t state) {
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   //if (is_launching || !keyboard_config.led_level) return state;
   
@@ -102,7 +103,7 @@ layer_state_t layer_state_set_connection_layer_os_status(layer_state_t state) {
   return state;
 }
 
-bool process_detected_host_os_connection_layer_os_status(os_variant_t detected_os) {
+bool process_detected_host_os_connection_layer_os_swap_status(os_variant_t detected_os) {
   switch (detected_os) {
     case OS_MACOS:
       status_led(0b1000, led_pattern_oneshot);
@@ -126,7 +127,7 @@ bool process_detected_host_os_connection_layer_os_status(os_variant_t detected_o
   return true;
 }
 
-void housekeeping_task_connection_layer_os_status(void) {
+void housekeeping_task_connection_layer_os_swap_status(void) {
   const fast_timer_t now = timer_read_fast();
 
   // timer
@@ -145,6 +146,11 @@ void housekeeping_task_connection_layer_os_status(void) {
   
   if (trackball_init != trackball_flag) {
     trackball_flag = trackball_init; 
+    connection_update_flag = true;
+  }
+
+  if (is_swap_hands_on() != swap_hands_flag) {
+    swap_hands_flag = is_swap_hands_on();
     connection_update_flag = true;
   }
   
@@ -169,6 +175,8 @@ void housekeeping_task_connection_layer_os_status(void) {
       if (trackball_flag == false) {
         status_led(0b0100, led_pattern_blink);
       }
+    } else if (swap_hands_flag) {
+      status_led(0b1100, led_pattern_on);
     } else {
       status_led(0b1100, led_pattern_off);
     }

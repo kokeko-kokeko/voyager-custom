@@ -9,7 +9,6 @@
 
 #include "addons/fade_matrix.h"
 #include "addons/firmware_map.h"
-#include "addons/status_led.h"
 
 #include "layer_num.h"
 
@@ -496,10 +495,8 @@ static bool process_record_user_override_skel(const user_override_conf_t * const
     if (send_hold.swap_hands_flag) {
       if (record->event.pressed) {
         swap_hands_on();
-        status_led(0b1100, led_pattern_on);
       } else {
         swap_hands_off();
-        pop_status_led(0b1100);
       }
 
       return false;
