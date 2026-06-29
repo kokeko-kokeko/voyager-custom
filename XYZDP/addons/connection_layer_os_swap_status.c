@@ -14,14 +14,25 @@
 
 #include "navigator_trackpad_common.h"
 
-static fast_timer_t connection_status_trigger = CONNECTION_STATUS_INIT_DELAY;
+static fast_timer_t status_update_trigger = (UINT32_MAX / 2) - 1;
 
-static bool connection_update_flag = false;
+static bool status_update_flag = false;
 
 static bool right_side_flag = false;
 static bool trackpad_flag = false;
 static bool trackball_flag = false;
 static bool swap_hands_flag = false;
+
+void keyboard_post_init_connection_layer_os_swap_status(void) {
+  status_update_trigger = timer_read_fast() + CONNECTION_STATUS_INIT_DELAY;
+
+  status_update_flag = false;
+  
+  right_side_flag = false;
+  trackpad_flag = false;
+  trackball_flag = false;
+  swap_hands_flag = false;
+}
 
 layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t state) {
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
@@ -37,8 +48,8 @@ layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t stat
 
       // state change overwrite status LED, re-calc
       // return to base layer update
-      connection_update_flag = true;
-      connection_status_trigger = timer_read_fast() + 1;
+      status_update_trigger = timer_read_fast() + 1;
+      status_update_flag = true;
       break;
     case LAYER_Mouse_L:
     case LAYER_Mouse_R:
@@ -133,35 +144,35 @@ void housekeeping_task_connection_layer_os_swap_status(void) {
   // swap check every cycle
   if (is_swap_hands_on() != swap_hands_flag) {
     swap_hands_flag = is_swap_hands_on();
-    connection_update_flag = true;
+    status_update_flag = true;
 
     // run next cycle
-    connection_status_trigger = now + 1;
+    status_update_trigger = now + 1;
   }
 
   // timer
-  if (timer_expired_fast(now, connection_status_trigger) == false) return;
-  connection_status_trigger += CONNECTION_STATUS_PROBE_DELAY;
+  if (timer_expired_fast(now, status_update_trigger) == false) return;
+  status_update_trigger += CONNECTION_STATUS_PROBE_DELAY;
 
   if (is_transport_connected() != right_side_flag) {
     right_side_flag = is_transport_connected();
-    connection_update_flag = true;
+    status_update_flag = true;
   }
 
   if (trackpad_init != trackpad_flag) {
     trackpad_flag = trackpad_init; 
-    connection_update_flag = true;
+    status_update_flag = true;
   }
   
   if (trackball_init != trackball_flag) {
     trackball_flag = trackball_init; 
-    connection_update_flag = true;
+    status_update_flag = true;
   }
 
   // both on, both off, no error
-  if (connection_update_flag) {
+  if (status_update_flag) {
     // reset flag
-    connection_update_flag = false;
+    status_update_flag = false;
     
     // Green for Right side
     if (right_side_flag == false) {

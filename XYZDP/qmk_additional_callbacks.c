@@ -34,6 +34,7 @@ void keyboard_post_init_user(void) {
   //keymap_config.nkro = true;
 
   keyboard_post_init_addtional_power_setting();
+  keyboard_post_init_connection_layer_os_swap_status();
   keyboard_post_init_fade_matrix();
   keyboard_post_init_status_led();
 	keyboard_post_init_sub_trackball();
