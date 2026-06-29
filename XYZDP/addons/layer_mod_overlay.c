@@ -188,6 +188,12 @@ static void rgb_matrix_indicators_mod_overlay(void) {
     rgb_matrix_set_color(31, 0, 0, 0);
   }
 
+  // swap hands
+  if (is_swap_hands_on()) {
+    rgb_matrix_set_color(23, 0, 0, 0);
+    rgb_matrix_set_color(44, 0, 0, 0);
+  }
+
   // mods display
   if (get_mods() & MOD_MASK_CTRL) {
     rgb_matrix_set_color(4, 0, 0, 0);
