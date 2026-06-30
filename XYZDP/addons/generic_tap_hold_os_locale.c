@@ -448,14 +448,14 @@ static uint8_t conv_mods_pc_to_mac(uint8_t mods) {
   return mods;
 }
 
-typedef struct user_override_conf {
+typedef struct generic_tap_hold_conf {
   uint16_t (* const replace_func)(uint16_t);
   uint16_t (* const shift_func)(uint16_t);
   const uint16_t match_mods;
   const bool force_shift;
-} user_override_conf_t;
+} generic_tap_hold_conf_t;
 
-static bool process_record_user_override_skel(const user_override_conf_t * const conf, const uint16_t keycode, const keyrecord_t * const record) {
+static bool process_record_generic_tap_hold_skel(const generic_tap_hold_conf_t * const conf, const uint16_t keycode, const keyrecord_t * const record) {
   if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != conf->match_mods)) return true;
   
   // branch tap/hold first
@@ -655,8 +655,6 @@ static uint16_t shift_bracket_counter(const uint16_t keycode) {
   return keycode;
 }
 
-
-
 void jis_enable(void) {
   jis_flag = true;
 }
@@ -706,11 +704,11 @@ bool process_detected_host_os_generic_tap_hold_os_locale(os_variant_t detected_o
   return true;
 }
 
-static const user_override_conf_t hoor   = (user_override_conf_t){replace_nop, shift_nop, MOD_HOOR, false};
-static const user_override_conf_t thor1  = (user_override_conf_t){replace_base_number, shift_engram_symbol, MOD_THOR1, false};
-static const user_override_conf_t thor1s = (user_override_conf_t){replace_base_number, shift_engram_symbol, MOD_THOR1S, true};
-static const user_override_conf_t thor2  = (user_override_conf_t){replace_cursor, shift_bracket_counter, MOD_THOR2, false};
-static const user_override_conf_t thor2s = (user_override_conf_t){replace_cursor, shift_bracket_counter, MOD_THOR2S, true};
+static const generic_tap_hold_conf_t hoor   = (generic_tap_hold_conf_t){replace_nop, shift_nop, MOD_HOOR, false};
+static const generic_tap_hold_conf_t thor1  = (generic_tap_hold_conf_t){replace_base_number, shift_engram_symbol, MOD_THOR1, false};
+static const generic_tap_hold_conf_t thor1s = (generic_tap_hold_conf_t){replace_base_number, shift_engram_symbol, MOD_THOR1S, true};
+static const generic_tap_hold_conf_t thor2  = (generic_tap_hold_conf_t){replace_cursor, shift_bracket_counter, MOD_THOR2, false};
+static const generic_tap_hold_conf_t thor2s = (generic_tap_hold_conf_t){replace_cursor, shift_bracket_counter, MOD_THOR2S, true};
 
 bool process_record_generic_tap_hold_os_locale(uint16_t keycode, keyrecord_t *record) {  
   if (process_record_macro_firmware(keycode, record) == false) return false;
@@ -720,13 +718,13 @@ bool process_record_generic_tap_hold_os_locale(uint16_t keycode, keyrecord_t *re
   if (process_record_user_hold_reload(keycode, record) == false) return false;
   if (process_record_user_hold_force_reload(keycode, record) == false) return false;
 
-  if (process_record_user_override_skel(&hoor, keycode, record) == false) return false;
+  if (process_record_generic_tap_hold_skel(&hoor, keycode, record) == false) return false;
   
-  if (process_record_user_override_skel(&thor1, keycode, record) == false) return false;
-  if (process_record_user_override_skel(&thor1s, keycode, record) == false) return false;
+  if (process_record_generic_tap_hold_skel(&thor1, keycode, record) == false) return false;
+  if (process_record_generic_tap_hold_skel(&thor1s, keycode, record) == false) return false;
   
-  if (process_record_user_override_skel(&thor2, keycode, record) == false) return false;
-  if (process_record_user_override_skel(&thor2s, keycode, record) == false) return false;
+  if (process_record_generic_tap_hold_skel(&thor2, keycode, record) == false) return false;
+  if (process_record_generic_tap_hold_skel(&thor2s, keycode, record) == false) return false;
     
   return true;
 }
