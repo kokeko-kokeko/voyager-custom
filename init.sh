@@ -20,7 +20,9 @@ git remote set-url --push zsa no-push
 git remote set-url --push origin git@github.com:kokeko-kokeko/voyager-custom.git
 
 git fetch --all
-git submodule update --init --remote --depth=1 --no-single-branch
+#git submodule update --init --remote --depth=1 --no-single-branch
+git submodule update --init --remote
+
 
 pushd qmk_firmware
 
