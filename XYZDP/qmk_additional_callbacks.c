@@ -9,10 +9,10 @@
 #include "addons/connection_layer_os_swap_status.h"
 #include "addons/fade_matrix.h"
 #include "addons/firmware_map.h"
+#include "addons/generic_tap_hold_os_locale.h"
 #include "addons/ime_state_sync.h"
 #include "addons/layer_mod_overlay.h"
 #include "addons/mouse_button_overlay.h"
-#include "addons/ortho_hold_os_locale_aware.h"
 #include "addons/status_led.h"
 #include "addons/sub_trackball.h"
 
@@ -60,7 +60,7 @@ void matrix_scan_user(void) {
 bool process_detected_host_os_user(os_variant_t detected_os) {
   if (process_detected_host_os_connection_layer_os_swap_status(detected_os) == false) return false;
   if (process_detected_host_os_fade_matrix(detected_os) == false) return false;
-  if (process_detected_host_os_ortho_hold_os_locale_aware(detected_os) == false) return false;
+  if (process_detected_host_os_generic_tap_hold_os_locale(detected_os) == false) return false;
 
   return true;
 }
@@ -165,8 +165,8 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 // process_record_user in waymap.c, use _additional and insert it
 bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
   //if (process_record_fade_matrix(keycode, record) == false) return false;
+  if (process_record_generic_tap_hold_os_locale(keycode, record) == false) return false;
   if (process_record_ime_state_sync(keycode, record) == false) return false;
-  if (process_record_ortho_hold_os_locale_aware(keycode, record) == false) return false;
   
   return true;
 }

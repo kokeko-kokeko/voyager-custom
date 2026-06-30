@@ -5,7 +5,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "addons/ortho_hold_os_locale_aware.h"
+#include "addons/generic_tap_hold_os_locale.h"
 
 #include "addons/fade_matrix.h"
 #include "addons/firmware_map.h"
@@ -681,7 +681,7 @@ bool mac_is_enabled(void) {
   return mac_flag;
 }
 
-bool process_detected_host_os_ortho_hold_os_locale_aware(os_variant_t detected_os) {
+bool process_detected_host_os_generic_tap_hold_os_locale(os_variant_t detected_os) {
   switch (detected_os) {
     case OS_MACOS:
       jis_flag = true;
@@ -712,7 +712,7 @@ static const user_override_conf_t thor1s = (user_override_conf_t){replace_base_n
 static const user_override_conf_t thor2  = (user_override_conf_t){replace_cursor, shift_bracket_counter, MOD_THOR2, false};
 static const user_override_conf_t thor2s = (user_override_conf_t){replace_cursor, shift_bracket_counter, MOD_THOR2S, true};
 
-bool process_record_ortho_hold_os_locale_aware(uint16_t keycode, keyrecord_t *record) {  
+bool process_record_generic_tap_hold_os_locale(uint16_t keycode, keyrecord_t *record) {  
   if (process_record_macro_firmware(keycode, record) == false) return false;
 
   if (process_record_user_task_switch_next_prev(keycode, record) == false) return false;

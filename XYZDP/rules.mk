@@ -34,10 +34,10 @@ SRC += qmk_additional_callbacks.c
 SRC += addons/connection_layer_os_swap_status.c
 SRC += addons/fade_matrix.c
 SRC += addons/firmware_map.c
+SRC += addons/generic_tap_hold_os_locale.c
 SRC += addons/ime_state_sync.c
 SRC += addons/layer_mod_overlay.c
 SRC += addons/mouse_button_overlay.c
-SRC += addons/ortho_hold_os_locale_aware.c
 SRC += addons/status_led.c
 SRC += addons/sub_trackball.c
 

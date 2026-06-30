@@ -10,8 +10,8 @@
 #include "addons/firmware_map.h"
 
 #include "addons/fade_matrix.h"
+#include "addons/generic_tap_hold_os_locale.h"
 #include "addons/ime_state_sync.h"
-#include "addons/ortho_hold_os_locale_aware.h"
 #include "addons/status_led.h"
 
 #include "ch.h"
