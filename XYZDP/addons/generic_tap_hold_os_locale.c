@@ -18,11 +18,18 @@
 static bool jis_flag = false;
 static bool mac_flag = false;
 
+enum hold_action_operation {
+  HA_PASSTHROUGH_TAP = 0, // passthrough tap code, data not use
+  HA_MODS,                // mods key, data8 is 8bit mods mask
+  HA_LAYER,               // layer, data8 is layer number
+  HA_CAPS_WORD,           // caps word, data not use
+  HA_SWAP_HANDS           // swap hands, data not use
+};
+
 typedef struct hold_action {
-  uint8_t mods  : 8 ;
-  uint8_t layer : 5 ;
-  bool caps_word_flag : 1 ;
-  bool swap_hands_flag : 1 ;
+  uint8_t op_id;
+  uint8_t data8;
+  uint16_t data16;
 } hold_action_t;
 
 // check udner 32-bit
@@ -41,64 +48,64 @@ _Static_assert(sizeof(hold_action_t) <= 4, "Hold action struct too large!!");
 
 static hold_action_t conv_pos_to_hold_action(const uint8_t pos) {
   switch (pos) {
-    case  0: return (hold_action_t){0, 0, true, false};
-    case  1: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
-    case  2: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LCTRL, 0, false, false};
-    case  3: return (hold_action_t){MOD_BIT_LALT | MOD_BIT_LSHIFT, 0, false, false};
-    case  4: return (hold_action_t){MOD_BIT_LALT | MOD_BIT_LCTRL, 0, false, false};
-    case  5: return (hold_action_t){MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
+    case  0: return (hold_action_t){HA_CAPS_WORD, 0, 0};
+    case  1: return (hold_action_t){HA_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
+    case  2: return (hold_action_t){HA_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LCTRL, 0};
+    case  3: return (hold_action_t){HA_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
+    case  4: return (hold_action_t){HA_MODS, MOD_BIT_LALT | MOD_BIT_LCTRL, 0};
+    case  5: return (hold_action_t){HA_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
 
-    case 31: return (hold_action_t){0, 0, true, false};
-    case 30: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0, false, false};
-    case 29: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL, 0, false, false};
-    case 28: return (hold_action_t){MOD_BIT_RALT | MOD_BIT_RSHIFT, 0, false, false};
-    case 27: return (hold_action_t){MOD_BIT_RALT | MOD_BIT_RCTRL, 0, false, false};
-    case 26: return (hold_action_t){MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0, false, false};
+    case 31: return (hold_action_t){HA_CAPS_WORD, 0, 0};
+    case 30: return (hold_action_t){HA_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
+    case 29: return (hold_action_t){HA_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL, 0};
+    case 28: return (hold_action_t){HA_MODS, MOD_BIT_RALT | MOD_BIT_RSHIFT, 0};
+    case 27: return (hold_action_t){HA_MODS, MOD_BIT_RALT | MOD_BIT_RCTRL, 0};
+    case 26: return (hold_action_t){HA_MODS, MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
 
-    case  6: return (hold_action_t){0, LAYER_L_pinky, false, false};
-    case  7: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT, 0, false, false};
-    case  8: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LALT, 0, false, false};
-    case  9: return (hold_action_t){MOD_BIT_LSHIFT, 0, false, false};
-    case 10: return (hold_action_t){MOD_BIT_LCTRL, 0, false, false};
-    case 11: return (hold_action_t){MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
+    case  6: return (hold_action_t){HA_LAYER, LAYER_L_pinky, 0};
+    case  7: return (hold_action_t){HA_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
+    case  8: return (hold_action_t){HA_MODS, MOD_BIT_LGUI | MOD_BIT_LALT, 0};
+    case  9: return (hold_action_t){HA_MODS, MOD_BIT_LSHIFT, 0};
+    case 10: return (hold_action_t){HA_MODS, MOD_BIT_LCTRL, 0};
+    case 11: return (hold_action_t){HA_MODS, MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
 
-    case 37: return (hold_action_t){0, LAYER_R_pinky, false, false};
-    case 36: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT, 0, false, false};
-    case 35: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RALT, 0, false, false};
-    case 34: return (hold_action_t){MOD_BIT_RSHIFT, 0, false, false};
-    case 33: return (hold_action_t){MOD_BIT_RCTRL, 0, false, false};
-    case 32: return (hold_action_t){MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0, false, false};
+    case 37: return (hold_action_t){HA_LAYER, LAYER_R_pinky, 0};
+    case 36: return (hold_action_t){HA_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT, 0};
+    case 35: return (hold_action_t){HA_MODS, MOD_BIT_RGUI | MOD_BIT_RALT, 0};
+    case 34: return (hold_action_t){HA_MODS, MOD_BIT_RSHIFT, 0};
+    case 33: return (hold_action_t){HA_MODS, MOD_BIT_RCTRL, 0};
+    case 32: return (hold_action_t){HA_MODS, MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
 
-    case 12: return (hold_action_t){MOD_BIT_LCTRL, 0, false, false};
-    case 13: return (hold_action_t){MOD_BIT_LGUI, 0, false, false};
-    case 14: return (hold_action_t){MOD_BIT_LALT, 0, false, false};
-    case 15: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LSHIFT, 0, false, false};
-    case 16: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LCTRL, 0, false, false};
-    case 17: return (hold_action_t){MOD_BIT_LGUI | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0, false, false};
+    case 12: return (hold_action_t){HA_MODS, MOD_BIT_LCTRL, 0};
+    case 13: return (hold_action_t){HA_MODS, MOD_BIT_LGUI, 0};
+    case 14: return (hold_action_t){HA_MODS, MOD_BIT_LALT, 0};
+    case 15: return (hold_action_t){HA_MODS, MOD_BIT_LGUI | MOD_BIT_LSHIFT, 0};
+    case 16: return (hold_action_t){HA_MODS, MOD_BIT_LGUI | MOD_BIT_LCTRL, 0};
+    case 17: return (hold_action_t){HA_MODS, MOD_BIT_LGUI | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
 
-    case 43: return (hold_action_t){MOD_BIT_RCTRL, 0, false, false};
-    case 42: return (hold_action_t){MOD_BIT_RGUI, 0, false, false};
-    case 41: return (hold_action_t){MOD_BIT_RALT, 0, false, false};
-    case 40: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RSHIFT, 0, false, false};
-    case 39: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RCTRL, 0, false, false};
-    case 38: return (hold_action_t){MOD_BIT_RGUI | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0, false, false};
+    case 43: return (hold_action_t){HA_MODS, MOD_BIT_RCTRL, 0};
+    case 42: return (hold_action_t){HA_MODS, MOD_BIT_RGUI, 0};
+    case 41: return (hold_action_t){HA_MODS, MOD_BIT_RALT, 0};
+    case 40: return (hold_action_t){HA_MODS, MOD_BIT_RGUI | MOD_BIT_RSHIFT, 0};
+    case 39: return (hold_action_t){HA_MODS, MOD_BIT_RGUI | MOD_BIT_RCTRL, 0};
+    case 38: return (hold_action_t){HA_MODS, MOD_BIT_RGUI | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
 
-    case 18: return (hold_action_t){MOD_BIT_LSHIFT, 0, false, false};
-    case 22: return (hold_action_t){0, LAYER_Number, false, false};
-    case 23: return (hold_action_t){0, 0, false, true};
+    case 18: return (hold_action_t){HA_MODS, MOD_BIT_LSHIFT, 0};
+    case 22: return (hold_action_t){HA_LAYER, LAYER_Number, 0};
+    case 23: return (hold_action_t){HA_SWAP_HANDS, 0, 0};
 
-    case 49: return (hold_action_t){MOD_BIT_RSHIFT, 0, false, false};
-    case 46: return (hold_action_t){0, LAYER_R_thumb_1, false, false};    
-    case 45: return (hold_action_t){0, LAYER_Cursor, false, false};
-    case 44: return (hold_action_t){0, 0, false, true};
+    case 49: return (hold_action_t){HA_MODS, MOD_BIT_RSHIFT, 0};
+    case 46: return (hold_action_t){HA_LAYER, LAYER_R_thumb_1, 0};    
+    case 45: return (hold_action_t){HA_LAYER, LAYER_Cursor, 0};
+    case 44: return (hold_action_t){HA_SWAP_HANDS, 0, 0};
 
-    case 24: return (hold_action_t){0, LAYER_Function, false, false};
-    case 25: return (hold_action_t){0, LAYER_L_thumb_2, false, false};
+    case 24: return (hold_action_t){HA_LAYER, LAYER_Function, 0};
+    case 25: return (hold_action_t){HA_LAYER, LAYER_L_thumb_2, 0};
 
-    case 50: return (hold_action_t){0, LAYER_R_thumb_2, false, false};
+    case 50: return (hold_action_t){HA_LAYER, LAYER_R_thumb_2, 0};
   }     
   
-  return (hold_action_t){0, 0, false, false};
+  return (hold_action_t){HA_PASSTHROUGH_TAP, 0, 0};
 }
 
 static bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * const record) {
@@ -481,34 +488,31 @@ static bool process_record_generic_tap_hold_skel(const generic_tap_hold_conf_t *
     const uint8_t pos = get_pos_from_keyrecord(record);
     hold_action_t send_hold = conv_pos_to_hold_action(pos);
     
-    if (mac_flag) send_hold.mods = conv_mods_pc_to_mac(send_hold.mods);
+    if (send_hold.op_id == HA_MODS) {
+      if (mac_flag) send_hold.data8 = conv_mods_pc_to_mac(send_hold.data8);
 
-    if (send_hold.mods != 0) {
-      if (record->event.pressed) register_mods(send_hold.mods);
-      else unregister_mods(send_hold.mods);
+      if (record->event.pressed) register_mods(send_hold.data8);
+      else unregister_mods(send_hold.data8);
 
       return false;
     }
     
-    if (send_hold.layer != 0) {
-      if (record->event.pressed) layer_on(send_hold.layer);
-      else layer_off(send_hold.layer);
+    if (send_hold.op_id == HA_LAYER) {
+      if (record->event.pressed) layer_on(send_hold.data8);
+      else layer_off(send_hold.data8);
 
       return false;
     }
 
-    if (send_hold.caps_word_flag) {
+    if (send_hold.op_id == HA_CAPS_WORD) {
       if (record->event.pressed) caps_word_toggle();
 
       return false;
     }
 
-    if (send_hold.swap_hands_flag) {
-      if (record->event.pressed) {
-        swap_hands_on();
-      } else {
-        swap_hands_off();
-      }
+    if (send_hold.op_id == HA_SWAP_HANDS) {
+      if (record->event.pressed) swap_hands_on();
+      else swap_hands_off();
 
       return false;
     }
