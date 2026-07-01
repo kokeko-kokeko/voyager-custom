@@ -25,12 +25,12 @@
 // #define NAVIGATOR_TRACKPAD_ROTATION 359
 
 #undef USB_SUSPEND_WAKEUP_DELAY
-#define USB_SUSPEND_WAKEUP_DELAY 3001
+#define USB_SUSPEND_WAKEUP_DELAY 211
 
 #define USB_POLLING_INTERVAL_MS 1
 
 #undef DEBOUNCE
-#define DEBOUNCE 8
+#define DEBOUNCE 7
 
 #define NKRO_DEFAULT_ON true
 
@@ -42,8 +42,8 @@
 
 //#define MAX_DEFERRED_EXECUTORS 16
 
-// near max value
-#define OS_DETECTION_DEBOUNCE 1999
+// normal 250ms, more margin, wakeup and os detect total <1s
+#define OS_DETECTION_DEBOUNCE 701
 //#define OS_DETECTION_KEYBOARD_RESET
 //#define OS_DETECTION_SINGLE_REPORT
 
