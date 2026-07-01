@@ -2,20 +2,20 @@
 
 echo -e "\n\t---- fetch user side code ---- "
 git fetch --all
-git diff --stat HEAD..origin/main
+git --no-pager diff --stat HEAD..origin/main
 
 echo -e "\n\t---- update qmk firmware ---- "
 pushd qmk_firmware
 git fetch --all
 git pull
 git submodule update --init --recursive
-git diff --stat origin/firmware25..upstream/firmware25
+git --no-pager diff --stat origin/firmware25..upstream/firmware25
 
 echo -e "\n\t---- update zsa qmk modules ---- "
 pushd modules/zsa
 git fetch --all
 git pull
-git diff --stat origin/main..upstream/main
+git --no-pager diff --stat origin/main..upstream/main
 
 popd
 
@@ -36,7 +36,7 @@ rsync --archive --checksum --delete --open-noatime --verbose XYZDP/ qmk_firmware
 #cp -r XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
 
 echo -e "\n\t---- git status ---- "
-git status
+git --no-pager status
 
 echo -e "\n\t---- build! ---- "
 pushd qmk_firmware
