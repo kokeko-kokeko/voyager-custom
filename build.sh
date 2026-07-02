@@ -33,9 +33,9 @@ qmk compile -kb zsa/voyager -km XYZDP
 
 popd > /dev/null
 
-echo -e "\n\t---- fetch user side code, check local and remote ---- "
+echo -e "\n\t---- fetch user side code, check remote ---- "
 git fetch --all
-git --no-pager status
+#git --no-pager status
 git --no-pager diff --stat HEAD..origin/main
 
 echo -e "\n\t---- done! ---- \a"
