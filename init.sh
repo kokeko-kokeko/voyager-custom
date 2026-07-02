@@ -23,7 +23,6 @@ git fetch --all
 #git submodule update --init --remote --depth=1 --no-single-branch
 git submodule update --init --remote
 
-
 pushd qmk_firmware
 
 git remote add upstream https://github.com/zsa/qmk_firmware.git
