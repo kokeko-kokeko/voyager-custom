@@ -25,17 +25,17 @@ pushd qmk_firmware > /dev/null
 qmk compile -kb zsa/voyager -km XYZDP
 popd > /dev/null
 
-echo -e "\e[;32m---- check qmk firmware upstream update ----\e[m"
+echo -e "\e[;32m---- check qmk firmware upstream ----\e[m"
 pushd qmk_firmware > /dev/null
 git --no-pager diff --stat HEAD..upstream/firmware25 -- ':(exclude).gitmodules' ':(exclude)modules/zsa/'
 popd > /dev/null
 
-echo -e "\e[;32m---- check zsa modules upstream update ----\e[m"
+echo -e "\e[;32m---- check zsa modules upstream ----\e[m"
 pushd qmk_firmware/modules/zsa > /dev/null
 git --no-pager diff --stat HEAD..upstream/main -- ':(exclude)automouse/automouse.c'
 popd > /dev/null
 
-echo -e "\e[;32m---- check user side code remote update ----\e[m"
+echo -e "\e[;32m---- check user side code remote ----\e[m"
 #git --no-pager status
 git --no-pager diff --stat HEAD..origin/main
 
