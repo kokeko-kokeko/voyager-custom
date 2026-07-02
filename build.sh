@@ -5,13 +5,13 @@ echo -e "\n\t---- fetch update repos ---- "
 pushd qmk_firmware > /dev/null
 pushd modules/zsa > /dev/null
 
-git pull
 git fetch --all
+git pull
 
 popd > /dev/null
 
-git pull
 git fetch --all
+git pull
 git submodule update --init --recursive
 
 popd > /dev/null
