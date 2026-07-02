@@ -41,7 +41,7 @@ git --no-pager diff --stat HEAD..upstream/firmware25 -- ':(exclude).gitmodules' 
 
 popd > /dev/null
 
-echo -e "\n\t---- check user side remote update ---- "
+echo -e "\n\t---- check user side code remote update ---- "
 #git --no-pager status
 git --no-pager diff --stat HEAD..origin/main
 
