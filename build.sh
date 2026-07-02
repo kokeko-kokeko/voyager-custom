@@ -1,7 +1,6 @@
 #!/bin/bash
 
 echo -e "\n\t---- fetch update repos ---- "
-git fetch --all
 
 pushd qmk_firmware > /dev/null
 pushd modules/zsa > /dev/null
@@ -16,6 +15,8 @@ git fetch --all
 git submodule update --init --recursive
 
 popd > /dev/null
+
+git fetch --all
 
 echo -e "\n\t---- sync file to qmk_firmware keyboards folder ---- "
 rsync --archive --checksum --delete --open-noatime --verbose XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
