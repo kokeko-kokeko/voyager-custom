@@ -9,13 +9,13 @@ pushd qmk_firmware
 git fetch --all
 git pull
 git submodule update --init --recursive
-git --no-pager diff --stat origin/firmware25..upstream/firmware25
+git --no-pager diff --stat origin/firmware25..upstream/firmware25 -- ':(exclude).gitmodules' ':(exclude)modules/zsa/'
 
 echo -e "\n\t---- update zsa qmk modules ---- "
 pushd modules/zsa
 git fetch --all
 git pull
-git --no-pager diff --stat origin/main..upstream/main
+git --no-pager diff --stat origin/main..upstream/main -- ':(exclude)automouse/automouse.c' 
 
 popd
 
