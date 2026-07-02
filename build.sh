@@ -26,12 +26,10 @@ pushd qmk_firmware > /dev/null
 #make zsa/voyager:XYZDP
 qmk compile -kb zsa/voyager -km XYZDP
 
-#rm -r keyboards/zsa/voyager/keymaps/XYZDP/
-
-popd > /dev/null
+#popd > /dev/null
 
 echo -e "\n\t---- check zsa modules upstream update ---- "
-pushd qmk_firmware > /dev/null
+#pushd qmk_firmware > /dev/null
 pushd modules/zsa > /dev/null
 git --no-pager diff --stat HEAD..upstream/main -- ':(exclude)automouse/automouse.c'
 
