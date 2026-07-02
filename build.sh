@@ -1,17 +1,16 @@
 #!/bin/bash
 
-echo -e "\n\t---- fetch remote user side code ---- "
+echo -e "\n\t---- fetch update repos ---- "
 git fetch --all
 
-echo -e "\n\t---- update zsa modules ---- "
 pushd qmk_firmware > /dev/null
 pushd modules/zsa > /dev/null
+
 git fetch --all
 git pull
 
 popd > /dev/null
 
-echo -e "\n\t---- update qmk firmware ---- "
 git fetch --all
 git pull
 git submodule update --init --recursive
