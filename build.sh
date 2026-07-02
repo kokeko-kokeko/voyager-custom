@@ -24,13 +24,6 @@ popd > /dev/null
 echo -e "\n\t---- sync file to qmk_firmware keyboards folder ---- "
 rsync --archive --checksum --delete --open-noatime --verbose XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
 
-echo -e "\n\t---- fetch user side code, check remote ---- "
-git fetch --all
-git --no-pager diff --stat HEAD..origin/main
-
-echo -e "\n\t---- current git status ---- "
-git --no-pager status
-
 echo -e "\n\t---- build! ---- "
 pushd qmk_firmware > /dev/null
 #make zsa/voyager:XYZDP
@@ -39,6 +32,11 @@ qmk compile -kb zsa/voyager -km XYZDP
 #rm -r keyboards/zsa/voyager/keymaps/XYZDP/
 
 popd > /dev/null
+
+echo -e "\n\t---- fetch user side code, check local and remote ---- "
+git fetch --all
+git --no-pager status
+git --no-pager diff --stat HEAD..origin/main
 
 echo -e "\n\t---- done! ---- \a"
 
