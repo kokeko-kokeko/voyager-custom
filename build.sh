@@ -38,7 +38,7 @@ popd
 #git commit -m "✨(qmk): Update firmware" || echo "No QMK change"
 #git push
 
-echo -e "\n\t---- sync file to qmk firmware ---- "
+echo -e "\n\t---- sync file to qmk_firmware ---- "
 rsync --archive --checksum --delete --open-noatime --verbose XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
 #cp -r XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
 
