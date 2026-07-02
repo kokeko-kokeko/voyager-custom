@@ -17,7 +17,7 @@ git pull
 popd > /dev/null
 
 echo -e "\e[;32m---- sync file to qmk_firmware keyboards folder ----\e[m"
-rsync --archive --checksum --delete XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
+rsync --archive --checksum --delete --verbose XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
 
 echo -e "\e[;32m---- run build! ---- "
 pushd qmk_firmware > /dev/null
