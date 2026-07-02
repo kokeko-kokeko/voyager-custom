@@ -1,9 +1,9 @@
 #!/bin/bash
 
-echo -e "\n\t---- start build ---- "
+echo -e "\n\t---- fetch remote user side code ---- "
 git fetch --all
 
-echo -e "\n\t---- update zsa qmk modules ---- "
+echo -e "\n\t---- update zsa modules ---- "
 pushd qmk_firmware > /dev/null
 pushd modules/zsa > /dev/null
 git fetch --all
@@ -30,14 +30,14 @@ qmk compile -kb zsa/voyager -km XYZDP
 
 popd > /dev/null
 
-echo -e "\n\t---- check zsa qmk modules upstream update ---- "
+echo -e "\n\t---- check remote zsa modules upstream update ---- "
 pushd qmk_firmware > /dev/null
 pushd modules/zsa > /dev/null
 git --no-pager diff --stat origin/main..upstream/main -- ':(exclude)automouse/automouse.c' 
 
 popd > /dev/null
 
-echo -e "\n\t---- check qmk firmware upstream update ---- "
+echo -e "\n\t---- check remote qmk firmware upstream update ---- "
 git --no-pager diff --stat origin/firmware25..upstream/firmware25 -- ':(exclude).gitmodules' ':(exclude)modules/zsa/'
 
 popd > /dev/null
