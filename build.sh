@@ -33,18 +33,18 @@ popd > /dev/null
 echo -e "\n\t---- check remote zsa modules upstream update ---- "
 pushd qmk_firmware > /dev/null
 pushd modules/zsa > /dev/null
-git --no-pager diff --stat origin/main..upstream/main -- ':(exclude)automouse/automouse.c' 
+git --no-pager diff --stat origin/main..upstream/main -- ':(exclude)automouse/automouse.c' && echo "no upstream update"
 
 popd > /dev/null
 
 echo -e "\n\t---- check remote qmk firmware upstream update ---- "
-git --no-pager diff --stat origin/firmware25..upstream/firmware25 -- ':(exclude).gitmodules' ':(exclude)modules/zsa/'
+git --no-pager diff --stat origin/firmware25..upstream/firmware25 -- ':(exclude).gitmodules' ':(exclude)modules/zsa/' && echo "no upstream update"
 
 popd > /dev/null
 
 echo -e "\n\t---- check user side remote update ---- "
 #git --no-pager status
-git --no-pager diff --stat HEAD..origin/main
+git --no-pager diff --stat HEAD..origin/main && echo "no remote update"
 
 echo -e "\n\t---- done! ---- \a"
 
