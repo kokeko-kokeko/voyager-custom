@@ -6,13 +6,13 @@ git fetch --all
 pushd qmk_firmware > /dev/null
 pushd modules/zsa > /dev/null
 
-git fetch --all
 git pull
+git fetch --all
 
 popd > /dev/null
 
-git fetch --all
 git pull
+git fetch --all
 git submodule update --init --recursive
 
 popd > /dev/null
