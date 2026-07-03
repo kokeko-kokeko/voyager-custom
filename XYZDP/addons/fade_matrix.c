@@ -8,6 +8,7 @@
 #include "layer_num.h"
 
 #include "addons/fade_matrix.h"
+#include "addons/get_pos_from_keyrecord.h"
 #include "addons/status_led.h"
 
 #include "addons/sub_trackball.h"
@@ -107,22 +108,6 @@ static const uint8_t pos2idx_tbl[FADE_MATRIX_POSITION_COUNT] = {
   255, 255
 };
 
-static const uint8_t row_col2pos_tbl[MATRIX_ROWS][MATRIX_COLS] = {
-  { 255, 0,   1,   2,   3,   4,   5   },
-  { 255, 6,   7,   8,   9,   10,  11  },
-  { 255, 12,  13,  14,  15,  16,  17  },
-  { 255, 18,  19,  20,  21,  22,  255 },
-  { 255, 255, 255, 255, 23,  255, 255 },
-  { 24,  25,  255, 255, 255, 255, 255 },
-
-  { 26,  27,  28,  29,  30,  31,  255 },
-  { 32,  33,  34,  35,  36,  37,  255 },
-  { 38,  39,  40,  41,  42,  43,  255 },
-  { 255, 45,  46,  47,  48,  49,  255 },
-  { 255, 255, 44,  255, 255, 255, 255 },
-  { 255, 255, 255, 255, 255, 50,  51  }
-};
-
 // palette select
 static uint8_t plt_select = 0;
 
@@ -132,11 +117,6 @@ static void activate_fade_matrix(void) {
   fade_tamrix_trigger = now + fade_matrix_activate_delay;
   // transfer target to active, set rgb_matrix_config.enacle by api
   fade_matrix_active = fade_matrix_target.enable;
-}
-
-uint8_t get_pos_from_keyrecord(const keyrecord_t * const record) {
-  if (record == NULL) return 255;
-  return row_col2pos_tbl[record->event.key.row][record->event.key.col];
 }
 
 static void fade_matrix_load_default(void) {
