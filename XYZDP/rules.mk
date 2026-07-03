@@ -32,7 +32,7 @@ SWAP_HANDS_ENABLE = yes
 SRC += qmk_additional_callbacks.c
 
 SRC += addons/connection_layer_os_swap_status.c
-SRC += addons/fade_matrix.c
+SRC += addons/fade_matrix_voyager.c
 SRC += addons/firmware_map.c
 SRC += addons/generic_tap_hold_os_locale.c
 SRC += addons/get_pos_from_keyrecord_yoyager.c

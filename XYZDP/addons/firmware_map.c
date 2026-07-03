@@ -81,7 +81,7 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   }
 
   uint8_t pos = get_pos_from_keyrecord(record);
-  if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
+  //if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
   
   if (pos == POSITION_JIS) {
     layer_on(LAYER_Base);

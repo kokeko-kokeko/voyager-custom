@@ -19,6 +19,10 @@
 // use abs path
 #include "lib/lib8tion/lib8tion.h"
 
+#define FADE_MATRIX_POSITION_COUNT 52
+#define FADE_MATRIX_INDEX_COUNT 48
+#define FADE_MATRIX_SELECT_COUNT 5
+
 // fade color system
 static fast_timer_t fade_tamrix_trigger = (UINT32_MAX / 2) - 1;
 static const fast_timer_t fade_matrix_activate_delay = 31; // use prime
