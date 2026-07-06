@@ -2,19 +2,19 @@
 
 echo -e "\e[;32m---- update zsa modules repo ----\e[m"
 pushd qmk_firmware/modules/zsa > /dev/null
-git fetch --all --prune
+git fetch --prune --multiple upstream
 git pull
 popd > /dev/null
 
 echo -e "\e[;32m---- update qmk firmware repo ----\e[m"
 pushd qmk_firmware > /dev/null
-git fetch --all --prune
+git fetch --prune --multiple upstream qmk
 git pull
 git submodule update --init --recursive
 popd > /dev/null
 
 echo -e "\e[;32m---- fetch only user side code repo ----\e[m"
-git fetch --all --prune
+git fetch --prune --multiple upstream zsa origin
 
 echo -e "\e[;32m---- sync file to qmk_firmware keyboards folder ----\e[m"
 rsync --archive --checksum --delete --verbose --info=stats0 XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
