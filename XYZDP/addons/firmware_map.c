@@ -26,7 +26,7 @@
 enum key_position {
   POSITION_JIS = 3,
   POSITION_ANSI = 9,
-  
+
   POSITION_Mac_off = 2,
   POSITION_Mac_on = 8,
   
