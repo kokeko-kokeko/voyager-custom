@@ -24,23 +24,23 @@
 #include "addons/sub_trackball.h"
 
 enum key_position {
-  POSITION_JIS = 0,
-  POSITION_ANSI = 6,
-  POSITION_Mac_off = 1,
-  POSITION_Mac_on = 7,
+  POSITION_JIS = 3,
+  POSITION_ANSI = 9,
+  POSITION_Mac_off = 2,
+  POSITION_Mac_on = 8,
   
-  POSITION_Tran_off = 3,
-  POSITION_Tran_on = 9,
+  POSITION_Tran_off = 1,
+  POSITION_Tran_on = 7,
 
-  POSITION_ISS_on = 5,
-  POSITION_ISS_off = 11,
+  POSITION_ISS_on = 0,
+  POSITION_ISS_off = 6,
 
-  POSITION_MJ_on = 26,
-  POSITION_MJ_off = 32,
+  POSITION_MJ_on = 43,
+  POSITION_MJ_off = 49,
 
   POSITION_RST = 31,
-  POSITION_SW_RST = 43,
-  POSITION_CLEAR = 49,
+  POSITION_SW_RST = 5,
+  POSITION_CLEAR = 11,
   
   POSITION_Caps_Lock = 19,
   POSITION_Num_Lock = 44,
