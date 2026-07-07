@@ -3,13 +3,13 @@
 echo -e "\e[;32m---- update zsa modules repo ----\e[m"
 pushd qmk_firmware/modules/zsa > /dev/null
 git fetch --prune --multiple upstream
-git pull origin
+git pull --ff-only origin
 popd > /dev/null
 
 echo -e "\e[;32m---- update qmk firmware repo ----\e[m"
 pushd qmk_firmware > /dev/null
 git fetch --prune --multiple qmk upstream
-git pull origin
+git pull --ff-only origin
 git submodule update --init --recursive
 popd > /dev/null
 
