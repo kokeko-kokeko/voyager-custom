@@ -22,7 +22,7 @@ static bool mac_flag = false;
 // flexible tap hold behavior
 // calc tap-hold by qmk MT(XXX) keycode
 // following sequence
-// 1. split tap or hold first
+// 1. split tap or hold first, each independest chain
 // 2. get action from position func and exec, if nop next step
 // 3. get action from base keycode func (QK_MOD_TAP_GET_TAP_KEYCODE), if nop next step
 // 4. send base keycode
