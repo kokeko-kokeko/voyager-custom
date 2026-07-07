@@ -20,30 +20,32 @@ static bool jis_flag = false;
 static bool mac_flag = false;
 
 // flexible tap hold behavior
-// calc tap-hold calc by MT(XXX) keycode
+// calc tap-hold by qmk MT(XXX) keycode
 // following sequence
-// 1.split tap or hold
-// 2.get action from position func and exec, if nop next step
-// 3.get action from base keycode func (QK_MOD_TAP_GET_TAP_KEYCODE)
+// 1. split tap or hold first
+// 2. get action from position func and exec, if nop next step
+// 3. get action from base keycode func (QK_MOD_TAP_GET_TAP_KEYCODE), if nop next step
+// 4. send base keycode
 //
-// make universal function and add conf 
+// make universal function and make conf struct to args 
 
-enum flexible_tap_hold_operation {
-  HA_NOP = 0,             // nop command, run next command
-  HA_MODS,                // mods key, data8 is 8bit mods mask
-  HA_LAYER,               // layer, data8 is layer number
-  HA_CAPS_WORD,           // caps word, data not use
-  HA_SWAP_HANDS           // swap hands, data not use
+enum flexible_behavior_operation_identifier {
+  FB_NOP = 0,             // nop command, run next command
+  FB_MODS,                // mods key, data8 is 8bit mods mask
+  FB_LAYER,               // layer, data8 is layer number
+  FB_CAPS_WORD,           // caps word, data not use
+  FB_SWAP_HANDS,          // swap hands, data not use
+  FB_NOP_ERROR            // nop with error report (use for default) 
 };
 
-typedef struct hold_action {
+typedef struct flexible_behavior {
   uint8_t op_id;
   uint8_t data8;
   uint16_t data16;
-} hold_action_t;
+} flexible_behavior_t;
 
 // check udner 32-bit
-_Static_assert(sizeof(hold_action_t) <= 4, "Hold action struct too large!!");
+_Static_assert(sizeof(flexible_behavior_t) <= 4, "Hold action struct too large!!");
 
 // use 8bit mod bitmask
 // KC_NO = 0x0000,
@@ -56,66 +58,66 @@ _Static_assert(sizeof(hold_action_t) <= 4, "Hold action struct too large!!");
 // MOD_BIT_RALT   = 0b01000000,
 // MOD_BIT_RGUI   = 0b10000000,
 
-static hold_action_t conv_pos_to_hold_action(const uint8_t pos) {
+static flexible_behavior_t conv_pos_to_flexible_behavior(const uint8_t pos) {
   switch (pos) {
-    case  0: return (hold_action_t){HA_CAPS_WORD, 0, 0};
-    case  1: return (hold_action_t){HA_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
-    case  2: return (hold_action_t){HA_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LCTRL, 0};
-    case  3: return (hold_action_t){HA_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
-    case  4: return (hold_action_t){HA_MODS, MOD_BIT_LALT | MOD_BIT_LCTRL, 0};
-    case  5: return (hold_action_t){HA_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
+    case  0: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
+    case  1: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
+    case  2: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LCTRL, 0};
+    case  3: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
+    case  4: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LCTRL, 0};
+    case  5: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
 
-    case 31: return (hold_action_t){HA_CAPS_WORD, 0, 0};
-    case 30: return (hold_action_t){HA_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
-    case 29: return (hold_action_t){HA_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL, 0};
-    case 28: return (hold_action_t){HA_MODS, MOD_BIT_RALT | MOD_BIT_RSHIFT, 0};
-    case 27: return (hold_action_t){HA_MODS, MOD_BIT_RALT | MOD_BIT_RCTRL, 0};
-    case 26: return (hold_action_t){HA_MODS, MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
+    case 31: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
+    case 30: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
+    case 29: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL, 0};
+    case 28: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RSHIFT, 0};
+    case 27: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RCTRL, 0};
+    case 26: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
 
-    case  6: return (hold_action_t){HA_LAYER, LAYER_L_pinky, 0};
-    case  7: return (hold_action_t){HA_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
-    case  8: return (hold_action_t){HA_MODS, MOD_BIT_LGUI | MOD_BIT_LALT, 0};
-    case  9: return (hold_action_t){HA_MODS, MOD_BIT_LSHIFT, 0};
-    case 10: return (hold_action_t){HA_MODS, MOD_BIT_LCTRL, 0};
-    case 11: return (hold_action_t){HA_MODS, MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
+    case  6: return (flexible_behavior_t){FB_LAYER, LAYER_L_pinky, 0};
+    case  7: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
+    case  8: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT, 0};
+    case  9: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT, 0};
+    case 10: return (flexible_behavior_t){FB_MODS, MOD_BIT_LCTRL, 0};
+    case 11: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
 
-    case 37: return (hold_action_t){HA_LAYER, LAYER_R_pinky, 0};
-    case 36: return (hold_action_t){HA_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT, 0};
-    case 35: return (hold_action_t){HA_MODS, MOD_BIT_RGUI | MOD_BIT_RALT, 0};
-    case 34: return (hold_action_t){HA_MODS, MOD_BIT_RSHIFT, 0};
-    case 33: return (hold_action_t){HA_MODS, MOD_BIT_RCTRL, 0};
-    case 32: return (hold_action_t){HA_MODS, MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
+    case 37: return (flexible_behavior_t){FB_LAYER, LAYER_R_pinky, 0};
+    case 36: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT, 0};
+    case 35: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT, 0};
+    case 34: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT, 0};
+    case 33: return (flexible_behavior_t){FB_MODS, MOD_BIT_RCTRL, 0};
+    case 32: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
 
-    case 12: return (hold_action_t){HA_MODS, MOD_BIT_LCTRL, 0};
-    case 13: return (hold_action_t){HA_MODS, MOD_BIT_LGUI, 0};
-    case 14: return (hold_action_t){HA_MODS, MOD_BIT_LALT, 0};
-    case 15: return (hold_action_t){HA_MODS, MOD_BIT_LGUI | MOD_BIT_LSHIFT, 0};
-    case 16: return (hold_action_t){HA_MODS, MOD_BIT_LGUI | MOD_BIT_LCTRL, 0};
-    case 17: return (hold_action_t){HA_MODS, MOD_BIT_LGUI | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
+    case 12: return (flexible_behavior_t){FB_MODS, MOD_BIT_LCTRL, 0};
+    case 13: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI, 0};
+    case 14: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT, 0};
+    case 15: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LSHIFT, 0};
+    case 16: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LCTRL, 0};
+    case 17: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
 
-    case 43: return (hold_action_t){HA_MODS, MOD_BIT_RCTRL, 0};
-    case 42: return (hold_action_t){HA_MODS, MOD_BIT_RGUI, 0};
-    case 41: return (hold_action_t){HA_MODS, MOD_BIT_RALT, 0};
-    case 40: return (hold_action_t){HA_MODS, MOD_BIT_RGUI | MOD_BIT_RSHIFT, 0};
-    case 39: return (hold_action_t){HA_MODS, MOD_BIT_RGUI | MOD_BIT_RCTRL, 0};
-    case 38: return (hold_action_t){HA_MODS, MOD_BIT_RGUI | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
+    case 43: return (flexible_behavior_t){FB_MODS, MOD_BIT_RCTRL, 0};
+    case 42: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI, 0};
+    case 41: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT, 0};
+    case 40: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RSHIFT, 0};
+    case 39: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RCTRL, 0};
+    case 38: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
 
-    case 18: return (hold_action_t){HA_MODS, MOD_BIT_LSHIFT, 0};
-    case 22: return (hold_action_t){HA_LAYER, LAYER_Number, 0};
-    case 23: return (hold_action_t){HA_SWAP_HANDS, 0, 0};
+    case 18: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT, 0};
+    case 22: return (flexible_behavior_t){FB_LAYER, LAYER_Number, 0};
+    case 23: return (flexible_behavior_t){FB_SWAP_HANDS, 0, 0};
 
-    case 49: return (hold_action_t){HA_MODS, MOD_BIT_RSHIFT, 0};
-    case 46: return (hold_action_t){HA_LAYER, LAYER_R_thumb_1, 0};    
-    case 45: return (hold_action_t){HA_LAYER, LAYER_Cursor, 0};
-    case 44: return (hold_action_t){HA_SWAP_HANDS, 0, 0};
+    case 49: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT, 0};
+    case 46: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_1, 0};    
+    case 45: return (flexible_behavior_t){FB_LAYER, LAYER_Cursor, 0};
+    case 44: return (flexible_behavior_t){FB_SWAP_HANDS, 0, 0};
 
-    case 24: return (hold_action_t){HA_LAYER, LAYER_Function, 0};
-    case 25: return (hold_action_t){HA_LAYER, LAYER_L_thumb_2, 0};
+    case 24: return (flexible_behavior_t){FB_LAYER, LAYER_Function, 0};
+    case 25: return (flexible_behavior_t){FB_LAYER, LAYER_L_thumb_2, 0};
 
-    case 50: return (hold_action_t){HA_LAYER, LAYER_R_thumb_2, 0};
+    case 50: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_2, 0};
   }     
   
-  return (hold_action_t){HA_NOP, 0, 0};
+  return (flexible_behavior_t){FB_NOP, 0, 0};
 }
 
 static bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * const record) {
@@ -496,9 +498,9 @@ static bool process_record_generic_tap_hold_skel(const generic_tap_hold_conf_t *
   } else {
     // hold, no pass to normal, find operation quick exit
     const uint8_t pos = get_pos_from_keyrecord(record);
-    hold_action_t send_hold = conv_pos_to_hold_action(pos);
+    flexible_behavior_t send_hold = conv_pos_to_flexible_behavior(pos);
     
-    if (send_hold.op_id == HA_MODS) {
+    if (send_hold.op_id == FB_MODS) {
       if (mac_flag) send_hold.data8 = conv_mods_pc_to_mac(send_hold.data8);
 
       if (record->event.pressed) register_mods(send_hold.data8);
@@ -507,20 +509,20 @@ static bool process_record_generic_tap_hold_skel(const generic_tap_hold_conf_t *
       return false;
     }
     
-    if (send_hold.op_id == HA_LAYER) {
+    if (send_hold.op_id == FB_LAYER) {
       if (record->event.pressed) layer_on(send_hold.data8);
       else layer_off(send_hold.data8);
 
       return false;
     }
 
-    if (send_hold.op_id == HA_CAPS_WORD) {
+    if (send_hold.op_id == FB_CAPS_WORD) {
       if (record->event.pressed) caps_word_toggle();
 
       return false;
     }
 
-    if (send_hold.op_id == HA_SWAP_HANDS) {
+    if (send_hold.op_id == FB_SWAP_HANDS) {
       if (record->event.pressed) swap_hands_on();
       else swap_hands_off();
 
