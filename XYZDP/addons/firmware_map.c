@@ -10,7 +10,7 @@
 #include "addons/firmware_map.h"
 
 #include "addons/fade_matrix.h"
-#include "addons/flexible_tap_hold_os_locale.h"
+#include "addons/flexible_tap_hold_behavior_os_locale.h"
 #include "addons/get_pos_from_keyrecord.h"
 #include "addons/ime_state_sync.h"
 #include "addons/status_led.h"
