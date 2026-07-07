@@ -19,8 +19,17 @@
 static bool jis_flag = false;
 static bool mac_flag = false;
 
-enum hold_action_operation {
-  HA_PASSTHROUGH_TAP = 0, // passthrough tap code, data not use
+// flexible tap hold behavior
+// calc tap-hold calc by MT(XXX) keycode
+// following sequence
+// 1.split tap or hold
+// 2.get action from position func and exec, if nop next step
+// 3.get action from base keycode func (QK_MOD_TAP_GET_TAP_KEYCODE)
+//
+// make universal function and add conf 
+
+enum flexible_tap_hold_operation {
+  HA_NOP = 0,             // nop command, run next command
   HA_MODS,                // mods key, data8 is 8bit mods mask
   HA_LAYER,               // layer, data8 is layer number
   HA_CAPS_WORD,           // caps word, data not use
@@ -106,7 +115,7 @@ static hold_action_t conv_pos_to_hold_action(const uint8_t pos) {
     case 50: return (hold_action_t){HA_LAYER, LAYER_R_thumb_2, 0};
   }     
   
-  return (hold_action_t){HA_PASSTHROUGH_TAP, 0, 0};
+  return (hold_action_t){HA_NOP, 0, 0};
 }
 
 static bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * const record) {
