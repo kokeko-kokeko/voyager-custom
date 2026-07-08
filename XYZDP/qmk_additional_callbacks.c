@@ -6,6 +6,7 @@
 #endif
 
 // module impl
+#include "addons/color_palette.h"
 #include "addons/connection_layer_os_swap_status.h"
 #include "addons/fade_matrix.h"
 #include "addons/firmware_map.h"
@@ -112,6 +113,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // call FwSys
   state = update_tri_layer_state(state, LAYER_Function, LAYER_L_thumb_2, LAYER_Firmware); 
 
+  state = layer_state_set_color_palette(state);
   state = layer_state_set_connection_layer_os_swap_status(state);
   state = layer_state_set_fade_matrix(state);
   state = layer_state_set_firmware_map(state);
@@ -146,7 +148,7 @@ bool rgb_matrix_indicators_user(void) {
   //}
 
   // manual ordering
-  if (rgb_matrix_indicators_fade_matrix() == false) return false;
+  if (rgb_matrix_indicators_color_palette() == false) return false;
   if (rgb_matrix_indicators_firmware_map() == false) return false;
   if (rgb_matrix_indicators_mouse_button_overlay() == false) return false;
   if (rgb_matrix_indicators_layer_mod_overlay() == false) return false;

@@ -7,6 +7,7 @@
 
 #include "addons/flexible_tap_hold_behavior_os_locale.h"
 
+#include "addons/color_palette.h"
 #include "addons/fade_matrix.h"
 #include "addons/firmware_map.h"
 #include "addons/get_pos_from_keyrecord.h"
@@ -136,9 +137,9 @@ static bool process_record_macro_firmware(const uint16_t keycode, const keyrecor
   if (base_code == KC_H) return firmware_map_invoke_halt_keyrecord(record);
     
   // Color Palette
-  if (base_code == KC_C) return fade_matrix_color_palette_main_keyrecord(record);
+  if (base_code == KC_C) return color_palette_main_keyrecord(record);
     
-  if (base_code == KC_S) return fade_matrix_color_palette_select_keyrecord(record);
+  if (base_code == KC_S) return color_palette_select_keyrecord(record);
   if (base_code == KC_D) return false;
   if (base_code == KC_I) return false;
   
