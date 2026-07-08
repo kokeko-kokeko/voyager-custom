@@ -185,6 +185,9 @@ void pointing_device_driver_init(void) {
   new_cpi = NAVIGATOR_TRACKBALL_CPI;
 
   reset_trackball_state(now);
+
+  // boot-time status glitch patch
+  trackball_init = true;
 }
 
 // POINTING_DEVICE_DRIVER = custom
