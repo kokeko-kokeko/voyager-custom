@@ -736,11 +736,11 @@ bool process_detected_host_os_flexible_tap_hold_behavior_os_locale(os_variant_t 
   return true;
 }
 
-//                                                                       | tap                                                 | hold
-static const flexible_behavior_conf_t hoor   = (flexible_behavior_conf_t){pos_nop, keycode_pass_qmk,    shift_nop,             pos_home_row_mod, keycode_nop,         shift_nop,             MOD_HOOR, false};
-static const flexible_behavior_conf_t thor1  = (flexible_behavior_conf_t){pos_nop, keycode_base_number, shift_engram_symbol,   pos_home_row_mod, keycode_base_number, shift_engram_symbol,   MOD_THOR1, false};
+//                                                                       | tap                                                 | hold                                                        | target    | shift
+static const flexible_behavior_conf_t hoor   = (flexible_behavior_conf_t){pos_nop, keycode_pass_qmk,    shift_nop,             pos_home_row_mod, keycode_nop,         shift_nop,             MOD_HOOR,   false};
+static const flexible_behavior_conf_t thor1  = (flexible_behavior_conf_t){pos_nop, keycode_base_number, shift_engram_symbol,   pos_home_row_mod, keycode_base_number, shift_engram_symbol,   MOD_THOR1,  false};
 static const flexible_behavior_conf_t thor1s = (flexible_behavior_conf_t){pos_nop, keycode_base_number, shift_engram_symbol,   pos_home_row_mod, keycode_base_number, shift_engram_symbol,   MOD_THOR1S, true};
-static const flexible_behavior_conf_t thor2  = (flexible_behavior_conf_t){pos_nop, keycode_cursor,      shift_bracket_counter, pos_home_row_mod, keycode_cursor,      shift_bracket_counter, MOD_THOR2, false};
+static const flexible_behavior_conf_t thor2  = (flexible_behavior_conf_t){pos_nop, keycode_cursor,      shift_bracket_counter, pos_home_row_mod, keycode_cursor,      shift_bracket_counter, MOD_THOR2,  false};
 static const flexible_behavior_conf_t thor2s = (flexible_behavior_conf_t){pos_nop, keycode_cursor,      shift_bracket_counter, pos_home_row_mod, keycode_cursor,      shift_bracket_counter, MOD_THOR2S, true};
 
 bool process_record_flexible_tap_hold_behavior_os_locale(uint16_t keycode, keyrecord_t *record) {  
