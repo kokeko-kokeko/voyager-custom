@@ -19,117 +19,7 @@
 static bool jis_flag = false;
 static bool mac_flag = false;
 
-// flexible tap hold behavior
-// calc tap-hold by qmk MT(XXX) keycode
-// following sequence
-// 1. split tap or hold first, each independest chain
-// 2. get action from position func and exec, if nop next step
-// 3. get action from base keycode func (QK_MOD_TAP_GET_TAP_KEYCODE), if nop next step
-// 4. send base keycode
-//
-// make universal function and make conf struct to args 
-
-enum flexible_behavior_operation_identifier {
-  FB_NOP = 0,               // nop command, pass next step, data not use
-  FB_PASS_QMK,              // pass to qmk, terminate process return true, data not use
-  FB_KEYCODE,               // keycode, data8 is option 8bit mods mask, data16 is keycode
-  FB_KEYCODE_TAP,           // keycode tap, data8 is option 8bit mods mask, data16 is keycode
-  FB_KEYCODE_TAP_KEEP_MODS, // keycode tap keep mod, data8 is keep 8bit mods mask, data16 is keycode (for taskswitch)
-  FB_MODS,                  // only mods key, data8 is 8bit mods mask
-  FB_LAYER,                 // activate layer, data8 is layer number
-  FB_CAPS_WORD,             // caps word, data not use
-  FB_SWAP_HANDS,            // swap hands, data not use
-  FB_NOP_ERROR              // nop with error report (use on non-reach default valueS) 
-};
-
-_Static_assert(FB_NOP_ERROR <= UINT8_MAX, "too many flexible_behavior_operation_identifier!!");
-
-typedef struct flexible_behavior {
-  uint8_t op_id;
-  uint8_t data8;
-  uint16_t data16;
-} flexible_behavior_t;
-
-// check udner 32-bit
-_Static_assert(sizeof(flexible_behavior_t) <= sizeof(uint32_t), "flexible_behavior struct too large!!");
-
-// use 8bit mod bitmask
-// KC_NO = 0x0000,
-// MOD_BIT_LCTRL  = 0b00000001,
-// MOD_BIT_LSHIFT = 0b00000010,
-// MOD_BIT_LALT   = 0b00000100,
-// MOD_BIT_LGUI   = 0b00001000,
-// MOD_BIT_RCTRL  = 0b00010000,
-// MOD_BIT_RSHIFT = 0b00100000,
-// MOD_BIT_RALT   = 0b01000000,
-// MOD_BIT_RGUI   = 0b10000000,
-
-static flexible_behavior_t pos_nop(const uint8_t pos) {
-  return (flexible_behavior_t){FB_NOP, 0, 0};
-}
-
-static flexible_behavior_t pos_home_row_mod(const uint8_t pos) {
-  switch (pos) {
-    case  0: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
-    case  1: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
-    case  2: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LCTRL, 0};
-    case  3: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
-    case  4: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LCTRL, 0};
-    case  5: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
-
-    case 31: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
-    case 30: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
-    case 29: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL, 0};
-    case 28: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RSHIFT, 0};
-    case 27: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RCTRL, 0};
-    case 26: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
-
-    case  6: return (flexible_behavior_t){FB_LAYER, LAYER_L_pinky, 0};
-    case  7: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
-    case  8: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT, 0};
-    case  9: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT, 0};
-    case 10: return (flexible_behavior_t){FB_MODS, MOD_BIT_LCTRL, 0};
-    case 11: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
-
-    case 37: return (flexible_behavior_t){FB_LAYER, LAYER_R_pinky, 0};
-    case 36: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT, 0};
-    case 35: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT, 0};
-    case 34: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT, 0};
-    case 33: return (flexible_behavior_t){FB_MODS, MOD_BIT_RCTRL, 0};
-    case 32: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
-
-    case 12: return (flexible_behavior_t){FB_MODS, MOD_BIT_LCTRL, 0};
-    case 13: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI, 0};
-    case 14: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT, 0};
-    case 15: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LSHIFT, 0};
-    case 16: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LCTRL, 0};
-    case 17: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
-
-    case 43: return (flexible_behavior_t){FB_MODS, MOD_BIT_RCTRL, 0};
-    case 42: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI, 0};
-    case 41: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT, 0};
-    case 40: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RSHIFT, 0};
-    case 39: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RCTRL, 0};
-    case 38: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
-
-    case 18: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT, 0};
-    case 22: return (flexible_behavior_t){FB_LAYER, LAYER_Number, 0};
-    case 23: return (flexible_behavior_t){FB_SWAP_HANDS, 0, 0};
-
-    case 49: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT, 0};
-    case 46: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_1, 0};    
-    case 45: return (flexible_behavior_t){FB_LAYER, LAYER_Cursor, 0};
-    case 44: return (flexible_behavior_t){FB_SWAP_HANDS, 0, 0};
-
-    case 24: return (flexible_behavior_t){FB_LAYER, LAYER_Function, 0};
-    case 25: return (flexible_behavior_t){FB_LAYER, LAYER_L_thumb_2, 0};
-
-    case 50: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_2, 0};
-  }     
-  
-  return (flexible_behavior_t){FB_NOP, 0, 0};
-}
-
+// marco firmware not have common part, split 
 static bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * const record) {
   if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != MOD_MCFW)) return true;
 
@@ -255,6 +145,7 @@ static bool process_record_macro_firmware(const uint16_t keycode, const keyrecor
   return true;
 }
 
+// util, without shift command
 static void reg16_wo_shift(const uint16_t code16) {
   uint8_t seved_mods = get_mods();
   
@@ -279,6 +170,64 @@ static void tap16_wo_shift(const uint16_t code16) {
   add_mods(seved_mods);
 }
 
+// util, conv system wide 
+static uint16_t conv_kc_to_jp(const uint16_t keycode) {
+  switch (keycode) {
+    case KC_DQUO: return JP_DQUO;
+    case KC_AMPR: return JP_AMPR;
+    case KC_QUOT: return JP_QUOT;
+    case KC_LPRN: return JP_LPRN;
+    case KC_RPRN: return JP_RPRN;
+
+    case KC_MINS: return JP_MINS;
+    case KC_EQL:  return JP_EQL;
+
+    case KC_CIRC: return JP_CIRC;
+    case KC_TILD: return JP_TILD;
+
+    case KC_PIPE: return JP_PIPE;
+
+    case KC_AT:   return JP_AT;
+    case KC_GRV:  return JP_GRV;
+    
+    case KC_LBRC: return JP_LBRC;
+    case KC_LCBR: return JP_LCBR;
+    
+    case KC_RBRC: return JP_RBRC;
+    case KC_RCBR: return JP_RCBR;
+
+    case KC_SCLN: return JP_SCLN;
+    case KC_PLUS: return JP_PLUS;
+
+    case KC_COLN: return JP_COLN;
+    case KC_ASTR: return JP_ASTR;
+
+    case KC_BSLS: return JP_BSLS;
+    case KC_UNDS: return JP_UNDS;
+  }
+  
+  return keycode;
+}
+
+static uint8_t conv_mods_pc_to_mac(uint8_t mods) {
+  if ((mods & MOD_MASK_CG) == 0) return mods;
+  
+  bool l_ctrl = mods & MOD_BIT_LCTRL;
+  bool r_ctrl = mods & MOD_BIT_RCTRL;
+  bool l_gui = mods & MOD_BIT_LGUI;
+  bool r_gui = mods & MOD_BIT_RGUI;
+
+  mods &= ~MOD_MASK_CG;
+
+  if (l_ctrl) mods |= MOD_BIT_LGUI;
+  if (r_ctrl) mods |= MOD_BIT_RGUI;
+  if (l_gui) mods |= MOD_BIT_LCTRL;
+  if (r_gui) mods |= MOD_BIT_RCTRL;
+
+  return mods;
+}
+
+// non-common 
 static bool process_record_user_task_switch_next_prev(const uint16_t keycode, const keyrecord_t * const record) {
   static bool is_active = false;
   
@@ -421,63 +370,41 @@ static bool process_record_user_hold_force_reload(const uint16_t keycode, const 
   return true;
 }
 
-static uint16_t conv_kc_to_jp(const uint16_t keycode) {
-  switch (keycode) {
-    case KC_DQUO: return JP_DQUO;
-    case KC_AMPR: return JP_AMPR;
-    case KC_QUOT: return JP_QUOT;
-    case KC_LPRN: return JP_LPRN;
-    case KC_RPRN: return JP_RPRN;
+// flexible tap hold behavior
+// calc tap-hold by qmk MT(XXX) keycode
+// following sequence
+// 1. split tap or hold first, each independest chain
+// 2. get action from position func and exec, if nop next step
+// 3. get action from base keycode func (QK_MOD_TAP_GET_TAP_KEYCODE), if nop next step
+// 4. send base keycode
+//
+// make universal function and make conf struct to args 
 
-    case KC_MINS: return JP_MINS;
-    case KC_EQL:  return JP_EQL;
+enum flexible_behavior_operation_identifier {
+  FB_NOP = 0,               // nop command, pass next step, data not use
+  FB_PASS_QMK,              // pass to qmk, terminate process here return true, data not use
+  FB_KEYCODE,               // keycode, data8 is option 8bit mods mask, data16 is keycode
+  FB_KEYCODE_TAP,           // keycode tap, data8 is option 8bit mods mask, data16 is keycode
+  FB_KEYCODE_TAP_KEEP_MODS, // keycode tap keep mod, data8 is keep 8bit mods mask, data16 is keycode (for taskswitch)
+  FB_MODS,                  // only mods key, data8 is 8bit mods mask
+  FB_LAYER,                 // activate layer, data8 is layer number
+  FB_CAPS_WORD,             // caps word, data not use
+  FB_SWAP_HANDS,            // swap hands, data not use
+  FB_NOP_ERROR              // nop with error report (use on non-reach default valueS) 
+};
 
-    case KC_CIRC: return JP_CIRC;
-    case KC_TILD: return JP_TILD;
+_Static_assert(FB_NOP_ERROR <= UINT8_MAX, "too many flexible_behavior_operation_identifier!!");
 
-    case KC_PIPE: return JP_PIPE;
+typedef struct flexible_behavior {
+  uint8_t op_id;
+  uint8_t data8;
+  uint16_t data16;
+} flexible_behavior_t;
 
-    case KC_AT:   return JP_AT;
-    case KC_GRV:  return JP_GRV;
-    
-    case KC_LBRC: return JP_LBRC;
-    case KC_LCBR: return JP_LCBR;
-    
-    case KC_RBRC: return JP_RBRC;
-    case KC_RCBR: return JP_RCBR;
+// check udner 32-bit
+_Static_assert(sizeof(flexible_behavior_t) <= sizeof(uint32_t), "flexible_behavior struct too large!!");
 
-    case KC_SCLN: return JP_SCLN;
-    case KC_PLUS: return JP_PLUS;
-
-    case KC_COLN: return JP_COLN;
-    case KC_ASTR: return JP_ASTR;
-
-    case KC_BSLS: return JP_BSLS;
-    case KC_UNDS: return JP_UNDS;
-  }
-  
-  return keycode;
-}
-
-static uint8_t conv_mods_pc_to_mac(uint8_t mods) {
-  if ((mods & MOD_MASK_CG) == 0) return mods;
-  
-  bool l_ctrl = mods & MOD_BIT_LCTRL;
-  bool r_ctrl = mods & MOD_BIT_RCTRL;
-  bool l_gui = mods & MOD_BIT_LGUI;
-  bool r_gui = mods & MOD_BIT_RGUI;
-
-  mods &= ~MOD_MASK_CG;
-
-  if (l_ctrl) mods |= MOD_BIT_LGUI;
-  if (r_ctrl) mods |= MOD_BIT_RGUI;
-  if (l_gui) mods |= MOD_BIT_LCTRL;
-  if (r_gui) mods |= MOD_BIT_RCTRL;
-
-  return mods;
-}
- 
-// pos keycode shift
+// conf struct, pos keycode shift * tap hold
 
 typedef struct flexible_behavior_conf {
   flexible_behavior_t (* const tap_pos_func)(uint8_t);
@@ -565,12 +492,89 @@ static bool process_record_generic_tap_hold_skel(const flexible_behavior_conf_t 
   return false;
 }
 
-static flexible_behavior_t keycode_pass_qmk(const uint16_t keycode) {  
-  return (flexible_behavior_t){FB_PASS_QMK, 0, 0};
+// use 8bit mod bitmask
+// KC_NO = 0x0000,
+// MOD_BIT_LCTRL  = 0b00000001,
+// MOD_BIT_LSHIFT = 0b00000010,
+// MOD_BIT_LALT   = 0b00000100,
+// MOD_BIT_LGUI   = 0b00001000,
+// MOD_BIT_RCTRL  = 0b00010000,
+// MOD_BIT_RSHIFT = 0b00100000,
+// MOD_BIT_RALT   = 0b01000000,
+// MOD_BIT_RGUI   = 0b10000000,
+
+static flexible_behavior_t pos_nop(const uint8_t pos) {
+  return (flexible_behavior_t){FB_NOP, 0, 0};
+}
+
+static flexible_behavior_t pos_home_row_mod(const uint8_t pos) {
+  switch (pos) {
+    case  0: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
+    case  1: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
+    case  2: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LCTRL, 0};
+    case  3: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
+    case  4: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LCTRL, 0};
+    case  5: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
+
+    case 31: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
+    case 30: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
+    case 29: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL, 0};
+    case 28: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RSHIFT, 0};
+    case 27: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RCTRL, 0};
+    case 26: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
+
+    case  6: return (flexible_behavior_t){FB_LAYER, LAYER_L_pinky, 0};
+    case  7: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
+    case  8: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT, 0};
+    case  9: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT, 0};
+    case 10: return (flexible_behavior_t){FB_MODS, MOD_BIT_LCTRL, 0};
+    case 11: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
+
+    case 37: return (flexible_behavior_t){FB_LAYER, LAYER_R_pinky, 0};
+    case 36: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT, 0};
+    case 35: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT, 0};
+    case 34: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT, 0};
+    case 33: return (flexible_behavior_t){FB_MODS, MOD_BIT_RCTRL, 0};
+    case 32: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
+
+    case 12: return (flexible_behavior_t){FB_MODS, MOD_BIT_LCTRL, 0};
+    case 13: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI, 0};
+    case 14: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT, 0};
+    case 15: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LSHIFT, 0};
+    case 16: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LCTRL, 0};
+    case 17: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
+
+    case 43: return (flexible_behavior_t){FB_MODS, MOD_BIT_RCTRL, 0};
+    case 42: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI, 0};
+    case 41: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT, 0};
+    case 40: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RSHIFT, 0};
+    case 39: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RCTRL, 0};
+    case 38: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
+
+    case 18: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT, 0};
+    case 22: return (flexible_behavior_t){FB_LAYER, LAYER_Number, 0};
+    case 23: return (flexible_behavior_t){FB_SWAP_HANDS, 0, 0};
+
+    case 49: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT, 0};
+    case 46: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_1, 0};    
+    case 45: return (flexible_behavior_t){FB_LAYER, LAYER_Cursor, 0};
+    case 44: return (flexible_behavior_t){FB_SWAP_HANDS, 0, 0};
+
+    case 24: return (flexible_behavior_t){FB_LAYER, LAYER_Function, 0};
+    case 25: return (flexible_behavior_t){FB_LAYER, LAYER_L_thumb_2, 0};
+
+    case 50: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_2, 0};
+  }     
+  
+  return (flexible_behavior_t){FB_NOP, 0, 0};
 }
 
 static flexible_behavior_t keycode_nop(const uint16_t keycode) {  
   return (flexible_behavior_t){FB_NOP, 0, 0};
+}
+
+static flexible_behavior_t keycode_pass_qmk(const uint16_t keycode) {  
+  return (flexible_behavior_t){FB_PASS_QMK, 0, 0};
 }
 
 static uint16_t shift_nop(const uint16_t keycode) {  
@@ -686,6 +690,8 @@ static uint16_t shift_bracket_counter(const uint16_t keycode) {
   
   return keycode;
 }
+
+// public function
 
 void jis_enable(void) {
   jis_flag = true;
