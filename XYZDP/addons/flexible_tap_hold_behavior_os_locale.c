@@ -30,13 +30,19 @@ static bool mac_flag = false;
 // make universal function and make conf struct to args 
 
 enum flexible_behavior_operation_identifier {
-  FB_NOP = 0,             // nop command, run next command
-  FB_MODS,                // mods key, data8 is 8bit mods mask
-  FB_LAYER,               // layer, data8 is layer number
-  FB_CAPS_WORD,           // caps word, data not use
-  FB_SWAP_HANDS,          // swap hands, data not use
-  FB_NOP_ERROR            // nop with error report (use for default) 
+  FB_NOP = 0,               // nop command, pass next step, data not use
+  FB_PASS_QMK,              // pass to qmk, terminate process return true, data not use
+  FB_KEYCODE,               // keycode, data8 is option 8bit mods mask, data16 is keycode
+  FB_KEYCODE_TAP,           // keycode tap, data8 is option 8bit mods mask, data16 is keycode
+  FB_KEYCODE_TAP_KEEP_MODS, // keycode tap keep mod, data8 is keep 8bit mods mask, data16 is keycode (for taskswitch)
+  FB_MODS,                  // only mods key, data8 is 8bit mods mask
+  FB_LAYER,                 // activate layer, data8 is layer number
+  FB_CAPS_WORD,             // caps word, data not use
+  FB_SWAP_HANDS,            // swap hands, data not use
+  FB_NOP_ERROR              // nop with error report (use on non-reach default valueS) 
 };
+
+_Static_assert(FB_NOP_ERROR <= UINT8_MAX, "too many flexible_behavior_operation_identifier!!");
 
 typedef struct flexible_behavior {
   uint8_t op_id;
@@ -45,7 +51,7 @@ typedef struct flexible_behavior {
 } flexible_behavior_t;
 
 // check udner 32-bit
-_Static_assert(sizeof(flexible_behavior_t) <= 4, "Hold action struct too large!!");
+_Static_assert(sizeof(flexible_behavior_t) <= sizeof(uint32_t), "flexible_behavior struct too large!!");
 
 // use 8bit mod bitmask
 // KC_NO = 0x0000,
@@ -58,7 +64,11 @@ _Static_assert(sizeof(flexible_behavior_t) <= 4, "Hold action struct too large!!
 // MOD_BIT_RALT   = 0b01000000,
 // MOD_BIT_RGUI   = 0b10000000,
 
-static flexible_behavior_t conv_pos_to_flexible_behavior(const uint8_t pos) {
+static flexible_behavior_t pos_nop(const uint8_t pos) {
+  return (flexible_behavior_t){FB_NOP, 0, 0};
+}
+
+static flexible_behavior_t pos_home_row_mod(const uint8_t pos) {
   switch (pos) {
     case  0: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
     case  1: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
@@ -466,133 +476,139 @@ static uint8_t conv_mods_pc_to_mac(uint8_t mods) {
 
   return mods;
 }
+ 
+// pos keycode shift
 
-typedef struct generic_tap_hold_conf {
-  uint16_t (* const replace_func)(uint16_t);
-  uint16_t (* const shift_func)(uint16_t);
+typedef struct flexible_behavior_conf {
+  flexible_behavior_t (* const tap_pos_func)(uint8_t);
+  flexible_behavior_t (* const tap_keycode_func)(uint16_t);
+  uint16_t (* const tap_shift_func)(uint16_t);
+  flexible_behavior_t (* const hold_pos_func)(uint8_t);
+  flexible_behavior_t (* const hold_keycode_func)(uint16_t);
+  uint16_t (* const hold_shift_func)(uint16_t);
   const uint16_t match_mods;
   const bool force_shift;
-} generic_tap_hold_conf_t;
+} flexible_behavior_conf_t;
 
-static bool process_record_generic_tap_hold_skel(const generic_tap_hold_conf_t * const conf, const uint16_t keycode, const keyrecord_t * const record) {
+static bool process_record_generic_tap_hold_skel(const flexible_behavior_conf_t * const conf, const uint16_t keycode, const keyrecord_t * const record) {
   if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != conf->match_mods)) return true;
   
-  // branch tap/hold first
-  if (record->tap.count > 0) {
-    // tap
-    const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-    uint16_t send_tap = conf->replace_func(base_code);
-    
-    // tap, if no hit replace, pass to normal (send base_code)
-    if (send_tap == KC_NO) return true;
+  // tap/hold first
+  bool is_tap = (record->tap.count > 0);
 
-    // process shift & lang
-    if ((get_mods() & MOD_MASK_SHIFT) || conf->force_shift) send_tap = conf->shift_func(send_tap);
-    if (jis_flag) send_tap = conv_kc_to_jp(send_tap);
-    
-    if (record->event.pressed) reg16_wo_shift(send_tap);
-    else unreg16_wo_shift(send_tap);
-    
-    // tap, with raplace, terminate here
-    return false;
-  } else {
-    // hold, no pass to normal, find operation quick exit
-    const uint8_t pos = get_pos_from_keyrecord(record);
-    flexible_behavior_t send_hold = conv_pos_to_flexible_behavior(pos);
-    
-    if (send_hold.op_id == FB_MODS) {
-      if (mac_flag) send_hold.data8 = conv_mods_pc_to_mac(send_hold.data8);
+  const uint8_t pos = get_pos_from_keyrecord(record);
+  const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
 
-      if (record->event.pressed) register_mods(send_hold.data8);
-      else unregister_mods(send_hold.data8);
+  flexible_behavior_t behav[2];
+  behav[0] = (is_tap) ? conf->tap_pos_func(pos) : conf->hold_pos_func(pos);
+  behav[1] = (is_tap) ? conf->tap_keycode_func(base_code) : conf->hold_keycode_func(base_code);
+
+  // search behavior loop
+  for (int i = 0; i < 2; i++) {
+    if (behav[i].op_id == FB_NOP) {
+      continue;
+    }
+    
+    if (behav[i].op_id == FB_PASS_QMK) {
+      return true;
+    }
+
+    if (behav[i].op_id == FB_KEYCODE) {
+      // process shift & lang
+      if ((get_mods() & MOD_MASK_SHIFT) || conf->force_shift) {
+        behav[i].data16 = (is_tap) ? conf->tap_shift_func(behav[i].data16) : conf->hold_shift_func(behav[i].data16);
+      } 
+      
+      if (jis_flag) behav[i].data16 = conv_kc_to_jp(behav[i].data16);
+      
+      if (record->event.pressed) reg16_wo_shift(behav[i].data16);
+      else unreg16_wo_shift(behav[i].data16);
+      
+      return false;
+    }
+    
+    if (behav[i].op_id == FB_MODS) {
+      if (mac_flag) behav[i].data8 = conv_mods_pc_to_mac(behav[i].data8);
+
+      if (record->event.pressed) register_mods(behav[i].data8);
+      else unregister_mods(behav[i].data8);
 
       return false;
     }
     
-    if (send_hold.op_id == FB_LAYER) {
-      if (record->event.pressed) layer_on(send_hold.data8);
-      else layer_off(send_hold.data8);
+    if (behav[i].op_id == FB_LAYER) {
+      if (record->event.pressed) layer_on(behav[i].data8);
+      else layer_off(behav[i].data8);
 
       return false;
     }
 
-    if (send_hold.op_id == FB_CAPS_WORD) {
+    if (behav[i].op_id == FB_CAPS_WORD) {
       if (record->event.pressed) caps_word_toggle();
 
       return false;
     }
 
-    if (send_hold.op_id == FB_SWAP_HANDS) {
+    if (behav[i].op_id == FB_SWAP_HANDS) {
       if (record->event.pressed) swap_hands_on();
       else swap_hands_off();
 
       return false;
     }
-
-    const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-    uint16_t send_tap = conf->replace_func(base_code);
-
-    if (send_tap != KC_NO) {
-      // process shift & lang
-      if ((get_mods() & MOD_MASK_SHIFT) || conf->force_shift) send_tap = conf->shift_func(send_tap);
-      if (jis_flag) send_tap = conv_kc_to_jp(send_tap);
-      
-      if (record->event.pressed) reg16_wo_shift(send_tap);
-      else unreg16_wo_shift(send_tap);
-
-      return false;
-    }
-
-    if (record->event.pressed) register_code16(base_code);
-    else unregister_code16(base_code);
-        
-    // hold, must terminate here
-    return false;
   }
-  
-  return true;
+
+  // no hit behavior send base code
+  if (record->event.pressed) register_code16(base_code);
+  else unregister_code16(base_code);
+
+  // if run function must terminate here
+  return false;
 }
 
-static uint16_t replace_nop(const uint16_t keycode) {  
-  return KC_NO;
+static flexible_behavior_t keycode_pass_qmk(const uint16_t keycode) {  
+  return (flexible_behavior_t){FB_PASS_QMK, 0, 0};
+}
+
+static flexible_behavior_t keycode_nop(const uint16_t keycode) {  
+  return (flexible_behavior_t){FB_NOP, 0, 0};
 }
 
 static uint16_t shift_nop(const uint16_t keycode) {  
   return keycode;
 }
 
-static uint16_t replace_base_number(const uint16_t keycode) {
+static flexible_behavior_t keycode_base_number(const uint16_t keycode) {
   switch (keycode) {
-    case KC_A: return KC_AT;
-    case KC_B: return KC_HASH;
-    case KC_C: return KC_QUOT;
-    case KC_D: return KC_COMM;
-    case KC_E: return KC_MINS;
-    case KC_F: return KC_SLSH;
-    case KC_G: return KC_DQUO;
-    case KC_H: return KC_DOT;
-    case KC_I: return KC_QUES;
+    case KC_A: return (flexible_behavior_t){FB_KEYCODE, 0, KC_AT};
+    case KC_B: return (flexible_behavior_t){FB_KEYCODE, 0, KC_HASH};
+    case KC_C: return (flexible_behavior_t){FB_KEYCODE, 0, KC_QUOT};
+    case KC_D: return (flexible_behavior_t){FB_KEYCODE, 0, KC_COMM};
+    case KC_E: return (flexible_behavior_t){FB_KEYCODE, 0, KC_MINS};
+    case KC_F: return (flexible_behavior_t){FB_KEYCODE, 0, KC_SLSH};
+    case KC_G: return (flexible_behavior_t){FB_KEYCODE, 0, KC_DQUO};
+    case KC_H: return (flexible_behavior_t){FB_KEYCODE, 0, KC_DOT};
+    case KC_I: return (flexible_behavior_t){FB_KEYCODE, 0, KC_QUES};
 
-    case KC_L: return KC_LBRC;
-    case KC_R: return KC_RBRC;
+    case KC_L: return (flexible_behavior_t){FB_KEYCODE, 0, KC_LBRC};
+    case KC_R: return (flexible_behavior_t){FB_KEYCODE, 0, KC_RBRC};
 
-    case KC_1: return KC_1;
-    case KC_2: return KC_2;
-    case KC_3: return KC_3;
-    case KC_4: return KC_4;
-    case KC_5: return KC_5;
+    case KC_1: return (flexible_behavior_t){FB_KEYCODE, 0, KC_1};
+    case KC_2: return (flexible_behavior_t){FB_KEYCODE, 0, KC_2};
+    case KC_3: return (flexible_behavior_t){FB_KEYCODE, 0, KC_3};
+    case KC_4: return (flexible_behavior_t){FB_KEYCODE, 0, KC_4};
+    case KC_5: return (flexible_behavior_t){FB_KEYCODE, 0, KC_5};
     
-    case KC_6: return KC_6;
-    case KC_7: return KC_7;
-    case KC_8: return KC_8;
-    case KC_9: return KC_9;
-    case KC_0: return KC_0;
+    case KC_6: return (flexible_behavior_t){FB_KEYCODE, 0, KC_6};
+    case KC_7: return (flexible_behavior_t){FB_KEYCODE, 0, KC_7};
+    case KC_8: return (flexible_behavior_t){FB_KEYCODE, 0, KC_8};
+    case KC_9: return (flexible_behavior_t){FB_KEYCODE, 0, KC_9};
+    case KC_0: return (flexible_behavior_t){FB_KEYCODE, 0, KC_0};
     
-    case KC_COMM: return KC_COMM;
-    case KC_DOT:  return KC_DOT;
+    case KC_COMM: return (flexible_behavior_t){FB_KEYCODE, 0, KC_COMM};
+    case KC_DOT:  return (flexible_behavior_t){FB_KEYCODE, 0, KC_DOT};
   }
   
-  return KC_NO;
+  return (flexible_behavior_t){FB_NOP_ERROR, 0, 0};
 }
 
 static uint16_t shift_engram_symbol(const uint16_t keycode) {
@@ -629,30 +645,30 @@ static uint16_t shift_engram_symbol(const uint16_t keycode) {
   return keycode;
 }
 
-static uint16_t replace_cursor(const uint16_t keycode) {
+static flexible_behavior_t keycode_cursor(const uint16_t keycode) {
   // must use QK_ for bit position
   uint16_t sc_mod = QK_LCTL;
   if (mac_flag) sc_mod = QK_LGUI;
   
   switch (keycode) {
-    case KC_P: return sc_mod | LSFT(KC_TAB);
-    case KC_N: return sc_mod | KC_TAB;
+    case KC_P: return (flexible_behavior_t){FB_KEYCODE, 0, sc_mod | LSFT(KC_TAB)};
+    case KC_N: return (flexible_behavior_t){FB_KEYCODE, 0, sc_mod | KC_TAB};
     
-    case KC_Z: return sc_mod | KC_Z;
-    case KC_X: return sc_mod | KC_X;
-    case KC_C: return sc_mod | KC_C;
-    case KC_V: return sc_mod | KC_V;
+    case KC_Z: return (flexible_behavior_t){FB_KEYCODE, 0, sc_mod | KC_Z};
+    case KC_X: return (flexible_behavior_t){FB_KEYCODE, 0, sc_mod | KC_X};
+    case KC_C: return (flexible_behavior_t){FB_KEYCODE, 0, sc_mod | KC_C};
+    case KC_V: return (flexible_behavior_t){FB_KEYCODE, 0, sc_mod | KC_V};
     
-    case KC_1: return KC_LBRC;
-    case KC_2: return KC_LCBR;
-    case KC_3: return KC_LABK;
-    case KC_4: return KC_LPRN;
+    case KC_1: return (flexible_behavior_t){FB_KEYCODE, 0, KC_LBRC};
+    case KC_2: return (flexible_behavior_t){FB_KEYCODE, 0, KC_LCBR};
+    case KC_3: return (flexible_behavior_t){FB_KEYCODE, 0, KC_LABK};
+    case KC_4: return (flexible_behavior_t){FB_KEYCODE, 0, KC_LPRN};
 
-    case KC_5: return KC_EXLM;
-    case KC_6: return KC_QUES;
+    case KC_5: return (flexible_behavior_t){FB_KEYCODE, 0, KC_EXLM};
+    case KC_6: return (flexible_behavior_t){FB_KEYCODE, 0, KC_QUES};
   }
   
-  return KC_NO;
+  return (flexible_behavior_t){FB_NOP_ERROR, 0, 0};
 }
 
 static uint16_t shift_bracket_counter(const uint16_t keycode) {
@@ -720,11 +736,12 @@ bool process_detected_host_os_flexible_tap_hold_behavior_os_locale(os_variant_t 
   return true;
 }
 
-static const generic_tap_hold_conf_t hoor   = (generic_tap_hold_conf_t){replace_nop, shift_nop, MOD_HOOR, false};
-static const generic_tap_hold_conf_t thor1  = (generic_tap_hold_conf_t){replace_base_number, shift_engram_symbol, MOD_THOR1, false};
-static const generic_tap_hold_conf_t thor1s = (generic_tap_hold_conf_t){replace_base_number, shift_engram_symbol, MOD_THOR1S, true};
-static const generic_tap_hold_conf_t thor2  = (generic_tap_hold_conf_t){replace_cursor, shift_bracket_counter, MOD_THOR2, false};
-static const generic_tap_hold_conf_t thor2s = (generic_tap_hold_conf_t){replace_cursor, shift_bracket_counter, MOD_THOR2S, true};
+//                                                                       | tap                                                 | hold
+static const flexible_behavior_conf_t hoor   = (flexible_behavior_conf_t){pos_nop, keycode_pass_qmk,    shift_nop,             pos_home_row_mod, keycode_nop,         shift_nop,             MOD_HOOR, false};
+static const flexible_behavior_conf_t thor1  = (flexible_behavior_conf_t){pos_nop, keycode_base_number, shift_engram_symbol,   pos_home_row_mod, keycode_base_number, shift_engram_symbol,   MOD_THOR1, false};
+static const flexible_behavior_conf_t thor1s = (flexible_behavior_conf_t){pos_nop, keycode_base_number, shift_engram_symbol,   pos_home_row_mod, keycode_base_number, shift_engram_symbol,   MOD_THOR1S, true};
+static const flexible_behavior_conf_t thor2  = (flexible_behavior_conf_t){pos_nop, keycode_cursor,      shift_bracket_counter, pos_home_row_mod, keycode_cursor,      shift_bracket_counter, MOD_THOR2, false};
+static const flexible_behavior_conf_t thor2s = (flexible_behavior_conf_t){pos_nop, keycode_cursor,      shift_bracket_counter, pos_home_row_mod, keycode_cursor,      shift_bracket_counter, MOD_THOR2S, true};
 
 bool process_record_flexible_tap_hold_behavior_os_locale(uint16_t keycode, keyrecord_t *record) {  
   if (process_record_macro_firmware(keycode, record) == false) return false;
