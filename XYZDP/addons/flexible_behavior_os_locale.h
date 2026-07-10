@@ -40,8 +40,8 @@ void mac_enable(void);
 void mac_disable(void);
 bool mac_is_enabled(void);
 
-bool process_detected_host_os_flexible_tap_hold_behavior_os_locale(os_variant_t detected_os);
-bool process_record_flexible_tap_hold_behavior_os_locale(uint16_t keycode, keyrecord_t *record);
+bool process_detected_host_os_flexible_behavior_os_locale(os_variant_t detected_os);
+bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *record);
 
 // flexible tap hold behavior
 // calc tap-hold by qmk MT(XXX) keycode

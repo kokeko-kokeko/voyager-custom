@@ -5,7 +5,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "addons/flexible_tap_hold_behavior_os_locale.h"
+#include "addons/flexible_behavior_os_locale.h"
 
 #include "addons/color_palette.h"
 #include "addons/fade_matrix.h"
