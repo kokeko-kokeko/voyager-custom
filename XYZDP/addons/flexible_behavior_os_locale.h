@@ -50,9 +50,10 @@ bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *r
 // calc tap-hold by qmk MT(XXX) keycode
 // following sequence
 // 1. split tap or hold first, each independest chain
-// 2. get action from position func and exec, if nop next step
-// 3. get action from base keycode func (QK_MOD_TAP_GET_TAP_KEYCODE), if nop next step
-// 4. send base keycode
+// 2. get action from eager base keycode func (QK_MOD_TAP_GET_TAP_KEYCODE), if nop next step
+// 3. get action from position func and exec, if nop next step
+// 4. get action from defer base keycode func (QK_MOD_TAP_GET_TAP_KEYCODE), if nop next step
+// 5. send base keycode
 //
 // make universal function and make conf struct to args 
 
