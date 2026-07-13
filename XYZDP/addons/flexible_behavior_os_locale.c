@@ -552,6 +552,7 @@ bool process_detected_host_os_flexible_behavior_os_locale(os_variant_t detected_
 }
 
 //                                                                            | tap                                                                                  | hold                                                                                       | target   | shift
+//                                                                            | eager_base              | pos           | defer_base          | shift                | eager_base              | pos             | defer_base              | shift                |          |
 static const flexible_behavior_conf_t conf_ptmh  = (flexible_behavior_conf_t){base_code_pass_qmk,       pos_term_error, base_code_term_error, shift_nop,             base_code_nop,            pos_home_row_mod, base_code_send_base_code, shift_nop,             MOD_PTMH,  false};
 static const flexible_behavior_conf_t conf_ensn  = (flexible_behavior_conf_t){base_code_engram_sym_num, pos_term_error, base_code_term_error, shift_engram_sym_num,  base_code_nop,            pos_home_row_mod, base_code_engram_sym_num, shift_engram_sym_num,  MOD_ENSN,  false};
 static const flexible_behavior_conf_t conf_ensns = (flexible_behavior_conf_t){base_code_engram_sym_num, pos_term_error, base_code_term_error, shift_engram_sym_num,  base_code_browser_back,   pos_home_row_mod, base_code_engram_sym_num, shift_engram_sym_num,  MOD_ENSNS, true};
