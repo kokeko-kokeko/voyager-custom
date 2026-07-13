@@ -288,6 +288,7 @@ static bool process_record_generic_tap_hold_skel(const flexible_behavior_conf_t 
     }
 
     if (behav[i].op_id == FB_NOP_ERROR) {
+      // add error flag
       flexible_behavior_error_flag = true;
       continue;
     }
@@ -304,14 +305,36 @@ static bool process_record_generic_tap_hold_skel(const flexible_behavior_conf_t 
       
       if (flexible_behavior_jis_flag) behav[i].data_u16 = conv_kc_to_jp(behav[i].data_u16);
       
-      if (record->event.pressed) reg16_wo_shift(behav[i].data_u16);
-      else unreg16_wo_shift(behav[i].data_u16);
+      // process opition mod
+      if (flexible_behavior_mac_flag) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
+
+      if (record->event.pressed) {
+        add_mods(behav[i].data_u8);
+        reg16_wo_shift(behav[i].data_u16);
+      } else {
+        del_mods(behav[i].data_u8);
+        unreg16_wo_shift(behav[i].data_u16);
+      }
       
       return false;
     }
 
     if (behav[i].op_id == FB_KEYCODE_TAP) {
-      // stub
+      // process shift & lang
+      if ((get_mods() & MOD_MASK_SHIFT) || conf->force_shift) {
+        behav[i].data_u16 = (is_tap) ? conf->tap_shift_func(behav[i].data_u16) : conf->hold_shift_func(behav[i].data_u16);
+      } 
+      
+      if (flexible_behavior_jis_flag) behav[i].data_u16 = conv_kc_to_jp(behav[i].data_u16);
+      
+      // process opition mod
+      if (flexible_behavior_mac_flag) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
+
+      if (record->event.pressed) {
+        add_mods(behav[i].data_u8);
+        tap16_wo_shift(behav[i].data_u16);
+        unregister_mods(behav[i].data_u8);
+      }
 
       return false;
     }
@@ -322,6 +345,7 @@ static bool process_record_generic_tap_hold_skel(const flexible_behavior_conf_t 
       return false;
     }
     if (behav[i].op_id == FB_MODS) {
+      // process mod
       if (flexible_behavior_mac_flag) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
 
       if (record->event.pressed) register_mods(behav[i].data_u8);
