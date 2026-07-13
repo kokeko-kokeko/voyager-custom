@@ -25,6 +25,7 @@ _Static_assert(sizeof(flexible_behavior_t) <= sizeof(uint32_t), "flexible_behavi
 
 bool flexible_behavior_jis_flag = false;
 bool flexible_behavior_mac_flag = false;
+bool flexible_behavior_error_flag = false;
 
 // marco firmware not have common part, split 
 extern bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * const record);
@@ -285,6 +286,11 @@ static bool process_record_generic_tap_hold_skel(const flexible_behavior_conf_t 
     if (behav[i].op_id == FB_NOP) {
       continue;
     }
+
+    if (behav[i].op_id == FB_NOP_ERROR) {
+      flexible_behavior_error_flag = true;
+      continue;
+    }
     
     if (behav[i].op_id == FB_PASS_QMK) {
       return true;
@@ -517,6 +523,15 @@ void mac_disable(void) {
 bool mac_is_enabled(void) {
   return flexible_behavior_mac_flag;
 }
+
+void flexible_behavior_clear_error(void) {
+  flexible_behavior_error_flag = false;
+}
+
+bool flexible_behavior_has_error(void) {
+  return flexible_behavior_error_flag;
+}
+
 
 bool process_detected_host_os_flexible_behavior_os_locale(os_variant_t detected_os) {
   switch (detected_os) {

@@ -29,6 +29,8 @@ enum key_position {
 
   POSITION_Mac_off = 2,
   POSITION_Mac_on = 8,
+
+  POSITION_FB_error = 17,
   
   POSITION_Tran_off = 1,
   POSITION_Tran_on = 7,
@@ -111,6 +113,12 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
         
     return false;
   }
+
+  if (pos == POSITION_FB_error) {
+    flexible_behavior_clear_error();
+        
+    return false;
+  }
       
   if (pos == POSITION_Tran_off) {
     layer_on(LAYER_Base);
@@ -149,7 +157,7 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
         
     return false;
   }
-      
+
   if (pos == POSITION_RST) {
     reset_keyboard();
         
@@ -248,7 +256,12 @@ bool rgb_matrix_indicators_firmware_map(void) {
     rgb_matrix_set_color(POSITION_Mac_off, 0, 0, f);
     rgb_matrix_set_color(POSITION_Mac_on, q, q, q);
   }
-  
+
+  if (flexible_behavior_has_error()) {
+    rgb_matrix_set_color(POSITION_FB_error, f, 0, 0);
+  } else {
+    rgb_matrix_set_color(POSITION_FB_error, q, q, q);
+  }
 
   // Transition
   if (layer_state_is(LAYER_Transition)) {

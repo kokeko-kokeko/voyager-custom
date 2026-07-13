@@ -40,6 +40,9 @@ void mac_enable(void);
 void mac_disable(void);
 bool mac_is_enabled(void);
 
+void flexible_behavior_clear_error(void);
+bool flexible_behavior_has_error(void);
+
 bool process_detected_host_os_flexible_behavior_os_locale(os_variant_t detected_os);
 bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *record);
 
