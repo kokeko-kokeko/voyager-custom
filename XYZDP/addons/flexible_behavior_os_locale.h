@@ -3,7 +3,7 @@
 // use MT with 1 or 2 mod, must mod override hold side
 // HOOR : Hold Only OverRide, tap pass to normal process
 // MCFW : MaCro FirmWare
-// THORn : Tap Hold OverRide, both override, shift and land handle
+// THORn : Tap Hold OverRide, both override, shift and lang handle
 // THORnS : Tap Hold OverRide, both override, fix shift
 // TKSW : TasK SWitch OverRide, handle RALT 
 
