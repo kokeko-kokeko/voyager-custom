@@ -548,8 +548,6 @@ static const flexible_behavior_conf_t conf_tksw  = (flexible_behavior_conf_t){ba
 bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *record) {  
   if (process_record_macro_firmware(keycode, record) == false) return false;
 
-  //if (process_record_user_task_switch_next_prev(keycode, record) == false) return false;
-
   if (process_record_flexible_behavior_skel(&conf_ptmh,  keycode, record) == false) return false;
   
   if (process_record_flexible_behavior_skel(&conf_ensn,  keycode, record) == false) return false;
@@ -559,6 +557,6 @@ bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *r
   if (process_record_flexible_behavior_skel(&conf_cures, keycode, record) == false) return false;
 
   if (process_record_flexible_behavior_skel(&conf_tksw,  keycode, record) == false) return false;
-
+  
   return true;
 }
