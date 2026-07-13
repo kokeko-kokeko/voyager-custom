@@ -213,48 +213,6 @@ static bool process_record_user_hold_back(const uint16_t keycode, const keyrecor
   return true;
 }
 
-static bool process_record_user_hold_reload(const uint16_t keycode, const keyrecord_t * const record) { 
-  if (keycode == THOR2(KC_N)) {
-    // MT template
-    if (record->tap.count > 0) {
-      // tap pass after
-      return true;
-    } else {
-      if (record->event.pressed) {
-        if (flexible_behavior_mac_flag) tap16_wo_shift(LGUI(KC_R));
-        else tap16_wo_shift(LCTL(KC_R));
-      } else {
-        
-      }
-    }
-
-    return false;
-  } 
-    
-  return true;
-}
-
-static bool process_record_user_hold_force_reload(const uint16_t keycode, const keyrecord_t * const record) { 
-  if (keycode == THOR2(KC_P)) {
-    // MT template
-    if (record->tap.count > 0) {
-      // tap pass after
-      return true;
-    } else {
-      if (record->event.pressed) {
-        if (flexible_behavior_mac_flag) tap16_wo_shift(LGUI(LSFT(KC_R)));
-        else tap16_wo_shift(LCTL(LSFT(KC_R)));
-      } else {
-        
-      }
-    }
-
-    return false;
-  } 
-    
-  return true;
-}
-
 // conf struct, pos keycode shift * tap hold
 
 typedef struct flexible_behavior_conf {
@@ -494,6 +452,7 @@ static flexible_behavior_t base_code_cursor(const uint16_t base_code) {
   //if (flexible_behavior_mac_flag) sc_mod = QK_LGUI;
   
   switch (base_code) {
+    // browser tab operation
     case KC_P: return (flexible_behavior_t){FB_KEYCODE, MOD_BIT_LCTRL, LSFT(KC_TAB)};
     case KC_N: return (flexible_behavior_t){FB_KEYCODE, MOD_BIT_LCTRL, KC_TAB};
     
@@ -528,6 +487,17 @@ static uint16_t shift_bracket_counter(const uint16_t keycode) {
   }
   
   return keycode;
+}
+
+static flexible_behavior_t base_code_browser_reload(const uint16_t base_code) {
+  switch (base_code) {
+    // hold side browser tab operation
+    case KC_P: return (flexible_behavior_t){FB_KEYCODE_TAP, MOD_BIT_LCTRL, LSFT(KC_R)};
+    case KC_N: return (flexible_behavior_t){FB_KEYCODE_TAP, MOD_BIT_LCTRL, KC_R};
+  }
+  
+  // no-error on hit
+  return (flexible_behavior_t){FB_NOP, 0, 0};
 }
 
 // public function
@@ -593,19 +563,17 @@ bool process_detected_host_os_flexible_behavior_os_locale(os_variant_t detected_
 }
 
 //                                                                       | tap                                                                              | hold                                                                         | target    | shift
-static const flexible_behavior_conf_t hoor   = (flexible_behavior_conf_t){base_code_pass_qmk,    pos_nop_error, base_code_nop_error, shift_nop,             base_code_nop, pos_home_row_mod, base_code_nop,         shift_nop,             MOD_HOOR,   false};
-static const flexible_behavior_conf_t thor1  = (flexible_behavior_conf_t){base_code_base_number, pos_nop_error, base_code_nop_error, shift_engram_symbol,   base_code_nop, pos_home_row_mod, base_code_base_number, shift_engram_symbol,   MOD_THOR1,  false};
-static const flexible_behavior_conf_t thor1s = (flexible_behavior_conf_t){base_code_base_number, pos_nop_error, base_code_nop_error, shift_engram_symbol,   base_code_nop, pos_home_row_mod, base_code_base_number, shift_engram_symbol,   MOD_THOR1S, true};
-static const flexible_behavior_conf_t thor2  = (flexible_behavior_conf_t){base_code_cursor,      pos_nop_error, base_code_nop_error, shift_bracket_counter, base_code_nop, pos_home_row_mod, base_code_cursor,      shift_bracket_counter, MOD_THOR2,  false};
-static const flexible_behavior_conf_t thor2s = (flexible_behavior_conf_t){base_code_cursor,      pos_nop_error, base_code_nop_error, shift_bracket_counter, base_code_nop, pos_home_row_mod, base_code_cursor,      shift_bracket_counter, MOD_THOR2S, true};
+static const flexible_behavior_conf_t hoor   = (flexible_behavior_conf_t){base_code_pass_qmk,    pos_nop_error, base_code_nop_error, shift_nop,             base_code_nop,            pos_home_row_mod, base_code_nop,         shift_nop,             MOD_HOOR,   false};
+static const flexible_behavior_conf_t thor1  = (flexible_behavior_conf_t){base_code_base_number, pos_nop_error, base_code_nop_error, shift_engram_symbol,   base_code_nop,            pos_home_row_mod, base_code_base_number, shift_engram_symbol,   MOD_THOR1,  false};
+static const flexible_behavior_conf_t thor1s = (flexible_behavior_conf_t){base_code_base_number, pos_nop_error, base_code_nop_error, shift_engram_symbol,   base_code_nop,            pos_home_row_mod, base_code_base_number, shift_engram_symbol,   MOD_THOR1S, true};
+static const flexible_behavior_conf_t thor2  = (flexible_behavior_conf_t){base_code_cursor,      pos_nop_error, base_code_nop_error, shift_bracket_counter, base_code_browser_reload, pos_home_row_mod, base_code_cursor,      shift_bracket_counter, MOD_THOR2,  false};
+static const flexible_behavior_conf_t thor2s = (flexible_behavior_conf_t){base_code_cursor,      pos_nop_error, base_code_nop_error, shift_bracket_counter, base_code_nop,            pos_home_row_mod, base_code_cursor,      shift_bracket_counter, MOD_THOR2S, true};
 
 bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *record) {  
   if (process_record_macro_firmware(keycode, record) == false) return false;
 
   if (process_record_user_task_switch_next_prev(keycode, record) == false) return false;
   if (process_record_user_hold_back(keycode, record) == false) return false;
-  if (process_record_user_hold_reload(keycode, record) == false) return false;
-  if (process_record_user_hold_force_reload(keycode, record) == false) return false;
 
   if (process_record_flexible_behavior_skel(&hoor,   keycode, record) == false) return false;
   
