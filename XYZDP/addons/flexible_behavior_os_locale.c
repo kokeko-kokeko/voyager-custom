@@ -66,7 +66,7 @@ static void add_keep_mods (uint8_t mods) {
   }
 }
 
-static void clear_keep_mods (void) {
+static void unreg_keep_mods (void) {
   if (flexible_behavior_keep_mods != 0) {
     unregister_mods(flexible_behavior_keep_mods);
     flexible_behavior_keep_mods = 0;
@@ -172,7 +172,7 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
     }
     
     if (behav[i].op_id == FB_PASS_QMK) {
-      clear_keep_mods();
+      unreg_keep_mods();
       return true;
     }
 
@@ -187,7 +187,7 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
       // process opition mod
       if (flexible_behavior_mac_flag) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
       
-      clear_keep_mods();
+      unreg_keep_mods();
 
       if (record->event.pressed) {
         add_mods(behav[i].data_u8);
@@ -211,7 +211,7 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
       // process opition mod
       if (flexible_behavior_mac_flag) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
 
-      clear_keep_mods();
+      unreg_keep_mods();
 
       if (record->event.pressed) {
         add_mods(behav[i].data_u8);
@@ -244,7 +244,7 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
       // process mod
       if (flexible_behavior_mac_flag) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
 
-      clear_keep_mods();
+      unreg_keep_mods();
 
       if (record->event.pressed) register_mods(behav[i].data_u8);
       else unregister_mods(behav[i].data_u8);
@@ -253,7 +253,7 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
     }
     
     if (behav[i].op_id == FB_LAYER) {
-      clear_keep_mods();
+      unreg_keep_mods();
 
       if (record->event.pressed) layer_on(behav[i].data_u8);
       else layer_off(behav[i].data_u8);
