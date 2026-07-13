@@ -23,8 +23,8 @@ _Static_assert(FB_NOP_ERROR <= UINT8_MAX, "too many flexible_behavior_operation_
 // check udner 32-bit, registor return
 _Static_assert(sizeof(flexible_behavior_t) <= sizeof(uint32_t), "flexible_behavior struct too large!!");
 
-bool jis_flag = false;
-bool mac_flag = false;
+bool flexible_behavior_jis_flag = false;
+bool flexible_behavior_mac_flag = false;
 
 // marco firmware not have common part, split 
 extern bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * const record);
@@ -121,7 +121,7 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
       if (record->event.pressed) {
         if (is_active == false) {
           is_active = true;
-          if (mac_flag) register_mods(MOD_BIT_RGUI);
+          if (flexible_behavior_mac_flag) register_mods(MOD_BIT_RGUI);
           else register_mods(MOD_BIT_RALT);
         }
         tap16_wo_shift(KC_TAB);
@@ -131,10 +131,10 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
     } else {
       if (record->event.pressed) {
         is_active = false;
-        if (mac_flag) unregister_mods(MOD_BIT_RGUI);
+        if (flexible_behavior_mac_flag) unregister_mods(MOD_BIT_RGUI);
         else unregister_mods(MOD_BIT_RALT);
 
-        if (mac_flag) tap16_wo_shift(LCTL(KC_UP));
+        if (flexible_behavior_mac_flag) tap16_wo_shift(LCTL(KC_UP));
         else tap16_wo_shift(LGUI(KC_TAB));
       } else {
         
@@ -150,7 +150,7 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
       if (record->event.pressed) {
         if (is_active == false) {
           is_active = true;
-          if (mac_flag) register_mods(MOD_BIT_RGUI);
+          if (flexible_behavior_mac_flag) register_mods(MOD_BIT_RGUI);
           else register_mods(MOD_BIT_RALT);
         }
         tap16_wo_shift(LSFT(KC_TAB));
@@ -160,7 +160,7 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
     } else {
       if (record->event.pressed) {
         is_active = false;
-        if (mac_flag) unregister_mods(MOD_BIT_RGUI);
+        if (flexible_behavior_mac_flag) unregister_mods(MOD_BIT_RGUI);
         else unregister_mods(MOD_BIT_RALT);
 
         //if (mac_flag) tap16_wo_shift(LCTL(KC_UP));
@@ -184,7 +184,7 @@ static bool process_record_user_task_switch_next_prev(const uint16_t keycode, co
       ) return true;
       
     is_active = false;
-    if (mac_flag) unregister_mods(MOD_BIT_RGUI);
+    if (flexible_behavior_mac_flag) unregister_mods(MOD_BIT_RGUI);
     else unregister_mods(MOD_BIT_RALT);
   }
   
@@ -199,7 +199,7 @@ static bool process_record_user_hold_back(const uint16_t keycode, const keyrecor
       return true;
     } else {
       if (record->event.pressed) {
-        if (mac_flag) tap16_wo_shift(LGUI(KC_LEFT));
+        if (flexible_behavior_mac_flag) tap16_wo_shift(LGUI(KC_LEFT));
         else tap16_wo_shift(LALT(KC_LEFT));
       } else {
         
@@ -220,7 +220,7 @@ static bool process_record_user_hold_reload(const uint16_t keycode, const keyrec
       return true;
     } else {
       if (record->event.pressed) {
-        if (mac_flag) tap16_wo_shift(LGUI(KC_R));
+        if (flexible_behavior_mac_flag) tap16_wo_shift(LGUI(KC_R));
         else tap16_wo_shift(LCTL(KC_R));
       } else {
         
@@ -241,7 +241,7 @@ static bool process_record_user_hold_force_reload(const uint16_t keycode, const 
       return true;
     } else {
       if (record->event.pressed) {
-        if (mac_flag) tap16_wo_shift(LGUI(LSFT(KC_R)));
+        if (flexible_behavior_mac_flag) tap16_wo_shift(LGUI(LSFT(KC_R)));
         else tap16_wo_shift(LCTL(LSFT(KC_R)));
       } else {
         
@@ -296,7 +296,7 @@ static bool process_record_generic_tap_hold_skel(const flexible_behavior_conf_t 
         behav[i].data_u16 = (is_tap) ? conf->tap_shift_func(behav[i].data_u16) : conf->hold_shift_func(behav[i].data_u16);
       } 
       
-      if (jis_flag) behav[i].data_u16 = conv_kc_to_jp(behav[i].data_u16);
+      if (flexible_behavior_jis_flag) behav[i].data_u16 = conv_kc_to_jp(behav[i].data_u16);
       
       if (record->event.pressed) reg16_wo_shift(behav[i].data_u16);
       else unreg16_wo_shift(behav[i].data_u16);
@@ -316,7 +316,7 @@ static bool process_record_generic_tap_hold_skel(const flexible_behavior_conf_t 
       return false;
     }
     if (behav[i].op_id == FB_MODS) {
-      if (mac_flag) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
+      if (flexible_behavior_mac_flag) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
 
       if (record->event.pressed) register_mods(behav[i].data_u8);
       else unregister_mods(behav[i].data_u8);
@@ -453,7 +453,7 @@ static uint16_t shift_engram_symbol(const uint16_t keycode) {
 static flexible_behavior_t keycode_cursor(const uint16_t keycode) {
   // must use QK_ for bit position
   uint16_t sc_mod = QK_LCTL;
-  if (mac_flag) sc_mod = QK_LGUI;
+  if (flexible_behavior_mac_flag) sc_mod = QK_LGUI;
   
   switch (keycode) {
     case KC_P: return (flexible_behavior_t){FB_KEYCODE, 0, sc_mod | LSFT(KC_TAB)};
@@ -495,46 +495,46 @@ static uint16_t shift_bracket_counter(const uint16_t keycode) {
 // public function
 
 void jis_enable(void) {
-  jis_flag = true;
+  flexible_behavior_jis_flag = true;
 }
 
 void jis_disable(void) {
-  jis_flag = false;
+  flexible_behavior_jis_flag = false;
 }
 
 bool jis_is_enabled(void) {
-  return jis_flag;
+  return flexible_behavior_jis_flag;
 }
 
 void mac_enable(void) {
-  mac_flag = true;
+  flexible_behavior_mac_flag = true;
 }
 
 void mac_disable(void) {
-  mac_flag = false;
+  flexible_behavior_mac_flag = false;
 }
 
 bool mac_is_enabled(void) {
-  return mac_flag;
+  return flexible_behavior_mac_flag;
 }
 
 bool process_detected_host_os_flexible_behavior_os_locale(os_variant_t detected_os) {
   switch (detected_os) {
     case OS_MACOS:
-      jis_flag = true;
-      mac_flag = true;
+      flexible_behavior_jis_flag = true;
+      flexible_behavior_mac_flag = true;
       break;
     case OS_IOS:
-      jis_flag = false;
-      mac_flag = true;
+      flexible_behavior_jis_flag = false;
+      flexible_behavior_mac_flag = true;
       break;
     case OS_WINDOWS:
-      jis_flag = true;
-      mac_flag = false;
+      flexible_behavior_jis_flag = true;
+      flexible_behavior_mac_flag = false;
       break;
     case OS_LINUX:
-      jis_flag = false;
-      mac_flag = false;
+      flexible_behavior_jis_flag = false;
+      flexible_behavior_mac_flag = false;
       break;
     case OS_UNSURE:
       break;

@@ -17,8 +17,8 @@
 // call JP keycode
 #include "keymap_japanese.h"
 
-extern bool jis_flag;
-extern bool mac_flag;
+extern bool flexible_behavior_jis_flag;
+extern bool flexible_behavior_mac_flag;
 
 // marco firmware not have common part, split 
 bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * const record) {
@@ -32,7 +32,7 @@ bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * c
 
       //` `
       if (pos == 2) {
-        if (jis_flag) {
+        if (flexible_behavior_jis_flag) {
           SEND_STRING(SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_TAP(X_LEFT));
         } else {
           SEND_STRING(SS_TAP(X_GRAVE)SS_DELAY(100)  SS_TAP(X_GRAVE)SS_DELAY(100)  SS_TAP(X_LEFT));
@@ -40,7 +40,7 @@ bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * c
       }
 
       if (pos == 3) {
-        if (jis_flag) {
+        if (flexible_behavior_jis_flag) {
           SEND_STRING(SS_LSFT(SS_TAP(X_7))SS_DELAY(100)  SS_LSFT(SS_TAP(X_7))SS_DELAY(100)  SS_TAP(X_LEFT));
         } else {
           SEND_STRING(SS_TAP(X_QUOTE)SS_DELAY(100)  SS_TAP(X_QUOTE)SS_DELAY(100)  SS_TAP(X_LEFT));
@@ -48,7 +48,7 @@ bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * c
       }
 
       if (pos == 4) {
-        if (jis_flag) {
+        if (flexible_behavior_jis_flag) {
           SEND_STRING(SS_LSFT(SS_TAP(X_2))SS_DELAY(100)  SS_LSFT(SS_TAP(X_2))SS_DELAY(100)  SS_TAP(X_LEFT));
         } else {
           SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_TAP(X_LEFT));
@@ -64,7 +64,7 @@ bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * c
       }
 
       if (pos == 9) {
-        if (jis_flag) {
+        if (flexible_behavior_jis_flag) {
           SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_LSFT(SS_TAP(X_QUOTE)));
         } else {
           SEND_STRING(SS_TAP(X_SLASH)SS_DELAY(100)  SS_LSFT(SS_TAP(X_8)));
@@ -72,7 +72,7 @@ bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * c
       }
 
       if (pos == 10) {
-        if (jis_flag) {
+        if (flexible_behavior_jis_flag) {
           SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE))SS_DELAY(100)  SS_TAP(X_SLASH));
         } else {
           SEND_STRING(SS_LSFT(SS_TAP(X_8))SS_DELAY(100)  SS_TAP(X_SLASH));
@@ -84,7 +84,7 @@ bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * c
       }
 
       if (pos == 16) {
-        if (jis_flag) {
+        if (flexible_behavior_jis_flag) {
           SEND_STRING(SS_TAP(X_INTERNATIONAL_1)SS_DELAY(100)  SS_TAP(X_INTERNATIONAL_1));
         } else {
           SEND_STRING(SS_TAP(X_BSLS)SS_DELAY(100)  SS_TAP(X_BSLS));
@@ -93,7 +93,7 @@ bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * c
 
       //[]
       if (pos == 33) {
-        if (jis_flag) {
+        if (flexible_behavior_jis_flag) {
           SEND_STRING(SS_TAP(X_RBRC)SS_DELAY(100)  SS_TAP(X_BSLS)SS_DELAY(100)  SS_TAP(X_LEFT));
         } else {
           SEND_STRING(SS_TAP(X_LBRC)SS_DELAY(100)  SS_TAP(X_RBRC)SS_DELAY(100)  SS_TAP(X_LEFT));
@@ -102,7 +102,7 @@ bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * c
 
       //{}
       if (pos == 34) {
-        if (jis_flag) {
+        if (flexible_behavior_jis_flag) {
           SEND_STRING(SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_BSLS))SS_DELAY(100)  SS_TAP(X_LEFT));
         } else {
           SEND_STRING(SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(100)  SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(100)  SS_TAP(X_LEFT));
@@ -116,7 +116,7 @@ bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * c
      
       //()
       if (pos == 36) {
-        if (jis_flag) {
+        if (flexible_behavior_jis_flag) {
           SEND_STRING(SS_LSFT(SS_TAP(X_8))SS_DELAY(100)  SS_LSFT(SS_TAP(X_9))SS_DELAY(100)  SS_TAP(X_LEFT));
         } else {
           SEND_STRING(SS_LSFT(SS_TAP(X_9))SS_DELAY(100)  SS_LSFT(SS_TAP(X_0))SS_DELAY(100)  SS_TAP(X_LEFT));
