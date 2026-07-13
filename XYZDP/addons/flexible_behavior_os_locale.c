@@ -18,7 +18,7 @@
 #include "keymap_japanese.h"
 
 // size check
-_Static_assert(FB_NOP_ERROR <= UINT8_MAX, "too many flexible_behavior_operation_identifier!!");
+_Static_assert(FB_TERMINATE_WITH_ERROR <= UINT8_MAX, "too many flexible_behavior_operation_identifier!!");
 
 // check udner 32-bit, registor return
 _Static_assert(sizeof(flexible_behavior_t) <= sizeof(uint32_t), "flexible_behavior struct too large!!");
@@ -165,15 +165,18 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
       continue;
     }
 
-    if (behav[i].op_id == FB_NOP_ERROR) {
-      // add error flag
-      flexible_behavior_error_flag = true;
-      continue;
-    }
-    
     if (behav[i].op_id == FB_PASS_QMK) {
       unreg_keep_mods();
       return true;
+    }
+
+    if (behav[i].op_id == FB_SEND_BASE_CODE) {
+      unreg_keep_mods();
+
+      if (record->event.pressed) register_code16(base_code);
+      else unregister_code16(base_code);
+      
+      return false;
     }
 
     if (behav[i].op_id == FB_KEYCODE) {
@@ -273,13 +276,19 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
 
       return false;
     }
+
+    if (behav[i].op_id == FB_TERMINATE_WITH_ERROR) {
+      // add error flag
+      flexible_behavior_error_flag = true;
+      
+      return false;
+    }
   }
 
-  // no hit behavior send base code
-  if (record->event.pressed) register_code16(base_code);
-  else unregister_code16(base_code);
+  // reach here error flag
+  flexible_behavior_error_flag = true;
 
-  // if run function must terminate here
+  // terminate here
   return false;
 }
 
@@ -294,28 +303,33 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
 // MOD_BIT_RALT   = 0b01000000,
 // MOD_BIT_RGUI   = 0b10000000,
 
-// non-reach with error
-static flexible_behavior_t pos_nop_error(const uint8_t pos) {
-  return (flexible_behavior_t){FB_NOP_ERROR, 0, 0};
-}
-
-extern flexible_behavior_t pos_home_row_mod(const uint8_t pos);
-
+// fixed return functions
 static flexible_behavior_t base_code_nop(const uint16_t base_code) {  
   return (flexible_behavior_t){FB_NOP, 0, 0};
-}
-
-static flexible_behavior_t base_code_nop_error(const uint16_t base_code) {  
-  return (flexible_behavior_t){FB_NOP_ERROR, 0, 0};
 }
 
 static flexible_behavior_t base_code_pass_qmk(const uint16_t base_code) {  
   return (flexible_behavior_t){FB_PASS_QMK, 0, 0};
 }
 
+static flexible_behavior_t base_code_send_base_code(const uint16_t base_code) {  
+  return (flexible_behavior_t){FB_SEND_BASE_CODE, 0, 0};
+}
+
+static flexible_behavior_t base_code_term_error(const uint16_t base_code) {  
+  return (flexible_behavior_t){FB_TERMINATE_WITH_ERROR, 0, 0};
+}
+
+// non-reach with error
+static flexible_behavior_t pos_term_error(const uint8_t pos) {
+  return (flexible_behavior_t){FB_TERMINATE_WITH_ERROR, 0, 0};
+}
+
 static uint16_t shift_nop(const uint16_t keycode) {  
   return keycode;
 }
+
+extern flexible_behavior_t pos_home_row_mod(const uint8_t pos);
 
 static flexible_behavior_t base_code_engram_sym_num(const uint16_t base_code) {
   switch (base_code) {
@@ -348,7 +362,7 @@ static flexible_behavior_t base_code_engram_sym_num(const uint16_t base_code) {
     case KC_DOT:  return (flexible_behavior_t){FB_KEYCODE, 0, KC_DOT};
   }
   
-  return (flexible_behavior_t){FB_NOP_ERROR, 0, 0};
+  return (flexible_behavior_t){FB_TERMINATE_WITH_ERROR, 0, 0};
 }
 
 static uint16_t shift_engram_sym_num(const uint16_t keycode) {
@@ -409,7 +423,7 @@ static flexible_behavior_t base_code_cursor(const uint16_t base_code) {
     case KC_6: return (flexible_behavior_t){FB_KEYCODE, 0, KC_QUES};
   }
   
-  return (flexible_behavior_t){FB_NOP_ERROR, 0, 0};
+  return (flexible_behavior_t){FB_TERMINATE_WITH_ERROR, 0, 0};
 }
 
 static uint16_t shift_bracket_counter(const uint16_t keycode) {
@@ -537,13 +551,13 @@ bool process_detected_host_os_flexible_behavior_os_locale(os_variant_t detected_
   return true;
 }
 
-//                                                                            | tap                                                                                | hold                                                                                       | target   | shift
-static const flexible_behavior_conf_t conf_ptmh  = (flexible_behavior_conf_t){base_code_pass_qmk,       pos_nop_error, base_code_nop_error, shift_nop,             base_code_nop,            pos_home_row_mod, base_code_nop,            shift_nop,             MOD_PTMH,  false};
-static const flexible_behavior_conf_t conf_ensn  = (flexible_behavior_conf_t){base_code_engram_sym_num, pos_nop_error, base_code_nop_error, shift_engram_sym_num,  base_code_nop,            pos_home_row_mod, base_code_engram_sym_num, shift_engram_sym_num,  MOD_ENSN,  false};
-static const flexible_behavior_conf_t conf_ensns = (flexible_behavior_conf_t){base_code_engram_sym_num, pos_nop_error, base_code_nop_error, shift_engram_sym_num,  base_code_browser_back,   pos_home_row_mod, base_code_engram_sym_num, shift_engram_sym_num,  MOD_ENSNS, true};
-static const flexible_behavior_conf_t conf_cure  = (flexible_behavior_conf_t){base_code_cursor,         pos_nop_error, base_code_nop_error, shift_bracket_counter, base_code_browser_reload, pos_home_row_mod, base_code_cursor,         shift_bracket_counter, MOD_CURE,  false};
-static const flexible_behavior_conf_t conf_cures = (flexible_behavior_conf_t){base_code_cursor,         pos_nop_error, base_code_nop_error, shift_bracket_counter, base_code_nop,            pos_home_row_mod, base_code_cursor,         shift_bracket_counter, MOD_CURES, true};
-static const flexible_behavior_conf_t conf_tksw  = (flexible_behavior_conf_t){base_code_task_switch,    pos_nop_error, base_code_nop_error, shift_nop,             base_code_task_view,      pos_nop_error,    base_code_nop_error,      shift_nop,             MOD_TKSW,  false};
+//                                                                            | tap                                                                                  | hold                                                                                       | target   | shift
+static const flexible_behavior_conf_t conf_ptmh  = (flexible_behavior_conf_t){base_code_pass_qmk,       pos_term_error, base_code_term_error, shift_nop,             base_code_nop,            pos_home_row_mod, base_code_send_base_code, shift_nop,             MOD_PTMH,  false};
+static const flexible_behavior_conf_t conf_ensn  = (flexible_behavior_conf_t){base_code_engram_sym_num, pos_term_error, base_code_term_error, shift_engram_sym_num,  base_code_nop,            pos_home_row_mod, base_code_engram_sym_num, shift_engram_sym_num,  MOD_ENSN,  false};
+static const flexible_behavior_conf_t conf_ensns = (flexible_behavior_conf_t){base_code_engram_sym_num, pos_term_error, base_code_term_error, shift_engram_sym_num,  base_code_browser_back,   pos_home_row_mod, base_code_engram_sym_num, shift_engram_sym_num,  MOD_ENSNS, true};
+static const flexible_behavior_conf_t conf_cure  = (flexible_behavior_conf_t){base_code_cursor,         pos_term_error, base_code_term_error, shift_bracket_counter, base_code_browser_reload, pos_home_row_mod, base_code_cursor,         shift_bracket_counter, MOD_CURE,  false};
+static const flexible_behavior_conf_t conf_cures = (flexible_behavior_conf_t){base_code_cursor,         pos_term_error, base_code_term_error, shift_bracket_counter, base_code_nop,            pos_home_row_mod, base_code_cursor,         shift_bracket_counter, MOD_CURES, true};
+static const flexible_behavior_conf_t conf_tksw  = (flexible_behavior_conf_t){base_code_task_switch,    pos_term_error, base_code_term_error, shift_nop,             base_code_task_view,      pos_term_error,   base_code_term_error,     shift_nop,             MOD_TKSW,  false};
 
 bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *record) {  
   if (process_record_macro_firmware(keycode, record) == false) return false;
