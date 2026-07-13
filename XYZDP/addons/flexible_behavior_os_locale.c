@@ -277,7 +277,7 @@ static bool process_record_generic_tap_hold_skel(const flexible_behavior_conf_t 
   const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
 
   flexible_behavior_t behav[2];
-  behav[0] = (is_tap) ? conf->tap_pos_func(pos) : conf->hold_pos_func(pos);
+  behav[0] = (is_tap) ? conf->tap_pos_func(pos)           : conf->hold_pos_func(pos);
   behav[1] = (is_tap) ? conf->tap_keycode_func(base_code) : conf->hold_keycode_func(base_code);
 
   // search behavior loop
