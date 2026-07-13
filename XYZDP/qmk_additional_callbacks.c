@@ -80,8 +80,8 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 			case PTMH(KC_B):
 			case PTMH(KC_V):
 		
-			case ENBN(KC_L): 
-			case ENBN(KC_R):
+			case ENSN(KC_L): 
+			case ENSN(KC_R):
 		
 			case PTMH(KC_F11):
 			case PTMH(KC_F12):

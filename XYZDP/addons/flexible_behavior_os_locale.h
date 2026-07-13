@@ -3,8 +3,8 @@
 // use MT with 1 or 2 mod, must mod override hold side
 // PTMH : Pass Tap, Mod Hold
 // MCFW : MaCro FirmWare
-// ENBN : ENgram Base Number
-// ENBNS : ENgram Base Number Shifted
+// ENSN : ENgram Symbol Number
+// ENSNS : ENgram Symbol Number Shifted
 // CURE : CURsor and Etc
 // CURES : CURsor and Etc Shifted
 // TKSW : TasK SWitch OverRide, handle RALT 
@@ -19,8 +19,8 @@
 
 #define MOD_MCFW (MOD_LCTL | MOD_LSFT)
 
-#define MOD_ENBN (MOD_RCTL)
-#define MOD_ENBNS (MOD_RCTL | MOD_RSFT)
+#define MOD_ENSN (MOD_RCTL)
+#define MOD_ENSNS (MOD_RCTL | MOD_RSFT)
 
 #define MOD_CURE (MOD_LALT)
 #define MOD_CURES (MOD_LALT | MOD_LSFT)
@@ -32,8 +32,8 @@
 
 #define MCFW(kc) MT(MOD_MCFW, kc)
 
-#define ENBN(kc) MT(MOD_ENBN, kc)
-#define ENBNS(kc) MT(MOD_ENBNS, kc)
+#define ENSN(kc) MT(MOD_ENSN, kc)
+#define ENSNS(kc) MT(MOD_ENSNS, kc)
 
 #define CURE(kc) MT(MOD_CURE, kc)
 #define CURES(kc) MT(MOD_CURES, kc)
