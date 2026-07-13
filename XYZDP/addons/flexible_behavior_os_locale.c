@@ -482,17 +482,17 @@ static uint16_t shift_engram_symbol(const uint16_t keycode) {
 
 static flexible_behavior_t keycode_cursor(const uint16_t keycode) {
   // must use QK_ for bit position
-  uint16_t sc_mod = QK_LCTL;
-  if (flexible_behavior_mac_flag) sc_mod = QK_LGUI;
+  //uint16_t sc_mod = QK_LCTL;
+  //if (flexible_behavior_mac_flag) sc_mod = QK_LGUI;
   
   switch (keycode) {
-    case KC_P: return (flexible_behavior_t){FB_KEYCODE, 0, sc_mod | LSFT(KC_TAB)};
-    case KC_N: return (flexible_behavior_t){FB_KEYCODE, 0, sc_mod | KC_TAB};
+    case KC_P: return (flexible_behavior_t){FB_KEYCODE, MOD_BIT_LCTRL, LSFT(KC_TAB)};
+    case KC_N: return (flexible_behavior_t){FB_KEYCODE, MOD_BIT_LCTRL, KC_TAB};
     
-    case KC_Z: return (flexible_behavior_t){FB_KEYCODE, 0, sc_mod | KC_Z};
-    case KC_X: return (flexible_behavior_t){FB_KEYCODE, 0, sc_mod | KC_X};
-    case KC_C: return (flexible_behavior_t){FB_KEYCODE, 0, sc_mod | KC_C};
-    case KC_V: return (flexible_behavior_t){FB_KEYCODE, 0, sc_mod | KC_V};
+    case KC_Z: return (flexible_behavior_t){FB_KEYCODE, MOD_BIT_LCTRL, KC_Z};
+    case KC_X: return (flexible_behavior_t){FB_KEYCODE, MOD_BIT_LCTRL, KC_X};
+    case KC_C: return (flexible_behavior_t){FB_KEYCODE, MOD_BIT_LCTRL, KC_C};
+    case KC_V: return (flexible_behavior_t){FB_KEYCODE, MOD_BIT_LCTRL, KC_V};
     
     case KC_1: return (flexible_behavior_t){FB_KEYCODE, 0, KC_LBRC};
     case KC_2: return (flexible_behavior_t){FB_KEYCODE, 0, KC_LCBR};
