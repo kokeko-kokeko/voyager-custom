@@ -55,6 +55,24 @@ static void tap16_wo_shift(const uint16_t code16) {
   add_mods(seved_mods);
 }
 
+// keep mod support func
+static uint8_t flexible_behavior_keep_mods = 0;
+
+static void add_keep_mods (uint8_t mods) {
+  if (flexible_behavior_keep_mods != mods) {
+    del_mods(flexible_behavior_keep_mods);
+    add_mods(mods);
+    flexible_behavior_keep_mods = mods;
+  }
+}
+
+static void clear_keep_mods (void) {
+  if (flexible_behavior_keep_mods != 0) {
+    del_mods(flexible_behavior_keep_mods);
+    flexible_behavior_keep_mods = 0;
+  }
+}
+
 // util, conv system wide 
 static uint16_t conv_kc_to_jp(const uint16_t keycode) {
   switch (keycode) {
@@ -112,86 +130,6 @@ static uint8_t conv_mods_pc_to_mac(uint8_t mods) {
   return mods;
 }
 
-// non-common 
-static bool process_record_user_task_switch_next_prev(const uint16_t keycode, const keyrecord_t * const record) {
-  static bool is_active = false;
-  
-  if (keycode == TKSW(KC_N)) {
-    // MT template
-    if (record->tap.count > 0) {
-      if (record->event.pressed) {
-        if (is_active == false) {
-          is_active = true;
-          if (flexible_behavior_mac_flag) register_mods(MOD_BIT_RGUI);
-          else register_mods(MOD_BIT_RALT);
-        }
-        tap16_wo_shift(KC_TAB);
-      } else {
-        
-      }
-    } else {
-      if (record->event.pressed) {
-        is_active = false;
-        if (flexible_behavior_mac_flag) unregister_mods(MOD_BIT_RGUI);
-        else unregister_mods(MOD_BIT_RALT);
-
-        if (flexible_behavior_mac_flag) tap16_wo_shift(LCTL(KC_UP));
-        else tap16_wo_shift(LGUI(KC_TAB));
-      } else {
-        
-      }
-    }
-
-    return false;
-  } 
-  
-  if (keycode == TKSW(KC_P)) {
-    // MT template
-    if (record->tap.count > 0) {
-      if (record->event.pressed) {
-        if (is_active == false) {
-          is_active = true;
-          if (flexible_behavior_mac_flag) register_mods(MOD_BIT_RGUI);
-          else register_mods(MOD_BIT_RALT);
-        }
-        tap16_wo_shift(LSFT(KC_TAB));
-      } else {
-        
-      }
-    } else {
-      if (record->event.pressed) {
-        is_active = false;
-        if (flexible_behavior_mac_flag) unregister_mods(MOD_BIT_RGUI);
-        else unregister_mods(MOD_BIT_RALT);
-
-        //if (mac_flag) tap16_wo_shift(LCTL(KC_UP));
-        //else tap16_wo_shift(LGUI(KC_TAB));
-      } else {
-        
-      }
-    }
-    
-    return false;
-  }
-
-  // another key, release manu setting
-  if (is_active) {
-    // keep task switch for cursor
-    if (
-      (keycode == KC_RIGHT) || 
-      (keycode == KC_LEFT) ||
-      (keycode == KC_DOWN) ||
-      (keycode == KC_UP)
-      ) return true;
-      
-    is_active = false;
-    if (flexible_behavior_mac_flag) unregister_mods(MOD_BIT_RGUI);
-    else unregister_mods(MOD_BIT_RALT);
-  }
-  
-  return true;
-}
-
 // conf struct, pos keycode shift * tap hold
 
 typedef struct flexible_behavior_conf {
@@ -234,6 +172,7 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
     }
     
     if (behav[i].op_id == FB_PASS_QMK) {
+      clear_keep_mods();
       return true;
     }
 
@@ -247,6 +186,8 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
       
       // process opition mod
       if (flexible_behavior_mac_flag) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
+      
+      clear_keep_mods();
 
       if (record->event.pressed) {
         add_mods(behav[i].data_u8);
@@ -270,6 +211,8 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
       // process opition mod
       if (flexible_behavior_mac_flag) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
 
+      clear_keep_mods();
+
       if (record->event.pressed) {
         add_mods(behav[i].data_u8);
         tap16_wo_shift(behav[i].data_u16);
@@ -280,13 +223,28 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
     }
 
     if (behav[i].op_id == FB_KEYCODE_TAP_KEEP_MODS) {
-      // stub
+      // process shift & lang
+      if ((get_mods() & MOD_MASK_SHIFT) || conf->force_shift) {
+        behav[i].data_u16 = (is_tap) ? conf->tap_shift_func(behav[i].data_u16) : conf->hold_shift_func(behav[i].data_u16);
+      } 
+      
+      if (flexible_behavior_jis_flag) behav[i].data_u16 = conv_kc_to_jp(behav[i].data_u16);
+      
+      // process opition mod
+      if (flexible_behavior_mac_flag) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
+
+      if (record->event.pressed) {
+        add_keep_mods(behav[i].data_u8);
+        tap16_wo_shift(behav[i].data_u16);
+      }
 
       return false;
     }
     if (behav[i].op_id == FB_MODS) {
       // process mod
       if (flexible_behavior_mac_flag) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
+
+      clear_keep_mods();
 
       if (record->event.pressed) register_mods(behav[i].data_u8);
       else unregister_mods(behav[i].data_u8);
@@ -295,6 +253,8 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
     }
     
     if (behav[i].op_id == FB_LAYER) {
+      clear_keep_mods();
+
       if (record->event.pressed) layer_on(behav[i].data_u8);
       else layer_off(behav[i].data_u8);
 
@@ -470,7 +430,7 @@ static uint16_t shift_bracket_counter(const uint16_t keycode) {
 
 static flexible_behavior_t base_code_browser_back(const uint16_t base_code) {
   switch (base_code) {
-    // hold side browser THOR1S
+    // hold side browser ENSNS symbol
     case KC_E: return (flexible_behavior_t){FB_KEYCODE_TAP, 0, LALT(KC_LEFT)};
   }
   
@@ -486,6 +446,32 @@ static flexible_behavior_t base_code_browser_reload(const uint16_t base_code) {
   }
   
   // no-error on hit
+  return (flexible_behavior_t){FB_NOP, 0, 0};
+}
+
+static flexible_behavior_t base_code_task_switch(const uint16_t base_code) {
+  uint8_t mod_bit = MOD_BIT_RALT;
+  if (flexible_behavior_mac_flag) mod_bit = MOD_BIT_RCTRL; //conv to gui
+
+  switch (base_code) {
+    // hold side browser tab operation
+    case KC_P: return (flexible_behavior_t){FB_KEYCODE_TAP_KEEP_MODS, mod_bit, LSFT(KC_TAB)};
+    case KC_N: return (flexible_behavior_t){FB_KEYCODE_TAP_KEEP_MODS, mod_bit, KC_TAB};
+  }
+
+  return (flexible_behavior_t){FB_NOP, 0, 0};
+}
+
+static flexible_behavior_t base_code_task_view(const uint16_t base_code) {
+  uint16_t keycode = KC_TAB;
+  if (flexible_behavior_mac_flag) keycode = KC_UP;
+
+  switch (base_code) {
+    // hold side browser tab operation
+    case KC_P: return (flexible_behavior_t){FB_KEYCODE_TAP, MOD_BIT_RGUI, keycode};
+    case KC_N: return (flexible_behavior_t){FB_KEYCODE_TAP, MOD_BIT_RGUI, keycode};
+  }
+
   return (flexible_behavior_t){FB_NOP, 0, 0};
 }
 
@@ -557,11 +543,12 @@ static const flexible_behavior_conf_t ensn  = (flexible_behavior_conf_t){base_co
 static const flexible_behavior_conf_t ensns = (flexible_behavior_conf_t){base_code_engram_sym_num, pos_nop_error, base_code_nop_error, shift_engram_sym_num,  base_code_browser_back,   pos_home_row_mod, base_code_engram_sym_num, shift_engram_sym_num,  MOD_ENSNS, true};
 static const flexible_behavior_conf_t cure  = (flexible_behavior_conf_t){base_code_cursor,         pos_nop_error, base_code_nop_error, shift_bracket_counter, base_code_browser_reload, pos_home_row_mod, base_code_cursor,         shift_bracket_counter, MOD_CURE,  false};
 static const flexible_behavior_conf_t cures = (flexible_behavior_conf_t){base_code_cursor,         pos_nop_error, base_code_nop_error, shift_bracket_counter, base_code_nop,            pos_home_row_mod, base_code_cursor,         shift_bracket_counter, MOD_CURES, true};
+static const flexible_behavior_conf_t tksw  = (flexible_behavior_conf_t){base_code_task_switch,    pos_nop_error, base_code_nop_error, shift_bracket_counter, base_code_task_view,      pos_home_row_mod, base_code_nop,            shift_nop,             MOD_TKSW,  false};
 
 bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *record) {  
   if (process_record_macro_firmware(keycode, record) == false) return false;
 
-  if (process_record_user_task_switch_next_prev(keycode, record) == false) return false;
+  //if (process_record_user_task_switch_next_prev(keycode, record) == false) return false;
 
   if (process_record_flexible_behavior_skel(&ptmh,   keycode, record) == false) return false;
   
@@ -570,6 +557,8 @@ bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *r
   
   if (process_record_flexible_behavior_skel(&cure,  keycode, record) == false) return false;
   if (process_record_flexible_behavior_skel(&cures, keycode, record) == false) return false;
-    
+
+  if (process_record_flexible_behavior_skel(&tksw,  keycode, record) == false) return false;
+
   return true;
 }
