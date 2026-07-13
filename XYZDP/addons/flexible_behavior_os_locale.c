@@ -543,7 +543,7 @@ static const flexible_behavior_conf_t ensn  = (flexible_behavior_conf_t){base_co
 static const flexible_behavior_conf_t ensns = (flexible_behavior_conf_t){base_code_engram_sym_num, pos_nop_error, base_code_nop_error, shift_engram_sym_num,  base_code_browser_back,   pos_home_row_mod, base_code_engram_sym_num, shift_engram_sym_num,  MOD_ENSNS, true};
 static const flexible_behavior_conf_t cure  = (flexible_behavior_conf_t){base_code_cursor,         pos_nop_error, base_code_nop_error, shift_bracket_counter, base_code_browser_reload, pos_home_row_mod, base_code_cursor,         shift_bracket_counter, MOD_CURE,  false};
 static const flexible_behavior_conf_t cures = (flexible_behavior_conf_t){base_code_cursor,         pos_nop_error, base_code_nop_error, shift_bracket_counter, base_code_nop,            pos_home_row_mod, base_code_cursor,         shift_bracket_counter, MOD_CURES, true};
-static const flexible_behavior_conf_t tksw  = (flexible_behavior_conf_t){base_code_task_switch,    pos_nop_error, base_code_nop_error, shift_bracket_counter, base_code_task_view,      pos_home_row_mod, base_code_nop,            shift_nop,             MOD_TKSW,  false};
+static const flexible_behavior_conf_t tksw  = (flexible_behavior_conf_t){base_code_task_switch,    pos_nop_error, base_code_nop_error, shift_nop,             base_code_task_view,      pos_nop_error,    base_code_nop_error,      shift_nop,             MOD_TKSW,  false};
 
 bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *record) {  
   if (process_record_macro_firmware(keycode, record) == false) return false;
