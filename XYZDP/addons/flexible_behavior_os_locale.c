@@ -546,6 +546,8 @@ bool process_detected_host_os_flexible_behavior_os_locale(os_variant_t detected_
     case OS_WINDOWS:
       flexible_behavior_jis_flag = true;
       flexible_behavior_mac_flag = false;
+      //test
+      //flexible_behavior_error_flag = true;
       break;
     case OS_LINUX:
       flexible_behavior_jis_flag = false;
