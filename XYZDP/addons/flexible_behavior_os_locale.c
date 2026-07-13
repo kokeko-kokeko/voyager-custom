@@ -133,13 +133,13 @@ static uint8_t conv_mods_pc_to_mac(uint8_t mods) {
 // conf struct, pos keycode shift * tap hold
 
 typedef struct flexible_behavior_conf {
-  flexible_behavior_t (* const tap_eager_base_code_func)(uint16_t);
-  flexible_behavior_t (* const tap_pos_func)(uint8_t);
-  flexible_behavior_t (* const tap_defer_base_code_func)(uint16_t);
+  flexible_behavior_t (* const tap_eager_from_tap_keycode)(uint16_t);
+  flexible_behavior_t (* const tap_from_pos)(uint8_t);
+  flexible_behavior_t (* const tap_defer_from_tap_keycode)(uint16_t);
   uint16_t (* const tap_shift_func)(uint16_t);
-  flexible_behavior_t (* const hold_eager_base_code_func)(uint16_t);
-  flexible_behavior_t (* const hold_pos_func)(uint8_t);
-  flexible_behavior_t (* const hold_defer_base_code_func)(uint16_t);
+  flexible_behavior_t (* const hold_eager_from_tap_keycode)(uint16_t);
+  flexible_behavior_t (* const hold_from_pos)(uint8_t);
+  flexible_behavior_t (* const hold_defer_from_tap_keycode)(uint16_t);
   uint16_t (* const hold_shift_func)(uint16_t);
   const uint16_t match_mods;
   const bool force_shift;
@@ -151,13 +151,13 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
   // tap/hold first
   bool is_tap = (record->tap.count > 0);
   
-  const uint16_t base_code = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+  const uint16_t tap_keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   const uint8_t pos = get_pos_from_keyrecord(record);
   
   flexible_behavior_t behav[3];
-  behav[0] = (is_tap) ? conf->tap_eager_base_code_func(base_code) : conf->hold_eager_base_code_func(base_code);
-  behav[1] = (is_tap) ? conf->tap_pos_func(pos)                   : conf->hold_pos_func(pos);
-  behav[2] = (is_tap) ? conf->tap_defer_base_code_func(base_code) : conf->hold_defer_base_code_func(base_code);
+  behav[0] = (is_tap) ? conf->tap_eager_from_tap_keycode(tap_keycode) : conf->hold_eager_from_tap_keycode(tap_keycode);
+  behav[1] = (is_tap) ? conf->tap_from_pos(pos)                       : conf->hold_from_pos(pos);
+  behav[2] = (is_tap) ? conf->tap_defer_from_tap_keycode(tap_keycode) : conf->hold_defer_from_tap_keycode(tap_keycode);
 
   // search behavior loop
   for (int i = 0; i < 3; i++) {
@@ -170,11 +170,11 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
       return true;
     }
 
-    if (behav[i].op_id == FB_SEND_BASE_CODE) {
+    if (behav[i].op_id == FB_SEND_TAP_KEYCODE) {
       unreg_keep_mods();
 
-      if (record->event.pressed) register_code16(base_code);
-      else unregister_code16(base_code);
+      if (record->event.pressed) register_code16(tap_keycode);
+      else unregister_code16(tap_keycode);
       
       return false;
     }
@@ -304,19 +304,19 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
 // MOD_BIT_RGUI   = 0b10000000,
 
 // fixed return functions
-static flexible_behavior_t base_code_nop(const uint16_t base_code) {  
+static flexible_behavior_t base_code_nop(const uint16_t tap_keycode) {  
   return (flexible_behavior_t){FB_NOP, 0, 0};
 }
 
-static flexible_behavior_t base_code_pass_qmk(const uint16_t base_code) {  
+static flexible_behavior_t base_code_pass_qmk(const uint16_t tap_keycode) {  
   return (flexible_behavior_t){FB_PASS_QMK, 0, 0};
 }
 
-static flexible_behavior_t base_code_send_base_code(const uint16_t base_code) {  
-  return (flexible_behavior_t){FB_SEND_BASE_CODE, 0, 0};
+static flexible_behavior_t base_code_send_tap_keycode(const uint16_t tap_keycode) {  
+  return (flexible_behavior_t){FB_SEND_TAP_KEYCODE, 0, 0};
 }
 
-static flexible_behavior_t base_code_term_error(const uint16_t base_code) {  
+static flexible_behavior_t base_code_term_error(const uint16_t tap_keycode) {  
   return (flexible_behavior_t){FB_TERMINATE_WITH_ERROR, 0, 0};
 }
 
@@ -331,8 +331,8 @@ static uint16_t shift_nop(const uint16_t keycode) {
 
 extern flexible_behavior_t pos_home_row_mod(const uint8_t pos);
 
-static flexible_behavior_t base_code_engram_sym_num(const uint16_t base_code) {
-  switch (base_code) {
+static flexible_behavior_t base_code_engram_sym_num(const uint16_t tap_keycode) {
+  switch (tap_keycode) {
     case KC_A: return (flexible_behavior_t){FB_KEYCODE, 0, KC_AT};
     case KC_B: return (flexible_behavior_t){FB_KEYCODE, 0, KC_HASH};
     case KC_C: return (flexible_behavior_t){FB_KEYCODE, 0, KC_QUOT};
@@ -399,12 +399,12 @@ static uint16_t shift_engram_sym_num(const uint16_t keycode) {
   return keycode;
 }
 
-static flexible_behavior_t base_code_cursor(const uint16_t base_code) {
+static flexible_behavior_t base_code_cursor(const uint16_t tap_keycode) {
   // must use QK_ for bit position
   //uint16_t sc_mod = QK_LCTL;
   //if (flexible_behavior_mac_flag) sc_mod = QK_LGUI;
   
-  switch (base_code) {
+  switch (tap_keycode) {
     // browser tab operation
     case KC_P: return (flexible_behavior_t){FB_KEYCODE, MOD_BIT_LCTRL, LSFT(KC_TAB)};
     case KC_N: return (flexible_behavior_t){FB_KEYCODE, MOD_BIT_LCTRL, KC_TAB};
@@ -442,8 +442,8 @@ static uint16_t shift_bracket_counter(const uint16_t keycode) {
   return keycode;
 }
 
-static flexible_behavior_t base_code_browser_back(const uint16_t base_code) {
-  switch (base_code) {
+static flexible_behavior_t base_code_browser_back(const uint16_t tap_keycode) {
+  switch (tap_keycode) {
     // hold side browser ENSNS symbol
     case KC_E: return (flexible_behavior_t){FB_KEYCODE_TAP, 0, LALT(KC_LEFT)};
   }
@@ -452,8 +452,8 @@ static flexible_behavior_t base_code_browser_back(const uint16_t base_code) {
   return (flexible_behavior_t){FB_NOP, 0, 0};
 }
 
-static flexible_behavior_t base_code_browser_reload(const uint16_t base_code) {
-  switch (base_code) {
+static flexible_behavior_t base_code_browser_reload(const uint16_t tap_keycode) {
+  switch (tap_keycode) {
     // hold side browser tab operation
     case KC_P: return (flexible_behavior_t){FB_KEYCODE_TAP, MOD_BIT_LCTRL, LSFT(KC_R)};
     case KC_N: return (flexible_behavior_t){FB_KEYCODE_TAP, MOD_BIT_LCTRL, KC_R};
@@ -463,11 +463,11 @@ static flexible_behavior_t base_code_browser_reload(const uint16_t base_code) {
   return (flexible_behavior_t){FB_NOP, 0, 0};
 }
 
-static flexible_behavior_t base_code_task_switch(const uint16_t base_code) {
+static flexible_behavior_t base_code_task_switch(const uint16_t tap_keycode) {
   uint8_t mod_bit = MOD_BIT_RALT;
   if (flexible_behavior_mac_flag) mod_bit = MOD_BIT_RCTRL; //conv to gui
 
-  switch (base_code) {
+  switch (tap_keycode) {
     // hold side browser tab operation
     case KC_P: return (flexible_behavior_t){FB_KEYCODE_TAP_KEEP_MODS, mod_bit, LSFT(KC_TAB)};
     case KC_N: return (flexible_behavior_t){FB_KEYCODE_TAP_KEEP_MODS, mod_bit, KC_TAB};
@@ -476,11 +476,11 @@ static flexible_behavior_t base_code_task_switch(const uint16_t base_code) {
   return (flexible_behavior_t){FB_NOP, 0, 0};
 }
 
-static flexible_behavior_t base_code_task_view(const uint16_t base_code) {
+static flexible_behavior_t base_code_task_view(const uint16_t tap_keycode) {
   uint16_t keycode = KC_TAB;
   if (flexible_behavior_mac_flag) keycode = KC_UP;
 
-  switch (base_code) {
+  switch (tap_keycode) {
     // hold side browser tab operation
     case KC_P: return (flexible_behavior_t){FB_KEYCODE_TAP, MOD_BIT_RGUI, keycode};
     case KC_N: return (flexible_behavior_t){FB_KEYCODE_TAP, MOD_BIT_RGUI, keycode};
@@ -551,14 +551,14 @@ bool process_detected_host_os_flexible_behavior_os_locale(os_variant_t detected_
   return true;
 }
 
-//                                                                            | tap                                                                                  | hold                                                                                       | target   | shift
-//                                                                            | eager_base              | pos           | defer_base          | shift                | eager_base              | pos             | defer_base              | shift                |          |
-static const flexible_behavior_conf_t conf_ptmh  = (flexible_behavior_conf_t){base_code_pass_qmk,       pos_term_error, base_code_term_error, shift_nop,             base_code_nop,            pos_home_row_mod, base_code_send_base_code, shift_nop,             MOD_PTMH,  false};
-static const flexible_behavior_conf_t conf_ensn  = (flexible_behavior_conf_t){base_code_engram_sym_num, pos_term_error, base_code_term_error, shift_engram_sym_num,  base_code_nop,            pos_home_row_mod, base_code_engram_sym_num, shift_engram_sym_num,  MOD_ENSN,  false};
-static const flexible_behavior_conf_t conf_ensns = (flexible_behavior_conf_t){base_code_engram_sym_num, pos_term_error, base_code_term_error, shift_engram_sym_num,  base_code_browser_back,   pos_home_row_mod, base_code_engram_sym_num, shift_engram_sym_num,  MOD_ENSNS, true};
-static const flexible_behavior_conf_t conf_cure  = (flexible_behavior_conf_t){base_code_cursor,         pos_term_error, base_code_term_error, shift_bracket_counter, base_code_browser_reload, pos_home_row_mod, base_code_cursor,         shift_bracket_counter, MOD_CURE,  false};
-static const flexible_behavior_conf_t conf_cures = (flexible_behavior_conf_t){base_code_cursor,         pos_term_error, base_code_term_error, shift_bracket_counter, base_code_nop,            pos_home_row_mod, base_code_cursor,         shift_bracket_counter, MOD_CURES, true};
-static const flexible_behavior_conf_t conf_tksw  = (flexible_behavior_conf_t){base_code_task_switch,    pos_term_error, base_code_term_error, shift_nop,             base_code_task_view,      pos_term_error,   base_code_term_error,     shift_nop,             MOD_TKSW,  false};
+//                                                                            | tap                                                                                  | hold                                                                                         | target   | shift
+//                                                                            | eager                   | pos           | defer               | shift                | eager                   | pos             | defer                     | shift                |          |
+static const flexible_behavior_conf_t conf_ptmh  = (flexible_behavior_conf_t){base_code_pass_qmk,       pos_term_error, base_code_term_error, shift_nop,             base_code_nop,            pos_home_row_mod, base_code_send_tap_keycode, shift_nop,             MOD_PTMH,  false};
+static const flexible_behavior_conf_t conf_ensn  = (flexible_behavior_conf_t){base_code_engram_sym_num, pos_term_error, base_code_term_error, shift_engram_sym_num,  base_code_nop,            pos_home_row_mod, base_code_engram_sym_num,   shift_engram_sym_num,  MOD_ENSN,  false};
+static const flexible_behavior_conf_t conf_ensns = (flexible_behavior_conf_t){base_code_engram_sym_num, pos_term_error, base_code_term_error, shift_engram_sym_num,  base_code_browser_back,   pos_home_row_mod, base_code_engram_sym_num,   shift_engram_sym_num,  MOD_ENSNS, true};
+static const flexible_behavior_conf_t conf_cure  = (flexible_behavior_conf_t){base_code_cursor,         pos_term_error, base_code_term_error, shift_bracket_counter, base_code_browser_reload, pos_home_row_mod, base_code_cursor,           shift_bracket_counter, MOD_CURE,  false};
+static const flexible_behavior_conf_t conf_cures = (flexible_behavior_conf_t){base_code_cursor,         pos_term_error, base_code_term_error, shift_bracket_counter, base_code_nop,            pos_home_row_mod, base_code_cursor,           shift_bracket_counter, MOD_CURES, true};
+static const flexible_behavior_conf_t conf_tksw  = (flexible_behavior_conf_t){base_code_task_switch,    pos_term_error, base_code_term_error, shift_nop,             base_code_task_view,      pos_term_error,   base_code_term_error,       shift_nop,             MOD_TKSW,  false};
 
 bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *record) {  
   if (process_record_macro_firmware(keycode, record) == false) return false;

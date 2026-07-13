@@ -68,7 +68,7 @@ bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *r
 enum flexible_behavior_operation_identifier {
   FB_NOP = 0,               // nop command, pass next step, data not use
   FB_PASS_QMK,              // pass to qmk, terminate process here return true, data not use
-  FB_SEND_BASE_CODE,        // send base code without mod, data not use
+  FB_SEND_TAP_KEYCODE,      // send tap keycode without mod, data not use
   FB_KEYCODE,               // keycode, data_u8 is option 8bit mods mask, data_u16 is 16bit keycode
   FB_KEYCODE_TAP,           // keycode tap, data_u8 is option 8bit mods mask, data_u16 is 16bit keycode
   FB_KEYCODE_TAP_KEEP_MODS, // keycode tap with keep mod, data_u8 is keep 8bit mods mask, data_u16 is 16bit keycode (base for taskswitch)
