@@ -551,25 +551,25 @@ bool process_detected_host_os_flexible_behavior_os_locale(os_variant_t detected_
   return true;
 }
 
-//                                                                       | tap                                                                              | hold                                                                         | target    | shift
-static const flexible_behavior_conf_t hoor   = (flexible_behavior_conf_t){base_code_pass_qmk,    pos_nop_error, base_code_nop_error, shift_nop,             base_code_nop,            pos_home_row_mod, base_code_nop,         shift_nop,             MOD_HOOR,   false};
-static const flexible_behavior_conf_t thor1  = (flexible_behavior_conf_t){base_code_base_number, pos_nop_error, base_code_nop_error, shift_engram_symbol,   base_code_nop,            pos_home_row_mod, base_code_base_number, shift_engram_symbol,   MOD_THOR1,  false};
-static const flexible_behavior_conf_t thor1s = (flexible_behavior_conf_t){base_code_base_number, pos_nop_error, base_code_nop_error, shift_engram_symbol,   base_code_browser_back,   pos_home_row_mod, base_code_base_number, shift_engram_symbol,   MOD_THOR1S, true};
-static const flexible_behavior_conf_t thor2  = (flexible_behavior_conf_t){base_code_cursor,      pos_nop_error, base_code_nop_error, shift_bracket_counter, base_code_browser_reload, pos_home_row_mod, base_code_cursor,      shift_bracket_counter, MOD_THOR2,  false};
-static const flexible_behavior_conf_t thor2s = (flexible_behavior_conf_t){base_code_cursor,      pos_nop_error, base_code_nop_error, shift_bracket_counter, base_code_nop,            pos_home_row_mod, base_code_cursor,      shift_bracket_counter, MOD_THOR2S, true};
+//                                                                       | tap                                                                             | hold                                                                                    | target    | shift
+static const flexible_behavior_conf_t ptmh  = (flexible_behavior_conf_t){base_code_pass_qmk,    pos_nop_error, base_code_nop_error, shift_nop,             base_code_nop,            pos_home_row_mod, base_code_nop,         shift_nop,             MOD_PTMH,  false};
+static const flexible_behavior_conf_t enbn  = (flexible_behavior_conf_t){base_code_base_number, pos_nop_error, base_code_nop_error, shift_engram_symbol,   base_code_nop,            pos_home_row_mod, base_code_base_number, shift_engram_symbol,   MOD_ENBN,  false};
+static const flexible_behavior_conf_t enbns = (flexible_behavior_conf_t){base_code_base_number, pos_nop_error, base_code_nop_error, shift_engram_symbol,   base_code_browser_back,   pos_home_row_mod, base_code_base_number, shift_engram_symbol,   MOD_ENBNS, true};
+static const flexible_behavior_conf_t cure  = (flexible_behavior_conf_t){base_code_cursor,      pos_nop_error, base_code_nop_error, shift_bracket_counter, base_code_browser_reload, pos_home_row_mod, base_code_cursor,      shift_bracket_counter, MOD_CURE,  false};
+static const flexible_behavior_conf_t cures = (flexible_behavior_conf_t){base_code_cursor,      pos_nop_error, base_code_nop_error, shift_bracket_counter, base_code_nop,            pos_home_row_mod, base_code_cursor,      shift_bracket_counter, MOD_CURES, true};
 
 bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *record) {  
   if (process_record_macro_firmware(keycode, record) == false) return false;
 
   if (process_record_user_task_switch_next_prev(keycode, record) == false) return false;
 
-  if (process_record_flexible_behavior_skel(&hoor,   keycode, record) == false) return false;
+  if (process_record_flexible_behavior_skel(&ptmh,   keycode, record) == false) return false;
   
-  if (process_record_flexible_behavior_skel(&thor1,  keycode, record) == false) return false;
-  if (process_record_flexible_behavior_skel(&thor1s, keycode, record) == false) return false;
+  if (process_record_flexible_behavior_skel(&enbn,  keycode, record) == false) return false;
+  if (process_record_flexible_behavior_skel(&enbns, keycode, record) == false) return false;
   
-  if (process_record_flexible_behavior_skel(&thor2,  keycode, record) == false) return false;
-  if (process_record_flexible_behavior_skel(&thor2s, keycode, record) == false) return false;
+  if (process_record_flexible_behavior_skel(&cure,  keycode, record) == false) return false;
+  if (process_record_flexible_behavior_skel(&cures, keycode, record) == false) return false;
     
   return true;
 }

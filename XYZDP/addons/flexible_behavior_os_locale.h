@@ -1,34 +1,42 @@
 #pragma once
 
 // use MT with 1 or 2 mod, must mod override hold side
-// HOOR : Hold Only OverRide, tap pass to normal process
+// PTMH : Pass Tap, Mod Hold
 // MCFW : MaCro FirmWare
-// THORn : Tap Hold OverRide, both override, shift and lang handle
-// THORnS : Tap Hold OverRide, both override, fix shift
+// ENBN : ENgram Base Number
+// ENBNS : ENgram Base Number Shifted
+// CURE : CURsor and Etc
+// CURES : CURsor and Etc Shifted
 // TKSW : TasK SWitch OverRide, handle RALT 
 
-#define MOD_HOOR (MOD_LCTL)
+// old name
+// HOOR : Hold Only OverRide, tap pass to normal process
+// THORn : Tap Hold OverRide, both override, shift and lang handle
+// THORnS : Tap Hold OverRide, both override, fix shift
+
+
+#define MOD_PTMH (MOD_LCTL)
 
 #define MOD_MCFW (MOD_LCTL | MOD_LSFT)
 
-#define MOD_THOR1 (MOD_RCTL)
-#define MOD_THOR1S (MOD_RCTL | MOD_RSFT)
+#define MOD_ENBN (MOD_RCTL)
+#define MOD_ENBNS (MOD_RCTL | MOD_RSFT)
 
-#define MOD_THOR2 (MOD_LALT)
-#define MOD_THOR2S (MOD_LALT | MOD_LSFT)
+#define MOD_CURE (MOD_LALT)
+#define MOD_CURES (MOD_LALT | MOD_LSFT)
 
 #define MOD_TKSW (MOD_RALT)
 
 //#define MT(mod, kc) (QK_MOD_TAP | (((mod)&0x1F) << 8) | ((kc)&0xFF))
-#define HOOR(kc) MT(MOD_HOOR, kc)
+#define PTMH(kc) MT(MOD_PTMH, kc)
 
 #define MCFW(kc) MT(MOD_MCFW, kc)
 
-#define THOR1(kc) MT(MOD_THOR1, kc)
-#define THOR1S(kc) MT(MOD_THOR1S, kc)
+#define ENBN(kc) MT(MOD_ENBN, kc)
+#define ENBNS(kc) MT(MOD_ENBNS, kc)
 
-#define THOR2(kc) MT(MOD_THOR2, kc)
-#define THOR2S(kc) MT(MOD_THOR2S, kc)
+#define CURE(kc) MT(MOD_CURE, kc)
+#define CURES(kc) MT(MOD_CURES, kc)
 
 #define TKSW(kc) MT(MOD_TKSW, kc)
 
