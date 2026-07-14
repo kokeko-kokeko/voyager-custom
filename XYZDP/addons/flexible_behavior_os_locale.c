@@ -154,10 +154,11 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
   const uint16_t tap_kc = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   const uint8_t pos = get_pos_from_keyrecord(record);
   
-  flexible_behavior_t behav[3];
-  behav[0] = (is_tap) ? conf->tap_eager_from_tap_kc(tap_kc) : conf->hold_eager_from_tap_kc(tap_kc);
-  behav[1] = (is_tap) ? conf->tap_from_pos(pos)             : conf->hold_from_pos(pos);
-  behav[2] = (is_tap) ? conf->tap_defer_from_tap_kc(tap_kc) : conf->hold_defer_from_tap_kc(tap_kc);
+  flexible_behavior_t behav[3] = {
+    ((is_tap) ? conf->tap_eager_from_tap_kc(tap_kc) : conf->hold_eager_from_tap_kc(tap_kc)),
+    ((is_tap) ? conf->tap_from_pos(pos)             : conf->hold_from_pos(pos)            ),
+    ((is_tap) ? conf->tap_defer_from_tap_kc(tap_kc) : conf->hold_defer_from_tap_kc(tap_kc))
+  };
 
   // search behavior loop
   for (int i = 0; i < 3; i++) {

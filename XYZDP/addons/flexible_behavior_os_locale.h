@@ -80,7 +80,7 @@ enum flexible_behavior_operation_identifier {
 };
 
 typedef struct flexible_behavior {
-  uint8_t op_id;
+  const uint8_t op_id;
   uint8_t data_u8;
   uint16_t data_u16;
 } flexible_behavior_t;
