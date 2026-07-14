@@ -146,7 +146,7 @@ bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * c
   return true;
 }
 
-flexible_behavior_t pos_home_row_mod(const uint8_t pos) {
+flexible_behavior_t home_row_mod_from_pos(const uint8_t pos) {
   switch (pos) {
     case  0: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
     case  1: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
