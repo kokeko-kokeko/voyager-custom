@@ -149,15 +149,15 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
   if ((IS_QK_MOD_TAP(keycode) == false) || (QK_MOD_TAP_GET_MODS(keycode) != conf->match_mods)) return true;
   
   // tap/hold first
-  bool is_tap = (record->tap.count > 0);
+  const bool is_tap = (record->tap.count > 0);
   
   const uint16_t tap_kc = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
   const uint8_t pos = get_pos_from_keyrecord(record);
   
   flexible_behavior_t behav[3] = {
-    ((is_tap) ? conf->tap_eager_from_tap_kc(tap_kc) : conf->hold_eager_from_tap_kc(tap_kc)),
-    ((is_tap) ? conf->tap_from_pos(pos)             : conf->hold_from_pos(pos)            ),
-    ((is_tap) ? conf->tap_defer_from_tap_kc(tap_kc) : conf->hold_defer_from_tap_kc(tap_kc))
+    ( (is_tap) ? conf->tap_eager_from_tap_kc(tap_kc) : conf->hold_eager_from_tap_kc(tap_kc) ),
+    ( (is_tap) ? conf->tap_from_pos(pos)             : conf->hold_from_pos(pos)             ),
+    ( (is_tap) ? conf->tap_defer_from_tap_kc(tap_kc) : conf->hold_defer_from_tap_kc(tap_kc) )
   };
 
   // search behavior loop
@@ -275,6 +275,11 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
       if (record->event.pressed) swap_hands_on();
       else swap_hands_off();
 
+      return false;
+    }
+
+    if (behav[i].op_id == FB_EXIT) {
+      
       return false;
     }
 

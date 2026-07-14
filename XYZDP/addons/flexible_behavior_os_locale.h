@@ -76,6 +76,7 @@ enum flexible_behavior_operation_identifier {
   FB_LAYER,                 // activate layer, data_u8 is layer number
   FB_CAPS_WORD,             // caps word, data not use
   FB_SWAP_HANDS,            // swap hands, data not use
+  FB_EXIT,                  // terminate here 
   FB_ERROR_EXIT             // terminate here, with error flag report (use on non-reach default value) 
 };
 
