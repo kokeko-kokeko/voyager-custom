@@ -21,7 +21,7 @@ then
     echo -e "\e[;32m---- link file to qmk_firmware keyboards folder ----\e[m"
     #rsync --archive --checksum --delete --verbose --info=stats0 XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
     pushd qmk_firmware/keyboards/zsa/voyager/keymaps > /dev/null
-    ln -sf ../../../../../XYZDP
+    ln -s ../../../../../XYZDP
     popd > /dev/null
 fi
 
