@@ -16,10 +16,11 @@ popd > /dev/null
 echo -e "\e[;32m---- fetch only user side code repo ----\e[m"
 git fetch --prune --multiple zsa upstream origin
 
+#rsync --archive --checksum --delete --verbose --info=stats0 XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
+
 if ! [ -d qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP ]
 then
     echo -e "\e[;32m---- link file to qmk_firmware keyboards folder ----\e[m"
-    #rsync --archive --checksum --delete --verbose --info=stats0 XYZDP/ qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP/
     pushd qmk_firmware/keyboards/zsa/voyager/keymaps > /dev/null
     ln -s ../../../../../XYZDP
     popd > /dev/null
