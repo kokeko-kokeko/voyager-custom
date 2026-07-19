@@ -51,14 +51,14 @@ static void rgb_matrix_indicators_layer_overlay(void) {
     rgb_matrix_set_color(50, 0, 0, 0);
   }
 
-  if (layer_state_is(LAYER_L_pinky)) {
+  if (layer_state_is(LAYER_L_pinky_0)) {
     rgb_matrix_set_color(5, 0, 0, 0);
     rgb_matrix_set_color(6, 0, 0, 0);
 
     or_flag = true;
   }
   
-  if (layer_state_is(LAYER_R_pinky)) {
+  if (layer_state_is(LAYER_R_pinky_0)) {
     rgb_matrix_set_color(26, 0, 0, 0);
     rgb_matrix_set_color(37, 0, 0, 0);
 
