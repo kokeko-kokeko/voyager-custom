@@ -37,5 +37,6 @@ enum layer_num {
 
   LAYER_Firmware,
   LAYER_Color_Palette,
+  
   C_LAYER_COUNT 
 };
