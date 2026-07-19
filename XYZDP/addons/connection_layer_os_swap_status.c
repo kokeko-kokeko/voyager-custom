@@ -80,15 +80,15 @@ layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t stat
       status_led(0b1010, led_pattern_off);
       status_led(0b0101, led_pattern_on);
       break;
-    case LAYER_L_pinky_0_L_pinky_0:
-      status_led(0b1100, led_pattern_off);
-      status_led(0b0011, led_pattern_on);
-      break;
     case LAYER_L_thumb_0_R_pinky_0:
     case LAYER_R_thumb_0_L_pinky_0:
-    case LAYER_L_thumb_0_L_thumb_0:
+    case LAYER_L_thumb_0_R_thumb_0:
       status_led(0b1000, led_pattern_off);
       status_led(0b0111, led_pattern_on);
+      break;
+    case LAYER_L_pinky_0_R_pinky_0:
+      status_led(0b1100, led_pattern_off);
+      status_led(0b0011, led_pattern_on);
       break;
     case LAYER_Mouse_Upper_L:
     case LAYER_Mouse_Upper_R:
