@@ -43,15 +43,8 @@ void keyboard_post_init_user(void) {
   // no transition / jis / pc mode
   layer_move(LAYER_Base);
   layer_off(LAYER_Transition);
-	
   jis_enable();
   mac_disable();
-
-  // boot done animation
-  //status_led(0b1000, led_pattern_boot0);
-  //status_led(0b0010, led_pattern_boot1);
-  //status_led(0b0100, led_pattern_boot2);
-  //status_led(0b0001, led_pattern_boot3);
 }
 
 void matrix_scan_user(void) {
