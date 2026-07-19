@@ -146,48 +146,53 @@ bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * c
   return true;
 }
 
+// Caps	ASC	GAS	GS	AS	GAC
+// LT   LT  GA  S   C   GC
+// C    G   A   AC  SC  GSC
+// S                LT  Swap 
+
 flexible_behavior_t home_row_mods_from_pos(const uint8_t pos) {
   switch (pos) {
     case  0: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
-    case  1: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
-    case  2: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LCTRL, 0};
-    case  3: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
-    case  4: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LCTRL, 0};
-    case  5: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
+    case  1: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
+    case  2: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
+    case  3: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LSHIFT, 0};
+    case  4: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
+    case  5: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LCTRL, 0};
 
     case 31: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
-    case 30: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
-    case 29: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL, 0};
-    case 28: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RSHIFT, 0};
-    case 27: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RCTRL, 0};
-    case 26: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
+    case 30: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
+    case 29: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT, 0};
+    case 28: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RSHIFT, 0};
+    case 27: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RSHIFT, 0};
+    case 26: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL, 0};
 
     case  6: return (flexible_behavior_t){FB_LAYER, LAYER_L_pinky_0, 0};
-    case  7: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
+    case  7: return (flexible_behavior_t){FB_LAYER, LAYER_L_pinky_1, 0};
     case  8: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT, 0};
     case  9: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT, 0};
     case 10: return (flexible_behavior_t){FB_MODS, MOD_BIT_LCTRL, 0};
-    case 11: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
+    case 11: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LCTRL, 0};
 
     case 37: return (flexible_behavior_t){FB_LAYER, LAYER_R_pinky_0, 0};
-    case 36: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT, 0};
+    case 36: return (flexible_behavior_t){FB_LAYER, LAYER_R_pinky_1, 0};
     case 35: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT, 0};
     case 34: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT, 0};
     case 33: return (flexible_behavior_t){FB_MODS, MOD_BIT_RCTRL, 0};
-    case 32: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
+    case 32: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RCTRL, 0};
 
     case 12: return (flexible_behavior_t){FB_MODS, MOD_BIT_LCTRL, 0};
     case 13: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI, 0};
     case 14: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT, 0};
-    case 15: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LSHIFT, 0};
-    case 16: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LCTRL, 0};
+    case 15: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LCTRL, 0};
+    case 16: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
     case 17: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
 
     case 43: return (flexible_behavior_t){FB_MODS, MOD_BIT_RCTRL, 0};
     case 42: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI, 0};
     case 41: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT, 0};
-    case 40: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RSHIFT, 0};
-    case 39: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RCTRL, 0};
+    case 40: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RCTRL, 0};
+    case 39: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
     case 38: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
 
     case 18: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT, 0};
