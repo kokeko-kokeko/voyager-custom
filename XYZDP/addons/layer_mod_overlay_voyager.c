@@ -65,6 +65,18 @@ static void rgb_matrix_indicators_layer_overlay(void) {
     or_flag = true;
   }
 
+  if (layer_state_is(LAYER_L_pinky_1)) {
+    rgb_matrix_set_color(7, 0, 0, 0);
+
+    or_flag = true;
+  }
+  
+  if (layer_state_is(LAYER_R_pinky_1)) {
+    rgb_matrix_set_color(36, 0, 0, 0);
+
+    or_flag = true;
+  }
+
   if (or_flag) {
     rgb_matrix_set_color(19, 0, 0, 0);
     rgb_matrix_set_color(20, 0, 0, 0);
