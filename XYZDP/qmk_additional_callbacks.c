@@ -120,25 +120,7 @@ bool rgb_matrix_indicators_user(void) {
   //    return false;
   //}
   //if (keyboard_config.disable_layer_led) { return false; }
-  //switch (get_highest_layer(layer_state)) {
-  //  case LAYER_Firmware:
-  //    rgb_matrix_indicators_firmware_map();
-  //    break;
-  //  case LAYER_Color_Palette:
-  //    rgb_matrix_indicators_fade_matrix();
-  //    break;
-    
-  //  default:
-  //    if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
-  //      rgb_matrix_set_color_all(0, 0, 0);
-  //    } else {
-  //      rgb_matrix_indicators_mouse_button_overlay();
-  //      rgb_matrix_indicators_layer_mod_overlay();
-  //      rgb_matrix_indicators_ime_state_sync();
-  //    }
-  //    break;
-  //}
-
+  
   // manual ordering
   if (rgb_matrix_indicators_color_palette() == false) return false;
   if (rgb_matrix_indicators_firmware_map() == false) return false;
