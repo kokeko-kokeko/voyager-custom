@@ -34,7 +34,8 @@ popd > /dev/null
 
 echo -e "\e[;32m---- check zsa modules upstream ----\e[m"
 pushd qmk_firmware/modules/zsa > /dev/null
-git --no-pager diff --stat HEAD..upstream/main -- ':(exclude)automouse/automouse.c'
+#git --no-pager diff --stat HEAD..upstream/main -- ':(exclude)automouse/automouse.c'
+git --no-pager diff --stat HEAD..upstream/main
 popd > /dev/null
 
 echo -e "\e[;32m---- check qmk firmware upstream ----\e[m"
