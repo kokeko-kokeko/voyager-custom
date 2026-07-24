@@ -38,8 +38,7 @@ void keyboard_post_init_user(void) {
   keyboard_post_init_connection_layer_os_swap_status();
   keyboard_post_init_fade_matrix();
   keyboard_post_init_status_led();
-	keyboard_post_init_sub_trackball();
-
+  
   // no transition / jis / pc mode
   layer_move(LAYER_Base);
   layer_off(LAYER_Transition);
@@ -168,7 +167,6 @@ bool process_record_additional(uint16_t keycode, keyrecord_t *record) {
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   post_process_record_ime_state_sync(keycode, record);
-  //post_process_record_sub_trackball(keycode, record);
 	
   return;
 }

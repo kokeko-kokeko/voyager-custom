@@ -56,10 +56,6 @@ void mouse_jiggler_disable(void) {
     mouse_jiggler_enabled = false;
 }
 
-static fast_timer_t trackball_early_off_trigger = 0;
-
-#define TRACKBALL_AUTO_LAYER LAYER_Mouse_R
-
 #define TRACKPAD_AUTO_LAYER LAYER_Mouse_L
 
 // copy and mod zsa code
@@ -204,12 +200,6 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     }
   }
 
-  // move from housekeeping, off automouse
-  if (timer_expired_fast(now, trackball_early_off_trigger)) {
-    trackball_early_off_trigger = now + (UINT32_MAX / 2) - 1;
-    layer_off(TRACKBALL_AUTO_LAYER);
-  }
-
   // 32 to 16 conv with limit split
   // pos max 32767 -> use 32512 limit 32768 - 256
   int16_t output_x = 0;
@@ -256,10 +246,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   }
 
   if (output_flag) {
-    if (move_xy_flag) {
-      trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
-      //layer_on(TRACKBALL_AUTO_LAYER);
-      
+    if (move_xy_flag) {      
       mouse_report.x = output_x;
       mouse_report.y = output_y;
     } else {
@@ -269,56 +256,6 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   }
   
   return mouse_report;
-}
-
-static void post_process_record_non_mouse(uint16_t keycode, keyrecord_t *record) {
-  // mouse non-active skip
-  if (layer_state_is(TRACKBALL_AUTO_LAYER) == false) return;
-
-  // keep on mouse number and cursor
-  if (layer_state_is(LAYER_Mouse_Upper_L) == true) return;
-  if (layer_state_is(LAYER_Mouse_Upper_R) == true) return;
-  if (layer_state_is(LAYER_Number) == true) return;
-  if (layer_state_is(LAYER_Cursor) == true) return;
-
-  // keycode check
-  if (IS_MOUSEKEY(keycode) == true) return;
-  if (IS_QK_MOMENTARY(keycode) == true) return;
-  //if (IS_QK_LAYER_TAP(keycode) == true) return;
-  if (keycode ==  LGUI(KC_TAB)) return;
-  
-  if (record->event.pressed) {
-    // non-mouse key press 
-    trackball_early_off_trigger = timer_read_fast() + (UINT32_MAX / 2) - 1;
-  } else {
-    // non-mouse key release, exit 
-    trackball_early_off_trigger = timer_read_fast() + 1;
-  } 
-
-  return;
-}
-
-static void post_process_record_mouse_button(uint16_t keycode, keyrecord_t *record) {
-  // only mouse button
-  if (IS_MOUSEKEY_BUTTON(keycode) == false) return;
-  
-  if (record->event.pressed) {
-    // non-mouse key press 
-    trackball_early_off_trigger = timer_read_fast() + (UINT32_MAX / 2) - 1;
-  } else {
-    // non-mouse key release, exit 
-    trackball_early_off_trigger = timer_read_fast() + AUTO_MOUSE_TIME_MOUSEKEY_BUTTON;
-  }
-  
-  return;
-}
-
-void keyboard_post_init_sub_trackball(void) {
-  const fast_timer_t now = timer_read_fast();
-
-  trackball_early_off_trigger = now + (UINT32_MAX / 2) - 1;
-
-  return;
 }
 
 void matrix_scan_sub_trackball(void) {
@@ -479,13 +416,6 @@ void matrix_scan_sub_trackball(void) {
     }
   }
 
-  return;
-}
-
-void post_process_record_sub_trackball(uint16_t keycode, keyrecord_t *record) {
-  post_process_record_non_mouse(keycode, record);
-  post_process_record_mouse_button(keycode, record);
-  
   return;
 }
 
