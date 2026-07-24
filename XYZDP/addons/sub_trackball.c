@@ -37,7 +37,7 @@ static fast_timer_t tb_sensor_trigger = 0;
 static int32_t accumulator_x = 0;
 static int32_t accumulator_y = 0;
 
-static bool move_xy_flag = false;
+static bool move_hv_flag = false;
 
 static bool mouse_jiggler_enabled = false;
 static fast_timer_t mouse_jiggler_trigger = 0;
@@ -55,8 +55,6 @@ void mouse_jiggler_enable(void) {
 void mouse_jiggler_disable(void) {
     mouse_jiggler_enabled = false;
 }
-
-#define TRACKPAD_AUTO_LAYER LAYER_Mouse_L
 
 // copy and mod zsa code
 
@@ -246,12 +244,12 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   }
 
   if (output_flag) {
-    if (move_xy_flag) {      
-      mouse_report.x = output_x;
-      mouse_report.y = output_y;
-    } else {
+    if (move_hv_flag) {
       mouse_report.h = output_x;
       mouse_report.v = output_y;
+    } else {
+      mouse_report.x = output_x;
+      mouse_report.y = output_y;
     }
   }
   
@@ -420,12 +418,12 @@ void matrix_scan_sub_trackball(void) {
 }
 
 layer_state_t layer_state_set_sub_trackball(layer_state_t state) {    
-  //move_xy_flag = layer_state_cmp(state, TRACKPAD_AUTO_LAYER);
-  move_xy_flag = false;
-  
-  move_xy_flag = move_xy_flag || layer_state_cmp(state, LAYER_Number);
-  move_xy_flag = move_xy_flag || layer_state_cmp(state, LAYER_Cursor);
-  move_xy_flag = move_xy_flag || layer_state_cmp(state, LAYER_Function);
+  move_hv_flag = false;
+
+  move_hv_flag = move_hv_flag || layer_state_cmp(state, AUTOMOUSE_LAYER_TRACKPAD);
+  move_hv_flag = move_hv_flag || layer_state_cmp(state, LAYER_Number);
+  move_hv_flag = move_hv_flag || layer_state_cmp(state, LAYER_Cursor);
+  //move_hv_flag = move_hv_flag || layer_state_cmp(state, LAYER_Function);
 
   return state;
 }
