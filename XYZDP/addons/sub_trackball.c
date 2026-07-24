@@ -258,7 +258,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
   if (output_flag) {
     if (move_xy_flag) {
       trackball_early_off_trigger = now + AUTO_MOUSE_TIME_TRACKBALL;
-      layer_on(TRACKBALL_AUTO_LAYER);
+      //layer_on(TRACKBALL_AUTO_LAYER);
       
       mouse_report.x = output_x;
       mouse_report.y = output_y;
