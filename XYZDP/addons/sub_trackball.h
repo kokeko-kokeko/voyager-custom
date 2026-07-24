@@ -67,10 +67,6 @@ extern void mouse_jiggler_enable(void);
 extern void mouse_jiggler_disable(void);
 extern bool mouse_jiggler_is_enabled(void);
 
-// auto layers
-#define AUTO_MOUSE_TIME_MOUSEKEY_BUTTON 997
-#define AUTO_MOUSE_TIME_TRACKBALL 7993
-
 extern bool           trackball_init;
 
 void matrix_scan_sub_trackball(void);
