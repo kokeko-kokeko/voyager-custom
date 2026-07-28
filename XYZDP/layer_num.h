@@ -40,3 +40,11 @@ enum layer_num {
   
   C_LAYER_COUNT 
 };
+
+// layer alias
+enum layer_num_alias {
+  LAYER_L_thumb_0 = LAYER_Number,
+  LAYER_R_thumb_0 = LAYER_Cursor,
+
+  LAYER_L_thumb_1 = LAYER_Function
+};
