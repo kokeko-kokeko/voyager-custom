@@ -8,10 +8,10 @@ enum layer_num {
   LAYER_Mouse_L,
   LAYER_Mouse_R,
 
-  LAYER_Number,
-  LAYER_Cursor,
+  LAYER_L_thumb_0,
+  LAYER_R_thumb_0,
 
-  LAYER_Function,
+  LAYER_L_thumb_1,
   LAYER_R_thumb_1,
 
   LAYER_L_thumb_2,
@@ -43,8 +43,8 @@ enum layer_num {
 
 // layer alias
 enum layer_num_alias {
-  LAYER_L_thumb_0 = LAYER_Number,
-  LAYER_R_thumb_0 = LAYER_Cursor,
+  LAYER_Number = LAYER_L_thumb_0,
+  LAYER_Cursor = LAYER_R_thumb_0,
 
-  LAYER_L_thumb_1 = LAYER_Function
+  LAYER_Function = LAYER_L_thumb_1
 };
