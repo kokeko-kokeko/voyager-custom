@@ -24,15 +24,15 @@ enum layer_num {
   LAYER_R_pinky_1,
 
   LAYER_L_thumb_0_L_pinky_0,
-  LAYER_L_thumb_0_L_pinky_1,
-
   LAYER_R_thumb_0_R_pinky_0,
+
+  LAYER_L_thumb_0_L_pinky_1,
   LAYER_R_thumb_0_R_pinky_1,
  
   LAYER_L_thumb_0_R_pinky_0,
-  LAYER_L_thumb_0_R_pinky_1,
-
   LAYER_R_thumb_0_L_pinky_0,
+
+  LAYER_L_thumb_0_R_pinky_1,
   LAYER_R_thumb_0_L_pinky_1,
 
   LAYER_L_thumb_0_R_thumb_0,
