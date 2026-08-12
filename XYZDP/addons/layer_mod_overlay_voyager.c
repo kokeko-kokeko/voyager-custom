@@ -21,21 +21,21 @@ static void rgb_matrix_indicators_layer_overlay(void) {
   if (layer_state_is(LAYER_Mouse_R)) return;
   
   // layer display with priority
-  if (layer_state_is(LAYER_Number)) {
+  if (layer_state_is(LAYER_L_thumb_0)) {
     rgb_matrix_set_color(11, 0, 0, 0);
     rgb_matrix_set_color(22, 0, 0, 0);
 
     or_flag = true;
   }
   
-  if (layer_state_is(LAYER_Cursor)) {
+  if (layer_state_is(LAYER_R_thumb_0)) {
     rgb_matrix_set_color(32, 0, 0, 0);
     rgb_matrix_set_color(45, 0, 0, 0);
 
     or_flag = true;
   }
 
-  if (layer_state_is(LAYER_Function)) {
+  if (layer_state_is(LAYER_L_thumb_1)) {
     rgb_matrix_set_color(24, 0, 0, 0);
   }
 
