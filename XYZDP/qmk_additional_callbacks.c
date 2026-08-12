@@ -47,7 +47,7 @@ void keyboard_post_init_user(void) {
 }
 
 void matrix_scan_user(void) {
-  matrix_scan_sub_trackball();
+  //matrix_scan_sub_trackball();
 }
 
 bool process_detected_host_os_user(os_variant_t detected_os) {
@@ -116,7 +116,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = layer_state_set_connection_layer_os_swap_status(state);
   state = layer_state_set_fade_matrix(state);
   state = layer_state_set_firmware_map(state);
-	state = layer_state_set_sub_trackball(state);
+	//state = layer_state_set_sub_trackball(state);
 	
   return state;
 }
