@@ -62,8 +62,8 @@ layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t stat
     case LAYER_Cursor: 
     case LAYER_Function:   
 	  // mouse on keep top bit
-      status_led(0b0011, led_pattern_off);
       status_led(0b0100, led_pattern_delayed_on);
+      status_led(0b0011, led_pattern_off);
       break;
     case LAYER_R_thumb_1:
     case LAYER_L_thumb_2:
@@ -73,35 +73,53 @@ layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t stat
       status_led(0b1111, led_pattern_off);
       break;
     case LAYER_L_pinky_1:
-      status_led(0b0111, led_pattern_off);
       status_led(0b1000, led_pattern_on);
+      status_led(0b0111, led_pattern_off);
       break;    
-    case LAYER_R_pinky_1:  
-      status_led(0b1011, led_pattern_off);
+    case LAYER_R_pinky_1:
       status_led(0b0100, led_pattern_on);
+      status_led(0b1011, led_pattern_off);
       break;
     case LAYER_L_thumb_0_L_pinky_0:
+      status_led(0b1010, led_pattern_on);
+      status_led(0b0101, led_pattern_off);
+      break;    
     case LAYER_R_thumb_0_R_pinky_0:
-      status_led(0b1001, led_pattern_off);
-      status_led(0b0110, led_pattern_on);
+      status_led(0b0101, led_pattern_on);
+      status_led(0b1010, led_pattern_off);
       break;
     case LAYER_L_thumb_0_L_pinky_1:
+      status_led(0b1010, led_pattern_on);
+      status_led(0b0101, led_pattern_off);
+      break;
     case LAYER_R_thumb_0_R_pinky_1:
-      status_led(0b1010, led_pattern_off);
       status_led(0b0101, led_pattern_on);
+      status_led(0b1010, led_pattern_off);
       break;
     case LAYER_L_thumb_0_R_pinky_0:
+      status_led(0b0110, led_pattern_on);
+      status_led(0b1001, led_pattern_off);
+      break;
     case LAYER_R_thumb_0_L_pinky_0:
+      status_led(0b1001, led_pattern_on);
+      status_led(0b0110, led_pattern_off);
+      break;
     case LAYER_L_thumb_0_R_pinky_1:
+      status_led(0b0110, led_pattern_on);
+      status_led(0b1001, led_pattern_off);
+      break;
     case LAYER_R_thumb_0_L_pinky_1:
+      status_led(0b1001, led_pattern_on);
+      status_led(0b0110, led_pattern_off);
+      break;
     case LAYER_L_thumb_0_R_thumb_0:
-      status_led(0b1000, led_pattern_off);
-      status_led(0b0111, led_pattern_on);
+      status_led(0b0011, led_pattern_on);
+      status_led(0b1100, led_pattern_off);
       break;
     case LAYER_L_pinky_0_R_pinky_0:
     case LAYER_L_pinky_1_R_pinky_1:
-      status_led(0b0011, led_pattern_off);
       status_led(0b1100, led_pattern_on);
+      status_led(0b0011, led_pattern_off);
       break;
     case LAYER_Mouse_Upper_L:
     case LAYER_Mouse_Upper_R:
@@ -111,12 +129,12 @@ layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t stat
       // aim/turbo change without layer, direct write on process_record
       break;    
     case LAYER_Firmware:
+      status_led(0b1010, led_pattern_on);
       status_led(0b0101, led_pattern_off);
-	  status_led(0b1010, led_pattern_on);
       break;
     case LAYER_Color_Palette:
-      status_led(0b0100, led_pattern_off);
       status_led(0b1011, led_pattern_on);
+      status_led(0b0100, led_pattern_off);
       break;
     
     default:
