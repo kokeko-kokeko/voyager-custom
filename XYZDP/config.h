@@ -60,8 +60,8 @@
 
 //#define MAX_DEFERRED_EXECUTORS 16
 
-// normal 250ms, more margin, wakeup and os detect total <1s
-#define OS_DETECTION_DEBOUNCE 797
+// normal 250ms, more margin
+#define OS_DETECTION_DEBOUNCE 1999
 //#define OS_DETECTION_KEYBOARD_RESET
 //#define OS_DETECTION_SINGLE_REPORT
 
