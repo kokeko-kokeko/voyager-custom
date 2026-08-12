@@ -10,9 +10,9 @@
 #include "addons/connection_layer_os_swap_status.h"
 #include "addons/status_led.h"
 
-#include "addons/sub_trackball.h"
-
 #include "navigator_trackpad_common.h"
+
+extern bool           trackball_init;
 
 static fast_timer_t status_update_trigger = (UINT32_MAX / 2) - 1;
 

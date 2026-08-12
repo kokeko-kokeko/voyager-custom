@@ -11,8 +11,6 @@
 #include "addons/get_pos_from_keyrecord.h"
 #include "addons/status_led.h"
 
-#include "addons/sub_trackball.h"
-
 #include "navigator_trackpad_common.h"
 
 // use animation logic

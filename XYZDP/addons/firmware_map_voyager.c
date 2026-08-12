@@ -21,7 +21,12 @@
 #include "mcp23018.h"
 #include "i2c_master.h"
 
-#include "addons/sub_trackball.h"
+#include "navigator_trackball.h"
+
+// mouse jiggler fucn
+bool mouse_jiggler_is_enabled(void);
+void mouse_jiggler_enable(void);
+void mouse_jiggler_disable(void);
 
 enum key_position {
   POSITION_JIS = 3,

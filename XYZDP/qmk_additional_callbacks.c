@@ -15,7 +15,6 @@
 #include "addons/layer_mod_overlay.h"
 #include "addons/mouse_button_overlay.h"
 #include "addons/status_led.h"
-#include "addons/sub_trackball.h"
 
 #include "layer_num.h"
 
