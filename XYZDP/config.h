@@ -30,7 +30,7 @@
 #define AUTOMOUSE_ONESHOT_TIMEOUT_TRACKBALL 8009    // idle timeout
 
 #define MOUSE_JIGGLER_MOVEMENT 1
-#define MOUSE_JIGGLER_INTERVAL_MS 14983
+#define MOUSE_JIGGLER_INTERVAL_MS 15013
 
 // must use 16bit extended report for sub_trackball
 #define MOUSE_EXTENDED_REPORT
