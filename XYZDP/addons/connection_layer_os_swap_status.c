@@ -58,16 +58,28 @@ layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t stat
       // clear scroll bit
       status_led(0b0100, led_pattern_off);
       break;
-    case LAYER_Number:
-    case LAYER_Cursor: 
-    case LAYER_Function:   
+    case LAYER_L_thumb_0:
+    case LAYER_R_thumb_0: 
 	  // mouse on keep top bit
       status_led(0b0100, led_pattern_delayed_on);
       status_led(0b0011, led_pattern_off);
       break;
+    case LAYER_L_thumb_1:
+      status_led(0b0010, led_pattern_on);
+      status_led(0b1101, led_pattern_off);
+      break;     
     case LAYER_R_thumb_1:
+      status_led(0b0001, led_pattern_on);
+      status_led(0b1110, led_pattern_off);
+      break; 
     case LAYER_L_thumb_2:
+      status_led(0b0010, led_pattern_on);
+      status_led(0b1101, led_pattern_off);
+      break;   
     case LAYER_R_thumb_2:
+      status_led(0b0001, led_pattern_on);
+      status_led(0b1110, led_pattern_off);
+      break; 
     case LAYER_L_pinky_0:
     case LAYER_R_pinky_0:  
       status_led(0b1111, led_pattern_off);

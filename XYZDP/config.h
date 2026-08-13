@@ -24,7 +24,7 @@
 #define AUTOMOUSE_THRESHOLD_TRACKBALL 10
 
 #define AUTOMOUSE_SCROLL_THRESHOLD_TRACKPAD 100  
-#define AUTOMOUSE_SCROLL_THRESHOLD_TRACKBALL 32500  // eq disable, near int 16 max
+#define AUTOMOUSE_SCROLL_THRESHOLD_TRACKBALL 32500  // eq disable, near int 16 max half
 
 #undef AUTOMOUSE_ONESHOT_TRACKBALL
 #define AUTOMOUSE_ONESHOT_TRACKBALL true
@@ -33,7 +33,7 @@
 #define AUTOMOUSE_ONESHOT_TIMEOUT_TRACKBALL 8009    // idle timeout
 
 #define MOUSE_JIGGLER_MOVEMENT 1
-#define MOUSE_JIGGLER_INTERVAL_MS 30011
+#define MOUSE_JIGGLER_INTERVAL_MS 32503 // near int 16 max half, prime
 
 // must use 16bit extended report for sub_trackball
 #define MOUSE_EXTENDED_REPORT
