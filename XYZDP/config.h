@@ -69,7 +69,7 @@
 
 //#define MAX_DEFERRED_EXECUTORS 16
 
-// normal 250ms, more margin
+// normal 250ms, more margin, typ 2sec
 #define OS_DETECTION_DEBOUNCE 1999
 //#define OS_DETECTION_KEYBOARD_RESET
 //#define OS_DETECTION_SINGLE_REPORT
