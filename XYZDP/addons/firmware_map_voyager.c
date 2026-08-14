@@ -557,7 +557,7 @@ layer_state_t layer_state_set_firmware_map(const layer_state_t state) {
   // if enable nothig to do
   if (layer_state_cmp(state, LAYER_Firmware) == true) return state;
 
-  // only base, update scroll
+  // only base, update track ball flag
   if (get_highest_layer(state) <= LAYER_Transition) {
     set_scrolling = nav_ball_base_scroll;
   } else {
