@@ -560,6 +560,12 @@ layer_state_t layer_state_set_firmware_map(const layer_state_t state) {
   // only base, update scroll
   if (get_highest_layer(state) <= LAYER_Transition) {
     set_scrolling = nav_ball_base_scroll;
+  } else {
+    // upper, clear all flag
+    set_scrolling = false;
+    scroll_vertical_only = false;
+    navigator_turbo = false;
+    navigator_aim = false;
   }
 
   halt_request0 = false;
