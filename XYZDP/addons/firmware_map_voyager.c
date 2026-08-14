@@ -45,8 +45,8 @@ enum key_position {
   POSITION_ISS_on = 0,
   POSITION_ISS_off = 6,
 
-  POSITION_MJ_on = 43,
-  POSITION_MJ_off = 49,
+  POSITION_MJ_off = 48,
+  POSITION_MJ_on = 49,
 
   POSITION_Nav_pad_INC_CPI = 26,
   POSITION_Nav_pad_DEC_CPI = 32,
