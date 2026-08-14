@@ -21,7 +21,9 @@
 #include "mcp23018.h"
 #include "i2c_master.h"
 
+#include "navigator.h"
 #include "navigator_trackball.h"
+#include "navigator_trackpad_common.h"
 
 // mouse jiggler fucn
 bool mouse_jiggler_is_enabled(void);
@@ -46,6 +48,19 @@ enum key_position {
   POSITION_MJ_on = 43,
   POSITION_MJ_off = 49,
 
+  POSITION_Nav_pad_INC_CPI = 26,
+  POSITION_Nav_pad_DEC_CPI = 32,
+
+  POSITION_Nav_ball_INC_CPI = 27,
+  POSITION_Nav_ball_DEC_CPI = 33,
+
+  POSITION_Nav_ball_Base_Scroll_on = 28,
+  POSITION_Nav_ball_Base_Scroll_off = 34,  
+
+  //POSITION_Nav_ball_Base_Turbo = 36,
+  //POSITION_Nav_ball_Base_Normal = 42,
+  //POSITION_Nav_ball_Base_Aim = 48,
+
   POSITION_RST = 31,
   POSITION_SW_RST = 5,
   POSITION_CLEAR = 11,
@@ -62,6 +77,9 @@ enum key_position {
   POSITION_Halt = 50,
   POSITION_Halt_Left = 23
 };
+
+// navigator base layer
+static bool nav_ball_base_scroll = true;
 
 // halt safety flags
 static volatile bool halt_request0 = false;
@@ -159,6 +177,41 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
       
   if (pos == POSITION_MJ_off) {
     mouse_jiggler_disable();
+        
+    return false;
+  }
+
+  if (pos == POSITION_Nav_pad_INC_CPI) {
+    navigator_trackpad_set_cpi(1);
+        
+    return false;
+  }
+
+  if (pos == POSITION_Nav_pad_DEC_CPI) {
+    navigator_trackpad_set_cpi(0);
+        
+    return false;
+  }
+  if (pos == POSITION_Nav_ball_INC_CPI) {
+    pointing_device_set_cpi(1);
+        
+    return false;
+  }
+
+  if (pos == POSITION_Nav_ball_DEC_CPI) {
+    pointing_device_set_cpi(0);
+        
+    return false;
+  }
+
+  if (pos == POSITION_Nav_ball_Base_Scroll_on) {
+    nav_ball_base_scroll = true;
+        
+    return false;
+  }
+
+  if (pos == POSITION_Nav_ball_Base_Scroll_off) {
+    nav_ball_base_scroll = false;
         
     return false;
   }
@@ -298,6 +351,23 @@ bool rgb_matrix_indicators_firmware_map(void) {
     // off
     rgb_matrix_set_color(POSITION_MJ_on, q, q, q);
     rgb_matrix_set_color(POSITION_MJ_off, f, 0, 0);
+  }
+
+  // navigator controll
+  rgb_matrix_set_color(POSITION_Nav_pad_INC_CPI, f, h, 0);
+  rgb_matrix_set_color(POSITION_Nav_pad_DEC_CPI, q, o, 0);
+
+  rgb_matrix_set_color(POSITION_Nav_ball_INC_CPI, f, 0, h);
+  rgb_matrix_set_color(POSITION_Nav_ball_DEC_CPI, q, 0, o);
+
+  if (nav_ball_base_scroll) {
+    // on
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_on, 0, f, 0);
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_off, q, q, q);
+  } else {
+    // off
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_on, q, q, q);
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_off, f, f, 0);
   }
 
   //OS detect
@@ -486,6 +556,11 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
 layer_state_t layer_state_set_firmware_map(const layer_state_t state) {
   // if enable nothig to do
   if (layer_state_cmp(state, LAYER_Firmware) == true) return state;
+
+  // only base, update scroll
+  if (get_highest_layer(state) <= LAYER_Transition) {
+    set_scrolling = nav_ball_base_scroll;
+  }
 
   halt_request0 = false;
   halt_request1 = false;
