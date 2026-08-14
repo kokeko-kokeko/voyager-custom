@@ -354,8 +354,8 @@ bool rgb_matrix_indicators_firmware_map(void) {
   }
 
   // navigator controll
-  rgb_matrix_set_color(POSITION_Nav_pad_INC_CPI, f, h, 0);
-  rgb_matrix_set_color(POSITION_Nav_pad_DEC_CPI, q, o, 0);
+  rgb_matrix_set_color(POSITION_Nav_pad_INC_CPI, 0, h, f);
+  rgb_matrix_set_color(POSITION_Nav_pad_DEC_CPI, 0, o, q);
 
   rgb_matrix_set_color(POSITION_Nav_ball_INC_CPI, f, 0, h);
   rgb_matrix_set_color(POSITION_Nav_ball_DEC_CPI, q, 0, o);
@@ -363,7 +363,7 @@ bool rgb_matrix_indicators_firmware_map(void) {
   if (nav_ball_base_scroll) {
     // on
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_on, 0, f, 0);
-    rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_off, q, q, q);
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_off, q, q, q); 
   } else {
     // off
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_on, q, q, q);
