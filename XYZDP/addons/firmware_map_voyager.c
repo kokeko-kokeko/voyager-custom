@@ -557,8 +557,16 @@ layer_state_t layer_state_set_firmware_map(const layer_state_t state) {
   // if enable nothig to do
   if (layer_state_cmp(state, LAYER_Firmware) == true) return state;
 
-  // only base, update track ball flag
-  if (get_highest_layer(state) <= LAYER_Transition) {
+  if (layer_state_cmp(state, LAYER_Mouse_L) ||
+    layer_state_cmp(state, LAYER_Mouse_R) ||
+    layer_state_cmp(state, LAYER_Mouse_Upper_L) ||
+    layer_state_cmp(state, LAYER_Mouse_Upper_R)
+    ) {
+    // if mouse layer actife, scrall off
+    set_scrolling = false;
+    scroll_vertical_only = false;
+  } else if (get_highest_layer(state) <= LAYER_Transition) {
+    // only base, update track ball flag
     set_scrolling = nav_ball_base_scroll;
   } else {
     // upper, clear all flag
