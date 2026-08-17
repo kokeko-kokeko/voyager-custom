@@ -37,11 +37,11 @@ enum layer_num {
   LAYER_R_thumb_0_L_pinky_0,
   LAYER_R_thumb_0_L_pinky_1,
 
-  LAYER_B_thumb_0,
-  LAYER_B_thumb_2,
+  LAYER_LR_thumb_0,
+  LAYER_LR_thumb_2,
 
-  LAYER_B_pinky_0,
-  LAYER_B_pinky_1,
+  LAYER_LR_pinky_0,
+  LAYER_LR_pinky_1,
 
   LAYER_Firmware,
   LAYER_Color_Palette,
