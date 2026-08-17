@@ -25,11 +25,11 @@ enum layer_num {
   LAYER_Mouse_Upper_L,
   LAYER_Mouse_Upper_R, 
 
-  LAYER_L_thumb_0_L_pinky_0,
-  LAYER_L_thumb_0_L_pinky_1,
+  LAYER_L_thumb_0_pinky_0,
+  LAYER_L_thumb_0_pinky_1,
   
-  LAYER_R_thumb_0_R_pinky_0,
-  LAYER_R_thumb_0_R_pinky_1,
+  LAYER_R_thumb_0_pinky_0,
+  LAYER_R_thumb_0_pinky_1,
  
   LAYER_L_thumb_0_R_pinky_0,
   LAYER_L_thumb_0_R_pinky_1,

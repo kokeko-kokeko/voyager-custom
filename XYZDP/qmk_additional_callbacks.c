@@ -97,11 +97,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     update_tri_layer_state(state, LAYER_Mouse_R, LAYER_R_pinky_1, LAYER_Mouse_Upper_R);
 
   // same side thumb and pin
-  state = update_tri_layer_state(state, LAYER_L_thumb_0, LAYER_L_pinky_0, LAYER_L_thumb_0_L_pinky_0);
-  state = update_tri_layer_state(state, LAYER_L_thumb_0, LAYER_L_pinky_1, LAYER_L_thumb_0_L_pinky_1);
+  state = update_tri_layer_state(state, LAYER_L_thumb_0, LAYER_L_pinky_0, LAYER_L_thumb_0_pinky_0);
+  state = update_tri_layer_state(state, LAYER_L_thumb_0, LAYER_L_pinky_1, LAYER_L_thumb_0_pinky_1);
 
-  state = update_tri_layer_state(state, LAYER_R_thumb_0, LAYER_R_pinky_0, LAYER_R_thumb_0_R_pinky_0);
-  state = update_tri_layer_state(state, LAYER_R_thumb_0, LAYER_R_pinky_1, LAYER_R_thumb_0_R_pinky_1);
+  state = update_tri_layer_state(state, LAYER_R_thumb_0, LAYER_R_pinky_0, LAYER_R_thumb_0_pinky_0);
+  state = update_tri_layer_state(state, LAYER_R_thumb_0, LAYER_R_pinky_1, LAYER_R_thumb_0_pinky_1);
   
   // cross side thumb and pin
   state = update_tri_layer_state(state, LAYER_L_thumb_0, LAYER_R_pinky_0, LAYER_L_thumb_0_R_pinky_0);
