@@ -83,6 +83,19 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+  // mouse upper layer (dist bit or)
+  state = 
+    update_tri_layer_state(state, LAYER_Mouse_L, LAYER_L_pinky_0, LAYER_Mouse_Upper_L) |
+    update_tri_layer_state(state, LAYER_Mouse_R, LAYER_L_pinky_0, LAYER_Mouse_Upper_L) |
+    update_tri_layer_state(state, LAYER_Mouse_L, LAYER_L_pinky_1, LAYER_Mouse_Upper_L) |
+    update_tri_layer_state(state, LAYER_Mouse_R, LAYER_L_pinky_1, LAYER_Mouse_Upper_L);
+
+  state = 
+    update_tri_layer_state(state, LAYER_Mouse_L, LAYER_R_pinky_0, LAYER_Mouse_Upper_R) |
+    update_tri_layer_state(state, LAYER_Mouse_R, LAYER_R_pinky_0, LAYER_Mouse_Upper_R) |
+    update_tri_layer_state(state, LAYER_Mouse_L, LAYER_R_pinky_1, LAYER_Mouse_Upper_R) |
+    update_tri_layer_state(state, LAYER_Mouse_R, LAYER_R_pinky_1, LAYER_Mouse_Upper_R);
+
   // same side thumb and pin
   state = update_tri_layer_state(state, LAYER_L_thumb_0, LAYER_L_pinky_0, LAYER_L_thumb_0_L_pinky_0);
   state = update_tri_layer_state(state, LAYER_R_thumb_0, LAYER_R_pinky_0, LAYER_R_thumb_0_R_pinky_0);
