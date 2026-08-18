@@ -342,7 +342,7 @@ bool rgb_matrix_indicators_firmware_map(void) {
   if (flexible_behavior_has_error()) {
     rgb_matrix_set_color(POSITION_FB_error, f, 0, 0);
   } else {
-    rgb_matrix_set_color(POSITION_FB_error, 0, h, 0);
+    rgb_matrix_set_color(POSITION_FB_error, 0, q, 0);
   }
 
   // Transition
