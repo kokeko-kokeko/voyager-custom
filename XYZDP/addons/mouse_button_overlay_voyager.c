@@ -27,6 +27,12 @@ bool rgb_matrix_indicators_mouse_button_overlay(void) {
   if (layer_state_is(LAYER_Mouse_L)) {
     // task veiw
     rgb_matrix_set_color(0, 0, 0, f);
+
+    rgb_matrix_set_color(6, f, f, f);
+    rgb_matrix_set_color(7, f, f, f);
+
+    //rgb_matrix_set_color(36, f, f, f);
+    rgb_matrix_set_color(37, f, f, f);
     
     rgb_matrix_set_color(5, 0, f, h);   //4
     rgb_matrix_set_color(11, 0, 0, f);  //3
@@ -58,7 +64,13 @@ bool rgb_matrix_indicators_mouse_button_overlay(void) {
 
   if (layer_state_is(LAYER_Mouse_R)) {
     // task veiw
-    rgb_matrix_set_color(0, 0, 0, f); 
+    rgb_matrix_set_color(0, 0, 0, f);
+
+    rgb_matrix_set_color(6, f, f, f);
+    rgb_matrix_set_color(7, f, f, f);
+
+    rgb_matrix_set_color(36, f, f, f);
+    rgb_matrix_set_color(37, f, f, f);
     
     rgb_matrix_set_color(26, 0, f, h);  //4
     rgb_matrix_set_color(32, 0, 0, f);  //3
@@ -87,24 +99,34 @@ bool rgb_matrix_indicators_mouse_button_overlay(void) {
   
   if (layer_state_is(LAYER_Mouse_Upper_L)) {  
     // left side
-    rgb_matrix_set_color(6, 0, 0, 0);
-    rgb_matrix_set_color(7, 0, 0, 0); 
-
     rgb_matrix_set_color(5, h, 0, f);   //8
     rgb_matrix_set_color(11, 0, h, f);  //7
     rgb_matrix_set_color(17, f, f, 0);  //6
     rgb_matrix_set_color(23, f, 0, h);  //5
   }
 
+  if (layer_state_is(LAYER_L_pinky_0)) {
+    rgb_matrix_set_color(7, 0, 0, 0); 
+  }
+
+  if (layer_state_is(LAYER_L_pinky_1)) {
+    rgb_matrix_set_color(6, 0, 0, 0); 
+  }
+
   if (layer_state_is(LAYER_Mouse_Upper_R)) {
     // right side
-    rgb_matrix_set_color(36, 0, 0, 0);
-    rgb_matrix_set_color(37, 0, 0, 0); 
-
     rgb_matrix_set_color(26, h, 0, f);  //8
     rgb_matrix_set_color(32, 0, h, f);  //7
     rgb_matrix_set_color(38, f, f, 0);  //6
     rgb_matrix_set_color(44, f, 0, h);  //5
+  }
+
+  if (layer_state_is(LAYER_R_pinky_0)) {
+    rgb_matrix_set_color(36, 0, 0, 0); 
+  }
+
+  if (layer_state_is(LAYER_R_pinky_1)) {
+    rgb_matrix_set_color(37, 0, 0, 0); 
   }
 
   // overlay pass to next
