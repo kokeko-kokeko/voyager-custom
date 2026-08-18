@@ -87,6 +87,9 @@ bool rgb_matrix_indicators_mouse_button_overlay(void) {
   
   if (layer_state_is(LAYER_Mouse_Upper_L)) {  
     // left side
+    rgb_matrix_set_color(6, f, f, f);
+    rgb_matrix_set_color(7, f, f, f); 
+
     rgb_matrix_set_color(5, h, 0, f);   //8
     rgb_matrix_set_color(11, 0, h, f);  //7
     rgb_matrix_set_color(17, f, f, 0);  //6
@@ -94,7 +97,10 @@ bool rgb_matrix_indicators_mouse_button_overlay(void) {
   }
 
   if (layer_state_is(LAYER_Mouse_Upper_R)) {
-    // right side 
+    // right side
+    rgb_matrix_set_color(36, f, f, f);
+    rgb_matrix_set_color(37, f, f, f); 
+
     rgb_matrix_set_color(26, h, 0, f);  //8
     rgb_matrix_set_color(32, 0, h, f);  //7
     rgb_matrix_set_color(38, f, f, 0);  //6
