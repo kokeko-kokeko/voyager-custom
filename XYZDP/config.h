@@ -15,7 +15,7 @@
 
 
 #undef SERIAL_NUMBER
-#define SERIAL_NUMBER "XYZDP/GH_modified"
+#define SERIAL_NUMBER "XYZDP/GH_addtional_mod"
 
 //#define NAVIGATOR_DRAG_SCROLL_LAYERS {4, 5, 6}
 #define NAVIGATOR_DRAG_SCROLL_LAYERS {4, 7}
