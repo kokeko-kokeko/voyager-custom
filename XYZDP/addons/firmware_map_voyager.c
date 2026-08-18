@@ -31,19 +31,19 @@ void mouse_jiggler_enable(void);
 void mouse_jiggler_disable(void);
 
 enum key_position {
-  POSITION_ANSI = 2,
-  POSITION_JIS = 3,
+  POSITION_ANSI = 8,
+  POSITION_JIS = 9,
  
-  POSITION_Mac_off = 8,
-  POSITION_Mac_on = 9,
+  POSITION_Mac_off = 2,
+  POSITION_Mac_on = 3,
 
   POSITION_FB_error = 11,
   
-  POSITION_Tran_off = 0,
-  POSITION_Tran_on = 1,
+  POSITION_Tran_off = 6,
+  POSITION_Tran_on = 7,
 
-  POSITION_ISS_off = 6,
-  POSITION_ISS_on = 7,
+  POSITION_ISS_off = 0,
+  POSITION_ISS_on = 1,
 
   POSITION_MJ_off = 48,
   POSITION_MJ_on = 49,
@@ -342,7 +342,7 @@ bool rgb_matrix_indicators_firmware_map(void) {
   if (flexible_behavior_has_error()) {
     rgb_matrix_set_color(POSITION_FB_error, f, 0, 0);
   } else {
-    rgb_matrix_set_color(POSITION_FB_error, q, q, q);
+    rgb_matrix_set_color(POSITION_FB_error, 0, h, 0);
   }
 
   // Transition
