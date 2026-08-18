@@ -31,39 +31,39 @@ void mouse_jiggler_enable(void);
 void mouse_jiggler_disable(void);
 
 enum key_position {
+  POSITION_ANSI = 2,
   POSITION_JIS = 3,
-  POSITION_ANSI = 9,
+ 
+  POSITION_Mac_off = 8,
+  POSITION_Mac_on = 9,
 
-  POSITION_Mac_off = 2,
-  POSITION_Mac_on = 8,
-
-  POSITION_FB_error = 17,
+  POSITION_FB_error = 11,
   
-  POSITION_Tran_off = 1,
-  POSITION_Tran_on = 7,
+  POSITION_Tran_off = 0,
+  POSITION_Tran_on = 1,
 
-  POSITION_ISS_on = 0,
   POSITION_ISS_off = 6,
+  POSITION_ISS_on = 7,
 
   POSITION_MJ_off = 48,
   POSITION_MJ_on = 49,
 
-  POSITION_Nav_pad_INC_CPI = 26,
-  POSITION_Nav_pad_DEC_CPI = 32,
+  POSITION_Nav_pad_DEC_CPI = 4,
+  POSITION_Nav_pad_INC_CPI = 5,
 
+  POSITION_Nav_ball_DEC_CPI = 26,
   POSITION_Nav_ball_INC_CPI = 27,
-  POSITION_Nav_ball_DEC_CPI = 33,
-
-  POSITION_Nav_ball_Base_Scroll_on = 28,
-  POSITION_Nav_ball_Base_Scroll_off = 34,  
+  
+  POSITION_Nav_ball_Base_Scroll_off = 32,
+  POSITION_Nav_ball_Base_Scroll_on = 33,
 
   //POSITION_Nav_ball_Base_Turbo = 36,
   //POSITION_Nav_ball_Base_Normal = 42,
   //POSITION_Nav_ball_Base_Aim = 48,
 
   POSITION_RST = 31,
-  POSITION_SW_RST = 5,
-  POSITION_CLEAR = 11,
+  POSITION_SW_RST = 17,
+  POSITION_CLEAR = 16,
   
   POSITION_Caps_Lock = 19,
   POSITION_Num_Lock = 44,
@@ -108,15 +108,7 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
 
   uint8_t pos = get_pos_from_keyrecord(record);
   //if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
-  
-  if (pos == POSITION_JIS) {
-    layer_on(LAYER_Base);
     
-    jis_enable();
-    
-    return false;
-  }
-      
   if (pos == POSITION_ANSI) {
     layer_on(LAYER_Base);
     
@@ -125,6 +117,14 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
     return false;
   }
 
+  if (pos == POSITION_JIS) {
+    layer_on(LAYER_Base);
+    
+    jis_enable();
+    
+    return false;
+  }
+      
   if (pos == POSITION_Mac_off) {
     mac_disable();
         
@@ -157,20 +157,14 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
     return false;
   }
       
-  if (pos == POSITION_ISS_on) {
-    ime_state_sync_enable();
-        
-    return false;
-  }
-      
   if (pos == POSITION_ISS_off) {
     ime_state_sync_disable();
         
     return false;
   }
 
-  if (pos == POSITION_MJ_on) {
-    mouse_jiggler_enable();
+  if (pos == POSITION_ISS_on) {
+    ime_state_sync_enable();
         
     return false;
   }
@@ -181,8 +175,8 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
     return false;
   }
 
-  if (pos == POSITION_Nav_pad_INC_CPI) {
-    navigator_trackpad_set_cpi(1);
+  if (pos == POSITION_MJ_on) {
+    mouse_jiggler_enable();
         
     return false;
   }
@@ -192,8 +186,9 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
         
     return false;
   }
-  if (pos == POSITION_Nav_ball_INC_CPI) {
-    pointing_device_set_cpi(1);
+
+  if (pos == POSITION_Nav_pad_INC_CPI) {
+    navigator_trackpad_set_cpi(1);
         
     return false;
   }
@@ -202,16 +197,22 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
     pointing_device_set_cpi(0);
         
     return false;
-  }
+  }  
 
-  if (pos == POSITION_Nav_ball_Base_Scroll_on) {
-    nav_ball_base_scroll = true;
+  if (pos == POSITION_Nav_ball_INC_CPI) {
+    pointing_device_set_cpi(1);
         
     return false;
   }
 
   if (pos == POSITION_Nav_ball_Base_Scroll_off) {
     nav_ball_base_scroll = false;
+        
+    return false;
+  }
+
+  if (pos == POSITION_Nav_ball_Base_Scroll_on) {
+    nav_ball_base_scroll = true;
         
     return false;
   }
@@ -334,10 +335,11 @@ bool rgb_matrix_indicators_firmware_map(void) {
 
   // ISS system
   if (ime_state_sync_is_enabled()) {
+    // on
     rgb_matrix_set_color(POSITION_ISS_on, 0, f, 0);
     rgb_matrix_set_color(POSITION_ISS_off, o, o, o);
   } else {
-    //ANSI base
+    // off
     rgb_matrix_set_color(POSITION_ISS_on, o, o, o);
     rgb_matrix_set_color(POSITION_ISS_off, f, f, 0);
   }
@@ -354,12 +356,12 @@ bool rgb_matrix_indicators_firmware_map(void) {
   }
 
   // navigator controll
-  rgb_matrix_set_color(POSITION_Nav_pad_INC_CPI, 0, h, f);
   rgb_matrix_set_color(POSITION_Nav_pad_DEC_CPI, 0, o, q);
-
-  rgb_matrix_set_color(POSITION_Nav_ball_INC_CPI, f, 0, h);
+  rgb_matrix_set_color(POSITION_Nav_pad_INC_CPI, 0, h, f);
+  
   rgb_matrix_set_color(POSITION_Nav_ball_DEC_CPI, q, 0, o);
-
+  rgb_matrix_set_color(POSITION_Nav_ball_INC_CPI, f, 0, h);
+  
   if (nav_ball_base_scroll) {
     // on
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_on, 0, f, 0);
