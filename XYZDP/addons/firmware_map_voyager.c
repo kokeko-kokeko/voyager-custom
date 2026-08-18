@@ -57,10 +57,10 @@ enum key_position {
   POSITION_Nav_ball_Base_Scroll_off = 32,
   POSITION_Nav_ball_Base_Scroll_on = 33,
 
-  //POSITION_Nav_ball_Base_Turbo = 36,
-  //POSITION_Nav_ball_Base_Normal = 42,
   //POSITION_Nav_ball_Base_Aim = 48,
-
+  //POSITION_Nav_ball_Base_Normal = 42,
+  //POSITION_Nav_ball_Base_Turbo = 36,
+  
   POSITION_RST = 31,
   POSITION_SW_RST = 17,
   POSITION_CLEAR = 16,
