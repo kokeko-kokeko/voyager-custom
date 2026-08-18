@@ -57,10 +57,10 @@ enum key_position {
   POSITION_Nav_ball_Base_Scroll_off = 32,
   POSITION_Nav_ball_Base_Scroll_on = 33,
 
-  //POSITION_Nav_ball_Base_Aim = 48,
-  //POSITION_Nav_ball_Base_Normal = 42,
-  //POSITION_Nav_ball_Base_Turbo = 36,
-  
+  POSITION_Nav_ball_Base_Aim = 41,
+  POSITION_Nav_ball_Base_Normal = 42,
+  POSITION_Nav_ball_Base_Turbo = 43,
+
   POSITION_RST = 31,
   POSITION_SW_RST = 17,
   POSITION_CLEAR = 16,
@@ -80,6 +80,8 @@ enum key_position {
 
 // navigator base layer
 static bool nav_ball_base_scroll = true;
+static bool nav_ball_base_aim = false;
+static bool nav_ball_base_turbo = false;
 
 // halt safety flags
 static volatile bool halt_request0 = false;
@@ -213,6 +215,27 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
 
   if (pos == POSITION_Nav_ball_Base_Scroll_on) {
     nav_ball_base_scroll = true;
+        
+    return false;
+  }
+
+  if (pos == POSITION_Nav_ball_Base_Aim) {
+    nav_ball_base_aim = true;
+    nav_ball_base_turbo = false;
+        
+    return false;
+  }
+
+  if (pos == POSITION_Nav_ball_Base_Normal) {
+    nav_ball_base_aim = false;
+    nav_ball_base_turbo = false;
+        
+    return false;
+  }
+
+  if (pos == POSITION_Nav_ball_Base_Turbo) {
+    nav_ball_base_aim = false;
+    nav_ball_base_turbo = true;
         
     return false;
   }
@@ -370,6 +393,28 @@ bool rgb_matrix_indicators_firmware_map(void) {
     // off
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_on, q, q, q);
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_off, f, f, 0);
+  }
+
+  if ((nav_ball_base_aim == false) && (nav_ball_base_turbo == false)) {
+    // normal
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Aim, q, q, q);
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Normal, 0, f, 0);
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Turbo, q, q, q);
+  } else if ((nav_ball_base_aim == true) && (nav_ball_base_turbo == false)) {
+    // aim
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Aim, 0, 0, f);
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Normal, q, q, q);
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Turbo, q, q, q);
+  } else if ((nav_ball_base_aim == false) && (nav_ball_base_turbo == true)) {
+    // turbo
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Aim, q, q, q);
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Normal, q, q, q);
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Turbo, f, 0, 0);
+  } else {
+    // error state
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Aim, f, f, 0);
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Normal, f, f, 0);
+    rgb_matrix_set_color(POSITION_Nav_ball_Base_Turbo, f, f, 0);
   }
 
   //OS detect
@@ -570,6 +615,9 @@ layer_state_t layer_state_set_firmware_map(const layer_state_t state) {
   } else if (get_highest_layer(state) <= LAYER_Transition) {
     // only base, update track ball flag
     set_scrolling = nav_ball_base_scroll;
+
+    navigator_turbo = nav_ball_base_turbo;
+    navigator_aim = nav_ball_base_aim;
   } else {
     // upper, clear all flag
     set_scrolling = false;
