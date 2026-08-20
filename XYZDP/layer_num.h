@@ -43,6 +43,9 @@ enum layer_num {
   LAYER_LR_pinky_0,
   LAYER_LR_pinky_1,
 
+  LAYER_L_pinky_0_R_pinky_1,
+  LAYER_L_pinky_1_R_pinky_0,
+
   LAYER_Firmware,
   LAYER_Color_Palette,
   

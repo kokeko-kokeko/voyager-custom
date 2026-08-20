@@ -114,7 +114,12 @@ layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t stat
     case LAYER_LR_pinky_1:
       status_led(0b1100, led_pattern_on);
       status_led(0b0011, led_pattern_off);
-      break;   
+      break;
+    case LAYER_L_pinky_0_R_pinky_1:
+    case LAYER_L_pinky_1_R_pinky_0:
+      status_led(0b1100, led_pattern_blink);
+      status_led(0b0011, led_pattern_off);
+      break;
     case LAYER_Firmware:
       status_led(0b1110, led_pattern_on);
       status_led(0b0001, led_pattern_off);
