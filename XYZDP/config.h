@@ -149,17 +149,4 @@
 #undef ENABLE_RGB_MATRIX_STARLIGHT_DUAL_SAT
 #undef ENABLE_RGB_MATRIX_RIVERFLOW
 
-// obsolete
-
-//#define LAYER_LOCK_IDLE_TIMEOUT 59999
-
-// more short timeout, normal 100
-// on voyager/config.h  
-// #define MCP23018_TIMEOUT 10
-// #define IS31FL3731_I2C_TIMEOUT 5
-// use dafaults for safe, non effective
-//#define VOYAGER_I2C_TIMEOUT 10
-//#define IS31FL3731_I2C_TIMEOUT 25 
-//#define NAVIGATOR_TRACKBALL_TIMEOUT 10
-//#define NAVIGATOR_TRACKPAD_TIMEOUT 10
 

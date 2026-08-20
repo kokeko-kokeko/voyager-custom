@@ -34,13 +34,13 @@ enum key_position {
   POSITION_ANSI = 8,
   POSITION_JIS = 9,
  
-  POSITION_Mac_off = 2,
-  POSITION_Mac_on = 3,
+  POSITION_Mac_off = 6,
+  POSITION_Mac_on = 7,
 
   POSITION_FB_error = 11,
   
-  POSITION_Tran_off = 6,
-  POSITION_Tran_on = 7,
+  POSITION_Tran_off = 2,
+  POSITION_Tran_on = 3,
 
   POSITION_ISS_off = 0,
   POSITION_ISS_on = 1,
