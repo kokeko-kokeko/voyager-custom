@@ -40,7 +40,7 @@ static void rgb_matrix_indicators_layer_overlay(void) {
   }
 
   if (layer_state_is(LAYER_R_thumb_1)) {
-    rgb_matrix_set_color(46, 0, 0, 0);
+    rgb_matrix_set_color(44, 0, 0, 0);
   }
 
   if (layer_state_is(LAYER_L_thumb_2)) {
@@ -204,7 +204,7 @@ static void rgb_matrix_indicators_mod_overlay(void) {
   // swap hands
   if (is_swap_hands_on()) {
     rgb_matrix_set_color(23, 0, 0, 0);
-    rgb_matrix_set_color(44, 0, 0, 0);
+    rgb_matrix_set_color(46, 0, 0, 0);
   }
 
   // mods display

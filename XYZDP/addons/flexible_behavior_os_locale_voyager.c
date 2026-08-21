@@ -196,15 +196,15 @@ flexible_behavior_t home_row_mods_from_pos(const uint8_t pos) {
     case 38: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
 
     case 18: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT, 0};
-    case 22: return (flexible_behavior_t){FB_LAYER, LAYER_Number, 0};
+    case 22: return (flexible_behavior_t){FB_LAYER, LAYER_L_thumb_0, 0};
     case 23: return (flexible_behavior_t){FB_SWAP_HANDS, 0, 0};
 
     case 49: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT, 0};
-    case 46: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_1, 0};    
-    case 45: return (flexible_behavior_t){FB_LAYER, LAYER_Cursor, 0};
-    case 44: return (flexible_behavior_t){FB_SWAP_HANDS, 0, 0};
+    case 46: return (flexible_behavior_t){FB_SWAP_HANDS, 0, 0};
+    case 45: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_0, 0};
+    case 44: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_1, 0};
 
-    case 24: return (flexible_behavior_t){FB_LAYER, LAYER_Function, 0};
+    case 24: return (flexible_behavior_t){FB_LAYER, LAYER_L_thumb_1, 0};
     case 25: return (flexible_behavior_t){FB_LAYER, LAYER_L_thumb_2, 0};
 
     case 50: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_2, 0};
