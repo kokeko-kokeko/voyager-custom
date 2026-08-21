@@ -27,7 +27,15 @@ static void rgb_matrix_indicators_layer_overlay(void) {
 
     or_flag = true;
   }
+
+  if (layer_state_is(LAYER_L_thumb_1)) {
+    rgb_matrix_set_color(24, 0, 0, 0);
+  }  
   
+  if (layer_state_is(LAYER_L_thumb_2)) {
+    rgb_matrix_set_color(25, 0, 0, 0);
+  }
+
   if (layer_state_is(LAYER_R_thumb_0)) {
     rgb_matrix_set_color(32, 0, 0, 0);
     rgb_matrix_set_color(45, 0, 0, 0);
@@ -35,16 +43,8 @@ static void rgb_matrix_indicators_layer_overlay(void) {
     or_flag = true;
   }
 
-  if (layer_state_is(LAYER_L_thumb_1)) {
-    rgb_matrix_set_color(24, 0, 0, 0);
-  }
-
   if (layer_state_is(LAYER_R_thumb_1)) {
     rgb_matrix_set_color(44, 0, 0, 0);
-  }
-
-  if (layer_state_is(LAYER_L_thumb_2)) {
-    rgb_matrix_set_color(25, 0, 0, 0);
   }
 
   if (layer_state_is(LAYER_R_thumb_2)) {
@@ -57,6 +57,12 @@ static void rgb_matrix_indicators_layer_overlay(void) {
 
     or_flag = true;
   }
+
+  if (layer_state_is(LAYER_L_pinky_1)) {
+    rgb_matrix_set_color(6, 0, 0, 0);
+
+    or_flag = true;
+  }  
   
   if (layer_state_is(LAYER_R_pinky_0)) {
     rgb_matrix_set_color(26, 0, 0, 0);
@@ -65,12 +71,6 @@ static void rgb_matrix_indicators_layer_overlay(void) {
     or_flag = true;
   }
 
-  if (layer_state_is(LAYER_L_pinky_1)) {
-    rgb_matrix_set_color(6, 0, 0, 0);
-
-    or_flag = true;
-  }
-  
   if (layer_state_is(LAYER_R_pinky_1)) {
     
     rgb_matrix_set_color(37, 0, 0, 0);
