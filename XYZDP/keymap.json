@@ -39,16 +39,7 @@
             "nkro": true,
             "swap_hands": true,
             "rgb_matrix": true
-        },
-        "bootmagic": {
-            "enabled": false
-        },
-        "caps_word": {
-            "enabled": true
-        },
-        "mouse_key": {
-            "enabled": true
-        },        
+        },    
         "rgb_matrix": {
             "animations": {
                 "alphas_mods": false,
