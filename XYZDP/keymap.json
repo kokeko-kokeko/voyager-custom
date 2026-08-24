@@ -14,6 +14,17 @@
             "default": { 
                 "nkro": true
             } 
-        } 
+        },
+        "tapping": {
+            "term": 293,
+            "term_per_key": true
+        },
+        "build": {
+            "debounce_type": "asym_eager_defer_pk"
+        },
+        "eeprom": {
+            "driver": "transient"
+        }
     }
+
 }
