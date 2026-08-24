@@ -6,9 +6,6 @@
         "zsa/defaults",
         "zsa/mousejiggler"
     ],
-    "features": {
-        "nkro": true
-    },
     "config": {
         "debounce": 7,
         "build": {
@@ -30,6 +27,16 @@
         },
         "eeprom": {
             "driver": "transient"
+        },
+        "features": {
+            "bootmagic": false,
+            "caps_word": true,
+            "deferred_exec": true,
+            "mousekey": true,
+            "extrakey": true,
+            "nkro": true,
+            "swap_hands": true,
+            "rgb_matrix": true
         },
         "bootmagic": {
             "enabled": false
