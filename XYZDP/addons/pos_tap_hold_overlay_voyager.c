@@ -11,8 +11,8 @@
 
 #define POSITION_COUNT 52
 
-#define HOLD_INIT_TIME 2000
-#define HOLD_REPEAT_TIME 500
+#define HOLD_INIT_TIME 1009
+#define HOLD_REPEAT_TIME 337
 
 static bool pos_pressed[POSITION_COUNT] = {
     false, false, false, false, false, false,
