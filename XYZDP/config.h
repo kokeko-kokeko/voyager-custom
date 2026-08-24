@@ -40,10 +40,6 @@
 #define MOUSE_JIGGLER_MOVEMENT 1
 #define MOUSE_JIGGLER_INTERVAL_MS 32503 // near int 16 max half, prime
 
-// must use 16bit extended report for sub_trackball
-#define MOUSE_EXTENDED_REPORT
-#define WHEEL_EXTENDED_REPORT
-
 //#undef NAVIGATOR_SCROLL_DIVIDER
 //#define NAVIGATOR_SCROLL_DIVIDER 1
 //#define POINTING_DEVICE_HIRES_SCROLL_ENABLE
