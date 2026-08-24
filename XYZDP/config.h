@@ -64,6 +64,9 @@
 
 //#define MAX_DEFERRED_EXECUTORS 16
 
+// RAM eeprom minimal safety size
+#define TRANSIENT_EEPROM_SIZE 1024
+
 // normal 250ms, more margin, typ 2sec
 #define OS_DETECTION_DEBOUNCE 1999
 //#define OS_DETECTION_KEYBOARD_RESET
@@ -79,9 +82,6 @@
 #undef RGB_DISABLE_WHEN_USB_SUSPENDED
 #undef RGB_MATRIX_SLEEP
 #undef LED_MATRIX_SLEEP
-
-// RAM eeprom minimal safety size
-#define TRANSIENT_EEPROM_SIZE 1024
 
 // disable all animations eable by json
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
