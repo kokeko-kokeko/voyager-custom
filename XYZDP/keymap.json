@@ -50,6 +50,8 @@
             "rgb_light": false
         },    
         "rgb_matrix": {
+            "timeout": 0,      
+            "sleep": false,
             "animations": {
                 "alphas_mods": false,
                 "gradient_up_down": false,
@@ -99,9 +101,7 @@
                 "starlight_dual_hue": false,
                 "starlight_dual_sat": false,
                 "riverflow": false
-            },
-            "sleep": false,
-            "timeout": 0
+            }
         }
     }
 
