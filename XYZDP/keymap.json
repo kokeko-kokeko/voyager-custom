@@ -31,14 +31,23 @@
             "driver": "transient"
         },
         "features": {
-            "bootmagic": false,
             "caps_word": true,
             "deferred_exec": true,
-            "mousekey": true,
             "extrakey": true,
+            "mousekey": true,
             "nkro": true,
+            "rgb_matrix": true,
             "swap_hands": true,
-            "rgb_matrix": true
+
+            "bootmagic": false,
+            "grave_esc": false,
+            "key_override": false,
+            "magic": false,
+            "space_cadet": false,
+            "tap_dance": false,
+            
+            "backlight": false,
+            "rgb_light": false
         },    
         "rgb_matrix": {
             "animations": {
