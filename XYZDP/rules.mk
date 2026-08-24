@@ -7,7 +7,6 @@ CAPS_WORD_ENABLE = yes
 PRECISION_TRACKPAD_ENABLE = yes
 PRECISION_TRACKPAD_DRIVER = navigator_trackpad
 
-BOOTMAGIC_ENABLE = no
 GRAVE_ESC_ENABLE = no 
 KEY_OVERRIDE_ENABLE = no
 MAGIC_ENABLE = no
@@ -33,7 +32,6 @@ SRC += addons/mouse_button_overlay_voyager.c
 SRC += addons/pos_tap_hold_overlay_voyager.c
 SRC += addons/status_led_voyager.c
 
-LTO_ENABLE = yes
 EXTRAFLAGS += -flto=auto -O3
 EXTRAFLAGS += -Werror
 EXTRAFLAGS += -march=armv7e-m+fp

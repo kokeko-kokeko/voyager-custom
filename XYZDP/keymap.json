@@ -9,7 +9,9 @@
     "config": {
         "debounce": 7,
         "build": {
-            "debounce_type": "asym_eager_defer_pk"
+            "debounce_type": "asym_eager_defer_pk",
+            "firmware_format": "bin",
+            "lto": true
         },
         "tapping": {
             "term_per_key": true,
