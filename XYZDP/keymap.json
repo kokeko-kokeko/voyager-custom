@@ -14,6 +14,11 @@
         "build": {
             "debounce_type": "asym_eager_defer_pk"
         },
+        "tapping": {
+            "term_per_key": true,
+            "term": 293,
+            "flow_tap_term" : 199
+        },
         "host": { 
             "default": { 
                 "nkro": true
@@ -22,11 +27,6 @@
         "usb": {
             "polling_interval": 1,
             "suspend_wakeup_delay": 199
-        },
-        "tapping": {
-            "term_per_key": true,
-            "term": 293,
-            "flow_tap_term" : 199
         },
         "eeprom": {
             "driver": "transient"
