@@ -24,7 +24,11 @@
         },
         "eeprom": {
             "driver": "transient"
+        },
+        "bootmagic": {
+            "enabled": false
         }
+
     }
 
 }
