@@ -39,6 +39,7 @@ SRC += addons/ime_state_sync_voyager.c
 SRC += addons/ime_state_sync.c
 SRC += addons/layer_mod_overlay_voyager.c
 SRC += addons/mouse_button_overlay_voyager.c
+SRC += addons/pos_tap_hold_overlay_voyager.c
 SRC += addons/status_led_voyager.c
 
 LTO_ENABLE = yes
