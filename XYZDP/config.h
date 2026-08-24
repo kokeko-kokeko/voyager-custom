@@ -78,11 +78,6 @@
 #undef IS31FL3731_DEGHOST
 #define IS31FL3731_DEGHOST
 
-// user impl RGB timeout, disable system side
-#undef RGB_DISABLE_WHEN_USB_SUSPENDED
-#undef RGB_MATRIX_SLEEP
-#undef LED_MATRIX_SLEEP
-
 // disable all animations eable by json
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
 #undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
