@@ -33,8 +33,17 @@
         },
         "bootmagic": {
             "enabled": false
+        },
+        "caps_word": {
+            "enabled": true
+        },
+        "mouse_key": {
+            "enabled": true
+        },        
+        "rgb_matrix": {
+            "sleep": false,
+            "timeout": 0
         }
-
     }
 
 }
