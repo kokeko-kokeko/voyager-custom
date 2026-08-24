@@ -7,7 +7,7 @@
         "zsa/mousejiggler"
     ],
     "config": {
-        "debounce": 7,
+        "debounce": 8,
         "build": {
             "debounce_type": "asym_eager_defer_pk",
             "firmware_format": "bin",
