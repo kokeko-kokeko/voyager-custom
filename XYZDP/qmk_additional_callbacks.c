@@ -30,30 +30,6 @@ void chSysIdleHook(void) {
   __WFI();
 }
 
-void keyboard_post_init_user(void) {
-  // config.h
-  //keymap_config.nkro = true;
-
-  keyboard_post_init_addtional_power_setting();
-  keyboard_post_init_connection_layer_os_swap_status();
-  keyboard_post_init_fade_matrix();
-  keyboard_post_init_status_led();
-  
-  // no transition / jis / pc mode
-  layer_move(LAYER_Base);
-  layer_off(LAYER_Transition);
-  jis_enable();
-  mac_disable();
-}
-
-bool process_detected_host_os_user(os_variant_t detected_os) {
-  if (process_detected_host_os_connection_layer_os_swap_status(detected_os) == false) return false;
-  if (process_detected_host_os_fade_matrix(detected_os) == false) return false;
-  if (process_detected_host_os_flexible_behavior_os_locale(detected_os) == false) return false;
-
-  return true;
-}
-
 // per-key tapping parameter
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return TAPPING_TERM;
@@ -103,6 +79,27 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
   }
   
   return 0;  // Disable Flow Tap.
+}
+
+void keyboard_post_init_user(void) {
+  keyboard_post_init_addtional_power_setting();
+  keyboard_post_init_connection_layer_os_swap_status();
+  keyboard_post_init_fade_matrix();
+  keyboard_post_init_status_led();
+  
+  // no transition / jis / pc mode
+  layer_move(LAYER_Base);
+  layer_off(LAYER_Transition);
+  jis_enable();
+  mac_disable();
+}
+
+bool process_detected_host_os_user(os_variant_t detected_os) {
+  if (process_detected_host_os_connection_layer_os_swap_status(detected_os) == false) return false;
+  if (process_detected_host_os_fade_matrix(detected_os) == false) return false;
+  if (process_detected_host_os_flexible_behavior_os_locale(detected_os) == false) return false;
+
+  return true;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
