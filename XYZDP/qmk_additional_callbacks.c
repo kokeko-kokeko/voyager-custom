@@ -32,24 +32,24 @@ void chSysIdleHook(void) {
 
 // per-key tapping parameter
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    return TAPPING_TERM;
+  return TAPPING_TERM;
 }
 
 // flow tap target key
 bool is_flow_tap_key(uint16_t keycode) {
-    if ((get_mods() & (MOD_MASK_CG | MOD_BIT_LALT)) != 0) {
-        return false; // Disable Flow Tap on hotkeys.
-    }
-    switch (get_tap_keycode(keycode)) {
-        case KC_SPC:
-        case KC_A ... KC_Z:
-        case KC_DOT:
-        case KC_COMM:
-        case KC_SCLN:
-        case KC_SLSH:
-            return true;
-    }
-    return false;
+  if ((get_mods() & (MOD_MASK_CG | MOD_BIT_LALT)) != 0) {
+    return false; // Disable Flow Tap on hotkeys.
+  }
+  switch (get_tap_keycode(keycode)) {
+    case KC_SPC:
+    case KC_A ... KC_Z:
+    case KC_DOT:
+    case KC_COMM:
+    case KC_SCLN:
+    case KC_SLSH:
+      return true;
+  }
+  return false;
 }
 
 // tap flow control
