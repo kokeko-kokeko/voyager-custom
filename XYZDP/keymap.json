@@ -7,16 +7,16 @@
         "zsa/mousejiggler"
     ],
     "config": {
-        "debounce": 8,
         "build": {
             "debounce_type": "asym_eager_defer_pk",
             "firmware_format": "bin",
             "lto": true
         },
+        "debounce": 7,
         "tapping": {
             "term_per_key": true,
             "term": 293,
-            "flow_tap_term" : 199
+            "flow_tap_term": 199
         },
         "host": { 
             "default": { 
@@ -24,8 +24,11 @@
             } 
         },
         "usb": {
+            "max_power": 400,
+            "no_startup_check": false,
             "polling_interval": 1,
-            "suspend_wakeup_delay": 199
+            "suspend_wakeup_delay": 199,
+            "wait_for_enumeration": true
         },
         "eeprom": {
             "driver": "transient"
@@ -47,7 +50,8 @@
             "tap_dance": false,
             
             "backlight": false,
-            "rgb_light": false
+            "rgb_light": false,
+            "led_matrix": false
         },    
         "rgb_matrix": {
             "sleep": false,
@@ -111,5 +115,4 @@
             }
         }
     }
-
 }
