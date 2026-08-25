@@ -83,6 +83,11 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
   return 0;  // Disable Flow Tap.
 }
 
+// per-key tapping parameter
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    return TAPPING_TERM;
+}
+
 layer_state_t layer_state_set_user(layer_state_t state) {
   // mouse upper layer (dist bit or)
   state = 
