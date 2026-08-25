@@ -163,8 +163,8 @@ bool rgb_matrix_indicators_user(void) {
   if (rgb_matrix_indicators_color_palette() == false) return false;
   if (rgb_matrix_indicators_firmware_map() == false) return false;
   if (rgb_matrix_indicators_mouse_button_indicator() == false) return false;
-  if (rgb_matrix_indicators_layer_mod_overlay() == false) return false;
   if (rgb_matrix_indicators_ime_state_sync() == false) return false;
+  if (rgb_matrix_indicators_layer_mod_overlay() == false) return false;
   if (rgb_matrix_indicators_pos_tap_hold_overlay() == false) return false;
 
   return true;

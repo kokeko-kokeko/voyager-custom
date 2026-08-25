@@ -22,8 +22,8 @@ extern bool iss_sync;
 
 bool rgb_matrix_indicators_ime_state_sync(void) {
   // if mouse on exit
-  if (layer_state_is(LAYER_Mouse_L)) return true;
-  if (layer_state_is(LAYER_Mouse_R)) return true;
+  //if (layer_state_is(LAYER_Mouse_L)) return true;
+  //if (layer_state_is(LAYER_Mouse_R)) return true;
   
   // IME state sync syntem state
   if (ime_on) {
