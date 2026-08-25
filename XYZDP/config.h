@@ -46,22 +46,17 @@
 //#define POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER 120
 //#define POINTING_DEVICE_HIRES_SCROLL_EXPONENT 0
 
-// wait sensor update (on matrix_scan) & 125 fps target 
-//#define POINTING_DEVICE_TASK_THROTTLE_MS 8
-
 // #define NAVIGATOR_TRACKBALL_ROTATION 1
 // #define NAVIGATOR_TRACKPAD_ROTATION 359
 
 #define MOONLANDER_USER_LED
-#define VOYAGER_USER_LED
-
 #define MOONLANDER_USER_LEDS
+
+#define VOYAGER_USER_LED
 #define VOYAGER_USER_LEDS
 
 //#define MAX_DEFERRED_EXECUTORS 16
-
-// RAM eeprom minimal safety size
-#define TRANSIENT_EEPROM_SIZE 1024
+//#define TRANSIENT_EEPROM_SIZE 1024
 
 // normal 250ms, more margin, typ 2sec
 #define OS_DETECTION_DEBOUNCE 1999
