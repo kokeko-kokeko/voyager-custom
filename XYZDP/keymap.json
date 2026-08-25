@@ -14,8 +14,8 @@
         },
         "debounce": 7,
         "tapping": {
-            "term_per_key": true,
             "term": 293,
+            "term_per_key": true,
             "flow_tap_term": 199
         },
         "host": { 
