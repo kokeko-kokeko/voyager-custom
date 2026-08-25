@@ -50,8 +50,8 @@
             "rgb_light": false
         },    
         "rgb_matrix": {
-            "timeout": 0,      
             "sleep": false,
+            "timeout": 0,
             "default": {
                 "on": false,
                 "hue": 0,
