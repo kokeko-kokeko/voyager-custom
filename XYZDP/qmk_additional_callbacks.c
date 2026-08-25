@@ -13,7 +13,7 @@
 #include "addons/flexible_behavior_os_locale.h"
 #include "addons/ime_state_sync.h"
 #include "addons/layer_mod_overlay.h"
-#include "addons/mouse_button_overlay.h"
+#include "addons/mouse_button_indicator.h"
 #include "addons/pos_tap_hold_overlay.h"
 #include "addons/status_led.h"
 
@@ -162,7 +162,7 @@ bool rgb_matrix_indicators_user(void) {
   // manual ordering
   if (rgb_matrix_indicators_color_palette() == false) return false;
   if (rgb_matrix_indicators_firmware_map() == false) return false;
-  if (rgb_matrix_indicators_mouse_button_overlay() == false) return false;
+  if (rgb_matrix_indicators_mouse_button_indicator() == false) return false;
   if (rgb_matrix_indicators_layer_mod_overlay() == false) return false;
   if (rgb_matrix_indicators_ime_state_sync() == false) return false;
   if (rgb_matrix_indicators_pos_tap_hold_overlay() == false) return false;

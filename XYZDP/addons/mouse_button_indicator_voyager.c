@@ -7,9 +7,9 @@
 
 #include "layer_num.h"
 
-#include "addons/mouse_button_overlay.h"
+#include "addons/mouse_button_indicator.h"
 
-bool rgb_matrix_indicators_mouse_button_overlay(void) {
+bool rgb_matrix_indicators_mouse_button_indicator(void) {
   // if no active nothing to do, pass next
   if ((layer_state_is(LAYER_Mouse_L) || layer_state_is(LAYER_Mouse_R)) == false) return true;
   
@@ -129,7 +129,7 @@ bool rgb_matrix_indicators_mouse_button_overlay(void) {
     rgb_matrix_set_color(37, 0, 0, 0); 
   }
 
-  // overlay pass to next
-  return true;
+  // if run display terminate here
+  return false;
 }
 
