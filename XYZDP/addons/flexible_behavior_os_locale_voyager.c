@@ -153,14 +153,14 @@ bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * c
 
 flexible_behavior_t home_row_mods_from_pos(const uint8_t pos) {
   switch (pos) {
-    case  0: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
+    case  0: return (flexible_behavior_t){FB_SWAP_HANDS, 0, 0};
     case  1: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
     case  2: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
     case  3: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LSHIFT, 0};
     case  4: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
     case  5: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LCTRL, 0};
 
-    case 31: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
+    case 31: return (flexible_behavior_t){FB_SWAP_HANDS, 0, 0};
     case 30: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
     case 29: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RSHIFT, 0};
     case 28: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RSHIFT, 0};
@@ -197,10 +197,10 @@ flexible_behavior_t home_row_mods_from_pos(const uint8_t pos) {
 
     case 18: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT, 0};
     case 22: return (flexible_behavior_t){FB_LAYER, LAYER_L_thumb_0, 0};
-    case 23: return (flexible_behavior_t){FB_SWAP_HANDS, 0, 0};
+    case 23: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
 
     case 49: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT, 0};
-    case 46: return (flexible_behavior_t){FB_SWAP_HANDS, 0, 0};
+    case 46: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
     case 45: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_0, 0};
     case 44: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_1, 0};
 

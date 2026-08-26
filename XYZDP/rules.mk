@@ -35,4 +35,3 @@ EXTRAFLAGS += -mthumb
 EXTRAFLAGS += -fsingle-precision-constant 
 EXTRAFLAGS += -fstack-protector-strong
 EXTRAFLAGS += -fstack-clash-protection
-

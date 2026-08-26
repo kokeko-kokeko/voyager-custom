@@ -352,6 +352,8 @@ static flexible_behavior_t engram_sym_num_from_tap_kc(const uint16_t tap_keycode
     case KC_L: return (flexible_behavior_t){FB_KEYCODE, 0, KC_LBRC};
     case KC_R: return (flexible_behavior_t){FB_KEYCODE, 0, KC_RBRC};
 
+    case KC_Z: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
+
     case KC_1: return (flexible_behavior_t){FB_KEYCODE, 0, KC_1};
     case KC_2: return (flexible_behavior_t){FB_KEYCODE, 0, KC_2};
     case KC_3: return (flexible_behavior_t){FB_KEYCODE, 0, KC_3};
