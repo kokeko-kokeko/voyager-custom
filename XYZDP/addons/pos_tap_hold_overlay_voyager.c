@@ -45,25 +45,13 @@ bool pre_process_record_pos_tap_hold_overlay(uint16_t keycode, keyrecord_t *reco
     const fast_timer_t now = timer_read_fast();
     const uint8_t pos = get_pos_from_keyrecord(record);
 
-    // MT template
-    if (record->tap.count > 0) {
-        // tep
-        if (record->event.pressed) {
-            pos_pressed[pos] = true;
-            pos_inv_trigger[pos] = now + (UINT32_MAX / 2) - 1;
-        } else {
-            pos_pressed[pos] = false;
-            pos_inv_trigger[pos] = now + (UINT32_MAX / 2) - 1;
-        }
+    // common on tap & hold
+    if (record->event.pressed) {
+        pos_pressed[pos] = true;
+        pos_inv_trigger[pos] = now + HOLD_INIT_TIME;
     } else {
-        // hold
-        if (record->event.pressed) {
-            pos_pressed[pos] = true;
-            pos_inv_trigger[pos] = now + HOLD_INIT_TIME;
-        } else {
-            pos_pressed[pos] = false;
-            pos_inv_trigger[pos] = now + (UINT32_MAX / 2) - 1;
-        }  
+        pos_pressed[pos] = false;
+        pos_inv_trigger[pos] = now + (UINT32_MAX / 2) - 1;
     }
 
     return true;
@@ -74,8 +62,9 @@ void housekeeping_task_pos_tap_hold_overlay(void) {
 
     for (uint8_t i = 0; i < POSITION_COUNT; i++) {
         if (timer_expired_fast(now, pos_inv_trigger[i]) == false) continue;
+        
         pos_inv_trigger[i] += HOLD_REPEAT_TIME;
-        pos_pressed[i] = !pos_pressed[i];
+        pos_pressed[i] = !(pos_pressed[i]);
     }
 
     return;
