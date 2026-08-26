@@ -60,19 +60,19 @@ void housekeeping_task_pos_press_overlay(void) {
     // invert press
     const fast_timer_t now = timer_read_fast();
 
-    for (uint8_t i = 0; i < POSITION_COUNT; i++) {
-        if (timer_expired_fast(now, pos_inv_trigger[i]) == false) continue;
+    for (uint8_t pos = 0; pos < POSITION_COUNT; pos++) {
+        if (timer_expired_fast(now, pos_inv_trigger[pos]) == false) continue;
         
-        pos_inv_trigger[i] += HOLD_REPEAT_TIME;
-        pos_pressed[i] = !(pos_pressed[i]);
+        pos_inv_trigger[pos] += HOLD_REPEAT_TIME;
+        pos_pressed[pos] = !(pos_pressed[pos]);
     }
 
     return;
 }
 
 bool rgb_matrix_indicators_pos_press_overlay(void) {
-    for (uint8_t i = 0; i < POSITION_COUNT; i++) {
-        if (pos_pressed[i]) rgb_matrix_set_color(i, 0, 0, 0);
+    for (uint8_t pos = 0; pos < POSITION_COUNT; pos++) {
+        if (pos_pressed[pos]) rgb_matrix_set_color(pos, 0, 0, 0);
     }
 
     return true;
