@@ -13,6 +13,7 @@
 
 #define HOLD_INIT_TIME 1009
 #define HOLD_REPEAT_TIME 337
+#define INV_THROTTLE_TIME 31
 
 static bool pos_pressed[POSITION_COUNT] = {
     false, false, false, false, false, false,
@@ -40,6 +41,8 @@ static fast_timer_t pos_inv_trigger[POSITION_COUNT] = {
     (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1
 };
 
+static fast_timer_t pos_inv_throttle_trigger = 0;
+
 bool pre_process_record_pos_press_overlay(uint16_t keycode, keyrecord_t *record) {
     // record tap or hold
     const fast_timer_t now = timer_read_fast();
@@ -59,6 +62,9 @@ bool pre_process_record_pos_press_overlay(uint16_t keycode, keyrecord_t *record)
 void housekeeping_task_pos_press_overlay(void) {
     // invert press
     const fast_timer_t now = timer_read_fast();
+
+    if (timer_expired_fast(now, pos_inv_throttle_trigger) == false) return;
+    pos_inv_throttle_trigger += INV_THROTTLE_TIME;
 
     for (uint8_t pos = 0; pos < POSITION_COUNT; pos++) {
         if (timer_expired_fast(now, pos_inv_trigger[pos]) == false) continue;
