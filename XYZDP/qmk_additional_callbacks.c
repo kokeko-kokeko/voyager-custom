@@ -103,6 +103,9 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+  // safe guard 0 layer on
+  state |= (layer_state_t)0x01;
+  
   // mouse upper layer (dist bit or)
   state = 
     update_tri_layer_state(state, LAYER_Mouse_L, LAYER_L_pinky_0, LAYER_Mouse_Upper_L) |
