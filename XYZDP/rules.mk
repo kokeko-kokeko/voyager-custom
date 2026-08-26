@@ -21,7 +21,7 @@ SRC += addons/ime_state_sync_voyager.c
 SRC += addons/ime_state_sync.c
 SRC += addons/layer_mod_overlay_voyager.c
 SRC += addons/mouse_button_indicator_voyager.c
-SRC += addons/pos_tap_hold_overlay_voyager.c
+SRC += addons/pos_press_overlay_voyager.c
 SRC += addons/status_led_voyager.c
 
 EXTRAFLAGS += -flto=auto -O3

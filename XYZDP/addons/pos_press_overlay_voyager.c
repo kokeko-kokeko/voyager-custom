@@ -7,7 +7,7 @@
 
 #include "addons/get_pos_from_keyrecord.h"
 
-#include "addons/pos_tap_hold_overlay.h"
+#include "addons/pos_press_overlay.h"
 
 #define POSITION_COUNT 52
 
@@ -40,7 +40,7 @@ static fast_timer_t pos_inv_trigger[POSITION_COUNT] = {
     (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1
 };
 
-bool pre_process_record_pos_tap_hold_overlay(uint16_t keycode, keyrecord_t *record) {
+bool pre_process_record_pos_press_overlay(uint16_t keycode, keyrecord_t *record) {
     // record tap or hold
     const fast_timer_t now = timer_read_fast();
     const uint8_t pos = get_pos_from_keyrecord(record);
@@ -56,7 +56,7 @@ bool pre_process_record_pos_tap_hold_overlay(uint16_t keycode, keyrecord_t *reco
 
     return true;
 }
-void housekeeping_task_pos_tap_hold_overlay(void) {
+void housekeeping_task_pos_press_overlay(void) {
     // invert press
     const fast_timer_t now = timer_read_fast();
 
@@ -70,7 +70,7 @@ void housekeeping_task_pos_tap_hold_overlay(void) {
     return;
 }
 
-bool rgb_matrix_indicators_pos_tap_hold_overlay(void) {
+bool rgb_matrix_indicators_pos_press_overlay(void) {
     for (uint8_t i = 0; i < POSITION_COUNT; i++) {
         if (pos_pressed[i]) rgb_matrix_set_color(i, 0, 0, 0);
     }

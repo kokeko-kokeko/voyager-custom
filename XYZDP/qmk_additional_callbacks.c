@@ -14,7 +14,7 @@
 #include "addons/ime_state_sync.h"
 #include "addons/layer_mod_overlay.h"
 #include "addons/mouse_button_indicator.h"
-#include "addons/pos_tap_hold_overlay.h"
+#include "addons/pos_press_overlay.h"
 #include "addons/status_led.h"
 
 #include "layer_num.h"
@@ -168,7 +168,7 @@ bool rgb_matrix_indicators_user(void) {
   if (rgb_matrix_indicators_mouse_button_indicator() == false) return false;
   if (rgb_matrix_indicators_ime_state_sync() == false) return false;
   if (rgb_matrix_indicators_layer_mod_overlay() == false) return false;
-  if (rgb_matrix_indicators_pos_tap_hold_overlay() == false) return false;
+  if (rgb_matrix_indicators_pos_press_overlay() == false) return false;
 
   return true;
 }
@@ -176,7 +176,7 @@ bool rgb_matrix_indicators_user(void) {
 bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (pre_process_record_fade_matrix(keycode, record) == false) return false;
   if (pre_process_record_ime_state_sync(keycode, record) == false) return false;
-  if (pre_process_record_pos_tap_hold_overlay(keycode, record) == false) return false;
+  if (pre_process_record_pos_press_overlay(keycode, record) == false) return false;
   
   return true;
 }
@@ -206,7 +206,7 @@ void housekeeping_task_user(void) {
   housekeeping_task_connection_layer_os_swap_status();
   housekeeping_task_fade_matrix();
   housekeeping_task_ime_state_sync();
-  housekeeping_task_pos_tap_hold_overlay();
+  housekeeping_task_pos_press_overlay();
   housekeeping_task_status_led();
 
   // exec halt last
