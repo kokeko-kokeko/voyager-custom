@@ -53,11 +53,6 @@
             "rgb_light": false,
             "led_matrix": false
         },
-        "caps_word": {
-            "enabled": true,
-            "both_shifts_turns_on": true,
-            "double_tap_shift_turns_on": true
-        },
         "rgb_matrix": {
             "sleep": false,
             "timeout": 0,
