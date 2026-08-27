@@ -146,10 +146,10 @@ bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * c
   return true;
 }
 
-// Caps	ASC	GAS	GS	AS	GAC
+// 9wap	ASC	GAS	GS	AS	GAC
 // LT   LT  GA  S   C   GC
 // C    G   A   AC  SC  GSC
-// S                LT  Swap 
+// S                LT  LT 
 
 flexible_behavior_t home_row_mods_from_pos(const uint8_t pos) {
   switch (pos) {
