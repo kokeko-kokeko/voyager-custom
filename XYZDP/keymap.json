@@ -43,6 +43,8 @@
             "swap_hands": true,
 
             "bootmagic": false,
+            "command": false,
+            "console": false,
             "grave_esc": false,
             "key_override": false,
             "magic": false,
