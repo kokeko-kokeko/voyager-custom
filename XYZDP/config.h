@@ -18,9 +18,9 @@
 #define SERIAL_NUMBER "XYZDP/GH_addtional_mod"
 
 //#define NAVIGATOR_DRAG_SCROLL_LAYERS {4, 5, 6}
-#define NAVIGATOR_DRAG_SCROLL_LAYERS {4, 5, 8, AUTOMOUSE_LAYER_TRACKPAD}   //Lt0 Lt1 Rt0 and with trackpad
-#define NAVIGATOR_AIM_LAYERS {13, 14} //Lp1 Rp0
-#define NAVIGATOR_TURBO_LAYERS {12, 15, 5}   //Lp0 Rp1 Lt1(scroll)
+#define NAVIGATOR_DRAG_SCROLL_LAYERS {4, 5, 8, AUTOMOUSE_LAYER_TRACKPAD}   //Lt1 Lt2 Rt1 and with trackpad
+#define NAVIGATOR_AIM_LAYERS {13, 14} //Lp2 Rp1
+#define NAVIGATOR_TURBO_LAYERS {12, 15, 5}   //Lp1 Rp2 Lt2(scroll)
 
 #define AUTOMOUSE_TIMEOUT_TRACKPAD 661
 #define AUTOMOUSE_TIMEOUT_TRACKBALL 199 // after tap exit
