@@ -39,7 +39,7 @@ layer_state_t layer_state_set_layer_caps_word(layer_state_t state) {
             // leave layer
             if (key_pressed[i] == false) {
                 // non key press, caps word
-                caps_word_toggle();
+                caps_word_on();
             }
         }
     }
