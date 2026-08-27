@@ -153,6 +153,7 @@ bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * c
 
 flexible_behavior_t home_row_mods_from_pos(const uint8_t pos) {
   switch (pos) {
+    // -- R1 --
     case  0: return (flexible_behavior_t){FB_SWAP_HANDS, 0, 0};
     case  1: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT | MOD_BIT_LSHIFT | MOD_BIT_LCTRL, 0};
     case  2: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT | MOD_BIT_LSHIFT, 0};
@@ -167,6 +168,7 @@ flexible_behavior_t home_row_mods_from_pos(const uint8_t pos) {
     case 27: return (flexible_behavior_t){FB_MODS, MOD_BIT_RALT | MOD_BIT_RSHIFT, 0};
     case 26: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL, 0};
 
+    // -- R2 --
     case  6: return (flexible_behavior_t){FB_LAYER, LAYER_L_pinky_1, 0};
     case  7: return (flexible_behavior_t){FB_LAYER, LAYER_L_pinky_0, 0};
     case  8: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT, 0};
@@ -181,6 +183,7 @@ flexible_behavior_t home_row_mods_from_pos(const uint8_t pos) {
     case 33: return (flexible_behavior_t){FB_MODS, MOD_BIT_RCTRL, 0};
     case 32: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RCTRL, 0};
 
+    // -- R3 --
     case 12: return (flexible_behavior_t){FB_MODS, MOD_BIT_LCTRL, 0};
     case 13: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI, 0};
     case 14: return (flexible_behavior_t){FB_MODS, MOD_BIT_LALT, 0};
@@ -195,6 +198,7 @@ flexible_behavior_t home_row_mods_from_pos(const uint8_t pos) {
     case 39: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
     case 38: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RSHIFT | MOD_BIT_RCTRL, 0};
 
+    // -- R4 --
     case 18: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT, 0};
     case 22: return (flexible_behavior_t){FB_LAYER, LAYER_L_thumb_0, 0};
     case 23: return (flexible_behavior_t){FB_LAYER, LAYER_L_thumb_3, 0};
@@ -204,6 +208,7 @@ flexible_behavior_t home_row_mods_from_pos(const uint8_t pos) {
     case 45: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_0, 0};
     case 44: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_3, 0};
 
+    // -- thumb cluster --
     case 24: return (flexible_behavior_t){FB_LAYER, LAYER_L_thumb_1, 0};
     case 25: return (flexible_behavior_t){FB_LAYER, LAYER_L_thumb_2, 0};
 
