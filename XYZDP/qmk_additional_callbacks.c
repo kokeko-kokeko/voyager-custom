@@ -12,6 +12,7 @@
 #include "addons/firmware_map.h"
 #include "addons/flexible_behavior_os_locale.h"
 #include "addons/ime_state_sync.h"
+#include "addons/layer_caps_word.h"
 #include "addons/layer_mod_overlay.h"
 #include "addons/mouse_button_indicator.h"
 #include "addons/pos_press_overlay.h"
@@ -145,6 +146,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = layer_state_set_connection_layer_os_swap_status(state);
   state = layer_state_set_fade_matrix(state);
   state = layer_state_set_firmware_map(state);
+  state = layer_state_set_layer_caps_word(state);
 
   // safe guard, LSB layer on here
   state |= (layer_state_t)0x01;
@@ -173,6 +175,7 @@ bool rgb_matrix_indicators_user(void) {
 bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (pre_process_record_fade_matrix(keycode, record) == false) return false;
   if (pre_process_record_ime_state_sync(keycode, record) == false) return false;
+  if (pre_process_record_layer_caps_word(keycode, record) == false) return false;
   if (pre_process_record_pos_press_overlay(keycode, record) == false) return false;
   
   return true;
