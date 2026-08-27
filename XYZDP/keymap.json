@@ -33,6 +33,7 @@
             "suspend_wakeup_delay": 199,
             "wait_for_enumeration": true
         },
+
         "features": {
             "caps_word": true,
             "deferred_exec": true,
@@ -54,6 +55,10 @@
             "backlight": false,
             "led_matrix": false,
             "rgb_light": false
+        },
+        "caps_word": {
+            "enabled": true,
+            "idle_timeout": 5003
         },
         "rgb_matrix": {
             "sleep": false,
