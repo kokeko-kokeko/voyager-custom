@@ -285,6 +285,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // enum for layer define sync oryx side
 #define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))
-_Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C and ORYX layer count missmatch!!");
+_Static_assert(C_LAYER_COUNT == ORYX_LAYER_COUNT, "C code and ORYX layer count missmatch!!");
 
-//_Static_assert(LAYER_Mouse_L == AUTOMOUSE_LAYER, "Auto Mouse layer missmatch!!");
+_Static_assert(LAYER_Mouse_L == AUTOMOUSE_LAYER_TRACKPAD, "Auto Mouse trackpad layer missmatch!!");
+_Static_assert(LAYER_Mouse_R == AUTOMOUSE_LAYER_TRACKBALL, "Auto Mouse trackball layer missmatch!!");
