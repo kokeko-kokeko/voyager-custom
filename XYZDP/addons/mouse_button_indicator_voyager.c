@@ -105,11 +105,11 @@ bool rgb_matrix_indicators_mouse_button_indicator(void) {
     rgb_matrix_set_color(23, f, 0, h);  //5
   }
 
-  if (layer_state_is(LAYER_L_pinky_0)) {
+  if (layer_state_is(LAYER_L_pinky_1)) {
     rgb_matrix_set_color(7, 0, 0, 0); 
   }
 
-  if (layer_state_is(LAYER_L_pinky_1)) {
+  if (layer_state_is(LAYER_L_pinky_2)) {
     rgb_matrix_set_color(6, 0, 0, 0); 
   }
 
@@ -121,11 +121,11 @@ bool rgb_matrix_indicators_mouse_button_indicator(void) {
     rgb_matrix_set_color(44, f, 0, h);  //5
   }
 
-  if (layer_state_is(LAYER_R_pinky_0)) {
+  if (layer_state_is(LAYER_R_pinky_1)) {
     rgb_matrix_set_color(36, 0, 0, 0); 
   }
 
-  if (layer_state_is(LAYER_R_pinky_1)) {
+  if (layer_state_is(LAYER_R_pinky_2)) {
     rgb_matrix_set_color(37, 0, 0, 0); 
   }
 

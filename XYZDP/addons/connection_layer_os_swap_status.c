@@ -57,27 +57,27 @@ layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t stat
       status_led(0b1100, led_pattern_on);
       status_led(0b0011, led_pattern_off);
       break;
-    case LAYER_L_thumb_0:
     case LAYER_L_thumb_1:
     case LAYER_L_thumb_2:
     case LAYER_L_thumb_3:
+    case LAYER_L_thumb_4:
       status_led(0b0010, led_pattern_on);
       status_led(0b1101, led_pattern_off);
       break;
-    case LAYER_R_thumb_0:
     case LAYER_R_thumb_1:
     case LAYER_R_thumb_2:
     case LAYER_R_thumb_3:
+    case LAYER_R_thumb_4:
       status_led(0b0001, led_pattern_on);
       status_led(0b1110, led_pattern_off);
       break; 
-    case LAYER_L_pinky_0:
     case LAYER_L_pinky_1:
+    case LAYER_L_pinky_2:
       status_led(0b1000, led_pattern_on);
       status_led(0b0111, led_pattern_off);
       break;
-    case LAYER_R_pinky_0:    
-    case LAYER_R_pinky_1:
+    case LAYER_R_pinky_1:    
+    case LAYER_R_pinky_2:
       status_led(0b0100, led_pattern_on);
       status_led(0b1011, led_pattern_off);
       break;
@@ -87,33 +87,33 @@ layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t stat
       status_led(0b1100, led_pattern_on);
       status_led(0b0011, led_pattern_off);
       break; 
-    case LAYER_L_thumb_0_pinky_0:
-    case LAYER_L_thumb_0_pinky_1:
+    case LAYER_L_thumb_1_pinky_1:
+    case LAYER_L_thumb_1_pinky_2:
       status_led(0b1010, led_pattern_on);
       status_led(0b0101, led_pattern_off);
       break;    
-    case LAYER_R_thumb_0_pinky_0:
-    case LAYER_R_thumb_0_pinky_1:
+    case LAYER_R_thumb_1_pinky_1:
+    case LAYER_R_thumb_1_pinky_2:
       status_led(0b0101, led_pattern_on);
       status_led(0b1010, led_pattern_off);
       break;
-    case LAYER_L_thumb_0_R_pinky_0:
-    case LAYER_L_thumb_0_R_pinky_1:
+    case LAYER_L_thumb_1_R_pinky_1:
+    case LAYER_L_thumb_1_R_pinky_2:
       status_led(0b0110, led_pattern_on);
       status_led(0b1001, led_pattern_off);
       break;
-    case LAYER_R_thumb_0_L_pinky_0:
-    case LAYER_R_thumb_0_L_pinky_1:
+    case LAYER_R_thumb_1_L_pinky_1:
+    case LAYER_R_thumb_1_L_pinky_2:
       status_led(0b1001, led_pattern_on);
       status_led(0b0110, led_pattern_off);
       break;
-    case LAYER_LR_thumb_0:
-    case LAYER_LR_thumb_2:
+    case LAYER_LR_thumb_1:
+    case LAYER_LR_thumb_3:
       status_led(0b0011, led_pattern_on);
       status_led(0b1100, led_pattern_off);
       break;
-    case LAYER_LR_pinky_0:
     case LAYER_LR_pinky_1:
+    case LAYER_LR_pinky_2:
       status_led(0b1100, led_pattern_on);
       status_led(0b0011, led_pattern_off);
       break;
