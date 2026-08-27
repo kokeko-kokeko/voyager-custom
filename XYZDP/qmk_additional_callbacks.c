@@ -137,9 +137,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // both pin
   state = update_tri_layer_state(state, LAYER_L_pinky_0, LAYER_R_pinky_0, LAYER_LR_pinky_0);
   state = update_tri_layer_state(state, LAYER_L_pinky_1, LAYER_R_pinky_1, LAYER_LR_pinky_1);
- 
-  state = update_tri_layer_state(state, LAYER_L_pinky_0, LAYER_R_pinky_1, LAYER_L_pinky_0_R_pinky_1);
-  state = update_tri_layer_state(state, LAYER_L_pinky_1, LAYER_R_pinky_0, LAYER_L_pinky_1_R_pinky_0);
   
   // call FwSys
   state = update_tri_layer_state(state, LAYER_L_thumb_1, LAYER_L_thumb_2, LAYER_Firmware); 

@@ -197,12 +197,12 @@ flexible_behavior_t home_row_mods_from_pos(const uint8_t pos) {
 
     case 18: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT, 0};
     case 22: return (flexible_behavior_t){FB_LAYER, LAYER_L_thumb_0, 0};
-    case 23: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
+    case 23: return (flexible_behavior_t){FB_LAYER, LAYER_L_thumb_3, 0};
 
     case 49: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT, 0};
-    case 46: return (flexible_behavior_t){FB_CAPS_WORD, 0, 0};
+    case 46: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_1, 0};
     case 45: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_0, 0};
-    case 44: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_1, 0};
+    case 44: return (flexible_behavior_t){FB_LAYER, LAYER_R_thumb_3, 0};
 
     case 24: return (flexible_behavior_t){FB_LAYER, LAYER_L_thumb_1, 0};
     case 25: return (flexible_behavior_t){FB_LAYER, LAYER_L_thumb_2, 0};
