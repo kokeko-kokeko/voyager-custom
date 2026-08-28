@@ -12,7 +12,7 @@
 #include "addons/firmware_map.h"
 #include "addons/get_pos_from_keyrecord.h"
 
-#include "layer_num.h"
+#include "phys_layer.h"
 
 // call JP keycode
 #include "keymap_japanese.h"

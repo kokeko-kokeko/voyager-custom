@@ -5,7 +5,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "layer_num.h"
+#include "phys_layer.h"
 
 #include "addons/layer_mod_overlay.h"
 
@@ -21,35 +21,35 @@ static void rgb_matrix_indicators_layer_overlay(void) {
   //if (layer_state_is(LAYER_Mouse_R)) return;
   
   // layer display with priority
-  if (layer_state_is(LAYER_L_thumb_1)) {
+  if (layer_state_is(PHYS_LAYER_L_thumb_1)) {
     rgb_matrix_set_color(11, 0, 0, 0);
 
     or_flag = true;
   }
 
-  if (layer_state_is(LAYER_R_thumb_1)) {
+  if (layer_state_is(PHYS_LAYER_R_thumb_1)) {
     rgb_matrix_set_color(32, 0, 0, 0);
 
     or_flag = true;
   }
 
-  if (layer_state_is(LAYER_L_pinky_1)) {
+  if (layer_state_is(PHYS_LAYER_L_pinky_1)) {
     rgb_matrix_set_color(5, 0, 0, 0);
 
     or_flag = true;
   }
 
-  if (layer_state_is(LAYER_L_pinky_2)) {
+  if (layer_state_is(PHYS_LAYER_L_pinky_2)) {
     or_flag = true;
   }  
   
-  if (layer_state_is(LAYER_R_pinky_1)) {
+  if (layer_state_is(PHYS_LAYER_R_pinky_1)) {
     rgb_matrix_set_color(26, 0, 0, 0);
 
     or_flag = true;
   }
 
-  if (layer_state_is(LAYER_R_pinky_2)) {
+  if (layer_state_is(PHYS_LAYER_R_pinky_2)) {
     or_flag = true;
   }
 

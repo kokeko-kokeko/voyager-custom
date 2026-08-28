@@ -5,12 +5,12 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "layer_num.h"
+#include "phys_layer.h"
 
 #include "addons/layer_caps_word.h"
 
 // enter layer, no key press, exit run caps word
-static uint8_t caps_layers[] = {LAYER_L_thumb_4, LAYER_R_thumb_4};
+static uint8_t caps_layers[] = {PHYS_LAYER_L_thumb_4, PHYS_LAYER_R_thumb_4};
 
 #define CAPS_LAYER_COUNT (sizeof(caps_layers) / sizeof(caps_layers[0]))
 

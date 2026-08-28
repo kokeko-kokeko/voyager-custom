@@ -5,7 +5,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "layer_num.h"
+#include "phys_layer.h"
 
 #include "addons/fade_matrix.h"
 #include "addons/get_pos_from_keyrecord.h"
@@ -196,7 +196,7 @@ bool color_palette_select_keyrecord(const keyrecord_t * const record) {
 
 layer_state_t layer_state_set_color_palette(layer_state_t state) {
   // clear select
-  if (layer_state_cmp(state, LAYER_Color_Palette) == false) plt_select = 0;
+  if (layer_state_cmp(state, PHYS_LAYER_Color_Palette) == false) plt_select = 0;
   
   return state;
 }
@@ -357,7 +357,7 @@ _Static_assert(SEL_LAYER_FUNC_COUNT == SEL_SET_FUNC_COUNT, "fade matrix select s
 
 bool rgb_matrix_indicators_color_palette(void) {
   // if no active nothing to do, pass next
-  if (layer_state_is(LAYER_Color_Palette) == false) return true;
+  if (layer_state_is(PHYS_LAYER_Color_Palette) == false) return true;
 
   rgb_matrix_indicators_fade_matrix_array[plt_select]();
   
