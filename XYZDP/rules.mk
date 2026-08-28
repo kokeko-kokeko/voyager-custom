@@ -8,6 +8,8 @@ PRECISION_TRACKPAD_DRIVER = navigator_trackpad
 
 OS_DETECTION_ENABLE = yes
 
+SRC += virt_layer.c
+
 SRC += qmk_additional_callbacks.c
 
 SRC += addons/color_palette_voyager.c

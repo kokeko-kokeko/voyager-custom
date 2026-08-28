@@ -19,6 +19,7 @@
 #include "addons/status_led.h"
 
 #include "phys_layer.h"
+#include "virt_layer.h"
 
 // access to voyager system-side flag
 //extern keyboard_config_t keyboard_config;
@@ -147,6 +148,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = layer_state_set_fade_matrix(state);
   state = layer_state_set_firmware_map(state);
   state = layer_state_set_layer_caps_word(state);
+  state = layer_state_set_virt_layer(state);
 
   // safe guard, LSB layer on here
   state |= (layer_state_t)0x01;
