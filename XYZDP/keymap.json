@@ -33,7 +33,6 @@
             "suspend_wakeup_delay": 199,
             "wait_for_enumeration": true
         },
-
         "features": {
             "caps_word": true,
             "deferred_exec": true,
