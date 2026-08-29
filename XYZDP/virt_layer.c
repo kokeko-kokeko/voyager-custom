@@ -8,6 +8,7 @@
 #include "phys_layer.h"
 #include "virt_layer.h"
 
+// virt to phys translate table
 static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
     [VIRT_LAYER_Base] = PHYS_LAYER_Base,
     [VIRT_LAYER_Transition] = PHYS_LAYER_Transition,
@@ -59,10 +60,7 @@ static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
     [VIRT_LAYER_Color_Palette] = PHYS_LAYER_Color_Palette 
 };
 
-// virt olny state (phys get/set qmk side API)
-static bool state_v_only[VIRT_LAYER_COUNT] = {0};
-
-// tri layer tbl
+// tri layer combination
 static const uint8_t tri_layer_tbl_v_v_v[][3] = {
     // mouse upper
     {VIRT_LAYER_Mouse_L, VIRT_LAYER_L_pinky_1, VIRT_LAYER_Mouse_Upper_L},
@@ -102,6 +100,9 @@ static const uint8_t tri_layer_tbl_v_v_v[][3] = {
 };
 
 #define TRI_STATE_COUNT (sizeof(tri_layer_tbl_v_v_v) / sizeof(tri_layer_tbl_v_v_v[0]))
+
+// virt olny state (phys get/set qmk side API)
+static bool state_v_only[VIRT_LAYER_COUNT] = {0};
 
 bool virt_layer_state_is(const uint8_t virt_layer) {
     const uint8_t phys_layer = v_to_p_tbl[virt_layer];
