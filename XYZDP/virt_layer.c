@@ -10,7 +10,7 @@
 
 // virt to phys translate table
 static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
-    [VIRT_LAYER_Base] = PHYS_LAYER_Base,
+    [VIRT_LAYER_Base] = PHYS_LAYER_UNALLOC, // phys 0 must on no ralation to virt
     [VIRT_LAYER_Transition] = PHYS_LAYER_UNALLOC,
     
     [VIRT_LAYER_JIS] = PHYS_LAYER_UNALLOC,
