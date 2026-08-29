@@ -11,10 +11,14 @@
 // virt to phys translate table
 static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
     [VIRT_LAYER_Base] = PHYS_LAYER_UNALLOC, // phys 0 must on no ralation to virt
+
     [VIRT_LAYER_Transition] = PHYS_LAYER_UNALLOC,
-    
-    [VIRT_LAYER_JIS] = PHYS_LAYER_UNALLOC,
-    [VIRT_LAYER_Mac] = PHYS_LAYER_UNALLOC,
+
+    [VIRT_LAYER_FB_JIS] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_FB_Mac] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_FB_error] = PHYS_LAYER_UNALLOC,
+
+    [VIRT_LAYER_ISS_Enable] = PHYS_LAYER_UNALLOC,
 
     [VIRT_LAYER_Mouse_L] = PHYS_LAYER_Mouse_L,
     [VIRT_LAYER_Mouse_R] = PHYS_LAYER_Mouse_R,

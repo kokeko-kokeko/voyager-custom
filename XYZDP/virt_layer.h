@@ -8,10 +8,14 @@
 // C program side virtual layer 
 enum virt_layer {
   VIRT_LAYER_Base = 0,
+
   VIRT_LAYER_Transition,
 
-  VIRT_LAYER_JIS,
-  VIRT_LAYER_Mac,
+  VIRT_LAYER_FB_JIS,
+  VIRT_LAYER_FB_Mac,
+  VIRT_LAYER_FB_error,
+  
+  VIRT_LAYER_ISS_Enable,
   
   VIRT_LAYER_Mouse_L,
   VIRT_LAYER_Mouse_R,
@@ -71,5 +75,3 @@ void virt_layer_on(const uint8_t virt_layer);
 void virt_layer_off(const uint8_t virt_layer);
 
 layer_state_t layer_state_set_virt_layer(layer_state_t state);
-
-
