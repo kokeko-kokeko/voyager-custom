@@ -43,8 +43,10 @@ layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t stat
   switch (layer) {
     case VIRT_LAYER_Base:
     case VIRT_LAYER_Transition:
-    case VIRT_LAYER_JIS:
-    case VIRT_LAYER_Mac:
+    case VIRT_LAYER_FB_JIS:
+    case VIRT_LAYER_FB_Mac:
+    case VIRT_LAYER_FB_error:
+    case VIRT_LAYER_ISS_Enable:
       // update on housekeeping
       //status_led(0b1111, led_pattern_off);
 

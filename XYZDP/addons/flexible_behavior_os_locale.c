@@ -23,10 +23,6 @@ _Static_assert(FB_ERROR_EXIT <= UINT8_MAX, "too many flexible_behavior_operation
 // check udner 32-bit, registor return
 _Static_assert(sizeof(flexible_behavior_t) <= sizeof(uint32_t), "flexible_behavior struct too large!!");
 
-bool flexible_behavior_jis_flag = false;
-bool flexible_behavior_mac_flag = false;
-bool flexible_behavior_error_flag = false;
-
 // marco firmware not have common part, split 
 extern bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * const record);
 
@@ -186,10 +182,10 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
         behav[i].data_u16 = (is_tap) ? conf->tap_shift_func(behav[i].data_u16) : conf->hold_shift_func(behav[i].data_u16);
       } 
       
-      if (flexible_behavior_jis_flag) behav[i].data_u16 = conv_kc_to_jp(behav[i].data_u16);
+      if (virt_layer_state_is(VIRT_LAYER_FB_JIS)) behav[i].data_u16 = conv_kc_to_jp(behav[i].data_u16);
       
       // process opition mod
-      if (flexible_behavior_mac_flag) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
+      if (virt_layer_state_is(VIRT_LAYER_FB_Mac)) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
       
       unreg_keep_mods();
 
@@ -210,10 +206,10 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
         behav[i].data_u16 = (is_tap) ? conf->tap_shift_func(behav[i].data_u16) : conf->hold_shift_func(behav[i].data_u16);
       } 
       
-      if (flexible_behavior_jis_flag) behav[i].data_u16 = conv_kc_to_jp(behav[i].data_u16);
+      if (virt_layer_state_is(VIRT_LAYER_FB_JIS)) behav[i].data_u16 = conv_kc_to_jp(behav[i].data_u16);
       
       // process opition mod
-      if (flexible_behavior_mac_flag) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
+      if (virt_layer_state_is(VIRT_LAYER_FB_Mac)) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
 
       unreg_keep_mods();
 
@@ -232,10 +228,10 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
         behav[i].data_u16 = (is_tap) ? conf->tap_shift_func(behav[i].data_u16) : conf->hold_shift_func(behav[i].data_u16);
       } 
       
-      if (flexible_behavior_jis_flag) behav[i].data_u16 = conv_kc_to_jp(behav[i].data_u16);
+      if (virt_layer_state_is(VIRT_LAYER_FB_JIS)) behav[i].data_u16 = conv_kc_to_jp(behav[i].data_u16);
       
       // process opition mod
-      if (flexible_behavior_mac_flag) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
+      if (virt_layer_state_is(VIRT_LAYER_FB_Mac)) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
 
       if (record->event.pressed) {
         add_keep_mods(behav[i].data_u8);
@@ -246,7 +242,7 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
     }
     if (behav[i].op_id == FB_MODS) {
       // process mod
-      if (flexible_behavior_mac_flag) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
+      if (virt_layer_state_is(VIRT_LAYER_FB_Mac)) behav[i].data_u8 = conv_mods_pc_to_mac(behav[i].data_u8);
 
       unreg_keep_mods();
 
@@ -285,14 +281,14 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
 
     if (behav[i].op_id == FB_ERROR_EXIT) {
       // add error flag
-      flexible_behavior_error_flag = true;
+      virt_layer_on(VIRT_LAYER_FB_error);
       
       return false;
     }
   }
 
   // reach here error flag
-  flexible_behavior_error_flag = true;
+  virt_layer_on(VIRT_LAYER_FB_error);
 
   // terminate here
   return false;
@@ -473,7 +469,7 @@ static flexible_behavior_t browser_reload_from_tap_kc(const uint16_t tap_keycode
 
 static flexible_behavior_t task_switch_from_tap_kc(const uint16_t tap_keycode) {
   uint8_t mod_bit = MOD_BIT_RALT;
-  if (flexible_behavior_mac_flag) mod_bit = MOD_BIT_RCTRL; //conv to gui
+  if (virt_layer_state_is(VIRT_LAYER_FB_Mac)) mod_bit = MOD_BIT_RCTRL; //conv to gui
 
   switch (tap_keycode) {
     // hold side browser tab operation
@@ -486,7 +482,7 @@ static flexible_behavior_t task_switch_from_tap_kc(const uint16_t tap_keycode) {
 
 static flexible_behavior_t task_view_from_tap_kc(const uint16_t tap_keycode) {
   uint16_t keycode = KC_TAB;
-  if (flexible_behavior_mac_flag) keycode = KC_UP;
+  if (virt_layer_state_is(VIRT_LAYER_FB_Mac)) keycode = KC_UP;
 
   switch (tap_keycode) {
     // hold side browser tab operation
@@ -498,59 +494,25 @@ static flexible_behavior_t task_view_from_tap_kc(const uint16_t tap_keycode) {
 }
 
 // public function
-
-void jis_enable(void) {
-  flexible_behavior_jis_flag = true;
-}
-
-void jis_disable(void) {
-  flexible_behavior_jis_flag = false;
-}
-
-bool jis_is_enabled(void) {
-  return flexible_behavior_jis_flag;
-}
-
-void mac_enable(void) {
-  flexible_behavior_mac_flag = true;
-}
-
-void mac_disable(void) {
-  flexible_behavior_mac_flag = false;
-}
-
-bool mac_is_enabled(void) {
-  return flexible_behavior_mac_flag;
-}
-
-void flexible_behavior_clear_error(void) {
-  flexible_behavior_error_flag = false;
-}
-
-bool flexible_behavior_has_error(void) {
-  return flexible_behavior_error_flag;
-}
-
-
 bool process_detected_host_os_flexible_behavior_os_locale(os_variant_t detected_os) {
   switch (detected_os) {
     case OS_MACOS:
-      flexible_behavior_jis_flag = true;
-      flexible_behavior_mac_flag = true;
+      virt_layer_on(VIRT_LAYER_FB_JIS);
+      virt_layer_on(VIRT_LAYER_FB_Mac);
       break;
     case OS_IOS:
-      flexible_behavior_jis_flag = false;
-      flexible_behavior_mac_flag = true;
+      virt_layer_off(VIRT_LAYER_FB_JIS);
+      virt_layer_on(VIRT_LAYER_FB_Mac);
       break;
     case OS_WINDOWS:
-      flexible_behavior_jis_flag = true;
-      flexible_behavior_mac_flag = false;
+      virt_layer_on(VIRT_LAYER_FB_JIS);
+      virt_layer_off(VIRT_LAYER_FB_Mac);
       //test
       //flexible_behavior_error_flag = true;
       break;
     case OS_LINUX:
-      flexible_behavior_jis_flag = false;
-      flexible_behavior_mac_flag = false;
+      virt_layer_off(VIRT_LAYER_FB_JIS);
+      virt_layer_off(VIRT_LAYER_FB_Mac);
       break;
     case OS_UNSURE:
       break;

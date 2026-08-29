@@ -10,7 +10,6 @@
 #include "addons/firmware_map.h"
 
 #include "addons/fade_matrix.h"
-#include "addons/flexible_behavior_os_locale.h"
 #include "addons/get_pos_from_keyrecord.h"
 #include "addons/ime_state_sync.h"
 #include "addons/status_led.h"
@@ -112,48 +111,42 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   //if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
     
   if (pos == POSITION_ANSI) {
-    virt_layer_on(VIRT_LAYER_Base);
-    
-    jis_disable();
+    virt_layer_off(VIRT_LAYER_FB_JIS);
         
     return false;
   }
 
   if (pos == POSITION_JIS) {
-    virt_layer_on(VIRT_LAYER_Base);
-    
-    jis_enable();
-    
+    virt_layer_on(VIRT_LAYER_FB_JIS);
+        
     return false;
   }
       
   if (pos == POSITION_Mac_off) {
-    mac_disable();
+    virt_layer_off(VIRT_LAYER_FB_Mac);
         
     return false;
   }
 
   if (pos == POSITION_Mac_on) {
-    mac_enable();
+    virt_layer_on(VIRT_LAYER_FB_Mac);
         
     return false;
   }
 
   if (pos == POSITION_FB_error) {
-    flexible_behavior_clear_error();
+    virt_layer_off(VIRT_LAYER_FB_error);
         
     return false;
   }
       
   if (pos == POSITION_Tran_off) {
-    virt_layer_on(VIRT_LAYER_Base);
     virt_layer_off(VIRT_LAYER_Transition);
         
     return false;
   }
       
   if (pos == POSITION_Tran_on) {
-    virt_layer_on(VIRT_LAYER_Base);
     virt_layer_on(VIRT_LAYER_Transition);
         
     return false;
@@ -319,7 +312,7 @@ bool rgb_matrix_indicators_firmware_map(void) {
   rgb_matrix_set_color(POSITION_Color_Palette, 0, q, 0);
   
   //ANSI/JIS
-  if (jis_is_enabled()) {
+  if (virt_layer_state_is(VIRT_LAYER_FB_JIS)) {
     //JIS
     rgb_matrix_set_color(POSITION_JIS, 0, f, 0);
     rgb_matrix_set_color(POSITION_ANSI, q, q, q);  
@@ -329,7 +322,7 @@ bool rgb_matrix_indicators_firmware_map(void) {
     rgb_matrix_set_color(POSITION_ANSI, f, 0, 0);
   }
   
-  if (mac_is_enabled()) {
+  if (virt_layer_state_is(VIRT_LAYER_FB_Mac)) {
     //Mac
     rgb_matrix_set_color(POSITION_Mac_off, q, q, q);
     rgb_matrix_set_color(POSITION_Mac_on, f, 0, 0);  
@@ -339,7 +332,7 @@ bool rgb_matrix_indicators_firmware_map(void) {
     rgb_matrix_set_color(POSITION_Mac_on, q, q, q);
   }
 
-  if (flexible_behavior_has_error()) {
+  if (virt_layer_state_is(VIRT_LAYER_FB_error)) {
     rgb_matrix_set_color(POSITION_FB_error, f, 0, 0);
   } else {
     rgb_matrix_set_color(POSITION_FB_error, 0, q, 0);

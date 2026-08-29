@@ -91,8 +91,8 @@ void keyboard_post_init_user(void) {
   // no transition / jis / pc mode
   layer_move(0);
   virt_layer_off(VIRT_LAYER_Transition);
-  jis_enable();
-  mac_disable();
+  virt_layer_on(VIRT_LAYER_FB_JIS);
+  virt_layer_off(VIRT_LAYER_FB_Mac);
 }
 
 bool process_detected_host_os_user(os_variant_t detected_os) {
