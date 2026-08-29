@@ -605,7 +605,7 @@ layer_state_t layer_state_set_firmware_map(const layer_state_t state) {
     // if mouse layer actife, scrall off
     set_scrolling = false;
     scroll_vertical_only = false;
-  } else if (get_highest_virt_layer(state) <= VIRT_LAYER_Transition) {
+  } else if (get_highest_virt_layer(state) < VIRT_LAYER_Flag_END) {
     // only base, update track ball flag
     set_scrolling = nav_ball_base_scroll;
 

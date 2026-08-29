@@ -16,7 +16,9 @@ enum virt_layer {
   VIRT_LAYER_FB_error,
   
   VIRT_LAYER_ISS_Enable,
-  
+
+  VIRT_LAYER_Flag_END,
+
   VIRT_LAYER_Mouse_L,
   VIRT_LAYER_Mouse_R,
 
