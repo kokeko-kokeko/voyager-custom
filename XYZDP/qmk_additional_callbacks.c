@@ -5,6 +5,8 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
+#include "virt_layer.h"
+
 // module impl
 #include "addons/color_palette.h"
 #include "addons/connection_layer_os_swap_status.h"
@@ -17,9 +19,6 @@
 #include "addons/mouse_button_indicator.h"
 #include "addons/pos_press_overlay.h"
 #include "addons/status_led.h"
-
-#include "phys_layer.h"
-#include "virt_layer.h"
 
 // access to voyager system-side flag
 //extern keyboard_config_t keyboard_config;
@@ -90,8 +89,8 @@ void keyboard_post_init_user(void) {
   keyboard_post_init_status_led();
   
   // no transition / jis / pc mode
-  layer_move(PHYS_LAYER_Base);
-  layer_off(PHYS_LAYER_Transition);
+  layer_move(0);
+  virt_layer_off(VIRT_LAYER_Transition);
   jis_enable();
   mac_disable();
 }
