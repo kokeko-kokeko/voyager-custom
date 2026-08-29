@@ -91,7 +91,6 @@ void keyboard_post_init_user(void) {
   // no transition / jis / pc mode
   layer_move(0);
   
-  virt_layer_on(VIRT_LAYER_Base);
   virt_layer_off(VIRT_LAYER_Transition);
   virt_layer_on(VIRT_LAYER_FB_JIS);
   virt_layer_off(VIRT_LAYER_FB_Mac);

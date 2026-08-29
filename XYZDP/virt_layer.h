@@ -7,9 +7,7 @@
 
 // C program side virtual layer 
 enum virt_layer {
-  VIRT_LAYER_Base = 0,
-
-  VIRT_LAYER_Transition,
+  VIRT_LAYER_Transition = 0,
 
   VIRT_LAYER_FB_JIS,
   VIRT_LAYER_FB_Mac,
