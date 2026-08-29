@@ -141,6 +141,9 @@ void virt_layer_on(const uint8_t virt_layer) {
 
     if (phys_layer == PHYS_LAYER_UNALLOC) {
         state_v_only[virt_layer] = true;
+        
+        // re-calc layer_state_set_*
+        layer_on(0);
     } else {
         layer_on(phys_layer);
     }
@@ -151,6 +154,9 @@ void virt_layer_off(const uint8_t virt_layer) {
 
     if (phys_layer == PHYS_LAYER_UNALLOC) {
         state_v_only[virt_layer] = false;
+
+        // re-calc layer_state_set_*
+        layer_on(0);
     } else {
         layer_off(phys_layer);
     }
@@ -163,10 +169,11 @@ layer_state_t layer_state_set_virt_layer(layer_state_t state) {
     
     // scan combination
     for (int i = 0; i < TRI_STATE_COUNT; i++) {
-        bool t_0 = virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][0]);
-        bool t_1 = virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][1]);
-
-        t_state[tri_layer_tbl_v_v_v[i][2]] = t_state[tri_layer_tbl_v_v_v[i][2]] || (t_0 && t_1);
+        t_state[tri_layer_tbl_v_v_v[i][2]] = t_state[tri_layer_tbl_v_v_v[i][2]] || (
+            virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][0]) &&
+            virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][1]) 
+        );
+        
         t_update[tri_layer_tbl_v_v_v[i][2]] = true; 
     }
 
