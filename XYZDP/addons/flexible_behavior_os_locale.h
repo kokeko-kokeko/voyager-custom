@@ -8,6 +8,7 @@
 // CURE : CURsor and Etc
 // CURES : CURsor and Etc Shifted
 // TKSW : TasK SWitch OverRide, handle RALT 
+// PFON : Pos Func ONly, dummy in A
 
 // old name
 // HOOR : Hold Only OverRide, tap pass to normal process
@@ -26,6 +27,7 @@
 #define MOD_CURES (MOD_LALT | MOD_LSFT)
 
 #define MOD_TKSW (MOD_RALT)
+#define MOD_PFON (MOD_RALT | MOD_RSFT)
 
 //#define MT(mod, kc) (QK_MOD_TAP | (((mod)&0x1F) << 8) | ((kc)&0xFF))
 #define PTMH(kc) MT(MOD_PTMH, kc)
@@ -39,6 +41,7 @@
 #define CURES(kc) MT(MOD_CURES, kc)
 
 #define TKSW(kc) MT(MOD_TKSW, kc)
+#define PFON(kc) MT(MOD_PFON, kc)
 
 bool process_detected_host_os_flexible_behavior_os_locale(os_variant_t detected_os);
 bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *record);

@@ -18,6 +18,10 @@ static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
 
     [VIRT_LAYER_ISS_Enable] = PHYS_LAYER_UNALLOC,
 
+    [VIRT_LAYER_Navi_TB_Base_scroll] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_Navi_TB_Base_aim] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_Navi_TB_Base_turbo] = PHYS_LAYER_UNALLOC,
+
     [VIRT_LAYER_Flag_END] = PHYS_LAYER_UNALLOC,
 
     [VIRT_LAYER_Mouse_L] = PHYS_LAYER_Mouse_L,

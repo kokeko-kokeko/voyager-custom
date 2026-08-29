@@ -521,14 +521,16 @@ bool process_detected_host_os_flexible_behavior_os_locale(os_variant_t detected_
   return true;
 }
 
-//                                                                            | tap                                                                                           | hold                                                                                                   | target   | shift
-//                                                                            | eager                     | pos                | defer                 | shift                | eager                     | pos                   | defer                       | shift                |          |
-static const flexible_behavior_conf_t conf_ptmh  = (flexible_behavior_conf_t){pass_qmk_from_tap_kc,       error_exit_from_pos, error_exit_from_tap_kc, nop_shift,             nop_from_tap_kc,            home_row_mods_from_pos, send_tap_keycode_from_tap_kc, nop_shift,             MOD_PTMH,  false};
-static const flexible_behavior_conf_t conf_ensn  = (flexible_behavior_conf_t){engram_sym_num_from_tap_kc, error_exit_from_pos, error_exit_from_tap_kc, engram_sym_num_shift,  nop_from_tap_kc,            home_row_mods_from_pos, engram_sym_num_from_tap_kc,   engram_sym_num_shift,  MOD_ENSN,  false};
-static const flexible_behavior_conf_t conf_ensns = (flexible_behavior_conf_t){engram_sym_num_from_tap_kc, error_exit_from_pos, error_exit_from_tap_kc, engram_sym_num_shift,  browser_back_from_tap_kc,   home_row_mods_from_pos, engram_sym_num_from_tap_kc,   engram_sym_num_shift,  MOD_ENSNS, true};
-static const flexible_behavior_conf_t conf_cure  = (flexible_behavior_conf_t){cursor_from_tap_kc,         error_exit_from_pos, error_exit_from_tap_kc, bracket_counter_shift, browser_reload_from_tap_kc, home_row_mods_from_pos, cursor_from_tap_kc,           bracket_counter_shift, MOD_CURE,  false};
-static const flexible_behavior_conf_t conf_cures = (flexible_behavior_conf_t){cursor_from_tap_kc,         error_exit_from_pos, error_exit_from_tap_kc, bracket_counter_shift, nop_from_tap_kc,            home_row_mods_from_pos, cursor_from_tap_kc,           bracket_counter_shift, MOD_CURES, true};
-static const flexible_behavior_conf_t conf_tksw  = (flexible_behavior_conf_t){task_switch_from_tap_kc,    error_exit_from_pos, error_exit_from_tap_kc, nop_shift,             task_view_from_tap_kc,      error_exit_from_pos,    error_exit_from_tap_kc,       nop_shift,             MOD_TKSW,  false};
+//                                                                            | tap                                                                                              | hold                                                                                                   | target   | shift
+//                                                                            | eager                     | pos                   | defer                 | shift                | eager                     | pos                   | defer                       | shift                |          |
+static const flexible_behavior_conf_t conf_ptmh  = (flexible_behavior_conf_t){pass_qmk_from_tap_kc,       error_exit_from_pos,    error_exit_from_tap_kc, nop_shift,             nop_from_tap_kc,            home_row_mods_from_pos, send_tap_keycode_from_tap_kc, nop_shift,             MOD_PTMH,  false};
+static const flexible_behavior_conf_t conf_ensn  = (flexible_behavior_conf_t){engram_sym_num_from_tap_kc, error_exit_from_pos,    error_exit_from_tap_kc, engram_sym_num_shift,  nop_from_tap_kc,            home_row_mods_from_pos, engram_sym_num_from_tap_kc,   engram_sym_num_shift,  MOD_ENSN,  false};
+static const flexible_behavior_conf_t conf_ensns = (flexible_behavior_conf_t){engram_sym_num_from_tap_kc, error_exit_from_pos,    error_exit_from_tap_kc, engram_sym_num_shift,  browser_back_from_tap_kc,   home_row_mods_from_pos, engram_sym_num_from_tap_kc,   engram_sym_num_shift,  MOD_ENSNS, true};
+static const flexible_behavior_conf_t conf_cure  = (flexible_behavior_conf_t){cursor_from_tap_kc,         error_exit_from_pos,    error_exit_from_tap_kc, bracket_counter_shift, browser_reload_from_tap_kc, home_row_mods_from_pos, cursor_from_tap_kc,           bracket_counter_shift, MOD_CURE,  false};
+static const flexible_behavior_conf_t conf_cures = (flexible_behavior_conf_t){cursor_from_tap_kc,         error_exit_from_pos,    error_exit_from_tap_kc, bracket_counter_shift, nop_from_tap_kc,            home_row_mods_from_pos, cursor_from_tap_kc,           bracket_counter_shift, MOD_CURES, true};
+static const flexible_behavior_conf_t conf_tksw  = (flexible_behavior_conf_t){task_switch_from_tap_kc,    error_exit_from_pos,    error_exit_from_tap_kc, nop_shift,             task_view_from_tap_kc,      error_exit_from_pos,    error_exit_from_tap_kc,       nop_shift,             MOD_TKSW,  false};
+static const flexible_behavior_conf_t conf_pfon  = (flexible_behavior_conf_t){nop_from_tap_kc,            home_row_mods_from_pos, error_exit_from_tap_kc, nop_shift,             nop_from_tap_kc,            home_row_mods_from_pos, error_exit_from_tap_kc,       nop_shift,             MOD_PFON,  false};
+
 
 bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *record) {
   if (process_record_macro_firmware(keycode, record) == false) return false;
@@ -542,6 +544,7 @@ bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *r
   if (process_record_flexible_behavior_skel(&conf_cures, keycode, record) == false) return false;
 
   if (process_record_flexible_behavior_skel(&conf_tksw,  keycode, record) == false) return false;
+  if (process_record_flexible_behavior_skel(&conf_pfon,  keycode, record) == false) return false;
   
   return true;
 }

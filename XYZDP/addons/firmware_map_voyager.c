@@ -77,11 +77,6 @@ enum key_position {
   POSITION_Halt_Left = 23
 };
 
-// navigator base layer
-static bool nav_ball_base_scroll = true;
-static bool nav_ball_base_aim = false;
-static bool nav_ball_base_turbo = false;
-
 // halt safety flags
 static volatile bool halt_request0 = false;
 static volatile bool halt_request1 = false;
@@ -201,34 +196,34 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   }
 
   if (pos == POSITION_Nav_ball_Base_Scroll_off) {
-    nav_ball_base_scroll = false;
+    virt_layer_off(VIRT_LAYER_Navi_TB_Base_scroll);
         
     return false;
   }
 
   if (pos == POSITION_Nav_ball_Base_Scroll_on) {
-    nav_ball_base_scroll = true;
+    virt_layer_on(VIRT_LAYER_Navi_TB_Base_scroll);
         
     return false;
   }
 
   if (pos == POSITION_Nav_ball_Base_Aim) {
-    nav_ball_base_aim = true;
-    nav_ball_base_turbo = false;
-        
+    virt_layer_on(VIRT_LAYER_Navi_TB_Base_aim);
+    virt_layer_off(VIRT_LAYER_Navi_TB_Base_turbo);
+            
     return false;
   }
 
   if (pos == POSITION_Nav_ball_Base_Normal) {
-    nav_ball_base_aim = false;
-    nav_ball_base_turbo = false;
+    virt_layer_off(VIRT_LAYER_Navi_TB_Base_aim);
+    virt_layer_off(VIRT_LAYER_Navi_TB_Base_turbo);
         
     return false;
   }
 
   if (pos == POSITION_Nav_ball_Base_Turbo) {
-    nav_ball_base_aim = false;
-    nav_ball_base_turbo = true;
+    virt_layer_off(VIRT_LAYER_Navi_TB_Base_aim);
+    virt_layer_on(VIRT_LAYER_Navi_TB_Base_turbo);
         
     return false;
   }
@@ -378,7 +373,7 @@ bool rgb_matrix_indicators_firmware_map(void) {
   rgb_matrix_set_color(POSITION_Nav_ball_DEC_CPI, q, 0, o);
   rgb_matrix_set_color(POSITION_Nav_ball_INC_CPI, f, 0, h);
   
-  if (nav_ball_base_scroll) {
+  if (virt_layer_state_is(VIRT_LAYER_Navi_TB_Base_scroll)) {
     // on
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_on, 0, f, 0);
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_off, q, q, q); 
@@ -388,17 +383,17 @@ bool rgb_matrix_indicators_firmware_map(void) {
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_off, f, f, 0);
   }
 
-  if ((nav_ball_base_aim == false) && (nav_ball_base_turbo == false)) {
+  if ((virt_layer_state_is(VIRT_LAYER_Navi_TB_Base_aim) == false) && (virt_layer_state_is(VIRT_LAYER_Navi_TB_Base_turbo) == false)) {
     // normal
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Aim, q, q, q);
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Normal, 0, f, 0);
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Turbo, q, q, q);
-  } else if ((nav_ball_base_aim == true) && (nav_ball_base_turbo == false)) {
+  } else if ((virt_layer_state_is(VIRT_LAYER_Navi_TB_Base_aim) == true) && (virt_layer_state_is(VIRT_LAYER_Navi_TB_Base_turbo) == false)) {
     // aim
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Aim, 0, 0, f);
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Normal, q, q, q);
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Turbo, q, q, q);
-  } else if ((nav_ball_base_aim == false) && (nav_ball_base_turbo == true)) {
+  } else if ((virt_layer_state_is(VIRT_LAYER_Navi_TB_Base_aim) == false) && (virt_layer_state_is(VIRT_LAYER_Navi_TB_Base_turbo) == true)) {
     // turbo
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Aim, q, q, q);
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Normal, q, q, q);
@@ -596,28 +591,6 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
 layer_state_t layer_state_set_firmware_map(const layer_state_t state) {
   // if enable nothig to do
   if (virt_layer_state_cmp(state, VIRT_LAYER_Firmware) == true) return state;
-
-  if (virt_layer_state_cmp(state, VIRT_LAYER_Mouse_L) ||
-    virt_layer_state_cmp(state, VIRT_LAYER_Mouse_R) ||
-    virt_layer_state_cmp(state, VIRT_LAYER_Mouse_Upper_L) ||
-    virt_layer_state_cmp(state, VIRT_LAYER_Mouse_Upper_R)
-    ) {
-    // if mouse layer actife, scrall off
-    set_scrolling = false;
-    scroll_vertical_only = false;
-  } else if (get_highest_virt_layer(state) < VIRT_LAYER_Flag_END) {
-    // only base, update track ball flag
-    set_scrolling = nav_ball_base_scroll;
-
-    navigator_turbo = nav_ball_base_turbo;
-    navigator_aim = nav_ball_base_aim;
-  } else {
-    // upper, clear all flag
-    set_scrolling = false;
-    scroll_vertical_only = false;
-    navigator_turbo = false;
-    navigator_aim = false;
-  }
 
   halt_request0 = false;
   halt_request1 = false;
