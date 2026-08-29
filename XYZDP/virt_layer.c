@@ -186,10 +186,11 @@ layer_state_t layer_state_set_virt_layer(layer_state_t state) {
 
     // apply update
     for (int i = 0; i < VIRT_LAYER_COUNT; i++) {
-        // update cache from phys, dummy read
-        virt_layer_state_cmp(state, i);
-
-        if (t_update[i] == false) continue;
+        if (t_update[i] == false) {
+            // update cache from phys, dummy read
+            virt_layer_state_cmp(state, i);
+            continue;
+        }
 
         const uint8_t phys_layer = v_to_p_tbl[i];
         state_cache_v[i] = t_state[i];
