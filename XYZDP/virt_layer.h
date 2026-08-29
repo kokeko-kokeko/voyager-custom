@@ -57,13 +57,13 @@ enum virt_layer {
 };
 
 // minimal virt version subset for action_layer.h
-bool virt_layer_state_is(uint8_t virt_layer);
-bool virt_layer_state_cmp(layer_state_t phys_state, uint8_t virt_layer);
+bool virt_layer_state_is(const uint8_t virt_layer);
+bool virt_layer_state_cmp(layer_state_t phys_state, const uint8_t virt_layer);
 
 uint8_t get_highest_virt_layer(layer_state_t phys_state);
 
-void virt_layer_on(uint8_t virt_layer);
-void virt_layer_off(uint8_t virt_layer);
+void virt_layer_on(const uint8_t virt_layer);
+void virt_layer_off(const uint8_t virt_layer);
 
 layer_state_t layer_state_set_virt_layer(layer_state_t state);
 

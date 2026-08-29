@@ -48,7 +48,9 @@ enum phys_layer {
   PHYS_LAYER_Firmware,
   PHYS_LAYER_Color_Palette,
   
-  PHYS_LAYER_COUNT 
+  PHYS_LAYER_COUNT,
+  
+  PHYS_LAYER_UNALLOC
 };
 
 // layer alias

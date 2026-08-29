@@ -8,26 +8,177 @@
 #include "phys_layer.h"
 #include "virt_layer.h"
 
-bool virt_layer_state_is(uint8_t virt_layer) {
-    return false;
+static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
+    [VIRT_LAYER_Base] = PHYS_LAYER_Base,
+    [VIRT_LAYER_Transition] = PHYS_LAYER_Transition,
+    
+    [VIRT_LAYER_Mouse_L] = PHYS_LAYER_Mouse_L,
+    [VIRT_LAYER_Mouse_R] = PHYS_LAYER_Mouse_R,
+
+    [VIRT_LAYER_L_thumb_1] = PHYS_LAYER_L_thumb_1,
+    [VIRT_LAYER_L_thumb_2] = PHYS_LAYER_L_thumb_2,
+    [VIRT_LAYER_L_thumb_3] = PHYS_LAYER_L_thumb_3,
+    [VIRT_LAYER_L_thumb_4] = PHYS_LAYER_L_thumb_4,
+
+    [VIRT_LAYER_R_thumb_1] = PHYS_LAYER_R_thumb_1,
+    [VIRT_LAYER_R_thumb_3] = PHYS_LAYER_R_thumb_2,
+    [VIRT_LAYER_R_thumb_2] = PHYS_LAYER_R_thumb_3,
+    [VIRT_LAYER_R_thumb_4] = PHYS_LAYER_R_thumb_4,
+
+    [VIRT_LAYER_L_pinky_1] = PHYS_LAYER_L_pinky_1,
+    [VIRT_LAYER_L_pinky_2] = PHYS_LAYER_L_pinky_2,
+
+    [VIRT_LAYER_R_pinky_1] = PHYS_LAYER_R_pinky_1,
+    [VIRT_LAYER_R_pinky_2] = PHYS_LAYER_R_pinky_2,
+
+    [VIRT_LAYER_Mouse_Upper_L] = PHYS_LAYER_Mouse_Upper_L,
+    [VIRT_LAYER_Mouse_Upper_R] = PHYS_LAYER_Mouse_Upper_R, 
+
+    [VIRT_LAYER_L_thumb_1_pinky_1] = PHYS_LAYER_L_thumb_1_pinky_1,
+    [VIRT_LAYER_L_thumb_1_pinky_2] = PHYS_LAYER_L_thumb_1_pinky_2,
+  
+    [VIRT_LAYER_R_thumb_1_pinky_1] = PHYS_LAYER_R_thumb_1_pinky_1,
+    [VIRT_LAYER_R_thumb_1_pinky_2] = PHYS_LAYER_R_thumb_1_pinky_2,
+ 
+    [VIRT_LAYER_L_thumb_1_R_pinky_1] = PHYS_LAYER_L_thumb_1_R_pinky_1,
+    [VIRT_LAYER_L_thumb_1_R_pinky_2] = PHYS_LAYER_L_thumb_1_R_pinky_2,
+
+    [VIRT_LAYER_R_thumb_1_L_pinky_1] = PHYS_LAYER_R_thumb_1_L_pinky_1,
+    [VIRT_LAYER_R_thumb_1_L_pinky_2] = PHYS_LAYER_R_thumb_1_L_pinky_2,
+
+    [VIRT_LAYER_LR_thumb_1] = PHYS_LAYER_LR_thumb_1,
+    [VIRT_LAYER_LR_thumb_3] = PHYS_LAYER_LR_thumb_3,
+
+    [VIRT_LAYER_LR_pinky_1] = PHYS_LAYER_LR_pinky_1,
+    [VIRT_LAYER_LR_pinky_2] = PHYS_LAYER_LR_pinky_2,
+
+    [VIRT_LAYER_Firmware] = PHYS_LAYER_Firmware,
+    [VIRT_LAYER_Color_Palette] = PHYS_LAYER_Color_Palette 
+};
+
+// virt olny state (phys get/set qmk side API)
+static bool state_v_only[VIRT_LAYER_COUNT] = {0};
+
+// tri layer tbl
+static const uint8_t tri_layer_tbl_v_v_v[][3] = {
+    // mouse upper
+    {VIRT_LAYER_Mouse_L, VIRT_LAYER_L_pinky_1, VIRT_LAYER_Mouse_Upper_L},
+    {VIRT_LAYER_Mouse_L, VIRT_LAYER_L_pinky_2, VIRT_LAYER_Mouse_Upper_L},
+    {VIRT_LAYER_Mouse_R, VIRT_LAYER_L_pinky_1, VIRT_LAYER_Mouse_Upper_L},
+    {VIRT_LAYER_Mouse_R, VIRT_LAYER_L_pinky_2, VIRT_LAYER_Mouse_Upper_L},
+
+    {VIRT_LAYER_Mouse_L, VIRT_LAYER_R_pinky_1, VIRT_LAYER_Mouse_Upper_R},
+    {VIRT_LAYER_Mouse_L, VIRT_LAYER_R_pinky_2, VIRT_LAYER_Mouse_Upper_R},
+    {VIRT_LAYER_Mouse_R, VIRT_LAYER_R_pinky_1, VIRT_LAYER_Mouse_Upper_R},
+    {VIRT_LAYER_Mouse_R, VIRT_LAYER_R_pinky_2, VIRT_LAYER_Mouse_Upper_R},
+
+    // same side thumb and pin
+    {VIRT_LAYER_L_thumb_1, VIRT_LAYER_L_pinky_1, VIRT_LAYER_L_thumb_1_pinky_1},
+    {VIRT_LAYER_L_thumb_1, VIRT_LAYER_L_pinky_2, VIRT_LAYER_L_thumb_1_pinky_2},
+
+    {VIRT_LAYER_R_thumb_1, VIRT_LAYER_R_pinky_1, VIRT_LAYER_R_thumb_1_pinky_1},
+    {VIRT_LAYER_R_thumb_1, VIRT_LAYER_R_pinky_2, VIRT_LAYER_R_thumb_1_pinky_2},
+
+    // cross side thumb and pin
+    {VIRT_LAYER_L_thumb_1, VIRT_LAYER_R_pinky_1, VIRT_LAYER_L_thumb_1_R_pinky_1},
+    {VIRT_LAYER_L_thumb_1, VIRT_LAYER_R_pinky_2, VIRT_LAYER_L_thumb_1_R_pinky_2},
+
+    {VIRT_LAYER_R_thumb_1, VIRT_LAYER_L_pinky_1, VIRT_LAYER_R_thumb_1_L_pinky_1},
+    {VIRT_LAYER_R_thumb_1, VIRT_LAYER_L_pinky_2, VIRT_LAYER_R_thumb_1_L_pinky_2},
+
+    // both thumb
+    {VIRT_LAYER_L_thumb_1, VIRT_LAYER_R_thumb_1, VIRT_LAYER_LR_thumb_1},
+    {VIRT_LAYER_L_thumb_3, VIRT_LAYER_R_thumb_3, VIRT_LAYER_LR_thumb_3},
+
+    // both pinky
+    {VIRT_LAYER_L_pinky_1, VIRT_LAYER_R_pinky_1, VIRT_LAYER_LR_pinky_1},
+    {VIRT_LAYER_L_pinky_2, VIRT_LAYER_R_pinky_2, VIRT_LAYER_LR_pinky_2},
+
+    // fwsys
+    {VIRT_LAYER_L_thumb_2, VIRT_LAYER_L_thumb_3, VIRT_LAYER_Firmware}
+};
+
+#define TRI_STATE_COUNT (sizeof(tri_layer_tbl_v_v_v) / sizeof(tri_layer_tbl_v_v_v[0]))
+
+bool virt_layer_state_is(const uint8_t virt_layer) {
+    const uint8_t phys_layer = v_to_p_tbl[virt_layer];
+
+    if (phys_layer == PHYS_LAYER_UNALLOC) {
+        return state_v_only[virt_layer];
+    } 
+    
+    return layer_state_is(phys_layer);
 }
-bool virt_layer_state_cmp(layer_state_t phys_state, uint8_t virt_layer) {
-    return false;
+bool virt_layer_state_cmp(layer_state_t phys_state, const uint8_t virt_layer) {
+    const uint8_t phys_layer = v_to_p_tbl[virt_layer];
+
+    if (phys_layer == PHYS_LAYER_UNALLOC) {
+        return state_v_only[virt_layer];
+    } 
+    
+    return layer_state_cmp(phys_state, phys_layer);
 }
 
-uint8_t get_highest_virt_layer(layer_state_t phys_state) {
+uint8_t get_highest_virt_layer(const layer_state_t phys_state) {
+    for (int i = VIRT_LAYER_COUNT - 1; i >= 0; i--) {
+        if (virt_layer_state_cmp(phys_state, i)) return (uint8_t)i;
+    }
     return 0;
 }
 
-void virt_layer_on(uint8_t virt_layer) {
+void virt_layer_on(const uint8_t virt_layer) {
+    const uint8_t phys_layer = v_to_p_tbl[virt_layer];
 
+    if (phys_layer == PHYS_LAYER_UNALLOC) {
+        state_v_only[virt_layer] = true;
+    } else {
+        layer_on(phys_layer);
+    }
 }
-void virt_layer_off(uint8_t virt_layer) {
-    
+
+void virt_layer_off(const uint8_t virt_layer) {
+    const uint8_t phys_layer = v_to_p_tbl[virt_layer];
+
+    if (phys_layer == PHYS_LAYER_UNALLOC) {
+        state_v_only[virt_layer] = false;
+    } else {
+        layer_off(phys_layer);
+    }
 }
 
 layer_state_t layer_state_set_virt_layer(layer_state_t state) {
+    // tri state update flag memory
+    bool t_state[VIRT_LAYER_COUNT] = {0};
+    bool t_update[VIRT_LAYER_COUNT] = {0};
+    
+    // scan combination
+    for (int i = 0; i < TRI_STATE_COUNT; i++) {
+        bool t_0 = virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][0]);
+        bool t_1 = virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][1]);
 
+        t_state[tri_layer_tbl_v_v_v[i][2]] = t_state[tri_layer_tbl_v_v_v[i][2]] || (t_0 && t_1);
+        t_update[tri_layer_tbl_v_v_v[i][2]] = true; 
+    }
 
+    // apply update
+    for (int i = 0; i < VIRT_LAYER_COUNT; i++) {
+        if (t_update[i] == false) continue;
+
+        const uint8_t phys_layer = v_to_p_tbl[i];
+
+        if (phys_layer == PHYS_LAYER_UNALLOC) {
+            state_v_only[i] = t_state[i];
+        } else {
+            if (t_state[i]) {
+                state |= ((layer_state_t)1 << phys_layer);
+            } else {
+                state &= ~((layer_state_t)1 << phys_layer);
+            }
+        }
+    }
+
+    // safe guard, LSB layer on here
+    state |= (layer_state_t)0x01;
+    
     return state;
 }

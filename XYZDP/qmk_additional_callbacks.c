@@ -105,54 +105,15 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  // mouse upper layer (dist bit or)
-  state = 
-    update_tri_layer_state(state, PHYS_LAYER_Mouse_L, PHYS_LAYER_L_pinky_1, PHYS_LAYER_Mouse_Upper_L) |
-    update_tri_layer_state(state, PHYS_LAYER_Mouse_L, PHYS_LAYER_L_pinky_2, PHYS_LAYER_Mouse_Upper_L) |
-    update_tri_layer_state(state, PHYS_LAYER_Mouse_R, PHYS_LAYER_L_pinky_1, PHYS_LAYER_Mouse_Upper_L) |
-    update_tri_layer_state(state, PHYS_LAYER_Mouse_R, PHYS_LAYER_L_pinky_2, PHYS_LAYER_Mouse_Upper_L);
-
-  state = 
-    update_tri_layer_state(state, PHYS_LAYER_Mouse_L, PHYS_LAYER_R_pinky_1, PHYS_LAYER_Mouse_Upper_R) |
-    update_tri_layer_state(state, PHYS_LAYER_Mouse_L, PHYS_LAYER_R_pinky_2, PHYS_LAYER_Mouse_Upper_R) |
-    update_tri_layer_state(state, PHYS_LAYER_Mouse_R, PHYS_LAYER_R_pinky_1, PHYS_LAYER_Mouse_Upper_R) |
-    update_tri_layer_state(state, PHYS_LAYER_Mouse_R, PHYS_LAYER_R_pinky_2, PHYS_LAYER_Mouse_Upper_R);
-
-  // same side thumb and pin
-  state = update_tri_layer_state(state, PHYS_LAYER_L_thumb_1, PHYS_LAYER_L_pinky_1, PHYS_LAYER_L_thumb_1_pinky_1);
-  state = update_tri_layer_state(state, PHYS_LAYER_L_thumb_1, PHYS_LAYER_L_pinky_2, PHYS_LAYER_L_thumb_1_pinky_2);
-
-  state = update_tri_layer_state(state, PHYS_LAYER_R_thumb_1, PHYS_LAYER_R_pinky_1, PHYS_LAYER_R_thumb_1_pinky_1);
-  state = update_tri_layer_state(state, PHYS_LAYER_R_thumb_1, PHYS_LAYER_R_pinky_2, PHYS_LAYER_R_thumb_1_pinky_2);
-  
-  // cross side thumb and pin
-  state = update_tri_layer_state(state, PHYS_LAYER_L_thumb_1, PHYS_LAYER_R_pinky_1, PHYS_LAYER_L_thumb_1_R_pinky_1);
-  state = update_tri_layer_state(state, PHYS_LAYER_L_thumb_1, PHYS_LAYER_R_pinky_2, PHYS_LAYER_L_thumb_1_R_pinky_2);
-
-  state = update_tri_layer_state(state, PHYS_LAYER_R_thumb_1, PHYS_LAYER_L_pinky_1, PHYS_LAYER_R_thumb_1_L_pinky_1);
-  state = update_tri_layer_state(state, PHYS_LAYER_R_thumb_1, PHYS_LAYER_L_pinky_2, PHYS_LAYER_R_thumb_1_L_pinky_2);
-
-  // both thumb
-  state = update_tri_layer_state(state, PHYS_LAYER_L_thumb_1, PHYS_LAYER_R_thumb_1, PHYS_LAYER_LR_thumb_1);
-  state = update_tri_layer_state(state, PHYS_LAYER_L_thumb_3, PHYS_LAYER_R_thumb_3, PHYS_LAYER_LR_thumb_3);
-  
-  // both pin
-  state = update_tri_layer_state(state, PHYS_LAYER_L_pinky_1, PHYS_LAYER_R_pinky_1, PHYS_LAYER_LR_pinky_1);
-  state = update_tri_layer_state(state, PHYS_LAYER_L_pinky_2, PHYS_LAYER_R_pinky_2, PHYS_LAYER_LR_pinky_2);
-  
-  // call FwSys
-  state = update_tri_layer_state(state, PHYS_LAYER_L_thumb_2, PHYS_LAYER_L_thumb_3, PHYS_LAYER_Firmware); 
+  // update tri layer first
+  state = layer_state_set_virt_layer(state);
 
   state = layer_state_set_color_palette(state);
   state = layer_state_set_connection_layer_os_swap_status(state);
   state = layer_state_set_fade_matrix(state);
   state = layer_state_set_firmware_map(state);
   state = layer_state_set_layer_caps_word(state);
-  state = layer_state_set_virt_layer(state);
-
-  // safe guard, LSB layer on here
-  state |= (layer_state_t)0x01;
-	
+  
   return state;
 }
 
