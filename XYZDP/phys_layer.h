@@ -10,12 +10,8 @@ enum phys_layer {
   PHYS_LAYER_Number,
   PHYS_LAYER_Fucction,
   PHYS_LAYER_Cursor,
-
-  PHYS_LAYER_L_pinky_1,
-  PHYS_LAYER_L_pinky_2,
-
-  PHYS_LAYER_R_pinky_1,
-  PHYS_LAYER_R_pinky_2,
+  
+  PHYS_LAYER_QWERTY_Shortcut,
 
   PHYS_LAYER_Mouse_Upper_L,
   PHYS_LAYER_Mouse_Upper_R, 

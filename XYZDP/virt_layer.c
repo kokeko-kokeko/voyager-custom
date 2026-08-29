@@ -37,11 +37,11 @@ static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
     [VIRT_LAYER_R_thumb_2] = PHYS_LAYER_UNALLOC,
     [VIRT_LAYER_R_thumb_4] = PHYS_LAYER_UNALLOC,
 
-    [VIRT_LAYER_L_pinky_1] = PHYS_LAYER_L_pinky_1,
-    [VIRT_LAYER_L_pinky_2] = PHYS_LAYER_L_pinky_2,
+    [VIRT_LAYER_L_pinky_1] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_L_pinky_2] = PHYS_LAYER_QWERTY_Shortcut,
 
-    [VIRT_LAYER_R_pinky_1] = PHYS_LAYER_R_pinky_1,
-    [VIRT_LAYER_R_pinky_2] = PHYS_LAYER_R_pinky_2,
+    [VIRT_LAYER_R_pinky_1] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_R_pinky_2] = PHYS_LAYER_UNALLOC,
 
     [VIRT_LAYER_Mouse_Upper_L] = PHYS_LAYER_Mouse_Upper_L,
     [VIRT_LAYER_Mouse_Upper_R] = PHYS_LAYER_Mouse_Upper_R, 
