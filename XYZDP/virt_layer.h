@@ -48,7 +48,9 @@ enum virt_layer {
   VIRT_LAYER_R_thumb_1_L_pinky_2,
 
   VIRT_LAYER_LR_thumb_1,
+  VIRT_LAYER_LR_thumb_2,
   VIRT_LAYER_LR_thumb_3,
+  VIRT_LAYER_LR_thumb_4,
 
   VIRT_LAYER_LR_pinky_1,
   VIRT_LAYER_LR_pinky_2,

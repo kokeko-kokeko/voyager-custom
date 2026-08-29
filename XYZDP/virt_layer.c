@@ -51,7 +51,9 @@ static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
     [VIRT_LAYER_R_thumb_1_L_pinky_2] = PHYS_LAYER_UNALLOC,
 
     [VIRT_LAYER_LR_thumb_1] = PHYS_LAYER_Macro,
+    [VIRT_LAYER_LR_thumb_2] = PHYS_LAYER_UNALLOC,
     [VIRT_LAYER_LR_thumb_3] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_LR_thumb_4] = PHYS_LAYER_UNALLOC,
 
     [VIRT_LAYER_LR_pinky_1] = PHYS_LAYER_UNALLOC,
     [VIRT_LAYER_LR_pinky_2] = PHYS_LAYER_UNALLOC,
@@ -91,7 +93,9 @@ static const uint8_t tri_layer_tbl_v_v_v[][3] = {
 
     // both thumb
     {VIRT_LAYER_L_thumb_1, VIRT_LAYER_R_thumb_1, VIRT_LAYER_LR_thumb_1},
+    {VIRT_LAYER_L_thumb_2, VIRT_LAYER_R_thumb_2, VIRT_LAYER_LR_thumb_2},
     {VIRT_LAYER_L_thumb_3, VIRT_LAYER_R_thumb_3, VIRT_LAYER_LR_thumb_3},
+    {VIRT_LAYER_L_thumb_4, VIRT_LAYER_R_thumb_4, VIRT_LAYER_LR_thumb_4},
 
     // both pinky
     {VIRT_LAYER_L_pinky_1, VIRT_LAYER_R_pinky_1, VIRT_LAYER_LR_pinky_1},

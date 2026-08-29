@@ -110,7 +110,9 @@ layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t stat
       status_led(0b0110, led_pattern_off);
       break;
     case VIRT_LAYER_LR_thumb_1:
+    case VIRT_LAYER_LR_thumb_2:
     case VIRT_LAYER_LR_thumb_3:
+    case VIRT_LAYER_LR_thumb_4:
       status_led(0b0011, led_pattern_on);
       status_led(0b1100, led_pattern_off);
       break;
