@@ -9,6 +9,7 @@ PRECISION_TRACKPAD_DRIVER = navigator_trackpad
 OS_DETECTION_ENABLE = yes
 
 SRC += virt_layer.c
+SRC += get_pos_from_keyrecord_voyager.c
 
 SRC += qmk_additional_callbacks.c
 
@@ -18,7 +19,6 @@ SRC += addons/fade_matrix.c
 SRC += addons/firmware_map_voyager.c
 SRC += addons/flexible_behavior_os_locale_voyager.c
 SRC += addons/flexible_behavior_os_locale.c
-SRC += addons/get_pos_from_keyrecord_voyager.c
 SRC += addons/ime_state_sync_voyager.c
 SRC += addons/ime_state_sync.c
 SRC += addons/layer_caps_word.c

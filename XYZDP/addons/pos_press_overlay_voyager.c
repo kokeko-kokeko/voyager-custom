@@ -5,7 +5,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "addons/get_pos_from_keyrecord.h"
+#include "get_pos_from_keyrecord.h"
 
 #include "addons/pos_press_overlay.h"
 

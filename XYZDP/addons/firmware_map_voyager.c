@@ -5,12 +5,12 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
+#include "get_pos_from_keyrecord.h"
 #include "virt_layer.h"
 
 #include "addons/firmware_map.h"
 
 #include "addons/fade_matrix.h"
-#include "addons/get_pos_from_keyrecord.h"
 #include "addons/ime_state_sync.h"
 #include "addons/status_led.h"
 

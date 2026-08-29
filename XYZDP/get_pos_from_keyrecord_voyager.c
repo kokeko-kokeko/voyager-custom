@@ -5,7 +5,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "addons/get_pos_from_keyrecord.h"
+#include "get_pos_from_keyrecord.h"
 
 // voyager custom spec
 static const uint8_t row_col2pos_tbl[MATRIX_ROWS][MATRIX_COLS] = {
