@@ -12,6 +12,9 @@ static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
     [VIRT_LAYER_Base] = PHYS_LAYER_Base,
     [VIRT_LAYER_Transition] = PHYS_LAYER_Transition,
     
+    [VIRT_LAYER_JIS] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_Mac] = PHYS_LAYER_UNALLOC,
+
     [VIRT_LAYER_Mouse_L] = PHYS_LAYER_Mouse_L,
     [VIRT_LAYER_Mouse_R] = PHYS_LAYER_Mouse_R,
 
@@ -109,19 +112,19 @@ bool virt_layer_state_is(const uint8_t virt_layer) {
     
     return layer_state_is(phys_layer);
 }
-bool virt_layer_state_cmp(layer_state_t phys_state, const uint8_t virt_layer) {
+bool virt_layer_state_cmp(layer_state_t state, const uint8_t virt_layer) {
     const uint8_t phys_layer = v_to_p_tbl[virt_layer];
 
     if (phys_layer == PHYS_LAYER_UNALLOC) {
         return state_v_only[virt_layer];
     } 
     
-    return layer_state_cmp(phys_state, phys_layer);
+    return layer_state_cmp(state, phys_layer);
 }
 
-uint8_t get_highest_virt_layer(const layer_state_t phys_state) {
+uint8_t get_highest_virt_layer(const layer_state_t state) {
     for (int i = VIRT_LAYER_COUNT - 1; i >= 0; i--) {
-        if (virt_layer_state_cmp(phys_state, i)) return (uint8_t)i;
+        if (virt_layer_state_cmp(state, i)) return (uint8_t)i;
     }
     return 0;
 }

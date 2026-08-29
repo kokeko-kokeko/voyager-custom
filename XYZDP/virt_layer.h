@@ -9,6 +9,9 @@
 enum virt_layer {
   VIRT_LAYER_Base = 0,
   VIRT_LAYER_Transition,
+
+  VIRT_LAYER_JIS,
+  VIRT_LAYER_Mac,
   
   VIRT_LAYER_Mouse_L,
   VIRT_LAYER_Mouse_R,
@@ -58,9 +61,9 @@ enum virt_layer {
 
 // minimal virt version subset for action_layer.h
 bool virt_layer_state_is(const uint8_t virt_layer);
-bool virt_layer_state_cmp(layer_state_t phys_state, const uint8_t virt_layer);
+bool virt_layer_state_cmp(layer_state_t state, const uint8_t virt_layer);
 
-uint8_t get_highest_virt_layer(layer_state_t phys_state);
+uint8_t get_highest_virt_layer(layer_state_t state);
 
 void virt_layer_on(const uint8_t virt_layer);
 void virt_layer_off(const uint8_t virt_layer);

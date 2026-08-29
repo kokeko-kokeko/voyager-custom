@@ -105,9 +105,10 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  // update tri layer first
+  // update tri layer on virt first
   state = layer_state_set_virt_layer(state);
 
+  // addon
   state = layer_state_set_color_palette(state);
   state = layer_state_set_connection_layer_os_swap_status(state);
   state = layer_state_set_fade_matrix(state);
