@@ -11,7 +11,7 @@
 // virt to phys translate table
 static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
     [VIRT_LAYER_Base] = PHYS_LAYER_Base,
-    [VIRT_LAYER_Transition] = PHYS_LAYER_Transition,
+    [VIRT_LAYER_Transition] = PHYS_LAYER_UNALLOC,
     
     [VIRT_LAYER_JIS] = PHYS_LAYER_UNALLOC,
     [VIRT_LAYER_Mac] = PHYS_LAYER_UNALLOC,
@@ -19,15 +19,15 @@ static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
     [VIRT_LAYER_Mouse_L] = PHYS_LAYER_Mouse_L,
     [VIRT_LAYER_Mouse_R] = PHYS_LAYER_Mouse_R,
 
-    [VIRT_LAYER_L_thumb_1] = PHYS_LAYER_L_thumb_1,
-    [VIRT_LAYER_L_thumb_2] = PHYS_LAYER_L_thumb_2,
-    [VIRT_LAYER_L_thumb_3] = PHYS_LAYER_L_thumb_3,
-    [VIRT_LAYER_L_thumb_4] = PHYS_LAYER_L_thumb_4,
+    [VIRT_LAYER_L_thumb_1] = PHYS_LAYER_Number,
+    [VIRT_LAYER_L_thumb_2] = PHYS_LAYER_Fucction,
+    [VIRT_LAYER_L_thumb_3] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_L_thumb_4] = PHYS_LAYER_UNALLOC,
 
-    [VIRT_LAYER_R_thumb_1] = PHYS_LAYER_R_thumb_1,
-    [VIRT_LAYER_R_thumb_3] = PHYS_LAYER_R_thumb_2,
-    [VIRT_LAYER_R_thumb_2] = PHYS_LAYER_R_thumb_3,
-    [VIRT_LAYER_R_thumb_4] = PHYS_LAYER_R_thumb_4,
+    [VIRT_LAYER_R_thumb_1] = PHYS_LAYER_Cursor,
+    [VIRT_LAYER_R_thumb_3] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_R_thumb_2] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_R_thumb_4] = PHYS_LAYER_UNALLOC,
 
     [VIRT_LAYER_L_pinky_1] = PHYS_LAYER_L_pinky_1,
     [VIRT_LAYER_L_pinky_2] = PHYS_LAYER_L_pinky_2,
@@ -38,23 +38,23 @@ static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
     [VIRT_LAYER_Mouse_Upper_L] = PHYS_LAYER_Mouse_Upper_L,
     [VIRT_LAYER_Mouse_Upper_R] = PHYS_LAYER_Mouse_Upper_R, 
 
-    [VIRT_LAYER_L_thumb_1_pinky_1] = PHYS_LAYER_L_thumb_1_pinky_1,
-    [VIRT_LAYER_L_thumb_1_pinky_2] = PHYS_LAYER_L_thumb_1_pinky_2,
+    [VIRT_LAYER_L_thumb_1_pinky_1] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_L_thumb_1_pinky_2] = PHYS_LAYER_UNALLOC,
   
-    [VIRT_LAYER_R_thumb_1_pinky_1] = PHYS_LAYER_R_thumb_1_pinky_1,
-    [VIRT_LAYER_R_thumb_1_pinky_2] = PHYS_LAYER_R_thumb_1_pinky_2,
+    [VIRT_LAYER_R_thumb_1_pinky_1] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_R_thumb_1_pinky_2] = PHYS_LAYER_Print_Screen,
  
-    [VIRT_LAYER_L_thumb_1_R_pinky_1] = PHYS_LAYER_L_thumb_1_R_pinky_1,
-    [VIRT_LAYER_L_thumb_1_R_pinky_2] = PHYS_LAYER_L_thumb_1_R_pinky_2,
+    [VIRT_LAYER_L_thumb_1_R_pinky_1] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_L_thumb_1_R_pinky_2] = PHYS_LAYER_UNALLOC,
 
-    [VIRT_LAYER_R_thumb_1_L_pinky_1] = PHYS_LAYER_R_thumb_1_L_pinky_1,
-    [VIRT_LAYER_R_thumb_1_L_pinky_2] = PHYS_LAYER_R_thumb_1_L_pinky_2,
+    [VIRT_LAYER_R_thumb_1_L_pinky_1] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_R_thumb_1_L_pinky_2] = PHYS_LAYER_UNALLOC,
 
-    [VIRT_LAYER_LR_thumb_1] = PHYS_LAYER_LR_thumb_1,
-    [VIRT_LAYER_LR_thumb_3] = PHYS_LAYER_LR_thumb_3,
+    [VIRT_LAYER_LR_thumb_1] = PHYS_LAYER_Macro,
+    [VIRT_LAYER_LR_thumb_3] = PHYS_LAYER_UNALLOC,
 
-    [VIRT_LAYER_LR_pinky_1] = PHYS_LAYER_LR_pinky_1,
-    [VIRT_LAYER_LR_pinky_2] = PHYS_LAYER_LR_pinky_2,
+    [VIRT_LAYER_LR_pinky_1] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_LR_pinky_2] = PHYS_LAYER_UNALLOC,
 
     [VIRT_LAYER_Firmware] = PHYS_LAYER_Firmware,
     [VIRT_LAYER_Color_Palette] = PHYS_LAYER_Color_Palette 
