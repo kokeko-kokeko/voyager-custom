@@ -147,7 +147,8 @@ void virt_layer_on(const uint8_t virt_layer) {
         state_v_only[virt_layer] = true;
         
         // re-calc layer_state_set_*
-        layer_on(0);
+        // no change
+        layer_or(0);
     } else {
         layer_on(phys_layer);
     }
@@ -160,7 +161,8 @@ void virt_layer_off(const uint8_t virt_layer) {
         state_v_only[virt_layer] = false;
 
         // re-calc layer_state_set_*
-        layer_on(0);
+        // no change
+        layer_or(0);
     } else {
         layer_off(phys_layer);
     }
