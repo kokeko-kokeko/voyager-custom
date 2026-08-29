@@ -115,26 +115,24 @@ static const uint8_t tri_layer_tbl_v_v_v[][3] = {
 
 #define TRI_STATE_COUNT (sizeof(tri_layer_tbl_v_v_v) / sizeof(tri_layer_tbl_v_v_v[0]))
 
-// virt olny state (phys get/set qmk side API)
-static bool state_v_only[VIRT_LAYER_COUNT] = {0};
+// virt layer number state cache, update on layer_state_set_
+static bool state_cache_v[VIRT_LAYER_COUNT] = {0};
 
 bool virt_layer_state_is(const uint8_t virt_layer) {
-    const uint8_t phys_layer = v_to_p_tbl[virt_layer];
-
-    if (phys_layer == PHYS_LAYER_UNALLOC) {
-        return state_v_only[virt_layer];
-    } 
-    
-    return layer_state_is(phys_layer);
+    // layer_state_set_ outside use cache value
+    return state_cache_v[virt_layer];
 }
+
 bool virt_layer_state_cmp(layer_state_t state, const uint8_t virt_layer) {
     const uint8_t phys_layer = v_to_p_tbl[virt_layer];
 
     if (phys_layer == PHYS_LAYER_UNALLOC) {
-        return state_v_only[virt_layer];
+        return state_cache_v[virt_layer];
     } 
     
-    return layer_state_cmp(state, phys_layer);
+    // layer_state_set_ inside update cache value from phys state
+    state_cache_v[virt_layer] = layer_state_cmp(state, phys_layer);
+    return state_cache_v[virt_layer];
 }
 
 uint8_t get_highest_virt_layer(const layer_state_t state) {
@@ -146,12 +144,11 @@ uint8_t get_highest_virt_layer(const layer_state_t state) {
 
 void virt_layer_on(const uint8_t virt_layer) {
     const uint8_t phys_layer = v_to_p_tbl[virt_layer];
+    state_cache_v[virt_layer] = true;
 
     if (phys_layer == PHYS_LAYER_UNALLOC) {
-        state_v_only[virt_layer] = true;
-        
         // re-calc layer_state_set_*
-        // no change
+        // or 0 -> no change
         layer_or(0);
     } else {
         layer_on(phys_layer);
@@ -160,12 +157,11 @@ void virt_layer_on(const uint8_t virt_layer) {
 
 void virt_layer_off(const uint8_t virt_layer) {
     const uint8_t phys_layer = v_to_p_tbl[virt_layer];
+    state_cache_v[virt_layer] = false;
 
     if (phys_layer == PHYS_LAYER_UNALLOC) {
-        state_v_only[virt_layer] = false;
-
         // re-calc layer_state_set_*
-        // no change
+        // or 0 -> no change
         layer_or(0);
     } else {
         layer_off(phys_layer);
@@ -190,18 +186,20 @@ layer_state_t layer_state_set_virt_layer(layer_state_t state) {
 
     // apply update
     for (int i = 0; i < VIRT_LAYER_COUNT; i++) {
+        // update cache from phys, dummy read
+        virt_layer_state_cmp(state, i);
+
         if (t_update[i] == false) continue;
 
         const uint8_t phys_layer = v_to_p_tbl[i];
+        state_cache_v[i] = t_state[i];
+        
+        if (phys_layer == PHYS_LAYER_UNALLOC) continue;
 
-        if (phys_layer == PHYS_LAYER_UNALLOC) {
-            state_v_only[i] = t_state[i];
+        if (t_state[i]) {
+            state |= ((layer_state_t)1 << phys_layer);
         } else {
-            if (t_state[i]) {
-                state |= ((layer_state_t)1 << phys_layer);
-            } else {
-                state &= ~((layer_state_t)1 << phys_layer);
-            }
+            state &= ~((layer_state_t)1 << phys_layer);
         }
     }
 
