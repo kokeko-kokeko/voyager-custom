@@ -5,13 +5,13 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "phys_layer.h"
+#include "virt_layer.h"
 
 #include "addons/mouse_button_indicator.h"
 
 bool rgb_matrix_indicators_mouse_button_indicator(void) {
   // if no active nothing to do, pass next
-  if ((layer_state_is(PHYS_LAYER_Mouse_L) || layer_state_is(PHYS_LAYER_Mouse_R)) == false) return true;
+  if ((virt_layer_state_is(VIRT_LAYER_Mouse_L) || virt_layer_state_is(VIRT_LAYER_Mouse_R)) == false) return true;
   
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
@@ -24,7 +24,7 @@ bool rgb_matrix_indicators_mouse_button_indicator(void) {
     rgb_matrix_set_color_all(o, o, o);
   }
 
-  if (layer_state_is(PHYS_LAYER_Mouse_L)) {
+  if (virt_layer_state_is(VIRT_LAYER_Mouse_L)) {
     // task veiw
     rgb_matrix_set_color(0, 0, 0, f);
 
@@ -49,20 +49,20 @@ bool rgb_matrix_indicators_mouse_button_indicator(void) {
     rgb_matrix_set_color(36, h, 0, 0);  //1
     rgb_matrix_set_color(38, f, 0, 0);  //1
 
-    if (layer_state_is(PHYS_LAYER_Number)) {
+    if (virt_layer_state_is(VIRT_LAYER_L_thumb_1)) {
       rgb_matrix_set_color(22, f, h, 0);
     }
       
-    if (layer_state_is(PHYS_LAYER_Cursor)) {
+    if (virt_layer_state_is(VIRT_LAYER_R_thumb_1)) {
       rgb_matrix_set_color(45, f, h, 0);
     }
 
-    if (layer_state_is(PHYS_LAYER_Function)) {
+    if (virt_layer_state_is(VIRT_LAYER_L_thumb_2)) {
       rgb_matrix_set_color(24, f, h, 0);
     }
   }
 
-  if (layer_state_is(PHYS_LAYER_Mouse_R)) {
+  if (virt_layer_state_is(VIRT_LAYER_Mouse_R)) {
     // task veiw
     rgb_matrix_set_color(0, 0, 0, f);
 
@@ -82,22 +82,22 @@ bool rgb_matrix_indicators_mouse_button_indicator(void) {
     rgb_matrix_set_color(11, 0, 0, f);  //3
     rgb_matrix_set_color(17, f, 0, 0);  //1
 
-    if (layer_state_is(PHYS_LAYER_Number)) {
+    if (virt_layer_state_is(VIRT_LAYER_L_thumb_1)) {
       rgb_matrix_set_color(22, f, h, 0);
     } else {
       rgb_matrix_set_color(22, q, o, 0);
     }
 
-    if (layer_state_is(PHYS_LAYER_Cursor)) {
+    if (virt_layer_state_is(VIRT_LAYER_R_thumb_1)) {
       rgb_matrix_set_color(45, f, h, 0);
     }
 
-    if (layer_state_is(PHYS_LAYER_Function)) {
+    if (virt_layer_state_is(VIRT_LAYER_L_thumb_2)) {
       rgb_matrix_set_color(24, f, h, 0);
     } 
   }
   
-  if (layer_state_is(PHYS_LAYER_Mouse_Upper_L)) {  
+  if (virt_layer_state_is(VIRT_LAYER_Mouse_Upper_L)) {  
     // left side
     rgb_matrix_set_color(5, h, 0, f);   //8
     rgb_matrix_set_color(11, 0, h, f);  //7
@@ -105,15 +105,15 @@ bool rgb_matrix_indicators_mouse_button_indicator(void) {
     rgb_matrix_set_color(23, f, 0, h);  //5
   }
 
-  if (layer_state_is(PHYS_LAYER_L_pinky_1)) {
+  if (virt_layer_state_is(VIRT_LAYER_L_pinky_1)) {
     rgb_matrix_set_color(7, 0, 0, 0); 
   }
 
-  if (layer_state_is(PHYS_LAYER_L_pinky_2)) {
+  if (virt_layer_state_is(VIRT_LAYER_L_pinky_2)) {
     rgb_matrix_set_color(6, 0, 0, 0); 
   }
 
-  if (layer_state_is(PHYS_LAYER_Mouse_Upper_R)) {
+  if (virt_layer_state_is(VIRT_LAYER_Mouse_Upper_R)) {
     // right side
     rgb_matrix_set_color(26, h, 0, f);  //8
     rgb_matrix_set_color(32, 0, h, f);  //7
@@ -121,11 +121,11 @@ bool rgb_matrix_indicators_mouse_button_indicator(void) {
     rgb_matrix_set_color(44, f, 0, h);  //5
   }
 
-  if (layer_state_is(PHYS_LAYER_R_pinky_1)) {
+  if (virt_layer_state_is(VIRT_LAYER_R_pinky_1)) {
     rgb_matrix_set_color(36, 0, 0, 0); 
   }
 
-  if (layer_state_is(PHYS_LAYER_R_pinky_2)) {
+  if (virt_layer_state_is(VIRT_LAYER_R_pinky_2)) {
     rgb_matrix_set_color(37, 0, 0, 0); 
   }
 

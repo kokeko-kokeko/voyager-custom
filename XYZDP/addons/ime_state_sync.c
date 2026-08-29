@@ -5,7 +5,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "phys_layer.h"
+#include "virt_layer.h"
 
 //#include "addons/overlay_layer_mod.h"
 
@@ -67,8 +67,9 @@ bool process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record) {
     case MT(MOD_LCTL, KC_LANGUAGE_1):
       if (record->tap.count > 0) {
         if (record->event.pressed) {
-          if (layer_state_is(PHYS_LAYER_Function) | layer_state_is(PHYS_LAYER_Number) | layer_state_is(PHYS_LAYER_Cursor) |
-              layer_state_is(PHYS_LAYER_R_pinky_1) | layer_state_is(PHYS_LAYER_L_pinky_1)) {
+          if (virt_layer_state_is(VIRT_LAYER_L_thumb_1) | virt_layer_state_is(VIRT_LAYER_R_thumb_1) | 
+              virt_layer_state_is(VIRT_LAYER_L_thumb_2) | virt_layer_state_is(VIRT_LAYER_L_pinky_1) | 
+              virt_layer_state_is(VIRT_LAYER_R_pinky_1)) {
             // reverse side (upper layer)
             if ((get_mods() & MOD_MASK_CSAG) == 0) {
               ime_on = false;
@@ -93,8 +94,9 @@ bool process_record_ime_state_sync(uint16_t keycode, keyrecord_t *record) {
     case MT(MOD_LCTL, KC_LANGUAGE_2):
       if (record->tap.count > 0) {
         if (record->event.pressed) {
-          if (layer_state_is(PHYS_LAYER_Function) | layer_state_is(PHYS_LAYER_Number) | layer_state_is(PHYS_LAYER_Cursor) |
-              layer_state_is(PHYS_LAYER_R_pinky_1) | layer_state_is(PHYS_LAYER_L_pinky_1)) {
+          if (virt_layer_state_is(VIRT_LAYER_L_thumb_1) | virt_layer_state_is(VIRT_LAYER_R_thumb_1) | 
+              virt_layer_state_is(VIRT_LAYER_L_thumb_2) | virt_layer_state_is(VIRT_LAYER_L_pinky_1) | 
+              virt_layer_state_is(VIRT_LAYER_R_pinky_1)) {
             // reverse side (upper layer)
             if ((get_mods() & MOD_MASK_CAG) == 0) {
               ime_on = true;

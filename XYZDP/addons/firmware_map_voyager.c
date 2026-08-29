@@ -5,7 +5,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "phys_layer.h"
+#include "virt_layer.h"
 
 #include "addons/firmware_map.h"
 
@@ -112,7 +112,7 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   //if (FADE_MATRIX_POSITION_COUNT <= pos) return false;
     
   if (pos == POSITION_ANSI) {
-    layer_on(PHYS_LAYER_Base);
+    virt_layer_on(VIRT_LAYER_Base);
     
     jis_disable();
         
@@ -120,7 +120,7 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   }
 
   if (pos == POSITION_JIS) {
-    layer_on(PHYS_LAYER_Base);
+    virt_layer_on(VIRT_LAYER_Base);
     
     jis_enable();
     
@@ -146,15 +146,15 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   }
       
   if (pos == POSITION_Tran_off) {
-    layer_on(PHYS_LAYER_Base);
-    layer_off(PHYS_LAYER_Transition);
+    virt_layer_on(VIRT_LAYER_Base);
+    virt_layer_off(VIRT_LAYER_Transition);
         
     return false;
   }
       
   if (pos == POSITION_Tran_on) {
-    layer_on(PHYS_LAYER_Base);
-    layer_on(PHYS_LAYER_Transition);
+    virt_layer_on(VIRT_LAYER_Base);
+    virt_layer_on(VIRT_LAYER_Transition);
         
     return false;
   }
@@ -266,7 +266,7 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
 
 bool rgb_matrix_indicators_firmware_map(void) {
   // if no active nothing to do, pass next
-  if (layer_state_is(PHYS_LAYER_Firmware) == false) return true;
+  if (virt_layer_state_is(VIRT_LAYER_Firmware) == false) return true;
 
   const uint8_t f = rgb_matrix_get_val();
   const uint8_t h = f >> 1;
@@ -346,7 +346,7 @@ bool rgb_matrix_indicators_firmware_map(void) {
   }
 
   // Transition
-  if (layer_state_is(PHYS_LAYER_Transition)) {
+  if (virt_layer_state_is(VIRT_LAYER_Transition)) {
     // on
     rgb_matrix_set_color(POSITION_Tran_off, q, q, q);
     rgb_matrix_set_color(POSITION_Tran_on, f, f, 0);
@@ -602,17 +602,17 @@ bool firmware_map_invoke_halt_keyrecord(const keyrecord_t * const record) {
 
 layer_state_t layer_state_set_firmware_map(const layer_state_t state) {
   // if enable nothig to do
-  if (layer_state_cmp(state, PHYS_LAYER_Firmware) == true) return state;
+  if (virt_layer_state_cmp(state, VIRT_LAYER_Firmware) == true) return state;
 
-  if (layer_state_cmp(state, PHYS_LAYER_Mouse_L) ||
-    layer_state_cmp(state, PHYS_LAYER_Mouse_R) ||
-    layer_state_cmp(state, PHYS_LAYER_Mouse_Upper_L) ||
-    layer_state_cmp(state, PHYS_LAYER_Mouse_Upper_R)
+  if (virt_layer_state_cmp(state, VIRT_LAYER_Mouse_L) ||
+    virt_layer_state_cmp(state, VIRT_LAYER_Mouse_R) ||
+    virt_layer_state_cmp(state, VIRT_LAYER_Mouse_Upper_L) ||
+    virt_layer_state_cmp(state, VIRT_LAYER_Mouse_Upper_R)
     ) {
     // if mouse layer actife, scrall off
     set_scrolling = false;
     scroll_vertical_only = false;
-  } else if (get_highest_layer(state) <= PHYS_LAYER_Transition) {
+  } else if (get_highest_virt_layer(state) <= VIRT_LAYER_Transition) {
     // only base, update track ball flag
     set_scrolling = nav_ball_base_scroll;
 

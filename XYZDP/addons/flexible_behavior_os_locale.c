@@ -12,7 +12,7 @@
 #include "addons/firmware_map.h"
 #include "addons/get_pos_from_keyrecord.h"
 
-#include "phys_layer.h"
+#include "virt_layer.h"
 
 // call JP keycode
 #include "keymap_japanese.h"
@@ -259,8 +259,8 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
     if (behav[i].op_id == FB_LAYER) {
       unreg_keep_mods();
 
-      if (record->event.pressed) layer_on(behav[i].data_u8);
-      else layer_off(behav[i].data_u8);
+      if (record->event.pressed) virt_layer_on(behav[i].data_u8);
+      else virt_layer_off(behav[i].data_u8);
 
       return false;
     }

@@ -5,7 +5,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "phys_layer.h"
+#include "virt_layer.h"
 
 #include "addons/fade_matrix.h"
 #include "addons/get_pos_from_keyrecord.h"
@@ -302,7 +302,7 @@ void housekeeping_task_fade_matrix(void) {
     }
   } else if (fade_matrix_dimmed == false) {
     // not dim, do dimming mode
-    if (layer_state_is(PHYS_LAYER_Color_Palette)) {
+    if (virt_layer_state_is(VIRT_LAYER_Color_Palette)) {
       // if palette enable skip
       fade_tamrix_trigger += fade_matrix_dimming_delay;
     } else if (rgb_matrix_config.hsv.v > dimming_value) {

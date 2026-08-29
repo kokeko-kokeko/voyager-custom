@@ -12,7 +12,7 @@
 #include "addons/firmware_map.h"
 #include "addons/get_pos_from_keyrecord.h"
 
-#include "phys_layer.h"
+#include "virt_layer.h"
 
 // call JP keycode
 #include "keymap_japanese.h"
@@ -169,15 +169,15 @@ flexible_behavior_t home_row_mods_from_pos(const uint8_t pos) {
     case 26: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT | MOD_BIT_RCTRL, 0};
 
     // -- R2 --
-    case  6: return (flexible_behavior_t){FB_LAYER, PHYS_LAYER_L_pinky_2, 0};
-    case  7: return (flexible_behavior_t){FB_LAYER, PHYS_LAYER_L_pinky_1, 0};
+    case  6: return (flexible_behavior_t){FB_LAYER, VIRT_LAYER_L_pinky_2, 0};
+    case  7: return (flexible_behavior_t){FB_LAYER, VIRT_LAYER_L_pinky_1, 0};
     case  8: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LALT, 0};
     case  9: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT, 0};
     case 10: return (flexible_behavior_t){FB_MODS, MOD_BIT_LCTRL, 0};
     case 11: return (flexible_behavior_t){FB_MODS, MOD_BIT_LGUI | MOD_BIT_LCTRL, 0};
 
-    case 37: return (flexible_behavior_t){FB_LAYER, PHYS_LAYER_R_pinky_2, 0};
-    case 36: return (flexible_behavior_t){FB_LAYER, PHYS_LAYER_R_pinky_1, 0};
+    case 37: return (flexible_behavior_t){FB_LAYER, VIRT_LAYER_R_pinky_2, 0};
+    case 36: return (flexible_behavior_t){FB_LAYER, VIRT_LAYER_R_pinky_1, 0};
     case 35: return (flexible_behavior_t){FB_MODS, MOD_BIT_RGUI | MOD_BIT_RALT, 0};
     case 34: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT, 0};
     case 33: return (flexible_behavior_t){FB_MODS, MOD_BIT_RCTRL, 0};
@@ -200,19 +200,19 @@ flexible_behavior_t home_row_mods_from_pos(const uint8_t pos) {
 
     // -- R4 --
     case 18: return (flexible_behavior_t){FB_MODS, MOD_BIT_LSHIFT, 0};
-    case 22: return (flexible_behavior_t){FB_LAYER, PHYS_LAYER_L_thumb_1, 0};
-    case 23: return (flexible_behavior_t){FB_LAYER, PHYS_LAYER_L_thumb_4, 0};
+    case 22: return (flexible_behavior_t){FB_LAYER, VIRT_LAYER_L_thumb_1, 0};
+    case 23: return (flexible_behavior_t){FB_LAYER, VIRT_LAYER_L_thumb_4, 0};
 
     case 49: return (flexible_behavior_t){FB_MODS, MOD_BIT_RSHIFT, 0};
-    case 46: return (flexible_behavior_t){FB_LAYER, PHYS_LAYER_R_thumb_2, 0};
-    case 45: return (flexible_behavior_t){FB_LAYER, PHYS_LAYER_R_thumb_1, 0};
-    case 44: return (flexible_behavior_t){FB_LAYER, PHYS_LAYER_R_thumb_4, 0};
+    case 46: return (flexible_behavior_t){FB_LAYER, VIRT_LAYER_R_thumb_2, 0};
+    case 45: return (flexible_behavior_t){FB_LAYER, VIRT_LAYER_R_thumb_1, 0};
+    case 44: return (flexible_behavior_t){FB_LAYER, VIRT_LAYER_R_thumb_4, 0};
 
     // -- thumb cluster --
-    case 24: return (flexible_behavior_t){FB_LAYER, PHYS_LAYER_L_thumb_2, 0};
-    case 25: return (flexible_behavior_t){FB_LAYER, PHYS_LAYER_L_thumb_3, 0};
+    case 24: return (flexible_behavior_t){FB_LAYER, VIRT_LAYER_L_thumb_2, 0};
+    case 25: return (flexible_behavior_t){FB_LAYER, VIRT_LAYER_L_thumb_3, 0};
 
-    case 50: return (flexible_behavior_t){FB_LAYER, PHYS_LAYER_R_thumb_3, 0};
+    case 50: return (flexible_behavior_t){FB_LAYER, VIRT_LAYER_R_thumb_3, 0};
   }     
   
   return (flexible_behavior_t){FB_NOP, 0, 0};

@@ -7,8 +7,6 @@
 
 #include "addons/status_led.h"
 
-#include "phys_layer.h"
-
 // timer maximum delay
 // #define timer_expired32(current, future) ((uint32_t)(current - future) < UINT32_MAX / 2)
 // write direct

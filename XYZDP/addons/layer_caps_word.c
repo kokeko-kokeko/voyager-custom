@@ -5,12 +5,12 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "phys_layer.h"
+#include "virt_layer.h"
 
 #include "addons/layer_caps_word.h"
 
 // enter layer, no key press, exit run caps word
-static uint8_t caps_layers[] = {PHYS_LAYER_L_thumb_4, PHYS_LAYER_R_thumb_4};
+static uint8_t caps_layers[] = {VIRT_LAYER_L_thumb_4, VIRT_LAYER_R_thumb_4};
 
 #define CAPS_LAYER_COUNT (sizeof(caps_layers) / sizeof(caps_layers[0]))
 
@@ -29,7 +29,7 @@ bool pre_process_record_layer_caps_word(uint16_t keycode, keyrecord_t *record) {
 
 layer_state_t layer_state_set_layer_caps_word(layer_state_t state) {
     for (int i = 0; i < CAPS_LAYER_COUNT; i++) {
-        if (layer_state_cmp(state, caps_layers[i]) == layer_active[i]) continue;
+        if (virt_layer_state_cmp(state, caps_layers[i]) == layer_active[i]) continue;
         layer_active[i] = !(layer_active[i]);
 
         if (layer_active[i]) {
