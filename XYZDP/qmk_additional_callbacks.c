@@ -16,6 +16,7 @@
 #include "addons/ime_state_sync.h"
 #include "addons/layer_caps_word.h"
 #include "addons/layer_mod_overlay.h"
+#include "addons/layer_navigator_flag.h"
 #include "addons/mouse_button_indicator.h"
 #include "addons/pos_press_overlay.h"
 #include "addons/status_led.h"
@@ -86,6 +87,7 @@ void keyboard_post_init_user(void) {
   keyboard_post_init_addtional_power_setting();
   keyboard_post_init_connection_layer_os_swap_status();
   keyboard_post_init_fade_matrix();
+  keyboard_post_init_layer_navigator_flag();
   keyboard_post_init_status_led();
   
   // no transition / jis / pc mode
@@ -114,6 +116,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = layer_state_set_fade_matrix(state);
   state = layer_state_set_firmware_map(state);
   state = layer_state_set_layer_caps_word(state);
+  state = layer_state_set_layer_navigator_flag(state);
   
   return state;
 }

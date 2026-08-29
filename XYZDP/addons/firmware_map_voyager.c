@@ -196,34 +196,34 @@ bool firmware_map_main_keyrecord(const keyrecord_t * const record) {
   }
 
   if (pos == POSITION_Nav_ball_Base_Scroll_off) {
-    virt_layer_off(VIRT_LAYER_Navi_TB_Base_scroll);
+    virt_layer_off(VIRT_LAYER_navigator_base_scroll);
         
     return false;
   }
 
   if (pos == POSITION_Nav_ball_Base_Scroll_on) {
-    virt_layer_on(VIRT_LAYER_Navi_TB_Base_scroll);
+    virt_layer_on(VIRT_LAYER_navigator_base_scroll);
         
     return false;
   }
 
   if (pos == POSITION_Nav_ball_Base_Aim) {
-    virt_layer_on(VIRT_LAYER_Navi_TB_Base_aim);
-    virt_layer_off(VIRT_LAYER_Navi_TB_Base_turbo);
+    virt_layer_on(VIRT_LAYER_navigator_base_aim);
+    virt_layer_off(VIRT_LAYER_navigator_base_turbo);
             
     return false;
   }
 
   if (pos == POSITION_Nav_ball_Base_Normal) {
-    virt_layer_off(VIRT_LAYER_Navi_TB_Base_aim);
-    virt_layer_off(VIRT_LAYER_Navi_TB_Base_turbo);
+    virt_layer_off(VIRT_LAYER_navigator_base_aim);
+    virt_layer_off(VIRT_LAYER_navigator_base_turbo);
         
     return false;
   }
 
   if (pos == POSITION_Nav_ball_Base_Turbo) {
-    virt_layer_off(VIRT_LAYER_Navi_TB_Base_aim);
-    virt_layer_on(VIRT_LAYER_Navi_TB_Base_turbo);
+    virt_layer_off(VIRT_LAYER_navigator_base_aim);
+    virt_layer_on(VIRT_LAYER_navigator_base_turbo);
         
     return false;
   }
@@ -373,7 +373,7 @@ bool rgb_matrix_indicators_firmware_map(void) {
   rgb_matrix_set_color(POSITION_Nav_ball_DEC_CPI, q, 0, o);
   rgb_matrix_set_color(POSITION_Nav_ball_INC_CPI, f, 0, h);
   
-  if (virt_layer_state_is(VIRT_LAYER_Navi_TB_Base_scroll)) {
+  if (virt_layer_state_is(VIRT_LAYER_navigator_base_scroll)) {
     // on
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_on, 0, f, 0);
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_off, q, q, q); 
@@ -383,17 +383,17 @@ bool rgb_matrix_indicators_firmware_map(void) {
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Scroll_off, f, f, 0);
   }
 
-  if ((virt_layer_state_is(VIRT_LAYER_Navi_TB_Base_aim) == false) && (virt_layer_state_is(VIRT_LAYER_Navi_TB_Base_turbo) == false)) {
+  if ((virt_layer_state_is(VIRT_LAYER_navigator_base_aim) == false) && (virt_layer_state_is(VIRT_LAYER_navigator_base_turbo) == false)) {
     // normal
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Aim, q, q, q);
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Normal, 0, f, 0);
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Turbo, q, q, q);
-  } else if ((virt_layer_state_is(VIRT_LAYER_Navi_TB_Base_aim) == true) && (virt_layer_state_is(VIRT_LAYER_Navi_TB_Base_turbo) == false)) {
+  } else if ((virt_layer_state_is(VIRT_LAYER_navigator_base_aim) == true) && (virt_layer_state_is(VIRT_LAYER_navigator_base_turbo) == false)) {
     // aim
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Aim, 0, 0, f);
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Normal, q, q, q);
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Turbo, q, q, q);
-  } else if ((virt_layer_state_is(VIRT_LAYER_Navi_TB_Base_aim) == false) && (virt_layer_state_is(VIRT_LAYER_Navi_TB_Base_turbo) == true)) {
+  } else if ((virt_layer_state_is(VIRT_LAYER_navigator_base_aim) == false) && (virt_layer_state_is(VIRT_LAYER_navigator_base_turbo) == true)) {
     // turbo
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Aim, q, q, q);
     rgb_matrix_set_color(POSITION_Nav_ball_Base_Normal, q, q, q);

@@ -23,6 +23,7 @@ SRC += addons/ime_state_sync_voyager.c
 SRC += addons/ime_state_sync.c
 SRC += addons/layer_caps_word.c
 SRC += addons/layer_mod_overlay_voyager.c
+SRC += addons/layer_navigator_flag.c
 SRC += addons/mouse_button_indicator_voyager.c
 SRC += addons/pos_press_overlay_voyager.c
 SRC += addons/status_led_voyager.c

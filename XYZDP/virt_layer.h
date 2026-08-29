@@ -15,9 +15,9 @@ enum virt_layer {
   
   VIRT_LAYER_ISS_Enable,
 
-  VIRT_LAYER_Navi_TB_Base_scroll,
-  VIRT_LAYER_Navi_TB_Base_aim,
-  VIRT_LAYER_Navi_TB_Base_turbo,
+  VIRT_LAYER_navigator_base_scroll,
+  VIRT_LAYER_navigator_base_aim,
+  VIRT_LAYER_navigator_base_turbo,
   
   VIRT_LAYER_Flag_END,
 
