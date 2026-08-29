@@ -169,7 +169,8 @@ layer_state_t layer_state_set_virt_layer(layer_state_t state) {
     
     // scan combination
     for (int i = 0; i < TRI_STATE_COUNT; i++) {
-        t_state[tri_layer_tbl_v_v_v[i][2]] = t_state[tri_layer_tbl_v_v_v[i][2]] || (
+        t_state[tri_layer_tbl_v_v_v[i][2]] = t_state[tri_layer_tbl_v_v_v[i][2]] ||
+        (
             virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][0]) &&
             virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][1]) 
         );
