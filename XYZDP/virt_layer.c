@@ -60,7 +60,9 @@ static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
     [VIRT_LAYER_Color_Palette] = PHYS_LAYER_Color_Palette 
 };
 
-// tri layer combination
+// tri layer combination table, all entry virt layer number
+// 0 and 1 both on -> 2 on
+// multi entry result is or
 static const uint8_t tri_layer_tbl_v_v_v[][3] = {
     // mouse upper
     {VIRT_LAYER_Mouse_L, VIRT_LAYER_L_pinky_1, VIRT_LAYER_Mouse_Upper_L},

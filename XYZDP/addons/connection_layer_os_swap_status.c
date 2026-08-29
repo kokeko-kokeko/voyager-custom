@@ -5,7 +5,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "phys_layer.h"
+#include "virt_layer.h"
 
 #include "addons/connection_layer_os_swap_status.h"
 #include "addons/status_led.h"
@@ -38,11 +38,13 @@ layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t stat
   // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
   //if (is_launching || !keyboard_config.led_level) return state;
   
-  uint8_t layer = get_highest_layer(state);
+  uint8_t layer = get_highest_virt_layer(state);
   
   switch (layer) {
-    case PHYS_LAYER_Base:
-    case PHYS_LAYER_Transition:
+    case VIRT_LAYER_Base:
+    case VIRT_LAYER_Transition:
+    case VIRT_LAYER_JIS:
+    case VIRT_LAYER_Mac:
       // update on housekeeping
       //status_led(0b1111, led_pattern_off);
 
@@ -51,77 +53,77 @@ layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t stat
       status_update_trigger = timer_read_fast() + 1;
       status_update_flag = true;
       break;
-    case PHYS_LAYER_Mouse_L:
-    case PHYS_LAYER_Mouse_R:
+    case VIRT_LAYER_Mouse_L:
+    case VIRT_LAYER_Mouse_R:
       // mouse indication
       status_led(0b1100, led_pattern_on);
       status_led(0b0011, led_pattern_off);
       break;
-    case PHYS_LAYER_L_thumb_1:
-    case PHYS_LAYER_L_thumb_2:
-    case PHYS_LAYER_L_thumb_3:
-    case PHYS_LAYER_L_thumb_4:
+    case VIRT_LAYER_L_thumb_1:
+    case VIRT_LAYER_L_thumb_2:
+    case VIRT_LAYER_L_thumb_3:
+    case VIRT_LAYER_L_thumb_4:
       status_led(0b0010, led_pattern_on);
       status_led(0b1101, led_pattern_off);
       break;
-    case PHYS_LAYER_R_thumb_1:
-    case PHYS_LAYER_R_thumb_2:
-    case PHYS_LAYER_R_thumb_3:
-    case PHYS_LAYER_R_thumb_4:
+    case VIRT_LAYER_R_thumb_1:
+    case VIRT_LAYER_R_thumb_2:
+    case VIRT_LAYER_R_thumb_3:
+    case VIRT_LAYER_R_thumb_4:
       status_led(0b0001, led_pattern_on);
       status_led(0b1110, led_pattern_off);
       break; 
-    case PHYS_LAYER_L_pinky_1:
-    case PHYS_LAYER_L_pinky_2:
+    case VIRT_LAYER_L_pinky_1:
+    case VIRT_LAYER_L_pinky_2:
       status_led(0b1000, led_pattern_on);
       status_led(0b0111, led_pattern_off);
       break;
-    case PHYS_LAYER_R_pinky_1:    
-    case PHYS_LAYER_R_pinky_2:
+    case VIRT_LAYER_R_pinky_1:    
+    case VIRT_LAYER_R_pinky_2:
       status_led(0b0100, led_pattern_on);
       status_led(0b1011, led_pattern_off);
       break;
-    case PHYS_LAYER_Mouse_Upper_L:
-    case PHYS_LAYER_Mouse_Upper_R:
+    case VIRT_LAYER_Mouse_Upper_L:
+    case VIRT_LAYER_Mouse_Upper_R:
       // mouse indication
       status_led(0b1100, led_pattern_on);
       status_led(0b0011, led_pattern_off);
       break; 
-    case PHYS_LAYER_L_thumb_1_pinky_1:
-    case PHYS_LAYER_L_thumb_1_pinky_2:
+    case VIRT_LAYER_L_thumb_1_pinky_1:
+    case VIRT_LAYER_L_thumb_1_pinky_2:
       status_led(0b1010, led_pattern_on);
       status_led(0b0101, led_pattern_off);
       break;    
-    case PHYS_LAYER_R_thumb_1_pinky_1:
-    case PHYS_LAYER_R_thumb_1_pinky_2:
+    case VIRT_LAYER_R_thumb_1_pinky_1:
+    case VIRT_LAYER_R_thumb_1_pinky_2:
       status_led(0b0101, led_pattern_on);
       status_led(0b1010, led_pattern_off);
       break;
-    case PHYS_LAYER_L_thumb_1_R_pinky_1:
-    case PHYS_LAYER_L_thumb_1_R_pinky_2:
+    case VIRT_LAYER_L_thumb_1_R_pinky_1:
+    case VIRT_LAYER_L_thumb_1_R_pinky_2:
       status_led(0b0110, led_pattern_on);
       status_led(0b1001, led_pattern_off);
       break;
-    case PHYS_LAYER_R_thumb_1_L_pinky_1:
-    case PHYS_LAYER_R_thumb_1_L_pinky_2:
+    case VIRT_LAYER_R_thumb_1_L_pinky_1:
+    case VIRT_LAYER_R_thumb_1_L_pinky_2:
       status_led(0b1001, led_pattern_on);
       status_led(0b0110, led_pattern_off);
       break;
-    case PHYS_LAYER_LR_thumb_1:
-    case PHYS_LAYER_LR_thumb_3:
+    case VIRT_LAYER_LR_thumb_1:
+    case VIRT_LAYER_LR_thumb_3:
       status_led(0b0011, led_pattern_on);
       status_led(0b1100, led_pattern_off);
       break;
-    case PHYS_LAYER_LR_pinky_1:
-    case PHYS_LAYER_LR_pinky_2:
+    case VIRT_LAYER_LR_pinky_1:
+    case VIRT_LAYER_LR_pinky_2:
       status_led(0b1100, led_pattern_on);
       status_led(0b0011, led_pattern_off);
       break;
-    case PHYS_LAYER_Firmware:
+    case VIRT_LAYER_Firmware:
       status_led(0b1110, led_pattern_on);
       status_led(0b0001, led_pattern_off);
       break;
-    case PHYS_LAYER_Color_Palette:
+    case VIRT_LAYER_Color_Palette:
       status_led(0b1111, led_pattern_on);
       break;
     
