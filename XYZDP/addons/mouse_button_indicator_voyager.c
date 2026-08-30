@@ -129,7 +129,7 @@ bool rgb_matrix_indicators_mouse_button_indicator(void) {
     rgb_matrix_set_color(37, 0, 0, 0); 
   }
 
-  // active overlay
-  return true;
+  // terminate here, disable overlay
+  return false;
 }
 
