@@ -1,10 +1,5 @@
 #pragma once
 
-#include <stdint.h>
-#include "keyboard.h"
-#include "action.h"
-#include "bitwise.h"
-
 // C program side virtual layer 
 enum virt_layer {
   VIRT_LAYER_Transition = 0,
