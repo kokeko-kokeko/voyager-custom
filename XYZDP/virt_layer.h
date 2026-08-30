@@ -77,5 +77,6 @@ uint8_t get_highest_virt_layer(layer_state_t state);
 
 void virt_layer_on(const uint8_t virt_layer);
 void virt_layer_off(const uint8_t virt_layer);
+void virt_layer_invert(const uint8_t virt_layer);
 
 layer_state_t layer_state_set_virt_layer(layer_state_t state);

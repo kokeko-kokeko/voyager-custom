@@ -170,36 +170,50 @@ void virt_layer_off(const uint8_t virt_layer) {
     }
 }
 
+void virt_layer_invert(const uint8_t virt_layer) {
+    const uint8_t phys_layer = v_to_p_tbl[virt_layer];
+    
+    if (phys_layer == PHYS_LAYER_UNALLOC) {
+        state_cache_v[virt_layer] = !(state_cache_v[virt_layer]);
+        // re-calc layer_state_set_*
+        // or 0 -> no change
+        layer_or(0);
+    } else {
+        // cache update in layer_state_set_*
+        layer_invert(phys_layer);
+    }
+}
+
 layer_state_t layer_state_set_virt_layer(layer_state_t state) {
     // tri state update flag memory
-    bool t_state[VIRT_LAYER_COUNT] = {0};
-    bool t_update[VIRT_LAYER_COUNT] = {0};
+    bool t_state_v[VIRT_LAYER_COUNT] = {0};
+    bool t_update_v[VIRT_LAYER_COUNT] = {0};
     
     // scan combination
     for (int i = 0; i < TRI_STATE_COUNT; i++) {
-        t_state[tri_layer_tbl_v_v_v[i][2]] = t_state[tri_layer_tbl_v_v_v[i][2]] ||
+        t_state_v[tri_layer_tbl_v_v_v[i][2]] = t_state_v[tri_layer_tbl_v_v_v[i][2]] ||
         (
             virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][0]) &&
-            virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][1]) 
+            virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][1])
         );
         
-        t_update[tri_layer_tbl_v_v_v[i][2]] = true; 
+        t_update_v[tri_layer_tbl_v_v_v[i][2]] = true; 
     }
 
     // apply update
-    for (int i = 0; i < VIRT_LAYER_COUNT; i++) {
-        if (t_update[i] == false) {
+    for (int v = 0; v < VIRT_LAYER_COUNT; v++) {
+        if (t_update_v[v] == false) {
             // update cache from phys, dummy read
-            virt_layer_state_cmp(state, i);
+            virt_layer_state_cmp(state, v);
             continue;
         }
 
-        const uint8_t phys_layer = v_to_p_tbl[i];
-        state_cache_v[i] = t_state[i];
+        const uint8_t phys_layer = v_to_p_tbl[v];
+        state_cache_v[v] = t_state_v[v];
         
         if (phys_layer == PHYS_LAYER_UNALLOC) continue;
 
-        if (t_state[i]) {
+        if (t_state_v[v]) {
             state |= ((layer_state_t)1 << phys_layer);
         } else {
             state &= ~((layer_state_t)1 << phys_layer);
