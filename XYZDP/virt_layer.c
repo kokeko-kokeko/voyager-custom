@@ -33,8 +33,8 @@ static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
     [VIRT_LAYER_L_thumb_4] = PHYS_LAYER_UNALLOC,
 
     [VIRT_LAYER_R_thumb_1] = PHYS_LAYER_Cursor,
-    [VIRT_LAYER_R_thumb_3] = PHYS_LAYER_UNALLOC,
     [VIRT_LAYER_R_thumb_2] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_R_thumb_3] = PHYS_LAYER_UNALLOC,
     [VIRT_LAYER_R_thumb_4] = PHYS_LAYER_UNALLOC,
 
     [VIRT_LAYER_L_pinky_1] = PHYS_LAYER_UNALLOC,
