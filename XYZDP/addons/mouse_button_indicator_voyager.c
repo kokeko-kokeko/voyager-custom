@@ -31,7 +31,7 @@ bool rgb_matrix_indicators_mouse_button_indicator(void) {
     rgb_matrix_set_color(6, f, f, f);
     rgb_matrix_set_color(7, f, f, f);
 
-    //rgb_matrix_set_color(36, f, f, f);
+    rgb_matrix_set_color(36, f, f, f);
     rgb_matrix_set_color(37, f, f, f);
     
     rgb_matrix_set_color(5, 0, f, h);   //4
@@ -43,10 +43,10 @@ bool rgb_matrix_indicators_mouse_button_indicator(void) {
     rgb_matrix_set_color(27, 0, f, 0);  //2
     rgb_matrix_set_color(32, 0, 0, f);  //3
 
-    rgb_matrix_set_color(33, h, 0, 0);  //1
-    rgb_matrix_set_color(34, h, 0, 0);  //1
-    rgb_matrix_set_color(35, h, 0, 0);  //1
-    rgb_matrix_set_color(36, h, 0, 0);  //1
+    //rgb_matrix_set_color(33, h, 0, 0);  //1
+    //rgb_matrix_set_color(34, h, 0, 0);  //1
+    //rgb_matrix_set_color(35, h, 0, 0);  //1
+    //rgb_matrix_set_color(36, h, 0, 0);  //1
     rgb_matrix_set_color(38, f, 0, 0);  //1
 
     if (virt_layer_state_is(VIRT_LAYER_L_thumb_1)) {
@@ -129,7 +129,7 @@ bool rgb_matrix_indicators_mouse_button_indicator(void) {
     rgb_matrix_set_color(37, 0, 0, 0); 
   }
 
-  // if run display terminate here
-  return false;
+  // active overlay
+  return true;
 }
 
