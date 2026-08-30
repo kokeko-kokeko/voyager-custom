@@ -39,22 +39,20 @@ layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t stat
   //if (is_launching || !keyboard_config.led_level) return state;
   
   uint8_t layer = get_highest_virt_layer(state);
-  
-  switch (layer) {
-    case VIRT_LAYER_Transition:
-    case VIRT_LAYER_FB_JIS:
-    case VIRT_LAYER_FB_Mac:
-    case VIRT_LAYER_FB_error:
-    case VIRT_LAYER_ISS_Enable:
-    case VIRT_LAYER_Flag_END:
-      // update on housekeeping
-      //status_led(0b1111, led_pattern_off);
 
-      // state change overwrite status LED, re-calc
-      // return to base layer update
-      status_update_trigger = timer_read_fast() + 1;
-      status_update_flag = true;
-      break;
+  if(layer < VIRT_LAYER_Flag_END) {
+    // update on housekeeping
+    //status_led(0b1111, led_pattern_off);
+
+    // state change overwrite status LED, re-calc
+    // return to base layer update
+    status_update_trigger = timer_read_fast() + 1;
+    status_update_flag = true;
+    
+    return state;
+  }
+
+  switch (layer) {
     case VIRT_LAYER_Mouse_L:
     case VIRT_LAYER_Mouse_R:
       // mouse indication
