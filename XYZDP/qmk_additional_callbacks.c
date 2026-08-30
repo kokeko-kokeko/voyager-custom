@@ -37,6 +37,12 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   // PFON : Pos Func ONly, dummy in A -> no wait
   if (keycode == PFON(KC_A)) return 0;
 
+  // MBWM | Mouse Bottun With Mod
+  if (keycode == MBWM(KC_C)) return 0;
+  if (keycode == MBWM(KC_S)) return 0;
+  if (keycode == MBWM(KC_A)) return 0;
+  if (keycode == MBWM(KC_G)) return 0;
+
   return TAPPING_TERM;
 }
 

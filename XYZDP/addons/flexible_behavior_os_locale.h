@@ -9,6 +9,7 @@
 // CURES : CURsor and Etc Shifted
 // TKSW : TasK SWitch OverRide, handle RALT 
 // PFON : Pos Func ONly, dummy in A
+// MBWM | Mouse Bottun With Mod
 
 // old name
 // HOOR : Hold Only OverRide, tap pass to normal process
@@ -29,6 +30,8 @@
 #define MOD_TKSW (MOD_RALT)
 #define MOD_PFON (MOD_RALT | MOD_RSFT)
 
+#define MOD_MBWM (MOD_LGUI)
+
 //#define MT(mod, kc) (QK_MOD_TAP | (((mod)&0x1F) << 8) | ((kc)&0xFF))
 #define PTMH(kc) MT(MOD_PTMH, kc)
 
@@ -42,6 +45,8 @@
 
 #define TKSW(kc) MT(MOD_TKSW, kc)
 #define PFON(kc) MT(MOD_PFON, kc)
+
+#define MBWM(kc) MT(MOD_MBWM, kc)
 
 bool process_detected_host_os_flexible_behavior_os_locale(os_variant_t detected_os);
 bool process_record_flexible_behavior_os_locale(uint16_t keycode, keyrecord_t *record);
@@ -62,6 +67,7 @@ enum flexible_behavior_operation_identifier {
   FB_PASS_QMK,              // pass to qmk, terminate process here return true, data not use
   FB_SEND_TAP_KEYCODE,      // send tap keycode without mod, data not use
   FB_KEYCODE,               // keycode, data_u8 is option 8bit mods mask, data_u16 is 16bit keycode
+  FB_KEYCODE_NO_SHIFT,      // keycode no shift process, data_u8 is option 8bit mods mask, data_u16 is 16bit keycode
   FB_KEYCODE_TAP,           // keycode tap, data_u8 is option 8bit mods mask, data_u16 is 16bit keycode
   FB_KEYCODE_TAP_KEEP_MODS, // keycode tap with keep mod, data_u8 is keep 8bit mods mask, data_u16 is 16bit keycode (base for taskswitch)
   FB_MODS,                  // only mods key, data_u8 is 8bit mods mask
