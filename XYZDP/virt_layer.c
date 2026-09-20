@@ -72,47 +72,49 @@ static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
 };
 
 // tri layer combination table, all entry virt layer number
-// 0 and 1 both on -> 2 on
+// 1 and 2 both on -> 0 on
 // multi entry result is or
 static const uint8_t tri_layer_tbl_v_v_v[][3] = {
     // mouse upper
-    {VIRT_LAYER_Mouse_L, VIRT_LAYER_L_pinky_1, VIRT_LAYER_Mouse_Upper_L},
-    {VIRT_LAYER_Mouse_L, VIRT_LAYER_L_pinky_2, VIRT_LAYER_Mouse_Upper_L},
-    {VIRT_LAYER_Mouse_R, VIRT_LAYER_L_pinky_1, VIRT_LAYER_Mouse_Upper_L},
-    {VIRT_LAYER_Mouse_R, VIRT_LAYER_L_pinky_2, VIRT_LAYER_Mouse_Upper_L},
-
-    {VIRT_LAYER_Mouse_L, VIRT_LAYER_R_pinky_1, VIRT_LAYER_Mouse_Upper_R},
-    {VIRT_LAYER_Mouse_L, VIRT_LAYER_R_pinky_2, VIRT_LAYER_Mouse_Upper_R},
-    {VIRT_LAYER_Mouse_R, VIRT_LAYER_R_pinky_1, VIRT_LAYER_Mouse_Upper_R},
-    {VIRT_LAYER_Mouse_R, VIRT_LAYER_R_pinky_2, VIRT_LAYER_Mouse_Upper_R},
+    {VIRT_LAYER_Mouse_Upper_L, VIRT_LAYER_Mouse_L, VIRT_LAYER_L_pinky_2},
+    {VIRT_LAYER_Mouse_Upper_L, VIRT_LAYER_Mouse_R, VIRT_LAYER_L_pinky_1},
+    {VIRT_LAYER_Mouse_Upper_L, VIRT_LAYER_Mouse_R, VIRT_LAYER_L_pinky_2},
+    {VIRT_LAYER_Mouse_Upper_L, VIRT_LAYER_Mouse_L, VIRT_LAYER_L_pinky_1},
+    
+    {VIRT_LAYER_Mouse_Upper_R, VIRT_LAYER_Mouse_L, VIRT_LAYER_R_pinky_1},
+    {VIRT_LAYER_Mouse_Upper_R, VIRT_LAYER_Mouse_L, VIRT_LAYER_R_pinky_2},
+    {VIRT_LAYER_Mouse_Upper_R, VIRT_LAYER_Mouse_R, VIRT_LAYER_R_pinky_1},
+    {VIRT_LAYER_Mouse_Upper_R, VIRT_LAYER_Mouse_R, VIRT_LAYER_R_pinky_2},
 
     // same side thumb and pin
-    {VIRT_LAYER_L_thumb_1, VIRT_LAYER_L_pinky_1, VIRT_LAYER_L_thumb_1_pinky_1},
-    {VIRT_LAYER_L_thumb_1, VIRT_LAYER_L_pinky_2, VIRT_LAYER_L_thumb_1_pinky_2},
+    {VIRT_LAYER_L_thumb_1_pinky_1, VIRT_LAYER_L_thumb_1, VIRT_LAYER_L_pinky_1},
+    {VIRT_LAYER_L_thumb_1_pinky_2, VIRT_LAYER_L_thumb_1, VIRT_LAYER_L_pinky_2},
 
-    {VIRT_LAYER_R_thumb_1, VIRT_LAYER_R_pinky_1, VIRT_LAYER_R_thumb_1_pinky_1},
-    {VIRT_LAYER_R_thumb_1, VIRT_LAYER_R_pinky_2, VIRT_LAYER_R_thumb_1_pinky_2},
+    {VIRT_LAYER_R_thumb_1_pinky_1, VIRT_LAYER_R_thumb_1, VIRT_LAYER_R_pinky_1},
+    {VIRT_LAYER_R_thumb_1_pinky_2, VIRT_LAYER_R_thumb_1, VIRT_LAYER_R_pinky_2},
 
     // cross side thumb and pin
-    {VIRT_LAYER_L_thumb_1, VIRT_LAYER_R_pinky_1, VIRT_LAYER_L_thumb_1_R_pinky_1},
-    {VIRT_LAYER_L_thumb_1, VIRT_LAYER_R_pinky_2, VIRT_LAYER_L_thumb_1_R_pinky_2},
+    {VIRT_LAYER_L_thumb_1_R_pinky_1, VIRT_LAYER_L_thumb_1, VIRT_LAYER_R_pinky_1},
+    {VIRT_LAYER_L_thumb_1_R_pinky_2, VIRT_LAYER_L_thumb_1, VIRT_LAYER_R_pinky_2},
 
-    {VIRT_LAYER_R_thumb_1, VIRT_LAYER_L_pinky_1, VIRT_LAYER_R_thumb_1_L_pinky_1},
-    {VIRT_LAYER_R_thumb_1, VIRT_LAYER_L_pinky_2, VIRT_LAYER_R_thumb_1_L_pinky_2},
+    {VIRT_LAYER_R_thumb_1_L_pinky_1, VIRT_LAYER_R_thumb_1, VIRT_LAYER_L_pinky_1},
+    {VIRT_LAYER_R_thumb_1_L_pinky_2, VIRT_LAYER_R_thumb_1, VIRT_LAYER_L_pinky_2},
 
     // both thumb
-    {VIRT_LAYER_L_thumb_1, VIRT_LAYER_R_thumb_1, VIRT_LAYER_LR_thumb_1},
-    {VIRT_LAYER_L_thumb_2, VIRT_LAYER_R_thumb_2, VIRT_LAYER_LR_thumb_2},
-    {VIRT_LAYER_L_thumb_3, VIRT_LAYER_R_thumb_3, VIRT_LAYER_LR_thumb_3},
-    {VIRT_LAYER_L_thumb_4, VIRT_LAYER_R_thumb_4, VIRT_LAYER_LR_thumb_4},
+    {VIRT_LAYER_LR_thumb_1, VIRT_LAYER_L_thumb_1, VIRT_LAYER_R_thumb_1},
+    {VIRT_LAYER_LR_thumb_2, VIRT_LAYER_L_thumb_2, VIRT_LAYER_R_thumb_2},
+    {VIRT_LAYER_LR_thumb_3, VIRT_LAYER_L_thumb_3, VIRT_LAYER_R_thumb_3},
+    {VIRT_LAYER_LR_thumb_4, VIRT_LAYER_L_thumb_4, VIRT_LAYER_R_thumb_4},
 
     // both pinky
-    {VIRT_LAYER_L_pinky_1, VIRT_LAYER_R_pinky_1, VIRT_LAYER_LR_pinky_1},
-    {VIRT_LAYER_L_pinky_2, VIRT_LAYER_R_pinky_2, VIRT_LAYER_LR_pinky_2},
+    {VIRT_LAYER_LR_pinky_1, VIRT_LAYER_L_pinky_1, VIRT_LAYER_R_pinky_1},
+    {VIRT_LAYER_LR_pinky_2, VIRT_LAYER_L_pinky_2, VIRT_LAYER_R_pinky_2},
 
     // fwsys
-    {VIRT_LAYER_L_thumb_2, VIRT_LAYER_L_thumb_3, VIRT_LAYER_Firmware}
+    {VIRT_LAYER_Firmware, VIRT_LAYER_L_thumb_2, VIRT_LAYER_L_thumb_3}
 };
+
+#define TRI_STATE_COUNT (sizeof(tri_layer_tbl_v_v_v) / sizeof(tri_layer_tbl_v_v_v[0]))
 
 // phy layer has other source, check on layer
 // ex, automouse on/off
@@ -121,8 +123,6 @@ static const bool p_has_other_source[PHYS_LAYER_COUNT] = {
     [PHYS_LAYER_Mouse_L] = true,
     [PHYS_LAYER_Mouse_R] = true
 };
-
-#define TRI_STATE_COUNT (sizeof(tri_layer_tbl_v_v_v) / sizeof(tri_layer_tbl_v_v_v[0]))
 
 // virt layer number state cache, update on layer_state_set_
 static bool state_cache_v[VIRT_LAYER_COUNT] = {0};
@@ -200,13 +200,13 @@ layer_state_t layer_state_set_virt_layer(layer_state_t state) {
     
     // scan combination
     for (int i = 0; i < TRI_STATE_COUNT; i++) {
-        tmp_state_v[tri_layer_tbl_v_v_v[i][2]] = tmp_state_v[tri_layer_tbl_v_v_v[i][2]] ||
+        tmp_state_v[tri_layer_tbl_v_v_v[i][0]] = tmp_state_v[tri_layer_tbl_v_v_v[i][0]] ||
         (
-            virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][0]) &&
-            virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][1])
+            virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][1]) &&
+            virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][2])
         );
         
-        tmp_update_v[tri_layer_tbl_v_v_v[i][2]] = true; 
+        tmp_update_v[tri_layer_tbl_v_v_v[i][0]] = true; 
     }
 
     // apply update
