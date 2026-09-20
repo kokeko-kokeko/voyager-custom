@@ -42,7 +42,7 @@ static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
     [VIRT_LAYER_L_pinky_2] = PHYS_LAYER_QWERTY_Shortcut,
 
     [VIRT_LAYER_R_pinky_1] = PHYS_LAYER_UNALLOC,
-    [VIRT_LAYER_R_pinky_2] = PHYS_LAYER_UNALLOC,
+    [VIRT_LAYER_R_pinky_2] = PHYS_LAYER_QWERTY_Shortcut,
 
     [VIRT_LAYER_Mouse_Upper_L] = PHYS_LAYER_Mouse_Upper_L,
     [VIRT_LAYER_Mouse_Upper_R] = PHYS_LAYER_Mouse_Upper_R, 
@@ -114,18 +114,24 @@ static const uint8_t tri_layer_tbl_v_v_v[][3] = {
     {VIRT_LAYER_Firmware, VIRT_LAYER_L_thumb_2, VIRT_LAYER_L_thumb_3}
 };
 
-#define TRI_STATE_COUNT (sizeof(tri_layer_tbl_v_v_v) / sizeof(tri_layer_tbl_v_v_v[0]))
+#define TRI_LAYER_COUNT (sizeof(tri_layer_tbl_v_v_v) / sizeof(tri_layer_tbl_v_v_v[0]))
+
+// virt layer number state cache, update on layer_state_set_
+static bool state_cache_v[VIRT_LAYER_COUNT] = {0};
 
 // phy layer has other source, check on layer
 // ex, automouse on/off
-// if true, check and update from phys
+// if true, check and update from phys, disable ref count system
 static const bool p_has_other_source[PHYS_LAYER_COUNT] = {
     [PHYS_LAYER_Mouse_L] = true,
     [PHYS_LAYER_Mouse_R] = true
 };
 
-// virt layer number state cache, update on layer_state_set_
-static bool state_cache_v[VIRT_LAYER_COUNT] = {0};
+// phys ref count
+// base layer set fix 1
+static uint8_t p_ref_count[PHYS_LAYER_COUNT] = {
+    [0] = 1
+};
 
 bool virt_layer_state_is(const uint8_t virt_layer) {
     // layer_state_set_ outside use cached value
@@ -139,6 +145,7 @@ bool virt_layer_state_cmp(layer_state_t state, const uint8_t virt_layer) {
         return state_cache_v[virt_layer];
     }
 
+    // if no other source, everytime use cache
     if (p_has_other_source[phys_layer] == false) return state_cache_v[virt_layer];
     
     // layer_state_set_ inside update cache value from phys state
@@ -157,26 +164,29 @@ void virt_layer_on(const uint8_t virt_layer) {
     const uint8_t phys_layer = v_to_p_tbl[virt_layer];
     state_cache_v[virt_layer] = true;
 
-    if (phys_layer == PHYS_LAYER_UNALLOC) {    
-        // re-calc layer_state_set_*
-        // or 0 -> no change
-        layer_or(0);
-    } else {
-        layer_on(phys_layer);
+    if (phys_layer != PHYS_LAYER_UNALLOC) {    
+        p_ref_count[phys_layer]++;
+        if(p_ref_count[phys_layer] == 0) p_ref_count[phys_layer] = UINT8_MAX; 
     }
+
+    // re-calc layer_state_set_*
+    // or 0 -> no change
+    layer_or(0);
 }
 
 void virt_layer_off(const uint8_t virt_layer) {
     const uint8_t phys_layer = v_to_p_tbl[virt_layer];
     state_cache_v[virt_layer] = false;
     
-    if (phys_layer == PHYS_LAYER_UNALLOC) {
-        // re-calc layer_state_set_*
-        // or 0 -> no change
-        layer_or(0);
-    } else {
-        layer_off(phys_layer);
+    if (phys_layer != PHYS_LAYER_UNALLOC) {
+        p_ref_count[phys_layer]--;
+        if(p_ref_count[phys_layer] == UINT8_MAX) p_ref_count[phys_layer] = 0; 
     }
+
+    // re-calc layer_state_set_*
+    // or 0 -> no change
+    layer_or(0);
+
 }
 
 // disable for ref_count
@@ -194,12 +204,12 @@ void virt_layer_off(const uint8_t virt_layer) {
 //}
 
 layer_state_t layer_state_set_virt_layer(layer_state_t state) {
-    // tri state update flag memory
+    // tri layer update flag memory
     bool tmp_state_v[VIRT_LAYER_COUNT] = {0};
     bool tmp_update_v[VIRT_LAYER_COUNT] = {0};
     
-    // scan combination
-    for (int i = 0; i < TRI_STATE_COUNT; i++) {
+    // scan tri layer combination
+    for (int i = 0; i < TRI_LAYER_COUNT; i++) {
         tmp_state_v[tri_layer_tbl_v_v_v[i][0]] = tmp_state_v[tri_layer_tbl_v_v_v[i][0]] ||
         (
             virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][1]) &&
@@ -209,7 +219,7 @@ layer_state_t layer_state_set_virt_layer(layer_state_t state) {
         tmp_update_v[tri_layer_tbl_v_v_v[i][0]] = true; 
     }
 
-    // apply update
+    // apply update to virt cache and phys ref count
     for (int v = 0; v < VIRT_LAYER_COUNT; v++) {
         if (tmp_update_v[v] == false) {
             // update cache from phys, dummy read
@@ -223,9 +233,21 @@ layer_state_t layer_state_set_virt_layer(layer_state_t state) {
         if (phys_layer == PHYS_LAYER_UNALLOC) continue;
 
         if (tmp_state_v[v]) {
-            state |= ((layer_state_t)1 << phys_layer);
+            p_ref_count[phys_layer] = 1;
         } else {
-            state &= ~((layer_state_t)1 << phys_layer);
+            p_ref_count[phys_layer] = 0;
+        }
+    }
+
+    // phys ref count to qmk side bitmask
+    for (int p = 0; p < PHYS_LAYER_COUNT; p++) {
+        // other source, skip not use ref count
+        if (p_has_other_source[p] == true) continue;
+        
+        if (p_ref_count[p] > 0) {
+            state |= ((layer_state_t)1 << p);
+        } else {
+            state &= ~((layer_state_t)1 << p);
         }
     }
 
