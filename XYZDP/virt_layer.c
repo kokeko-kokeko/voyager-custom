@@ -124,7 +124,9 @@ static bool state_cache_v[VIRT_LAYER_COUNT] = {0};
 // if true, check and update from phys, disable ref count system
 static const bool p_has_other_source[PHYS_LAYER_COUNT] = {
     [PHYS_LAYER_Mouse_L] = true,
-    [PHYS_LAYER_Mouse_R] = true
+    [PHYS_LAYER_Mouse_R] = true,
+
+    [PHYS_LAYER_Color_Palette] = true
 };
 
 // phys ref count
