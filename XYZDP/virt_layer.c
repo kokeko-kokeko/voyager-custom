@@ -9,6 +9,7 @@
 #include "virt_layer.h"
 
 // virt to phys translate table
+// virt only one key, phys can multi
 static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
     [VIRT_LAYER_Transition] = PHYS_LAYER_UNALLOC,
 
@@ -138,7 +139,7 @@ bool virt_layer_state_cmp(layer_state_t state, const uint8_t virt_layer) {
         return state_cache_v[virt_layer];
     }
 
-    if(p_has_other_source[phys_layer] == false) return state_cache_v[virt_layer];
+    if (p_has_other_source[phys_layer] == false) return state_cache_v[virt_layer];
     
     // layer_state_set_ inside update cache value from phys state
     state_cache_v[virt_layer] = layer_state_cmp(state, phys_layer);
@@ -154,42 +155,39 @@ uint8_t get_highest_virt_layer(const layer_state_t state) {
 
 void virt_layer_on(const uint8_t virt_layer) {
     const uint8_t phys_layer = v_to_p_tbl[virt_layer];
+    state_cache_v[virt_layer] = true;
 
-    if (phys_layer == PHYS_LAYER_UNALLOC) {
-        state_cache_v[virt_layer] = true;
+    if (phys_layer == PHYS_LAYER_UNALLOC) {    
         // re-calc layer_state_set_*
         // or 0 -> no change
         layer_or(0);
     } else {
-        // cache update in layer_state_set_*
         layer_on(phys_layer);
     }
 }
 
 void virt_layer_off(const uint8_t virt_layer) {
     const uint8_t phys_layer = v_to_p_tbl[virt_layer];
+    state_cache_v[virt_layer] = false;
     
     if (phys_layer == PHYS_LAYER_UNALLOC) {
-        state_cache_v[virt_layer] = false;
         // re-calc layer_state_set_*
         // or 0 -> no change
         layer_or(0);
     } else {
-        // cache update in layer_state_set_*
         layer_off(phys_layer);
     }
 }
 
 void virt_layer_invert(const uint8_t virt_layer) {
     const uint8_t phys_layer = v_to_p_tbl[virt_layer];
+    state_cache_v[virt_layer] = !(state_cache_v[virt_layer]);
     
     if (phys_layer == PHYS_LAYER_UNALLOC) {
-        state_cache_v[virt_layer] = !(state_cache_v[virt_layer]);
         // re-calc layer_state_set_*
         // or 0 -> no change
         layer_or(0);
     } else {
-        // cache update in layer_state_set_*
         layer_invert(phys_layer);
     }
 }
