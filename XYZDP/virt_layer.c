@@ -76,10 +76,10 @@ static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
 // multi entry result is or
 static const uint8_t tri_layer_tbl_v_v_v[][3] = {
     // mouse upper
+    {VIRT_LAYER_Mouse_Upper_L, VIRT_LAYER_Mouse_L, VIRT_LAYER_L_pinky_1},
     {VIRT_LAYER_Mouse_Upper_L, VIRT_LAYER_Mouse_L, VIRT_LAYER_L_pinky_2},
     {VIRT_LAYER_Mouse_Upper_L, VIRT_LAYER_Mouse_R, VIRT_LAYER_L_pinky_1},
     {VIRT_LAYER_Mouse_Upper_L, VIRT_LAYER_Mouse_R, VIRT_LAYER_L_pinky_2},
-    {VIRT_LAYER_Mouse_Upper_L, VIRT_LAYER_Mouse_L, VIRT_LAYER_L_pinky_1},
     
     {VIRT_LAYER_Mouse_Upper_R, VIRT_LAYER_Mouse_L, VIRT_LAYER_R_pinky_1},
     {VIRT_LAYER_Mouse_Upper_R, VIRT_LAYER_Mouse_L, VIRT_LAYER_R_pinky_2},
