@@ -113,6 +113,14 @@ static const uint8_t tri_layer_tbl_v_v_v[][3] = {
     {VIRT_LAYER_L_thumb_2, VIRT_LAYER_L_thumb_3, VIRT_LAYER_Firmware}
 };
 
+// phy layer has other source, check on layer
+// ex, automouse on/off
+// if true, check and update
+static const bool p_has_other_source[PHYS_LAYER_COUNT] = {
+    [PHYS_LAYER_Mouse_L] = true,
+    [PHYS_LAYER_Mouse_R] = true
+};
+
 #define TRI_STATE_COUNT (sizeof(tri_layer_tbl_v_v_v) / sizeof(tri_layer_tbl_v_v_v[0]))
 
 // virt layer number state cache, update on layer_state_set_
@@ -128,7 +136,9 @@ bool virt_layer_state_cmp(layer_state_t state, const uint8_t virt_layer) {
 
     if (phys_layer == PHYS_LAYER_UNALLOC) {
         return state_cache_v[virt_layer];
-    } 
+    }
+
+    if(p_has_other_source[phys_layer] == false) return state_cache_v[virt_layer];
     
     // layer_state_set_ inside update cache value from phys state
     state_cache_v[virt_layer] = layer_state_cmp(state, phys_layer);
