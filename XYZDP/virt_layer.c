@@ -145,7 +145,7 @@ bool virt_layer_state_cmp(layer_state_t state, const uint8_t virt_layer) {
         return state_cache_v[virt_layer];
     }
 
-    // if no other source, everytime use cache
+    // if no other source, always use cache
     if (p_has_other_source[phys_layer] == false) return state_cache_v[virt_layer];
     
     // layer_state_set_ inside update cache value from phys state
