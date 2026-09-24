@@ -50,6 +50,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   // Color Palette main
   if (keycode == MCFW(KC_C)) return 0;
 
+  // Halt (motre margin)
+  if (keycode == MCFW(KC_H)) return 997;
+
   return TAPPING_TERM;
 }
 
