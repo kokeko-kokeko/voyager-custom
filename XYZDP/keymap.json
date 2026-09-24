@@ -30,7 +30,7 @@
             "max_power": 400,
             "no_startup_check": false,
             "polling_interval": 1,
-            "suspend_wakeup_delay": 199,
+            "suspend_wakeup_delay": 53,
             "wait_for_enumeration": true
         },
         "features": {
