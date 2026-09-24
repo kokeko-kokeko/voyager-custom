@@ -11,7 +11,7 @@ OS_DETECTION_ENABLE = yes
 SRC += virt_layer.c
 SRC += get_pos_from_keyrecord_voyager.c
 
-SRC += qmk_additional_callbacks.c
+SRC += addon_hooks.c
 
 SRC += addons/color_palette_voyager.c
 SRC += addons/connection_layer_os_swap_status.c
