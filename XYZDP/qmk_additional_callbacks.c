@@ -32,11 +32,23 @@ void chSysIdleHook(void) {
   __WFI();
 }
 
-// per-key tapping parameter
+// per-key tapping parameter setting
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  // direct add to here (split in more complicate)
+
   // PFON : Pos Func ONly, dummy in A -> no wait
-  if ((IS_QK_MOD_TAP(keycode) == true) && (QK_MOD_TAP_GET_MODS(keycode) == MOD_PFON)) return 0;
-  //if (keycode == PFON(KC_A)) return 0;
+  // only use with KC_A
+  if (keycode == PFON(KC_A)) return 0;
+
+  // MCFW : MaCro FirmWare
+  // Macro
+  if (keycode == MCFW(KC_M)) return 0;
+
+  // Firmware main
+  if (keycode == MCFW(KC_F)) return 0;
+
+  // Color Palette main
+  if (keycode == MCFW(KC_C)) return 0;
 
   return TAPPING_TERM;
 }
