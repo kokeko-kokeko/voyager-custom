@@ -34,7 +34,7 @@ void chSysIdleHook(void) {
 
 // per-key tapping parameter setting
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-  // direct add to here (split in more complicate)
+  // direct add to here (split func in more complicate)
 
   // PFON : Pos Func ONly, dummy in A -> no wait
   // only use with KC_A
