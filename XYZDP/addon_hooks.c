@@ -97,7 +97,7 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// process_record_user in keymap.c, create _addon_hooks and insert it
+// process_record_user in keymap.c, create _addon_hooks and insert to keymap.c
 bool process_record_addon_hooks(uint16_t keycode, keyrecord_t *record) {
   //if (process_record_fade_matrix(keycode, record) == false) return false;
   if (process_record_flexible_behavior_os_locale(keycode, record) == false) return false;
