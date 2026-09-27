@@ -98,7 +98,7 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 // process_record_user in keymap.c, rename to process_record_zsa_oryx
-// declare first, coll in _user
+// declare first, call in _user
 bool process_record_zsa_oryx(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
