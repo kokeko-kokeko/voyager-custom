@@ -5,7 +5,6 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "get_pos_from_keyrecord.h"
 #include "virt_layer.h"
 
 #include "addons/flexible_behavior_os_locale.h"
@@ -13,7 +12,7 @@
 #include "addons/color_palette.h"
 #include "addons/fade_matrix.h"
 #include "addons/firmware_map.h"
-
+#include "addons/get_pos_from_keyrecord.h"
 
 // call JP keycode
 #include "keymap_japanese.h"
