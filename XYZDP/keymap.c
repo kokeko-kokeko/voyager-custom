@@ -111,10 +111,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-// declaration first, replace true to this funcrion
+// declaration first
 bool process_record_addon_hooks(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // call addon_hooks
+  if (process_record_addon_hooks(keycode, record) == false) return false;
+
   switch (keycode) {
   case QK_MODS ... QK_MODS_MAX: 
     // Mouse and consumer keys (volume, media) with modifiers work inconsistently across operating systems,
@@ -139,7 +142,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
   }  
-  return process_record_addon_hooks(keycode, record);
+  return true;
 }
 
 // -----------------------------------------------------------------------------
