@@ -112,8 +112,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-// rename _user to _zsa_oryx and call by addon_hooks.c
-//bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+// rename _user to _zsa_oryx and call by user_hooks.c
 bool process_record_zsa_oryx(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case QK_MODS ... QK_MODS_MAX: 
