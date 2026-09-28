@@ -1,8 +1,9 @@
 #pragma once
 
-// C program side virtual layer 
+// C program side virtual layer
+// 1 origin for error handle 
 enum virt_layer {
-  VIRT_LAYER_Transition = 0,
+  VIRT_LAYER_Transition = 1,
 
   VIRT_LAYER_FB_JIS,
   VIRT_LAYER_FB_Mac,
