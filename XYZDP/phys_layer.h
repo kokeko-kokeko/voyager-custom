@@ -7,7 +7,7 @@ enum phys_layer_num {
   //PHYS_LAYER_Base = 0, 
   PHYS_LAYER_UNALLOC = 0, 
   
-  PHYS_LAYER_Mouse_L,
+  PHYS_LAYER_Mouse_L = 1,
   PHYS_LAYER_Mouse_R,
 
   PHYS_LAYER_Number,

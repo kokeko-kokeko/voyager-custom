@@ -11,6 +11,8 @@
 // virt to phys translate table
 // virt only one key, phys can multi
 static const uint8_t v_to_p_tbl[VIRT_LAYER_COUNT] = {
+    [VIRT_LAYER_UNALLOC] = PHYS_LAYER_UNALLOC,
+    
     [VIRT_LAYER_Transition] = PHYS_LAYER_UNALLOC,
 
     [VIRT_LAYER_FB_JIS] = PHYS_LAYER_UNALLOC,
@@ -253,7 +255,7 @@ layer_state_t layer_state_set_virt_layer(layer_state_t state) {
         }
     }
 
-    // safe guard, LSB layer on here
+    // safe guard, LSB laye (base) on here
     state |= (layer_state_t)0x01;
     
     return state;
