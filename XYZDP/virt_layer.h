@@ -2,7 +2,7 @@
 
 // C program side virtual layer
 // 1 origin for error handle 
-enum virt_layer {
+enum virt_layer_num {
   VIRT_LAYER_Transition = 1,
 
   VIRT_LAYER_FB_JIS,

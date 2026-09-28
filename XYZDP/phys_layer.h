@@ -1,7 +1,7 @@
 #pragma once
 
 // Oryx side physical layer 
-enum phys_layer {
+enum phys_layer_num {
   PHYS_LAYER_Base = 0, 
   
   PHYS_LAYER_Mouse_L,
