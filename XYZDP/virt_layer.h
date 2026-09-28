@@ -1,6 +1,7 @@
 #pragma once
 
 // C program side virtual layer
+// only 1 key on/off (no ref count) 
 // 0 is UNALLOC
 // 1 origin for error handle 
 enum virt_layer_num {

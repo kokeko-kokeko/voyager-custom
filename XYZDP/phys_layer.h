@@ -1,8 +1,8 @@
 #pragma once
 
-// Oryx side physical layer 
+// Oryx conf side physical layer 
 // base only direct value access
-// 0 for UNALLOC
+// mean 0 for UNALLOC
 enum phys_layer_num {
   //PHYS_LAYER_Base = 0, 
   PHYS_LAYER_UNALLOC = 0, 
