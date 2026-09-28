@@ -1,8 +1,11 @@
 #pragma once
 
 // Oryx side physical layer 
+// base only direct value access
+// 0 for UNALLOC
 enum phys_layer_num {
-  PHYS_LAYER_Base = 0, 
+  //PHYS_LAYER_Base = 0, 
+  PHYS_LAYER_UNALLOC = 0, 
   
   PHYS_LAYER_Mouse_L,
   PHYS_LAYER_Mouse_R,
@@ -22,8 +25,6 @@ enum phys_layer_num {
   PHYS_LAYER_Firmware,
   PHYS_LAYER_Color_Palette,
   
-  PHYS_LAYER_COUNT,
-  
-  PHYS_LAYER_UNALLOC
+  PHYS_LAYER_COUNT
 };
 
