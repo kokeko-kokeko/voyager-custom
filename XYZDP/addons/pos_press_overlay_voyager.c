@@ -5,9 +5,9 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "addons/pos_press_overlay.h"
+#include "pos/get_pos_from_keyrecord.h"
 
-#include "addons/get_pos_from_keyrecord.h"
+#include "addons/pos_press_overlay.h"
 
 #define POSITION_COUNT 52
 

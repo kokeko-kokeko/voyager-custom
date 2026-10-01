@@ -14,7 +14,6 @@ SRC += addons/fade_matrix.c
 SRC += addons/firmware_map_voyager.c
 SRC += addons/flexible_behavior_os_locale_voyager.c
 SRC += addons/flexible_behavior_os_locale.c
-SRC += addons/get_pos_from_keyrecord_voyager.c
 SRC += addons/ime_state_sync_voyager.c
 SRC += addons/ime_state_sync.c
 SRC += addons/layer_caps_word.c
@@ -25,6 +24,8 @@ SRC += addons/pos_press_overlay_voyager.c
 SRC += addons/status_led_voyager.c
 
 SRC += layer/virt_layer.c
+
+SRC += pos/get_pos_from_keyrecord_voyager.c
 
 SRC += user/tap_hold_settings.c
 SRC += user/user_hooks.c

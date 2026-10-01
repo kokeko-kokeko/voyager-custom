@@ -7,8 +7,9 @@
 
 #include "layer/virt_layer.h"
 
+#include "pos/get_pos_from_keyrecord.h"
+
 #include "addons/fade_matrix.h"
-#include "addons/get_pos_from_keyrecord.h"
 #include "addons/status_led.h"
 
 #include "navigator_trackpad_common.h"

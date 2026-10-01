@@ -7,10 +7,11 @@
 
 #include "layer/virt_layer.h"
 
+#include "pos/get_pos_from_keyrecord.h"
+
 #include "addons/firmware_map.h"
 
 #include "addons/fade_matrix.h"
-#include "addons/get_pos_from_keyrecord.h"
 #include "addons/ime_state_sync.h"
 #include "addons/status_led.h"
 
