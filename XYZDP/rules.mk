@@ -8,8 +8,8 @@ PRECISION_TRACKPAD_DRIVER = navigator_trackpad
 
 OS_DETECTION_ENABLE = yes
 
-SRC += tap_hold_settings.c
-SRC += user_hooks.c
+SRC += user/tap_hold_settings.c
+SRC += user/user_hooks.c
 
 SRC += layers/virt_layer.c
 
