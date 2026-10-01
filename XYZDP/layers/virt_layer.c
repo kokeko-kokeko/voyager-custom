@@ -5,8 +5,8 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "phys_layer.h"
-#include "virt_layer.h"
+#include "layers/phys_layer.h"
+#include "layers/virt_layer.h"
 
 // virt to phys translate table
 // virt only one key, phys can multi

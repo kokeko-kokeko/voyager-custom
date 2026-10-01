@@ -5,7 +5,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "virt_layer.h"
+#include "layers/virt_layer.h"
 
 // module impl
 #include "addons/color_palette.h"

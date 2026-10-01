@@ -10,7 +10,8 @@ OS_DETECTION_ENABLE = yes
 
 SRC += tap_hold_settings.c
 SRC += user_hooks.c
-SRC += virt_layer.c
+
+SRC += layers/virt_layer.c
 
 SRC += addons/color_palette_voyager.c
 SRC += addons/connection_layer_os_swap_status.c
