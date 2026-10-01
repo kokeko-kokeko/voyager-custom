@@ -24,7 +24,7 @@ SRC += addons/mouse_button_indicator_voyager.c
 SRC += addons/pos_press_overlay_voyager.c
 SRC += addons/status_led_voyager.c
 
-SRC += layers/virt_layer.c
+SRC += layer/virt_layer.c
 
 SRC += user/tap_hold_settings.c
 SRC += user/user_hooks.c
