@@ -147,6 +147,11 @@ bool process_detected_host_os_connection_layer_os_swap_status(os_variant_t detec
       break;
     case OS_WINDOWS:
       status_led(0b0010, led_pattern_oneshot);
+
+      status_led(0b1000, led_pattern_boot0);
+      status_led(0b0010, led_pattern_boot1);
+      status_led(0b0100, led_pattern_boot2);
+      status_led(0b0001, led_pattern_boot3);
       break;
     case OS_LINUX:
       status_led(0b0001, led_pattern_oneshot);

@@ -50,7 +50,7 @@
 #define VOYAGER_USER_LED
 #define VOYAGER_USER_LEDS
 
-#define MAX_DEFERRED_EXECUTORS 16
+#define MAX_DEFERRED_EXECUTORS 8
 #define TRANSIENT_EEPROM_SIZE 256
 
 // normal 250ms, more margin, typ 2sec
