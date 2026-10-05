@@ -7,7 +7,7 @@
 
 #include "pos/get_pos_from_keyrecord.h"
 
-#include "addons/pos_press_overlay.h"
+#include "pos_press_overlay.h"
 
 #define POSITION_COUNT 52
 

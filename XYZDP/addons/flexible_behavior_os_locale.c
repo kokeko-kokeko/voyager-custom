@@ -9,11 +9,11 @@
 
 #include "pos/get_pos_from_keyrecord.h"
 
-#include "addons/flexible_behavior_os_locale.h"
+#include "flexible_behavior_os_locale.h"
 
-#include "addons/color_palette.h"
-#include "addons/fade_matrix.h"
-#include "addons/firmware_map.h"
+#include "color_palette.h"
+#include "fade_matrix.h"
+#include "firmware_map.h"
 
 // call JP keycode
 #include "keymap_japanese.h"

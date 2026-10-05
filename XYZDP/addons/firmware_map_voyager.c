@@ -9,11 +9,11 @@
 
 #include "pos/get_pos_from_keyrecord.h"
 
-#include "addons/firmware_map.h"
+#include "firmware_map.h"
 
-#include "addons/fade_matrix.h"
-#include "addons/ime_state_sync.h"
-#include "addons/status_led.h"
+#include "fade_matrix.h"
+#include "ime_state_sync.h"
+#include "status_led.h"
 
 #include "ch.h"
 #include "usb_main.h"

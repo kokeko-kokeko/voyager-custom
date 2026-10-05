@@ -7,7 +7,7 @@
 
 //#include "addons/overlay_layer_mod.h"
 
-#include "addons/ime_state_sync.h"
+#include "ime_state_sync.h"
 
 // use animation logic
 // use abs path

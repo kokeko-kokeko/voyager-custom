@@ -7,7 +7,7 @@
 
 #include "layer/virt_layer.h"
 
-#include "addons/mouse_button_indicator.h"
+#include "mouse_button_indicator.h"
 
 bool rgb_matrix_indicators_mouse_button_indicator(void) {
   // if no active nothing to do, pass next

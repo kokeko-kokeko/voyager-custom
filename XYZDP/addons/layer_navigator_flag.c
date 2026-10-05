@@ -7,7 +7,7 @@
 
 #include "layer/virt_layer.h"
  
-#include "addons/layer_navigator_flag.h"
+#include "layer_navigator_flag.h"
 
 #include "navigator.h"
 

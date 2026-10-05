@@ -7,7 +7,7 @@
 
 #include "layer/virt_layer.h"
 
-#include "addons/layer_caps_word.h"
+#include "layer_caps_word.h"
 
 // enter layer, no key press, exit run caps word
 static uint8_t caps_layers[] = {VIRT_LAYER_L_thumb_4, VIRT_LAYER_R_thumb_4};

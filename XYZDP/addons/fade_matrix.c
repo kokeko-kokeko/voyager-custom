@@ -7,9 +7,8 @@
 
 #include "layer/virt_layer.h"
 
-#include "addons/fade_matrix.h"
-
-#include "addons/status_led.h"
+#include "fade_matrix.h"
+#include "status_led.h"
 
 #include "navigator_trackpad_common.h"
 

@@ -7,7 +7,7 @@
 
 #include "layer/virt_layer.h"
 
-#include "addons/layer_mod_overlay.h"
+#include "layer_mod_overlay.h"
 
 // use animation logic
 // use abs path

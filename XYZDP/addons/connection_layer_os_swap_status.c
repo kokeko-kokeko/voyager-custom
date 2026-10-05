@@ -7,8 +7,8 @@
 
 #include "layer/virt_layer.h"
 
-#include "addons/connection_layer_os_swap_status.h"
-#include "addons/status_led.h"
+#include "connection_layer_os_swap_status.h"
+#include "status_led.h"
 
 #include "navigator_trackpad_common.h"
 
