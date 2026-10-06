@@ -2,6 +2,7 @@
 
 #define CONNECTION_STATUS_INIT_DELAY 15013
 #define CONNECTION_STATUS_PROBE_DELAY 1249
+#define CONNECTION_STATUS_OS_ANIMATION_DELAY 7993
 
 void keyboard_post_init_connection_layer_os_swap_status(void);
 layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t state);
