@@ -169,8 +169,8 @@ void virt_layer_on(const uint8_t virt_layer) {
     state_cache_v[virt_layer] = true;
 
     if (phys_layer != PHYS_LAYER_UNALLOC) {    
-        p_ref_count[phys_layer]++;
-        if(p_ref_count[phys_layer] == 0) p_ref_count[phys_layer] = UINT8_MAX; 
+        // sat inc
+        if(p_ref_count[phys_layer] < UINT8_MAX) p_ref_count[phys_layer]++;
     }
 
     // re-calc layer_state_set_*
@@ -183,14 +183,13 @@ void virt_layer_off(const uint8_t virt_layer) {
     state_cache_v[virt_layer] = false;
     
     if (phys_layer != PHYS_LAYER_UNALLOC) {
-        p_ref_count[phys_layer]--;
-        if(p_ref_count[phys_layer] == UINT8_MAX) p_ref_count[phys_layer] = 0; 
+        // sat dec
+        if(p_ref_count[phys_layer] > 0) p_ref_count[phys_layer]--;
     }
 
     // re-calc layer_state_set_*
     // or 0 -> no change
     layer_or(0);
-
 }
 
 // disable for ref_count
