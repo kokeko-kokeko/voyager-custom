@@ -184,48 +184,39 @@ void housekeeping_task_connection_layer_os_swap_status(void) {
     // reset flag
     os_detect_flag = false;
     
-    // extend check for animation done
-    status_update_trigger += CONNECTION_STATUS_OS_ANIMATION_DELAY;
-
     switch (detected_host_os()) {
       case OS_MACOS:
         status_led(0b1000, led_pattern_oneshot);
 
-        status_led(0b1000, led_pattern_boot0);
-        status_led(0b0010, led_pattern_boot1);
-        status_led(0b0100, led_pattern_boot2);
-        status_led(0b0001, led_pattern_boot3);
         break;
       case OS_IOS:
         status_led(0b0100, led_pattern_oneshot);
 
-        status_led(0b1000, led_pattern_boot0);
-        status_led(0b0010, led_pattern_boot1);
-        status_led(0b0100, led_pattern_boot2);
-        status_led(0b0001, led_pattern_boot3);
         break;
       case OS_WINDOWS:
         status_led(0b0010, led_pattern_oneshot);
 
-        status_led(0b1000, led_pattern_boot0);
-        status_led(0b0010, led_pattern_boot1);
-        status_led(0b0100, led_pattern_boot2);
-        status_led(0b0001, led_pattern_boot3);
         break;
       case OS_LINUX:
         status_led(0b0001, led_pattern_oneshot);
 
-        status_led(0b1000, led_pattern_boot0);
-        status_led(0b0010, led_pattern_boot1);
-        status_led(0b0100, led_pattern_boot2);
-        status_led(0b0001, led_pattern_boot3);
         break;
       case OS_UNSURE:
         status_led(0b1111, led_pattern_oneshot);
         status_led(0b1111, led_pattern_oneshot);
         status_led(0b1111, led_pattern_oneshot);
-        break;
-      }
+
+        // exit here no boot animation
+        return;
+    }
+
+    status_led(0b1000, led_pattern_boot0);
+    status_led(0b0010, led_pattern_boot1);
+    status_led(0b0100, led_pattern_boot2);
+    status_led(0b0001, led_pattern_boot3);
+
+    // extend check for animation done
+    status_update_trigger += CONNECTION_STATUS_OS_ANIMATION_DELAY;
   } else if (status_update_flag) {
     // reset flag
     status_update_flag = false;
