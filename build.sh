@@ -40,7 +40,7 @@ popd > /dev/null
 
 echo -e "\e[;32m---- check qmk firmware upstream ----\e[m"
 pushd qmk_firmware > /dev/null
-git --no-pager diff --stat HEAD..upstream/firmware25 -- ':(exclude).gitmodules' ':(exclude)modules/zsa/' ':(exclude)keyboards/zsa/voyager/voyager.c'
+git --no-pager diff --stat HEAD..upstream/firmware25 -- ':(exclude).gitmodules' ':(exclude)modules/zsa/' ':(exclude)keyboards/zsa/voyager/voyager.c'  ':(exclude)keyboards/zsa/voyager/matrix.c' 
 popd > /dev/null
 
 echo -e "\e[;32m---- check user side code remote ----\e[m"
