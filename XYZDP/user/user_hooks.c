@@ -19,8 +19,8 @@
 #include "addons/mouse_button_indicator.h"
 #include "addons/pos_press_overlay.h"
 
-#include "status_led/connection_layer_os_swap_status.h"
-#include "status_led/status_led.h"
+#include "status/connection_layer_os_swap_status.h"
+#include "status/status_led.h"
 
 // access to voyager system-side flag
 //extern keyboard_config_t keyboard_config;

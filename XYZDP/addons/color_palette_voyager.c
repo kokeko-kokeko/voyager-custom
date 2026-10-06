@@ -9,7 +9,7 @@
 
 #include "pos/get_pos_from_keyrecord.h"
 
-#include "status_led/status_led.h"
+#include "status/status_led.h"
 
 #include "fade_matrix.h"
 

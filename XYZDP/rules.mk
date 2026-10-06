@@ -25,8 +25,8 @@ SRC += layer/virt_layer.c
 
 SRC += pos/get_pos_from_keyrecord_voyager.c
 
-SRC += status_led/connection_layer_os_swap_status.c
-SRC += status_led/status_led_voyager.c
+SRC += status/connection_layer_os_swap_status.c
+SRC += status/status_led_voyager.c
 
 SRC += user/tap_hold_settings.c
 SRC += user/user_hooks.c
