@@ -53,8 +53,8 @@
 #define MAX_DEFERRED_EXECUTORS 8
 #define TRANSIENT_EEPROM_SIZE 256
 
-// normal 250ms, more margin, typ 2sec
-#define OS_DETECTION_DEBOUNCE 1999
+// normal 250ms, more margin, change boot animation system
+#define OS_DETECTION_DEBOUNCE 331
 //#define OS_DETECTION_KEYBOARD_RESET
 //#define OS_DETECTION_SINGLE_REPORT
 
