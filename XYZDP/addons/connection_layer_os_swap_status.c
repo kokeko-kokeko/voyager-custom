@@ -12,7 +12,8 @@
 
 #include "navigator_trackpad_common.h"
 
-extern bool           trackball_init;
+// from zsa/navigator_trackball/navigator_trackball.c
+extern uint8_t trackball_init;
 
 static fast_timer_t status_update_trigger = (UINT32_MAX / 2) - 1;
 
@@ -37,7 +38,8 @@ void keyboard_post_init_connection_layer_os_swap_status(void) {
 }
 
 layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t state) {
-  // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not update
+  // status LED, if define VOYAGER_USER_LEDS keyboard_config.led_level is not nrl
+  // pdate
   //if (is_launching || !keyboard_config.led_level) return state;
   
   uint8_t layer = get_highest_virt_layer(state);
@@ -173,8 +175,8 @@ void housekeeping_task_connection_layer_os_swap_status(void) {
     status_update_flag = true;
   }
   
-  if (trackball_init != trackball_flag) {
-    trackball_flag = trackball_init; 
+  if ((bool)trackball_init != trackball_flag) {
+    trackball_flag = (bool)trackball_init; 
     status_update_flag = true;
   }
 
