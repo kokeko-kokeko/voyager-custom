@@ -33,10 +33,7 @@ void chSysIdleHook(void) {
   __WFI();
 }
 
-void keyboard_post_init_user(void) {
-  // direct mod zsa side code
-  //keyboard_post_init_addtional_power_setting();
-  
+void keyboard_post_init_user(void) {  
   keyboard_post_init_connection_layer_os_swap_status();
   keyboard_post_init_fade_matrix();
   keyboard_post_init_layer_navigator_flag();

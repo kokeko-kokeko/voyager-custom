@@ -789,32 +789,3 @@ void housekeeping_task_exec_halt(void) {
   
   return;
 }
-
-void keyboard_post_init_addtional_power_setting(void) {
-  chSysLock();
-  
-  // from voyager.c LED output low
-  palSetPadMode(GPIOB, 5, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
-  palSetPadMode(GPIOB, 4, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
-  palSetPadMode(GPIOB, 3, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
-  
-  // from matrix.c outputs to low power
-  palSetPadMode(GPIOB, 10, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
-  palSetPadMode(GPIOB, 11, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
-  palSetPadMode(GPIOB, 12, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
-  palSetPadMode(GPIOB, 13, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
-  palSetPadMode(GPIOB, 14, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
-  palSetPadMode(GPIOB, 15, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_LOWEST);
-  
-  // enable low voltage reset
-  // only detect not reset
-  // disable now
-  //PWR->CR &= ~PWR_CR_PLS;          // PLS clear
-  //PWR->CR |= PWR_CR_PLS_LEV7;      // max level
-  //PWR->CR |= PWR_CR_PVDE;          // enable
-  
-  chSysUnlock();
-  
-  return;
-}
-
