@@ -17,6 +17,7 @@ extern bool           trackball_init;
 static fast_timer_t status_update_trigger = (UINT32_MAX / 2) - 1;
 
 static bool status_update_flag = false;
+static bool os_detect_flag = false;
 
 static bool right_side_flag = false;
 static bool trackpad_flag = false;
@@ -138,45 +139,9 @@ layer_state_t layer_state_set_connection_layer_os_swap_status(layer_state_t stat
 }
 
 bool process_detected_host_os_connection_layer_os_swap_status(os_variant_t detected_os) {
-  switch (detected_os) {
-    case OS_MACOS:
-      status_led(0b1000, led_pattern_oneshot);
-
-      status_led(0b1000, led_pattern_boot0);
-      status_led(0b0010, led_pattern_boot1);
-      status_led(0b0100, led_pattern_boot2);
-      status_led(0b0001, led_pattern_boot3);
-      break;
-    case OS_IOS:
-      status_led(0b0100, led_pattern_oneshot);
-
-      status_led(0b1000, led_pattern_boot0);
-      status_led(0b0010, led_pattern_boot1);
-      status_led(0b0100, led_pattern_boot2);
-      status_led(0b0001, led_pattern_boot3);
-      break;
-    case OS_WINDOWS:
-      status_led(0b0010, led_pattern_oneshot);
-
-      status_led(0b1000, led_pattern_boot0);
-      status_led(0b0010, led_pattern_boot1);
-      status_led(0b0100, led_pattern_boot2);
-      status_led(0b0001, led_pattern_boot3);
-      break;
-    case OS_LINUX:
-      status_led(0b0001, led_pattern_oneshot);
-
-      status_led(0b1000, led_pattern_boot0);
-      status_led(0b0010, led_pattern_boot1);
-      status_led(0b0100, led_pattern_boot2);
-      status_led(0b0001, led_pattern_boot3);
-      break;
-    case OS_UNSURE:
-      status_led(0b1111, led_pattern_oneshot);
-      status_led(0b1111, led_pattern_oneshot);
-      status_led(0b1111, led_pattern_oneshot);
-      break;
-  }
+  // set flag
+  status_update_trigger = timer_read_fast() + 1;
+  os_detect_flag = true;
    
   return true;
 }
@@ -212,8 +177,49 @@ void housekeeping_task_connection_layer_os_swap_status(void) {
     status_update_flag = true;
   }
 
-  // both on, both off, no error
-  if (status_update_flag) {
+  if (os_detect_flag) {
+    // reset flag
+    os_detect_flag = false;
+    switch (detected_host_os()) {
+      case OS_MACOS:
+        status_led(0b1000, led_pattern_oneshot);
+
+        status_led(0b1000, led_pattern_boot0);
+        status_led(0b0010, led_pattern_boot1);
+        status_led(0b0100, led_pattern_boot2);
+        status_led(0b0001, led_pattern_boot3);
+        break;
+      case OS_IOS:
+        status_led(0b0100, led_pattern_oneshot);
+
+        status_led(0b1000, led_pattern_boot0);
+        status_led(0b0010, led_pattern_boot1);
+        status_led(0b0100, led_pattern_boot2);
+        status_led(0b0001, led_pattern_boot3);
+        break;
+      case OS_WINDOWS:
+        status_led(0b0010, led_pattern_oneshot);
+
+        status_led(0b1000, led_pattern_boot0);
+        status_led(0b0010, led_pattern_boot1);
+        status_led(0b0100, led_pattern_boot2);
+        status_led(0b0001, led_pattern_boot3);
+        break;
+      case OS_LINUX:
+        status_led(0b0001, led_pattern_oneshot);
+
+        status_led(0b1000, led_pattern_boot0);
+        status_led(0b0010, led_pattern_boot1);
+        status_led(0b0100, led_pattern_boot2);
+        status_led(0b0001, led_pattern_boot3);
+        break;
+      case OS_UNSURE:
+        status_led(0b1111, led_pattern_oneshot);
+        status_led(0b1111, led_pattern_oneshot);
+        status_led(0b1111, led_pattern_oneshot);
+        break;
+      }
+  } else if (status_update_flag) {
     // reset flag
     status_update_flag = false;
     
@@ -225,6 +231,7 @@ void housekeeping_task_connection_layer_os_swap_status(void) {
     }
 
     // Red for mouse
+    // both on, both off, no error -> not equal active
     if (trackpad_flag != trackball_flag) {
       if (trackpad_flag == false) {
         status_led(0b1000, led_pattern_blink);
