@@ -161,7 +161,7 @@ void housekeeping_task_connection_layer_os_swap_status(void) {
     status_update_trigger = now + 1;
   }
 
-  // timer
+  // timer early exit
   if (timer_expired_fast(now, status_update_trigger) == false) return;
   status_update_trigger += CONNECTION_STATUS_PROBE_DELAY;
 
@@ -183,6 +183,9 @@ void housekeeping_task_connection_layer_os_swap_status(void) {
   if (os_detect_flag) {
     // reset flag
     os_detect_flag = false;
+
+    // extend check for animation done
+    status_update_trigger += CONNECTION_STATUS_OS_ANIMATION_DELAY;
     
     switch (detected_host_os()) {
       case OS_MACOS:
@@ -210,14 +213,16 @@ void housekeeping_task_connection_layer_os_swap_status(void) {
         return;
     }
 
+    // common boot-up animation
     status_led(0b1000, led_pattern_boot0);
     status_led(0b0010, led_pattern_boot1);
     status_led(0b0100, led_pattern_boot2);
     status_led(0b0001, led_pattern_boot3);
 
-    // extend check for animation done
-    status_update_trigger += CONNECTION_STATUS_OS_ANIMATION_DELAY;
-  } else if (status_update_flag) {
+    return;
+  } 
+  
+  if (status_update_flag) {
     // reset flag
     status_update_flag = false;
     
@@ -243,7 +248,11 @@ void housekeeping_task_connection_layer_os_swap_status(void) {
     } else {
       status_led(0b1100, led_pattern_off);
     }
+
+    return;
   }
+
+  return;
 }
 
 /*
