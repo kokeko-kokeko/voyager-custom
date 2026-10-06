@@ -9,7 +9,6 @@ PRECISION_TRACKPAD_DRIVER = navigator_trackpad
 OS_DETECTION_ENABLE = yes
 
 SRC += addons/color_palette_voyager.c
-SRC += addons/connection_layer_os_swap_status.c
 SRC += addons/fade_matrix.c
 SRC += addons/firmware_map_voyager.c
 SRC += addons/flexible_behavior_os_locale_voyager.c
@@ -21,11 +20,13 @@ SRC += addons/layer_mod_overlay_voyager.c
 SRC += addons/layer_navigator_flag.c
 SRC += addons/mouse_button_indicator_voyager.c
 SRC += addons/pos_press_overlay_voyager.c
-SRC += addons/status_led_voyager.c
 
 SRC += layer/virt_layer.c
 
 SRC += pos/get_pos_from_keyrecord_voyager.c
+
+SRC += status_led/connection_layer_os_swap_status.c
+SRC += status_led/status_led_voyager.c
 
 SRC += user/tap_hold_settings.c
 SRC += user/user_hooks.c
