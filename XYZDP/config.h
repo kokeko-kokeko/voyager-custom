@@ -53,8 +53,9 @@
 #define MAX_DEFERRED_EXECUTORS 8
 #define TRANSIENT_EEPROM_SIZE 256
 
-// normal 250ms, more margin, change boot animation system
-#define OS_DETECTION_DEBOUNCE 499
+// normal 250ms, more margin for KVM, 
+// change boot animation system
+#define OS_DETECTION_DEBOUNCE 503
 //#define OS_DETECTION_KEYBOARD_RESET
 //#define OS_DETECTION_SINGLE_REPORT
 
