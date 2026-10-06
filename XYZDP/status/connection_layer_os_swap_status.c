@@ -187,6 +187,9 @@ void housekeeping_task_connection_layer_os_swap_status(void) {
     // extend check for animation done
     status_update_trigger += CONNECTION_STATUS_OS_ANIMATION_DELAY;
     
+    // posh off to base
+    status_led(0b1111, led_pattern_off);
+    
     switch (detected_host_os()) {
       case OS_MACOS:
         status_led(0b1000, led_pattern_oneshot);
