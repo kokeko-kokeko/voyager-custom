@@ -10,6 +10,10 @@
 #    error "must enable per key tapping term"
 #endif
 
+#ifndef FLOW_TAP_TERM
+#    error "must enable flow tapping term"
+#endif
+
 #include "addons/flexible_behavior_os_locale.h"
 
 // per-key tapping parameter setting
