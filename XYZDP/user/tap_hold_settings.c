@@ -5,6 +5,11 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
+// module safe-guard
+#ifndef TAPPING_TERM_PER_KEY
+#    error "must enable per key tapping term"
+#endif
+
 #include "addons/flexible_behavior_os_locale.h"
 
 // per-key tapping parameter setting

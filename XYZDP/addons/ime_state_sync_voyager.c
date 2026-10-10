@@ -5,6 +5,11 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
+// module safe-guard
+#ifndef KEYBOARD_zsa_voyager
+#    error "this addon contains Voyager-only magic number constants"
+#endif
+
 //#include "addons/overlay_layer_mod.h"
 
 #include "ime_state_sync.h"
