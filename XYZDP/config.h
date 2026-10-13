@@ -14,6 +14,11 @@
 #define RGB_MATRIX_STARTUP_SPD 60
 
 
+//
+//
+// Additional C side setting
+//
+//
 #undef SERIAL_NUMBER
 #define SERIAL_NUMBER "XYZDP/GH_addtional_mod"
 
@@ -65,7 +70,7 @@
 #undef IS31FL3731_DEGHOST
 #define IS31FL3731_DEGHOST
 
-// disable all animations eable by json
+// disable all animations enable by json
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
 #undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #undef ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
