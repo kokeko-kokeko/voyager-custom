@@ -7,7 +7,7 @@
 
 // module safe-guard
 #ifndef KEYBOARD_zsa_voyager
-#    error "this addon contains Voyager-only magic number constants"
+#    error "this file contains ZSA Voyager only magic number constants"
 #endif
 
 #include "pos/get_pos_from_keyrecord.h"
