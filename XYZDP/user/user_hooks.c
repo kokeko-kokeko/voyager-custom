@@ -63,8 +63,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // addon
   state = layer_state_set_color_palette(state);
   state = layer_state_set_connection_layer_os_swap_status(state);
-  state = layer_state_set_fade_matrix(state);
   state = layer_state_set_exec_halt(state);
+  state = layer_state_set_fade_matrix(state);
   state = layer_state_set_layer_caps_word(state);
   state = layer_state_set_layer_navigator_flag(state);
   
@@ -78,7 +78,7 @@ bool rgb_matrix_indicators_user(void) {
   //}
   //if (keyboard_config.disable_layer_led) { return false; }
   
-  // manual ordering
+  // manual ordering (high layer on first, overlay last)
   if (rgb_matrix_indicators_color_palette() == false) return false;
   if (rgb_matrix_indicators_exec_halt() == false) return false;
   if (rgb_matrix_indicators_firmware_map() == false) return false;
