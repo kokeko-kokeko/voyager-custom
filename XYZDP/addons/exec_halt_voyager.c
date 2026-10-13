@@ -18,10 +18,7 @@
 
 #include "status/status_led.h"
 
-#include "firmware_map.h"
-
 #include "fade_matrix.h"
-#include "ime_state_sync.h"
 
 #include "ch.h"
 #include "usb_main.h"

@@ -22,7 +22,6 @@
 #include "ime_state_sync.h"
 
 #include "navigator.h"
-#include "navigator_trackball.h"
 #include "navigator_trackpad_common.h"
 
 // mouse jiggler fucn
