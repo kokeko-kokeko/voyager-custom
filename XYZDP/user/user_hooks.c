@@ -64,7 +64,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = layer_state_set_color_palette(state);
   state = layer_state_set_connection_layer_os_swap_status(state);
   state = layer_state_set_fade_matrix(state);
-  state = layer_state_set_firmware_map(state);
+  state = layer_state_set_exec_halt(state);
   state = layer_state_set_layer_caps_word(state);
   state = layer_state_set_layer_navigator_flag(state);
   
@@ -80,6 +80,7 @@ bool rgb_matrix_indicators_user(void) {
   
   // manual ordering
   if (rgb_matrix_indicators_color_palette() == false) return false;
+  if (rgb_matrix_indicators_exec_halt() == false) return false;
   if (rgb_matrix_indicators_firmware_map() == false) return false;
   if (rgb_matrix_indicators_mouse_button_indicator() == false) return false;
   if (rgb_matrix_indicators_ime_state_sync() == false) return false;

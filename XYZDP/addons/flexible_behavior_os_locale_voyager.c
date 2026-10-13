@@ -17,6 +17,7 @@
 #include "flexible_behavior_os_locale.h"
 
 #include "color_palette.h"
+#include "exec_halt.h"
 #include "fade_matrix.h"
 #include "firmware_map.h"
 
@@ -137,7 +138,7 @@ bool process_record_macro_firmware(const uint16_t keycode, const keyrecord_t * c
   
   // Firmware  
   if (base_code == KC_F) return firmware_map_main_keyrecord(record);
-  if (base_code == KC_H) return firmware_map_invoke_halt_keyrecord(record);
+  if (base_code == KC_H) return exec_halt_invoke_halt_keyrecord(record);
     
   // Color Palette
   if (base_code == KC_C) return color_palette_main_keyrecord(record);
