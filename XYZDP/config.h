@@ -16,7 +16,7 @@
 
 //
 //
-// Additional C side setting
+// Additional GitHub side code setting
 //
 //
 #undef SERIAL_NUMBER
