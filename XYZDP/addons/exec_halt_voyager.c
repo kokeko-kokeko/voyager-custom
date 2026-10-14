@@ -248,7 +248,7 @@ void housekeeping_task_exec_halt(void) {
   is31fl3731_select_page(0, IS31FL3731_COMMAND_FUNCTION);
   is31fl3731_write_register(0, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0x00);
 
-  // mouse sensor reset powersave
+  // trackball sensor reset powersave
   uint8_t disable_protect[3] = {0x01, 0x09 | WRITE_REG_BIT, 0x5A}; // Disable write protection
   uint8_t sw_reset[3] = {0x01, 0x06 | WRITE_REG_BIT, 0x80};        // Software reset
   uint8_t power_down[3] = {0x01, 0x06 | WRITE_REG_BIT, 0x08};      // power down
@@ -260,7 +260,7 @@ void housekeeping_task_exec_halt(void) {
   i2c_transmit(NAVIGATOR_TRACKBALL_ADDRESS, power_down, 3, NAVIGATOR_TRACKBALL_TIMEOUT);
   wait_ms(10);
 
-  // mouse bridge disable (sci18is606 idle)
+  // trackball bridge disable (sci18is606 idle)
   uint8_t clr_int[1] = {SCI18IS606_CLR_INT};
   uint8_t idle_mode[1] = {0xF2};
   
@@ -270,7 +270,11 @@ void housekeeping_task_exec_halt(void) {
   i2c_transmit(NAVIGATOR_TRACKBALL_ADDRESS, idle_mode, 1, NAVIGATOR_TRACKBALL_TIMEOUT);
   wait_ms(10);
 
-  // from voyager.c
+  // trackpad force power-down
+  cirque_gen6_write_reg(0x200A0408, 0x01);
+  wait_ms(10);
+
+  // i2c disable from voyager.c
   i2cStop(&I2CD1);
   wait_ms(10);
   
