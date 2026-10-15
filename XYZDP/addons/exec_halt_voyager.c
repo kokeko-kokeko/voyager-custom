@@ -26,8 +26,8 @@
 #include "mcp23018.h"
 #include "i2c_master.h"
 
-#include "navigator.h"
-#include "navigator_trackball.h"
+#include "user/split_txn_trackball.h"
+
 #include "navigator_trackpad_common.h"
 
 enum key_position {

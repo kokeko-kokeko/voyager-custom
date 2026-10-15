@@ -23,6 +23,8 @@
 #include "status/connection_layer_os_swap_status.h"
 #include "status/status_led.h"
 
+#include "split_txn_trackball.h"
+
 // access to voyager system-side flag
 //extern keyboard_config_t keyboard_config;
 //extern bool is_launching;
@@ -48,6 +50,10 @@ void keyboard_post_init_user(void) {
   virt_layer_off(VIRT_LAYER_FB_Mac);
 }
 
+void matrix_scan_user(void) {
+  matrix_scan_split_txn_trackball();
+}
+
 bool process_detected_host_os_user(os_variant_t detected_os) {
   if (process_detected_host_os_connection_layer_os_swap_status(detected_os) == false) return false;
   if (process_detected_host_os_fade_matrix(detected_os) == false) return false;
@@ -66,7 +72,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = layer_state_set_exec_halt(state);
   state = layer_state_set_fade_matrix(state);
   state = layer_state_set_layer_caps_word(state);
-  //state = layer_state_set_layer_navigator_flag(state);
+  state = layer_state_set_split_txn_trackball(state);
   
   return state;
 }

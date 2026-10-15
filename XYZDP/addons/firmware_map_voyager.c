@@ -21,7 +21,8 @@
 #include "fade_matrix.h"
 #include "ime_state_sync.h"
 
-#include "navigator.h"
+#include "user/split_txn_trackball.h"
+
 #include "navigator_trackpad_common.h"
 
 // mouse jiggler fucn

@@ -5,6 +5,8 @@ COMMAND_ENABLE = no
 SPACE_CADET_ENABLE = no
 
 
+POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = custom
 
 PRECISION_TRACKPAD_ENABLE = yes
 PRECISION_TRACKPAD_DRIVER = navigator_trackpad
@@ -32,6 +34,7 @@ SRC += pos/get_pos_from_keyrecord_voyager.c
 SRC += status/connection_layer_os_swap_status.c
 SRC += status/status_led_voyager.c
 
+SRC += user/split_txn_trackball.c
 SRC += user/tap_hold_settings.c
 SRC += user/user_hooks.c
 
