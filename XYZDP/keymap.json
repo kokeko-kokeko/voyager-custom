@@ -23,7 +23,7 @@
             "default": { 
                 "nkro": true
             } 
-        },
+        }, 
         "usb": {
             "max_power": 400,
             "no_startup_check": false,
