@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include "quantum.h"
 
-#include "layer/phys_layer.h"
+#include "layer/virt_layer.h"
 
 #include "split_txn_trackball.h"
 
@@ -417,12 +417,28 @@ void matrix_scan_split_txn_trackball(void) {
   return;
 }
 
+void keyboard_post_init_split_txn_trackball(void) {
+    virt_layer_on(VIRT_LAYER_navigator_base_scroll);
+    virt_layer_off(VIRT_LAYER_navigator_base_aim);
+    virt_layer_off(VIRT_LAYER_navigator_base_turbo);
+}
+
 layer_state_t layer_state_set_split_txn_trackball(layer_state_t state) {    
   move_hv_flag = false;
 
-  move_hv_flag = move_hv_flag || layer_state_cmp(state, AUTOMOUSE_LAYER_TRACKPAD);
-  move_hv_flag = move_hv_flag || layer_state_cmp(state, PHYS_LAYER_Number);
-  move_hv_flag = move_hv_flag || layer_state_cmp(state, PHYS_LAYER_Cursor);
+  if (get_highest_virt_layer(state) < VIRT_LAYER_Flag_END) {
+    move_hv_flag = virt_layer_state_cmp(state, VIRT_LAYER_navigator_base_scroll);
+    //set_scrolling = virt_layer_state_cmp(state, VIRT_LAYER_navigator_base_scroll);
+    //scroll_vertical_only = false;
+    //navigator_aim = virt_layer_state_cmp(state, VIRT_LAYER_navigator_base_aim);;
+    //navigator_turbo = virt_layer_state_cmp(state, VIRT_LAYER_navigator_base_turbo);;
+
+    return state;
+  }
+
+  move_hv_flag = move_hv_flag || virt_layer_state_cmp(state, VIRT_LAYER_Mouse_L);
+  move_hv_flag = move_hv_flag || virt_layer_state_cmp(state, VIRT_LAYER_L_thumb_1);
+  move_hv_flag = move_hv_flag || virt_layer_state_cmp(state, VIRT_LAYER_R_thumb_1);
   //move_hv_flag = move_hv_flag || layer_state_cmp(state, LAYER_Function);
 
   return state;

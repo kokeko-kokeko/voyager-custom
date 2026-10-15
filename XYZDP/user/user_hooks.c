@@ -16,7 +16,6 @@
 #include "addons/ime_state_sync.h"
 #include "addons/layer_caps_word.h"
 #include "addons/layer_mod_overlay.h"
-//#include "addons/layer_navigator_flag.h"
 #include "addons/mouse_button_indicator.h"
 #include "addons/pos_press_overlay.h"
 
@@ -39,7 +38,7 @@ void chSysIdleHook(void) {
 void keyboard_post_init_user(void) {  
   keyboard_post_init_connection_layer_os_swap_status();
   keyboard_post_init_fade_matrix();
-  //keyboard_post_init_layer_navigator_flag();
+  keyboard_post_init_split_txn_trackball();
   keyboard_post_init_status_led();
   
   // no transition / jis / pc mode

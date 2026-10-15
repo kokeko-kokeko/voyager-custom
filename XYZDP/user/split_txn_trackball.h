@@ -70,4 +70,5 @@ extern bool mouse_jiggler_is_enabled(void);
 extern bool           trackball_init;
 
 void matrix_scan_split_txn_trackball(void);
+void keyboard_post_init_split_txn_trackball(void);
 layer_state_t layer_state_set_split_txn_trackball(layer_state_t state);
