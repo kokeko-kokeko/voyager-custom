@@ -33,7 +33,6 @@
         },
         "features": {
             "caps_word": true,
-            "deferred_exec": true,
             "extrakey": true,
             "mousekey": true,
             "nkro": true,
@@ -43,6 +42,7 @@
             "bootmagic": false,
             "command": false,
             "console": false,
+            "deferred_exec": false,
             "grave_esc": false,
             "key_override": false,
             "magic": false,
