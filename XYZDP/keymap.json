@@ -39,6 +39,8 @@
             "rgb_matrix": true,
             "swap_hands": true,
 
+            "pointing_device": true,
+
             "bootmagic": false,
             "command": false,
             "console": false,
