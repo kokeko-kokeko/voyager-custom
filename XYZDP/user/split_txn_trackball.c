@@ -418,20 +418,20 @@ void matrix_scan_split_txn_trackball(void) {
 }
 
 void keyboard_post_init_split_txn_trackball(void) {
-    virt_layer_on(VIRT_LAYER_navigator_base_scroll);
-    virt_layer_off(VIRT_LAYER_navigator_base_aim);
-    virt_layer_off(VIRT_LAYER_navigator_base_turbo);
+    virt_layer_on(VIRT_LAYER_trackball_base_scroll);
+    virt_layer_off(VIRT_LAYER_trackball_base_aim);
+    virt_layer_off(VIRT_LAYER_trackball_base_turbo);
 }
 
 layer_state_t layer_state_set_split_txn_trackball(layer_state_t state) {    
   move_hv_flag = false;
-
+ 
   if (get_highest_virt_layer(state) < VIRT_LAYER_Flag_END) {
-    move_hv_flag = virt_layer_state_cmp(state, VIRT_LAYER_navigator_base_scroll);
-    //set_scrolling = virt_layer_state_cmp(state, VIRT_LAYER_navigator_base_scroll);
+    move_hv_flag = virt_layer_state_cmp(state, VIRT_LAYER_trackball_base_scroll);
+    //set_scrolling = virt_layer_state_cmp(state, VIRT_LAYER_trackball_base_scroll);
     //scroll_vertical_only = false;
-    //navigator_aim = virt_layer_state_cmp(state, VIRT_LAYER_navigator_base_aim);;
-    //navigator_turbo = virt_layer_state_cmp(state, VIRT_LAYER_navigator_base_turbo);;
+    //navigator_aim = virt_layer_state_cmp(state, VIRT_LAYER_trackball_base_aim);;
+    //navigator_turbo = virt_layer_state_cmp(state, VIRT_LAYER_trackball_base_turbo);;
 
     return state;
   }
