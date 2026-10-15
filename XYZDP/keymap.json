@@ -40,11 +40,12 @@
             "swap_hands": true,
 
             "pointing_device": true,
+            
+            "deferred_exec": false,
 
             "bootmagic": false,
             "command": false,
             "console": false,
-            "deferred_exec": false,
             "grave_esc": false,
             "key_override": false,
             "magic": false,
