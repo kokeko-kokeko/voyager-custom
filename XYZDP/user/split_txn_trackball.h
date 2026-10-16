@@ -26,8 +26,9 @@
 #    define NAVIGATOR_TRACKBALL_TIMEOUT 100
 #endif
 
-#define NAVIGATOR_TRACKBALL_READ 7
-#define NAVIGATOR_TRACKBALL_PROBE 1259
+// sensor read 5 cycle -> 5ms delay, max 10ms target
+#define NAVIGATOR_TRACKBALL_READ 5
+#define NAVIGATOR_TRACKBALL_PROBE 1283
 
 #define NCS_PIN 0x01
 #define PAW3805EK_ID 0x31
