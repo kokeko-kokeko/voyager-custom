@@ -264,30 +264,31 @@ void matrix_scan_split_txn_trackball(void) {
   // motion, x_l, y_l, x_h, y_h
   // use split buffer issue, read, guard
   // pre-load commands
-  static uint8_t issue_buf[12] = {0x01, 0x02, 0x01, 0x03, 0x01, 0x04, 0x01, 0x11, 0x01, 0x12, 0x00, 0x00}; 
+  //static uint8_t issue_buf[12] = {0x01, 0x02, 0x01, 0x03, 0x01, 0x04, 0x01, 0x11, 0x01, 0x12, 0x00, 0x00}; 
   
   // write 3 byte but last 1 byte is dummy (owerwrite from sensor)
-  static uint8_t * const issue_motion = &issue_buf[0];
-  static uint8_t * const issue_x_l = &issue_buf[2];
-  static uint8_t * const issue_y_l = &issue_buf[4];
-  static uint8_t * const issue_x_h = &issue_buf[6];
-  static uint8_t * const issue_y_h = &issue_buf[8];
+  uint8_t issue_motion[3] = {0x01, 0x02, 0x00};
+  uint8_t issue_x_l[3] = {0x01, 0x03, 0x00};
+  uint8_t issue_y_l[3] = {0x01, 0x04, 0x00};
+  uint8_t issue_x_h[3] = {0x01, 0x11, 0x00};
+  uint8_t issue_y_h[3] = {0x01, 0x12, 0x00};
 
+  // buffer for keeping value
   static uint8_t read_buf[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; 
   
   // read 2 byte first 1 byte is dummy, over-write after read
-  static uint8_t * const read_motion = &read_buf[4];
-  static uint8_t * const read_x_l = &read_buf[3];
-  static uint8_t * const read_y_l = &read_buf[2];
-  static uint8_t * const read_x_h = &read_buf[1];
-  static uint8_t * const read_y_h = &read_buf[0];
+  uint8_t * const read_motion = &read_buf[4];
+  uint8_t * const read_x_l = &read_buf[3];
+  uint8_t * const read_y_l = &read_buf[2];
+  uint8_t * const read_x_h = &read_buf[1];
+  uint8_t * const read_y_h = &read_buf[0];
 
   // value on second byte
-  static uint8_t * const value_motion = &read_buf[5];
-  static uint8_t * const value_x_l = &read_buf[4];
-  static uint8_t * const value_y_l = &read_buf[3];
-  static uint8_t * const value_x_h = &read_buf[2];
-  static uint8_t * const value_y_h = &read_buf[1];
+  uint8_t * const value_motion = &read_buf[5];
+  uint8_t * const value_x_l = &read_buf[4];
+  uint8_t * const value_y_l = &read_buf[3];
+  uint8_t * const value_x_h = &read_buf[2];
+  uint8_t * const value_y_h = &read_buf[1];
 
   // sensor pbobe function
   // early return to trigger
