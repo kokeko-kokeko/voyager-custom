@@ -264,14 +264,16 @@ void matrix_scan_split_txn_trackball(void) {
   // motion, x_l, y_l, x_h, y_h
   // use split buffer issue, read, guard
   // pre-load commands
-  //static uint8_t issue_buf[12] = {0x01, 0x02, 0x01, 0x03, 0x01, 0x04, 0x01, 0x11, 0x01, 0x12, 0x00, 0x00}; 
   
   // write 3 byte but last 1 byte is dummy (owerwrite from sensor)
-  uint8_t issue_motion[3] = {0x01, 0x02, 0x00};
-  uint8_t issue_x_l[3] = {0x01, 0x03, 0x00};
-  uint8_t issue_y_l[3] = {0x01, 0x04, 0x00};
-  uint8_t issue_x_h[3] = {0x01, 0x11, 0x00};
-  uint8_t issue_y_h[3] = {0x01, 0x12, 0x00};
+  //uint8_t issue_motion[3] = {0x01, 0x02, 0x00};
+  //uint8_t issue_x_l[3] = {0x01, 0x03, 0x00};
+  //uint8_t issue_y_l[3] = {0x01, 0x04, 0x00};
+  //uint8_t issue_x_h[3] = {0x01, 0x11, 0x00};
+  //uint8_t issue_y_h[3] = {0x01, 0x12, 0x00};
+
+  // issue_buf[1] is spi command address, default motion
+  uint8_t issue_buf[3] = {0x01, 0x02, 0x00};
 
   // buffer for keeping value
   static uint8_t read_buf[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; 
@@ -322,7 +324,7 @@ void matrix_scan_split_txn_trackball(void) {
         paw3805ek_set_cpi();
       }
     
-      if (sci18is606_spi_issue(issue_motion, 3) != I2C_STATUS_SUCCESS) {
+      if (sci18is606_spi_issue(issue_buf, 3) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
         return;
       }
@@ -339,7 +341,8 @@ void matrix_scan_split_txn_trackball(void) {
       }
 
       if (*value_motion & 0x80) {
-        if (sci18is606_spi_issue(issue_x_l, 3) != I2C_STATUS_SUCCESS) {
+        issue_buf[1] = 0x03;
+        if (sci18is606_spi_issue(issue_buf, 3) != I2C_STATUS_SUCCESS) {
           reset_trackball_state(now);
           return;
         }
@@ -355,9 +358,10 @@ void matrix_scan_split_txn_trackball(void) {
     } 
     
     case TB_S_READ_X_L_ISSUE_Y_L: {
+      issue_buf[1] = 0x04;
       if (
         (sci18is606_spi_read(read_x_l, 2) != I2C_STATUS_SUCCESS) ||
-        (sci18is606_spi_issue(issue_y_l, 3) != I2C_STATUS_SUCCESS)
+        (sci18is606_spi_issue(issue_buf, 3) != I2C_STATUS_SUCCESS)
       ) {
         reset_trackball_state(now);
         return;
@@ -369,9 +373,10 @@ void matrix_scan_split_txn_trackball(void) {
     } 
     
     case TB_S_READ_Y_L_ISSUE_X_H: {
+      issue_buf[1] = 0x11;
       if (
         (sci18is606_spi_read(read_y_l, 2) != I2C_STATUS_SUCCESS) ||
-        (sci18is606_spi_issue(issue_x_h, 3) != I2C_STATUS_SUCCESS)
+        (sci18is606_spi_issue(issue_buf, 3) != I2C_STATUS_SUCCESS)
       ) {
         reset_trackball_state(now);
         return;
@@ -383,9 +388,10 @@ void matrix_scan_split_txn_trackball(void) {
     } 
     
     case TB_S_READ_X_H_ISSUE_Y_H: {
+      issue_buf[1] = 0x12;
       if (
         (sci18is606_spi_read(read_x_h, 2) != I2C_STATUS_SUCCESS) || 
-        (sci18is606_spi_issue(issue_y_h, 3) != I2C_STATUS_SUCCESS) 
+        (sci18is606_spi_issue(issue_buf, 3) != I2C_STATUS_SUCCESS) 
       ) {
         reset_trackball_state(now);
         return;
@@ -399,7 +405,7 @@ void matrix_scan_split_txn_trackball(void) {
     case TB_S_READ_Y_H_ISSUE_MOTION_ADD_ACC: {
       if (
         (sci18is606_spi_read(read_y_h, 2) != I2C_STATUS_SUCCESS) || 
-        (sci18is606_spi_issue(issue_motion, 3) != I2C_STATUS_SUCCESS)
+        (sci18is606_spi_issue(issue_buf, 3) != I2C_STATUS_SUCCESS)
       ) {
         reset_trackball_state(now);
         return;
