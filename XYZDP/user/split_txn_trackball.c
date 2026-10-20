@@ -260,16 +260,6 @@ void matrix_scan_split_txn_trackball(void) {
   // sensor probe
   const fast_timer_t now = timer_read_fast();
 
-  // write 3 byte but last 1 byte is dummy (owerwrite from sensor)
-  //uint8_t issue_motion[3] = {0x01, 0x02, 0x00};
-  //uint8_t issue_x_l[3] = {0x01, 0x03, 0x00};
-  //uint8_t issue_y_l[3] = {0x01, 0x04, 0x00};
-  //uint8_t issue_x_h[3] = {0x01, 0x11, 0x00};
-  //uint8_t issue_y_h[3] = {0x01, 0x12, 0x00};
-
-  // issue_buf[1] is spi command address, default motion, update on case
-  uint8_t issue_buf[3] = {0x01, 0x02, 0x00};
-
   // buffer for keeping value, with guard
   static uint8_t read_buf[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; 
   
@@ -287,6 +277,16 @@ void matrix_scan_split_txn_trackball(void) {
   //uint8_t * const value_x_h = &read_buf[2];
   //uint8_t * const value_y_h = &read_buf[1];
 
+  // issue_buf[1] is spi command address, default motion, update on case
+  uint8_t issue_buf[3] = {0x01, 0x02, 0x00};  
+
+  // write 3 byte but last 1 byte is dummy (owerwrite from sensor)
+  //uint8_t issue_motion[3] = {0x01, 0x02, 0x00};
+  //uint8_t issue_x_l[3] = {0x01, 0x03, 0x00};
+  //uint8_t issue_y_l[3] = {0x01, 0x04, 0x00};
+  //uint8_t issue_x_h[3] = {0x01, 0x11, 0x00};
+  //uint8_t issue_y_h[3] = {0x01, 0x12, 0x00};
+  
   // sensor pbobe function
   // early return to trigger
   if (timer_expired_fast(now, tb_sensor_trigger) == false) return;
