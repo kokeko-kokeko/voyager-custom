@@ -260,11 +260,6 @@ void matrix_scan_split_txn_trackball(void) {
   // sensor probe
   const fast_timer_t now = timer_read_fast();
 
-  // i2c tx/rx buffer with guard
-  // motion, x_l, y_l, x_h, y_h
-  // use split buffer issue, read, guard
-  // pre-load commands
-  
   // write 3 byte but last 1 byte is dummy (owerwrite from sensor)
   //uint8_t issue_motion[3] = {0x01, 0x02, 0x00};
   //uint8_t issue_x_l[3] = {0x01, 0x03, 0x00};
@@ -279,18 +274,18 @@ void matrix_scan_split_txn_trackball(void) {
   static uint8_t read_buf[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; 
   
   // read 2 byte first 1 byte is dummy, over-write after read
-  uint8_t read_motion[2] = {0x00, 0x00};
-  uint8_t * const read_x_l = &read_buf[3];
-  uint8_t * const read_y_l = &read_buf[2];
-  uint8_t * const read_x_h = &read_buf[1];
-  uint8_t * const read_y_h = &read_buf[0];
+  //uint8_t read_motion[2] = {0x00, 0x00};
+  //uint8_t * const read_x_l = &read_buf[3];
+  //uint8_t * const read_y_l = &read_buf[2];
+  //uint8_t * const read_x_h = &read_buf[1];
+  //uint8_t * const read_y_h = &read_buf[0];
 
   // value on second byte
-  uint8_t * const value_motion = &read_motion[1];
-  uint8_t * const value_x_l = &read_buf[4];
-  uint8_t * const value_y_l = &read_buf[3];
-  uint8_t * const value_x_h = &read_buf[2];
-  uint8_t * const value_y_h = &read_buf[1];
+  //uint8_t * const value_motion = &read_motion[1];
+  //uint8_t * const value_x_l = &read_buf[4];
+  //uint8_t * const value_y_l = &read_buf[3];
+  //uint8_t * const value_x_h = &read_buf[2];
+  //uint8_t * const value_y_h = &read_buf[1];
 
   // sensor pbobe function
   // early return to trigger
@@ -335,12 +330,13 @@ void matrix_scan_split_txn_trackball(void) {
     } 
     
     case TB_S_READ_MOTION_ISSUE_X_L: {
+      uint8_t read_motion[2] = {0x00, 0x00};
       if (sci18is606_spi_read(read_motion, 2) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
         return;
       }
 
-      if (*value_motion & 0x80) {
+      if (read_motion[1] & 0x80) {
         issue_buf[1] = 0x03;
         if (sci18is606_spi_issue(issue_buf, 3) != I2C_STATUS_SUCCESS) {
           reset_trackball_state(now);
@@ -358,6 +354,7 @@ void matrix_scan_split_txn_trackball(void) {
     } 
     
     case TB_S_READ_X_L_ISSUE_Y_L: {
+      uint8_t * const read_x_l = &read_buf[3];
       issue_buf[1] = 0x04;
       if (
         (sci18is606_spi_read(read_x_l, 2) != I2C_STATUS_SUCCESS) ||
@@ -373,6 +370,7 @@ void matrix_scan_split_txn_trackball(void) {
     } 
     
     case TB_S_READ_Y_L_ISSUE_X_H: {
+      uint8_t * const read_y_l = &read_buf[2];
       issue_buf[1] = 0x11;
       if (
         (sci18is606_spi_read(read_y_l, 2) != I2C_STATUS_SUCCESS) ||
@@ -388,6 +386,7 @@ void matrix_scan_split_txn_trackball(void) {
     } 
     
     case TB_S_READ_X_H_ISSUE_Y_H: {
+      uint8_t * const read_x_h = &read_buf[1];
       issue_buf[1] = 0x12;
       if (
         (sci18is606_spi_read(read_x_h, 2) != I2C_STATUS_SUCCESS) || 
@@ -403,6 +402,7 @@ void matrix_scan_split_txn_trackball(void) {
     } 
     
     case TB_S_READ_Y_H_ISSUE_MOTION_ADD_ACC: {
+      uint8_t * const read_y_h = &read_buf[0];
       if (
         (sci18is606_spi_read(read_y_h, 2) != I2C_STATUS_SUCCESS) || 
         (sci18is606_spi_issue(issue_buf, 3) != I2C_STATUS_SUCCESS)
@@ -410,6 +410,11 @@ void matrix_scan_split_txn_trackball(void) {
         reset_trackball_state(now);
         return;
       }
+
+      uint8_t * const value_x_l = &read_buf[4];
+      uint8_t * const value_y_l = &read_buf[3];
+      uint8_t * const value_x_h = &read_buf[2];
+      uint8_t * const value_y_h = &read_buf[1];
 
       int16_t delta_x = (int16_t)(((int16_t)*value_x_h << 8) | *value_x_l);
       int16_t delta_y = (int16_t)(((int16_t)*value_y_h << 8) | *value_y_l);
