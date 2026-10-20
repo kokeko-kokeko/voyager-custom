@@ -319,6 +319,7 @@ void matrix_scan_split_txn_trackball(void) {
         paw3805ek_set_cpi();
       }
     
+      //issue_buf[1] = 0x02;
       if (sci18is606_spi_issue(issue_buf, 3) != I2C_STATUS_SUCCESS) {
         reset_trackball_state(now);
         return;
@@ -403,6 +404,7 @@ void matrix_scan_split_txn_trackball(void) {
     
     case TB_S_READ_Y_H_ISSUE_MOTION_ADD_ACC: {
       uint8_t * const read_y_h = &read_buf[0];
+      //issue_buf[1] = 0x02;
       if (
         (sci18is606_spi_read(read_y_h, 2) != I2C_STATUS_SUCCESS) || 
         (sci18is606_spi_issue(issue_buf, 3) != I2C_STATUS_SUCCESS)
