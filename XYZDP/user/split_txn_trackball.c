@@ -270,7 +270,7 @@ void matrix_scan_split_txn_trackball(void) {
   // issue_buf[1] is spi command address, default motion, update on case
   uint8_t issue_buf[3] = {0x01, 0x02, 0x00};
 
-  // buffer for keeping value
+  // buffer for keeping value, with guard
   static uint8_t read_buf[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; 
   
   // read 2 byte first 1 byte is dummy, over-write after read
