@@ -433,6 +433,7 @@ void matrix_scan_split_txn_trackball(void) {
 
 void keyboard_post_init_split_txn_trackball(void) {
     virt_layer_on(VIRT_LAYER_trackball_base_scroll);
+    
     virt_layer_off(VIRT_LAYER_trackball_base_aim);
     virt_layer_off(VIRT_LAYER_trackball_base_turbo);
 }
