@@ -46,7 +46,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
         // value to history buffer
         hist_buf[r][wr_smp] = raw[r] & row_mask[r];
 
-        // or all history value, if 1< high report press, like upstream asym
+        // bit or all history value, if 1< high report press, like upstream asym
         matrix_row_t tmp_row = 0;
         for (uint8_t s = 0; s < SAMPLE_COUNT; s++) {
             tmp_row |= hist_buf[r][s];
