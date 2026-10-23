@@ -11,15 +11,15 @@
 #endif
 
 #include "debounce.h"
-#include "timer.h"
-#include <stdlib.h>
+//#include "timer.h"
+//#include <stdlib.h>
 
 #define SAMPLE_COUNT 8
 
 static matrix_row_t hist_buf[SAMPLE_COUNT][MATRIX_ROWS] = {0};
 static uint8_t wr_idx = 0;
 
-// mask for unused cross point
+// mask for unused cross-point
 static const matrix_row_t mask_row[MATRIX_ROWS] = {
     0b01111110,
     0b01111110,
