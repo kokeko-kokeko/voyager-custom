@@ -52,6 +52,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
             tmp_row |= hist_buf[r][s];
         }
 
+        // safety, mask again
+        tmp_row &= row_mask[r];
+
         if (cooked[r] != tmp_row) {
             cooked[r] = tmp_row;
             cooked_changed = true;
