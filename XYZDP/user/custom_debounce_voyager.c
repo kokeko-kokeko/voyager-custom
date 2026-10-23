@@ -19,6 +19,7 @@
 static matrix_row_t hist_buf[SAMPLE_COUNT][MATRIX_ROWS] = {0};
 static uint8_t wr_idx = 0;
 
+// row and cooked pass from caller, keep value, not local memory
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
     // value to history buffer
     for (uint8_t r = 0; r < num_rows; r++) {
