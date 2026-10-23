@@ -14,7 +14,7 @@
 #include "timer.h"
 #include <stdlib.h>
 
-#define SAMPLE_COUNT 7
+#define SAMPLE_COUNT 8
 
 static matrix_row_t hist_buf[SAMPLE_COUNT][MATRIX_ROWS] = {0};
 static uint8_t wr_idx = 0;
