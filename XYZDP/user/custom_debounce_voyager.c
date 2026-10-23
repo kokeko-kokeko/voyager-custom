@@ -20,7 +20,7 @@ static matrix_row_t hist_buf[MATRIX_ROWS][SAMPLE_COUNT] = {0};
 static uint8_t wr_smp = 0;
 
 // mask for unused cross-point, for voyager
-static const matrix_row_t mask_row[MATRIX_ROWS] = {
+static const matrix_row_t row_mask[MATRIX_ROWS] = {
     0b01111110,
     0b01111110,
     0b01111110,
@@ -36,20 +36,23 @@ static const matrix_row_t mask_row[MATRIX_ROWS] = {
     0b01100000
 };
 
-// row and cooked pass from caller, keep value, not local memory
+// raw and cooked pass from caller, keep value, not local memory
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
     // value to history buffer
     for (uint8_t r = 0; r < num_rows; r++) {
-        hist_buf[r][wr_smp] = raw[r] & mask_row[r];
+        hist_buf[r][wr_smp] = raw[r] & row_mask[r];
     }
 
-    // update write index
+    // update write sample intex
     wr_smp++;
     if (SAMPLE_COUNT <= wr_smp) wr_smp = 0; 
 
-    // or history value, if 1< high report press, like asym
+    // cooked update flag
     bool cooked_changed = false;
+
+    // process each row
     for (uint8_t r = 0; r < num_rows; r++) {
+        // or history value, if 1< high report press, like upstream asym
         matrix_row_t tmp_row = 0;
         for (uint8_t s = 0; s < SAMPLE_COUNT; s++) {
             tmp_row |= hist_buf[r][s];
