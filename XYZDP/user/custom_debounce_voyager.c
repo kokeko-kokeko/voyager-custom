@@ -37,7 +37,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
             tmp_row |= hist_buf[s][r];
         }
 
-        if (tmp_row != cooked[r]) {
+        if (cooked[r] != tmp_row) {
             cooked[r] = tmp_row;
             cooked_changed = true;
         }
