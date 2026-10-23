@@ -38,21 +38,15 @@ static const matrix_row_t row_mask[MATRIX_ROWS] = {
 
 // raw and cooked pass from caller, keep value, not local memory
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
-    // value to history buffer
-    for (uint8_t r = 0; r < num_rows; r++) {
-        hist_buf[r][wr_smp] = raw[r] & row_mask[r];
-    }
-
-    // update write sample intex
-    wr_smp++;
-    if (SAMPLE_COUNT <= wr_smp) wr_smp = 0; 
-
     // cooked update flag
     bool cooked_changed = false;
 
     // process each row
     for (uint8_t r = 0; r < num_rows; r++) {
-        // or history value, if 1< high report press, like upstream asym
+        // value to history buffer
+        hist_buf[r][wr_smp] = raw[r] & row_mask[r];
+
+        // or all history value, if 1< high report press, like upstream asym
         matrix_row_t tmp_row = 0;
         for (uint8_t s = 0; s < SAMPLE_COUNT; s++) {
             tmp_row |= hist_buf[r][s];
@@ -63,6 +57,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
             cooked_changed = true;
         }
     }
+
+    // update write sample intex
+    wr_smp++;
+    if (SAMPLE_COUNT <= wr_smp) wr_smp = 0;
 
     return cooked_changed;
 }
