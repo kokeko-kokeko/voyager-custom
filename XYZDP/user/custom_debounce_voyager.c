@@ -19,11 +19,28 @@
 static matrix_row_t hist_buf[SAMPLE_COUNT][MATRIX_ROWS] = {0};
 static uint8_t wr_idx = 0;
 
+// mask for unused cross point
+static const matrix_row_t mask_row[MATRIX_ROWS] = {
+    0b01111110,
+    0b01111110,
+    0b01111110,
+    0b00111110,
+    0b00010000,
+    0b00000011,
+
+    0b00111111,
+    0b00111111,
+    0b00111111,
+    0b00111110,
+    0b00000100,
+    0b01100000
+};
+
 // row and cooked pass from caller, keep value, not local memory
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
     // value to history buffer
     for (uint8_t r = 0; r < num_rows; r++) {
-        hist_buf[wr_idx][r] = raw[r];
+        hist_buf[wr_idx][r] = raw[r] & mask_row[r];
     }
 
     // update write index
