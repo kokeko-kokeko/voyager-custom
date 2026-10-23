@@ -11,7 +11,7 @@
             "flow_tap_term": 199
         },
         "build": {
-            "debounce_type": "asym_eager_defer_pk",
+            "debounce_type": "custom",
             "firmware_format": "bin",
             "lto": true
         },
