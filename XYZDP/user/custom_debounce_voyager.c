@@ -78,15 +78,16 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     
     // sample or valid history
     for (uint8_t s = 0; s < SAMPLE_COUNT; s++) {
-        // non valid skip
+        // non valid sample skip
         if (hist_valid[s] == false) continue;
 
-        // expired time, flag reset skip
+        // expired time, flag reset & skip
         if (timer_expired_fast(now, hist_exp_time[s]) == true) {
             hist_valid[s] = false; 
             continue;
         }
         
+        // or sample
         for (uint8_t r = 0; r < num_rows; r++) {
             tmp_row[r] |= hist_buf[s][r];  
         }
