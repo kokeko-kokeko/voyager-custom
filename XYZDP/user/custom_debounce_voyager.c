@@ -11,8 +11,18 @@
 #endif
 
 #include "debounce.h"
-//#include "timer.h"
-//#include <stdlib.h>
+#include "timer.h"
+#include <stdlib.h>
+
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
+#endif
+
+// Maximum debounce: 255ms
+#if DEBOUNCE > UINT8_MAX
+#    undef DEBOUNCE
+#    define DEBOUNCE UINT8_MAX
+#endif
 
 #define SAMPLE_COUNT 8
 
