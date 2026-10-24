@@ -89,7 +89,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
             continue;
         }
         
-        // or sample
+        // valid or sample
         for (uint8_t r = 0; r < num_rows; r++) {
             tmp_cooked[r] |= hist_data_buf[s][r];  
         }
