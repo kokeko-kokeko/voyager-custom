@@ -26,9 +26,10 @@
 
 #define SAMPLE_COUNT 8
 
-static matrix_row_t hist_data_buf[SAMPLE_COUNT][MATRIX_ROWS] = {0};
-static fast_timer_t hist_exp_time[SAMPLE_COUNT] = {0};
 static bool hist_valid[SAMPLE_COUNT] = {false};
+static fast_timer_t hist_exp_time[SAMPLE_COUNT] = {0};
+
+static matrix_row_t hist_data_buf[SAMPLE_COUNT][MATRIX_ROWS] = {0};
 
 static uint8_t wr_smp = 0;
 
@@ -57,14 +58,14 @@ static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
     const fast_timer_t now = timer_read_fast();
 
-    // chagde, write history buffer
+    // chagde, write history buffer & flag
     if (changed) {
+        hist_valid[wr_smp] = true;
+        hist_exp_time[wr_smp] = now + DEBOUNCE;
+
         for (uint8_t r = 0; r < num_rows; r++) {
-            // value to history buffer
             hist_data_buf[wr_smp][r] = raw[r] & matrix_mask[r];
         }
-        hist_exp_time[wr_smp] = now + DEBOUNCE;
-        hist_valid[wr_smp] = true;
 
         // update write sample intex
         wr_smp++;
@@ -112,11 +113,12 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
 void debounce_init(uint8_t num_rows) {
     for (uint8_t s = 0; s < SAMPLE_COUNT; s++) {
+        hist_valid[s] = false;
+        hist_exp_time[s] = 0;
+        
         for (uint8_t r = 0; r < num_rows; r++) {
             hist_data_buf[s][r] = 0;
         }
-        hist_exp_time[s] = 0;
-        hist_valid[s] = false;
     }
     wr_smp = 0;
 }
