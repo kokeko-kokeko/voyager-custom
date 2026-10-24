@@ -18,11 +18,12 @@
 #    define DEBOUNCE 5
 #endif
 
+// no-debounce limit
 // Maximum debounce: 255ms
-#if DEBOUNCE > UINT8_MAX
-#    undef DEBOUNCE
-#    define DEBOUNCE UINT8_MAX
-#endif
+//#if DEBOUNCE > UINT8_MAX
+//#    undef DEBOUNCE
+//#    define DEBOUNCE UINT8_MAX
+//#endif
 
 #define HISTORY_SAMPLE_COUNT 8
 
