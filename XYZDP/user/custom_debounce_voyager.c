@@ -59,26 +59,30 @@ static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
     const fast_timer_t now = timer_read_fast();
 
-    // chagde, write history buffer & flag
     if (changed) {
+        // chagde, write history buffer & flag
         hist_valid[wr_s_idx] = true;
         hist_exp_time[wr_s_idx] = now + DEBOUNCE;
-
+        
         for (uint8_t r = 0; r < num_rows; r++) {
-            hist_data[wr_s_idx][r] = raw[r] & matrix_mask[r];
+            const matrix_row_t tmp_row = raw[r] & matrix_mask[r]; 
+
+            hist_data[wr_s_idx][r] = tmp_row;
+            tmp_cooked[r] = tmp_row;
         }
 
         // update write sample index
         wr_s_idx++;
         if (HISTORY_SAMPLE_COUNT <= wr_s_idx) wr_s_idx = 0;
+    } else {
+        // non change, only tmp update
+        for (uint8_t r = 0; r < num_rows; r++) {
+            const matrix_row_t tmp_row = raw[r] & matrix_mask[r]; 
+            
+            tmp_cooked[r] = tmp_row;
+        }
     }
 
-    // init tmp current value
-    for (uint8_t r = 0; r < num_rows; r++) {
-        // safety, mask again
-        tmp_cooked[r] = raw[r] & matrix_mask[r];
-    }
-    
     // sample or valid history
     for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
         // non valid sample skip
