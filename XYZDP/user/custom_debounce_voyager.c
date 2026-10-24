@@ -32,10 +32,10 @@ static bool hist_valid[SAMPLE_COUNT] = {false};
 
 static uint8_t wr_smp = 0;
 
-static matrix_row_t tmp_row[MATRIX_ROWS] = {0};
+static matrix_row_t tmp_cooked[MATRIX_ROWS] = {0};
 
-// mask for unused cross-point, for voyager
-static const matrix_row_t row_mask[MATRIX_ROWS] = {
+// mask for unused cross-point, for voyager only
+static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
     0b01111110,
     0b01111110,
     0b01111110,
@@ -61,7 +61,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     if (changed) {
         for (uint8_t r = 0; r < num_rows; r++) {
             // value to history buffer
-            hist_data_buf[wr_smp][r] = raw[r] & row_mask[r];
+            hist_data_buf[wr_smp][r] = raw[r] & matrix_mask[r];
         }
         hist_exp_time[wr_smp] = now + DEBOUNCE;
         hist_valid[wr_smp] = true;
@@ -73,7 +73,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
     // init tmp current value
     for (uint8_t r = 0; r < num_rows; r++) {
-        tmp_row[r] = raw[r];
+        // safety, mask again
+        tmp_cooked[r] = raw[r] & matrix_mask[r];
     }
     
     // sample or valid history
@@ -89,7 +90,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
         
         // or sample
         for (uint8_t r = 0; r < num_rows; r++) {
-            tmp_row[r] |= hist_data_buf[s][r];  
+            tmp_cooked[r] |= hist_data_buf[s][r];  
         }
     }
 
@@ -98,10 +99,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
     for (uint8_t r = 0; r < num_rows; r++) {
         // safety, mask again
-        tmp_row[r] &= row_mask[r];
+        tmp_cooked[r] &= matrix_mask[r];
 
-        if (cooked[r] != tmp_row[r]) {
-            cooked[r] = tmp_row[r];
+        if (cooked[r] != tmp_cooked[r]) {
+            cooked[r] = tmp_cooked[r];
             cooked_changed = true;
         }
     }
