@@ -26,7 +26,7 @@
 
 #define SAMPLE_COUNT 8
 
-static matrix_row_t hist_buf[SAMPLE_COUNT][MATRIX_ROWS] = {0};
+static matrix_row_t hist_data_buf[SAMPLE_COUNT][MATRIX_ROWS] = {0};
 static fast_timer_t hist_exp_time[SAMPLE_COUNT] = {0};
 static bool hist_valid[SAMPLE_COUNT] = {false};
 
@@ -61,7 +61,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     if (changed) {
         for (uint8_t r = 0; r < num_rows; r++) {
             // value to history buffer
-            hist_buf[wr_smp][r] = raw[r] & row_mask[r];
+            hist_data_buf[wr_smp][r] = raw[r] & row_mask[r];
         }
         hist_exp_time[wr_smp] = now + DEBOUNCE;
         hist_valid[wr_smp] = true;
@@ -89,7 +89,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
         
         // or sample
         for (uint8_t r = 0; r < num_rows; r++) {
-            tmp_row[r] |= hist_buf[s][r];  
+            tmp_row[r] |= hist_data_buf[s][r];  
         }
     }
 
@@ -112,7 +112,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 void debounce_init(uint8_t num_rows) {
     for (uint8_t s = 0; s < SAMPLE_COUNT; s++) {
         for (uint8_t r = 0; r < num_rows; r++) {
-            hist_buf[s][r] = 0;
+            hist_data_buf[s][r] = 0;
         }
         hist_exp_time[s] = 0;
         hist_valid[s] = false;
