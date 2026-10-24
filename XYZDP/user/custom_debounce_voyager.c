@@ -27,7 +27,11 @@
 #define SAMPLE_COUNT 8
 
 static matrix_row_t hist_buf[SAMPLE_COUNT][MATRIX_ROWS] = {0};
+static fast_timer_t hist_exp_time[SAMPLE_COUNT] = {0};
+
 static uint8_t wr_smp = 0;
+
+static matrix_row_t tmp_row[MATRIX_ROWS] = {0};
 
 // mask for unused cross-point, for voyager
 static const matrix_row_t row_mask[MATRIX_ROWS] = {
@@ -50,32 +54,48 @@ static const matrix_row_t row_mask[MATRIX_ROWS] = {
 // raw is must read-only, not write
 // cooked is result
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
-    // cooked update flag
-    bool cooked_changed = false;
+    const fast_timer_t now = timer_read_fast();
 
-    // process each row
-    for (uint8_t r = 0; r < num_rows; r++) {
-        // value to history buffer
-        hist_buf[wr_smp][r] = raw[r] & row_mask[r];
-
-        // bit or all history value, if 1< high report press, like upstream asym
-        matrix_row_t tmp_row = 0;
-        for (uint8_t s = 0; s < SAMPLE_COUNT; s++) {
-            tmp_row |= hist_buf[s][r];
+    // chagde, write history buffer
+    if (changed) {
+        for (uint8_t r = 0; r < num_rows; r++) {
+            // value to history buffer
+            hist_buf[wr_smp][r] = raw[r] & row_mask[r];
         }
+        hist_exp_time[wr_smp] = now + DEBOUNCE;
 
-        // safety, mask again
-        tmp_row &= row_mask[r];
+        // update write sample intex
+        wr_smp++;
+        if (SAMPLE_COUNT <= wr_smp) wr_smp = 0;
+    }
 
-        if (cooked[r] != tmp_row) {
-            cooked[r] = tmp_row;
-            cooked_changed = true;
+    // init tmp current value
+    for (uint8_t r = 0; r < num_rows; r++) {
+        tmp_row[r] = raw[r];
+    }
+    
+    // sample or valid history
+    for (uint8_t s = 0; s < SAMPLE_COUNT; s++) {
+        // if expied, nothing to do
+        if (timer_expired_fast(now, hist_exp_time[s]) == true) continue;
+        
+        for (uint8_t r = 0; r < num_rows; r++) {
+            tmp_row[r] |= hist_buf[s][r];  
         }
     }
 
-    // update write sample intex
-    wr_smp++;
-    if (SAMPLE_COUNT <= wr_smp) wr_smp = 0;
+    // apply cooked update
+    bool cooked_changed = false;
+
+    for (uint8_t r = 0; r < num_rows; r++) {
+        // safety, mask again
+        tmp_row[r] &= row_mask[r];
+
+        if (cooked[r] != tmp_row[r]) {
+            cooked[r] = tmp_row[r];
+            cooked_changed = true;
+        }
+    }
 
     return cooked_changed;
 }
@@ -85,6 +105,7 @@ void debounce_init(uint8_t num_rows) {
         for (uint8_t r = 0; r < num_rows; r++) {
             hist_buf[s][r] = 0;
         }
+        hist_exp_time[s] = (UINT32_MAX / 2) - 1;;
     }
     wr_smp = 0;
 }
