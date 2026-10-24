@@ -28,6 +28,7 @@
 
 static matrix_row_t hist_buf[SAMPLE_COUNT][MATRIX_ROWS] = {0};
 static fast_timer_t hist_exp_time[SAMPLE_COUNT] = {0};
+static bool hist_valid[SAMPLE_COUNT] = {false};
 
 static uint8_t wr_smp = 0;
 
@@ -63,6 +64,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
             hist_buf[wr_smp][r] = raw[r] & row_mask[r];
         }
         hist_exp_time[wr_smp] = now + DEBOUNCE;
+        hist_valid[wr_smp] = true;
 
         // update write sample intex
         wr_smp++;
@@ -76,8 +78,14 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     
     // sample or valid history
     for (uint8_t s = 0; s < SAMPLE_COUNT; s++) {
-        // if expied, nothing to do
-        if (timer_expired_fast(now, hist_exp_time[s]) == true) continue;
+        // non valid skip
+        if (hist_valid[s] == false) continue;
+
+        // expired time, flag reset skip
+        if (timer_expired_fast(now, hist_exp_time[s]) == true) {
+            hist_valid[s] = false; 
+            continue;
+        }
         
         for (uint8_t r = 0; r < num_rows; r++) {
             tmp_row[r] |= hist_buf[s][r];  
@@ -105,7 +113,8 @@ void debounce_init(uint8_t num_rows) {
         for (uint8_t r = 0; r < num_rows; r++) {
             hist_buf[s][r] = 0;
         }
-        hist_exp_time[s] = (UINT32_MAX / 2) - 1;;
+        hist_exp_time[s] = 0;
+        hist_valid[s] = false;
     }
     wr_smp = 0;
 }
