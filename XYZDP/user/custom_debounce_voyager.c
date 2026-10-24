@@ -60,7 +60,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     const fast_timer_t now = timer_read_fast();
 
     if (changed) {
-        // chagde, write history buffer & flag
+        // chagde, write history buffer & flag & tmp
         hist_valid[wr_s_idx] = true;
         hist_exp_time[wr_s_idx] = now + DEBOUNCE;
         
@@ -78,7 +78,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
         // non change, only tmp update
         for (uint8_t r = 0; r < num_rows; r++) {
             const matrix_row_t tmp_row = raw[r] & matrix_mask[r]; 
-            
+
             tmp_cooked[r] = tmp_row;
         }
     }
