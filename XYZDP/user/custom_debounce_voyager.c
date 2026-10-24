@@ -26,7 +26,7 @@
 
 #define SAMPLE_COUNT 8
 
-static matrix_row_t hist_buf[MATRIX_ROWS][SAMPLE_COUNT] = {0};
+static matrix_row_t hist_buf[SAMPLE_COUNT][MATRIX_ROWS] = {0};
 static uint8_t wr_smp = 0;
 
 // mask for unused cross-point, for voyager
@@ -47,6 +47,8 @@ static const matrix_row_t row_mask[MATRIX_ROWS] = {
 };
 
 // raw and cooked pass from caller, keep value, not local memory
+// raw is must read-only, not write
+// cooked is result
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
     // cooked update flag
     bool cooked_changed = false;
@@ -54,12 +56,12 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     // process each row
     for (uint8_t r = 0; r < num_rows; r++) {
         // value to history buffer
-        hist_buf[r][wr_smp] = raw[r] & row_mask[r];
+        hist_buf[wr_smp][r] = raw[r] & row_mask[r];
 
         // bit or all history value, if 1< high report press, like upstream asym
         matrix_row_t tmp_row = 0;
         for (uint8_t s = 0; s < SAMPLE_COUNT; s++) {
-            tmp_row |= hist_buf[r][s];
+            tmp_row |= hist_buf[s][r];
         }
 
         // safety, mask again
@@ -79,9 +81,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 }
 
 void debounce_init(uint8_t num_rows) {
-    for (uint8_t r = 0; r < num_rows; r++) {
-        for (uint8_t s = 0; s < SAMPLE_COUNT; s++) {
-            hist_buf[r][s] = 0;
+    for (uint8_t s = 0; s < SAMPLE_COUNT; s++) {
+        for (uint8_t r = 0; r < num_rows; r++) {
+            hist_buf[s][r] = 0;
         }
     }
     wr_smp = 0;
