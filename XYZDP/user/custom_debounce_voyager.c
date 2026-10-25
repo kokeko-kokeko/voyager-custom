@@ -25,6 +25,11 @@
 //#    define DEBOUNCE UINT8_MAX
 //#endif
 
+#if DEBOUNCE <= 0
+#    undef DEBOUNCE
+#    define DEBOUNCE 1
+#endif
+
 #ifndef HISTORY_SAMPLE_COUNT
 #    define HISTORY_SAMPLE_COUNT (DEBOUNCE+1)
 #endif
