@@ -25,7 +25,9 @@
 //#    define DEBOUNCE UINT8_MAX
 //#endif
 
-#define HISTORY_SAMPLE_COUNT 8
+#ifndef HISTORY_SAMPLE_COUNT
+#    define HISTORY_SAMPLE_COUNT (DEBOUNCE+1)
+#endif
 
 static bool hist_valid[HISTORY_SAMPLE_COUNT] = {false};
 static fast_timer_t hist_exp_time[HISTORY_SAMPLE_COUNT] = {0};
