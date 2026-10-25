@@ -18,12 +18,11 @@
 #    define DEBOUNCE 5
 #endif
 
-// no-debounce limit
 // Maximum debounce: 255ms
-//#if DEBOUNCE > UINT8_MAX
-//#    undef DEBOUNCE
-//#    define DEBOUNCE UINT8_MAX
-//#endif
+#if DEBOUNCE > UINT8_MAX
+#    undef DEBOUNCE
+#    define DEBOUNCE UINT8_MAX
+#endif
 
 #if DEBOUNCE <= 0
 #    undef DEBOUNCE
@@ -32,6 +31,12 @@
 
 #ifndef HISTORY_SAMPLE_COUNT
 #    define HISTORY_SAMPLE_COUNT (DEBOUNCE+1)
+#endif
+
+// Maximum buffer: 255
+#if HISTORY_SAMPLE_COUNT > UINT8_MAX
+#    undef HISTORY_SAMPLE_COUNT
+#    define HISTORY_SAMPLE_COUNT UINT8_MAX
 #endif
 
 static bool hist_valid[HISTORY_SAMPLE_COUNT] = {false};
