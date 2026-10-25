@@ -30,7 +30,7 @@
 #endif
 
 #ifndef HISTORY_SAMPLE_COUNT
-#    define HISTORY_SAMPLE_COUNT (DEBOUNCE+1)
+#    define HISTORY_SAMPLE_COUNT (DEBOUNCE+2)
 #endif
 
 // Maximum buffer: 255
