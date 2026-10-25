@@ -79,7 +79,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     } else {
         // non change, only tmp update
         for (uint8_t r = 0; r < num_rows; r++) {
-            tmp_cooked[r] = raw[r] & matrix_mask[r]; 
+            const matrix_row_t tmp_row = raw[r] & matrix_mask[r]; 
+
+            tmp_cooked[r] = tmp_row; 
         }
     }
 
