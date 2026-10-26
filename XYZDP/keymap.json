@@ -15,7 +15,7 @@
             "firmware_format": "bin",
             "lto": true
         },
-        "debounce": 5,
+        "debounce": 3,
         "eeprom": {
             "driver": "transient"
         },
