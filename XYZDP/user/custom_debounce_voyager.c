@@ -156,6 +156,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 }
 
 void debounce_init(uint8_t num_rows) {
+    // only reset flags
     hist_valid_g = false;
     //hist_exp_time_g = 0;
 
