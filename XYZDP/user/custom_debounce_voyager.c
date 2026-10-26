@@ -58,6 +58,8 @@ static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS] = {0};
 
 static uint8_t wr_s_idx = 0;
 
+// memory previus changed status
+static bool cooked_changed = true;
 static matrix_row_t tmp_cooked[MATRIX_ROWS] = {0};
 
 // mask for unused cross-point, for voyager only
@@ -102,11 +104,13 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
         wr_s_idx++;
         if (HISTORY_SAMPLE_COUNT <= wr_s_idx) wr_s_idx = 0;
     } else {
-        // non change, only tmp update
-        for (uint8_t r = 0; r < num_rows; r++) {
-            const matrix_row_t tmp_row = raw[r] & matrix_mask[r]; 
-
-            tmp_cooked[r] = tmp_row; 
+        // non change, if valid history or last cooked change update tmp
+        if(hist_valid_g || cooked_changed) {
+            for (uint8_t r = 0; r < num_rows; r++) {
+                const matrix_row_t tmp_row = raw[r] & matrix_mask[r]; 
+                
+                tmp_cooked[r] = tmp_row; 
+            }
         }
     }
 
@@ -139,8 +143,11 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
         }
     }
 
+    // no history and no last change, nothing to do
+    if((hist_valid_g || cooked_changed) == false) return false;
+
     // apply cooked update
-    bool cooked_changed = false;
+    cooked_changed = false;
 
     for (uint8_t r = 0; r < num_rows; r++) {
         // safety, mask again
@@ -168,7 +175,11 @@ void debounce_init(uint8_t num_rows) {
         //    hist_data[s][r] = 0;
         //}
     }
+
     wr_s_idx = 0;
+
+    // init for run transfer
+    cooked_changed = true;
 }
 
 void debounce_free(void) {
