@@ -157,15 +157,15 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
 void debounce_init(uint8_t num_rows) {
     hist_valid_g = false;
-    hist_exp_time_g = 0;
+    //hist_exp_time_g = 0;
 
     for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
         hist_valid_s[s] = false;
-        hist_exp_time_s[s] = 0;
+        //hist_exp_time_s[s] = 0;
         
-        for (uint8_t r = 0; r < num_rows; r++) {
-            hist_data[s][r] = 0;
-        }
+        //for (uint8_t r = 0; r < num_rows; r++) {
+        //    hist_data[s][r] = 0;
+        //}
     }
     wr_s_idx = 0;
 }
