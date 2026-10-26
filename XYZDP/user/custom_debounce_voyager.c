@@ -115,6 +115,11 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
             // global valid flag clear
             // hist_exp_time_g, last timestamp skip all
             hist_valid_g = false;
+
+            // safety all sample valid clear
+            for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
+                hist_valid_s[s] = false;
+            }
         } else {
             // sample each history
             for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
