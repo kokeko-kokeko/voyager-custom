@@ -30,7 +30,7 @@
 #endif
 
 #ifndef HISTORY_SAMPLE_COUNT
-#    define HISTORY_SAMPLE_COUNT (DEBOUNCE+2)
+#    define HISTORY_SAMPLE_COUNT (DEBOUNCE+1)
 #endif
 
 // Maximum buffer: 255
@@ -39,7 +39,17 @@
 #    define HISTORY_SAMPLE_COUNT UINT8_MAX
 #endif
 
-static bool hist_valid[HISTORY_SAMPLE_COUNT] = {false};
+//
+//
+// history-base time domain or debounce logic
+// like upstream asym_eager_defer_pk waveform
+// mone light process
+//
+//
+
+// 2-level valid flag, global & each sample
+static bool hist_valid_g = false;
+static bool hist_valid_s[HISTORY_SAMPLE_COUNT] = {false};
 static fast_timer_t hist_exp_time[HISTORY_SAMPLE_COUNT] = {0};
 
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS] = {0};
@@ -73,7 +83,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
     if (changed) {
         // chagde, write history buffer & flag & tmp
-        hist_valid[wr_s_idx] = true;
+        hist_valid_g = true;
+        hist_valid_s[wr_s_idx] = true;
         hist_exp_time[wr_s_idx] = now + DEBOUNCE;
         
         for (uint8_t r = 0; r < num_rows; r++) {
@@ -95,20 +106,28 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
         }
     }
 
-    // sample or valid history
-    for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
-        // non valid sample skip
-        if (hist_valid[s] == false) continue;
+    if (hist_valid_g) {
+        // global valid flag first clear, before search
+        hist_valid_g = false;
 
-        // expired time, flag reset & skip
-        if (timer_expired_fast(now, hist_exp_time[s]) == true) {
-            hist_valid[s] = false; 
-            continue;
-        }
+        // sample or valid history
+        for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
+            // non valid sample skip
+            if (hist_valid_s[s] == false) continue;
+
+            // expired time, flag reset & skip
+            if (timer_expired_fast(now, hist_exp_time[s]) == true) {
+                hist_valid_s[s] = false; 
+                continue;
+            }
+
+            // hit sample, global valid flag set
+            hist_valid_g = true;
         
-        // valid or sample
-        for (uint8_t r = 0; r < num_rows; r++) {
-            tmp_cooked[r] |= hist_data[s][r];  
+            // valid or sample
+            for (uint8_t r = 0; r < num_rows; r++) {
+                    tmp_cooked[r] |= hist_data[s][r];  
+            }
         }
     }
 
@@ -129,8 +148,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 }
 
 void debounce_init(uint8_t num_rows) {
+    hist_valid_g = false;
     for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
-        hist_valid[s] = false;
+        hist_valid_s[s] = false;
         hist_exp_time[s] = 0;
         
         for (uint8_t r = 0; r < num_rows; r++) {
