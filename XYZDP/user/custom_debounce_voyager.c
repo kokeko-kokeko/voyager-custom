@@ -104,7 +104,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
         wr_s_idx++;
         if (HISTORY_SAMPLE_COUNT <= wr_s_idx) wr_s_idx = 0;
     } else {
-        // non change, if valid history or last cooked change update tmp
+        // non change, if valid history or last cooked change transfer tmp
         if(hist_valid_g || cooked_changed) {
             for (uint8_t r = 0; r < num_rows; r++) {
                 const matrix_row_t tmp_row = raw[r] & matrix_mask[r]; 
