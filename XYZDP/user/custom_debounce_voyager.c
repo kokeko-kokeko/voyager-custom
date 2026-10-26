@@ -58,7 +58,7 @@ static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS] = {0};
 
 static uint8_t wr_s_idx = 0;
 
-// memory previus changed status
+// memory previus changed status and tmp data
 static bool cooked_changed = true;
 static matrix_row_t tmp_cooked[MATRIX_ROWS] = {0};
 
