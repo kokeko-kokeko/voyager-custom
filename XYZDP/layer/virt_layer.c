@@ -158,7 +158,7 @@ bool virt_layer_state_cmp(layer_state_t state, const uint8_t virt_layer) {
 }
 
 uint8_t get_highest_virt_layer(const layer_state_t state) {
-    for (uint8_t i = VIRT_LAYER_COUNT - 1; i >= 0; i--) {
+    for (uint8_t i = VIRT_LAYER_COUNT - 1; i > 0; i--) {
         if (virt_layer_state_cmp(state, i)) return (uint8_t)i;
     }
     return 0;
