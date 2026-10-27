@@ -158,7 +158,7 @@ static bool process_record_flexible_behavior_skel(const flexible_behavior_conf_t
   };
 
   // search behavior loop
-  for (int i = 0; i < 3; i++) {
+  for (uint8_t i = 0; i < 3; i++) {
     if (behav[i].op_id == FB_NOP) {
       continue;
     }

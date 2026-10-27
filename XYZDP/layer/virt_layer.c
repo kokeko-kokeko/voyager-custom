@@ -158,7 +158,7 @@ bool virt_layer_state_cmp(layer_state_t state, const uint8_t virt_layer) {
 }
 
 uint8_t get_highest_virt_layer(const layer_state_t state) {
-    for (int i = VIRT_LAYER_COUNT - 1; i >= 0; i--) {
+    for (uint8_t i = VIRT_LAYER_COUNT - 1; i >= 0; i--) {
         if (virt_layer_state_cmp(state, i)) return (uint8_t)i;
     }
     return 0;
@@ -212,7 +212,7 @@ layer_state_t layer_state_set_virt_layer(layer_state_t state) {
     bool tmp_update_v[VIRT_LAYER_COUNT] = {0};
     
     // scan tri layer combination
-    for (int i = 0; i < TRI_LAYER_COUNT; i++) {
+    for (uint8_t i = 0; i < TRI_LAYER_COUNT; i++) {
         tmp_state_v[tri_layer_tbl_v_v_v[i][0]] = tmp_state_v[tri_layer_tbl_v_v_v[i][0]] ||
         (
             virt_layer_state_cmp(state, tri_layer_tbl_v_v_v[i][1]) &&
@@ -223,7 +223,7 @@ layer_state_t layer_state_set_virt_layer(layer_state_t state) {
     }
 
     // apply update to virt cache and phys ref count
-    for (int v = 0; v < VIRT_LAYER_COUNT; v++) {
+    for (uint8_t v = 0; v < VIRT_LAYER_COUNT; v++) {
         if (tmp_update_v[v] == false) {
             // update cache from phys, dummy read
             virt_layer_state_cmp(state, v);
@@ -243,7 +243,7 @@ layer_state_t layer_state_set_virt_layer(layer_state_t state) {
     }
 
     // phys ref count to qmk side bitmask
-    for (int p = 0; p < PHYS_LAYER_COUNT; p++) {
+    for (uint8_t p = 0; p < PHYS_LAYER_COUNT; p++) {
         // other source, skip not use ref count
         if (p_has_other_source[p] == true) continue;
         
