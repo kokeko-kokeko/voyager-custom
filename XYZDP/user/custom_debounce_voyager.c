@@ -85,8 +85,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     const fast_timer_t now = timer_read_fast();
 
     if (changed) {
-        // chagde
-        // write history buffer & tmp_cooked
+        // raw value chagde
+        // transfer history buffer & tmp_cooked
+        // flag & expire time set
         hist_valid[wr_s_idx] = true;
         hist_exp_time[wr_s_idx] = now + DEBOUNCE;
         
