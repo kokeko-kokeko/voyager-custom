@@ -49,11 +49,8 @@
 
 // 2-level valid flag & expired time, global & each sample
 // use last_s_idx for last value
-//static bool hist_valid_g = false;
-//static fast_timer_t hist_exp_time_g = 0;
-
-static bool hist_valid_s[HISTORY_SAMPLE_COUNT] = {false};
-static fast_timer_t hist_exp_time_s[HISTORY_SAMPLE_COUNT] = {0};
+static bool hist_valid[HISTORY_SAMPLE_COUNT] = {false};
+static fast_timer_t hist_exp_time[HISTORY_SAMPLE_COUNT] = {0};
 
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS] = {0};
 
@@ -89,12 +86,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
     if (changed) {
         // chagde
-        // write history buffer & flag & tmp
-        //hist_valid_g = true;
-        //hist_exp_time_g = now + DEBOUNCE;
-
-        hist_valid_s[wr_s_idx] = true;
-        hist_exp_time_s[wr_s_idx] = now + DEBOUNCE;
+        // write history buffer
+        hist_valid[wr_s_idx] = true;
+        hist_exp_time[wr_s_idx] = now + DEBOUNCE;
         
         for (uint8_t r = 0; r < num_rows; r++) {
             const matrix_row_t tmp_row = raw[r] & matrix_mask[r]; 
@@ -103,14 +97,14 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
             tmp_cooked[r] = tmp_row;
         }
 
-        // update last & write sample index
+        // last is last write index, update write index
         last_s_idx = wr_s_idx;
         wr_s_idx++;
         if (HISTORY_SAMPLE_COUNT <= wr_s_idx) wr_s_idx = 0;
     } else {
         // non change
         // if valid history or last cooked change transfer tmp
-        if(hist_valid_s[last_s_idx] || cooked_changed) {
+        if(hist_valid[last_s_idx] || cooked_changed) {
             for (uint8_t r = 0; r < num_rows; r++) {
                 const matrix_row_t tmp_row = raw[r] & matrix_mask[r]; 
                 
@@ -119,24 +113,20 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
         }
     }
 
-    if (hist_valid_s[last_s_idx]) {
-        if (timer_expired_fast(now, hist_exp_time_s[last_s_idx]) == true) {
-            // global valid flag clear
-            // hist_exp_time_g, last timestamp skip all
-            //hist_valid_g = false;
-
-            // safety all sample valid clear
+    if (hist_valid[last_s_idx]) {
+        if (timer_expired_fast(now, hist_exp_time[last_s_idx]) == true) {
+            // all valid flag clear
             for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
-                hist_valid_s[s] = false;
+                hist_valid[s] = false;
             }
         } else {
-            // sample each history
+            // process each history sample
             for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
-                // same as global, loop little deep
-                if (hist_valid_s[s]) {
-                    if (timer_expired_fast(now, hist_exp_time_s[s]) == true) {
+                // same as global(last), loop little deep
+                if (hist_valid[s]) {
+                    if (timer_expired_fast(now, hist_exp_time[s]) == true) {
                         // expired time, flag reset
-                        hist_valid_s[s] = false;
+                        hist_valid[s] = false;
                     } else {
                         // valid sample or to tmp
                         for (uint8_t r = 0; r < num_rows; r++) {
@@ -150,7 +140,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
     // no history and no last change, nothing to do
     // same as if valid history or last cooked change transfer tmp
-    if(hist_valid_s[last_s_idx] || cooked_changed) {
+    if(hist_valid[last_s_idx] || cooked_changed) {
         // apply cooked update
         cooked_changed = false;
 
@@ -170,16 +160,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
 void debounce_init(uint8_t num_rows) {
     // only reset flags
-    //hist_valid_g = false;
-    //hist_exp_time_g = 0;
-
     for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
-        hist_valid_s[s] = false;
-        //hist_exp_time_s[s] = 0;
-        
-        //for (uint8_t r = 0; r < num_rows; r++) {
-        //    hist_data[s][r] = 0;
-        //}
+        hist_valid[s] = false;
     }
 
     last_s_idx = 0;
