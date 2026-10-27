@@ -86,7 +86,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
     if (changed) {
         // chagde
-        // write history buffer
+        // write history buffer & tmp_cooked
         hist_valid[wr_s_idx] = true;
         hist_exp_time[wr_s_idx] = now + DEBOUNCE;
         
@@ -131,7 +131,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
         }
     }
 
-    // change is vilid history or last ccooked
+    // change is vilid history or last cooked_changed
     // no-change nothing to do
     if(hist_valid[last_s_idx] || cooked_changed) {
         // apply cooked update
