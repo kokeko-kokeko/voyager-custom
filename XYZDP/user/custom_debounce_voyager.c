@@ -150,6 +150,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
             // safety, mask again
             tmp_cooked[r] &= matrix_mask[r];
             
+            // if diff, tmp to final value
             if (cooked[r] != tmp_cooked[r]) {
                 // update cooked
                 cooked[r] = tmp_cooked[r];
