@@ -87,6 +87,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     if (changed) {
         // raw value chagde
         // transfer history buffer & tmp_cooked
+        // must update tmp_cooked
         // flag & expire time set
         hist_valid[wr_s_idx] = true;
         hist_exp_time[wr_s_idx] = now + DEBOUNCE;
