@@ -48,14 +48,16 @@
 //
 
 // 2-level valid flag & expired time, global & each sample
-static bool hist_valid_g = false;
-static fast_timer_t hist_exp_time_g = 0;
+// use last_s_idx for last value
+//static bool hist_valid_g = false;
+//static fast_timer_t hist_exp_time_g = 0;
 
 static bool hist_valid_s[HISTORY_SAMPLE_COUNT] = {false};
 static fast_timer_t hist_exp_time_s[HISTORY_SAMPLE_COUNT] = {0};
 
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS] = {0};
 
+static uint8_t last_s_idx = 0;
 static uint8_t wr_s_idx = 0;
 
 // memory previus changed status and tmp data
@@ -88,8 +90,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     if (changed) {
         // chagde
         // write history buffer & flag & tmp
-        hist_valid_g = true;
-        hist_exp_time_g = now + DEBOUNCE;
+        //hist_valid_g = true;
+        //hist_exp_time_g = now + DEBOUNCE;
 
         hist_valid_s[wr_s_idx] = true;
         hist_exp_time_s[wr_s_idx] = now + DEBOUNCE;
@@ -101,13 +103,14 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
             tmp_cooked[r] = tmp_row;
         }
 
-        // update write sample index
+        // update last & write sample index
+        last_s_idx = wr_s_idx;
         wr_s_idx++;
         if (HISTORY_SAMPLE_COUNT <= wr_s_idx) wr_s_idx = 0;
     } else {
         // non change
         // if valid history or last cooked change transfer tmp
-        if(hist_valid_g || cooked_changed) {
+        if(hist_valid_s[last_s_idx] || cooked_changed) {
             for (uint8_t r = 0; r < num_rows; r++) {
                 const matrix_row_t tmp_row = raw[r] & matrix_mask[r]; 
                 
@@ -116,11 +119,11 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
         }
     }
 
-    if (hist_valid_g) {
-        if (timer_expired_fast(now, hist_exp_time_g) == true) {
+    if (hist_valid_s[last_s_idx]) {
+        if (timer_expired_fast(now, hist_exp_time_s[last_s_idx]) == true) {
             // global valid flag clear
             // hist_exp_time_g, last timestamp skip all
-            hist_valid_g = false;
+            //hist_valid_g = false;
 
             // safety all sample valid clear
             for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
@@ -147,7 +150,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
     // no history and no last change, nothing to do
     // same as if valid history or last cooked change transfer tmp
-    if(hist_valid_g || cooked_changed) {
+    if(hist_valid_s[last_s_idx] || cooked_changed) {
         // apply cooked update
         cooked_changed = false;
 
@@ -167,7 +170,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
 void debounce_init(uint8_t num_rows) {
     // only reset flags
-    hist_valid_g = false;
+    //hist_valid_g = false;
     //hist_exp_time_g = 0;
 
     for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
@@ -179,8 +182,9 @@ void debounce_init(uint8_t num_rows) {
         //}
     }
 
+    last_s_idx = 0;
     wr_s_idx = 0;
-
+    
     // init for run transfer
     cooked_changed = true;
 }
