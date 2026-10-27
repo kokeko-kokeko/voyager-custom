@@ -102,7 +102,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
         // update write index
         wr_s_idx++;
-        if (HISTORY_SAMPLE_COUNT <= wr_s_idx) wr_s_idx = 0;
+        if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
     } else {
         // non change
         // if valid history or last cooked change transfer tmp
