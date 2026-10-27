@@ -58,8 +58,8 @@ static uint8_t last_s_idx = 0;
 static uint8_t wr_s_idx = 0;
 
 // memory previus changed status and tmp data
-static bool cooked_changed = true;
 static matrix_row_t tmp_cooked[MATRIX_ROWS] = {0};
+static bool cooked_changed = true;
 
 // mask for unused cross-point, for voyager only
 static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
@@ -97,8 +97,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
             tmp_cooked[r] = tmp_row;
         }
 
-        // last is last write index, update write index
+        // last is last wrote index
         last_s_idx = wr_s_idx;
+
+        // update write index
         wr_s_idx++;
         if (HISTORY_SAMPLE_COUNT <= wr_s_idx) wr_s_idx = 0;
     } else {
