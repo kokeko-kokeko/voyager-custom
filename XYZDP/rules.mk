@@ -48,3 +48,8 @@ EXTRAFLAGS += -mthumb
 EXTRAFLAGS += -fsingle-precision-constant 
 EXTRAFLAGS += -fstack-protector-strong
 EXTRAFLAGS += -fstack-clash-protection
+
+# reduce size
+EXTRAFLAGS += -ffunction-sections -fdata-sections
+EXTRALDFLAGS += -Wl,--gc-sections
+
