@@ -108,7 +108,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     // history or to tmp_cooked
     if (hist_valid[last_s_idx]) {
         if (timer_expired_fast(now, hist_exp_time[last_s_idx]) == true) {
-            // all valid flag clear
+            // expired time, all valid flag clear
             for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
                 hist_valid[s] = false;
             }
