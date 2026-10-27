@@ -30,7 +30,7 @@ echo -e "\e[;32m---- run build! ---- "
 pushd qmk_firmware > /dev/null
 #make zsa/voyager:XYZDP
 qmk compile -kb zsa/voyager -km XYZDP
-echo -e "\e[;32m---- memory usage ----\e[m"
+echo -e "\e[;32m---- detailed memory usage ----\e[m"
 ~/.local/share/qmk/bin/arm-none-eabi-size -d .build/zsa_voyager_XYZDP.elf
 popd > /dev/null
 
