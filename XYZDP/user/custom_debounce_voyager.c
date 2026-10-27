@@ -103,18 +103,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
         // update write index
         wr_s_idx++;
         if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
-    } else {
-        // non change
-        // if valid history or last cooked change transfer tmp
-        //if(hist_valid[last_s_idx] || cooked_changed) {
-        //    for (uint8_t r = 0; r < num_rows; r++) {
-        //        const matrix_row_t tmp_row = raw[r] & matrix_mask[r]; 
-        //        
-        //        tmp_cooked[r] = tmp_row; 
-        //    }
-        //}
     }
 
+    // history or to tmp_cooked
     if (hist_valid[last_s_idx]) {
         if (timer_expired_fast(now, hist_exp_time[last_s_idx]) == true) {
             // all valid flag clear
@@ -140,8 +131,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
         }
     }
 
-    // no history and no last change, nothing to do
-    // same as if valid history or last cooked change transfer tmp
+    // change is vilid history or last ccooked
+    // no-change nothing to do
     if(hist_valid[last_s_idx] || cooked_changed) {
         // apply cooked update
         cooked_changed = false;
@@ -150,14 +141,14 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
             // safety, mask again
             tmp_cooked[r] &= matrix_mask[r];
             
-            // if diff, tmp to final value
+            // if diff, tmp to final value, update flag
             if (cooked[r] != tmp_cooked[r]) {
                 // update cooked
                 cooked[r] = tmp_cooked[r];
                 cooked_changed = true;
             }
 
-            // transfer from raw
+            // transfer from raw for next cycle
             tmp_cooked[r] = raw[r] & matrix_mask[r]; 
         }
     }
