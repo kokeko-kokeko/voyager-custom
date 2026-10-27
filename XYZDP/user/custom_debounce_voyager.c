@@ -106,13 +106,13 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     } else {
         // non change
         // if valid history or last cooked change transfer tmp
-        if(hist_valid[last_s_idx] || cooked_changed) {
-            for (uint8_t r = 0; r < num_rows; r++) {
-                const matrix_row_t tmp_row = raw[r] & matrix_mask[r]; 
-                
-                tmp_cooked[r] = tmp_row; 
-            }
-        }
+        //if(hist_valid[last_s_idx] || cooked_changed) {
+        //    for (uint8_t r = 0; r < num_rows; r++) {
+        //        const matrix_row_t tmp_row = raw[r] & matrix_mask[r]; 
+        //        
+        //        tmp_cooked[r] = tmp_row; 
+        //    }
+        //}
     }
 
     if (hist_valid[last_s_idx]) {
@@ -151,9 +151,13 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
             tmp_cooked[r] &= matrix_mask[r];
             
             if (cooked[r] != tmp_cooked[r]) {
+                // update cooked
                 cooked[r] = tmp_cooked[r];
                 cooked_changed = true;
             }
+
+            // transfer from raw
+            tmp_cooked[r] = raw[r] & matrix_mask[r]; 
         }
     }
 
