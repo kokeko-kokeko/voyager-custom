@@ -85,7 +85,7 @@ static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows, const bool changed) {
     const fast_timer_t now = timer_read_fast();
 
-    // safe copy for use
+    // safe raw ref for use
     const matrix_row_t *const safe_raw = raw;
 
     if (changed) {
