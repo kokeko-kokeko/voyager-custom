@@ -86,7 +86,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     const fast_timer_t now = timer_read_fast();
 
     // safe copy for use
-    const matrix_row_t *safe_raw = raw;
+    const matrix_row_t *const safe_raw = raw;
 
     if (changed) {
         // raw value chagde
