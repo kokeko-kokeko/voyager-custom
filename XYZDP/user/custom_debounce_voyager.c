@@ -49,17 +49,17 @@
 
 // 2-level valid flag & expired time, global & each sample
 // use last_s_idx for last value
-static bool hist_valid[HISTORY_SAMPLE_COUNT] = {false};
-static fast_timer_t hist_exp_time[HISTORY_SAMPLE_COUNT] = {0};
+static bool hist_valid[HISTORY_SAMPLE_COUNT];
+static fast_timer_t hist_exp_time[HISTORY_SAMPLE_COUNT];
 
-static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS] = {0};
+static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
 
-static uint8_t last_s_idx = 0;
-static uint8_t wr_s_idx = 0;
+static uint8_t last_s_idx;
+static uint8_t wr_s_idx;
 
 // memory previus changed status and tmp data
-static matrix_row_t tmp_cooked[MATRIX_ROWS] = {0};
-static bool cooked_changed = true;
+static matrix_row_t tmp_cooked[MATRIX_ROWS];
+static bool cooked_changed;
 
 // mask for unused cross-point, for voyager only
 static const matrix_row_t matrix_mask[MATRIX_ROWS] = {

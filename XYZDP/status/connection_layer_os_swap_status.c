@@ -15,15 +15,15 @@
 // from zsa/navigator_trackball/navigator_trackball.c
 extern uint8_t trackball_init;
 
-static fast_timer_t status_update_trigger = (UINT32_MAX / 2) - 1;
+static fast_timer_t status_update_trigger;
 
-static bool status_update_flag = false;
-static bool os_detect_flag = false;
+static bool status_update_flag;
+static bool os_detect_flag;
 
-static bool right_side_flag = false;
-static bool trackpad_flag = false;
-static bool trackball_flag = false;
-static bool swap_hands_flag = false;
+static bool right_side_flag;
+static bool trackpad_flag;
+static bool trackball_flag;
+static bool swap_hands_flag;
 
 void keyboard_post_init_connection_layer_os_swap_status(void) {
   status_update_trigger = timer_read_fast() + CONNECTION_STATUS_INIT_DELAY;
