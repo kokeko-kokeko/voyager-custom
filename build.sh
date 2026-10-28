@@ -50,7 +50,7 @@ echo -e "\e[;32m---- check user side code remote ----\e[m"
 #git --no-pager status
 git --no-pager diff --stat HEAD..origin/main
 
-echo -e "\e[;32m---- memory usage from elf file ----\e[m"
+echo -e "\e[;32m---- memory usage stat from elf file ----\e[m"
 ~/.local/share/qmk/bin/arm-none-eabi-size -A qmk_firmware/.build/zsa_voyager_XYZDP.elf | \
 awk 'NR==1   {print; next}
      NR==2   {printf "%16s %10s    %08s\n", $1, $2, $3; next}
