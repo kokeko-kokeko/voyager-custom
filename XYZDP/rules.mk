@@ -12,6 +12,8 @@ POINTING_DEVICE_DRIVER = custom
 
 OS_DETECTION_ENABLE = yes
 
+CREATE_MAP = yes
+
 SRC += addons/color_palette_voyager.c
 SRC += addons/exec_halt_voyager.c
 SRC += addons/fade_matrix.c
