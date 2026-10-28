@@ -230,6 +230,12 @@ void housekeeping_task_exec_halt(void) {
 
     // reset invoke
     halt_invoke_count = 0;
+
+    // reset status
+    STATUS_LED_1(true);
+    STATUS_LED_2(true);
+    STATUS_LED_3(true);
+    STATUS_LED_4(false);
   }
   
   if ((halt_request0 && halt_request1 && halt_request2) == false) return;
