@@ -83,11 +83,11 @@ static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
 // cooked is result
 // add const for safety
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows, const bool changed) {
-    const fast_timer_t now = timer_read_fast();
-
     // safe raw ref for use
     const matrix_row_t *const safe_raw = raw;
-
+    
+    const fast_timer_t now = timer_read_fast();
+    
     if (changed) {
         // raw value chagde
         // transfer history buffer & tmp_cooked
@@ -162,6 +162,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     return cooked_changed;
 }
 
+// add const for safety
 void debounce_init(const uint8_t num_rows) {
     // only reset flags
     for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
