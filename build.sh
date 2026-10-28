@@ -56,6 +56,11 @@ awk 'NR==1   {print; next}
      NR==2   {printf "%20s %8s    %08s\n", $1, $2, $3; next}
      /^Total/{printf "%20s %8s\n", $1, $2; exit}
      /^\.ram/{next}
-     NR>=3   {printf "%20s %8s  0x%08x\n", $1, $2, $3}'
+     NR>=3   {printf "%20s %8s  0x%08x\n", $1, $2, $3}' | \
+awk '/\.text/   {print "\033[32m"$0"\033[0m"; next}
+     /\.rodata/ {print "\033[36m"$0"\033[0m"; next}
+     /\.data/   {print "\033[33m"$0"\033[0m"; next}
+     /\.bss/    {print "\033[31m"$0"\033[0m"; next}
+                {print}'
 
 echo -e "\e[;32m---- done! ----\e[m\a"
