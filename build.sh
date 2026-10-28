@@ -29,7 +29,7 @@ fi
 echo -e "\e[;32m---- run build! ---- "
 pushd qmk_firmware > /dev/null
 #make zsa/voyager:XYZDP
-qmk compile --keyboard zsa/voyager --keymap XYZDP --parallel $(nproc) --compiledb \
+qmk compile --keyboard zsa/voyager --keymap XYZDP --parallel $(nproc) \
 || qmk compile --keyboard zsa/voyager --keymap XYZDP --clean
 popd > /dev/null
 
