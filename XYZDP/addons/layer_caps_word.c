@@ -14,8 +14,15 @@ static uint8_t caps_layers[] = {VIRT_LAYER_L_thumb_4, VIRT_LAYER_R_thumb_4};
 
 #define CAPS_LAYER_COUNT (sizeof(caps_layers) / sizeof(caps_layers[0]))
 
-static bool layer_active[CAPS_LAYER_COUNT] = {false};
-static bool key_pressed[CAPS_LAYER_COUNT] = {false};
+static bool layer_active[CAPS_LAYER_COUNT];
+static bool key_pressed[CAPS_LAYER_COUNT];
+
+void keyboard_post_init_layer_caps_word(void) {
+    for (uint8_t layer = 0; layer < CAPS_LAYER_COUNT; layer++) {
+        layer_active[layer] = false;
+        key_pressed[layer] = false;
+    }
+}
 
 bool pre_process_record_layer_caps_word(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
