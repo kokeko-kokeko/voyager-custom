@@ -31,8 +31,6 @@ pushd qmk_firmware > /dev/null
 #make zsa/voyager:XYZDP
 qmk compile --keyboard zsa/voyager --keymap XYZDP --parallel $(nproc) \
 || qmk compile --keyboard zsa/voyager --keymap XYZDP --clean
-echo -e "\e[;32m---- memory usage ----\e[m"
-~/.local/share/qmk/bin/arm-none-eabi-size -d .build/zsa_voyager_XYZDP.elf
 popd > /dev/null
 
 echo -e "\e[;32m---- check zsa modules upstream ----\e[m"
@@ -51,5 +49,8 @@ popd > /dev/null
 echo -e "\e[;32m---- check user side code remote ----\e[m"
 #git --no-pager status
 git --no-pager diff --stat HEAD..origin/main
+
+echo -e "\e[;32m---- memory usage from elf file ----\e[m"
+~/.local/share/qmk/bin/arm-none-eabi-size -d qmk_firmware/.build/zsa_voyager_XYZDP.elf
 
 echo -e "\e[;32m---- done! ----\e[m\a"
