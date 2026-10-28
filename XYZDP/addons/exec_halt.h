@@ -1,5 +1,7 @@
 #pragma once
 
+void keyboard_post_init_exec_halt(void);
+
 bool exec_halt_invoke_halt_keyrecord(const keyrecord_t * const record);
 
 bool rgb_matrix_indicators_exec_halt(void);

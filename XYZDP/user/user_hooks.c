@@ -37,8 +37,9 @@ void chSysIdleHook(void) {
 
 void keyboard_post_init_user(void) {  
   keyboard_post_init_connection_layer_os_swap_status();
+  keyboard_post_init_exec_halt();
   keyboard_post_init_fade_matrix();
-   keyboard_post_init_layer_caps_word();
+  keyboard_post_init_layer_caps_word();
   keyboard_post_init_pos_press_overlay();
   keyboard_post_init_split_txn_trackball();
   keyboard_post_init_status_led();

@@ -36,11 +36,25 @@ enum key_position {
 };
 
 // halt safety flags
-static volatile bool halt_request0 = false;
-static volatile bool halt_request1 = false;
-static volatile bool halt_request2 = false;
-static uint8_t halt_invoke_count = 0;
-static fast_timer_t exec_halt_trigger = (UINT32_MAX / 2) - 1;
+static volatile bool halt_request0;
+static volatile bool halt_request1;
+static volatile bool halt_request2;
+
+static uint8_t halt_invoke_count;
+static fast_timer_t halt_invoke_reset_trigger;
+static fast_timer_t exec_halt_trigger;
+
+#define HALT_RESET_DELAY 503
+
+void keyboard_post_init_exec_halt(void) {
+  halt_request0 = false;
+  halt_request1 = false;
+  halt_request2 = false;
+  
+  halt_invoke_count = 0;
+  halt_invoke_reset_trigger = (UINT32_MAX / 2) - 1;
+  exec_halt_trigger = (UINT32_MAX / 2) - 1;
+}
 
 bool exec_halt_invoke_halt_keyrecord(const keyrecord_t * const record) {
   if (record == NULL) return false;
@@ -51,6 +65,7 @@ bool exec_halt_invoke_halt_keyrecord(const keyrecord_t * const record) {
   if (record->tap.count > 0) {
     if (record->event.pressed) {
       halt_invoke_count = record->tap.count;
+      halt_invoke_reset_trigger = now + HALT_RESET_DELAY;
     } else {
       
     }
@@ -64,13 +79,12 @@ bool exec_halt_invoke_halt_keyrecord(const keyrecord_t * const record) {
   
   // release
   //if (halt_invoke_count != UINT8_MAX) halt_invoke_count++;
-  
 
   if (8 <= halt_invoke_count) {
     halt_request0 = true;
     halt_request1 = true;
     halt_request2 = true;
-    exec_halt_trigger = now + 23;
+    exec_halt_trigger = now + 31;
     
     fade_matrix_disable();
     
@@ -201,6 +215,7 @@ layer_state_t layer_state_set_exec_halt(const layer_state_t state) {
   const fast_timer_t now = timer_read_fast();
 
   halt_invoke_count = 0;
+  halt_invoke_reset_trigger = now + (UINT32_MAX / 2) - 1;
   exec_halt_trigger = now + (UINT32_MAX / 2) - 1;
 
   return state;
@@ -208,6 +223,13 @@ layer_state_t layer_state_set_exec_halt(const layer_state_t state) {
 
 void housekeeping_task_exec_halt(void) {
   const fast_timer_t now = timer_read_fast();
+
+  if (timer_expired_fast(now, halt_invoke_reset_trigger)) {
+    halt_invoke_reset_trigger = now + (UINT32_MAX / 2) - 1;
+
+    // reset invoke
+    halt_invoke_count = 0;
+  }
   
   if ((halt_request0 && halt_request1 && halt_request2) == false) return;
   
