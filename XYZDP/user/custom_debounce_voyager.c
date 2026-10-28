@@ -85,6 +85,9 @@ static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows, const bool changed) {
     const fast_timer_t now = timer_read_fast();
 
+    // safe copy for use
+    const matrix_row_t *safe_raw = raw;
+
     if (changed) {
         // raw value chagde
         // transfer history buffer & tmp_cooked
@@ -94,7 +97,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         hist_exp_time[wr_s_idx] = now + DEBOUNCE;
         
         for (uint8_t r = 0; r < num_rows; r++) {
-            const matrix_row_t tmp_row = raw[r] & matrix_mask[r]; 
+            const matrix_row_t tmp_row = safe_raw[r] & matrix_mask[r]; 
 
             hist_data[wr_s_idx][r] = tmp_row;
             tmp_cooked[r] = tmp_row;
@@ -152,7 +155,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             }
 
             // transfer from raw for next cycle
-            tmp_cooked[r] = raw[r] & matrix_mask[r]; 
+            tmp_cooked[r] = safe_raw[r] & matrix_mask[r]; 
         }
     }
 
