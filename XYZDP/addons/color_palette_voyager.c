@@ -208,7 +208,6 @@ layer_state_t layer_state_set_color_palette(layer_state_t state) {
   return state;
 }
 
-
 static void set_layer_color_hue_map(void) {
   HSV hsv = rgb_matrix_get_hsv();
   RGB rgb = hsv_to_rgb(hsv);
