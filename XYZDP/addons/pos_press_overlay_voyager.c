@@ -20,33 +20,19 @@
 #define HOLD_REPEAT_TIME 337
 #define INV_THROTTLE_TIME 31
 
-static bool pos_pressed[POSITION_COUNT] = {
-    false, false, false, false, false, false,
-    false, false, false, false, false, false, 
-    false, false, false, false, false, false, 
-    false, false, false, false, false, false, 
-    false, false,
-    false, false, false, false, false, false, 
-    false, false, false, false, false, false, 
-    false, false, false, false, false, false, 
-    false, false, false, false, false, false, 
-    false, false
-};
+static bool pos_pressed[POSITION_COUNT] ;
+static fast_timer_t pos_inv_trigger[POSITION_COUNT];
 
-static fast_timer_t pos_inv_trigger[POSITION_COUNT] = {
-    (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1,
-    (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1,
-    (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1,
-    (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1,
-    (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1,
-    (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1,
-    (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1,
-    (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1,
-    (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1,
-    (UINT32_MAX / 2) - 1, (UINT32_MAX / 2) - 1
-};
+static fast_timer_t pos_inv_throttle_trigger;
 
-static fast_timer_t pos_inv_throttle_trigger = 0;
+void keyboard_post_init_pos_press_overlay(void) {
+    for (uint8_t pos = 0; pos < POSITION_COUNT; pos++) {
+        pos_pressed[pos] = false;
+        pos_inv_trigger[pos] = (UINT32_MAX / 2) - 1;
+    }
+
+    pos_inv_throttle_trigger = timer_read_fast();
+}
 
 bool pre_process_record_pos_press_overlay(uint16_t keycode, keyrecord_t *record) {
     // record tap or hold
@@ -64,6 +50,7 @@ bool pre_process_record_pos_press_overlay(uint16_t keycode, keyrecord_t *record)
 
     return true;
 }
+
 void housekeeping_task_pos_press_overlay(void) {
     // invert press
     const fast_timer_t now = timer_read_fast();
