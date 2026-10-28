@@ -53,8 +53,9 @@ git --no-pager diff --stat HEAD..origin/main
 echo -e "\e[;32m---- memory usage from elf file ----\e[m"
 ~/.local/share/qmk/bin/arm-none-eabi-size -A qmk_firmware/.build/zsa_voyager_XYZDP.elf | \
 awk 'NR==1   {print; next}
-     NR==2   {printf "%-20s %8s    %08s\n", $1, $2, $3; next}
-     /^Total/{printf "%-20s %8s\n", $1, $2; exit}
-     NR>=3   {printf "%-20s %8s  0x%08x\n", $1, $2, $3}'
+     NR==2   {printf "%20s %8s    %08s\n", $1, $2, $3; next}
+     /^Total/{printf "%20s %8s\n", $1, $2; exit}
+     /^\.ram/{next}
+     NR>=3   {printf "%20s %8s  0x%08x\n", $1, $2, $3}'
 
 echo -e "\e[;32m---- done! ----\e[m\a"
