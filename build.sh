@@ -62,8 +62,8 @@ awk 'NR==1   {next}
      /^Total/{printf "%16s %10s\n", $1, $2; exit}
      /^\.ram/{next}
      NR>=3   {printf "%16s %10s  0x%08x\n", $1, $2, $3}' | \
-awk '/stack/    {print "\033[1;32m"$0"\033[0m"; next}
-     /\.text/   {print "\033[1;34m"$0"\033[0m"; next}
+awk '/stack/    {print "\033[1;34m"$0"\033[0m"; next}
+     /\.text/   {print "\033[1;32m"$0"\033[0m"; next}
      /\.rodata/ {print "\033[1;36m"$0"\033[0m"; next}
      /\.data/   {print "\033[1;31m"$0"\033[0m"; next}
      /\.bss/    {print "\033[1;33m"$0"\033[0m"; next}
