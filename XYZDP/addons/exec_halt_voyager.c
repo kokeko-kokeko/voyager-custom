@@ -74,6 +74,7 @@ bool exec_halt_invoke_halt_keyrecord(const keyrecord_t * const record) {
       
     } else {
       halt_invoke_count = 0;
+      halt_invoke_reset_trigger = now + (UINT32_MAX / 2) - 1;
     }  
   }
   
