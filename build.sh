@@ -65,8 +65,8 @@ awk 'NR==1   {next}
 awk '/stack/    {print "\033[1;32m"$0"\033[0m"; next}
      /\.text/   {print "\033[1;34m"$0"\033[0m"; next}
      /\.rodata/ {print "\033[1;36m"$0"\033[0m"; next}
-     /\.data/   {print "\033[1;33m"$0"\033[0m"; next}
-     /\.bss/    {print "\033[1;31m"$0"\033[0m"; next}
+     /\.data/   {print "\033[1;31m"$0"\033[0m"; next}
+     /\.bss/    {print "\033[1;33m"$0"\033[0m"; next}
      /\.heap/   {print "\033[1;35m"$0"\033[0m"; next}
      /Total/    {print "\033[1;37m"$0"\033[0m"; next}
                 {print}'
