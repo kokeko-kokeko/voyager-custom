@@ -81,7 +81,8 @@ static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
 // raw and cooked pass from caller, keep value, not local memory
 // raw is must read-only, not write
 // cooked is result
-bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
+// add const for safety
+bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows, const bool changed) {
     const fast_timer_t now = timer_read_fast();
 
     if (changed) {
@@ -158,7 +159,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     return cooked_changed;
 }
 
-void debounce_init(uint8_t num_rows) {
+void debounce_init(const uint8_t num_rows) {
     // only reset flags
     for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
         hist_valid[s] = false;
