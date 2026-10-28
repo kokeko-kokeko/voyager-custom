@@ -69,6 +69,8 @@ enum virt_layer_num {
   VIRT_LAYER_COUNT  
 };
 
+void keyboard_post_init_virt_layer(void);
+
 // minimal virt version subset for action_layer.h
 bool virt_layer_state_is(const uint8_t virt_layer);
 bool virt_layer_state_cmp(layer_state_t state, const uint8_t virt_layer);

@@ -119,7 +119,7 @@ static const uint8_t tri_layer_tbl_v_v_v[][3] = {
 #define TRI_LAYER_COUNT (sizeof(tri_layer_tbl_v_v_v) / sizeof(tri_layer_tbl_v_v_v[0]))
 
 // virt layer number state cache, update on layer_state_set_
-static bool state_cache_v[VIRT_LAYER_COUNT] = {0};
+static bool state_cache_v[VIRT_LAYER_COUNT];
 
 // phy layer has other source, check on layer
 // ex, automouse on/off
@@ -132,10 +132,23 @@ static const bool p_has_other_source[PHYS_LAYER_COUNT] = {
 };
 
 // phys ref count
-// base layer set fix 1
-static uint8_t p_ref_count[PHYS_LAYER_COUNT] = {
-    [0] = 1
-};
+static uint8_t p_ref_count[PHYS_LAYER_COUNT];
+
+void keyboard_post_init_virt_layer(void) {
+    for (uint8_t v = 0; v < VIRT_LAYER_COUNT; v++) {
+        state_cache_v[v] = false;
+    }
+    
+    // base layer set fix 1
+    p_ref_count[0] = 1;
+    
+    // no transition / jis / pc mode
+    layer_move(0);
+    
+    virt_layer_off(VIRT_LAYER_Transition);
+    virt_layer_on(VIRT_LAYER_FB_JIS);
+    virt_layer_off(VIRT_LAYER_FB_Mac);
+}
 
 bool virt_layer_state_is(const uint8_t virt_layer) {
     // layer_state_set_ outside use cached value

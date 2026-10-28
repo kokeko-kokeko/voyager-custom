@@ -43,13 +43,7 @@ void keyboard_post_init_user(void) {
   keyboard_post_init_pos_press_overlay();
   keyboard_post_init_split_txn_trackball();
   keyboard_post_init_status_led();
-  
-  // no transition / jis / pc mode
-  layer_move(0);
-  
-  virt_layer_off(VIRT_LAYER_Transition);
-  virt_layer_on(VIRT_LAYER_FB_JIS);
-  virt_layer_off(VIRT_LAYER_FB_Mac);
+  keyboard_post_init_virt_layer();
 }
 
 void matrix_scan_user(void) {
