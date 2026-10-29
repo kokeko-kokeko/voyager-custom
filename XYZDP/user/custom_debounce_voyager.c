@@ -81,12 +81,10 @@ static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
 // raw and cooked pass from caller, keep value, not local memory
 // raw is must read-only, not write
 // cooked is result
-// add _ro & _rw to args, name diff than proto type
 // add const for safety for flag
-bool debounce(matrix_row_t raw_ro[], matrix_row_t cooked_rw[], const uint8_t num_rows, const bool changed) {
+bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows, const bool changed) {
     // safe attr raw cooked ptr for use
-    const matrix_row_t *const raw = raw_ro;
-    matrix_row_t *const cooked = cooked_rw;
+    const matrix_row_t *const safe_raw = raw;
 
     const fast_timer_t now = timer_read_fast();
     
@@ -99,7 +97,7 @@ bool debounce(matrix_row_t raw_ro[], matrix_row_t cooked_rw[], const uint8_t num
         hist_exp_time[wr_s_idx] = now + DEBOUNCE;
         
         for (uint8_t r = 0; r < num_rows; r++) {
-            const matrix_row_t tmp_row = raw[r] & matrix_mask[r]; 
+            const matrix_row_t tmp_row = safe_raw[r] & matrix_mask[r]; 
 
             hist_data[wr_s_idx][r] = tmp_row;
             tmp_cooked[r] = tmp_row;
@@ -157,7 +155,7 @@ bool debounce(matrix_row_t raw_ro[], matrix_row_t cooked_rw[], const uint8_t num
             }
 
             // transfer from raw for next cycle
-            tmp_cooked[r] = raw[r] & matrix_mask[r]; 
+            tmp_cooked[r] = safe_raw[r] & matrix_mask[r]; 
         }
     }
 
