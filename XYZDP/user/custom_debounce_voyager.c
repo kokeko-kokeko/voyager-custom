@@ -87,7 +87,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     
     if (changed) {
         // raw value chagde
-        // transfer history buffer & tmp_cooked
+        // transfer raw to history buffer & tmp_cooked
         // must update tmp_cooked
 
         // flag & expire time set
