@@ -145,7 +145,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                         // expired time, flag reset
                         hist_time_valid_and[s] = false;
                     } else {
-                        // valid sample or to tmp
+                        // valid sample and to tmp
                         for (uint8_t r = 0; r < num_rows; r++) {
                             tmp_cooked_and[r] &= hist_data[s][r];
                         }
