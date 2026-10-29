@@ -83,7 +83,7 @@ static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
 // cooked is result
 // add const for safety for flag
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows, const bool changed) {
-    // safe attr raw cooked ptr for use
+    // safe attr safe_raw ptr for use
     const matrix_row_t *const safe_raw = raw;
 
     const fast_timer_t now = timer_read_fast();
