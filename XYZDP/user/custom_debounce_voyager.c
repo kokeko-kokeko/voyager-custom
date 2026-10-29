@@ -83,9 +83,6 @@ static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
 // cooked is result
 // add const for safety for flag
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows, const bool changed) {
-    // safe attr safe_raw ptr for use
-    const matrix_row_t *const safe_raw = raw;
-
     const fast_timer_t now = timer_read_fast();
     
     if (changed) {
@@ -98,6 +95,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         
         for (uint8_t r = 0; r < num_rows; r++) {
             // raw transfer only changed timing
+            // safe attr safe_raw ptr for use
+            const matrix_row_t *const safe_raw = raw;
             const matrix_row_t tmp_row = safe_raw[r] & matrix_mask[r]; 
 
             hist_data[wr_s_idx][r] = tmp_row;
@@ -154,10 +153,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 cooked[r] = tmp_cooked[r];
                 cooked_changed = true;
             }
-
-            // transfer from raw for next cycle
-            //tmp_cooked[r] = safe_raw[r] & matrix_mask[r]; 
-
+            
             // re-init last value for next cycle, always last value, no-relation valid
             tmp_cooked[r] = hist_data[last_s_idx][r];
         }
