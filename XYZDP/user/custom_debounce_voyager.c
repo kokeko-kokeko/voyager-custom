@@ -181,3 +181,4 @@ void debounce_init(const uint8_t num_rows) {
 void debounce_free(void) {
     // static value only, nothing to do
 }
+
