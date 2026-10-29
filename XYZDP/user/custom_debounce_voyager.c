@@ -90,20 +90,20 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // transfer raw to history buffer & tmp_cooked
         // must update tmp_cooked
 
-        // flag & expire time set
-        hist_valid[wr_s_idx] = true;
-        hist_exp_time[wr_s_idx] = now + DEBOUNCE;
-
-        // safe attr safe_raw ptr for use
+        // safe attr safe_raw ptr for read-only use
         const matrix_row_t *const safe_raw = raw;
-        
+
+        // raw transfer with mask, only changed timing
         for (uint8_t r = 0; r < num_rows; r++) {
-            // raw transfer only changed timing
             const matrix_row_t tmp_row = safe_raw[r] & matrix_mask[r]; 
 
             hist_data[wr_s_idx][r] = tmp_row;
             tmp_cooked[r] = tmp_row;
         }
+
+        // flag & expire time set
+        hist_valid[wr_s_idx] = true;
+        hist_exp_time[wr_s_idx] = now + DEBOUNCE;
 
         // last is last wrote index
         last_s_idx = wr_s_idx;
