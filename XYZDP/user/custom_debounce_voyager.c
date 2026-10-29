@@ -47,12 +47,13 @@
 //
 //
 
+// history data buffer
+static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
+
 // 2-level valid flag & expired time, global & each sample
 // use last_s_idx for last value
 static bool hist_time_valid[HISTORY_SAMPLE_COUNT];
 static fast_timer_t hist_exp_time[HISTORY_SAMPLE_COUNT];
-
-static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
 
 static uint8_t last_s_idx;
 static uint8_t wr_s_idx;
