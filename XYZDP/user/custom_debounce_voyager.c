@@ -89,14 +89,16 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // raw value chagde
         // transfer history buffer & tmp_cooked
         // must update tmp_cooked
+
         // flag & expire time set
         hist_valid[wr_s_idx] = true;
         hist_exp_time[wr_s_idx] = now + DEBOUNCE;
+
+        // safe attr safe_raw ptr for use
+        const matrix_row_t *const safe_raw = raw;
         
         for (uint8_t r = 0; r < num_rows; r++) {
             // raw transfer only changed timing
-            // safe attr safe_raw ptr for use
-            const matrix_row_t *const safe_raw = raw;
             const matrix_row_t tmp_row = safe_raw[r] & matrix_mask[r]; 
 
             hist_data[wr_s_idx][r] = tmp_row;
@@ -153,7 +155,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 cooked[r] = tmp_cooked[r];
                 cooked_changed = true;
             }
-            
+
             // re-init last value for next cycle, always last value, no-relation valid
             tmp_cooked[r] = hist_data[last_s_idx][r];
         }
