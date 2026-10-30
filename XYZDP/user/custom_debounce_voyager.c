@@ -60,7 +60,7 @@
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
 
 // 2-level valid flag & expired time, global & each sample
-// use last_s_idx for last value
+// use last_s_idx for last value (global)
 static bool hist_time_valid_and[HISTORY_SAMPLE_COUNT];
 static fast_timer_t hist_exp_time_and[HISTORY_SAMPLE_COUNT];
 
