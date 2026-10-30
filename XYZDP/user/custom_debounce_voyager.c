@@ -52,6 +52,8 @@
 // all 1  -> and=1 or=1
 // all 0  -> and=0 or=0
 // 0,1... -> and=0 or=1 (unstable, detect this)
+//        -> and=1 or=0 (invalid, check system)
+// 2 bit, 4 state
 //
 
 // history data buffer
