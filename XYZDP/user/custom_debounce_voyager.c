@@ -108,7 +108,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         // raw transfer with mask, only changed timing
         for (uint8_t r = 0; r < num_rows; r++) {
-            const matrix_row_t tmp_row = safe_raw[r] & matrix_mask[r]; 
+            // mask apply final result only
+            //const matrix_row_t tmp_row = safe_raw[r] & matrix_mask[r]; 
+            const matrix_row_t tmp_row = safe_raw[r]; 
 
             hist_data[wr_s_idx][r] = tmp_row;
 
