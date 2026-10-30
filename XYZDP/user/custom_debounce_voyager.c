@@ -14,6 +14,25 @@
 #include "timer.h"
 #include <stdlib.h>
 
+//
+//
+// history-based time domain bit-and/or debounce logic
+// base like upstream asym_eager_defer_pk waveform
+// more light processing power
+//
+//
+
+//
+// main principle
+// memory history, bit level and/or time domain
+// all 1  -> and=1 or=1 (stable 1)
+// all 0  -> and=0 or=0 (stable 0)
+// 0,1... -> and=0 or=1 (unstable, detect this)
+// none   -> and=1 or=0 (invalid, check & mask)
+// 2 bit, 4 state
+//
+
+// from upstream
 #ifndef DEBOUNCE
 #    define DEBOUNCE 5
 #endif
@@ -29,8 +48,45 @@
 #    define DEBOUNCE 1
 #endif
 
+// and side
+#ifndef AND_DEBOUNCE
+#    define AND_DEBOUNCE DEBOUNCE
+#endif
+
+// Maximum debounce: 255ms
+#if AND_DEBOUNCE > UINT8_MAX
+#    undef AND_DEBOUNCE
+#    define AND_DEBOUNCE UINT8_MAX
+#endif
+
+#if AND_DEBOUNCE <= 0
+#    undef AND_DEBOUNCE
+#    define AND_DEBOUNCE 1
+#endif
+
+// or side
+#ifndef OR_DEBOUNCE
+#    define OR_DEBOUNCE DEBOUNCE
+#endif
+
+// Maximum debounce: 255ms
+#if OR_DEBOUNCE > UINT8_MAX
+#    undef OR_DEBOUNCE
+#    define OR_DEBOUNCE UINT8_MAX
+#endif
+
+#if OR_DEBOUNCE <= 0
+#    undef OR_DEBOUNCE
+#    define OR_DEBOUNCE 1
+#endif
+
+// buffer size
 #ifndef HISTORY_SAMPLE_COUNT
-#    define HISTORY_SAMPLE_COUNT (DEBOUNCE+1)
+#    if AND_DEBOUNCE >= OR_DEBOUNCE
+#        define HISTORY_SAMPLE_COUNT (AND_DEBOUNCE+1)
+#    else
+#        define HISTORY_SAMPLE_COUNT (OR_DEBOUNCE+1)
+#    endif
 #endif
 
 // Maximum buffer: 255
@@ -39,22 +95,10 @@
 #    define HISTORY_SAMPLE_COUNT UINT8_MAX
 #endif
 
-//
-//
-// history-based time domain bit-and/or debounce logic
-// base like upstream asym_eager_defer_pk waveform
-// more light processing power
-//
-//
-
-// main principle
-// memory history, bit level and/or time domain
-// all 1  -> and=1 or=1 (stable 1)
-// all 0  -> and=0 or=0 (stable 0)
-// 0,1... -> and=0 or=1 (unstable, detect this)
-// none   -> and=1 or=0 (invalid, check & mask)
-// 2 bit, 4 state
-//
+#if HISTORY_SAMPLE_COUNT <= 0
+#    undef HISTORY_SAMPLE_COUNT
+#    define HISTORY_SAMPLE_COUNT 1
+#endif
 
 // history data buffer
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
@@ -120,10 +164,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         // flag & expire time set
         and_valid[wr_s_idx] = true;
-        and_exp_time[wr_s_idx] = now + DEBOUNCE;
+        and_exp_time[wr_s_idx] = now + AND_DEBOUNCE;
 
         or_valid[wr_s_idx] = true;
-        or_exp_time[wr_s_idx] = now + DEBOUNCE;
+        or_exp_time[wr_s_idx] = now + OR_DEBOUNCE;
 
         // last is last wrote index
         last_s_idx = wr_s_idx;
