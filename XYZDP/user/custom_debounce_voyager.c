@@ -71,8 +71,8 @@ static uint8_t last_s_idx;
 static uint8_t wr_s_idx;
 
 // memory previus changed status and tmp data
-static matrix_row_t tmp_and[MATRIX_ROWS];
-static matrix_row_t tmp_or[MATRIX_ROWS];
+static matrix_row_t and_tmp[MATRIX_ROWS];
+static matrix_row_t or_tmp[MATRIX_ROWS];
 static bool cooked_changed;
 
 // mask for unused cross-point, for voyager only
@@ -112,8 +112,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
             hist_data[wr_s_idx][r] = tmp_row;
 
-            tmp_and[r] = tmp_row;
-            tmp_or[r] = tmp_row;
+            and_tmp[r] = tmp_row;
+            or_tmp[r] = tmp_row;
         }
 
         // flag & expire time set
@@ -149,7 +149,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                     } else {
                         // valid sample and to tmp
                         for (uint8_t r = 0; r < num_rows; r++) {
-                            tmp_and[r] &= hist_data[s][r];
+                            and_tmp[r] &= hist_data[s][r];
                         }
                     }
                 }
@@ -175,7 +175,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                     } else {
                         // valid sample or to tmp
                         for (uint8_t r = 0; r < num_rows; r++) {
-                            tmp_or[r] |= hist_data[s][r];
+                            or_tmp[r] |= hist_data[s][r];
                         }
                     }
                 }
@@ -195,24 +195,24 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // all 0  -> and=0 or=0 (stable 0)
             // 0,1... -> and=0 or=1 (unstable, detect this)
             // none   -> and=1 or=0 (invalid, check system)
-            matrix_row_t unstable = (~tmp_and[r]) &   tmp_or[r]  & matrix_mask[r];
-            matrix_row_t invalid  =   tmp_and[r]  & (~tmp_or[r]) & matrix_mask[r];
+            matrix_row_t unstable = (~and_tmp[r]) &   or_tmp[r]  & matrix_mask[r];
+            matrix_row_t invalid  =   and_tmp[r]  & (~or_tmp[r]) & matrix_mask[r];
             
             // not unstable, not invalid, -> stable
             matrix_row_t stable = (~unstable) & (~invalid) & matrix_mask[r];
             
             // if diff, tmp to final value, update flag
             // xor -> diff is 1, and mask -> stable only
-            if ((cooked[r] ^ tmp_and[r]) & stable) {
+            if ((cooked[r] ^ and_tmp[r]) & stable) {
                 // update cooked
                 cooked[r] &= unstable;            // unstable bit keep current value
-                cooked[r] |= tmp_and[r] & stable; // stable new value
+                cooked[r] |= and_tmp[r] & stable; // stable new value
                 cooked_changed = true;
             }
 
             // re-init last value for next cycle, always last value, no-relation time valid
-            tmp_and[r] = hist_data[last_s_idx][r];
-            tmp_or[r] = hist_data[last_s_idx][r];
+            and_tmp[r] = hist_data[last_s_idx][r];
+            or_tmp[r] = hist_data[last_s_idx][r];
         }
     }
 
