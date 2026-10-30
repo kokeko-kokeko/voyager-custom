@@ -34,10 +34,10 @@
 
 //
 // event base thinking
-// 0->1 (key press) or 1 output immediately, and stop chattering after AND_DEBOUNCE output 1, both 1 report 1 to after process
-// 1->0 (key release) and 0 output immediately, or stop chattering after OR_DEBOUNCE output 0, both 0 report 0 to after process
-// AND_DEBOUNCE -> rise margin
-// OR_DEBOUNCE -> fall margin
+// 0->1 (key press) or 1 output immediately, and stop chattering after HIST_AND_DEBOUNCE output 1, both 1 report 1 to after process
+// 1->0 (key release) and 0 output immediately, or stop chattering after HIST_OR_DEBOUNCE output 0, both 0 report 0 to after process
+// HIST_AND_DEBOUNCE -> rise margin
+// HIST_OR_DEBOUNCE -> fall margin
 //
 
 // from upstream
@@ -57,43 +57,43 @@
 #endif
 
 // and side
-#ifndef AND_DEBOUNCE
-#    define AND_DEBOUNCE DEBOUNCE
+#ifndef HIST_AND_DEBOUNCE
+#    define HIST_AND_DEBOUNCE DEBOUNCE
 #endif
 
 // Maximum debounce: 255ms
-#if AND_DEBOUNCE > UINT8_MAX
-#    undef AND_DEBOUNCE
-#    define AND_DEBOUNCE UINT8_MAX
+#if HIST_AND_DEBOUNCE > UINT8_MAX
+#    undef HIST_AND_DEBOUNCE
+#    define HIST_AND_DEBOUNCE UINT8_MAX
 #endif
 
-#if AND_DEBOUNCE <= 0
-#    undef AND_DEBOUNCE
-#    define AND_DEBOUNCE 1
+#if HIST_AND_DEBOUNCE <= 0
+#    undef HIST_AND_DEBOUNCE
+#    define HIST_AND_DEBOUNCE 1
 #endif
 
 // or side
-#ifndef OR_DEBOUNCE
-#    define OR_DEBOUNCE DEBOUNCE
+#ifndef HIST_OR_DEBOUNCE
+#    define HIST_OR_DEBOUNCE DEBOUNCE
 #endif
 
 // Maximum debounce: 255ms
-#if OR_DEBOUNCE > UINT8_MAX
-#    undef OR_DEBOUNCE
-#    define OR_DEBOUNCE UINT8_MAX
+#if HIST_OR_DEBOUNCE > UINT8_MAX
+#    undef HIST_OR_DEBOUNCE
+#    define HIST_OR_DEBOUNCE UINT8_MAX
 #endif
 
-#if OR_DEBOUNCE <= 0
-#    undef OR_DEBOUNCE
-#    define OR_DEBOUNCE 1
+#if HIST_OR_DEBOUNCE <= 0
+#    undef HIST_OR_DEBOUNCE
+#    define HIST_OR_DEBOUNCE 1
 #endif
 
 // buffer size
 #ifndef HISTORY_SAMPLE_COUNT
-#    if AND_DEBOUNCE >= OR_DEBOUNCE
-#        define HISTORY_SAMPLE_COUNT (AND_DEBOUNCE+1)
+#    if HIST_AND_DEBOUNCE >= HIST_OR_DEBOUNCE
+#        define HISTORY_SAMPLE_COUNT (HIST_AND_DEBOUNCE+1)
 #    else
-#        define HISTORY_SAMPLE_COUNT (OR_DEBOUNCE+1)
+#        define HISTORY_SAMPLE_COUNT (HIST_OR_DEBOUNCE+1)
 #    endif
 #endif
 
@@ -172,10 +172,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         // flag & expire time set
         and_valid[wr_s_idx] = true;
-        and_exp_time[wr_s_idx] = now + AND_DEBOUNCE;
+        and_exp_time[wr_s_idx] = now + HIST_AND_DEBOUNCE;
 
         or_valid[wr_s_idx] = true;
-        or_exp_time[wr_s_idx] = now + OR_DEBOUNCE;
+        or_exp_time[wr_s_idx] = now + HIST_OR_DEBOUNCE;
 
         // last is last wrote index
         last_s_idx = wr_s_idx;

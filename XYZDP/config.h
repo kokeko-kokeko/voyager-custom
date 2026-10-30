@@ -14,10 +14,10 @@
 #define SERIAL_NUMBER "XYZDP/GH_addtional_mod"
 
 // custom debounce logic
-// AND_DEBOUNCE -> rise margin
-// OR_DEBOUNCE -> fall margin
-#define AND_DEBOUNCE 3
-#define OR_DEBOUNCE 7
+// HIST_AND_DEBOUNCE -> rise margin
+// HIST_OR_DEBOUNCE -> fall margin
+#define HIST_AND_DEBOUNCE 3
+#define HIST_OR_DEBOUNCE 7
 
 #define AUTOMOUSE_LAYER 2   // must for check
 #define AUTOMOUSE_LAYER_TRACKBALL 2
