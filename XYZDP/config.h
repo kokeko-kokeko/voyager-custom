@@ -18,8 +18,8 @@
 // history-based time domain bit-and/or debounce logic
 // HIST_AND_DEBOUNCE -> rise (press) margin
 // HIST_OR_DEBOUNCE -> fall (release) margin
-#define HIST_AND_DEBOUNCE 3
-#define HIST_OR_DEBOUNCE 7
+#define HISTORY_AND_DEBOUNCE 3
+#define HISTORY_OR_DEBOUNCE 7
 
 #define AUTOMOUSE_LAYER 2   // must for check
 #define AUTOMOUSE_LAYER_TRACKBALL 2
