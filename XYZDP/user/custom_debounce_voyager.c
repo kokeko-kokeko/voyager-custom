@@ -41,8 +41,8 @@
 
 //
 //
-// history-based time domain bit-or debounce logic
-// like upstream asym_eager_defer_pk waveform
+// history-based time domain bit-and/or debounce logic
+// base like upstream asym_eager_defer_pk waveform
 // more light processing power
 //
 //
