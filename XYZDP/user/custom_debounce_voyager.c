@@ -258,7 +258,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 cooked_changed = true;
             }
 
-            // re-init last value for next cycle, always last value, no-relation time valid
+            // re-init last value for next cycle, always last value, no-relation valid
             and_tmp[r] = hist_data[last_s_idx][r];
             or_tmp[r] = hist_data[last_s_idx][r];
         }
