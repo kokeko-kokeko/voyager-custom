@@ -236,24 +236,23 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         cooked_changed = false;
 
         for (uint8_t r = 0; r < num_rows; r++) {
-            // gen bit mask
-            // safety, mask again
+            // gen bit mask with matrix_mask
             // all 1  -> and=1 or=1 (stable 1)
             // all 0  -> and=0 or=0 (stable 0)
             // 0,1... -> and=0 or=1 (unstable, detect this)
             // none   -> and=1 or=0 (invalid, check & mask)
-            matrix_row_t unstable = (~and_tmp[r]) &   or_tmp[r]  & matrix_mask[r];
-            matrix_row_t invalid  =   and_tmp[r]  & (~or_tmp[r]) & matrix_mask[r];
+            const matrix_row_t unstable = (~and_tmp[r]) &   or_tmp[r]  & matrix_mask[r];
+            const matrix_row_t invalid  =   and_tmp[r]  & (~or_tmp[r]) & matrix_mask[r];
             
             // not unstable, not invalid, -> stable
-            matrix_row_t stable = (~unstable) & (~invalid) & matrix_mask[r];
+            const matrix_row_t stable = (~unstable) & (~invalid) & matrix_mask[r];
             
             // if diff, tmp to final value, update flag
             // xor -> diff is 1, and mask -> stable only
             // on stable, and & or is same 
             if ((cooked[r] ^ and_tmp[r]) & stable) {
                 // update cooked
-                cooked[r] &= unstable;            // unstable bit keep current value
+                cooked[r] &= unstable;            // unstable bit keep current value, stable clear
                 cooked[r] |= and_tmp[r] & stable; // stable new value
                 cooked_changed = true;
             }
