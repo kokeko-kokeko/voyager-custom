@@ -14,8 +14,8 @@
 #define SERIAL_NUMBER "XYZDP/GH_addtional_mod"
 
 // custom debounce logic
-// HIST_AND_DEBOUNCE -> rise margin
-// HIST_OR_DEBOUNCE -> fall margin
+// HIST_AND_DEBOUNCE -> rise (press) margin
+// HIST_OR_DEBOUNCE -> fall (release) margin
 #define HIST_AND_DEBOUNCE 3
 #define HIST_OR_DEBOUNCE 7
 
