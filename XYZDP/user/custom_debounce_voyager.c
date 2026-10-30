@@ -191,9 +191,6 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         for (uint8_t r = 0; r < num_rows; r++) {
             // safety, mask again
-            //tmp_cooked_and[r] &= matrix_mask[r];
-            //tmp_cooked_or[r] &= matrix_mask[r];
-
             // all 1  -> and=1 or=1 (stable 1)
             // all 0  -> and=0 or=0 (stable 0)
             // 0,1... -> and=0 or=1 (unstable, detect this)
