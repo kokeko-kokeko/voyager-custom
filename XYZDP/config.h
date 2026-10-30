@@ -10,6 +10,7 @@
 // Additional GitHub side code setting
 //
 //
+
 #undef SERIAL_NUMBER
 #define SERIAL_NUMBER "XYZDP/GH_addtional_mod"
 
