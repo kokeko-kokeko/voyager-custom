@@ -34,8 +34,8 @@
 
 //
 // event base thinking
-// 0->1 (key press) or 1 output immediately, and stop chattering after HIST_AND_DEBOUNCE output 1, both 1 report 1 to after process
-// 1->0 (key release) and 0 output immediately, or stop chattering after HIST_OR_DEBOUNCE output 0, both 0 report 0 to after process
+// 0->1 (key press) or part 1 output immediately, and part stop chattering after HIST_AND_DEBOUNCE output 1, both 1 report 1 to after process
+// 1->0 (key release) and part 0 output immediately, or part stop chattering after HIST_OR_DEBOUNCE output 0, both 0 report 0 to after process
 // HIST_AND_DEBOUNCE -> rise margin
 // HIST_OR_DEBOUNCE -> fall margin
 //
