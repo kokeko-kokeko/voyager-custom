@@ -52,7 +52,7 @@
 // all 1  -> and=1 or=1 (stable 1)
 // all 0  -> and=0 or=0 (stable 0)
 // 0,1... -> and=0 or=1 (unstable, detect this)
-// none   -> and=1 or=0 (invalid, check system)
+// none   -> and=1 or=0 (invalid, check & mask)
 // 2 bit, 4 state
 //
 
@@ -190,11 +190,12 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         cooked_changed = false;
 
         for (uint8_t r = 0; r < num_rows; r++) {
+            // gen bit mask
             // safety, mask again
             // all 1  -> and=1 or=1 (stable 1)
             // all 0  -> and=0 or=0 (stable 0)
             // 0,1... -> and=0 or=1 (unstable, detect this)
-            // none   -> and=1 or=0 (invalid, check system)
+            // none   -> and=1 or=0 (invalid, check & mask)
             matrix_row_t unstable = (~and_tmp[r]) &   or_tmp[r]  & matrix_mask[r];
             matrix_row_t invalid  =   and_tmp[r]  & (~or_tmp[r]) & matrix_mask[r];
             
