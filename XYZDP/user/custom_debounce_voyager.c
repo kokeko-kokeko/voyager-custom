@@ -32,6 +32,14 @@
 // 2 bit, 4 state
 //
 
+//
+// event base thinking
+// 0->1 (key press) or 1 output immediately, and stop chattering after AND_DEBOUNCE output 1, both 1 report 1 to after process
+// 1->0 (key release) and 0 output immediately, or stop chattering after OR_DEBOUNCE output 0, both 0 report 0 to after process
+// AND_DEBOUNCE -> rise margin
+// OR_DEBOUNCE -> fall margin
+//
+
 // from upstream
 #ifndef DEBOUNCE
 #    define DEBOUNCE 5
