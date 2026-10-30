@@ -267,6 +267,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 // update cooked
                 cooked[r] &= unstable;          // unstable bit keep current value, non-stable clear
                 cooked[r] |= value & stable;    // stable new value
+                
                 cooked_changed = true;
             }
 
