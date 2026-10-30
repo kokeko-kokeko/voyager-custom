@@ -100,8 +100,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     const fast_timer_t now = timer_read_fast();
     
     if (changed) {
-        // raw value chagde, transfer raw to history buffer & tmp_cooked_or
-        // must update tmp_cooked_or
+        // raw value chagde, transfer raw to history buffer & tmp_cooked
+        // must update tmp_cooked
 
         // safe attr safe_raw ptr for read-only use
         const matrix_row_t *const safe_raw = raw;
