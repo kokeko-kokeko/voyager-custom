@@ -112,13 +112,10 @@
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
 static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 
-// 2-level valid flag & expired time, global & each sample
+// 2-level valid flag, global & each sample
 // use last_s_idx for last value (global)
 static bool and_valid[HISTORY_SAMPLE_COUNT];
-//static fast_timer_t and_exp_time[HISTORY_SAMPLE_COUNT];
-
 static bool or_valid[HISTORY_SAMPLE_COUNT];
-//static fast_timer_t or_exp_time[HISTORY_SAMPLE_COUNT];
 
 static uint8_t last_s_idx;
 static uint8_t wr_s_idx;
@@ -153,15 +150,15 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     const fast_timer_t now = timer_read_fast();
     
     if (changed) {
-        // raw value chagde, transfer raw to history buffer & tmp_cooked
-        // must update tmp_cooked
+        // raw value chagde, transfer raw to history buffer & *_acc
+        // must update *_acc
 
         // safe attr safe_raw ptr for read-only use
         const matrix_row_t *const safe_raw = raw;
 
         // raw transfer, only changed timing
         for (uint8_t r = 0; r < num_rows; r++) {
-            // mask apply final result only
+            // matrix_mask apply final result only
             //const matrix_row_t tmp_row = safe_raw[r] & matrix_mask[r]; 
             const matrix_row_t tmp_row = safe_raw[r]; 
 
@@ -171,14 +168,12 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             or_acc[r] = tmp_row;
         }
 
+        // sample time
         hist_time[wr_s_idx] = now;
 
-        // flag & expire time set
+        // flag set
         and_valid[wr_s_idx] = true;
-        //and_exp_time[wr_s_idx] = now + HISTORY_AND_DEBOUNCE;
-
         or_valid[wr_s_idx] = true;
-        //or_exp_time[wr_s_idx] = now + HISTORY_OR_DEBOUNCE;
 
         // last is last wrote index
         last_s_idx = wr_s_idx;
@@ -188,9 +183,11 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
     }
 
-    // valid history and to tmp_and
+    // valid history and to and_acc
     if (and_valid[last_s_idx]) {
+        // expire time (minus offset from now) calc ahead 
         fast_timer_t exp_time = now - HISTORY_AND_DEBOUNCE;
+
         if (timer_expired_fast(exp_time, hist_time[last_s_idx])) {
             // expired time, all valid flag clear
             //for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
@@ -217,14 +214,12 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         }
     }
 
-    // valid history or to tmp_or
+    // valid history or to or_acc
     if (or_valid[last_s_idx]) {
+        // expire time (minus offset from now) calc ahead 
         fast_timer_t exp_time = now - HISTORY_OR_DEBOUNCE;
+
         if (timer_expired_fast(exp_time, hist_time[last_s_idx])) {
-            // expired time, all valid flag clear
-            //for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
-            //    or_valid[s] = false;
-            //}
             // only last valid clear
             or_valid[last_s_idx] = false;
         } else {
@@ -258,8 +253,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // all 0  -> and=0 or=0 (stable 0)
             // 0,1... -> and=0 or=1 (unstable, detect this)
             // none   -> and=1 or=0 (invalid, check & mask)
-            // new_caaked use stable 1, more safety
-            const matrix_row_t new_cooked    =   and_acc[r]  &   or_acc[r]  & matrix_mask[r];
+            // new_data use stable 1, more safety
+            const matrix_row_t new_data      =   and_acc[r]  &   or_acc[r]  & matrix_mask[r];
             const matrix_row_t unstable_mask = (~and_acc[r]) &   or_acc[r]  & matrix_mask[r];
             const matrix_row_t invalid_mask  =   and_acc[r]  & (~or_acc[r]) & matrix_mask[r];
             
@@ -268,10 +263,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             
             // if diff, tmp to final value, update flag
             // xor -> diff is 1, and mask -> stable only
-            if ((cooked[r] ^ new_cooked) & stable_mask) {
+            if ((cooked[r] ^ new_data) & stable_mask) {
                 // update cooked
                 cooked[r] &= unstable_mask;             // unstable bit keep current value, non-stable clear
-                cooked[r] |= new_cooked & stable_mask;  // stable new value
+                cooked[r] |= new_data & stable_mask;    // stable new data
 
                 cooked_changed = true;
             }
