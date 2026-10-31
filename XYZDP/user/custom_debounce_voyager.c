@@ -112,17 +112,20 @@
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
 static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 
+// data accumulator
+static matrix_row_t and_acc[MATRIX_ROWS];
+static matrix_row_t or_acc[MATRIX_ROWS];
+
 // single valid flag, same as cooked_changed style
 // reset on loop head, set at condition hit
 static bool and_valid;
 static bool or_valid;
 
+// last & write sample index 
 static uint8_t last_s_idx;
 static uint8_t wr_s_idx;
 
-// memory previus cycle status and data accumulator
-static matrix_row_t and_acc[MATRIX_ROWS];
-static matrix_row_t or_acc[MATRIX_ROWS];
+// memory previus cycle status
 static bool cooked_changed;
 
 // mask for unused cross-point, for voyager only
@@ -195,6 +198,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
             if (timer_expired_fast(exp_time, hist_time[s])) {
                 // expired, notihng to do
+                continue;
             } else {
                 // valid sample and to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
@@ -218,6 +222,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
             if (timer_expired_fast(exp_time, hist_time[s])) {
                 // expired, notihng to do
+                continue;
             } else {
                 // valid sample or to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
