@@ -186,7 +186,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     // valid history and to and_acc
     if (and_valid[last_s_idx]) {
         // expire time (minus offset from now) calc ahead 
-        fast_timer_t exp_time = now - HISTORY_AND_DEBOUNCE;
+        const fast_timer_t exp_time = now - HISTORY_AND_DEBOUNCE;
 
         if (timer_expired_fast(exp_time, hist_time[last_s_idx])) {
             // expired time, all valid flag clear
@@ -217,7 +217,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     // valid history or to or_acc
     if (or_valid[last_s_idx]) {
         // expire time (minus offset from now) calc ahead 
-        fast_timer_t exp_time = now - HISTORY_OR_DEBOUNCE;
+        const fast_timer_t exp_time = now - HISTORY_OR_DEBOUNCE;
 
         if (timer_expired_fast(exp_time, hist_time[last_s_idx])) {
             // only last valid clear
