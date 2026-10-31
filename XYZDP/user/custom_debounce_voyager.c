@@ -258,8 +258,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 cooked_changed = true;
             }
 
-            // re-init last value for next cycle, 
-            // valid == false, noting update last value
+            // re-init acc for next cycle,
+            // valid == true, some update run maybe change 
+            // valid == false, noting update from last value
             if (and_valid) and_acc[r] = hist_data[last_s_idx][r];
             if (or_valid) or_acc[r] = hist_data[last_s_idx][r];
         }
