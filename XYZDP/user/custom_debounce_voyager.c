@@ -108,16 +108,17 @@
 #    define HISTORY_SAMPLE_COUNT 1
 #endif
 
-// history data buffer
+// history data & time buffer
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
+static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 
 // 2-level valid flag & expired time, global & each sample
 // use last_s_idx for last value (global)
 static bool and_valid[HISTORY_SAMPLE_COUNT];
-static fast_timer_t and_exp_time[HISTORY_SAMPLE_COUNT];
+//static fast_timer_t and_exp_time[HISTORY_SAMPLE_COUNT];
 
 static bool or_valid[HISTORY_SAMPLE_COUNT];
-static fast_timer_t or_exp_time[HISTORY_SAMPLE_COUNT];
+//static fast_timer_t or_exp_time[HISTORY_SAMPLE_COUNT];
 
 static uint8_t last_s_idx;
 static uint8_t wr_s_idx;
@@ -158,7 +159,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // safe attr safe_raw ptr for read-only use
         const matrix_row_t *const safe_raw = raw;
 
-        // raw transfer with mask, only changed timing
+        // raw transfer, only changed timing
         for (uint8_t r = 0; r < num_rows; r++) {
             // mask apply final result only
             //const matrix_row_t tmp_row = safe_raw[r] & matrix_mask[r]; 
@@ -170,12 +171,14 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             or_acc[r] = tmp_row;
         }
 
+        hist_time[wr_s_idx] = now;
+
         // flag & expire time set
         and_valid[wr_s_idx] = true;
-        and_exp_time[wr_s_idx] = now + HISTORY_AND_DEBOUNCE;
+        //and_exp_time[wr_s_idx] = now + HISTORY_AND_DEBOUNCE;
 
         or_valid[wr_s_idx] = true;
-        or_exp_time[wr_s_idx] = now + HISTORY_OR_DEBOUNCE;
+        //or_exp_time[wr_s_idx] = now + HISTORY_OR_DEBOUNCE;
 
         // last is last wrote index
         last_s_idx = wr_s_idx;
@@ -187,7 +190,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
     // valid history and to tmp_and
     if (and_valid[last_s_idx]) {
-        if (timer_expired_fast(now, and_exp_time[last_s_idx])) {
+        fast_timer_t exp_time = now - HISTORY_AND_DEBOUNCE;
+        if (timer_expired_fast(exp_time, hist_time[last_s_idx])) {
             // expired time, all valid flag clear
             //for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
             //    and_valid[s] = false;
@@ -199,7 +203,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
                 // same as global(last), loop little deep
                 if (and_valid[s]) {
-                    if (timer_expired_fast(now, and_exp_time[s])) {
+                    if (timer_expired_fast(exp_time, hist_time[s])) {
                         // expired time, flag reset
                         and_valid[s] = false;
                     } else {
@@ -215,7 +219,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
     // valid history or to tmp_or
     if (or_valid[last_s_idx]) {
-        if (timer_expired_fast(now, or_exp_time[last_s_idx])) {
+        fast_timer_t exp_time = now - HISTORY_OR_DEBOUNCE;
+        if (timer_expired_fast(exp_time, hist_time[last_s_idx])) {
             // expired time, all valid flag clear
             //for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
             //    or_valid[s] = false;
@@ -227,7 +232,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
                 // same as global(last), loop little deep
                 if (or_valid[s]) {
-                    if (timer_expired_fast(now, or_exp_time[s])) {
+                    if (timer_expired_fast(exp_time, hist_time[s])) {
                         // expired time, flag reset
                         or_valid[s] = false;
                     } else {
