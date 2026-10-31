@@ -151,7 +151,8 @@ static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
 // add const for safety for flag
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows, const bool changed) {
     const fast_timer_t now = timer_read_fast();
-    
+    const size_t matrix_size = num_rows * sizeof(matrix_row_t);
+
     if (changed) {
         // raw value chagde, transfer raw to history buffer & *_acc
         // must update *_acc
@@ -160,16 +161,20 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         const matrix_row_t *const safe_raw = raw;
 
         // raw transfer, only changed timing
-        for (uint8_t r = 0; r < num_rows; r++) {
-            // matrix_mask apply final result only
-            //const matrix_row_t tmp_row = safe_raw[r] & matrix_mask[r]; 
-            const matrix_row_t tmp_row = safe_raw[r]; 
+        memcpy(hist_data[wr_s_idx], safe_raw, matrix_size);
+        memcpy(and_acc, safe_raw, matrix_size);
+        memcpy(or_acc, safe_raw, matrix_size);
 
-            hist_data[wr_s_idx][r] = tmp_row;
-
-            and_acc[r] = tmp_row;
-            or_acc[r] = tmp_row;
-        }
+        //for (uint8_t r = 0; r < num_rows; r++) {
+        //    // matrix_mask apply final result only
+        //    //const matrix_row_t tmp_row = safe_raw[r] & matrix_mask[r]; 
+        //    const matrix_row_t tmp_row = safe_raw[r]; 
+        //
+        //    hist_data[wr_s_idx][r] = tmp_row;
+        //
+        //    and_acc[r] = tmp_row;
+        //    or_acc[r] = tmp_row;
+        //}
 
         // sample time
         hist_time[wr_s_idx] = now;
@@ -261,8 +266,11 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // re-init acc for next cycle,
             // valid == true, some update run, maybe change acc, re-init 
             // valid == false, noting update from last value
-            if (and_valid) and_acc[r] = hist_data[last_s_idx][r];
-            if (or_valid) or_acc[r] = hist_data[last_s_idx][r];
+            //if (and_valid) and_acc[r] = hist_data[last_s_idx][r];
+            //if (or_valid) or_acc[r] = hist_data[last_s_idx][r];
+
+            if (and_valid) memcpy(and_acc, hist_data[last_s_idx], matrix_size);
+            if (or_valid) memcpy(or_acc, hist_data[last_s_idx], matrix_size);
         }
     }
 
