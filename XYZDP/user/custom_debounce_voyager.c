@@ -112,7 +112,11 @@
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
 static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 
-// data accumulator
+// last & write sample index 
+static uint8_t last_s_idx;
+static uint8_t wr_s_idx;
+
+// data accumulator, 1 sample size
 static matrix_row_t and_acc[MATRIX_ROWS];
 static matrix_row_t or_acc[MATRIX_ROWS];
 
@@ -120,10 +124,6 @@ static matrix_row_t or_acc[MATRIX_ROWS];
 // reset on loop head, set at condition hit
 static bool and_valid;
 static bool or_valid;
-
-// last & write sample index 
-static uint8_t last_s_idx;
-static uint8_t wr_s_idx;
 
 // memory previus cycle status
 static bool cooked_changed;
@@ -174,16 +174,16 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // sample time
         hist_time[wr_s_idx] = now;
 
-        // flag set
-        and_valid = true;
-        or_valid = true;
-
         // last is last wrote index
         last_s_idx = wr_s_idx;
 
         // update write index
         wr_s_idx++;
         if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
+
+        // valid flag set
+        and_valid = true;
+        or_valid = true;
     }
 
     // valid history and to and_acc
@@ -275,13 +275,13 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
 // add const for safety
 void debounce_init(const uint8_t num_rows) {
+    last_s_idx = 0;
+    wr_s_idx = 0;
+
     // only reset flags
     and_valid = false;
     or_valid = false;
 
-    last_s_idx = 0;
-    wr_s_idx = 0;
-    
     // init for run 1st transfer
     cooked_changed = true;
 }
