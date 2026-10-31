@@ -253,20 +253,20 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // all 0  -> and=0 or=0 (stable 0)
             // 0,1... -> and=0 or=1 (unstable, detect this)
             // none   -> and=1 or=0 (invalid, check & mask)
-            // new_value use stable 1, more safety
-            const matrix_row_t new_value =   and_acc[r]  &   or_acc[r]  & matrix_mask[r];
-            const matrix_row_t unstable  = (~and_acc[r]) &   or_acc[r]  & matrix_mask[r];
-            const matrix_row_t invalid   =   and_acc[r]  & (~or_acc[r]) & matrix_mask[r];
+            // new_caaked use stable 1, more safety
+            const matrix_row_t new_cooked    =   and_acc[r]  &   or_acc[r]  & matrix_mask[r];
+            const matrix_row_t unstable_mask = (~and_acc[r]) &   or_acc[r]  & matrix_mask[r];
+            const matrix_row_t invalid_mask  =   and_acc[r]  & (~or_acc[r]) & matrix_mask[r];
             
             // not unstable, not invalid, -> stable
-            const matrix_row_t stable = (~unstable) & (~invalid) & matrix_mask[r];
+            const matrix_row_t stable_mask = (~unstable_mask) & (~invalid_mask) & matrix_mask[r];
             
             // if diff, tmp to final value, update flag
             // xor -> diff is 1, and mask -> stable only
-            if ((cooked[r] ^ new_value) & stable) {
+            if ((cooked[r] ^ new_cooked) & stable_mask) {
                 // update cooked
-                cooked[r] &= unstable;              // unstable bit keep current value, non-stable clear
-                cooked[r] |= new_value & stable;    // stable new value
+                cooked[r] &= unstable_mask;             // unstable bit keep current value, non-stable clear
+                cooked[r] |= new_cooked & stable_mask;  // stable new value
 
                 cooked_changed = true;
             }
