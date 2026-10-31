@@ -20,7 +20,8 @@
 #define HOLD_REPEAT_TIME 337
 #define INV_THROTTLE_TIME 31
 
-static bool pos_pressed[POSITION_COUNT] ;
+static bool pos_pressed[POSITION_COUNT];
+static bool pos_overlay_on[POSITION_COUNT];
 static fast_timer_t pos_inv_trigger[POSITION_COUNT];
 
 static fast_timer_t pos_inv_throttle_trigger;
@@ -28,6 +29,7 @@ static fast_timer_t pos_inv_throttle_trigger;
 void keyboard_post_init_pos_press_overlay(void) {
     for (uint8_t pos = 0; pos < POSITION_COUNT; pos++) {
         pos_pressed[pos] = false;
+        pos_overlay_on[pos] = false;
         pos_inv_trigger[pos] = (UINT32_MAX / 2) - 1;
     }
 
@@ -42,10 +44,12 @@ bool pre_process_record_pos_press_overlay(uint16_t keycode, keyrecord_t *record)
     // common on tap & hold
     if (record->event.pressed) {
         pos_pressed[pos] = true;
+        pos_overlay_on[pos] = true;
         pos_inv_trigger[pos] = now + HOLD_INIT_TIME;
     } else {
         pos_pressed[pos] = false;
-        pos_inv_trigger[pos] = now + (UINT32_MAX / 2) - 1;
+        pos_overlay_on[pos] = false;
+        //pos_inv_trigger[pos] = now + (UINT32_MAX / 2) - 1;
     }
 
     return true;
@@ -59,10 +63,11 @@ void housekeeping_task_pos_press_overlay(void) {
     pos_inv_throttle_trigger += INV_THROTTLE_TIME;
 
     for (uint8_t pos = 0; pos < POSITION_COUNT; pos++) {
+        if (pos_pressed[pos] == false) continue;
         if (timer_expired_fast(now, pos_inv_trigger[pos]) == false) continue;
         
         pos_inv_trigger[pos] += HOLD_REPEAT_TIME;
-        pos_pressed[pos] = !(pos_pressed[pos]);
+        pos_overlay_on[pos] = !(pos_overlay_on[pos]);
     }
 
     return;
@@ -70,7 +75,7 @@ void housekeeping_task_pos_press_overlay(void) {
 
 bool rgb_matrix_indicators_pos_press_overlay(void) {
     for (uint8_t pos = 0; pos < POSITION_COUNT; pos++) {
-        if (pos_pressed[pos]) rgb_matrix_set_color(pos, 0, 0, 0);
+        if (pos_overlay_on[pos]) rgb_matrix_set_color(pos, 0, 0, 0);
     }
 
     return true;
