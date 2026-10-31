@@ -160,7 +160,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // safe attr safe_raw ptr for read-only use
         const matrix_row_t *const safe_raw = raw;
 
-        // raw transfer, only changed timing
+        // raw transfer, only changed timing, use memcpy than upstream
         memcpy(hist_data[wr_s_idx], safe_raw, matrix_size);
         memcpy(and_acc, safe_raw, matrix_size);
         memcpy(or_acc, safe_raw, matrix_size);
