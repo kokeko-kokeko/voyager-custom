@@ -35,7 +35,14 @@ void chSysIdleHook(void) {
   __WFI();
 }
 
-void keyboard_post_init_user(void) {  
+void keyboard_pre_init_user(void) {
+
+}
+
+void keyboard_post_init_user(void) {
+  // init virt layer data first (some module use)
+  keyboard_post_init_virt_layer();
+
   keyboard_post_init_connection_layer_os_swap_status();
   keyboard_post_init_exec_halt();
   keyboard_post_init_fade_matrix();
@@ -43,7 +50,6 @@ void keyboard_post_init_user(void) {
   keyboard_post_init_pos_press_overlay();
   keyboard_post_init_split_txn_trackball();
   keyboard_post_init_status_led();
-  keyboard_post_init_virt_layer();
 }
 
 void matrix_scan_user(void) {
