@@ -196,11 +196,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         // process each history sample
         for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
-            if (timer_expired_fast(exp_time, hist_time[s])) {
-                // expired, notihng to do
-                continue;
-            } else {
-                // valid sample and to tmp
+            if (timer_expired_fast(exp_time, hist_time[s]) == false) {
+                // not expired, valid sample and to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
                     and_acc[r] &= hist_data[s][r];
                 }
@@ -220,11 +217,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         // process each history sample
         for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
-            if (timer_expired_fast(exp_time, hist_time[s])) {
-                // expired, notihng to do
-                continue;
-            } else {
-                // valid sample or to tmp
+            if (timer_expired_fast(exp_time, hist_time[s]) == false) {
+                // not expired, valid sample or to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
                     or_acc[r] |= hist_data[s][r];
                 }
@@ -264,9 +258,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 cooked_changed = true;
             }
 
-            // re-init last value for next cycle, always last value, no-relation valid
-            and_acc[r] = hist_data[last_s_idx][r];
-            or_acc[r] = hist_data[last_s_idx][r];
+            // re-init last value for next cycle, 
+            // valid == false, noting update last value
+            if (and_valid) and_acc[r] = hist_data[last_s_idx][r];
+            if (or_valid) or_acc[r] = hist_data[last_s_idx][r];
         }
     }
 
