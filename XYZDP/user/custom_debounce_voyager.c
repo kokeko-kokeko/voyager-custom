@@ -265,7 +265,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // xor -> diff is 1, and mask -> stable only
             if ((cooked[r] ^ new_data) & stable_mask) {
                 // update cooked
-                cooked[r] &= unstable_mask;             // unstable bit keep current value, non-stable clear
+                cooked[r] &= (~stable_mask);            // not stable bit keep current value, stable clear
                 cooked[r] |= new_data & stable_mask;    // stable new data
 
                 cooked_changed = true;
