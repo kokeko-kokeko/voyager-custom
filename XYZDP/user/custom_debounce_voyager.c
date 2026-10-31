@@ -112,10 +112,10 @@
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
 static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 
-// 2-level valid flag, global & each sample
-// use last_s_idx for last value (global)
-static bool and_valid[HISTORY_SAMPLE_COUNT];
-static bool or_valid[HISTORY_SAMPLE_COUNT];
+// single valid flag, same as cooked_changed style
+// reset on loop head, set at condition hit
+static bool and_valid;
+static bool or_valid;
 
 static uint8_t last_s_idx;
 static uint8_t wr_s_idx;
@@ -172,8 +172,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         hist_time[wr_s_idx] = now;
 
         // flag set
-        and_valid[wr_s_idx] = true;
-        or_valid[wr_s_idx] = true;
+        and_valid = true;
+        or_valid = true;
 
         // last is last wrote index
         last_s_idx = wr_s_idx;
@@ -184,66 +184,54 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     }
 
     // valid history and to and_acc
-    if (and_valid[last_s_idx]) {
+    if (and_valid) {
+        // flag reset, if find valid sample set in loop
+        and_valid = false;
+
         // expire time (minus offset from now) calc ahead 
         const fast_timer_t exp_time = now - HISTORY_AND_DEBOUNCE;
 
-        if (timer_expired_fast(exp_time, hist_time[last_s_idx])) {
-            // expired time, all valid flag clear
-            //for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
-            //    and_valid[s] = false;
-            //}
-            // only last valid clear
-            and_valid[last_s_idx] = false;
-        } else {
-            // process each history sample
-            for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
-                // same as global(last), loop little deep
-                if (and_valid[s]) {
-                    if (timer_expired_fast(exp_time, hist_time[s])) {
-                        // expired time, flag reset
-                        and_valid[s] = false;
-                    } else {
-                        // valid sample and to tmp
-                        for (uint8_t r = 0; r < num_rows; r++) {
-                            and_acc[r] &= hist_data[s][r];
-                        }
-                    }
+        // process each history sample
+        for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
+            if (timer_expired_fast(exp_time, hist_time[s])) {
+                // expired, notihng to do
+            } else {
+                // valid sample and to tmp
+                for (uint8_t r = 0; r < num_rows; r++) {
+                    and_acc[r] &= hist_data[s][r];
                 }
+
+                and_valid = true;
             }
         }
     }
 
     // valid history or to or_acc
-    if (or_valid[last_s_idx]) {
+    if (or_valid) {
+        // flag reset, if find valid sample set in loop
+        or_valid = false;
+
         // expire time (minus offset from now) calc ahead 
         const fast_timer_t exp_time = now - HISTORY_OR_DEBOUNCE;
 
-        if (timer_expired_fast(exp_time, hist_time[last_s_idx])) {
-            // only last valid clear
-            or_valid[last_s_idx] = false;
-        } else {
-            // process each history sample
-            for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
-                // same as global(last), loop little deep
-                if (or_valid[s]) {
-                    if (timer_expired_fast(exp_time, hist_time[s])) {
-                        // expired time, flag reset
-                        or_valid[s] = false;
-                    } else {
-                        // valid sample or to tmp
-                        for (uint8_t r = 0; r < num_rows; r++) {
-                            or_acc[r] |= hist_data[s][r];
-                        }
-                    }
+        // process each history sample
+        for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
+            if (timer_expired_fast(exp_time, hist_time[s])) {
+                // expired, notihng to do
+            } else {
+                // valid sample or to tmp
+                for (uint8_t r = 0; r < num_rows; r++) {
+                    or_acc[r] |= hist_data[s][r];
                 }
+
+                or_valid = true;
             }
         }
     }
 
     // change is vilid history or last cooked_changed
     // no-change nothing to do
-    if(and_valid[last_s_idx] || or_valid[last_s_idx] || cooked_changed) {
+    if(and_valid || or_valid || cooked_changed) {
         // apply cooked update
         cooked_changed = false;
 
@@ -283,15 +271,13 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 // add const for safety
 void debounce_init(const uint8_t num_rows) {
     // only reset flags
-    for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
-        and_valid[s] = false;
-        or_valid[s] = false;
-    }
+    and_valid = false;
+    or_valid = false;
 
     last_s_idx = 0;
     wr_s_idx = 0;
     
-    // init for run transfer
+    // init for run 1st transfer
     cooked_changed = true;
 }
 
