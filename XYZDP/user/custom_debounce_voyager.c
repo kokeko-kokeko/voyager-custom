@@ -155,12 +155,13 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     const size_t matrix_size = num_rows * sizeof(matrix_row_t);
 
     // safe attr safe_raw ptr for read-only use
-    const matrix_row_t *const safe_raw = raw;
+    // raw use only memcpy direct
+    //const matrix_row_t *const safe_raw = raw;
 
     if (changed) {
         // only re-init to and/or acc value, main update after this cycle
-        memcpy(and_acc, safe_raw, matrix_size);
-        memcpy(or_acc, safe_raw, matrix_size);
+        memcpy(and_acc, raw, matrix_size);
+        memcpy(or_acc, raw, matrix_size);
 
         // run apply cooked update
         cooked_changed = true;
@@ -242,7 +243,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
     if (changed) {
         // raw transfer to history, only changed timing, use memcpy than upstream
-        memcpy(hist_data[wr_s_idx], safe_raw, matrix_size);
+        memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
         // sample time
         hist_time[wr_s_idx] = now;
@@ -259,8 +260,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     // re-init acc for next cycle, from raw directly
     // valid == true, some update run, maybe change acc, re-init 
     // valid == false, noting update from last value
-    if (and_valid) memcpy(and_acc, safe_raw, matrix_size);
-    if (or_valid) memcpy(or_acc, safe_raw, matrix_size);
+    if (and_valid) memcpy(and_acc, raw, matrix_size);
+    if (or_valid) memcpy(or_acc, raw, matrix_size);
 
     return cooked_changed;
 }
