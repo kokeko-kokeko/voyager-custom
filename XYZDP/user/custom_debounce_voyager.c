@@ -256,7 +256,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         or_valid = true;
     }
 
-    // re-init acc for next cycle, from raw disectly
+    // re-init acc for next cycle, from raw directly
     // valid == true, some update run, maybe change acc, re-init 
     // valid == false, noting update from last value
     if (and_valid) memcpy(and_acc, safe_raw, matrix_size);
