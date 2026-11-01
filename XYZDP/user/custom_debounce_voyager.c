@@ -158,6 +158,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     // raw use only memcpy direct
     //const matrix_row_t *const safe_raw = raw;
 
+    // value change for each _acc this cycle
+    bool and_changed = false;
+    bool or_changed = false;
+
     if (changed) {
         // only re-init to and/or acc value, main update after this cycle
         memcpy(and_acc, raw, matrix_size);
@@ -180,7 +184,12 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             if (timer_expired_fast(exp_time, hist_time[s]) == false) {
                 // not expired, valid sample and to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
-                    and_acc[r] &= hist_data[s][r];
+                    if (and_acc[r] ^ hist_data[s][r]) {
+                        // xor detect diff
+                        and_acc[r] &= hist_data[s][r];
+                        
+                        and_changed = true;
+                    }                    
                 }
 
                 and_valid = true;
@@ -201,7 +210,12 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             if (timer_expired_fast(exp_time, hist_time[s]) == false) {
                 // not expired, valid sample or to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
-                    or_acc[r] |= hist_data[s][r];
+                    if (or_acc[r] ^ hist_data[s][r]) {
+                        // xor detect diff
+                        or_acc[r] |= hist_data[s][r];
+
+                        or_changed = true;
+                    }
                 }
 
                 or_valid = true;
@@ -253,16 +267,21 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         wr_s_idx++;
         if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
 
-        // valid flag set for re-run history check
+        // valid flag set for re-run history check next cycle
         and_valid = true;
         or_valid = true;
+
+        // arleady memcpy first part of this cycle, not force update
+        //and_changed = true;
+        //or_changed = true;
     }
 
     // re-init acc for next cycle, from raw directly
+    // use changed flag more exact update information
     // valid == true, some update run, maybe change acc, re-init 
     // valid == false, noting update from last value
-    if (and_valid) memcpy(and_acc, raw, matrix_size);
-    if (or_valid) memcpy(or_acc, raw, matrix_size);
+    if (and_changed) memcpy(and_acc, raw, matrix_size);
+    if (or_changed) memcpy(or_acc, raw, matrix_size);
 
     return cooked_changed;
 }
