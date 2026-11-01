@@ -30,7 +30,7 @@ void keyboard_post_init_pos_press_overlay(void) {
     for (uint8_t pos = 0; pos < POSITION_COUNT; pos++) {
         pos_pressed[pos] = false;
         pos_overlay_on[pos] = false;
-        pos_inv_trigger[pos] = (UINT32_MAX / 2) - 1;
+        //pos_inv_trigger[pos] = (UINT32_MAX / 2) - 1;
     }
 
     pos_inv_throttle_trigger = timer_read_fast();
