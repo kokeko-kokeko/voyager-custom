@@ -153,31 +153,16 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     const fast_timer_t now = timer_read_fast();
     const size_t matrix_size = num_rows * sizeof(matrix_row_t);
 
+    // safe attr safe_raw ptr for read-only use
+    const matrix_row_t *const safe_raw = raw;
+
     if (changed) {
-        // raw value chagde, transfer raw to history buffer & *_acc
-        // must update *_acc
-
-        // safe attr safe_raw ptr for read-only use
-        const matrix_row_t *const safe_raw = raw;
-
-        // raw transfer, only changed timing, use memcpy than upstream
-        memcpy(hist_data[wr_s_idx], safe_raw, matrix_size);
+        // only re-init to and/or acc value, main update after this cycle
         memcpy(and_acc, safe_raw, matrix_size);
         memcpy(or_acc, safe_raw, matrix_size);
 
-        // sample time
-        hist_time[wr_s_idx] = now;
-
-        // last is last wrote index
-        last_s_idx = wr_s_idx;
-
-        // update write index
-        wr_s_idx++;
-        if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
-
-        // valid flag set
-        and_valid = true;
-        or_valid = true;
+        // run apply cooked update
+        cooked_changed = true;
     }
 
     // valid history and to and_acc
@@ -252,13 +237,32 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 cooked_changed = true;
             }
         }
-        
-        // re-init acc for next cycle,
-        // valid == true, some update run, maybe change acc, re-init 
-        // valid == false, noting update from last value
-        if (and_valid) memcpy(and_acc, hist_data[last_s_idx], matrix_size);
-        if (or_valid) memcpy(or_acc, hist_data[last_s_idx], matrix_size);
     }
+
+    if (changed) {
+        // raw transfer to history, only changed timing, use memcpy than upstream
+        memcpy(hist_data[wr_s_idx], safe_raw, matrix_size);
+
+        // sample time
+        hist_time[wr_s_idx] = now;
+
+        // last is last wrote index
+        last_s_idx = wr_s_idx;
+
+        // update write index
+        wr_s_idx++;
+        if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
+
+        // valid flag set for re-run history check
+        and_valid = true;
+        or_valid = true;
+    }
+
+    // re-init acc for next cycle,
+    // valid == true, some update run, maybe change acc, re-init 
+    // valid == false, noting update from last value
+    if (and_valid) memcpy(and_acc, hist_data[last_s_idx], matrix_size);
+    if (or_valid) memcpy(or_acc, hist_data[last_s_idx], matrix_size);
 
     return cooked_changed;
 }
