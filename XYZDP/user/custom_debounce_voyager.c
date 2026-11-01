@@ -243,6 +243,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
     if (changed) {
         // raw transfer to history, only changed timing, use memcpy than upstream
+        // this data use next cycle, non double apply
         memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
         // sample time
