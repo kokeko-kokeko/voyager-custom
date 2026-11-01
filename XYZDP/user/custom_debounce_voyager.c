@@ -185,7 +185,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 // not expired, valid sample and to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
                     if ((and_acc[r] ^ hist_data[s][r]) & matrix_mask[r]) {
-                        // xor detect diff
+                        // xor detect diff with matrix_mask
                         and_acc[r] &= hist_data[s][r];
                         
                         and_changed = true;
@@ -211,7 +211,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 // not expired, valid sample or to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
                     if ((or_acc[r] ^ hist_data[s][r]) & matrix_mask[r]) {
-                        // xor detect diff
+                        // xor detect diff with matrix_mask
                         or_acc[r] |= hist_data[s][r];
 
                         or_changed = true;
