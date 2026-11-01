@@ -113,7 +113,8 @@ static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
 static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 
 // last & write sample index 
-static uint8_t last_s_idx;
+// raw has evry time valid data, non last req
+//static uint8_t last_s_idx;
 static uint8_t wr_s_idx;
 
 // data accumulator, 1 sample size
@@ -246,9 +247,6 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // sample time
         hist_time[wr_s_idx] = now;
 
-        // last is last wrote index
-        last_s_idx = wr_s_idx;
-
         // update write index
         wr_s_idx++;
         if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
@@ -258,18 +256,17 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         or_valid = true;
     }
 
-    // re-init acc for next cycle,
+    // re-init acc for next cycle, from raw disectly
     // valid == true, some update run, maybe change acc, re-init 
     // valid == false, noting update from last value
-    if (and_valid) memcpy(and_acc, hist_data[last_s_idx], matrix_size);
-    if (or_valid) memcpy(or_acc, hist_data[last_s_idx], matrix_size);
+    if (and_valid) memcpy(and_acc, safe_raw, matrix_size);
+    if (or_valid) memcpy(or_acc, safe_raw, matrix_size);
 
     return cooked_changed;
 }
 
 // add const for safety
 void debounce_init(const uint8_t num_rows) {
-    last_s_idx = 0;
     wr_s_idx = 0;
 
     // only reset flags
