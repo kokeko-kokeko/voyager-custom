@@ -40,6 +40,18 @@
 // HISTORY_OR_DEBOUNCE -> fall (release) margin
 //
 
+// and acc pre-check update
+// acc 1 and data 1 -> 1 no acc change
+// acc 1 and data 0 -> 0 acc change (only pass here)
+// acc 0 and data 1 -> 0 no acc change
+// acc 0 and data 0 -> 0 no acc change
+
+// or acc pre-check update
+// acc 1 or data 1 -> 1 no acc change
+// acc 1 or data 0 -> 1 no acc change
+// acc 0 or data 1 -> 1 acc change (only pass here)
+// acc 0 or data 0 -> 0 no acc change
+
 // from upstream
 #ifndef DEBOUNCE
 #    define DEBOUNCE 5
