@@ -184,10 +184,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             if (timer_expired_fast(exp_time, hist_time[s]) == false) {
                 // not expired, valid sample and to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
-                    // acc 1 and 1 -> 1 no acc change
-                    // acc 1 and 0 -> 0 acc change (only pass here)
-                    // acc 0 and 1 -> 0 no acc change
-                    // acc 0 and 0 -> 0 no acc change
+                    // acc 1 and data 1 -> 1 no acc change
+                    // acc 1 and data 0 -> 0 acc change (only pass here)
+                    // acc 0 and data 1 -> 0 no acc change
+                    // acc 0 and data 0 -> 0 no acc change
                     const matrix_row_t req_update = and_acc[r] & (~hist_data[s][r]);
                     if (req_update) {
                         and_acc[r] &= hist_data[s][r];
@@ -214,10 +214,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             if (timer_expired_fast(exp_time, hist_time[s]) == false) {
                 // not expired, valid sample or to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
-                    // acc 1 or 1 -> 1 no acc change
-                    // acc 1 or 0 -> 1 no acc change
-                    // acc 0 or 1 -> 1 acc change (only pass here)
-                    // acc 0 or 0 -> 0 no acc change
+                    // acc 1 or data 1 -> 1 no acc change
+                    // acc 1 or data 0 -> 1 no acc change
+                    // acc 0 or data 1 -> 1 acc change (only pass here)
+                    // acc 0 or data 0 -> 0 no acc change
                     const matrix_row_t req_update = (~or_acc[r]) & hist_data[s][r];
                     if (req_update) {
                         or_acc[r] |= hist_data[s][r];
@@ -244,7 +244,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // 0,1... -> and=0 or=1 (unstable, detect this)
             // none   -> and=1 or=0 (invalid, check & mask)
             // new_data use stable 1, more safety
-            const matrix_row_t new_data      =   and_acc[r]  &   or_acc[r]  & matrix_mask[r];
+            const matrix_row_t new_data = and_acc[r] & or_acc[r] & matrix_mask[r];
             //const matrix_row_t unstable_mask = (~and_acc[r]) &   or_acc[r]  & matrix_mask[r];
             //const matrix_row_t invalid_mask  =   and_acc[r]  & (~or_acc[r]) & matrix_mask[r];
             
