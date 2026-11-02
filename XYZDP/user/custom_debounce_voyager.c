@@ -233,7 +233,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
     // change is vilid history or last cooked_changed
     // no-change nothing to do
-    if(and_valid || or_valid || cooked_changed) {
+    if (and_valid || or_valid || cooked_changed) {
         // apply cooked update
         cooked_changed = false;
 
@@ -251,7 +251,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // not unstable, not invalid, -> stable
             //const matrix_row_t stable_mask = (~unstable_mask) & (~invalid_mask) & matrix_mask[r];
             const matrix_row_t stable_mask = (~(and_acc[r] ^ or_acc[r])) & matrix_mask[r];
-            
+
             // if diff, tmp to final value, update flag
             // xor -> diff is 1, and mask -> stable only
             const matrix_row_t req_update = (cooked[r] ^ new_data) & stable_mask;
