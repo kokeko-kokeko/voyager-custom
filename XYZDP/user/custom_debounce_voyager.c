@@ -158,10 +158,6 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     // raw use only memcpy direct
     //const matrix_row_t *const safe_raw = raw;
 
-    // value change for each _acc this cycle
-    bool and_changed = false;
-    bool or_changed = false;
-
     if (changed) {
         // only re-init to and/or acc value, main update after this cycle
         memcpy(and_acc, raw, matrix_size);
@@ -171,6 +167,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         cooked_changed = true;
     }
 
+    // value change for each _acc this cycle
+    bool and_changed = false;
+    bool or_changed = false;
+    
     // valid history and to and_acc
     if (and_valid) {
         // flag reset, if find valid sample set in loop
@@ -188,7 +188,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                     // acc 1 and 0 -> 0 acc change (only pass here)
                     // acc 0 and 1 -> 0 no acc change
                     // acc 0 and 0 -> 0 no acc change
-                    if (and_acc[r] & (~hist_data[s][r])) {
+                    const matrix_row_t req_update = and_acc[r] & (~hist_data[s][r]);
+                    if (req_update) {
                         // xor detect diff with matrix_mask
                         and_acc[r] &= hist_data[s][r];
                         
@@ -218,7 +219,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                     // acc 1 or 0 -> 1 no acc change
                     // acc 0 or 1 -> 1 acc change (only pass here)
                     // acc 0 or 0 -> 0 no acc change
-                    if ((~or_acc[r]) & hist_data[s][r]) {
+                    const matrix_row_t req_update = (~or_acc[r]) & hist_data[s][r];
+                    if (req_update) {
                         // xor detect diff with matrix_mask
                         or_acc[r] |= hist_data[s][r];
 
@@ -253,7 +255,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             
             // if diff, tmp to final value, update flag
             // xor -> diff is 1, and mask -> stable only
-            if ((cooked[r] ^ new_data) & stable_mask) {
+            const matrix_row_t req_update = (cooked[r] ^ new_data) & stable_mask;
+            if (req_update) {
                 // update cooked
                 cooked[r] &= (~stable_mask);            // not stable bit keep current value, stable clear
                 cooked[r] |= new_data & stable_mask;    // stable new data
