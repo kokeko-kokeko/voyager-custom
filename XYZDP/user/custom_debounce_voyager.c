@@ -190,7 +190,6 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                     // acc 0 and 0 -> 0 no acc change
                     const matrix_row_t req_update = and_acc[r] & (~hist_data[s][r]);
                     if (req_update) {
-                        // xor detect diff with matrix_mask
                         and_acc[r] &= hist_data[s][r];
                         
                         and_changed = true;
@@ -221,7 +220,6 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                     // acc 0 or 0 -> 0 no acc change
                     const matrix_row_t req_update = (~or_acc[r]) & hist_data[s][r];
                     if (req_update) {
-                        // xor detect diff with matrix_mask
                         or_acc[r] |= hist_data[s][r];
 
                         or_changed = true;
