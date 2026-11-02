@@ -251,7 +251,6 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // not unstable, not invalid, -> stable
             //const matrix_row_t stable_mask = (~unstable_mask) & (~invalid_mask) & matrix_mask[r];
             const matrix_row_t stable_mask = (~(and_acc[r] ^ or_acc[r])) & matrix_mask[r];
-
             
             // if diff, tmp to final value, update flag
             // xor -> diff is 1, and mask -> stable only
