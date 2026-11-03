@@ -126,7 +126,7 @@ static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 
 // last & write sample index 
 // raw has evry time valid data, non last req
-//static uint8_t last_s_idx;
+static uint8_t last_s_idx;
 static uint8_t wr_s_idx;
 
 // data accumulator, 1 sample size
@@ -254,15 +254,15 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // all 1  -> and=1 or=1 (stable 1)
             // all 0  -> and=0 or=0 (stable 0)
             // 0,1... -> and=0 or=1 (unstable, detect this)
-            // none   -> and=1 or=0 (invalid, check & mask)
+            // none   -> and=1 or=0 (init invalid, check & mask)
             // new_data use stable 1, more safety
-            const matrix_row_t new_data = and_acc[r] & or_acc[r] & matrix_mask[r];
-            //const matrix_row_t unstable_mask = (~and_acc[r]) &   or_acc[r]  & matrix_mask[r];
-            //const matrix_row_t invalid_mask  =   and_acc[r]  & (~or_acc[r]) & matrix_mask[r];
+            const matrix_row_t new_data      =   and_acc[r] &    or_acc[r]  & matrix_mask[r];
+            const matrix_row_t unstable_mask = (~and_acc[r]) &   or_acc[r]  & matrix_mask[r];
+            const matrix_row_t init_inv_mask =   and_acc[r]  & (~or_acc[r]) & matrix_mask[r];
             
             // not unstable, not invalid, -> stable
-            //const matrix_row_t stable_mask = (~unstable_mask) & (~invalid_mask) & matrix_mask[r];
-            const matrix_row_t stable_mask = (~(and_acc[r] ^ or_acc[r])) & matrix_mask[r];
+            const matrix_row_t stable_mask = (~unstable_mask) & (~init_inv_mask) & matrix_mask[r];
+            //const matrix_row_t stable_mask = (~(and_acc[r] ^ or_acc[r])) & matrix_mask[r];
 
             // if diff, tmp to final value, update flag
             // xor -> diff is 1, and mask -> stable only
@@ -285,6 +285,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // sample time
         hist_time[wr_s_idx] = now;
 
+        // update last
+        last_s_idx = wr_s_idx;
+
         // update write index
         wr_s_idx++;
         if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
@@ -296,6 +299,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // arleady memcpy first part of this cycle, not force update
         //and_changed = true;
         //or_changed = true;
+    } else if ((and_valid || or_valid) == false) {
+        // and/or expired, last time extend for now
+        // for next change
+        hist_time[last_s_idx] = now;
     }
 
     // re-init acc for next cycle, from raw directly
@@ -310,6 +317,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
 // add const for safety
 void debounce_init(const uint8_t num_rows) {
+    last_s_idx = 0;
     wr_s_idx = 0;
 
     // only reset flags
