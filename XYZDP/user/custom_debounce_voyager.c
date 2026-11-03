@@ -183,6 +183,27 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         cooked_changed = true;
     }
 
+    if (changed) {
+        // raw transfer to history, only changed timing, use memcpy than upstream
+        // this data use after next cycle, non double apply
+        memcpy(hist_data[wr_s_idx], raw, matrix_size);
+
+        // sample time
+        hist_time[wr_s_idx] = now;
+
+        // update write index
+        wr_s_idx++;
+        if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
+
+        // valid flag set for re-run history check next cycle
+        and_valid = true;
+        or_valid = true;
+
+        // arleady memcpy first part of this cycle, not changed, not force update
+        //and_changed = true;
+        //or_changed = true;
+    }
+
     // value change for each _acc this cycle
     bool and_changed = false;
     bool or_changed = false;
@@ -252,15 +273,15 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // all 1  -> and=1 or=1 (stable 1)
             // all 0  -> and=0 or=0 (stable 0)
             // 0,1... -> and=0 or=1 (unstable, detect this)
-            // none   -> and=1 or=0 (invalid, check & mask)
+            // none   -> and=1 or=0 (init invalid, check & mask)
             // new_data use stable 1, more safety
-            const matrix_row_t new_data = and_acc[r] & or_acc[r] & matrix_mask[r];
-            //const matrix_row_t unstable_mask = (~and_acc[r]) &   or_acc[r]  & matrix_mask[r];
-            //const matrix_row_t invalid_mask  =   and_acc[r]  & (~or_acc[r]) & matrix_mask[r];
+            const matrix_row_t new_data      =   and_acc[r]  &   or_acc[r]  & matrix_mask[r];
+            const matrix_row_t unstable_mask = (~and_acc[r]) &   or_acc[r]  & matrix_mask[r];
+            const matrix_row_t invalid_mask  =   and_acc[r]  & (~or_acc[r]) & matrix_mask[r];
             
             // not unstable, not invalid, -> stable
-            //const matrix_row_t stable_mask = (~unstable_mask) & (~invalid_mask) & matrix_mask[r];
-            const matrix_row_t stable_mask = (~(and_acc[r] ^ or_acc[r])) & matrix_mask[r];
+            const matrix_row_t stable_mask = (~unstable_mask) & (~invalid_mask) & matrix_mask[r];
+            //const matrix_row_t stable_mask = (~(and_acc[r] ^ or_acc[r])) & matrix_mask[r];
 
             // if diff, new_data to final value, update flag
             // xor -> diff is 1, and mask -> stable only
@@ -273,27 +294,6 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 cooked_changed = true;
             }
         }
-    }
-
-    if (changed) {
-        // raw transfer to history, only changed timing, use memcpy than upstream
-        // this data use after next cycle, non double apply
-        memcpy(hist_data[wr_s_idx], raw, matrix_size);
-
-        // sample time
-        hist_time[wr_s_idx] = now;
-
-        // update write index
-        wr_s_idx++;
-        if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
-
-        // valid flag set for re-run history check next cycle
-        and_valid = true;
-        or_valid = true;
-
-        // arleady memcpy first part of this cycle, not changed, not force update
-        //and_changed = true;
-        //or_changed = true;
     }
 
     // re-init acc for next cycle, from raw directly
