@@ -126,9 +126,10 @@
 #    define HISTORY_SAMPLE_COUNT UINT8_MAX
 #endif
 
-#if HISTORY_SAMPLE_COUNT <= 0
+// minimal 2
+#if HISTORY_SAMPLE_COUNT <= 1
 #    undef HISTORY_SAMPLE_COUNT
-#    define HISTORY_SAMPLE_COUNT 1
+#    define HISTORY_SAMPLE_COUNT 2
 #endif
 
 // history idle (no change) update cycle (longest value)
@@ -215,7 +216,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // raw transfer to history, only changed timing, use memcpy like upstream
         memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
-        // sample time
+        // sample time (last_s_idx not use here, break value for valid data)
+        // last_s_idx must udate only idle !!! not here
         hist_time[wr_s_idx] = now;
         
         // update last sample index
@@ -232,7 +234,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // only extend timer (last value)
         hist_idle_trigger += HISTORY_IDLE_UPDATE_DELAY;
 
-        // extend last sample time
+        // update value for now only
         hist_time[last_s_idx] += HISTORY_IDLE_UPDATE_DELAY;
 
         // valid flag reset for only extend last sample time, no calc update
@@ -347,7 +349,10 @@ void debounce_init(const uint8_t num_rows) {
     const size_t matrix_size = num_rows * sizeof(matrix_row_t);
 
     hist_idle_trigger = now + HISTORY_IDLE_UPDATE_DELAY;
-    
+
+    // safety (use inc by idle)
+    hist_time[0] = now;
+
     // init acc buffer for invalid value
     memset(and_acc, 0xFF, matrix_size);
     memset(or_acc, 0x00, matrix_size);
