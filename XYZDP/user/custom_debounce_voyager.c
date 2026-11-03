@@ -175,12 +175,29 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     //const matrix_row_t *const safe_raw = raw;
 
     if (changed) {
-        // only re-init to and/or acc value, main update after this cycle
+        // raw transfer to history, only changed timing, use memcpy than upstream
+        memcpy(hist_data[wr_s_idx], raw, matrix_size);
+
         memcpy(and_acc, raw, matrix_size);
         memcpy(or_acc, raw, matrix_size);
 
-        // run apply cooked update
-        cooked_changed = true;
+        // sample time
+        hist_time[wr_s_idx] = now;
+
+        // update last
+        last_s_idx = wr_s_idx;
+
+        // update write index
+        wr_s_idx++;
+        if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
+
+        // valid flag set for re-run history check next cycle
+        and_valid = true;
+        or_valid = true;
+    } else if ((and_valid || or_valid) == false) {
+        // and/or expired, last time extend for now
+        // for next change
+        hist_time[last_s_idx] = now;
     }
 
     // value change for each _acc this cycle
@@ -275,33 +292,6 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         }
     }
 
-    if (changed) {
-        // raw transfer to history, only changed timing, use memcpy than upstream
-        // this data use next cycle, non double apply
-        memcpy(hist_data[wr_s_idx], raw, matrix_size);
-
-        // sample time
-        hist_time[wr_s_idx] = now;
-
-        // update last
-        last_s_idx = wr_s_idx;
-
-        // update write index
-        wr_s_idx++;
-        if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
-
-        // valid flag set for re-run history check next cycle
-        and_valid = true;
-        or_valid = true;
-
-        // arleady memcpy first part of this cycle, not force update
-        //and_changed = true;
-        //or_changed = true;
-    } else if ((and_valid || or_valid) == false) {
-        // and/or expired, last time extend for now
-        // for next change
-        hist_time[last_s_idx] = now;
-    }
 
     // re-init acc for next cycle, from raw directly
     // use changed flag more exact update information
