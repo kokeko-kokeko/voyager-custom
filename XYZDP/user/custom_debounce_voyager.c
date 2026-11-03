@@ -124,17 +124,16 @@
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
 static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 
-// last & write sample index 
-// raw has evry time valid data, non last req
-//static uint8_t last_s_idx;
-static uint8_t wr_s_idx;
-
 // data accumulator, 1 sample size
 static matrix_row_t and_acc[MATRIX_ROWS];
 static matrix_row_t or_acc[MATRIX_ROWS];
 
+// write sample index 
+// raw has evry time valid data, non last req
+static uint8_t wr_s_idx;
+
 // single valid flag, same as cooked_changed style
-// reset on loop head, set at condition hit
+// reset on search loop head, set at valid data hit
 static bool and_valid;
 static bool or_valid;
 
@@ -258,7 +257,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             //const matrix_row_t stable_mask = (~unstable_mask) & (~invalid_mask) & matrix_mask[r];
             const matrix_row_t stable_mask = (~(and_acc[r] ^ or_acc[r])) & matrix_mask[r];
 
-            // if diff, tmp to final value, update flag
+            // if diff, new_data to final value, update flag
             // xor -> diff is 1, and mask -> stable only
             const matrix_row_t req_update = (cooked[r] ^ new_data) & stable_mask;
             if (req_update) {
