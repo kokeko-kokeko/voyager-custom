@@ -161,8 +161,6 @@
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
 static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 
-static fast_timer_t hist_idle_trigger;
-
 // data accumulator, 1 sample size
 static matrix_row_t and_acc[MATRIX_ROWS];
 static matrix_row_t or_acc[MATRIX_ROWS];
@@ -210,9 +208,6 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     //const matrix_row_t *const safe_raw = raw;
 
     if (changed) {
-        // idle timeout start from now, expired force off valid
-        hist_idle_trigger = now + HISTORY_IDLE_UPDATE_DELAY;
-
         // raw transfer to history, only changed timing, use memcpy like upstream
         memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
@@ -230,16 +225,6 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // valid flag set for re-run history check next cycle
         and_valid = true;
         or_valid = true;
-    } else if (timer_expired_fast(now, hist_idle_trigger)) {
-        // only extend timer (last value)
-        hist_idle_trigger += HISTORY_IDLE_UPDATE_DELAY;
-
-        // update value for now only
-        hist_time[last_s_idx] += HISTORY_IDLE_UPDATE_DELAY;
-
-        // valid flag reset for only extend last sample time, no calc update
-        and_valid = false;
-        or_valid = false;
     }
 
     // value change for each _acc this cycle
@@ -345,13 +330,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
 // add const for safety
 void debounce_init(const uint8_t num_rows) {
-    const fast_timer_t now = timer_read_fast();
+    //const fast_timer_t now = timer_read_fast();
     const size_t matrix_size = num_rows * sizeof(matrix_row_t);
-
-    hist_idle_trigger = now + HISTORY_IDLE_UPDATE_DELAY;
-
-    // safety (use inc by idle)
-    hist_time[0] = now;
 
     // init acc buffer for invalid value
     memset(and_acc, 0xFF, matrix_size);
