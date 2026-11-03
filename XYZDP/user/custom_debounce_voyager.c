@@ -126,12 +126,12 @@
 #    define HISTORY_SAMPLE_COUNT 1
 #endif
 
-// history idle (no change) update cycle
+// history idle (no change) update cycle (longest value)
 #ifndef HISTORY_IDLE_UPDATE_DELAY
-#    if HISTORY_AND_DEBOUNCE <= HISTORY_OR_DEBOUNCE
-#        define HISTORY_IDLE_UPDATE_DELAY (HISTORY_AND_DEBOUNCE-1)
+#    if HISTORY_AND_DEBOUNCE >= HISTORY_OR_DEBOUNCE
+#        define HISTORY_IDLE_UPDATE_DELAY (HISTORY_AND_DEBOUNCE+1)
 #    else
-#        define HISTORY_IDLE_UPDATE_DELAY (HISTORY_OR_DEBOUNCE-1)
+#        define HISTORY_IDLE_UPDATE_DELAY (HISTORY_OR_DEBOUNCE+1)
 #    endif
 #endif
 
@@ -224,6 +224,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         // extend last sample time
         hist_time[last_s_idx] += HISTORY_IDLE_UPDATE_DELAY;
+
+        // valid flag reset for only extend last sample time
+        and_valid = false;
+        or_valid = false;
     }
 
     // value change for each _acc this cycle
@@ -284,7 +288,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         }
     }
 
-    // change is vilid history or last cooked_changed
+    // change any acc or last cooked_changed
     // no-change nothing to do
     if (and_changed || or_changed || cooked_changed) {
         // apply cooked update
