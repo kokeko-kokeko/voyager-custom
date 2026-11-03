@@ -28,8 +28,13 @@
 // all 1  -> and=1 or=1 (stable 1)
 // all 0  -> and=0 or=0 (stable 0)
 // 0,1... -> and=0 or=1 (unstable, detect this)
-// none   -> and=1 or=0 (invalid, check & mask)
+// none   -> and=1 or=0 (init invalid, check & mask)
 // 2 bit, 4 state
+//
+
+// 
+// acc non-hit history detect
+// and=1 or=0 on buffer init, some value apply change another
 //
 
 //
@@ -303,6 +308,11 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
 // add const for safety
 void debounce_init(const uint8_t num_rows) {
+    const size_t matrix_size = num_rows * sizeof(matrix_row_t);
+    
+    memset(and_acc, 0xFF, matrix_size);
+    memset(or_acc, 0x00, matrix_size);
+    
     wr_s_idx = 0;
 
     // only reset flags
