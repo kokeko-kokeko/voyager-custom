@@ -35,8 +35,12 @@
 // acc non-hit history detect
 // and=1 or=0 on buffer init, some value apply change another
 //
-// one idea
-//
+// idea gen init value from matrix_mask
+// matrix_mask is 1 -> vanid cross point, 0 -> unused
+// and_acc init value matrix_mask 
+// or_acc init value not matrix_mask
+// 1 to init
+// 0 to unstable
 //
 
 //
@@ -301,14 +305,31 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     // use changed flag more exact update information
     // valid == true, some update run, maybe change acc, re-init 
     // valid == false, noting update from last value
-    if (and_changed) memcpy(and_acc, raw, matrix_size);
-    if (or_changed) memcpy(or_acc, raw, matrix_size);
+    //if (and_changed) memcpy(and_acc, raw, matrix_size);
+    //if (or_changed) memcpy(or_acc, raw, matrix_size);
+
+    if (and_changed) {
+        for (uint8_t r = 0; r < num_rows; r++) {
+            and_acc[r] = matrix_mask[r];
+        }
+    }
+
+    if (or_changed) {
+        for (uint8_t r = 0; r < num_rows; r++) {
+            or_acc[r] = (~matrix_mask[r]);
+        }
+    }
 
     return cooked_changed;
 }
 
 // add const for safety
 void debounce_init(const uint8_t num_rows) {
+    for (uint8_t r = 0; r < num_rows; r++) {
+        and_acc[r] = matrix_mask[r];
+        or_acc[r] = (~matrix_mask[r]);
+    }
+
     last_s_idx = 0;
     wr_s_idx = 0;
 
