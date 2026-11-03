@@ -86,7 +86,7 @@
 #    define HISTORY_AND_DEBOUNCE UINT8_MAX
 #endif
 
-#if HISTORY_AND_DEBOUNCE <= 0
+#if HISTORY_AND_DEBOUNCE < 1
 #    undef HISTORY_AND_DEBOUNCE
 #    define HISTORY_AND_DEBOUNCE 1
 #endif
@@ -102,7 +102,7 @@
 #    define HISTORY_OR_DEBOUNCE UINT8_MAX
 #endif
 
-#if HISTORY_OR_DEBOUNCE <= 0
+#if HISTORY_OR_DEBOUNCE < 1
 #    undef HISTORY_OR_DEBOUNCE
 #    define HISTORY_OR_DEBOUNCE 1
 #endif
@@ -122,9 +122,9 @@
 #    define HISTORY_SAMPLE_COUNT UINT8_MAX
 #endif
 
-#if HISTORY_SAMPLE_COUNT <= 0
+#if HISTORY_SAMPLE_COUNT < 2
 #    undef HISTORY_SAMPLE_COUNT
-#    define HISTORY_SAMPLE_COUNT 1
+#    define HISTORY_SAMPLE_COUNT 2
 #endif
 
 // history data & time buffer
