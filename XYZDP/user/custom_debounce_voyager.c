@@ -203,7 +203,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     } else if ((and_valid || or_valid) == false) {
         // no use history, last hist_time move to now
         // this value use for next changed
-        // next value use 3 value diff
+        // next value use 2 value diff
         hist_time[last_s_idx] = now;
     }
 
