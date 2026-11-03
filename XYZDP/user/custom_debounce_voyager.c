@@ -272,7 +272,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
     if (changed) {
         // raw transfer to history, only changed timing, use memcpy than upstream
-        // this data use next cycle, non double apply
+        // this data use after next cycle, non double apply
         memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
         // sample time
@@ -286,7 +286,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         and_valid = true;
         or_valid = true;
 
-        // arleady memcpy first part of this cycle, not force update
+        // arleady memcpy first part of this cycle, not changed, not force update
         //and_changed = true;
         //or_changed = true;
     }
