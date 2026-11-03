@@ -176,15 +176,19 @@ static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
 // add const for safety for flag
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows, const bool changed) {
     const fast_timer_t now = timer_read_fast();
-    const size_t matrix_size = num_rows * sizeof(matrix_row_t);
+    //const size_t matrix_size = num_rows * sizeof(matrix_row_t);
 
     // safe attr safe_raw ptr for read-only use
     // raw use only memcpy direct
     //const matrix_row_t *const safe_raw = raw;
 
     if (changed) {
-        // raw transfer to history, only changed timing, use memcpy like upstream
-        memcpy(hist_data[wr_s_idx], raw, matrix_size);
+        // raw transfer to history, only changed timing
+        for (uint8_t r = 0; r < num_rows; r++) {
+            hist_data[wr_s_idx][r] = raw[r];
+        }
+
+        //memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
         // sample time (last_s_idx not use here, froce set now break value for valid data)
         // [last_s_idx] must udate only idle only
@@ -302,8 +306,21 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     // use changed flag more exact update information
     // valid == true, some update run, maybe change acc, re-init 
     // valid == false, noting update from last value
-    if (and_changed) memset(and_acc, 0xFF, matrix_size);
-    if (or_changed) memset(or_acc, 0x00, matrix_size);
+    //if (and_changed) memset(and_acc, 0xFF, matrix_size);
+    //if (or_changed) memset(or_acc, 0x00, matrix_size);
+
+    if (and_changed) {
+        for (uint8_t r = 0; r < num_rows; r++) {
+            and_acc[r] = 0xFF;
+        }
+    }
+
+    if (or_changed) {
+        for (uint8_t r = 0; r < num_rows; r++) {
+            or_acc[r] = 0x00;
+        }
+    }
+
 
     return cooked_changed;
 }
@@ -311,11 +328,16 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 // add const for safety
 void debounce_init(const uint8_t num_rows) {
     //const fast_timer_t now = timer_read_fast();
-    const size_t matrix_size = num_rows * sizeof(matrix_row_t);
+    //const size_t matrix_size = num_rows * sizeof(matrix_row_t);
 
     // init acc buffer for invalid value
-    memset(and_acc, 0xFF, matrix_size);
-    memset(or_acc, 0x00, matrix_size);
+    for (uint8_t r = 0; r < num_rows; r++) {
+        and_acc[r] = 0xFF;
+        or_acc[r] = 0x00;
+    }
+    
+    //memset(and_acc, 0xFF, matrix_size);
+    //memset(or_acc, 0x00, matrix_size);
 
     last_s_idx = 0;
     wr_s_idx = 0;
