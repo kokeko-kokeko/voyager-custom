@@ -122,6 +122,7 @@
 #    define HISTORY_SAMPLE_COUNT UINT8_MAX
 #endif
 
+// minimal 2 value for debounce
 #if HISTORY_SAMPLE_COUNT < 2
 #    undef HISTORY_SAMPLE_COUNT
 #    define HISTORY_SAMPLE_COUNT 2
