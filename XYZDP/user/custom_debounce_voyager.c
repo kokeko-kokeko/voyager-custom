@@ -12,7 +12,7 @@
 
 #include "debounce.h"
 #include "timer.h"
-#include <stdlib.h>
+#include <string.h>
 
 //
 //
