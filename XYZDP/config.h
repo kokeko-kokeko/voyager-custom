@@ -19,7 +19,7 @@
 // HIST_AND_DEBOUNCE -> rise (press) margin
 // HIST_OR_DEBOUNCE -> fall (release) margin
 #define HISTORY_AND_DEBOUNCE 3
-#define HISTORY_OR_DEBOUNCE 7
+#define HISTORY_OR_DEBOUNCE 5
 
 #define AUTOMOUSE_LAYER 2   // must for check
 #define AUTOMOUSE_LAYER_TRACKBALL 2
