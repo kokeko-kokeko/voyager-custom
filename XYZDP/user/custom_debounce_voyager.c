@@ -292,7 +292,6 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         }
     }
 
-
     // re-init acc for next cycle, from raw directly
     // use changed flag more exact update information
     // valid == true, some update run, maybe change acc, re-init 
