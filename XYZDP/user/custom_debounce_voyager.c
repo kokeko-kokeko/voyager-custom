@@ -35,9 +35,8 @@
 // acc non-hit history detect
 // and=1 or=0 on buffer init, some value apply change another
 //
-
-//
 // one idea
+//
 //
 
 //
