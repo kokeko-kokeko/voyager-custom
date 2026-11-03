@@ -200,12 +200,12 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     bool req_hist_update = false;
 
     if (changed) {
-        // reset timeout from now
+        // reset timeout base from now
         hist_idle_trigger = now + HISTORY_IDLE_UPDATE_DELAY;
 
         req_hist_update = true;
     } else if (timer_expired_fast(now, hist_idle_trigger)) {
-        // only extend
+        // only extend current value
         hist_idle_trigger += HISTORY_IDLE_UPDATE_DELAY;
 
         req_hist_update = true;
