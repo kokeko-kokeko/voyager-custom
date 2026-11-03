@@ -179,6 +179,34 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         cooked_changed = true;
     }
 
+    if (changed) {
+        // raw transfer to history, only changed timing, use memcpy than upstream
+        // this data use next cycle, non double apply
+        memcpy(hist_data[wr_s_idx], raw, matrix_size);
+
+        // sample time
+        hist_time[wr_s_idx] = now;
+
+        // update last
+        last_s_idx = wr_s_idx;
+
+        // update write index
+        wr_s_idx++;
+        if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
+
+        // valid flag set for re-run history check next cycle
+        and_valid = true;
+        or_valid = true;
+
+        // arleady memcpy first part of this cycle, not force update
+        //and_changed = true;
+        //or_changed = true;
+    } else if ((and_valid || or_valid) == false) {
+        // and/or expired, last time extend for now
+        // for next change
+        hist_time[last_s_idx] = now;
+    }
+
     // value change for each _acc this cycle
     bool and_changed = false;
     bool or_changed = false;
@@ -196,10 +224,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             if (timer_expired_fast(exp_time, hist_time[s]) == false) {
                 // not expired, valid sample and to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
-                    // acc 1 and data 1 -> 1 no acc change
                     // acc 1 and data 0 -> 0 acc change (only pass here)
-                    // acc 0 and data 1 -> 0 no acc change
-                    // acc 0 and data 0 -> 0 no acc change
                     const matrix_row_t req_update = and_acc[r] & (~hist_data[s][r]);
                     if (req_update) {
                         and_acc[r] &= hist_data[s][r];
@@ -226,10 +251,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             if (timer_expired_fast(exp_time, hist_time[s]) == false) {
                 // not expired, valid sample or to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
-                    // acc 1 or data 1 -> 1 no acc change
-                    // acc 1 or data 0 -> 1 no acc change
                     // acc 0 or data 1 -> 1 acc change (only pass here)
-                    // acc 0 or data 0 -> 0 no acc change
                     const matrix_row_t req_update = (~or_acc[r]) & hist_data[s][r];
                     if (req_update) {
                         or_acc[r] |= hist_data[s][r];
@@ -277,33 +299,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         }
     }
 
-    if (changed) {
-        // raw transfer to history, only changed timing, use memcpy than upstream
-        // this data use next cycle, non double apply
-        memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
-        // sample time
-        hist_time[wr_s_idx] = now;
-
-        // update last
-        last_s_idx = wr_s_idx;
-
-        // update write index
-        wr_s_idx++;
-        if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
-
-        // valid flag set for re-run history check next cycle
-        and_valid = true;
-        or_valid = true;
-
-        // arleady memcpy first part of this cycle, not force update
-        //and_changed = true;
-        //or_changed = true;
-    } else if ((and_valid || or_valid) == false) {
-        // and/or expired, last time extend for now
-        // for next change
-        hist_time[last_s_idx] = now;
-    }
 
     // re-init acc for next cycle, from raw directly
     // use changed flag more exact update information
