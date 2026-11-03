@@ -191,9 +191,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         wr_s_idx++;
         if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
 
-        // valid flag set for re-run history check next cycle
+        // all flag set for re-run all check next cycle
         and_valid = true;
         or_valid = true;
+        cooked_changed = true;
     } else if ((and_valid || or_valid) == false) {
         // and/or expired, last time extend for now
         // for next change
