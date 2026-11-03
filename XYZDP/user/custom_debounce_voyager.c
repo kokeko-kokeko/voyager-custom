@@ -175,38 +175,34 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     const fast_timer_t now = timer_read_fast();
     const size_t matrix_size = num_rows * sizeof(matrix_row_t);
 
-    // safe attr safe_raw ptr for read-only use
-    // raw use only memcpy direct
-    //const matrix_row_t *const safe_raw = raw;
-
     if (changed) {
         // raw transfer to history, only changed timing, use memcpy than upstream
+        // only touch raw here, other pos uce hist_data
         memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
-        // sample time
-        hist_time[wr_s_idx] = now;
+        // time update after
+        //hist_time[wr_s_idx] = now;
 
-        // update last
+        // update last & write index for next
         last_s_idx = wr_s_idx;
-
-        // update write index
         wr_s_idx++;
         if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
+
+        // updated (change) last data to _acc
+        // next cycle, re-init set this with mask
+        for (uint8_t r = 0; r < num_rows; r++) {
+            and_acc[r] &= hist_data[last_s_idx][r];
+            or_acc[r] |= hist_data[last_s_idx][r];
+        }
 
         // all flag set for re-run all check this cycle
         and_valid = true;
         or_valid = true;
-    } else {
-        // every cycle expand last sample time
-        // for next changed use 2 sample for filter
-        hist_time[last_s_idx] = now;
     }
-    
-    // last sample must apply to _acc
-    for (uint8_t r = 0; r < num_rows; r++) {
-        and_acc[r] &= hist_data[last_s_idx][r];
-        or_acc[r] |= hist_data[last_s_idx][r];
-    }
+
+    // every cycle update last sample time to current
+    // if new data come, min 2 sample
+    hist_time[last_s_idx] = now;
 
     // valid history and to and_acc
     if (and_valid) {
@@ -281,9 +277,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             cooked_changed = true;
         }
 
-        // must re-init
-        and_acc[r] = matrix_mask[r];
-        or_acc[r] = (~matrix_mask[r]);
+        // must re-init with mask and last sample
+        and_acc[r] = hist_data[last_s_idx][r] &   matrix_mask[r];
+        or_acc[r]  = hist_data[last_s_idx][r] | (~matrix_mask[r]);
     }
 
     return cooked_changed;
@@ -291,6 +287,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
 // add const for safety
 void debounce_init(const uint8_t num_rows) {
+    // init for invalid value
     for (uint8_t r = 0; r < num_rows; r++) {
         and_acc[r] = matrix_mask[r];
         or_acc[r] = (~matrix_mask[r]);
