@@ -355,7 +355,7 @@ void debounce_init(const uint8_t num_rows) {
     last_s_idx = 0;
     wr_s_idx = 0;
 
-    // only reset flags
+    // reset flags
     and_valid = false;
     or_valid = false;
 
