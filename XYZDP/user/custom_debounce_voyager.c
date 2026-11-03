@@ -27,13 +27,17 @@
 // all 1  -> and=1 or=1 (stable 1)
 // all 0  -> and=0 or=0 (stable 0)
 // 0,1... -> and=0 or=1 (unstable, detect this)
-// none   -> and=1 or=0 (init invalid, check & mask)
+// init   -> and=1 or=0 (init invalid, no another check & mask)
 // 2 bit, 4 state
 //
 
 // 
 // acc non-hit history detect
 // and=1 or=0 on buffer init, some value apply change another
+//
+
+//
+// one idea
 //
 
 //
@@ -128,14 +132,14 @@
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
 static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 
+// data accumulator, 1 sample size
+static matrix_row_t and_acc[MATRIX_ROWS];
+static matrix_row_t or_acc[MATRIX_ROWS];
+
 // last & write sample index 
 // raw has evry time valid data, non last req
 static uint8_t last_s_idx;
 static uint8_t wr_s_idx;
-
-// data accumulator, 1 sample size
-static matrix_row_t and_acc[MATRIX_ROWS];
-static matrix_row_t or_acc[MATRIX_ROWS];
 
 // single valid flag, same as cooked_changed style
 // reset on loop head, set at condition hit
