@@ -287,7 +287,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
     // change is vilid history or last cooked_changed
     // no-change nothing to do
-    if (and_valid || or_valid || cooked_changed) {
+    if (and_changed || or_changed || cooked_changed) {
         // apply cooked update
         cooked_changed = false;
 
