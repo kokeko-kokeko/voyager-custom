@@ -200,8 +200,14 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     bool req_hist_update = false;
 
     if (changed) {
+        // reset timeout 
+        hist_idle_trigger = now + HISTORY_IDLE_UPDATE_DELAY;
+
         req_hist_update = true;
     } else if (timer_expired_fast(now, hist_idle_trigger)) {
+        // only expand
+        hist_idle_trigger += HISTORY_IDLE_UPDATE_DELAY;
+
         req_hist_update = true;
     }
 
@@ -209,10 +215,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // raw transfer to history, only changed timing, use memcpy like upstream
         memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
-        // sample time & idle trigger
+        // sample time
         hist_time[wr_s_idx] = now;
-        hist_idle_trigger = now + HISTORY_IDLE_UPDATE_DELAY;
-
+        
         // update write index
         wr_s_idx++;
         if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
