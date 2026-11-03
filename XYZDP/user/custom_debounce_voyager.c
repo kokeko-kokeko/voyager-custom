@@ -107,6 +107,11 @@
 #endif
 
 // buffer size
+// automatic only
+#ifdef HISTORY_SAMPLE_COUNT
+#    error "HISTORY_SAMPLE_COUNT is only calc on automatic, not mod from config.h"
+#endif
+
 #ifndef HISTORY_SAMPLE_COUNT
 #    if HISTORY_AND_DEBOUNCE >= HISTORY_OR_DEBOUNCE
 #        define HISTORY_SAMPLE_COUNT (HISTORY_AND_DEBOUNCE+1)
@@ -127,6 +132,11 @@
 #endif
 
 // history idle (no change) update cycle (longest value)
+// automatic only
+#ifdef HISTORY_IDLE_UPDATE_DELAY
+#    error "HISTORY_IDLE_UPDATE_DELAY is only calc on automatic, not mod from config.h"
+#endif
+
 #ifndef HISTORY_IDLE_UPDATE_DELAY
 #    if HISTORY_AND_DEBOUNCE >= HISTORY_OR_DEBOUNCE
 #        define HISTORY_IDLE_UPDATE_DELAY (HISTORY_AND_DEBOUNCE+1)
