@@ -39,8 +39,8 @@
 // matrix_mask is 1 -> vanid cross point, 0 -> unused
 // and_acc init value matrix_mask 
 // or_acc init value not matrix_mask
-// 1 to init
-// 0 to unstable
+// 1 to init invalid (can change)
+// 0 to unstable (can not change)
 //
 
 //
@@ -186,8 +186,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // raw transfer to history, only changed timing, use memcpy than upstream
         memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
-        memcpy(and_acc, raw, matrix_size);
-        memcpy(or_acc, raw, matrix_size);
+        //memcpy(and_acc, raw, matrix_size);
+        //memcpy(or_acc, raw, matrix_size);
 
         // sample time
         hist_time[wr_s_idx] = now;
@@ -210,8 +210,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     }
 
     // value change for each _acc this cycle
-    bool and_changed = false;
-    bool or_changed = false;
+    //bool and_changed = false;
+    //bool or_changed = false;
     
     // valid history and to and_acc
     if (and_valid) {
@@ -231,7 +231,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                     if (req_update) {
                         and_acc[r] &= hist_data[s][r];
                         
-                        and_changed = true;
+                        //and_changed = true;
                     }                    
                 }
 
@@ -258,7 +258,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                     if (req_update) {
                         or_acc[r] |= hist_data[s][r];
 
-                        or_changed = true;
+                        //or_changed = true;
                     }
                 }
 
@@ -268,8 +268,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     }
 
     // change is vilid history or last cooked_changed
-    // no-change nothing to do
-    if (and_valid || or_valid || cooked_changed) {
+    // no-change nothing to do 
+    //if (and_valid || or_valid || cooked_changed) {
+    if (true) {
+
         // apply cooked update
         cooked_changed = false;
 
@@ -298,28 +300,13 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
                 cooked_changed = true;
             }
-        }
-    }
 
-    // re-init acc for next cycle, from raw directly
-    // use changed flag more exact update information
-    // valid == true, some update run, maybe change acc, re-init 
-    // valid == false, noting update from last value
-    //if (and_changed) memcpy(and_acc, raw, matrix_size);
-    //if (or_changed) memcpy(or_acc, raw, matrix_size);
-
-    if (and_changed) {
-        for (uint8_t r = 0; r < num_rows; r++) {
+            // must update
             and_acc[r] = matrix_mask[r];
-        }
-    }
-
-    if (or_changed) {
-        for (uint8_t r = 0; r < num_rows; r++) {
             or_acc[r] = (~matrix_mask[r]);
         }
     }
-
+    
     return cooked_changed;
 }
 
