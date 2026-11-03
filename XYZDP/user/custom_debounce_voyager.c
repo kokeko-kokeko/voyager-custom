@@ -198,7 +198,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         or_valid = true;
     } else {
         // every cycle expand last sample time
-        // for next changed use 2 sample
+        // for next changed use 2 sample for filter
         hist_time[last_s_idx] = now;
     }
     
