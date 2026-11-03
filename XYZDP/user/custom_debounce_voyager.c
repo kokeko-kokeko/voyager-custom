@@ -264,11 +264,11 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // new_data use stable 1, more safety
             const matrix_row_t new_data      =   and_acc[r]  &   or_acc[r]  & matrix_mask[r];
             const matrix_row_t unstable_mask = (~and_acc[r]) &   or_acc[r]  & matrix_mask[r];
-            const matrix_row_t invalid_mask  =   and_acc[r]  & (~or_acc[r]) & matrix_mask[r];
+            const matrix_row_t init_inv_mask =   and_acc[r]  & (~or_acc[r]) & matrix_mask[r];
             
-            // not unstable, not invalid, -> stable
-            const matrix_row_t stable_mask = (~unstable_mask) & (~invalid_mask) & matrix_mask[r];
-            
+            // not unstable, not init invalid, -> stable
+            const matrix_row_t stable_mask = (~unstable_mask) & (~init_inv_mask) & matrix_mask[r];
+
             // if diff, new_data to final value, update flag
             // xor -> diff is 1, and mask -> stable only
             const matrix_row_t req_update = (cooked[r] ^ new_data) & stable_mask;
