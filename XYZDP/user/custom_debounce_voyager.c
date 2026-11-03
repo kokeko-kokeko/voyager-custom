@@ -129,9 +129,9 @@
 // history idle (no change) update cycle
 #ifndef HISTORY_IDLE_UPDATE_DELAY
 #    if HISTORY_AND_DEBOUNCE <= HISTORY_OR_DEBOUNCE
-#        define HISTORY_IDLE_UPDATE_DELAY ((HISTORY_AND_DEBOUNCE/2)+1)
+#        define HISTORY_IDLE_UPDATE_DELAY (HISTORY_AND_DEBOUNCE-1)
 #    else
-#        define HISTORY_IDLE_UPDATE_DELAY ((HISTORY_OR_DEBOUNCE/2)+1)
+#        define HISTORY_IDLE_UPDATE_DELAY (HISTORY_OR_DEBOUNCE-1)
 #    endif
 #endif
 
