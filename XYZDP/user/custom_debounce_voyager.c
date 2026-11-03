@@ -126,9 +126,31 @@
 #    define HISTORY_SAMPLE_COUNT 1
 #endif
 
+// history idle (no change) update cycle
+#ifndef HISTORY_IDLE_UPDATE_DELAY
+#    if HISTORY_AND_DEBOUNCE <= HISTORY_OR_DEBOUNCE
+#        define HISTORY_IDLE_UPDATE_DELAY ((HISTORY_AND_DEBOUNCE/2)+1)
+#    else
+#        define HISTORY_IDLE_UPDATE_DELAY ((HISTORY_OR_DEBOUNCE/2)+1)
+#    endif
+#endif
+
+// Maximum delay: 255
+#if HISTORY_IDLE_UPDATE_DELAY > UINT8_MAX
+#    undef HISTORY_IDLE_UPDATE_DELAY
+#    define HISTORY_IDLE_UPDATE_DELAY UINT8_MAX
+#endif
+
+#if HISTORY_IDLE_UPDATE_DELAY <= 0
+#    undef HISTORY_IDLE_UPDATE_DELAY
+#    define HISTORY_IDLE_UPDATE_DELAY 1
+#endif
+
 // history data & time buffer
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
 static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
+
+static fast_timer_t hist_idle_timeout;
 
 // data accumulator, 1 sample size
 static matrix_row_t and_acc[MATRIX_ROWS];
@@ -175,12 +197,22 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     // raw use only memcpy direct
     //const matrix_row_t *const safe_raw = raw;
 
+    bool req_hist_update = false;
+
     if (changed) {
+        req_hist_update = true;
+    } else if (timer_expired_fast(now, hist_idle_timeout)) {
+        req_hist_update = true;
+    }
+
+    if (req_hist_update) {
         // raw transfer to history, only changed timing, use memcpy like upstream
         memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
         // sample time
         hist_time[wr_s_idx] = now;
+
+        hist_idle_timeout = now + HISTORY_IDLE_UPDATE_DELAY;
 
         // update write index
         wr_s_idx++;
@@ -294,7 +326,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
 // add const for safety
 void debounce_init(const uint8_t num_rows) {
+    const fast_timer_t now = timer_read_fast();
     const size_t matrix_size = num_rows * sizeof(matrix_row_t);
+
+    hist_idle_timeout = now + HISTORY_IDLE_UPDATE_DELAY;
     
     // init acc buffer for invalid value
     memset(and_acc, 0xFF, matrix_size);
