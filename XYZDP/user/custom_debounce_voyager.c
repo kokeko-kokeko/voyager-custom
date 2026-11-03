@@ -178,9 +178,6 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // only re-init to and/or acc value, main update after this cycle
         memcpy(and_acc, raw, matrix_size);
         memcpy(or_acc, raw, matrix_size);
-
-        // run apply cooked update
-        cooked_changed = true;
     }
 
     if (changed) {
@@ -198,10 +195,6 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // valid flag set for re-run history check next cycle
         and_valid = true;
         or_valid = true;
-
-        // arleady memcpy first part of this cycle, not changed, not force update
-        //and_changed = true;
-        //or_changed = true;
     }
 
     // value change for each _acc this cycle
