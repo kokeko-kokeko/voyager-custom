@@ -240,7 +240,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
             // skip last, only last valid false
             if (s == last_s_idx) continue;
-            
+
             if (timer_expired_fast(exp_time, hist_time[s]) == false) {
                 // not expired, valid sample or to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
@@ -281,7 +281,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             cooked_changed = true;
         }
 
-        // must re-init with mask and last sample
+        // must re-init last sample with mask data
         and_acc[r] = hist_data[last_s_idx][r] &   matrix_mask[r];
         or_acc[r]  = hist_data[last_s_idx][r] | (~matrix_mask[r]);
     }
@@ -293,8 +293,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 void debounce_init(const uint8_t num_rows) {
     // init for invalid value
     for (uint8_t r = 0; r < num_rows; r++) {
-        and_acc[r] = matrix_mask[r];
-        or_acc[r] = (~matrix_mask[r]);
+        and_acc[r] =   matrix_mask[r];
+        or_acc[r]  = (~matrix_mask[r]);
     }
 
     last_s_idx = 0;
