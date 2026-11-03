@@ -132,7 +132,7 @@
 #    define HISTORY_SAMPLE_COUNT 2
 #endif
 
-// history idle (no change) update cycle (longest value)
+// history idle (no change) expired cycle (longest and/or value), force off valid
 // automatic only
 #ifdef HISTORY_IDLE_UPDATE_DELAY
 #    error "HISTORY_IDLE_UPDATE_DELAY is only calc on automatic, not mod from config.h"
