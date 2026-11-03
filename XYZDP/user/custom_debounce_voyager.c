@@ -195,9 +195,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         and_valid = true;
         or_valid = true;
         cooked_changed = true;
-    } else if ((and_valid || or_valid) == false) {
+    } else if ((and_valid || or_valid || cooked_changed) == false) {
         // and/or expired, last time extend for now
-        // for next change
+        // for next changed value 2 sample
         hist_time[last_s_idx] = now;
     }
 
