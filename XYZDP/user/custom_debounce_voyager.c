@@ -39,7 +39,7 @@
 // matrix_mask is 1 -> vanid cross point, 0 -> unused
 // and_acc init value matrix_mask 
 // or_acc init value not matrix_mask
-// 1 to init invalid (can change)
+// 1 to init invalid (can change to another state)
 // 0 to unstable (can not change)
 //
 
