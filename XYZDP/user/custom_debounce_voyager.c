@@ -140,13 +140,10 @@ static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 static matrix_row_t and_acc[MATRIX_ROWS];
 static matrix_row_t or_acc[MATRIX_ROWS];
 
-// 2 last & write sample index 
+// last & write sample index 
 // last used for idle extend
-static uint8_t last_s_idx_2;
-static uint8_t last_s_idx_1;
+static uint8_t last_s_idx;
 static uint8_t wr_s_idx;
-
-static fast_timer_t time_diff_last_1_2;
 
 // single valid flag, same as cooked_changed style
 // reset on search loop head, set at valid data hit
@@ -194,10 +191,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         hist_time[wr_s_idx] = now;
         
         // update last sample index
-        last_s_idx_2 = last_s_idx_1;
-        last_s_idx_1 = wr_s_idx;
-
-        time_diff_last_1_2 = hist_time[last_s_idx_1] - hist_time[last_s_idx_2]; 
+        last_s_idx = wr_s_idx;
 
         // update write index
         wr_s_idx++;
@@ -210,8 +204,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // no use history, last hist_time move to now
         // this value use for next changed
         // next value use 3 value diff
-        hist_time[last_s_idx_2] = now - time_diff_last_1_2;
-        hist_time[last_s_idx_1] = now;
+        hist_time[last_s_idx] = now;
     }
 
     // value change for each _acc this cycle
@@ -324,11 +317,8 @@ void debounce_init(const uint8_t num_rows) {
     memset(and_acc, 0xFF, matrix_size);
     memset(or_acc, 0x00, matrix_size);
 
-    last_s_idx_2 = 0;
-    last_s_idx_1 = 0;
+    last_s_idx = 0;
     wr_s_idx = 0;
-
-    time_diff_last_1_2 = 0;
 
     // reset flags
     and_valid = false;
