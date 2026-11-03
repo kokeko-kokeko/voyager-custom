@@ -126,35 +126,10 @@
 #    define HISTORY_SAMPLE_COUNT UINT8_MAX
 #endif
 
-// minimal 2
-#if HISTORY_SAMPLE_COUNT <= 1
+// minimal 3
+#if HISTORY_SAMPLE_COUNT <= 2
 #    undef HISTORY_SAMPLE_COUNT
-#    define HISTORY_SAMPLE_COUNT 2
-#endif
-
-// history idle (no change) expired cycle (longest and/or value), force off valid
-// automatic only
-#ifdef HISTORY_IDLE_UPDATE_DELAY
-#    error "HISTORY_IDLE_UPDATE_DELAY is only calc on automatic, not mod from config.h"
-#endif
-
-//#ifndef HISTORY_IDLE_UPDATE_DELAY
-#    if HISTORY_AND_DEBOUNCE >= HISTORY_OR_DEBOUNCE
-#        define HISTORY_IDLE_UPDATE_DELAY (HISTORY_AND_DEBOUNCE+1)
-#    else
-#        define HISTORY_IDLE_UPDATE_DELAY (HISTORY_OR_DEBOUNCE+1)
-#    endif
-//#endif
-
-// Maximum delay: 255
-#if HISTORY_IDLE_UPDATE_DELAY > UINT8_MAX
-#    undef HISTORY_IDLE_UPDATE_DELAY
-#    define HISTORY_IDLE_UPDATE_DELAY UINT8_MAX
-#endif
-
-#if HISTORY_IDLE_UPDATE_DELAY <= 0
-#    undef HISTORY_IDLE_UPDATE_DELAY
-#    define HISTORY_IDLE_UPDATE_DELAY 1
+#    define HISTORY_SAMPLE_COUNT 3
 #endif
 
 // history data & time buffer
@@ -225,6 +200,13 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // valid flag set for re-run history check next cycle
         and_valid = true;
         or_valid = true;
+    }
+
+    if ((and_valid || or_valid) == false) {
+        // no use history, last hist_time to now
+        // this value use for next changed
+        // next value use 2 value
+        hist_time[last_s_idx] = now;
     }
 
     // value change for each _acc this cycle
