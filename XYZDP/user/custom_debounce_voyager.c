@@ -300,8 +300,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     // use changed flag more exact update information
     // valid == true, some update run, maybe change acc, re-init 
     // valid == false, noting update from last value
-    if (and_changed) memcpy(and_acc, raw, matrix_size);
-    if (or_changed) memcpy(or_acc, raw, matrix_size);
+    if (and_changed) memset(and_acc, 0xFF, matrix_size);
+    if (or_changed) memset(or_acc, 0x00, matrix_size);
 
     return cooked_changed;
 }
@@ -310,9 +310,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 void debounce_init(const uint8_t num_rows) {
     const size_t matrix_size = num_rows * sizeof(matrix_row_t);
     
+    // init acc buffer
     memset(and_acc, 0xFF, matrix_size);
     memset(or_acc, 0x00, matrix_size);
-    
+
     wr_s_idx = 0;
 
     // only reset flags
