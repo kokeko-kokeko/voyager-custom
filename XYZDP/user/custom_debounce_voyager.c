@@ -10,10 +10,9 @@
 #    error "this file contains ZSA Voyager only magic number constants"
 #endif
 
-#include <string.h>
-
 #include "debounce.h"
 #include "timer.h"
+#include <stdlib.h>
 
 //
 //
@@ -29,13 +28,8 @@
 // all 1  -> and=1 or=1 (stable 1)
 // all 0  -> and=0 or=0 (stable 0)
 // 0,1... -> and=0 or=1 (unstable, detect this)
-// none   -> and=1 or=0 (init invalid, check & mask)
+// none   -> and=1 or=0 (invalid, check & mask)
 // 2 bit, 4 state
-//
-
-// 
-// acc non-hit history detect
-// and=1 or=0 on buffer init, some value apply change another
 //
 
 //
@@ -107,18 +101,13 @@
 #endif
 
 // buffer size
-// automatic only
-#ifdef HISTORY_SAMPLE_COUNT
-#    error "HISTORY_SAMPLE_COUNT is only calc on automatic, not mod from config.h"
-#endif
-
-//#ifndef HISTORY_SAMPLE_COUNT
+#ifndef HISTORY_SAMPLE_COUNT
 #    if HISTORY_AND_DEBOUNCE >= HISTORY_OR_DEBOUNCE
 #        define HISTORY_SAMPLE_COUNT (HISTORY_AND_DEBOUNCE+1)
 #    else
 #        define HISTORY_SAMPLE_COUNT (HISTORY_OR_DEBOUNCE+1)
 #    endif
-//#endif
+#endif
 
 // Maximum buffer: 255
 #if HISTORY_SAMPLE_COUNT > UINT8_MAX
@@ -126,27 +115,26 @@
 #    define HISTORY_SAMPLE_COUNT UINT8_MAX
 #endif
 
-// minimal 3
-#if HISTORY_SAMPLE_COUNT <= 2
+#if HISTORY_SAMPLE_COUNT <= 0
 #    undef HISTORY_SAMPLE_COUNT
-#    define HISTORY_SAMPLE_COUNT 3
+#    define HISTORY_SAMPLE_COUNT 1
 #endif
 
 // history data & time buffer
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
 static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 
+// last & write sample index 
+// raw has evry time valid data, non last req
+//static uint8_t last_s_idx;
+static uint8_t wr_s_idx;
+
 // data accumulator, 1 sample size
 static matrix_row_t and_acc[MATRIX_ROWS];
 static matrix_row_t or_acc[MATRIX_ROWS];
 
-// last & write sample index 
-// last used for idle extend
-static uint8_t last_s_idx;
-static uint8_t wr_s_idx;
-
 // single valid flag, same as cooked_changed style
-// reset on search loop head, set at valid data hit
+// reset on loop head, set at condition hit
 static bool and_valid;
 static bool or_valid;
 
@@ -176,39 +164,19 @@ static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
 // add const for safety for flag
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows, const bool changed) {
     const fast_timer_t now = timer_read_fast();
-    //const size_t matrix_size = num_rows * sizeof(matrix_row_t);
+    const size_t matrix_size = num_rows * sizeof(matrix_row_t);
 
     // safe attr safe_raw ptr for read-only use
     // raw use only memcpy direct
     //const matrix_row_t *const safe_raw = raw;
 
     if (changed) {
-        // raw transfer to history, only changed timing
-        for (uint8_t r = 0; r < num_rows; r++) {
-            hist_data[wr_s_idx][r] = raw[r];
-        }
+        // only re-init to and/or acc value, main update after this cycle
+        memcpy(and_acc, raw, matrix_size);
+        memcpy(or_acc, raw, matrix_size);
 
-        //memcpy(hist_data[wr_s_idx], raw, matrix_size);
-
-        // sample time (last_s_idx not use here, froce set now break value for valid data)
-        // [last_s_idx] must udate only idle only
-        hist_time[wr_s_idx] = now;
-        
-        // update last sample index
-        last_s_idx = wr_s_idx;
-
-        // update write index
-        wr_s_idx++;
-        if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
-
-        // valid flag set for re-run history check next cycle
-        and_valid = true;
-        or_valid = true;
-    } else if ((and_valid || or_valid) == false) {
-        // no use history, last hist_time move to now
-        // this value use for next changed
-        // next value use 2 value diff
-        hist_time[last_s_idx] = now;
+        // run apply cooked update
+        cooked_changed = true;
     }
 
     // value change for each _acc this cycle
@@ -228,7 +196,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             if (timer_expired_fast(exp_time, hist_time[s]) == false) {
                 // not expired, valid sample and to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
+                    // acc 1 and data 1 -> 1 no acc change
                     // acc 1 and data 0 -> 0 acc change (only pass here)
+                    // acc 0 and data 1 -> 0 no acc change
+                    // acc 0 and data 0 -> 0 no acc change
                     const matrix_row_t req_update = and_acc[r] & (~hist_data[s][r]);
                     if (req_update) {
                         and_acc[r] &= hist_data[s][r];
@@ -255,7 +226,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             if (timer_expired_fast(exp_time, hist_time[s]) == false) {
                 // not expired, valid sample or to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
+                    // acc 1 or data 1 -> 1 no acc change
+                    // acc 1 or data 0 -> 1 no acc change
                     // acc 0 or data 1 -> 1 acc change (only pass here)
+                    // acc 0 or data 0 -> 0 no acc change
                     const matrix_row_t req_update = (~or_acc[r]) & hist_data[s][r];
                     if (req_update) {
                         or_acc[r] |= hist_data[s][r];
@@ -269,9 +243,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         }
     }
 
-    // change any acc or last cooked_changed
+    // change is vilid history or last cooked_changed
     // no-change nothing to do
-    if (and_changed || or_changed || cooked_changed) {
+    if (and_valid || or_valid || cooked_changed) {
         // apply cooked update
         cooked_changed = false;
 
@@ -280,16 +254,17 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // all 1  -> and=1 or=1 (stable 1)
             // all 0  -> and=0 or=0 (stable 0)
             // 0,1... -> and=0 or=1 (unstable, detect this)
-            // none   -> and=1 or=0 (init invalid, check & mask)
+            // none   -> and=1 or=0 (invalid, check & mask)
             // new_data use stable 1, more safety
-            const matrix_row_t new_data      =   and_acc[r]  &   or_acc[r]  & matrix_mask[r];
-            const matrix_row_t unstable_mask = (~and_acc[r]) &   or_acc[r]  & matrix_mask[r];
-            const matrix_row_t init_inv_mask =   and_acc[r]  & (~or_acc[r]) & matrix_mask[r];
+            const matrix_row_t new_data = and_acc[r] & or_acc[r] & matrix_mask[r];
+            //const matrix_row_t unstable_mask = (~and_acc[r]) &   or_acc[r]  & matrix_mask[r];
+            //const matrix_row_t invalid_mask  =   and_acc[r]  & (~or_acc[r]) & matrix_mask[r];
             
-            // not unstable, not init invalid, -> stable
-            const matrix_row_t stable_mask = (~unstable_mask) & (~init_inv_mask) & matrix_mask[r];
+            // not unstable, not invalid, -> stable
+            //const matrix_row_t stable_mask = (~unstable_mask) & (~invalid_mask) & matrix_mask[r];
+            const matrix_row_t stable_mask = (~(and_acc[r] ^ or_acc[r])) & matrix_mask[r];
 
-            // if diff, new_data to final value, update flag
+            // if diff, tmp to final value, update flag
             // xor -> diff is 1, and mask -> stable only
             const matrix_row_t req_update = (cooked[r] ^ new_data) & stable_mask;
             if (req_update) {
@@ -302,47 +277,42 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         }
     }
 
-    // re-init acc for next cycle, re-init invalid value
+    if (changed) {
+        // raw transfer to history, only changed timing, use memcpy than upstream
+        // this data use next cycle, non double apply
+        memcpy(hist_data[wr_s_idx], raw, matrix_size);
+
+        // sample time
+        hist_time[wr_s_idx] = now;
+
+        // update write index
+        wr_s_idx++;
+        if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
+
+        // valid flag set for re-run history check next cycle
+        and_valid = true;
+        or_valid = true;
+
+        // arleady memcpy first part of this cycle, not force update
+        //and_changed = true;
+        //or_changed = true;
+    }
+
+    // re-init acc for next cycle, from raw directly
     // use changed flag more exact update information
     // valid == true, some update run, maybe change acc, re-init 
     // valid == false, noting update from last value
-    //if (and_changed) memset(and_acc, 0xFF, matrix_size);
-    //if (or_changed) memset(or_acc, 0x00, matrix_size);
-
-    if (and_changed) {
-        for (uint8_t r = 0; r < num_rows; r++) {
-            and_acc[r] = 0xFF;
-        }
-    }
-
-    if (or_changed) {
-        for (uint8_t r = 0; r < num_rows; r++) {
-            or_acc[r] = 0x00;
-        }
-    }
-
+    if (and_changed) memcpy(and_acc, raw, matrix_size);
+    if (or_changed) memcpy(or_acc, raw, matrix_size);
 
     return cooked_changed;
 }
 
 // add const for safety
 void debounce_init(const uint8_t num_rows) {
-    //const fast_timer_t now = timer_read_fast();
-    //const size_t matrix_size = num_rows * sizeof(matrix_row_t);
-
-    // init acc buffer for invalid value
-    for (uint8_t r = 0; r < num_rows; r++) {
-        and_acc[r] = 0xFF;
-        or_acc[r] = 0x00;
-    }
-    
-    //memset(and_acc, 0xFF, matrix_size);
-    //memset(or_acc, 0x00, matrix_size);
-
-    last_s_idx = 0;
     wr_s_idx = 0;
 
-    // reset flags
+    // only reset flags
     and_valid = false;
     or_valid = false;
 
