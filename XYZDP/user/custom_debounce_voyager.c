@@ -196,16 +196,21 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // all flag set for re-run all check this cycle
         and_valid = true;
         or_valid = true;
-    } else if ((and_valid || or_valid) == false) {
-        // and/or expired, last time extend for now
-        // for next changed value 2 sample
+    } else {
+        // every cycle expand last sample time
+        // for next changed use 2 sample
         hist_time[last_s_idx] = now;
     }
     
-    
+    // last sample must apply to _acc
+    for (uint8_t r = 0; r < num_rows; r++) {
+        and_acc[r] &= hist_data[last_s_idx][r];
+        or_acc[r] |= hist_data[last_s_idx][r];
+    }
+
     // valid history and to and_acc
     if (and_valid) {
-        // flag reset, if find valid sample set in loop
+        // flag reset, if find valid sample set in loop, without last
         and_valid = false;
 
         // expire time (minus offset from now) calc ahead 
@@ -213,6 +218,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         // process each history sample
         for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
+            if (s == last_s_idx) continue;
             if (timer_expired_fast(exp_time, hist_time[s]) == false) {
                 // not expired, valid sample and to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
@@ -226,7 +232,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
     // valid history or to or_acc
     if (or_valid) {
-        // flag reset, if find valid sample set in loop
+        // flag reset, if find valid sample set in loop, without last
         or_valid = false;
 
         // expire time (minus offset from now) calc ahead 
@@ -234,6 +240,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         // process each history sample
         for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
+            if (s == last_s_idx) continue;
             if (timer_expired_fast(exp_time, hist_time[s]) == false) {
                 // not expired, valid sample or to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
