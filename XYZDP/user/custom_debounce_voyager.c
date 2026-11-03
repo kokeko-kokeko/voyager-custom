@@ -216,8 +216,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // raw transfer to history, only changed timing, use memcpy like upstream
         memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
-        // sample time (last_s_idx not use here, break value for valid data)
-        // last_s_idx must udate only idle !!! not here
+        // sample time (last_s_idx not use here, froce set now break value for valid data)
+        // [last_s_idx] must udate only idle only
         hist_time[wr_s_idx] = now;
         
         // update last sample index
