@@ -112,13 +112,13 @@
 #    error "HISTORY_SAMPLE_COUNT is only calc on automatic, not mod from config.h"
 #endif
 
-#ifndef HISTORY_SAMPLE_COUNT
+//#ifndef HISTORY_SAMPLE_COUNT
 #    if HISTORY_AND_DEBOUNCE >= HISTORY_OR_DEBOUNCE
 #        define HISTORY_SAMPLE_COUNT (HISTORY_AND_DEBOUNCE+1)
 #    else
 #        define HISTORY_SAMPLE_COUNT (HISTORY_OR_DEBOUNCE+1)
 #    endif
-#endif
+//#endif
 
 // Maximum buffer: 255
 #if HISTORY_SAMPLE_COUNT > UINT8_MAX
@@ -137,13 +137,13 @@
 #    error "HISTORY_IDLE_UPDATE_DELAY is only calc on automatic, not mod from config.h"
 #endif
 
-#ifndef HISTORY_IDLE_UPDATE_DELAY
+//#ifndef HISTORY_IDLE_UPDATE_DELAY
 #    if HISTORY_AND_DEBOUNCE >= HISTORY_OR_DEBOUNCE
 #        define HISTORY_IDLE_UPDATE_DELAY (HISTORY_AND_DEBOUNCE+1)
 #    else
 #        define HISTORY_IDLE_UPDATE_DELAY (HISTORY_OR_DEBOUNCE+1)
 #    endif
-#endif
+//#endif
 
 // Maximum delay: 255
 #if HISTORY_IDLE_UPDATE_DELAY > UINT8_MAX
