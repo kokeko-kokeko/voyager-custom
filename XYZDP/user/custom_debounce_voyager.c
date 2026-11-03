@@ -210,7 +210,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     //const matrix_row_t *const safe_raw = raw;
 
     if (changed) {
-        // reset timeout base from now
+        // idle timeout start from now, expired force off valid
         hist_idle_trigger = now + HISTORY_IDLE_UPDATE_DELAY;
 
         // raw transfer to history, only changed timing, use memcpy like upstream
