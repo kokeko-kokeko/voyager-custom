@@ -10,9 +10,10 @@
 #    error "this file contains ZSA Voyager only magic number constants"
 #endif
 
+#include <string.h>
+
 #include "debounce.h"
 #include "timer.h"
-#include <string.h>
 
 //
 //
@@ -175,14 +176,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     //const matrix_row_t *const safe_raw = raw;
 
     if (changed) {
-        // only re-init to and/or acc value, main update after this cycle
-        memcpy(and_acc, raw, matrix_size);
-        memcpy(or_acc, raw, matrix_size);
-    }
-
-    if (changed) {
-        // raw transfer to history, only changed timing, use memcpy than upstream
-        // this data use after next cycle, non double apply
+        // raw transfer to history, only changed timing, use memcpy like upstream
         memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
         // sample time
@@ -274,8 +268,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             
             // not unstable, not invalid, -> stable
             const matrix_row_t stable_mask = (~unstable_mask) & (~invalid_mask) & matrix_mask[r];
-            //const matrix_row_t stable_mask = (~(and_acc[r] ^ or_acc[r])) & matrix_mask[r];
-
+            
             // if diff, new_data to final value, update flag
             // xor -> diff is 1, and mask -> stable only
             const matrix_row_t req_update = (cooked[r] ^ new_data) & stable_mask;
@@ -289,7 +282,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         }
     }
 
-    // re-init acc for next cycle, from raw directly
+    // re-init acc for next cycle, re-init invalid value
     // use changed flag more exact update information
     // valid == true, some update run, maybe change acc, re-init 
     // valid == false, noting update from last value
@@ -303,7 +296,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 void debounce_init(const uint8_t num_rows) {
     const size_t matrix_size = num_rows * sizeof(matrix_row_t);
     
-    // init acc buffer
+    // init acc buffer for invalid value
     memset(and_acc, 0xFF, matrix_size);
     memset(or_acc, 0x00, matrix_size);
 
