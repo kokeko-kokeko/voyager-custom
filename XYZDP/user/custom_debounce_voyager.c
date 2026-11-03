@@ -206,9 +206,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // valid flag set for re-run history check next cycle
         and_valid = true;
         or_valid = true;
-    }
-
-    if ((and_valid || or_valid) == false) {
+    } else if ((and_valid || or_valid) == false) {
         // no use history, last hist_time move to now
         // this value use for next changed
         // next value use 3 value diff
