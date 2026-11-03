@@ -225,7 +225,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // extend last sample time
         hist_time[last_s_idx] += HISTORY_IDLE_UPDATE_DELAY;
 
-        // valid flag reset for only extend last sample time
+        // valid flag reset for only extend last sample time, no calc update
         and_valid = false;
         or_valid = false;
     }
