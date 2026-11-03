@@ -156,8 +156,9 @@ static fast_timer_t hist_idle_trigger;
 static matrix_row_t and_acc[MATRIX_ROWS];
 static matrix_row_t or_acc[MATRIX_ROWS];
 
-// write sample index 
-// raw has evry time valid data, non last req
+// last & write sample index 
+// last used for idle extend
+static uint8_t last_s_idx;
 static uint8_t wr_s_idx;
 
 // single valid flag, same as cooked_changed style
@@ -197,27 +198,19 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     // raw use only memcpy direct
     //const matrix_row_t *const safe_raw = raw;
 
-    bool req_hist_update = false;
-
     if (changed) {
         // reset timeout base from now
         hist_idle_trigger = now + HISTORY_IDLE_UPDATE_DELAY;
 
-        req_hist_update = true;
-    } else if (timer_expired_fast(now, hist_idle_trigger)) {
-        // only extend current value
-        hist_idle_trigger += HISTORY_IDLE_UPDATE_DELAY;
-
-        req_hist_update = true;
-    }
-
-    if (req_hist_update) {
         // raw transfer to history, only changed timing, use memcpy like upstream
         memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
         // sample time
         hist_time[wr_s_idx] = now;
         
+        // update last sample index
+        last_s_idx = wr_s_idx;
+
         // update write index
         wr_s_idx++;
         if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
@@ -225,6 +218,12 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // valid flag set for re-run history check next cycle
         and_valid = true;
         or_valid = true;
+    } else if (timer_expired_fast(now, hist_idle_trigger)) {
+        // only extend timer (last value)
+        hist_idle_trigger += HISTORY_IDLE_UPDATE_DELAY;
+
+        // extend last sample time
+        hist_time[last_s_idx] += HISTORY_IDLE_UPDATE_DELAY;
     }
 
     // value change for each _acc this cycle
@@ -339,6 +338,7 @@ void debounce_init(const uint8_t num_rows) {
     memset(and_acc, 0xFF, matrix_size);
     memset(or_acc, 0x00, matrix_size);
 
+    last_s_idx = 0;
     wr_s_idx = 0;
 
     // only reset flags
