@@ -152,8 +152,8 @@ static matrix_row_t or_acc[MATRIX_ROWS];
 static uint8_t last_s_idx;
 static uint8_t wr_s_idx;
 
-// single valid flag, same as cooked_changed style
-// reset on loop head, set at condition hit
+// single history valid flag, same as cooked_changed style
+// reset on loop head, set again at condition hit
 static bool and_valid;
 static bool or_valid;
 
