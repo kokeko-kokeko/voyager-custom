@@ -139,7 +139,7 @@
 #    define HISTORY_SAMPLE_COUNT 2
 #endif
 
-// history data & time buffer
+// history data & time buffer (time is data last or leave time for calc)
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
 static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 
@@ -220,7 +220,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         and_valid = true;
         or_valid = true;
     }
-    
+
     // return to if (changed)
     //hist_time[last_s_idx] = now;
 
