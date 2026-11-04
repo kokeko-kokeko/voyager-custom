@@ -190,8 +190,18 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // updated (change) last data to _acc
         // next cycle, re-init set this with mask
         for (uint8_t r = 0; r < num_rows; r++) {
-            and_acc[r] &= hist_data[last_s_idx][r];
-            or_acc[r] |= hist_data[last_s_idx][r];
+            // acc 1 and data 0 -> 0 acc change (only pass here)
+            const matrix_row_t and_update_req = and_acc[r] & (~hist_data[last_s_idx][r]);
+
+            if (and_update_req) {
+                and_acc[r] &= hist_data[last_s_idx][r];
+            }
+
+            const matrix_row_t or_update_req = (~or_acc[r]) & hist_data[last_s_idx][r];
+
+            if (or_update_req) {
+                or_acc[r] |= hist_data[last_s_idx][r];
+            }
         }
 
         // all flag set for re-run all check this cycle
@@ -219,7 +229,12 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             if (timer_expired_fast(exp_time, hist_time[s]) == false) {
                 // not expired, valid sample and to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
-                    and_acc[r] &= hist_data[s][r];
+                    // acc 1 and data 0 -> 0 acc change (only pass here)
+                    const matrix_row_t and_update_req = and_acc[r] & (~hist_data[s][r]);
+
+                    if (and_update_req) {
+                        and_acc[r] &= hist_data[s][r];
+                    }
                 }
 
                 and_valid = true;
@@ -243,7 +258,12 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             if (timer_expired_fast(exp_time, hist_time[s]) == false) {
                 // not expired, valid sample or to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
-                    or_acc[r] |= hist_data[s][r];
+                    // acc 0 or data 1 -> 1 acc change (only pass here)
+                    const matrix_row_t or_update_req = (~or_acc[r]) & hist_data[s][r];
+
+                    if (or_update_req) {
+                        or_acc[r] |= hist_data[s][r];
+                    }
                 }
 
                 or_valid = true;
