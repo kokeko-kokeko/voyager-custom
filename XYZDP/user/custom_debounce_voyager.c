@@ -161,6 +161,9 @@ static uint8_t wr_s_idx;
 static bool and_valid;
 static bool or_valid;
 
+// delay for extra cycle
+static bool valid_d1;
+
 // mask for unused cross-point, for voyager only
 static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
     0b01111110,
@@ -228,6 +231,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     // return to if (changed)
     //hist_time[last_s_idx] = now;
 
+    valid_d1 = and_valid || or_valid;
+
     // valid history and to and_acc
     if (and_valid) {
         // flag reset, if find valid sample set in loop, without last
@@ -286,39 +291,42 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         }
     }
 
-    // apply cooked update, must run every cycle
+    // apply cooked update
     bool cooked_changed = false;
 
-    for (uint8_t r = 0; r < num_rows; r++) {
-        // gen bit mask with matrix_mask
-        // all 1  -> and=1 or=1 (stable 1)
-        // all 0  -> and=0 or=0 (stable 0)
-        // 0,1... -> and=0 or=1 (unstable, detect this)
-        // none   -> and=1 or=0 (init invalid, check & mask)
-        // new_data use stable 1, more safety
-        const matrix_row_t new_data      =   and_acc[r]  &   or_acc[r]  & matrix_mask[r];
-        const matrix_row_t unstable_mask = (~and_acc[r]) &   or_acc[r]  & matrix_mask[r];
-        const matrix_row_t init_inv_mask =   and_acc[r]  & (~or_acc[r]) & matrix_mask[r];
-        
-        // not unstable, not invalid, -> stable
-        const matrix_row_t stable_mask = (~unstable_mask) & (~init_inv_mask) & matrix_mask[r];
-        //const matrix_row_t stable_mask = (~(and_acc[r] ^ or_acc[r])) & matrix_mask[r];
+    // valid with extra cycle delay
+    if (and_valid || or_valid || valid_d1) {
+        for (uint8_t r = 0; r < num_rows; r++) {
+            // gen bit mask with matrix_mask
+            // all 1  -> and=1 or=1 (stable 1)
+            // all 0  -> and=0 or=0 (stable 0)
+            // 0,1... -> and=0 or=1 (unstable, detect this)
+            // none   -> and=1 or=0 (init invalid, check & mask)
+            // new_data use stable 1, more safety
+            const matrix_row_t new_data      =   and_acc[r]  &   or_acc[r]  & matrix_mask[r];
+            const matrix_row_t unstable_mask = (~and_acc[r]) &   or_acc[r]  & matrix_mask[r];
+            const matrix_row_t init_inv_mask =   and_acc[r]  & (~or_acc[r]) & matrix_mask[r];
+            
+            // not unstable, not invalid, -> stable
+            const matrix_row_t stable_mask = (~unstable_mask) & (~init_inv_mask) & matrix_mask[r];
+            //const matrix_row_t stable_mask = (~(and_acc[r] ^ or_acc[r])) & matrix_mask[r];
 
-        // if diff, tmp to final value, update flag
-        // xor -> diff is 1, and mask -> stable only
-        const matrix_row_t cooked_req_update = (cooked[r] ^ new_data) & stable_mask;
-        
-        if (cooked_req_update) {
-            // update cooked
-            cooked[r] &= (~stable_mask);            // not stable bit keep current value, stable clear
-            cooked[r] |= new_data & stable_mask;    // stable new data
+            // if diff, tmp to final value, update flag
+            // xor -> diff is 1, and mask -> stable only
+            const matrix_row_t cooked_req_update = (cooked[r] ^ new_data) & stable_mask;
+            
+            if (cooked_req_update) {
+                // update cooked
+                cooked[r] &= (~stable_mask);            // not stable bit keep current value, stable clear
+                cooked[r] |= new_data & stable_mask;    // stable new data
 
-            cooked_changed = true;
+                cooked_changed = true;
+            }
+
+            // must re-init mask data init and last data, simple is best
+            and_acc[r] =   matrix_mask[r]  & hist_data[last_s_idx][r];
+            or_acc[r]  = (~matrix_mask[r]) | hist_data[last_s_idx][r];
         }
-
-        // must re-init mask data init and last data, simple is best
-        and_acc[r] =   matrix_mask[r]  & hist_data[last_s_idx][r];
-        or_acc[r]  = (~matrix_mask[r]) | hist_data[last_s_idx][r];
     }
 
     return cooked_changed;
@@ -338,6 +346,8 @@ void debounce_init(const uint8_t num_rows) {
     // only reset flags
     and_valid = false;
     or_valid = false;
+
+    valid_d1 = false;
 }
 
 void debounce_free(void) {
