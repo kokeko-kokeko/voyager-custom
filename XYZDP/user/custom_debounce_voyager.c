@@ -309,9 +309,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             cooked_changed = true;
         }
 
-        // must re-init last sample with mask data, simple is best
-        and_acc[r] = hist_data[last_s_idx][r] &   matrix_mask[r];
-        or_acc[r]  = hist_data[last_s_idx][r] | (~matrix_mask[r]);
+        // must re-init mask data init and last data, simple is best
+        and_acc[r] =   matrix_mask[r]  & hist_data[last_s_idx][r];
+        or_acc[r]  = (~matrix_mask[r]) | hist_data[last_s_idx][r];
     }
 
     return cooked_changed;
