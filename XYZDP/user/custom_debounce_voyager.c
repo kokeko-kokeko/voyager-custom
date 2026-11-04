@@ -57,11 +57,18 @@
 // acc 0 and data 1 -> 0 no acc change
 // acc 0 and data 0 -> 0 no acc change
 
+// acc 1 and data 0 -> 0 acc change (only pass here)
+// const matrix_row_t and_update_req = and_acc[r] & (~hist_data[s][r]);
+
 // or acc pre-check update
 // acc 1 or data 1 -> 1 no acc change
 // acc 1 or data 0 -> 1 no acc change
 // acc 0 or data 1 -> 1 acc change (only pass here)
 // acc 0 or data 0 -> 0 no acc change
+
+// acc 0 or data 1 -> 1 acc change (only pass here)
+// const matrix_row_t or_update_req = (~or_acc[r]) & hist_data[s][r];
+
 
 // from upstream
 #ifndef DEBOUNCE
