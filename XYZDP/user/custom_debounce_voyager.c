@@ -180,11 +180,11 @@ static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
 // add const for safety for flag
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows, const bool changed) {
     const fast_timer_t now = timer_read_fast();
-    const size_t matrix_size = num_rows * sizeof(matrix_row_t);
 
     if (changed) {
         // raw transfer to history, only changed timing, use memcpy than upstream
         // only touch raw here, other pos uce hist_data
+        const size_t matrix_size = num_rows * sizeof(matrix_row_t);
         memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
         // time update after, outside of if (changed), every cycle
@@ -336,5 +336,5 @@ void debounce_init(const uint8_t num_rows) {
 
 void debounce_free(void) {
     // static value only, nothing to do
-    // upstream QMK remove this
+    // upstream QMK remove this function
 }
