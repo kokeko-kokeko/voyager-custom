@@ -187,10 +187,11 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // only touch raw here, other pos uce hist_data
         memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
-        // time update after, outside of if (changed)
+        // time update after, outside of if (changed), every cycle
 
         // update last & write index for next
         last_s_idx = wr_s_idx;
+
         wr_s_idx++;
         if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
 
