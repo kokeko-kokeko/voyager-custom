@@ -228,8 +228,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     // return to if (changed)
     //hist_time[last_s_idx] = now;
 
-    // delay for gen safety extra cycle
-    // delay before update loop
+    // delay for gen safety 1 extra cycle
+    // delay value before update loop
     bool delayed_valid = and_valid || or_valid;
 
     // valid history and to and_acc
