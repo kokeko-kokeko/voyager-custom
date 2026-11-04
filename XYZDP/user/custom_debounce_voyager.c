@@ -147,8 +147,8 @@ static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 static matrix_row_t and_acc[MATRIX_ROWS];
 static matrix_row_t or_acc[MATRIX_ROWS];
 
-// last & write sample index 
-// raw has evry time valid data, non last req
+// last & write sample index
+// last data is re-init, last time update every cycle
 static uint8_t last_s_idx;
 static uint8_t wr_s_idx;
 
