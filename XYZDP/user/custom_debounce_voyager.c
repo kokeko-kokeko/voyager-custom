@@ -161,9 +161,6 @@ static uint8_t wr_s_idx;
 static bool and_valid;
 static bool or_valid;
 
-// delay for extra cycle
-static bool valid_d1;
-
 // mask for unused cross-point, for voyager only
 static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
     0b01111110,
@@ -231,7 +228,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     // return to if (changed)
     //hist_time[last_s_idx] = now;
 
-    valid_d1 = and_valid || or_valid;
+    // delay for gen safety extra cycle
+    // delay before update loop
+    bool delayed_valid = and_valid || or_valid;
 
     // valid history and to and_acc
     if (and_valid) {
@@ -294,8 +293,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     // apply cooked update
     bool cooked_changed = false;
 
-    // valid with extra cycle delay
-    if (and_valid || or_valid || valid_d1) {
+    // valid with extra 1 cycle delay
+    if (and_valid || or_valid || delayed_valid) {
         for (uint8_t r = 0; r < num_rows; r++) {
             // gen bit mask with matrix_mask
             // all 1  -> and=1 or=1 (stable 1)
@@ -346,8 +345,6 @@ void debounce_init(const uint8_t num_rows) {
     // only reset flags
     and_valid = false;
     or_valid = false;
-
-    valid_d1 = false;
 }
 
 void debounce_free(void) {
