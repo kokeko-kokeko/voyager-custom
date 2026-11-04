@@ -234,7 +234,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         // process each history sample
         for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
-            // skip last, only last valid keep false
+            // skip last, always valid no time, only last valid keep false
             if (s == last_s_idx) continue;
 
             if (timer_expired_fast(exp_time, hist_time[s]) == false) {
@@ -263,7 +263,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         // process each history sample
         for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
-            // skip last, only last valid keep false
+            // skip last, always valid no time, only last valid keep false
             if (s == last_s_idx) continue;
 
             if (timer_expired_fast(exp_time, hist_time[s]) == false) {
