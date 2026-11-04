@@ -71,6 +71,8 @@ awk '/stack/    {print "\033[1;34m"$0"\033[0m"; next}
      /Total/    {print "\033[1;37m"$0"\033[0m"; next}
                 {print}'
 echo ""
+sha256sum zsa_voyager_XYZDP.*
+echo ""
 popd > /dev/null
 
 echo -e "\e[;32m---- done! ----\e[m\a"
