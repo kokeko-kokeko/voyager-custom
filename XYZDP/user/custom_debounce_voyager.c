@@ -205,6 +205,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 and_acc[r] &= hist_data[last_s_idx][r];
             }
 
+            // acc 0 or data 1 -> 1 acc change (only pass here)
             const matrix_row_t or_req_update = (~or_acc[r]) & hist_data[last_s_idx][r];
 
             if (or_req_update) {
