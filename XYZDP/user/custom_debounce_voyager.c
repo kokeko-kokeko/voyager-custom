@@ -58,7 +58,7 @@
 // acc 0 and data 0 -> 0 no acc change
 
 // acc 1 and data 0 -> 0 acc change (only pass here)
-// const matrix_row_t and_update_req = and_acc[r] & (~hist_data[s][r]);
+// const matrix_row_t and_req_update = and_acc[r] & (~hist_data[s][r]);
 
 // or acc pre-check update
 // acc 1 or data 1 -> 1 no acc change
@@ -67,7 +67,7 @@
 // acc 0 or data 0 -> 0 no acc change
 
 // acc 0 or data 1 -> 1 acc change (only pass here)
-// const matrix_row_t or_update_req = (~or_acc[r]) & hist_data[s][r];
+// const matrix_row_t or_req_update = (~or_acc[r]) & hist_data[s][r];
 
 
 // from upstream
@@ -198,15 +198,15 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // next cycle, re-init set this with mask
         for (uint8_t r = 0; r < num_rows; r++) {
             // acc 1 and data 0 -> 0 acc change (only pass here)
-            const matrix_row_t and_update_req = and_acc[r] & (~hist_data[last_s_idx][r]);
+            const matrix_row_t and_req_update = and_acc[r] & (~hist_data[last_s_idx][r]);
 
-            if (and_update_req) {
+            if (and_req_update) {
                 and_acc[r] &= hist_data[last_s_idx][r];
             }
 
-            const matrix_row_t or_update_req = (~or_acc[r]) & hist_data[last_s_idx][r];
+            const matrix_row_t or_req_update = (~or_acc[r]) & hist_data[last_s_idx][r];
 
-            if (or_update_req) {
+            if (or_req_update) {
                 or_acc[r] |= hist_data[last_s_idx][r];
             }
         }
@@ -237,9 +237,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 // not expired, valid sample and to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
                     // acc 1 and data 0 -> 0 acc change (only pass here)
-                    const matrix_row_t and_update_req = and_acc[r] & (~hist_data[s][r]);
+                    const matrix_row_t and_req_update = and_acc[r] & (~hist_data[s][r]);
 
-                    if (and_update_req) {
+                    if (and_req_update) {
                         and_acc[r] &= hist_data[s][r];
                     }
                 }
@@ -266,9 +266,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 // not expired, valid sample or to tmp
                 for (uint8_t r = 0; r < num_rows; r++) {
                     // acc 0 or data 1 -> 1 acc change (only pass here)
-                    const matrix_row_t or_update_req = (~or_acc[r]) & hist_data[s][r];
+                    const matrix_row_t or_req_update = (~or_acc[r]) & hist_data[s][r];
 
-                    if (or_update_req) {
+                    if (or_req_update) {
                         or_acc[r] |= hist_data[s][r];
                     }
                 }
@@ -299,6 +299,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // if diff, tmp to final value, update flag
         // xor -> diff is 1, and mask -> stable only
         const matrix_row_t req_update = (cooked[r] ^ new_data) & stable_mask;
+        
         if (req_update) {
             // update cooked
             cooked[r] &= (~stable_mask);            // not stable bit keep current value, stable clear
