@@ -119,13 +119,17 @@
 #endif
 
 // buffer size
-#ifndef HISTORY_SAMPLE_COUNT
+#ifdef HISTORY_SAMPLE_COUNT
+#    error "tHISTORY_SAMPLE_COUNT must set by automatic, not override config.h"
+#endif
+
+//#ifndef HISTORY_SAMPLE_COUNT
 #    if HISTORY_AND_DEBOUNCE >= HISTORY_OR_DEBOUNCE
 #        define HISTORY_SAMPLE_COUNT (HISTORY_AND_DEBOUNCE+1)
 #    else
 #        define HISTORY_SAMPLE_COUNT (HISTORY_OR_DEBOUNCE+1)
 #    endif
-#endif
+//#endif
 
 // Maximum buffer: 255
 #if HISTORY_SAMPLE_COUNT > UINT8_MAX
