@@ -187,7 +187,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         const size_t matrix_size = num_rows * sizeof(matrix_row_t);
         memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
-        // time update after, outside of if (changed), every cycle
+        // last time final decide here, 
+        // when last data not use time, leave time here
+        // equal continus update 1 cycle before
+        hist_time[last_s_idx] = now - 1;
 
         // update last & write index for next
         last_s_idx = wr_s_idx;
@@ -217,10 +220,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         and_valid = true;
         or_valid = true;
     }
-
-    // every cycle update last sample time to current
-    // if new data come, min 2 sample
-    hist_time[last_s_idx] = now;
+    
+    // return to if (changed)
+    //hist_time[last_s_idx] = now;
 
     // valid history and to and_acc
     if (and_valid) {
