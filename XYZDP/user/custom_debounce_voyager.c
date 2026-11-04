@@ -161,6 +161,9 @@ static uint8_t wr_s_idx;
 static bool and_valid;
 static bool or_valid;
 
+// cooked_changed on global, universal update (value change) flag
+static bool cooked_changed;
+
 // mask for unused cross-point, for voyager only
 static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
     0b01111110,
@@ -287,7 +290,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     }
 
     // apply cooked update, must run every cycle
-    bool cooked_changed = false;
+    cooked_changed = false;
 
     for (uint8_t r = 0; r < num_rows; r++) {
         // gen bit mask with matrix_mask
@@ -338,6 +341,9 @@ void debounce_init(const uint8_t num_rows) {
     // only reset flags
     and_valid = false;
     or_valid = false;
+
+    // run first cycle
+    cooked_changed = true;
 }
 
 void debounce_free(void) {
