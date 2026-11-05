@@ -338,7 +338,7 @@ void debounce_init(const uint8_t num_rows) {
     and_valid = false;
     or_valid = false;
 
-    // first run
+    // first time run
     cooked_changed = true;
 }
 
