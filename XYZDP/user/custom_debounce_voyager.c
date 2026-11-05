@@ -216,7 +216,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             const matrix_row_t and_req_update = and_acc[r] & (~hist_data[last_s_idx][r]);
 
             if (and_req_update) {
-                // non-zere, change bit is 1
+                // non-zero, change bit is 1
                 and_acc[r] &= (~and_req_update);
             }
 
@@ -224,7 +224,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             const matrix_row_t or_req_update = (~or_acc[r]) & hist_data[last_s_idx][r];
 
             if (or_req_update) {
-                // non-zere, change bit is 1
+                // non-zero, change bit is 1
                 or_acc[r] |= or_req_update;
             }
         }
@@ -262,7 +262,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                     const matrix_row_t and_req_update = and_acc[r] & (~hist_data[s][r]);
 
                     if (and_req_update) {
-                        // non-zere, change bit is 1
+                        // non-zero, change bit is 1
                         and_acc[r] &= (~and_req_update);
                     }
                 }
@@ -292,7 +292,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                     const matrix_row_t or_req_update = (~or_acc[r]) & hist_data[s][r];
 
                     if (or_req_update) {
-                        // non-zere, change bit is 1
+                        // non-zero, change bit is 1
                         or_acc[r] |= or_req_update;
                     }
                 }
