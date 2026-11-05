@@ -161,6 +161,9 @@ static uint8_t wr_s_idx;
 static bool and_valid;
 static bool or_valid;
 
+ // momery last state for gen extra margin cycle
+ static bool cooked_changed;
+
 // mask for unused cross-point, for voyager only
 static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
     0b01111110,
@@ -227,14 +230,15 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // all flag set for re-run all check this cycle
         and_valid = true;
         or_valid = true;
+        cooked_changed = true;
     }
 
-    // return to if (changed)
+    // time update return to if (changed)
     //hist_time[last_s_idx] = now;
 
-    // delay for gen safety 1 extra cycle
-    // delay value before update loop
-    bool delayed_valid = and_valid || or_valid;
+    // delay for gen safety 1 extra cycle for valid 1 -> 0
+    // short-circuit for keep true
+    cooked_changed = cooked_changed || and_valid || or_valid;
 
     // valid history and to and_acc
     if (and_valid) {
@@ -299,10 +303,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     //STATUS_LED_2(or_valid);
 
     // apply cooked update
-    bool cooked_changed = false;
+    if (cooked_changed) {
+        // flag reset, if find change set in loop, without last
+        cooked_changed = false;
 
-    // valid with extra 1 cycle delay
-    if (and_valid || or_valid || delayed_valid) {
         for (uint8_t r = 0; r < num_rows; r++) {
             // gen bit mask with matrix_mask
             // all 1  -> and=1 or=1 (stable 1)
@@ -345,6 +349,9 @@ void debounce_init(const uint8_t num_rows) {
     for (uint8_t r = 0; r < num_rows; r++) {
         and_acc[r] =   matrix_mask[r];
         or_acc[r]  = (~matrix_mask[r]);
+
+        // only first entry for init state
+        hist_data[0][r] = 0;
     }
 
     last_s_idx = 0;
@@ -353,6 +360,9 @@ void debounce_init(const uint8_t num_rows) {
     // only reset flags
     and_valid = false;
     or_valid = false;
+
+    // first run
+    cooked_changed = true;
 }
 
 void debounce_free(void) {
