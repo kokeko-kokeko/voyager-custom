@@ -308,7 +308,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
     // apply cooked update
     if (cooked_changed) {
-        // flag reset, if find change set in loop, without last
+        // flag reset, if find change set in loop
         cooked_changed = false;
 
         for (uint8_t r = 0; r < num_rows; r++) {
