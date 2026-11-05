@@ -209,8 +209,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         wr_s_idx++;
         if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
 
-        // after update (change) last data to _acc
-        // next cycle, re-init set this with mask
+        // after update (change) new last data to _acc
+        // next cycle, re-init set this data with mask
         for (uint8_t r = 0; r < num_rows; r++) {
             // acc 1 and data 0 -> 0 acc change (only pass here)
             const matrix_row_t and_req_update = and_acc[r] & (~hist_data[last_s_idx][r]);
