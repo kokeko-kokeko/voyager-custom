@@ -182,8 +182,8 @@ static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
 };
 
 // debug to LED macro
-#define STATUS_LED_1(status) gpio_write_pin(B5, (bool)(status))
-#define STATUS_LED_2(status) gpio_write_pin(B4, (bool)(status))
+#define DEBUG_LED_1(status) gpio_write_pin(B5, (bool)(status))
+#define DEBUG_LED_2(status) gpio_write_pin(B4, (bool)(status))
 
 // raw and cooked pass from caller, keep value, not local memory
 // raw is must read-only, not write
@@ -304,8 +304,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     }
 
     // debug status -> works good!
-    //STATUS_LED_1(and_valid);
-    //STATUS_LED_2(or_valid);
+    //DEBUG_LED_1(and_valid);
+    //DEBUG_LED_2(or_valid);
 
     // apply cooked update
     if (cooked_changed) {
