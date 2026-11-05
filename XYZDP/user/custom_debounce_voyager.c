@@ -246,6 +246,13 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             const bool and_valid = (timer_expired_fast(and_exp_time, hist_time[s]) == false);
             const bool or_valid = (timer_expired_fast(or_exp_time, hist_time[s]) == false);
 
+            // like early return style
+            if ((and_valid || or_valid) == false) continue;
+
+            // reach here (and_valid || or_valid) is true
+            //do_convolution = do_convolution || and_valid || or_valid; 
+            do_convolution = true; 
+
             // do convolution
             if (and_valid && or_valid) {
                 // both valid
@@ -264,9 +271,6 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                     or_acc[r] |= hist_data[s][r];
                 }
             }
-
-            // flag update, only false -> true
-            do_convolution = do_convolution || and_valid || or_valid; 
         }
     }
 
