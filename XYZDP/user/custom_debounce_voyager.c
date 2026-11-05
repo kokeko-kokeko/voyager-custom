@@ -156,10 +156,9 @@ static matrix_row_t or_acc[MATRIX_ROWS];
 static uint8_t last_s_idx;
 static uint8_t wr_s_idx;
 
-// single history valid flag, same as cooked_changed style
+// single history convolution flag, same as cooked_changed style
 // reset on loop head, set again at condition hit
-static bool and_valid;
-static bool or_valid;
+static bool do_convolution;
 
  // momery last state for gen extra margin cycle
  static bool cooked_changed;
@@ -217,63 +216,59 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         }
 
         // all flag set for re-run all check this cycle
-        and_valid = true;
-        or_valid = true;
+        do_convolution = true;
         cooked_changed = true;
     } else {
         // non-change, flag update only
-        // delay for gen safety 1 extra cycle for valid 1 -> 0
+        // delay for gen safety 1 extra cycle for do_convolution 1 -> 0
         // short-circuit for keep true
-        cooked_changed = cooked_changed || and_valid || or_valid;
+        cooked_changed = cooked_changed || do_convolution;
 
         // time update, only write when change, last time not see (all time valid)
         //hist_time[last_s_idx] = now;
     }
 
     // valid history and to and_acc
-    if (and_valid) {
+    if (do_convolution) {
         // flag reset, if find valid sample set in loop, without last
-        and_valid = false;
+        do_convolution = false;
 
-        // expire time (minus offset from now) calc ahead 
-        const fast_timer_t exp_time = now - HISTORY_AND_DEBOUNCE;
+        // calc expire time (minus offset from now), calc ahead 
+        const fast_timer_t and_exp_time = now - HISTORY_AND_DEBOUNCE;
+        const fast_timer_t or_exp_time = now - HISTORY_OR_DEBOUNCE;
 
         // process each history sample
         for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
-            // skip last, always valid no time, only last valid keep false
+            // skip last, always valid no time, only last do_convolution keep false
             if (s == last_s_idx) continue;
+            
+            // valid is not expired
+            const bool and_valid = (timer_expired_fast(and_exp_time, hist_time[s]) == false);
+            const bool or_valid = (timer_expired_fast(or_exp_time, hist_time[s]) == false);
+            const bool both_valid = (and_valid && or_valid);
 
-            if (timer_expired_fast(exp_time, hist_time[s]) == false) {
-                // not expired, valid sample and to tmp
+            if (both_valid) {
+                // both valid
+                for (uint8_t r = 0; r < num_rows; r++) {
+                    and_acc[r] &= hist_data[s][r];
+                    or_acc[r] |= hist_data[s][r];
+                }
+
+                do_convolution = true;
+            } else if (and_valid) {
+                // and only
                 for (uint8_t r = 0; r < num_rows; r++) {
                     and_acc[r] &= hist_data[s][r];
                 }
 
-                and_valid = true;
-            }
-        }
-    }
-
-    // valid history or to or_acc
-    if (or_valid) {
-        // flag reset, if find valid sample set in loop, without last
-        or_valid = false;
-
-        // expire time (minus offset from now) calc ahead 
-        const fast_timer_t exp_time = now - HISTORY_OR_DEBOUNCE;
-
-        // process each history sample
-        for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
-            // skip last, always valid no time, only last valid keep false
-            if (s == last_s_idx) continue;
-
-            if (timer_expired_fast(exp_time, hist_time[s]) == false) {
-                // not expired, valid sample or to tmp
+                do_convolution = true;
+            } else if (or_valid) {
+                // or only
                 for (uint8_t r = 0; r < num_rows; r++) {
                     or_acc[r] |= hist_data[s][r];
                 }
 
-                or_valid = true;
+                do_convolution = true;
             }
         }
     }
@@ -335,9 +330,8 @@ void debounce_init(const uint8_t num_rows) {
     wr_s_idx = 0;
 
     // only reset flags
-    and_valid = false;
-    or_valid = false;
-
+    do_convolution = false;
+    
     // first time run
     cooked_changed = true;
 }
