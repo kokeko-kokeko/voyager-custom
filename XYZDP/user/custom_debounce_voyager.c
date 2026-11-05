@@ -233,15 +233,16 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         and_valid = true;
         or_valid = true;
         cooked_changed = true;
+    } else {
+        // non-change
+        // delay for gen safety 1 extra cycle for valid 1 -> 0
+        // short-circuit for keep true
+        cooked_changed = cooked_changed || and_valid || or_valid;
     }
 
     // time update return to if (changed)
     //hist_time[last_s_idx] = now;
-
-    // delay for gen safety 1 extra cycle for valid 1 -> 0
-    // short-circuit for keep true
-    cooked_changed = cooked_changed || and_valid || or_valid;
-
+    
     // valid history and to and_acc
     if (and_valid) {
         // flag reset, if find valid sample set in loop, without last
