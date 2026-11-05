@@ -203,13 +203,13 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // equal continus update 1 cycle before
         hist_time[last_s_idx] = now - 1;
 
-        // update last & write index for next
+        // update last & write index
         last_s_idx = wr_s_idx;
 
         wr_s_idx++;
         if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
 
-        // updated (change) last data to _acc
+        // after update (change) last data to _acc
         // next cycle, re-init set this with mask
         for (uint8_t r = 0; r < num_rows; r++) {
             // acc 1 and data 0 -> 0 acc change (only pass here)
