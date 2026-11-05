@@ -245,31 +245,28 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // valid is not expired
             const bool and_valid = (timer_expired_fast(and_exp_time, hist_time[s]) == false);
             const bool or_valid = (timer_expired_fast(or_exp_time, hist_time[s]) == false);
-            const bool both_valid = (and_valid && or_valid);
 
-            if (both_valid) {
+            // do convolution
+            if (and_valid && or_valid) {
                 // both valid
                 for (uint8_t r = 0; r < num_rows; r++) {
                     and_acc[r] &= hist_data[s][r];
                     or_acc[r] |= hist_data[s][r];
                 }
-
-                do_convolution = true;
             } else if (and_valid) {
                 // and only
                 for (uint8_t r = 0; r < num_rows; r++) {
                     and_acc[r] &= hist_data[s][r];
                 }
-
-                do_convolution = true;
             } else if (or_valid) {
                 // or only
                 for (uint8_t r = 0; r < num_rows; r++) {
                     or_acc[r] |= hist_data[s][r];
                 }
-
-                do_convolution = true;
             }
+
+            // flag update, only false -> true
+            do_convolution = do_convolution || and_valid || or_valid; 
         }
     }
 
