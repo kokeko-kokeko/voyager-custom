@@ -228,7 +228,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         //hist_time[last_s_idx] = now;
     }
 
-    // valid history and to and_acc
+    // valid history, do convolution, and/or to *_acc
     if (do_convolution) {
         // flag reset, if find valid sample set in loop, without last
         do_convolution = false;
