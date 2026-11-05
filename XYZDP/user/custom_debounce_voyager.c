@@ -233,11 +233,22 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // flag reset, if find valid sample set in loop, without last
         do_convolution = false;
 
+        // 2-pass first gen list for condition, second exec from list
+        // valid condition sample list, no init, must write first
+        uint8_t both_s_list[HISTORY_SAMPLE_COUNT];
+        uint8_t and_s_list[HISTORY_SAMPLE_COUNT];
+        uint8_t or_s_list[HISTORY_SAMPLE_COUNT];
+
+        // valid condition count, 0 init
+        uint8_t both_count = 0;
+        uint8_t and_count = 0;
+        uint8_t or_count = 0;
+
+        // build valid condition sample list,
         // calc expire time (minus offset from now), calc ahead 
         const fast_timer_t and_exp_time = now - HISTORY_AND_DEBOUNCE;
         const fast_timer_t or_exp_time = now - HISTORY_OR_DEBOUNCE;
 
-        // process each history sample
         for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
             // skip last, always valid no time, only last do_convolution keep false
             if (s == last_s_idx) continue;
@@ -246,30 +257,54 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             const bool and_valid = (timer_expired_fast(and_exp_time, hist_time[s]) == false);
             const bool or_valid = (timer_expired_fast(or_exp_time, hist_time[s]) == false);
 
-            // like early return style
+            // like early return style, skip
             if ((and_valid || or_valid) == false) continue;
+
+            // add list
+            if (and_valid && or_valid) {
+                // both valid
+                both_s_list[both_count] = s;
+                both_count++;
+            } else if (and_valid) {
+                // and only
+                and_s_list[and_count] = s;
+                and_count++;
+            } else if (or_valid) {
+                // or only
+                or_s_list[or_count] = s;
+                or_count++;
+            }
 
             // reach here (and_valid || or_valid) is true
             //do_convolution = do_convolution || and_valid || or_valid; 
             do_convolution = true; 
+        }
 
-            // do convolution
-            if (and_valid && or_valid) {
-                // both valid
+        // exec convolution from list
+        if (do_convolution) {
+            for (uint8_t i = 0; i < both_count; i++) {
+                const uint8_t s = both_s_list[i];
+
                 for (uint8_t r = 0; r < num_rows; r++) {
                     and_acc[r] &= hist_data[s][r];
                     or_acc[r] |= hist_data[s][r];
-                }
-            } else if (and_valid) {
-                // and only
+                } 
+            }
+
+            for (uint8_t i = 0; i < and_count; i++) {
+                const uint8_t s = and_s_list[i];
+
                 for (uint8_t r = 0; r < num_rows; r++) {
                     and_acc[r] &= hist_data[s][r];
-                }
-            } else if (or_valid) {
-                // or only
+                } 
+            }
+
+            for (uint8_t i = 0; i < or_count; i++) {
+                const uint8_t s = or_s_list[i];
+                
                 for (uint8_t r = 0; r < num_rows; r++) {
                     or_acc[r] |= hist_data[s][r];
-                }
+                } 
             }
         }
     }
