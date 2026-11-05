@@ -239,7 +239,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // short-circuit for keep true
         cooked_changed = cooked_changed || and_valid || or_valid;
 
-        // time update, only write when change, last time not see 
+        // time update, only write when change, last time not see (all time valid)
         //hist_time[last_s_idx] = now;
     }
 
