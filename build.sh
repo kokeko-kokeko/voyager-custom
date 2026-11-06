@@ -33,8 +33,7 @@ then
      echo "run backup!"
 
      # keep creation information
-     mv zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_last.bin
-     cp zsa_voyager_XYZDP_last.bin zsa_voyager_XYZDP.bin
+     cp -p zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_last.bin
 fi
 popd > /dev/null
 
@@ -101,8 +100,7 @@ then
           [ -f zsa_voyager_XYZDP_1.bin ] && mv zsa_voyager_XYZDP_1.bin zsa_voyager_XYZDP_2.bin
 
           # keep creation information
-          mv zsa_voyager_XYZDP_last.bin zsa_voyager_XYZDP_1.bin
-          cp zsa_voyager_XYZDP_1.bin zsa_voyager_XYZDP_last.bin
+          cp -p zsa_voyager_XYZDP_last.bin zsa_voyager_XYZDP_1.bin
      fi
 fi
 popd > /dev/null
