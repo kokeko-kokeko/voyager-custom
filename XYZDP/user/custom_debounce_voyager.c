@@ -200,6 +200,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         const size_t matrix_size = num_rows * sizeof(matrix_row_t);
         memcpy(hist_data[wr_s_idx], raw, matrix_size);
 
+        // max old value, convolution must skip, re-init value set
+        hist_time[wr_s_idx] = now - UINT8_MAX - 1;
+
         // last time final decide here, 
         // when last data not use time, leave time here
         // equal continus update 1 cycle before
@@ -255,7 +258,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // smple index to *_s_list, update flag
         for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
             // skip last, always valid no time, only last do_convolution keep false
-            if (s == last_s_idx) continue;
+            // last is max old value, must skip
+            //if (s == last_s_idx) continue;
             
             // valid is not expired
             const bool and_valid = (timer_expired_fast(and_exp_time, hist_time[s]) == false);
