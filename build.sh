@@ -26,6 +26,31 @@ then
     popd > /dev/null
 fi
 
+pushd qmk_firmware > /dev/null
+if [ -f zsa_voyager_XYZDP.bin ]
+then 
+     # gen all file same state
+     [ ! -f zsa_voyager_XYZDP_1.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_1.bin
+     [ ! -f zsa_voyager_XYZDP_2.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_2.bin
+     [ ! -f zsa_voyager_XYZDP_3.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_3.bin
+     [ ! -f zsa_voyager_XYZDP_4.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_4.bin
+     [ ! -f zsa_voyager_XYZDP_5.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_5.bin
+
+     # if diff, move once
+     if ! cmp -s zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_1.bin
+     then
+          echo -e "\e[;32m---- backup old .bin file ----\e[m"
+
+          mv zsa_voyager_XYZDP_4.bin zsa_voyager_XYZDP_5.bin
+          mv zsa_voyager_XYZDP_3.bin zsa_voyager_XYZDP_4.bin
+          mv zsa_voyager_XYZDP_2.bin zsa_voyager_XYZDP_3.bin
+          mv zsa_voyager_XYZDP_1.bin zsa_voyager_XYZDP_2.bin
+
+          cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_1.bin
+     fi
+fi
+popd > /dev/null
+
 echo -e "\e[;32m---- run build! ---- "
 pushd qmk_firmware > /dev/null
 #make zsa/voyager:XYZDP
@@ -71,12 +96,16 @@ awk '/stack/    {print "\033[1;34m"$0"\033[0m"; next}
                 {print}'
 popd > /dev/null
 
-echo -e "\e[;32m---- sha256 file hash check ----\e[m"
-pushd qmk_firmware/.build > /dev/null
+
+
+echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
+pushd qmk_firmware > /dev/null
 sha256sum zsa_voyager_XYZDP.bin \
-          zsa_voyager_XYZDP.hex \
-          zsa_voyager_XYZDP.elf \
-          zsa_voyager_XYZDP.map | \
+          zsa_voyager_XYZDP_1.bin \
+          zsa_voyager_XYZDP_2.bin \
+          zsa_voyager_XYZDP_3.bin \
+          zsa_voyager_XYZDP_4.bin \
+          zsa_voyager_XYZDP_5.bin | \
 awk '{print substr($1,1,7),"---",$0}'
 popd > /dev/null
 
