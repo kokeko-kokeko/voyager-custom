@@ -122,8 +122,17 @@ echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
 pushd qmk_firmware > /dev/null
 
 for bin in zsa_voyager_XYZDP.bin \
-           zsa_voyager_XYZDP_last.bin \
-           zsa_voyager_XYZDP_1.bin \
+           zsa_voyager_XYZDP_last.bin         
+do
+     hash=$(sha256sum $bin | awk '{print substr($1,1,7),"---",$1}')
+     time=$(date --utc -r $bin '+%Y-%m-%dT%H:%M:%S')
+
+     echo $hash $time $bin
+done
+
+echo ""
+
+for bin in zsa_voyager_XYZDP_1.bin \
            zsa_voyager_XYZDP_2.bin \
            zsa_voyager_XYZDP_3.bin \
            zsa_voyager_XYZDP_4.bin \
@@ -137,7 +146,6 @@ do
      time=$(date --utc -r $bin '+%Y-%m-%dT%H:%M:%S')
 
      echo $hash $time $bin
-     
 done
 
 popd > /dev/null
