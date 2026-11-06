@@ -335,6 +335,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // flag reset, if find change set in loop
         cooked_changed = false;
 
+        const uint8_t * const rd_last_data = hist_data[last_s_idx];
+
         for (uint8_t r = 0; r < num_rows; r++) {
             // gen bit mask with matrix_mask
             // all 1  -> and=1 or=1 (stable 1)
@@ -360,8 +362,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             }
 
             // must re-init mask data init and last data, simple is best
-            and_acc[r] =   matrix_mask[r]  & hist_data[last_s_idx][r];
-            or_acc[r]  = (~matrix_mask[r]) | hist_data[last_s_idx][r];
+            and_acc[r] =   matrix_mask[r]  & rd_last_data[r];
+            or_acc[r]  = (~matrix_mask[r]) | rd_last_data[r];
         }
     }
 
