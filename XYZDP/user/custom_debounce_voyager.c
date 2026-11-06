@@ -151,6 +151,9 @@ static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 static matrix_row_t and_acc[MATRIX_ROWS];
 static matrix_row_t or_acc[MATRIX_ROWS];
 
+// convolution sample list pre-alloc memory with margin
+static uint8_t convolution_s_list_buf[4 * HISTORY_SAMPLE_COUNT];
+
 // last & write sample index
 // last data is re-init, last time update every cycle
 static uint8_t last_s_idx;
@@ -235,9 +238,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         // 2-pass first gen list for condition, second exec from list
         // valid condition sample list, no init, must write first
-        uint8_t both_s_list[HISTORY_SAMPLE_COUNT];
-        uint8_t and_s_list[HISTORY_SAMPLE_COUNT];
-        uint8_t or_s_list[HISTORY_SAMPLE_COUNT];
+        uint8_t * const both_s_list = &convolution_s_list_buf[0];
+        uint8_t * const and_s_list = &convolution_s_list_buf[1 * HISTORY_SAMPLE_COUNT];
+        uint8_t * const or_s_list = &convolution_s_list_buf[2 * HISTORY_SAMPLE_COUNT];
 
         // valid condition count, 0 init
         uint8_t both_count = 0;
