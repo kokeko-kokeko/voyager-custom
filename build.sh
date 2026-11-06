@@ -30,6 +30,8 @@ echo -e "\e[;32m---- backup pre-compile last .bin file ----\e[m"
 pushd qmk_firmware > /dev/null
 if [ -f zsa_voyager_XYZDP.bin ]
 then
+     echo "run backup!"
+
      # keep creation information
      mv zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_last.bin
      cp zsa_voyager_XYZDP_last.bin zsa_voyager_XYZDP.bin
@@ -84,20 +86,7 @@ popd > /dev/null
 echo -e "\e[;32m---- backup old .bin file ----\e[m"
 pushd qmk_firmware > /dev/null
 if [ -f zsa_voyager_XYZDP.bin ] && [ -f zsa_voyager_XYZDP_last.bin ]
-then 
-     # gen all file same state
-     #[ ! -f zsa_voyager_XYZDP_1.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_1.bin
-     #[ ! -f zsa_voyager_XYZDP_2.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_2.bin
-     #[ ! -f zsa_voyager_XYZDP_3.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_3.bin
-     #[ ! -f zsa_voyager_XYZDP_4.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_4.bin
-     #[ ! -f zsa_voyager_XYZDP_5.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_5.bin
-     #[ ! -f zsa_voyager_XYZDP_6.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_6.bin
-     #[ ! -f zsa_voyager_XYZDP_7.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_7.bin
-     #[ ! -f zsa_voyager_XYZDP_8.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_8.bin
-     #[ ! -f zsa_voyager_XYZDP_9.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_9.bin
-
-     #[ ! -f zsa_voyager_XYZDP_last.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_last.bin
-     
+then
      # if diff, move once
      if ! cmp -s zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_last.bin
      then
@@ -111,6 +100,7 @@ then
           [ -f zsa_voyager_XYZDP_2.bin ] && mv zsa_voyager_XYZDP_2.bin zsa_voyager_XYZDP_3.bin
           [ -f zsa_voyager_XYZDP_1.bin ] && mv zsa_voyager_XYZDP_1.bin zsa_voyager_XYZDP_2.bin
 
+          # keep creation information
           mv zsa_voyager_XYZDP_last.bin zsa_voyager_XYZDP_1.bin
           cp zsa_voyager_XYZDP_1.bin zsa_voyager_XYZDP_last.bin
      fi
