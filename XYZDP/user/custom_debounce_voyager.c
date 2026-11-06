@@ -152,7 +152,7 @@ static matrix_row_t and_acc[MATRIX_ROWS];
 static matrix_row_t or_acc[MATRIX_ROWS];
 
 // convolution sample list pre-alloc buffer memory with margin
-static uint8_t convolution_s_list_buf[(3 * HISTORY_SAMPLE_COUNT) + 3];
+static uint8_t convolution_s_list_buf[(3 * HISTORY_SAMPLE_COUNT+1) ];
 
 // last & write sample index
 // last data is re-init, last time update every cycle
