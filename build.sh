@@ -26,36 +26,14 @@ then
     popd > /dev/null
 fi
 
+echo -e "\e[;32m---- pre-compile last .bin file ----\e[m"
+
 pushd qmk_firmware > /dev/null
 if [ -f zsa_voyager_XYZDP.bin ]
-then 
-     # gen all file same state
-     [ ! -f zsa_voyager_XYZDP_1.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_1.bin
-     [ ! -f zsa_voyager_XYZDP_2.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_2.bin
-     [ ! -f zsa_voyager_XYZDP_3.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_3.bin
-     [ ! -f zsa_voyager_XYZDP_4.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_4.bin
-     [ ! -f zsa_voyager_XYZDP_5.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_5.bin
-     [ ! -f zsa_voyager_XYZDP_6.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_6.bin
-     [ ! -f zsa_voyager_XYZDP_7.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_7.bin
-     [ ! -f zsa_voyager_XYZDP_8.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_8.bin
-     [ ! -f zsa_voyager_XYZDP_9.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_9.bin
-     
-     # if diff, move once
-     if ! cmp -s zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_1.bin
-     then
-          echo -e "\e[;32m---- backup old .bin file ----\e[m"
-
-          mv zsa_voyager_XYZDP_8.bin zsa_voyager_XYZDP_9.bin
-          mv zsa_voyager_XYZDP_7.bin zsa_voyager_XYZDP_8.bin
-          mv zsa_voyager_XYZDP_6.bin zsa_voyager_XYZDP_7.bin
-          mv zsa_voyager_XYZDP_5.bin zsa_voyager_XYZDP_6.bin
-          mv zsa_voyager_XYZDP_4.bin zsa_voyager_XYZDP_5.bin
-          mv zsa_voyager_XYZDP_3.bin zsa_voyager_XYZDP_4.bin
-          mv zsa_voyager_XYZDP_2.bin zsa_voyager_XYZDP_3.bin
-          mv zsa_voyager_XYZDP_1.bin zsa_voyager_XYZDP_2.bin
-
-          cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_1.bin
-     fi
+then
+     # keep creation information
+     mv zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_last.bin
+     cp zsa_voyager_XYZDP_last.bin zsa_voyager_XYZDP.bin
 fi
 popd > /dev/null
 
@@ -104,6 +82,41 @@ awk '/stack/    {print "\033[1;34m"$0"\033[0m"; next}
                 {print}'
 popd > /dev/null
 
+echo -e "\e[;32m---- backup old .bin file ----\e[m"
+pushd qmk_firmware > /dev/null
+if [ -f zsa_voyager_XYZDP.bin ]
+then 
+     # gen all file same state
+     [ ! -f zsa_voyager_XYZDP_1.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_1.bin
+     [ ! -f zsa_voyager_XYZDP_2.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_2.bin
+     [ ! -f zsa_voyager_XYZDP_3.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_3.bin
+     [ ! -f zsa_voyager_XYZDP_4.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_4.bin
+     [ ! -f zsa_voyager_XYZDP_5.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_5.bin
+     [ ! -f zsa_voyager_XYZDP_6.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_6.bin
+     [ ! -f zsa_voyager_XYZDP_7.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_7.bin
+     [ ! -f zsa_voyager_XYZDP_8.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_8.bin
+     [ ! -f zsa_voyager_XYZDP_9.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_9.bin
+
+     [ ! -f zsa_voyager_XYZDP_last.bin ] && cp zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_last.bin
+     
+     # if diff, move once
+     if ! cmp -s zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_last.bin
+     then
+
+          mv zsa_voyager_XYZDP_8.bin zsa_voyager_XYZDP_9.bin
+          mv zsa_voyager_XYZDP_7.bin zsa_voyager_XYZDP_8.bin
+          mv zsa_voyager_XYZDP_6.bin zsa_voyager_XYZDP_7.bin
+          mv zsa_voyager_XYZDP_5.bin zsa_voyager_XYZDP_6.bin
+          mv zsa_voyager_XYZDP_4.bin zsa_voyager_XYZDP_5.bin
+          mv zsa_voyager_XYZDP_3.bin zsa_voyager_XYZDP_4.bin
+          mv zsa_voyager_XYZDP_2.bin zsa_voyager_XYZDP_3.bin
+          mv zsa_voyager_XYZDP_1.bin zsa_voyager_XYZDP_2.bin
+
+          mv zsa_voyager_XYZDP_last.bin zsa_voyager_XYZDP_1.bin
+          cp zsa_voyager_XYZDP_1.bin zsa_voyager_XYZDP_last.bin
+     fi
+fi
+popd > /dev/null
 
 
 echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
@@ -118,7 +131,8 @@ for bin in zsa_voyager_XYZDP.bin \
           zsa_voyager_XYZDP_6.bin \
           zsa_voyager_XYZDP_7.bin \
           zsa_voyager_XYZDP_8.bin \
-          zsa_voyager_XYZDP_9.bin
+          zsa_voyager_XYZDP_9.bin \
+          zsa_voyager_XYZDP_last.bin           
 do
      hash=$(sha256sum $bin | awk '{print substr($1,1,7),"---",$1}')
      time=$(date --utc -r $bin '+%Y-%m-%dT%H:%M:%S')
