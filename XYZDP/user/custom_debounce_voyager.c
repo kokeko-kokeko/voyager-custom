@@ -200,7 +200,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // equal continus update 1 cycle before
         hist_time[last_s_idx] = now - 1;
 
-        // max old value, convolution must skip, re-init value set
+        // write max old value, convolution must skip, re-init value set
         // initial last_s_idx == wr_s_idx, works well
         hist_time[wr_s_idx] = now - UINT8_MAX - 1;        
 
@@ -208,7 +208,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // only touch raw here, other pos uce hist_data
         const size_t matrix_size = num_rows * sizeof(matrix_row_t);
         memcpy(hist_data[wr_s_idx], raw, matrix_size);
-        
+
         // update last & write index
         last_s_idx = wr_s_idx;
 
