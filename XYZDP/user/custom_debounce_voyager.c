@@ -252,6 +252,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         const fast_timer_t and_exp_time = now - HISTORY_AND_DEBOUNCE;
         const fast_timer_t or_exp_time = now - HISTORY_OR_DEBOUNCE;
 
+        // smple index to *_s_list
         for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
             // skip last, always valid no time, only last do_convolution keep false
             if (s == last_s_idx) continue;
