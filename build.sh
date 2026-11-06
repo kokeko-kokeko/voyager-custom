@@ -101,6 +101,7 @@ then
      # if diff, move once
      if ! cmp -s zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_last.bin
      then
+          echo "run backup!"
           mv zsa_voyager_XYZDP_8.bin zsa_voyager_XYZDP_9.bin
           mv zsa_voyager_XYZDP_7.bin zsa_voyager_XYZDP_8.bin
           mv zsa_voyager_XYZDP_6.bin zsa_voyager_XYZDP_7.bin
