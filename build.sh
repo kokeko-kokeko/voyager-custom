@@ -26,7 +26,7 @@ then
     popd > /dev/null
 fi
 
-echo -e "\e[;32m---- stack pre-compile last .bin file ----\e[m"
+echo -e "\e[;32m---- backup pre-compile last .bin file ----\e[m"
 pushd qmk_firmware > /dev/null
 if [ -f zsa_voyager_XYZDP.bin ]
 then
