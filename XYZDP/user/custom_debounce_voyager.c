@@ -335,6 +335,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // flag reset, if find change set in loop
         cooked_changed = false;
 
+        // find last pointer ahead
         const uint8_t * const rd_last_data = hist_data[last_s_idx];
 
         for (uint8_t r = 0; r < num_rows; r++) {
