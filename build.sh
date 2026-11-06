@@ -73,7 +73,10 @@ popd > /dev/null
 
 echo -e "\e[;32m---- sha256 file hash check ----\e[m"
 pushd qmk_firmware/.build > /dev/null
-sha256sum zsa_voyager_XYZDP.* | \
+sha256sum zsa_voyager_XYZDP.bin \
+          zsa_voyager_XYZDP.hex \
+          zsa_voyager_XYZDP.elf \
+          zsa_voyager_XYZDP.map | \
 awk '{print substr($1,1,7),"---",$0}'
 popd > /dev/null
 
