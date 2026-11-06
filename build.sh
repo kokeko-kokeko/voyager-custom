@@ -70,14 +70,12 @@ awk '/stack/    {print "\033[1;34m"$0"\033[0m"; next}
      /\.heap/   {print "\033[1;35m"$0"\033[0m"; next}
      /Total/    {print "\033[1;37m"$0"\033[0m"; next}
                 {print}'
-echo ""
 popd > /dev/null
 
 echo -e "\e[;32m---- sha256 file hash check ----\e[m"
 pushd qmk_firmware/.build > /dev/null
 sha256sum zsa_voyager_XYZDP.* | \
 awk '{print substr($1,1,7),"---",$0}'
-echo ""
 popd > /dev/null
 
 echo -e "\e[;32m---- done! ----\e[m\a"
