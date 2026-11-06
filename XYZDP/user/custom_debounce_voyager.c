@@ -207,20 +207,25 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // raw transfer to history, only changed timing, use memcpy than upstream
         // only touch raw here, other pos uce hist_data
         const size_t matrix_size = num_rows * sizeof(matrix_row_t);
-        memcpy(hist_data[wr_s_idx], raw, matrix_size);
+        uint8_t * const wr_dest = hist_data[wr_s_idx];
+
+        memcpy(wr_dest, raw, matrix_size);
+
+        // after update (write) new data to _acc
+        // next cycle, re-init (last_s_idx) set this data with mask
+
+        const uint8_t * const rd_src = wr_dest;
+
+        for (uint8_t r = 0; r < num_rows; r++) {
+            and_acc[r] &= rd_src[r];
+            or_acc[r] |= rd_src[r];
+        }
 
         // update last & write index
         last_s_idx = wr_s_idx;
 
         wr_s_idx++;
         if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
-
-        // after update (change) new last data to _acc
-        // next cycle, re-init set this data with mask
-        for (uint8_t r = 0; r < num_rows; r++) {
-            and_acc[r] &= hist_data[last_s_idx][r];
-            or_acc[r] |= hist_data[last_s_idx][r];
-        }
 
         // all flag set for re-run all check this cycle
         do_convolution = true;
@@ -293,26 +298,29 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         if (do_convolution) {
             for (uint8_t i = 0; i < both_count; i++) {
                 const uint8_t s = both_s_list[i];
+                const uint8_t * const rd_src = hist_data[s];
 
                 for (uint8_t r = 0; r < num_rows; r++) {
-                    and_acc[r] &= hist_data[s][r];
-                    or_acc[r] |= hist_data[s][r];
+                    and_acc[r] &= rd_src[r];
+                    or_acc[r] |= rd_src[r];
                 } 
             }
 
             for (uint8_t i = 0; i < and_count; i++) {
                 const uint8_t s = and_s_list[i];
+                const uint8_t * const rd_src = hist_data[s];
 
                 for (uint8_t r = 0; r < num_rows; r++) {
-                    and_acc[r] &= hist_data[s][r];
+                    and_acc[r] &= rd_src[r];
                 } 
             }
 
             for (uint8_t i = 0; i < or_count; i++) {
                 const uint8_t s = or_s_list[i];
+                const uint8_t * const rd_src = hist_data[s];
                 
                 for (uint8_t r = 0; r < num_rows; r++) {
-                    or_acc[r] |= hist_data[s][r];
+                    or_acc[r] |= rd_src[r];
                 } 
             }
         }
