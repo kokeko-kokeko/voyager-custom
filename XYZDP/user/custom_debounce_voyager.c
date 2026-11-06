@@ -284,7 +284,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             do_convolution = true; 
         }
 
-        // exec convolution from list
+        // exec convolution from *_s_list
         if (do_convolution) {
             for (uint8_t i = 0; i < both_count; i++) {
                 const uint8_t s = both_s_list[i];
