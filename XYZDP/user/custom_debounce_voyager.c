@@ -318,7 +318,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 single_count++;
             }
             #else    
-            // both only
+            // no single both only
             both_s_list[both_count] = s;
             both_count++;
             #endif
