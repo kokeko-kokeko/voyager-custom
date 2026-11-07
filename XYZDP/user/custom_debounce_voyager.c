@@ -119,22 +119,39 @@
 #endif
 
 // pre calc both/single condition (only automatic calc, override clear)
-#undef BOTH_ONLY
-#undef LONG_IS_AND
-#undef LONG_IS_OR
+#undef HAS_SINGLE
+#undef SINGLE_IS_AND
+#undef SINGLE_IS_OR
 #undef SHORT_DEBOUNCE
 #undef LONG_DEBOUNCE
 
+// 
+// (now - long) --- single --- (now - short) --- both --- (now)
+//            |     time1                  !    time2 
+//   false    |    true
+//                                false    |    true
+//                                      
+// time1 = single
+// time2 = both
+// short is near, long is far, timeout short first
+//
+// long > short
+// true   true  both (time2)
+// true   false single (time1)
+// false  -     invalid
+//
+// both = < short 
+// single = short < long
 #if HISTORY_AND_DEBOUNCE == HISTORY_OR_DEBOUNCE
-#   define BOTH_ONLY
-#   define SHORT_DEBOUNCE HISTORY_AND_DEBOUNCE
 #   define LONG_DEBOUNCE HISTORY_AND_DEBOUNCE
 #elif HISTORY_AND_DEBOUNCE > HISTORY_OR_DEBOUNCE
-#   define LONG_IS_AND
+#   define HAS_SINGLE
+#   define SINGLE_IS_AND
 #   define SHORT_DEBOUNCE HISTORY_OR_DEBOUNCE
 #   define LONG_DEBOUNCE HISTORY_AND_DEBOUNCE
 #else
-#   define LONG_IS_OR
+#   define HAS_SINGLE
+#   define SINGLE_IS_OR
 #   define SHORT_DEBOUNCE HISTORY_AND_DEBOUNCE
 #   define LONG_DEBOUNCE HISTORY_OR_DEBOUNCE
 #endif
@@ -164,10 +181,10 @@ static matrix_row_t and_acc[MATRIX_ROWS];
 static matrix_row_t or_acc[MATRIX_ROWS];
 
 // convolution sample list pre-alloc buffer memory with margin
-#ifdef BOTH_ONLY
-static uint8_t convolution_s_list_buf[HISTORY_SAMPLE_COUNT+1];
-#else
-static uint8_t convolution_s_list_buf[3 * (HISTORY_SAMPLE_COUNT+1) ]; 
+static uint8_t convolution_s_both_buf[HISTORY_SAMPLE_COUNT+1]; 
+
+#ifdef HAS_SINGLE
+static uint8_t convolution_s_single_buf[HISTORY_SAMPLE_COUNT+1]; 
 #endif
 
 // last & write sample index
@@ -263,19 +280,19 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         // 2-pass first gen list for condition, second exec from list
         // valid condition sample list, no init, must write first
-        uint8_t * const both_s_list = &convolution_s_list_buf[0 * HISTORY_SAMPLE_COUNT];
-        uint8_t * const and_s_list = &convolution_s_list_buf[1 * HISTORY_SAMPLE_COUNT];
-        uint8_t * const or_s_list = &convolution_s_list_buf[2 * HISTORY_SAMPLE_COUNT];
-
-        // valid condition count, 0 init
+        uint8_t * const both_s_list = convolution_s_both_buf;
         uint8_t both_count = 0;
-        uint8_t and_count = 0;
-        uint8_t or_count = 0;
 
         // build valid condition sample list,
         // calc expire time (minus offset from now), calc ahead 
-        const fast_timer_t and_exp_time = now - HISTORY_AND_DEBOUNCE;
-        const fast_timer_t or_exp_time = now - HISTORY_OR_DEBOUNCE;
+        const fast_timer_t long_exp_time = now - LONG_DEBOUNCE;       
+
+        #ifdef HAS_SINGLE
+        uint8_t * const single_s_list = convolution_s_single_buf;
+        uint8_t single_count = 0;
+
+        const fast_timer_t short_exp_time = now - SHORT_DEBOUNCE;
+        #endif
 
         // smple index to *_s_list, update flag
         for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
@@ -284,26 +301,27 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             //if (s == last_s_idx) continue;
             
             // valid is not expired
-            const bool and_valid = (timer_expired_fast(and_exp_time, hist_time[s]) == false);
-            const bool or_valid = (timer_expired_fast(or_exp_time, hist_time[s]) == false);
-
+            const bool long_valid = (timer_expired_fast(long_exp_time, hist_time[s]) == false);
+            
             // like early return style, skip
-            if ((and_valid || or_valid) == false) continue;
-
-            // add list
-            if (and_valid && or_valid) {
-                // both valid
+            if (long_valid == false) continue;
+            
+            #ifdef HAS_SINGLE
+            const bool short_valid = (timer_expired_fast(short_exp_time, hist_time[s]) == false);
+            
+            if (short_valid) {
+                // both
                 both_s_list[both_count] = s;
-                both_count++;
-            } else if (and_valid) {
-                // and only
-                and_s_list[and_count] = s;
-                and_count++;
-            } else if (or_valid) {
-                // or only
-                or_s_list[or_count] = s;
-                or_count++;
+                both_count++; 
+            } else {
+                single_s_list[both_count] = s;
+                single_count++;
             }
+            #else    
+            // both only
+            both_s_list[both_count] = s;
+            both_count++;
+            #endif
 
             // reach here (and_valid || or_valid) is true
             //do_convolution = do_convolution || and_valid || or_valid; 
@@ -322,23 +340,23 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 } 
             }
 
-            for (uint8_t i = 0; i < and_count; i++) {
-                const uint8_t s = and_s_list[i];
+            #ifdef HAS_SINGLE
+            for (uint8_t i = 0; i < single_count; i++) {
+                const uint8_t s = single_s_list[i];
                 const uint8_t * const rd_src = hist_data[s];
 
                 for (uint8_t r = 0; r < num_rows; r++) {
+                    #ifdef SINGLE_IS_AND
                     and_acc[r] &= rd_src[r];
-                } 
-            }
+                    #endif
 
-            for (uint8_t i = 0; i < or_count; i++) {
-                const uint8_t s = or_s_list[i];
-                const uint8_t * const rd_src = hist_data[s];
-                
-                for (uint8_t r = 0; r < num_rows; r++) {
+                    #ifdef SINGLE_IS_OR
                     or_acc[r] |= rd_src[r];
+                    #endif
                 } 
             }
+            #endif
+
         }
     }
 
