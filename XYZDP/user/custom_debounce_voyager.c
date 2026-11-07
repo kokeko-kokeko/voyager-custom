@@ -127,14 +127,20 @@
 
 // 
 // (now - long) --- single --- (now - short) --- both --- (now)
-//            |     time1                  !    time2 
-//   false    |    true
-//                                false    |    true
-//                                      
+//      time0 | time1                      ! time2
+// valid
+//      false | true
+//                                   false | true
+// expired
+//       true | false
+//                                    true | false
+//
+// time0 = no action                                     
 // time1 = single
 // time2 = both
 // short is near, long is far, timeout short first
 //
+// valid
 // long  short
 // true  true  both (time2)
 // true  false single (time1)
@@ -146,6 +152,7 @@
 #   define LONG_DEBOUNCE HISTORY_AND_DEBOUNCE
 #elif HISTORY_AND_DEBOUNCE > HISTORY_OR_DEBOUNCE
 #   define HAS_SINGLE
+
 #   define SINGLE_IS_AND
 #   define SHORT_DEBOUNCE HISTORY_OR_DEBOUNCE
 #   define LONG_DEBOUNCE HISTORY_AND_DEBOUNCE
