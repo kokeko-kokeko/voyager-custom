@@ -118,7 +118,7 @@
 #    define HISTORY_OR_DEBOUNCE 1
 #endif
 
-// pre calc both/single condition (only automatic define)
+// pre calc both/single condition (only automatic calc, override clear)
 #undef BOTH_ONLY
 #undef LONG_IS_AND
 #undef LONG_IS_OR
@@ -139,7 +139,7 @@
 #   define LONG_DEBOUNCE HISTORY_OR_DEBOUNCE
 #endif
 
-// buffer size (only automatic define)
+// buffer size (only automatic calc, override clear)
 #undef HISTORY_SAMPLE_COUNT
 #define HISTORY_SAMPLE_COUNT (LONG_DEBOUNCE+1) 
 
@@ -164,7 +164,11 @@ static matrix_row_t and_acc[MATRIX_ROWS];
 static matrix_row_t or_acc[MATRIX_ROWS];
 
 // convolution sample list pre-alloc buffer memory with margin
-static uint8_t convolution_s_list_buf[3 * (HISTORY_SAMPLE_COUNT+1) ];
+#ifdef BOTH_ONLY
+static uint8_t convolution_s_list_buf[HISTORY_SAMPLE_COUNT+1];
+#else
+static uint8_t convolution_s_list_buf[3 * (HISTORY_SAMPLE_COUNT+1) ]; 
+#endif
 
 // last & write sample index
 // last data is re-init, last time update every cycle
