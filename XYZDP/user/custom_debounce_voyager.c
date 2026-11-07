@@ -127,7 +127,7 @@
 
 // 
 // (now - long) --- single --- (now - short) --- both --- (now)
-//      time0 | time1                      ! time2
+//      time0 | time1                time1 ! time2
 // valid
 //      false | true
 //                                   false | true
@@ -135,7 +135,7 @@
 //       true | false
 //                                    true | false
 //
-// time0 = no action                                     
+// time0 = invalid, no action                                     
 // time1 = single
 // time2 = both
 // short is near, long is far, timeout short first
@@ -144,7 +144,7 @@
 // long  short
 // true  true  both (time2)
 // true  false single (time1)
-// false ---   invalid
+// false ---   invalid (time0)
 //
 // both = < short 
 // single = short < long
