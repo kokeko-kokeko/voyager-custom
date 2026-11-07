@@ -118,18 +118,30 @@
 #    define HISTORY_OR_DEBOUNCE 1
 #endif
 
-// buffer size
-#ifdef HISTORY_SAMPLE_COUNT
-#    error "tHISTORY_SAMPLE_COUNT must set by automatic, not override config.h"
+// pre calc both/single condition (only automatic define)
+#undef BOTH_ONLY
+#undef LONG_IS_AND
+#undef LONG_IS_OR
+#undef SHORT_DEBOUNCE
+#undef LONG_DEBOUNCE
+
+#if HISTORY_AND_DEBOUNCE == HISTORY_OR_DEBOUNCE
+#   define BOTH_ONLY
+#   define SHORT_DEBOUNCE HISTORY_AND_DEBOUNCE
+#   define LONG_DEBOUNCE HISTORY_AND_DEBOUNCE
+#elif HISTORY_AND_DEBOUNCE > HISTORY_OR_DEBOUNCE
+#   define LONG_IS_AND
+#   define SHORT_DEBOUNCE HISTORY_OR_DEBOUNCE
+#   define LONG_DEBOUNCE HISTORY_AND_DEBOUNCE
+#else
+#   define LONG_IS_OR
+#   define SHORT_DEBOUNCE HISTORY_AND_DEBOUNCE
+#   define LONG_DEBOUNCE HISTORY_OR_DEBOUNCE
 #endif
 
-//#ifndef HISTORY_SAMPLE_COUNT
-#    if HISTORY_AND_DEBOUNCE >= HISTORY_OR_DEBOUNCE
-#        define HISTORY_SAMPLE_COUNT (HISTORY_AND_DEBOUNCE+1)
-#    else
-#        define HISTORY_SAMPLE_COUNT (HISTORY_OR_DEBOUNCE+1)
-#    endif
-//#endif
+// buffer size (only automatic define)
+#undef HISTORY_SAMPLE_COUNT
+#define HISTORY_SAMPLE_COUNT (LONG_DEBOUNCE+1) 
 
 // Maximum buffer: 255
 #if HISTORY_SAMPLE_COUNT > UINT8_MAX
