@@ -290,6 +290,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // valid condition sample list, no init, must write first
         uint8_t * const conv_s_list = convolution_s_buf;
 
+        // post inc style index, both write from 0
         uint8_t both_index = 0;
 
         // build valid condition sample list,
