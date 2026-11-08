@@ -185,6 +185,13 @@
 #    define HISTORY_SAMPLE_COUNT 2
 #endif
 
+// convolution buffer size (use both side)
+#undef CONVOLUTION_BUFFER_SIZE
+#undef CONVOLUTION_BUFFER_MAX_INDEX
+
+#define CONVOLUTION_BUFFER_SIZE (HISTORY_SAMPLE_COUNT+1)
+#define CONVOLUTION_BUFFER_MAX_INDEX (CONVOLUTION_BUFFER_SIZE-1)
+
 // history data & time buffer (time is data last or leave time for calc)
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
 static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
@@ -193,12 +200,8 @@ static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 static matrix_row_t and_acc[MATRIX_ROWS];
 static matrix_row_t or_acc[MATRIX_ROWS];
 
-// convolution sample list pre-alloc buffer memory with margin
-static uint8_t convolution_s_both_buf[HISTORY_SAMPLE_COUNT+1]; 
-
-#ifdef HAS_SINGLE
-static uint8_t convolution_s_single_buf[HISTORY_SAMPLE_COUNT+1]; 
-#endif
+// both use from 0, single use from CONVOLUTION_BUFFER_MAX_INDEX
+static uint8_t convolution_s_buf[CONVOLUTION_BUFFER_SIZE]; 
 
 // last & write sample index
 // last data is re-init, last time update every cycle
@@ -293,16 +296,16 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         // 2-pass first gen list for condition, second exec from list
         // valid condition sample list, no init, must write first
-        uint8_t * const both_s_list = convolution_s_both_buf;
-        uint8_t both_count = 0;
+        uint8_t * const conv_s_list = convolution_s_buf;
+
+        uint8_t both_index = 0;
 
         // build valid condition sample list,
         // calc expire time (minus offset from now), calc ahead 
         const fast_timer_t long_exp_time = now - LONG_DEBOUNCE;       
 
 #ifdef HAS_SINGLE
-        uint8_t * const single_s_list = convolution_s_single_buf;
-        uint8_t single_count = 0;
+        uint8_t single_index = CONVOLUTION_BUFFER_MAX_INDEX;
 
         const fast_timer_t short_exp_time = now - SHORT_DEBOUNCE;
 #endif
@@ -324,9 +327,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             
             // early return style
             if (short_expired) {
-                // single
-                single_s_list[both_count] = s;
-                single_count++;
+                // single from max index
+                conv_s_list[single_index] = s;
+                single_index--;
 
                 do_convolution = true;
                 continue; 
@@ -334,8 +337,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 #endif
 
             // both
-            both_s_list[both_count] = s;
-            both_count++;
+            conv_s_list[both_index] = s;
+            both_index++;
 
             // reach here (and_valid || or_valid) is true
             //do_convolution = do_convolution || and_valid || or_valid; 
@@ -344,8 +347,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         // exec convolution from *_s_list
         if (do_convolution) {
-            for (uint8_t i = 0; i < both_count; i++) {
-                const uint8_t s = both_s_list[i];
+            for (uint8_t i = 0; i < both_index; i++) {
+                const uint8_t s = conv_s_list[i];
                 const uint8_t * const rd_src = hist_data[s];
 
                 for (uint8_t r = 0; r < num_rows; r++) {
@@ -355,8 +358,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             }
 
 #ifdef HAS_SINGLE
-            for (uint8_t i = 0; i < single_count; i++) {
-                const uint8_t s = single_s_list[i];
+            for (uint8_t i = CONVOLUTION_BUFFER_MAX_INDEX; i > single_index; i--) {
+                const uint8_t s = conv_s_list[i];
                 const uint8_t * const rd_src = hist_data[s];
 
                 for (uint8_t r = 0; r < num_rows; r++) {
