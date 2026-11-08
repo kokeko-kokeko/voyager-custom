@@ -119,12 +119,6 @@
 #endif
 
 // pre calc both/single condition (only automatic calc, override clear)
-// clear all flags
-#undef HAS_SINGLE
-#undef SINGLE_IS_AND    // not def, single is or
-#undef SHORT_DEBOUNCE   // only def when HAS_SINGLE 
-#undef LONG_DEBOUNCE    // always def
-
 // 
 // (now - long) --- single --- (now - short) --- both --- (now) -> adv
 // ---- time0 | time1 -------------- time1 ! time2 ---------
@@ -154,6 +148,13 @@
 //
 // both = < short 
 // single = short < long
+
+// clear all flags
+#undef HAS_SINGLE
+#undef SINGLE_IS_AND    // not def, single is or
+#undef SHORT_DEBOUNCE   // only def when HAS_SINGLE 
+#undef LONG_DEBOUNCE    // always def
+
 #if HISTORY_AND_DEBOUNCE == HISTORY_OR_DEBOUNCE
 #   define LONG_DEBOUNCE HISTORY_AND_DEBOUNCE
 #elif HISTORY_AND_DEBOUNCE > HISTORY_OR_DEBOUNCE
