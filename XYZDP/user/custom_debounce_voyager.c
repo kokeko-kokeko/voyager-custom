@@ -317,6 +317,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             
             // like early return style, nothing to do, skip
             if (long_expired) continue;
+
 #ifdef HAS_SINGLE
             const bool short_expired = timer_expired_fast(short_exp_time, hist_time[s]);
             
@@ -330,6 +331,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 continue; 
             }
 #endif
+
             // both
             both_s_list[both_count] = s;
             both_count++;
@@ -350,6 +352,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                     or_acc[r] |= rd_src[r];
                 } 
             }
+
 #ifdef HAS_SINGLE
             for (uint8_t i = 0; i < single_count; i++) {
                 const uint8_t s = single_s_list[i];
@@ -364,6 +367,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 } 
             }
 #endif
+
         }
     }
 
