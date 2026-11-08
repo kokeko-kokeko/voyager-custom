@@ -208,8 +208,8 @@ static uint8_t wr_s_idx;
 // reset on loop head, set again at condition hit
 static bool do_convolution;
 
- // momery last state for gen extra margin cycle
- static bool cooked_changed;
+// momery last state for gen extra margin cycle
+static bool cooked_changed;
 
 // mask for unused cross-point, for voyager only
 static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
@@ -317,10 +317,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             
             // like early return style, skip
             if (long_expired) continue;
-            
-            #ifdef HAS_SINGLE
+#ifdef HAS_SINGLE
             const bool short_expired = timer_expired_fast(short_exp_time, hist_time[s]);
             
+            // early return style
             if (short_expired) {
                 // single
                 single_s_list[both_count] = s;
@@ -329,8 +329,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 do_convolution = true;
                 continue; 
             }
-            #endif
-
+#endif
             // both
             both_s_list[both_count] = s;
             both_count++;
@@ -351,22 +350,20 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                     or_acc[r] |= rd_src[r];
                 } 
             }
-
-            #ifdef HAS_SINGLE
+#ifdef HAS_SINGLE
             for (uint8_t i = 0; i < single_count; i++) {
                 const uint8_t s = single_s_list[i];
                 const uint8_t * const rd_src = hist_data[s];
 
                 for (uint8_t r = 0; r < num_rows; r++) {
-                    #ifdef SINGLE_IS_AND
+#   ifdef SINGLE_IS_AND
                     and_acc[r] &= rd_src[r];
-                    #else
+#   else
                     or_acc[r] |= rd_src[r];
-                    #endif
+#   endif
                 } 
             }
-            #endif
-
+#endif
         }
     }
 
