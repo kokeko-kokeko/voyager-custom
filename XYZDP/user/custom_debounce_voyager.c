@@ -69,7 +69,6 @@
 // acc 0 or data 1 -> 1 acc change (only pass here)
 // const matrix_row_t or_req_update = (~or_acc[r]) & hist_data[s][r];
 
-
 // from upstream
 #ifndef DEBOUNCE
 #    define DEBOUNCE 5
@@ -193,7 +192,7 @@ static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
 static matrix_row_t and_acc[MATRIX_ROWS];
 static matrix_row_t or_acc[MATRIX_ROWS];
 
-// both use from 0, single use from CONVOLUTION_LIST_MAX_INDEX
+// both use from 0, single use from end
 static uint8_t convolution_s_buf[HISTORY_SAMPLE_COUNT]; 
 
 // last & write sample index
