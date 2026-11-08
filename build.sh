@@ -30,7 +30,7 @@ echo -e "\e[;32m---- backup pre-compile last .bin file ----\e[m"
 pushd qmk_firmware > /dev/null
 if [ -f zsa_voyager_XYZDP.bin ]
 then
-     echo "run backup!"
+     echo "run backup, bufore build"
 
      # keep creation information
      cp -p zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_last.bin
