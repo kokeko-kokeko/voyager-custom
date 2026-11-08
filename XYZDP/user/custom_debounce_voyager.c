@@ -315,7 +315,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // valid is not expired
             const bool long_expired = timer_expired_fast(long_exp_time, hist_time[s]);
             
-            // like early return style, skip
+            // like early return style, nothing to do, skip
             if (long_expired) continue;
 #ifdef HAS_SINGLE
             const bool short_expired = timer_expired_fast(short_exp_time, hist_time[s]);
