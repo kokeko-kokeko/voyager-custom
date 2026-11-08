@@ -185,13 +185,6 @@
 #    define HISTORY_SAMPLE_COUNT 2
 #endif
 
-// convolution buffer size (use both side) use same size
-//#undef CONVOLUTION_LIST_SIZE
-//#undef CONVOLUTION_LIST_MAX_INDEX
-//
-//#define CONVOLUTION_LIST_SIZE (HISTORY_SAMPLE_COUNT+1)
-//#define CONVOLUTION_LIST_MAX_INDEX (CONVOLUTION_LIST_SIZE-1)
-
 // history data & time buffer (time is data last or leave time for calc)
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
 static fast_timer_t hist_time[HISTORY_SAMPLE_COUNT];
