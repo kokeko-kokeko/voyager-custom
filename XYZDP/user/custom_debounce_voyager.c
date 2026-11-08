@@ -345,6 +345,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         // exec convolution from *_s_list
         if (do_convolution) {
+            // post-inc record
             for (uint8_t i = 0; i < both_index; i++) {
                 const uint8_t s = conv_s_list[i];
                 const uint8_t * const rd_src = hist_data[s];
@@ -356,7 +357,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             }
 
 #ifdef HAS_SINGLE
-            // read inc direction
+            // read inc direction, pre-dec record
             for (uint8_t i = single_index; i < HISTORY_SAMPLE_COUNT; i++) {
                 const uint8_t s = conv_s_list[i];
                 const uint8_t * const rd_src = hist_data[s];
