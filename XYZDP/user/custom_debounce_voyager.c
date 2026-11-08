@@ -119,15 +119,15 @@
 #endif
 
 // pre calc both/single condition (only automatic calc, override clear)
+// clear all flags
 #undef HAS_SINGLE
-#undef SINGLE_IS_AND
-#undef SINGLE_IS_OR
-#undef SHORT_DEBOUNCE
-#undef LONG_DEBOUNCE
+#undef SINGLE_IS_AND    // not def, single is or
+#undef SHORT_DEBOUNCE   // only def when HAS_SINGLE 
+#undef LONG_DEBOUNCE    // always def
 
 // 
-// (now - long) --- single --- (now - short) --- both --- (now)
-//      time0 | time1                time1 ! time2
+// (now - long) --- single --- (now - short) --- both --- (now) -> adv
+// ---- time0 | time1 -------------- time1 ! time2 ---------
 // valid
 //      false | true
 //                                   false | true
@@ -141,10 +141,16 @@
 // short is near, long is far, timeout short first
 //
 // valid
-// long  short
-// true  true  both (time2)
-// true  false single (time1)
+// long  short convolution
+// true  true  both    (time2)
+// true  false single  (time1)
 // false ---   invalid (time0)
+//
+// expired
+// long  short convolution
+// true  ---   invalid (time0), nothing to do
+// false true  single  (time1)
+// false false both    (time2)
 //
 // both = < short 
 // single = short < long
@@ -152,18 +158,17 @@
 #   define LONG_DEBOUNCE HISTORY_AND_DEBOUNCE
 #elif HISTORY_AND_DEBOUNCE > HISTORY_OR_DEBOUNCE
 #   define HAS_SINGLE
-
 #   define SINGLE_IS_AND
 #   define SHORT_DEBOUNCE HISTORY_OR_DEBOUNCE
 #   define LONG_DEBOUNCE HISTORY_AND_DEBOUNCE
 #else
 #   define HAS_SINGLE
-#   define SINGLE_IS_OR
 #   define SHORT_DEBOUNCE HISTORY_AND_DEBOUNCE
 #   define LONG_DEBOUNCE HISTORY_OR_DEBOUNCE
 #endif
 
 // buffer size (only automatic calc, override clear)
+// clear all flags
 #undef HISTORY_SAMPLE_COUNT
 #define HISTORY_SAMPLE_COUNT (LONG_DEBOUNCE+1) 
 
@@ -294,12 +299,12 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         // calc expire time (minus offset from now), calc ahead 
         const fast_timer_t long_exp_time = now - LONG_DEBOUNCE;       
 
-        #ifdef HAS_SINGLE
+#ifdef HAS_SINGLE
         uint8_t * const single_s_list = convolution_s_single_buf;
         uint8_t single_count = 0;
 
         const fast_timer_t short_exp_time = now - SHORT_DEBOUNCE;
-        #endif
+#endif
 
         // smple index to *_s_list, update flag
         for (uint8_t s = 0; s < HISTORY_SAMPLE_COUNT; s++) {
@@ -308,27 +313,27 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             //if (s == last_s_idx) continue;
             
             // valid is not expired
-            const bool long_valid = (timer_expired_fast(long_exp_time, hist_time[s]) == false);
+            const bool long_expired = timer_expired_fast(long_exp_time, hist_time[s]);
             
             // like early return style, skip
-            if (long_valid == false) continue;
+            if (long_expired) continue;
             
             #ifdef HAS_SINGLE
-            const bool short_valid = (timer_expired_fast(short_exp_time, hist_time[s]) == false);
+            const bool short_expired = timer_expired_fast(short_exp_time, hist_time[s]);
             
-            if (short_valid) {
-                // both
-                both_s_list[both_count] = s;
-                both_count++; 
-            } else {
+            if (short_expired) {
+                // single
                 single_s_list[both_count] = s;
                 single_count++;
+
+                do_convolution = true;
+                continue; 
             }
-            #else    
-            // no single both only
+            #endif
+
+            // both
             both_s_list[both_count] = s;
             both_count++;
-            #endif
 
             // reach here (and_valid || or_valid) is true
             //do_convolution = do_convolution || and_valid || or_valid; 
@@ -355,9 +360,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 for (uint8_t r = 0; r < num_rows; r++) {
                     #ifdef SINGLE_IS_AND
                     and_acc[r] &= rd_src[r];
-                    #endif
-
-                    #ifdef SINGLE_IS_OR
+                    #else
                     or_acc[r] |= rd_src[r];
                     #endif
                 } 
