@@ -185,12 +185,12 @@
 #    define HISTORY_SAMPLE_COUNT 2
 #endif
 
-// convolution buffer size (use both side)
-#undef CONVOLUTION_LIST_SIZE
-#undef CONVOLUTION_LIST_MAX_INDEX
-
-#define CONVOLUTION_LIST_SIZE (HISTORY_SAMPLE_COUNT+1)
-#define CONVOLUTION_LIST_MAX_INDEX (CONVOLUTION_LIST_SIZE-1)
+// convolution buffer size (use both side) use same size
+//#undef CONVOLUTION_LIST_SIZE
+//#undef CONVOLUTION_LIST_MAX_INDEX
+//
+//#define CONVOLUTION_LIST_SIZE (HISTORY_SAMPLE_COUNT+1)
+//#define CONVOLUTION_LIST_MAX_INDEX (CONVOLUTION_LIST_SIZE-1)
 
 // history data & time buffer (time is data last or leave time for calc)
 static matrix_row_t hist_data[HISTORY_SAMPLE_COUNT][MATRIX_ROWS];
@@ -201,7 +201,7 @@ static matrix_row_t and_acc[MATRIX_ROWS];
 static matrix_row_t or_acc[MATRIX_ROWS];
 
 // both use from 0, single use from CONVOLUTION_LIST_MAX_INDEX
-static uint8_t convolution_s_buf[CONVOLUTION_LIST_SIZE]; 
+static uint8_t convolution_s_buf[HISTORY_SAMPLE_COUNT]; 
 
 // last & write sample index
 // last data is re-init, last time update every cycle
@@ -305,7 +305,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         const fast_timer_t long_exp_time = now - LONG_DEBOUNCE;       
 
 #ifdef HAS_SINGLE
-        uint8_t single_index = CONVOLUTION_LIST_MAX_INDEX;
+        // post-inc, pre-dec style, single write from end
+        uint8_t single_index = HISTORY_SAMPLE_COUNT;
 
         const fast_timer_t short_exp_time = now - SHORT_DEBOUNCE;
 #endif
@@ -316,7 +317,6 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // last is max old value, must skip
             //if (s == last_s_idx) continue;
             
-            // valid is not expired
             const bool long_expired = timer_expired_fast(long_exp_time, hist_time[s]);
             
             // like early return style, nothing to do, skip
@@ -327,18 +327,16 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             
             // early return style
             if (short_expired) {
-                // single from max index
-                conv_s_list[single_index] = s;
-                single_index--;
+                // single from end, pre-dec
+                conv_s_list[--single_index] = s;
 
                 do_convolution = true;
                 continue; 
             }
 #endif
 
-            // both
-            conv_s_list[both_index] = s;
-            both_index++;
+            // both from 0, post-inc
+            conv_s_list[both_index++] = s;
 
             // reach here (and_valid || or_valid) is true
             //do_convolution = do_convolution || and_valid || or_valid; 
@@ -358,7 +356,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             }
 
 #ifdef HAS_SINGLE
-            for (uint8_t i = CONVOLUTION_LIST_MAX_INDEX; i > single_index; i--) {
+            // read inc direction
+            for (uint8_t i = single_index; i < HISTORY_SAMPLE_COUNT; i++) {
                 const uint8_t s = conv_s_list[i];
                 const uint8_t * const rd_src = hist_data[s];
 
