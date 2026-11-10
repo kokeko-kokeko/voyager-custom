@@ -90,7 +90,7 @@ pushd qmk_firmware > /dev/null
 if [ -f zsa_voyager_XYZDP.bin ] && [ -f zsa_voyager_XYZDP_prev.bin ]
 then
      # if diff, move once
-     if ! cmp -s zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_last.bin
+     if ! cmp -s zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_prev.bin
      then
           echo -e "\033[1;31mrun backup!\033[0m"
           [ -f zsa_voyager_XYZDP_8.bin ] && mv zsa_voyager_XYZDP_8.bin zsa_voyager_XYZDP_9.bin
