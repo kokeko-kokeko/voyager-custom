@@ -30,10 +30,10 @@ echo -e "\e[;32m---- backup pre-compile last .bin file ----\e[m"
 pushd qmk_firmware > /dev/null
 if [ -f zsa_voyager_XYZDP.bin ]
 then
-     echo "run backup, bufore build"
+     echo "bufore build, run backup."
 
      # keep creation information
-     cp -p zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_last.bin
+     cp -p zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_prev.bin
 fi
 popd > /dev/null
 
@@ -87,7 +87,7 @@ popd > /dev/null
 
 echo -e "\e[;32m---- backup old .bin file ----\e[m"
 pushd qmk_firmware > /dev/null
-if [ -f zsa_voyager_XYZDP.bin ] && [ -f zsa_voyager_XYZDP_last.bin ]
+if [ -f zsa_voyager_XYZDP.bin ] && [ -f zsa_voyager_XYZDP_prev.bin ]
 then
      # if diff, move once
      if ! cmp -s zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_last.bin
@@ -103,7 +103,7 @@ then
           [ -f zsa_voyager_XYZDP_1.bin ] && mv zsa_voyager_XYZDP_1.bin zsa_voyager_XYZDP_2.bin
 
           # keep creation information
-          cp -p zsa_voyager_XYZDP_last.bin zsa_voyager_XYZDP_1.bin
+          cp -p zsa_voyager_XYZDP_prev.bin zsa_voyager_XYZDP_1.bin
      fi
 fi
 popd > /dev/null
@@ -113,7 +113,7 @@ echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
 pushd qmk_firmware > /dev/null
 
 for bin in zsa_voyager_XYZDP.bin \
-           zsa_voyager_XYZDP_last.bin         
+           zsa_voyager_XYZDP_prev.bin         
 do
      [ ! -f $bin ] && continue
      hash=$(sha256sum $bin | awk '{print substr($1,1,7),"---",$1}')
