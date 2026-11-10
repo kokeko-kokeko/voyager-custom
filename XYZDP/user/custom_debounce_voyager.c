@@ -310,16 +310,14 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // last is max old value, must skip
             //if (s == last_s_idx) continue;
             
-            const bool long_expired = timer_expired_fast(long_cutoff, hist_time[s]);
-            
             // like early return style, nothing to do, skip
-            if (long_expired) continue;
+            if (timer_expired_fast(long_cutoff, hist_time[s])) {
+                continue;
+            }
 
 #ifdef HAS_SINGLE
-            const bool short_expired = timer_expired_fast(short_cutoff, hist_time[s]);
-            
             // early return style
-            if (short_expired) {
+            if (timer_expired_fast(short_cutoff, hist_time[s])) {
                 // single from end, pre-dec, 1 line style for opt
                 conv_s_list[--single_index] = s;
 
@@ -327,7 +325,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 continue; 
             }
 #endif
-
+            
+            // not expired, both
             // both from 0, post-inc, 1 line style for opt
             conv_s_list[both_index++] = s;
 
