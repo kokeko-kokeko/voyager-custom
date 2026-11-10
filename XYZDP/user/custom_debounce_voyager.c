@@ -320,21 +320,18 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             
             // early return style
             if (short_expired) {
-                // single from end, pre-dec, 2line style
-                single_index--;
-                conv_s_list[single_index] = s;
+                // single from end, pre-dec, 1 line style for opt
+                conv_s_list[--single_index] = s;
 
                 do_convolution = true;
                 continue; 
             }
 #endif
 
-            // both from 0, post-inc, 2line style
-            conv_s_list[both_index] = s;
-            both_index++;
+            // both from 0, post-inc, 1 line style for opt
+            conv_s_list[both_index++] = s;
 
             // reach here (and_valid || or_valid) is true
-            //do_convolution = do_convolution || and_valid || or_valid; 
             do_convolution = true; 
         }
 
