@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo -e "\e[;32m---- start! ----\e[m\a"
+date --utc '+%Y-%m-%dT%H:%M:%S'
+
 echo -e "\e[;32m---- update zsa modules repo ----\e[m"
 pushd qmk_firmware/modules/zsa > /dev/null
 git fetch --prune --multiple upstream
@@ -144,3 +147,4 @@ done
 popd > /dev/null
 
 echo -e "\e[;32m---- done! ----\e[m\a"
+date --utc '+%Y-%m-%dT%H:%M:%S'
