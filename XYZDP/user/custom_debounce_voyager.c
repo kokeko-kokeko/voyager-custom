@@ -295,13 +295,13 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
 
         // build valid condition sample list,
         // calc expire time (minus offset from now), calc ahead 
-        const fast_timer_t long_exp_time = now - LONG_DEBOUNCE;       
+        const fast_timer_t long_cutoff = now - LONG_DEBOUNCE;       
 
 #ifdef HAS_SINGLE
         // post-inc, pre-dec style, single write from end
         uint8_t single_index = HISTORY_SAMPLE_COUNT;
 
-        const fast_timer_t short_exp_time = now - SHORT_DEBOUNCE;
+        const fast_timer_t short_cutoff = now - SHORT_DEBOUNCE;
 #endif
 
         // smple index to *_s_list, update flag
@@ -310,26 +310,28 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             // last is max old value, must skip
             //if (s == last_s_idx) continue;
             
-            const bool long_expired = timer_expired_fast(long_exp_time, hist_time[s]);
+            const bool long_expired = timer_expired_fast(long_cutoff, hist_time[s]);
             
             // like early return style, nothing to do, skip
             if (long_expired) continue;
 
 #ifdef HAS_SINGLE
-            const bool short_expired = timer_expired_fast(short_exp_time, hist_time[s]);
+            const bool short_expired = timer_expired_fast(short_cutoff, hist_time[s]);
             
             // early return style
             if (short_expired) {
-                // single from end, pre-dec
-                conv_s_list[--single_index] = s;
+                // single from end, pre-dec, 2line style
+                single_index--;
+                conv_s_list[single_index] = s;
 
                 do_convolution = true;
                 continue; 
             }
 #endif
 
-            // both from 0, post-inc
-            conv_s_list[both_index++] = s;
+            // both from 0, post-inc, 2line style
+            conv_s_list[both_index] = s;
+            both_index++;
 
             // reach here (and_valid || or_valid) is true
             //do_convolution = do_convolution || and_valid || or_valid; 
