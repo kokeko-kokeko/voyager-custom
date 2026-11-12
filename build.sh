@@ -77,7 +77,6 @@ then
 fi
 popd > /dev/null
 
-
 echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
 pushd qmk_firmware > /dev/null
 
