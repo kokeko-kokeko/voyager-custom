@@ -383,3 +383,4 @@ bool rgb_matrix_indicators_color_palette(void) {
   return false;
 }
 
+
