@@ -13,6 +13,18 @@ declare -r keymap="XYZDP"
 # filename
 declare -r basename="${vendor}_${product}_${keymap}"
 
+# git branch for filename
+branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
+
+# romeve ilegal char
+safe_branch=$(printf '%s' "$branch" | sed 's/[^a-zA-Z0-9._-]/_/g')
+safe_branch=$(echo "$safe_branch" | sed 's/^_*//; s/_*$//; s/\.\.*/./g')
+
+echo "$safe_branch"
+
+declare -r basename_w_bn="${vendor}_${product}_${keymap}_${safe_branch}"
+
+
 echo -e "\e[;32m---- start! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
 
@@ -31,7 +43,7 @@ then
      echo "bufore build, run backup."
 
      # keep creation information
-     cp -p "${basename}.bin" "${basename}_prev.bin"
+     cp -p "${basename}.bin" "${basename_w_bn}_prev.bin"
 fi
 popd > /dev/null
 
@@ -69,23 +81,23 @@ popd > /dev/null
 
 echo -e "\e[;32m---- backup old .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
-if [ -f "${basename}.bin" ] && [ -f "${basename}_prev.bin" ]
+if [ -f "${basename}.bin" ] && [ -f "${basename_w_bn}_prev.bin" ]
 then
      # if diff, move once
-     if ! cmp -s "${basename}.bin" "${basename}_prev.bin"
+     if ! cmp -s "${basename}.bin" "${basename_w_bn}_prev.bin"
      then
           echo -e "\033[1;31mrun backup!\033[0m"
-          [ -f "${basename}_8.bin" ] && mv "${basename}_8.bin" "${basename}_9.bin"
-          [ -f "${basename}_7.bin" ] && mv "${basename}_7.bin" "${basename}_8.bin"
-          [ -f "${basename}_6.bin" ] && mv "${basename}_6.bin" "${basename}_7.bin"
-          [ -f "${basename}_5.bin" ] && mv "${basename}_5.bin" "${basename}_6.bin"
-          [ -f "${basename}_4.bin" ] && mv "${basename}_4.bin" "${basename}_5.bin"
-          [ -f "${basename}_3.bin" ] && mv "${basename}_3.bin" "${basename}_4.bin"
-          [ -f "${basename}_2.bin" ] && mv "${basename}_2.bin" "${basename}_3.bin"
-          [ -f "${basename}_1.bin" ] && mv "${basename}_1.bin" "${basename}_2.bin"
+          [ -f "${basename_w_bn}_8.bin" ] && mv "${basename_w_bn}_8.bin" "${basename_w_bn}_9.bin"
+          [ -f "${basename_w_bn}_7.bin" ] && mv "${basename_w_bn}_7.bin" "${basename_w_bn}_8.bin"
+          [ -f "${basename_w_bn}_6.bin" ] && mv "${basename_w_bn}_6.bin" "${basename_w_bn}_7.bin"
+          [ -f "${basename_w_bn}_5.bin" ] && mv "${basename_w_bn}_5.bin" "${basename_w_bn}_6.bin"
+          [ -f "${basename_w_bn}_4.bin" ] && mv "${basename_w_bn}_4.bin" "${basename_w_bn}_5.bin"
+          [ -f "${basename_w_bn}_3.bin" ] && mv "${basename_w_bn}_3.bin" "${basename_w_bn}_4.bin"
+          [ -f "${basename_w_bn}_2.bin" ] && mv "${basename_w_bn}_2.bin" "${basename_w_bn}_3.bin"
+          [ -f "${basename_w_bn}_1.bin" ] && mv "${basename_w_bn}_1.bin" "${basename_w_bn}_2.bin"
 
           # keep creation information
-          cp -p "${basename}_prev.bin" "${basename}_1.bin"
+          cp -p "${basename_w_bn}_prev.bin" "${basename_w_bn}_1.bin"
      fi
 fi
 popd > /dev/null
@@ -94,7 +106,7 @@ echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
 pushd "qmk_firmware" > /dev/null
 
 for bin in "${basename}.bin" \
-           "${basename}_prev.bin"         
+           "${basename_w_bn}_prev.bin"         
 do
      [ ! -f "$bin" ] && continue
      hash=$(sha256sum "$bin" | awk '{print substr($1,1,7),"---",$1}')
@@ -105,15 +117,15 @@ done
 
 echo ""
 
-for bin in "${basename}_1.bin" \
-           "${basename}_2.bin" \
-           "${basename}_3.bin" \
-           "${basename}_4.bin" \
-           "${basename}_5.bin" \
-           "${basename}_6.bin" \
-           "${basename}_7.bin" \
-           "${basename}_8.bin" \
-           "${basename}_9.bin"        
+for bin in "${basename_w_bn}_1.bin" \
+           "${basename_w_bn}_2.bin" \
+           "${basename_w_bn}_3.bin" \
+           "${basename_w_bn}_4.bin" \
+           "${basename_w_bn}_5.bin" \
+           "${basename_w_bn}_6.bin" \
+           "${basename_w_bn}_7.bin" \
+           "${basename_w_bn}_8.bin" \
+           "${basename_w_bn}_9.bin"        
 do
      [ ! -f "$bin" ] && continue
      hash=$(sha256sum "$bin" | awk '{print substr($1,1,7),"---",$1}')
