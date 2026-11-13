@@ -3,8 +3,11 @@
 #
 # first run one liner
 #
+# main
 # curl -fsSL https://raw.githubusercontent.com/kokeko-kokeko/voyager-custom/refs/heads/main/init.sh | bash
-#
+# or head
+# curl -fsSL https://raw.githubusercontent.com/kokeko-kokeko/voyager-custom/refs/heads/feat/support-scripts/init.sh | bash
+# 
 
 echo -e "\e[;32m---- init build env ----\e[m"
 git clone https://github.com/kokeko-kokeko/voyager-custom.git
@@ -35,7 +38,8 @@ git remote set-url --push origin git@github.com:kokeko-kokeko/zsa_qmk_firmware.g
 
 
 git fetch --all
-git checkout -B firmware25 origin/firmware25
+#git checkout -B firmware25 origin/firmware25
+git switch -C firmware25 origin/firmware25
 git submodule update --init --recursive
 
 pushd modules/zsa
@@ -47,7 +51,8 @@ git remote set-url --push upstream no-push
 git remote set-url --push origin git@github.com:kokeko-kokeko/zsa_qmk_modules.git
 
 git fetch --all
-git checkout -B main origin/main
+#git checkout -B main origin/main
+git switch -C main origin/main
 
 popd
 
