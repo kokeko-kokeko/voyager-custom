@@ -1,43 +1,53 @@
 #!/bin/bash
 
+# base principle
+# .bin -> last -> prev -> 1,2,3... backup
+# last prev add git branch name for independent backup
+#
+
+# parm for path, filename
+declare -r vendor="zsa"
+declare -r product="voyager"
+declare -r keymap="XYZDP"
+
 echo -e "\e[;32m---- start! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
 
-if ! [ -d qmk_firmware/keyboards/zsa/voyager/keymaps/XYZDP ]
+if ! [ -d "qmk_firmware/keyboards/${vendor}/${product}/keymaps/${keymap}" ]
 then
     echo -e "\e[;32m---- link file to qmk_firmware keyboards folder ----\e[m"
-    pushd qmk_firmware/keyboards/zsa/voyager/keymaps > /dev/null
-    ln -s ../../../../../XYZDP
+    pushd "qmk_firmware/keyboards/${vendor}/${product}/keymaps" > /dev/null
+    ln -s "../../../../../${keymap}"
     popd > /dev/null
 fi
 
 echo -e "\e[;32m---- backup pre-compile last .bin file ----\e[m"
-pushd qmk_firmware > /dev/null
-if [ -f zsa_voyager_XYZDP.bin ]
+pushd "qmk_firmware" > /dev/null
+if [ -f "${vendor}_${product}_${keymap}.bin" ]
 then
      echo "bufore build, run backup."
 
      # keep creation information
-     cp -p zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_prev.bin
+     cp -p "${vendor}_${product}_${keymap}.bin" "${vendor}_${product}_${keymap}_prev.bin"
 fi
 popd > /dev/null
 
 echo -e "\e[;32m---- run build! ---- "
-pushd qmk_firmware > /dev/null
-#make zsa/voyager:XYZDP
-qmk compile --keyboard zsa/voyager --keymap XYZDP --parallel $(nproc) \
-|| qmk compile --keyboard zsa/voyager --keymap XYZDP --clean
+pushd "qmk_firmware" > /dev/null
+#make ${vendor}/${product}:${keymap}
+qmk compile --keyboard "${vendor}/${product}" --keymap "${keymap}" --parallel "$(nproc)" \
+|| qmk compile --keyboard "${vendor}/${product}" --keymap "${keymap}" --clean
 popd > /dev/null
 
 echo -e "\e[;32m---- memory usage stat from elf file ----\e[m"
-pushd qmk_firmware/.build > /dev/null
-if [ -f zsa_voyager_XYZDP.elf ]
+pushd "qmk_firmware/.build" > /dev/null
+if [ -f "${vendor}_${product}_${keymap}.elf" ]
 then 
-     ~/.local/share/qmk/bin/arm-none-eabi-size -B -d zsa_voyager_XYZDP.elf | \
+     ~/.local/share/qmk/bin/arm-none-eabi-size -B -d "${vendor}_${product}_${keymap}.elf" | \
      awk 'NR==1 {print; next}
           NR==2 {print "\033[1;37m"$0"\033[0m"; next}'
      echo ""
-     ~/.local/share/qmk/bin/arm-none-eabi-size -A zsa_voyager_XYZDP.elf | \
+     ~/.local/share/qmk/bin/arm-none-eabi-size -A "${vendor}_${product}_${keymap}.elf" | \
      awk 'NR==1   {next}
           NR==2   {printf "%16s %10s    %08s\n", $1, $2, $3; next}
           /^Total/{printf "%16s %10s\n", $1, $2; exit}
@@ -55,58 +65,58 @@ fi
 popd > /dev/null
 
 echo -e "\e[;32m---- backup old .bin file ----\e[m"
-pushd qmk_firmware > /dev/null
-if [ -f zsa_voyager_XYZDP.bin ] && [ -f zsa_voyager_XYZDP_prev.bin ]
+pushd "qmk_firmware" > /dev/null
+if [ -f "${vendor}_${product}_${keymap}.bin" ] && [ -f "${vendor}_${product}_${keymap}_prev.bin" ]
 then
      # if diff, move once
-     if ! cmp -s zsa_voyager_XYZDP.bin zsa_voyager_XYZDP_prev.bin
+     if ! cmp -s "${vendor}_${product}_${keymap}.bin" "${vendor}_${product}_${keymap}_prev.bin"
      then
           echo -e "\033[1;31mrun backup!\033[0m"
-          [ -f zsa_voyager_XYZDP_8.bin ] && mv zsa_voyager_XYZDP_8.bin zsa_voyager_XYZDP_9.bin
-          [ -f zsa_voyager_XYZDP_7.bin ] && mv zsa_voyager_XYZDP_7.bin zsa_voyager_XYZDP_8.bin
-          [ -f zsa_voyager_XYZDP_6.bin ] && mv zsa_voyager_XYZDP_6.bin zsa_voyager_XYZDP_7.bin
-          [ -f zsa_voyager_XYZDP_5.bin ] && mv zsa_voyager_XYZDP_5.bin zsa_voyager_XYZDP_6.bin
-          [ -f zsa_voyager_XYZDP_4.bin ] && mv zsa_voyager_XYZDP_4.bin zsa_voyager_XYZDP_5.bin
-          [ -f zsa_voyager_XYZDP_3.bin ] && mv zsa_voyager_XYZDP_3.bin zsa_voyager_XYZDP_4.bin
-          [ -f zsa_voyager_XYZDP_2.bin ] && mv zsa_voyager_XYZDP_2.bin zsa_voyager_XYZDP_3.bin
-          [ -f zsa_voyager_XYZDP_1.bin ] && mv zsa_voyager_XYZDP_1.bin zsa_voyager_XYZDP_2.bin
+          [ -f "${vendor}_${product}_${keymap}_8.bin" ] && mv "${vendor}_${product}_${keymap}_8.bin" "${vendor}_${product}_${keymap}_9.bin"
+          [ -f "${vendor}_${product}_${keymap}_7.bin" ] && mv "${vendor}_${product}_${keymap}_7.bin" "${vendor}_${product}_${keymap}_8.bin"
+          [ -f "${vendor}_${product}_${keymap}_6.bin" ] && mv "${vendor}_${product}_${keymap}_6.bin" "${vendor}_${product}_${keymap}_7.bin"
+          [ -f "${vendor}_${product}_${keymap}_5.bin" ] && mv "${vendor}_${product}_${keymap}_5.bin" "${vendor}_${product}_${keymap}_6.bin"
+          [ -f "${vendor}_${product}_${keymap}_4.bin" ] && mv "${vendor}_${product}_${keymap}_4.bin" "${vendor}_${product}_${keymap}_5.bin"
+          [ -f "${vendor}_${product}_${keymap}_3.bin" ] && mv "${vendor}_${product}_${keymap}_3.bin" "${vendor}_${product}_${keymap}_4.bin"
+          [ -f "${vendor}_${product}_${keymap}_2.bin" ] && mv "${vendor}_${product}_${keymap}_2.bin" "${vendor}_${product}_${keymap}_3.bin"
+          [ -f "${vendor}_${product}_${keymap}_1.bin" ] && mv "${vendor}_${product}_${keymap}_1.bin" "${vendor}_${product}_${keymap}_2.bin"
 
           # keep creation information
-          cp -p zsa_voyager_XYZDP_prev.bin zsa_voyager_XYZDP_1.bin
+          cp -p "${vendor}_${product}_${keymap}_prev.bin" "${vendor}_${product}_${keymap}_1.bin"
      fi
 fi
 popd > /dev/null
 
 echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
-pushd qmk_firmware > /dev/null
+pushd "qmk_firmware" > /dev/null
 
-for bin in zsa_voyager_XYZDP.bin \
-           zsa_voyager_XYZDP_prev.bin         
+for bin in "${vendor}_${product}_${keymap}.bin" \
+           "${vendor}_${product}_${keymap}_prev.bin"         
 do
-     [ ! -f $bin ] && continue
-     hash=$(sha256sum $bin | awk '{print substr($1,1,7),"---",$1}')
-     time=$(date --utc -r $bin '+%Y-%m-%dT%H:%M:%S')
-
-     echo $hash $time $bin
+     [ ! -f "$bin" ] && continue
+     hash=$(sha256sum "$bin" | awk '{print substr($1,1,7),"---",$1}')
+     time=$(date --utc -r "$bin" '+%Y-%m-%dT%H:%M:%S')
+ 
+     echo "$hash $time $bin"
 done
 
 echo ""
 
-for bin in zsa_voyager_XYZDP_1.bin \
-           zsa_voyager_XYZDP_2.bin \
-           zsa_voyager_XYZDP_3.bin \
-           zsa_voyager_XYZDP_4.bin \
-           zsa_voyager_XYZDP_5.bin \
-           zsa_voyager_XYZDP_6.bin \
-           zsa_voyager_XYZDP_7.bin \
-           zsa_voyager_XYZDP_8.bin \
-           zsa_voyager_XYZDP_9.bin        
+for bin in "${vendor}_${product}_${keymap}_1.bin" \
+           "${vendor}_${product}_${keymap}_2.bin" \
+           "${vendor}_${product}_${keymap}_3.bin" \
+           "${vendor}_${product}_${keymap}_4.bin" \
+           "${vendor}_${product}_${keymap}_5.bin" \
+           "${vendor}_${product}_${keymap}_6.bin" \
+           "${vendor}_${product}_${keymap}_7.bin" \
+           "${vendor}_${product}_${keymap}_8.bin" \
+           "${vendor}_${product}_${keymap}_9.bin"        
 do
-     [ ! -f $bin ] && continue
-     hash=$(sha256sum $bin | awk '{print substr($1,1,7),"---",$1}')
-     time=$(date --utc -r $bin '+%Y-%m-%dT%H:%M:%S')
+     [ ! -f "$bin" ] && continue
+     hash=$(sha256sum "$bin" | awk '{print substr($1,1,7),"---",$1}')
+     time=$(date --utc -r "$bin" '+%Y-%m-%dT%H:%M:%S')
 
-     echo $hash $time $bin
+     echo "$hash $time $bin"
 done
 
 popd > /dev/null
