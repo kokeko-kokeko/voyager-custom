@@ -36,14 +36,14 @@ then
     popd > /dev/null
 fi
 
-echo -e "\e[;32m---- backup pre-compile last .bin file ----\e[m"
+echo -e "\e[;32m---- backup pre-compile last .bin to prev .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
-if [ -f "${basename}.bin" ]
+if [ -f "${basename_w_bn}r-last.bin" ]
 then
      echo "bufore build, run backup."
 
      # keep creation information
-     cp -p "${basename}.bin" "${basename_w_bn}_prev.bin"
+     cp -p "${basename_w_bn}_last.bin" "${basename_w_bn}_prev.bin"
 fi
 popd > /dev/null
 
@@ -52,6 +52,17 @@ pushd "qmk_firmware" > /dev/null
 #make ${vendor}/${product}:${keymap}
 qmk compile --keyboard "${vendor}/${product}" --keymap "${keymap}" --parallel "$(nproc)" \
 || qmk compile --keyboard "${vendor}/${product}" --keymap "${keymap}" --clean
+popd > /dev/null
+
+echo -e "\e[;32m---- backup success .bin to last .bin file ----\e[m"
+pushd "qmk_firmware" > /dev/null
+if [ -f "${basename}.bin" ]
+then
+     echo "run backup."
+
+     # keep creation information
+     cp -p "${basename}.bin" "${basename_w_bn}_last.bin"
+fi
 popd > /dev/null
 
 echo -e "\e[;32m---- memory usage stat from elf file ----\e[m"
@@ -81,10 +92,10 @@ popd > /dev/null
 
 echo -e "\e[;32m---- backup old .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
-if [ -f "${basename}.bin" ] && [ -f "${basename_w_bn}_prev.bin" ]
+if [ -f "${basename_w_bn}_last.bin" ] && [ -f "${basename_w_bn}_prev.bin" ]
 then
      # if diff, move once
-     if ! cmp -s "${basename}.bin" "${basename_w_bn}_prev.bin"
+     if ! cmp -s "${basename_w_bn}_last.bin" "${basename_w_bn}_prev.bin"
      then
           echo -e "\033[1;31mrun backup!\033[0m"
           [ -f "${basename_w_bn}_8.bin" ] && mv "${basename_w_bn}_8.bin" "${basename_w_bn}_9.bin"
@@ -106,6 +117,7 @@ echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
 pushd "qmk_firmware" > /dev/null
 
 for bin in "${basename}.bin" \
+           "${basename_w_bn}_last.bin" \
            "${basename_w_bn}_prev.bin"         
 do
      [ ! -f "$bin" ] && continue
