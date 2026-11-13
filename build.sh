@@ -22,7 +22,7 @@ safe_branch=$(echo "$safe_branch" | sed 's/^_*//; s/_*$//; s/\.\.*/./g')
 
 echo "$safe_branch"
 
-declare -r basename_w_bn="${vendor}_${product}_${keymap}_${safe_branch}"
+declare -r base_branch="${vendor}_${product}_${keymap}_${safe_branch}"
 
 
 echo -e "\e[;32m---- start! ----\e[m\a"
@@ -38,12 +38,12 @@ fi
 
 echo -e "\e[;32m---- backup pre-compile last .bin to prev .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
-if [ -f "${basename_w_bn}r-last.bin" ]
+if [ -f "${base_branch}_last.bin" ]
 then
      echo "bufore build, run backup."
 
      # keep creation information
-     cp -p "${basename_w_bn}_last.bin" "${basename_w_bn}_prev.bin"
+     cp -p "${base_branch}_last.bin" "${base_branch}_prev.bin"
 fi
 popd > /dev/null
 
@@ -61,7 +61,7 @@ then
      echo "run backup."
 
      # keep creation information
-     cp -p "${basename}.bin" "${basename_w_bn}_last.bin"
+     cp -p "${basename}.bin" "${base_branch}_last.bin"
 fi
 popd > /dev/null
 
@@ -90,25 +90,25 @@ then
 fi
 popd > /dev/null
 
-echo -e "\e[;32m---- backup old .bin file ----\e[m"
+echo -e "\e[;32m---- only diff backup old .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
-if [ -f "${basename_w_bn}_last.bin" ] && [ -f "${basename_w_bn}_prev.bin" ]
+if [ -f "${base_branch}_last.bin" ] && [ -f "${base_branch}_prev.bin" ]
 then
      # if diff, move once
-     if ! cmp -s "${basename_w_bn}_last.bin" "${basename_w_bn}_prev.bin"
+     if ! cmp -s "${base_branch}_last.bin" "${base_branch}_prev.bin"
      then
           echo -e "\033[1;31mrun backup!\033[0m"
-          [ -f "${basename_w_bn}_8.bin" ] && mv "${basename_w_bn}_8.bin" "${basename_w_bn}_9.bin"
-          [ -f "${basename_w_bn}_7.bin" ] && mv "${basename_w_bn}_7.bin" "${basename_w_bn}_8.bin"
-          [ -f "${basename_w_bn}_6.bin" ] && mv "${basename_w_bn}_6.bin" "${basename_w_bn}_7.bin"
-          [ -f "${basename_w_bn}_5.bin" ] && mv "${basename_w_bn}_5.bin" "${basename_w_bn}_6.bin"
-          [ -f "${basename_w_bn}_4.bin" ] && mv "${basename_w_bn}_4.bin" "${basename_w_bn}_5.bin"
-          [ -f "${basename_w_bn}_3.bin" ] && mv "${basename_w_bn}_3.bin" "${basename_w_bn}_4.bin"
-          [ -f "${basename_w_bn}_2.bin" ] && mv "${basename_w_bn}_2.bin" "${basename_w_bn}_3.bin"
-          [ -f "${basename_w_bn}_1.bin" ] && mv "${basename_w_bn}_1.bin" "${basename_w_bn}_2.bin"
+          [ -f "${base_branch}_8.bin" ] && mv "${base_branch}_8.bin" "${base_branch}_9.bin"
+          [ -f "${base_branch}_7.bin" ] && mv "${base_branch}_7.bin" "${base_branch}_8.bin"
+          [ -f "${base_branch}_6.bin" ] && mv "${base_branch}_6.bin" "${base_branch}_7.bin"
+          [ -f "${base_branch}_5.bin" ] && mv "${base_branch}_5.bin" "${base_branch}_6.bin"
+          [ -f "${base_branch}_4.bin" ] && mv "${base_branch}_4.bin" "${base_branch}_5.bin"
+          [ -f "${base_branch}_3.bin" ] && mv "${base_branch}_3.bin" "${base_branch}_4.bin"
+          [ -f "${base_branch}_2.bin" ] && mv "${base_branch}_2.bin" "${base_branch}_3.bin"
+          [ -f "${base_branch}_1.bin" ] && mv "${base_branch}_1.bin" "${base_branch}_2.bin"
 
           # keep creation information
-          cp -p "${basename_w_bn}_prev.bin" "${basename_w_bn}_1.bin"
+          cp -p "${base_branch}_prev.bin" "${base_branch}_1.bin"
      fi
 fi
 popd > /dev/null
@@ -117,8 +117,8 @@ echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
 pushd "qmk_firmware" > /dev/null
 
 for bin in "${basename}.bin" \
-           "${basename_w_bn}_last.bin" \
-           "${basename_w_bn}_prev.bin"         
+           "${base_branch}_last.bin" \
+           "${base_branch}_prev.bin"         
 do
      [ ! -f "$bin" ] && continue
      hash=$(sha256sum "$bin" | awk '{print substr($1,1,7),"---",$1}')
@@ -129,15 +129,15 @@ done
 
 echo ""
 
-for bin in "${basename_w_bn}_1.bin" \
-           "${basename_w_bn}_2.bin" \
-           "${basename_w_bn}_3.bin" \
-           "${basename_w_bn}_4.bin" \
-           "${basename_w_bn}_5.bin" \
-           "${basename_w_bn}_6.bin" \
-           "${basename_w_bn}_7.bin" \
-           "${basename_w_bn}_8.bin" \
-           "${basename_w_bn}_9.bin"        
+for bin in "${base_branch}_1.bin" \
+           "${base_branch}_2.bin" \
+           "${base_branch}_3.bin" \
+           "${base_branch}_4.bin" \
+           "${base_branch}_5.bin" \
+           "${base_branch}_6.bin" \
+           "${base_branch}_7.bin" \
+           "${base_branch}_8.bin" \
+           "${base_branch}_9.bin"        
 do
      [ ! -f "$bin" ] && continue
      hash=$(sha256sum "$bin" | awk '{print substr($1,1,7),"---",$1}')
