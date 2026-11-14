@@ -225,8 +225,8 @@ static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
 };
 
 // debug to LED macro
-#define DEBUG_LED_1(status) gpio_write_pin(B5, (bool)(status))
-#define DEBUG_LED_2(status) gpio_write_pin(B4, (bool)(status))
+//#define DEBUG_LED_1(status) gpio_write_pin(B5, (bool)(status))
+//#define DEBUG_LED_2(status) gpio_write_pin(B4, (bool)(status))
 
 // add const for safety
 void debounce_init(const uint8_t num_rows) {
@@ -236,11 +236,14 @@ void debounce_init(const uint8_t num_rows) {
         or_acc[r]  = (~matrix_mask[r]);
 
         // only first entry for init state
+        // minimal 2 
         hist_data[0][r] = 0;
+        hist_data[1][r] = 0;
     }
 
+    // minimal 2
     last_s_idx = 0;
-    wr_s_idx = 0;
+    wr_s_idx = 1;
 
     // only reset flags
     do_convolution = false;
