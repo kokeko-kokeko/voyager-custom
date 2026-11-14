@@ -19,8 +19,8 @@ branch=$(git branch --show-current 2>/dev/null || echo "unknown")
 # hashed branch name (16 char = 64 bit)
 branch_id=$(printf '%s' "$branch" | sha256sum | cut -c1-16)
 
-# add hidden files
-declare -r base_branch=".${basename}_${branch_id}"
+# branch first for sort
+declare -r branch_basename="__${branch_id}-${basename}"
 
 echo -e "\e[;32m---- start! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
@@ -39,15 +39,15 @@ pushd "qmk_firmware" > /dev/null
 # clean link
 rm -f "${basename}_prev.bin" 
 
-if [ -f "${base_branch}_last.bin" ]
+if [ -f "${branch_basename}_last.bin" ]
 then
      echo "bufore build, run backup."
 
      # keep creation information
-     cp -p "${base_branch}_last.bin" "${base_branch}_prev.bin"
+     cp -p "${branch_basename}_last.bin" "${branch_basename}_prev.bin"
 
      # link gen
-     ln -s "${base_branch}_prev.bin" "${basename}_prev.bin"
+     ln -s "${branch_basename}_prev.bin" "${basename}_prev.bin"
 fi
 popd > /dev/null
 
@@ -69,32 +69,32 @@ then
      echo "run backup."
 
      # keep creation information
-     cp -p "${basename}.bin" "${base_branch}_last.bin"
+     cp -p "${basename}.bin" "${branch_basename}_last.bin"
 
      # link gen
-     ln -s "${base_branch}_last.bin" "${basename}_last.bin"
+     ln -s "${branch_basename}_last.bin" "${basename}_last.bin"
 fi
 popd > /dev/null
 
 echo -e "\e[;32m---- only diff backup old .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
-if [ -f "${base_branch}_last.bin" ] && [ -f "${base_branch}_prev.bin" ]
+if [ -f "${branch_basename}_last.bin" ] && [ -f "${branch_basename}_prev.bin" ]
 then
      # if diff, move once
-     if ! cmp -s "${base_branch}_last.bin" "${base_branch}_prev.bin"
+     if ! cmp -s "${branch_basename}_last.bin" "${branch_basename}_prev.bin"
      then
           echo -e "\033[1;31mrun backup!\033[0m"
-          [ -f "${base_branch}_8.bin" ] && mv "${base_branch}_8.bin" "${base_branch}_9.bin"
-          [ -f "${base_branch}_7.bin" ] && mv "${base_branch}_7.bin" "${base_branch}_8.bin"
-          [ -f "${base_branch}_6.bin" ] && mv "${base_branch}_6.bin" "${base_branch}_7.bin"
-          [ -f "${base_branch}_5.bin" ] && mv "${base_branch}_5.bin" "${base_branch}_6.bin"
-          [ -f "${base_branch}_4.bin" ] && mv "${base_branch}_4.bin" "${base_branch}_5.bin"
-          [ -f "${base_branch}_3.bin" ] && mv "${base_branch}_3.bin" "${base_branch}_4.bin"
-          [ -f "${base_branch}_2.bin" ] && mv "${base_branch}_2.bin" "${base_branch}_3.bin"
-          [ -f "${base_branch}_1.bin" ] && mv "${base_branch}_1.bin" "${base_branch}_2.bin"
+          [ -f "${branch_basename}_8.bin" ] && mv "${branch_basename}_8.bin" "${branch_basename}_9.bin"
+          [ -f "${branch_basename}_7.bin" ] && mv "${branch_basename}_7.bin" "${branch_basename}_8.bin"
+          [ -f "${branch_basename}_6.bin" ] && mv "${branch_basename}_6.bin" "${branch_basename}_7.bin"
+          [ -f "${branch_basename}_5.bin" ] && mv "${branch_basename}_5.bin" "${branch_basename}_6.bin"
+          [ -f "${branch_basename}_4.bin" ] && mv "${branch_basename}_4.bin" "${branch_basename}_5.bin"
+          [ -f "${branch_basename}_3.bin" ] && mv "${branch_basename}_3.bin" "${branch_basename}_4.bin"
+          [ -f "${branch_basename}_2.bin" ] && mv "${branch_basename}_2.bin" "${branch_basename}_3.bin"
+          [ -f "${branch_basename}_1.bin" ] && mv "${branch_basename}_1.bin" "${branch_basename}_2.bin"
 
           # keep creation information
-          cp -p "${base_branch}_prev.bin" "${base_branch}_1.bin"
+          cp -p "${branch_basename}_prev.bin" "${branch_basename}_1.bin"
      fi
 fi
 
@@ -110,15 +110,15 @@ rm -f "${basename}_8.bin"
 rm -f "${basename}_9.bin"
 
 # gen link
-[ -f "${base_branch}_1.bin" ] && ln -s "${base_branch}_1.bin" "${basename}_1.bin"
-[ -f "${base_branch}_2.bin" ] && ln -s "${base_branch}_2.bin" "${basename}_2.bin"
-[ -f "${base_branch}_3.bin" ] && ln -s "${base_branch}_3.bin" "${basename}_3.bin"
-[ -f "${base_branch}_4.bin" ] && ln -s "${base_branch}_4.bin" "${basename}_4.bin"
-[ -f "${base_branch}_5.bin" ] && ln -s "${base_branch}_5.bin" "${basename}_5.bin"
-[ -f "${base_branch}_6.bin" ] && ln -s "${base_branch}_6.bin" "${basename}_6.bin"
-[ -f "${base_branch}_7.bin" ] && ln -s "${base_branch}_7.bin" "${basename}_7.bin"
-[ -f "${base_branch}_8.bin" ] && ln -s "${base_branch}_8.bin" "${basename}_8.bin"
-[ -f "${base_branch}_9.bin" ] && ln -s "${base_branch}_9.bin" "${basename}_9.bin"
+[ -f "${branch_basename}_1.bin" ] && ln -s "${branch_basename}_1.bin" "${basename}_1.bin"
+[ -f "${branch_basename}_2.bin" ] && ln -s "${branch_basename}_2.bin" "${basename}_2.bin"
+[ -f "${branch_basename}_3.bin" ] && ln -s "${branch_basename}_3.bin" "${basename}_3.bin"
+[ -f "${branch_basename}_4.bin" ] && ln -s "${branch_basename}_4.bin" "${basename}_4.bin"
+[ -f "${branch_basename}_5.bin" ] && ln -s "${branch_basename}_5.bin" "${basename}_5.bin"
+[ -f "${branch_basename}_6.bin" ] && ln -s "${branch_basename}_6.bin" "${basename}_6.bin"
+[ -f "${branch_basename}_7.bin" ] && ln -s "${branch_basename}_7.bin" "${basename}_7.bin"
+[ -f "${branch_basename}_8.bin" ] && ln -s "${branch_basename}_8.bin" "${basename}_8.bin"
+[ -f "${branch_basename}_9.bin" ] && ln -s "${branch_basename}_9.bin" "${basename}_9.bin"
 
 popd > /dev/null
 
