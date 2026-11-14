@@ -228,6 +228,27 @@ static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
 #define DEBUG_LED_1(status) gpio_write_pin(B5, (bool)(status))
 #define DEBUG_LED_2(status) gpio_write_pin(B4, (bool)(status))
 
+// add const for safety
+void debounce_init(const uint8_t num_rows) {
+    // init for invalid value
+    for (uint8_t r = 0; r < num_rows; r++) {
+        and_acc[r] =   matrix_mask[r];
+        or_acc[r]  = (~matrix_mask[r]);
+
+        // only first entry for init state
+        hist_data[0][r] = 0;
+    }
+
+    last_s_idx = 0;
+    wr_s_idx = 0;
+
+    // only reset flags
+    do_convolution = false;
+    
+    // first time run
+    cooked_changed = true;
+}
+
 // raw and cooked pass from caller, keep value, not local memory
 // raw is must read-only, not write
 // cooked is result
@@ -411,30 +432,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     return cooked_changed;
 }
 
-// add const for safety
-void debounce_init(const uint8_t num_rows) {
-    // init for invalid value
-    for (uint8_t r = 0; r < num_rows; r++) {
-        and_acc[r] =   matrix_mask[r];
-        or_acc[r]  = (~matrix_mask[r]);
-
-        // only first entry for init state
-        hist_data[0][r] = 0;
-    }
-
-    last_s_idx = 0;
-    wr_s_idx = 0;
-
-    // only reset flags
-    do_convolution = false;
-    
-    // first time run
-    cooked_changed = true;
-}
-
 void debounce_free(void) {
     // static value only, nothing to do
     // upstream QMK remove this function
 }
-
-
