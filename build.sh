@@ -16,16 +16,8 @@ declare -r basename="${vendor}_${product}_${keymap}"
 # git branch for filename
 branch=$(git branch --show-current 2>/dev/null || echo "unknown")
 
-# romeve ilegal char
-#safe_branch=$(printf '%s' "$branch" | sed 's/[^a-zA-Z0-9._-]/_/g')
-#safe_branch=$(echo "$safe_branch" | sed 's/^_*//; s/_*$//; s/\.\.*/./g')
-
-#echo "$safe_branch"
-
 # hashed branch name (16 char = 64 bit)
 branch_id=$(printf '%s' "$branch" | sha256sum | cut -c1-16)
-
-echo "$branch_id"
 
 declare -r base_branch="${basename}_${branch_id}"
 
@@ -83,31 +75,6 @@ then
 fi
 popd > /dev/null
 
-echo -e "\e[;32m---- memory usage stat from elf file ----\e[m"
-pushd "qmk_firmware/.build" > /dev/null
-if [ -f "${basename}.elf" ]
-then 
-     ~/.local/share/qmk/bin/arm-none-eabi-size -B -d "${basename}.elf" | \
-     awk 'NR==1 {print; next}
-          NR==2 {print "\033[1;37m"$0"\033[0m"; next}'
-     echo ""
-     ~/.local/share/qmk/bin/arm-none-eabi-size -A "${basename}.elf" | \
-     awk 'NR==1   {next}
-          NR==2   {printf "%16s %10s    %08s\n", $1, $2, $3; next}
-          /^Total/{printf "%16s %10s\n", $1, $2; exit}
-          /^\.ram/{next}
-          NR>=3   {printf "%16s %10s  0x%08x\n", $1, $2, $3}' | \
-     awk '/stack/    {print "\033[1;34m"$0"\033[0m"; next}
-          /\.text/   {print "\033[1;32m"$0"\033[0m"; next}
-          /\.rodata/ {print "\033[1;36m"$0"\033[0m"; next}
-          /\.data/   {print "\033[1;31m"$0"\033[0m"; next}
-          /\.bss/    {print "\033[1;33m"$0"\033[0m"; next}
-          /\.heap/   {print "\033[1;35m"$0"\033[0m"; next}
-          /Total/    {print "\033[1;37m"$0"\033[0m"; next}
-                    {print}'
-fi
-popd > /dev/null
-
 echo -e "\e[;32m---- only diff backup old .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
 if [ -f "${base_branch}_last.bin" ] && [ -f "${base_branch}_prev.bin" ]
@@ -152,6 +119,31 @@ rm -f "${basename}_9.bin"
 [ -f "${base_branch}_8.bin" ] && ln -s "${base_branch}_8.bin" "${basename}_8.bin"
 [ -f "${base_branch}_9.bin" ] && ln -s "${base_branch}_9.bin" "${basename}_9.bin"
 
+popd > /dev/null
+
+echo -e "\e[;32m---- memory usage stat from elf file ----\e[m"
+pushd "qmk_firmware/.build" > /dev/null
+if [ -f "${basename}.elf" ]
+then 
+     ~/.local/share/qmk/bin/arm-none-eabi-size -B -d "${basename}.elf" | \
+     awk 'NR==1 {print; next}
+          NR==2 {print "\033[1;37m"$0"\033[0m"; next}'
+     echo ""
+     ~/.local/share/qmk/bin/arm-none-eabi-size -A "${basename}.elf" | \
+     awk 'NR==1   {next}
+          NR==2   {printf "%16s %10s    %08s\n", $1, $2, $3; next}
+          /^Total/{printf "%16s %10s\n", $1, $2; exit}
+          /^\.ram/{next}
+          NR>=3   {printf "%16s %10s  0x%08x\n", $1, $2, $3}' | \
+     awk '/stack/    {print "\033[1;34m"$0"\033[0m"; next}
+          /\.text/   {print "\033[1;32m"$0"\033[0m"; next}
+          /\.rodata/ {print "\033[1;36m"$0"\033[0m"; next}
+          /\.data/   {print "\033[1;31m"$0"\033[0m"; next}
+          /\.bss/    {print "\033[1;33m"$0"\033[0m"; next}
+          /\.heap/   {print "\033[1;35m"$0"\033[0m"; next}
+          /Total/    {print "\033[1;37m"$0"\033[0m"; next}
+                    {print}'
+fi
 popd > /dev/null
 
 echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
