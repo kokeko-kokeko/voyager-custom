@@ -14,15 +14,20 @@ declare -r keymap="XYZDP"
 declare -r basename="${vendor}_${product}_${keymap}"
 
 # git branch for filename
-branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
+branch=$(git branch --show-current 2>/dev/null || echo "unknown")
 
 # romeve ilegal char
-safe_branch=$(printf '%s' "$branch" | sed 's/[^a-zA-Z0-9._-]/_/g')
-safe_branch=$(echo "$safe_branch" | sed 's/^_*//; s/_*$//; s/\.\.*/./g')
+#safe_branch=$(printf '%s' "$branch" | sed 's/[^a-zA-Z0-9._-]/_/g')
+#safe_branch=$(echo "$safe_branch" | sed 's/^_*//; s/_*$//; s/\.\.*/./g')
 
-echo "$safe_branch"
+#echo "$safe_branch"
 
-declare -r base_branch="${vendor}_${product}_${keymap}_${safe_branch}"
+# hashed branch name (16 char = 64 bit)
+branch_id=$(printf '%s' "$branch" | sha256sum | cut -c1-16)
+
+echo "$branch_id"
+
+declare -r base_branch="${basename}_${branch_id}"
 
 
 echo -e "\e[;32m---- start! ----\e[m\a"
