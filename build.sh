@@ -20,7 +20,7 @@ branch=$(git branch --show-current 2>/dev/null || echo "unknown")
 branch_id=$(printf '%s' "$branch" | sha256sum | cut -c1-32)
 
 # branch first for sort
-declare -r branch_basename="____${branch_id}____${basename}"
+declare -r branch_basename="__${branch_id}__${basename}"
 
 echo -e "\e[;32m---- start! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
