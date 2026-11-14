@@ -16,8 +16,8 @@ declare -r basename="${vendor}_${product}_${keymap}"
 # git branch for filename
 branch=$(git branch --show-current 2>/dev/null || echo "unknown")
 
-# hashed branch name (16 char = 64 bit)
-branch_id=$(printf '%s' "$branch" | sha256sum | cut -c1-16)
+# hashed branch name (24 char = 96 bit)
+branch_id=$(printf '%s' "$branch" | sha256sum | cut -c1-24)
 
 # branch first for sort
 declare -r branch_basename="__${branch_id}-${basename}"
@@ -47,7 +47,7 @@ then
      cp -p "${branch_basename}_last.bin" "${branch_basename}_prev.bin"
 
      # link gen
-     ln -s "${branch_basename}_prev.bin" "${basename}_prev.bin"
+     ln -sf "${branch_basename}_prev.bin" "${basename}_prev.bin"
 fi
 popd > /dev/null
 
@@ -72,7 +72,7 @@ then
      cp -p "${basename}.bin" "${branch_basename}_last.bin"
 
      # link gen
-     ln -s "${branch_basename}_last.bin" "${basename}_last.bin"
+     ln -sf "${branch_basename}_last.bin" "${basename}_last.bin"
 fi
 popd > /dev/null
 
@@ -98,27 +98,27 @@ then
      fi
 fi
 
-# clean link
-rm -f "${basename}_1.bin" 
-rm -f "${basename}_2.bin" 
-rm -f "${basename}_3.bin" 
-rm -f "${basename}_4.bin" 
-rm -f "${basename}_5.bin" 
-rm -f "${basename}_6.bin" 
-rm -f "${basename}_7.bin" 
-rm -f "${basename}_8.bin" 
-rm -f "${basename}_9.bin"
+# not clean link, only update
+#rm -f "${basename}_1.bin" 
+#rm -f "${basename}_2.bin" 
+#rm -f "${basename}_3.bin" 
+#rm -f "${basename}_4.bin" 
+#rm -f "${basename}_5.bin" 
+#rm -f "${basename}_6.bin" 
+#rm -f "${basename}_7.bin" 
+#rm -f "${basename}_8.bin" 
+#rm -f "${basename}_9.bin"
 
-# gen link
-[ -f "${branch_basename}_1.bin" ] && ln -s "${branch_basename}_1.bin" "${basename}_1.bin"
-[ -f "${branch_basename}_2.bin" ] && ln -s "${branch_basename}_2.bin" "${basename}_2.bin"
-[ -f "${branch_basename}_3.bin" ] && ln -s "${branch_basename}_3.bin" "${basename}_3.bin"
-[ -f "${branch_basename}_4.bin" ] && ln -s "${branch_basename}_4.bin" "${basename}_4.bin"
-[ -f "${branch_basename}_5.bin" ] && ln -s "${branch_basename}_5.bin" "${basename}_5.bin"
-[ -f "${branch_basename}_6.bin" ] && ln -s "${branch_basename}_6.bin" "${basename}_6.bin"
-[ -f "${branch_basename}_7.bin" ] && ln -s "${branch_basename}_7.bin" "${basename}_7.bin"
-[ -f "${branch_basename}_8.bin" ] && ln -s "${branch_basename}_8.bin" "${basename}_8.bin"
-[ -f "${branch_basename}_9.bin" ] && ln -s "${branch_basename}_9.bin" "${basename}_9.bin"
+# gen & overwrite link
+[ -f "${branch_basename}_1.bin" ] && ln -sf "${branch_basename}_1.bin" "${basename}_1.bin"
+[ -f "${branch_basename}_2.bin" ] && ln -sf "${branch_basename}_2.bin" "${basename}_2.bin"
+[ -f "${branch_basename}_3.bin" ] && ln -sf "${branch_basename}_3.bin" "${basename}_3.bin"
+[ -f "${branch_basename}_4.bin" ] && ln -sf "${branch_basename}_4.bin" "${basename}_4.bin"
+[ -f "${branch_basename}_5.bin" ] && ln -sf "${branch_basename}_5.bin" "${basename}_5.bin"
+[ -f "${branch_basename}_6.bin" ] && ln -sf "${branch_basename}_6.bin" "${basename}_6.bin"
+[ -f "${branch_basename}_7.bin" ] && ln -sf "${branch_basename}_7.bin" "${basename}_7.bin"
+[ -f "${branch_basename}_8.bin" ] && ln -sf "${branch_basename}_8.bin" "${basename}_8.bin"
+[ -f "${branch_basename}_9.bin" ] && ln -sf "${branch_basename}_9.bin" "${basename}_9.bin"
 
 popd > /dev/null
 
