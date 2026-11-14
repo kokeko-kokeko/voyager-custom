@@ -16,8 +16,8 @@ declare -r basename="${vendor}_${product}_${keymap}"
 # git branch for filename
 branch=$(git branch --show-current 2>/dev/null || echo "unknown")
 
-# hashed branch name (24 char = 96 bit)
-branch_id=$(printf '%s' "$branch" | sha256sum | cut -c1-24)
+# hashed branch name (32 char = 128 bit)
+branch_id=$(printf '%s' "$branch" | sha256sum | cut -c1-32)
 
 # branch first for sort
 declare -r branch_basename="__${branch_id}-${basename}"
