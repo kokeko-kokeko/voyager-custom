@@ -19,7 +19,8 @@ branch=$(git branch --show-current 2>/dev/null || echo "unknown")
 # hashed branch name (16 char = 64 bit)
 branch_id=$(printf '%s' "$branch" | sha256sum | cut -c1-16)
 
-declare -r base_branch="${basename}_${branch_id}"
+# add hidden files
+declare -r base_branch=".${basename}_${branch_id}"
 
 echo -e "\e[;32m---- start! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
