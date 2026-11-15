@@ -151,20 +151,20 @@
 // clear all flags
 #undef HAS_SINGLE
 #undef SINGLE_IS_AND    // not def, single is or
-#undef SHORT_DEBOUNCE   // only def when HAS_SINGLE 
 #undef LONG_DEBOUNCE    // always def
+#undef SHORT_DEBOUNCE   // only def when HAS_SINGLE 
 
 #if HISTORY_AND_DEBOUNCE == HISTORY_OR_DEBOUNCE
 #   define LONG_DEBOUNCE HISTORY_AND_DEBOUNCE
 #elif HISTORY_AND_DEBOUNCE > HISTORY_OR_DEBOUNCE
 #   define HAS_SINGLE
 #   define SINGLE_IS_AND
-#   define SHORT_DEBOUNCE HISTORY_OR_DEBOUNCE
 #   define LONG_DEBOUNCE HISTORY_AND_DEBOUNCE
+#   define SHORT_DEBOUNCE HISTORY_OR_DEBOUNCE
 #else
 #   define HAS_SINGLE
-#   define SHORT_DEBOUNCE HISTORY_AND_DEBOUNCE
 #   define LONG_DEBOUNCE HISTORY_OR_DEBOUNCE
+#   define SHORT_DEBOUNCE HISTORY_AND_DEBOUNCE
 #endif
 
 // buffer size (only automatic calc, override clear)
