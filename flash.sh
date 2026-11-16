@@ -13,169 +13,65 @@ declare -r keymap="XYZDP"
 # filename
 declare -r basename="${vendor}_${product}_${keymap}"
 
-echo "${basename}.bin" 
-
-exit
+#echo "${basename}.bin" 
 
 echo -e "\e[;32m---- start! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
 
-if ! [ -d "qmk_firmware/keyboards/${vendor}/${product}/keymaps/${keymap}" ]
+echo -e "\e[;32m---- search zsa zypp on Windows ----\e[m\a"
+declare -r win_user=$(cmd.exe /q /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
+
+# fixed search path
+declare -r zypp="/mnt/c/Users/${win_user}/voyager/zapp.exe"
+
+$zypp --version || exit 1
+
+echo -e "\e[;32m---- flash compiled .bin file (Ctrl+c, abort) ----\e[m"
+
+if [ -f "qmk_firmware/${basename}.bin" ]
 then
-    echo -e "\e[;32m---- link file to qmk_firmware keyboards folder ----\e[m"
-    pushd "qmk_firmware/keyboards/${vendor}/${product}/keymaps" > /dev/null
-    ln -s "../../../../../${keymap}"
-    popd > /dev/null
+     $zypp flash $(wslpath -w "qmk_firmware/${basename}.bin")
 fi
 
-echo -e "\e[;32m---- backup last compile .bin to last .bin file ----\e[m"
-pushd "qmk_firmware" > /dev/null
+echo -e "\e[;32m---- flash last .bin file (Ctrl+c, abort) ----\e[m"
 
-# clean link
-rm -f "${basename}_last.bin" 
-
-if [ -f "${branch_basename}.bin" ]
+if [ -f "qmk_firmware/${basename}.bin" ] && [ -f "qmk_firmware/${basename}_last.bin" ]
 then
-     echo "bufore build, run backup."
-
-     # keep creation information
-     mv "${branch_basename}.bin" "${branch_basename}_last.bin"
-
-     # link gen
-     ln -sf "${branch_basename}_last.bin" "${basename}_last.bin"
-fi
-popd > /dev/null
-
-echo -e "\e[;32m---- run build! ---- "
-pushd "qmk_firmware" > /dev/null
-
-# clean link, before compile, replace real file
-rm -f "${basename}.bin" 
-
-#make ${vendor}/${product}:${keymap}
-qmk compile --keyboard "${vendor}/${product}" --keymap "${keymap}" --parallel "$(nproc)" \
-|| qmk compile --keyboard "${vendor}/${product}" --keymap "${keymap}" --clean
-popd > /dev/null
-
-echo -e "\e[;32m---- convert success .bin to soft-link .bin file ----\e[m"
-pushd "qmk_firmware" > /dev/null
-
-if [ -f "${basename}.bin" ]
-then
-     echo "run convert."
-
-     # keep creation information
-     mv "${basename}.bin" "${branch_basename}.bin"
-
-     # link gen
-     ln -sf "${branch_basename}.bin" "${basename}.bin"
-fi
-popd > /dev/null
-
-echo -e "\e[;32m---- only diff backup old .bin file ----\e[m"
-pushd "qmk_firmware" > /dev/null
-if [ -f "${branch_basename}.bin" ] && [ -f "${branch_basename}_last.bin" ]
-then
-     # if diff, move once
-     if ! cmp -s "${branch_basename}.bin" "${branch_basename}_last.bin"
+     if cmp -s "qmk_firmware/${basename}.bin" "qmk_firmware/${basename}_last.bin"
      then
-          echo -e "\033[1;31mrun backup!\033[0m"
-          [ -f "${branch_basename}_8.bin" ] && mv "${branch_basename}_8.bin" "${branch_basename}_9.bin"
-          [ -f "${branch_basename}_7.bin" ] && mv "${branch_basename}_7.bin" "${branch_basename}_8.bin"
-          [ -f "${branch_basename}_6.bin" ] && mv "${branch_basename}_6.bin" "${branch_basename}_7.bin"
-          [ -f "${branch_basename}_5.bin" ] && mv "${branch_basename}_5.bin" "${branch_basename}_6.bin"
-          [ -f "${branch_basename}_4.bin" ] && mv "${branch_basename}_4.bin" "${branch_basename}_5.bin"
-          [ -f "${branch_basename}_3.bin" ] && mv "${branch_basename}_3.bin" "${branch_basename}_4.bin"
-          [ -f "${branch_basename}_2.bin" ] && mv "${branch_basename}_2.bin" "${branch_basename}_3.bin"
-          [ -f "${branch_basename}_1.bin" ] && mv "${branch_basename}_1.bin" "${branch_basename}_2.bin"
-
-          # keep creation information
-          cp -p "${branch_basename}_last.bin" "${branch_basename}_1.bin"
+          echo "same file skip"
+     else
+          $zypp flash $(wslpath -w "qmk_firmware/${basename}_last.bin")
      fi
 fi
 
-# not clean link, only update
-#rm -f "${basename}_1.bin" 
-#rm -f "${basename}_2.bin" 
-#rm -f "${basename}_3.bin" 
-#rm -f "${basename}_4.bin" 
-#rm -f "${basename}_5.bin" 
-#rm -f "${basename}_6.bin" 
-#rm -f "${basename}_7.bin" 
-#rm -f "${basename}_8.bin" 
-#rm -f "${basename}_9.bin"
+echo -e "\e[;32m---- flash _1 .bin file (Ctrl+c, abort) ----\e[m"
 
-# gen & overwrite link
-[ -f "${branch_basename}_1.bin" ] && ln -sf "${branch_basename}_1.bin" "${basename}_1.bin"
-[ -f "${branch_basename}_2.bin" ] && ln -sf "${branch_basename}_2.bin" "${basename}_2.bin"
-[ -f "${branch_basename}_3.bin" ] && ln -sf "${branch_basename}_3.bin" "${basename}_3.bin"
-[ -f "${branch_basename}_4.bin" ] && ln -sf "${branch_basename}_4.bin" "${basename}_4.bin"
-[ -f "${branch_basename}_5.bin" ] && ln -sf "${branch_basename}_5.bin" "${basename}_5.bin"
-[ -f "${branch_basename}_6.bin" ] && ln -sf "${branch_basename}_6.bin" "${basename}_6.bin"
-[ -f "${branch_basename}_7.bin" ] && ln -sf "${branch_basename}_7.bin" "${basename}_7.bin"
-[ -f "${branch_basename}_8.bin" ] && ln -sf "${branch_basename}_8.bin" "${basename}_8.bin"
-[ -f "${branch_basename}_9.bin" ] && ln -sf "${branch_basename}_9.bin" "${basename}_9.bin"
-
-popd > /dev/null
-
-echo -e "\e[;32m---- memory usage stat from elf file ----\e[m"
-pushd "qmk_firmware/.build" > /dev/null
-if [ -f "${basename}.elf" ]
-then 
-     ~/.local/share/qmk/bin/arm-none-eabi-size -B -d "${basename}.elf" | \
-     awk 'NR==1 {print; next}
-          NR==2 {print "\033[1;37m"$0"\033[0m"; next}'
-     echo ""
-     ~/.local/share/qmk/bin/arm-none-eabi-size -A "${basename}.elf" | \
-     awk 'NR==1   {next}
-          NR==2   {printf "%16s %10s    %08s\n", $1, $2, $3; next}
-          /^Total/{printf "%16s %10s\n", $1, $2; exit}
-          /^\.ram/{next}
-          NR>=3   {printf "%16s %10s  0x%08x\n", $1, $2, $3}' | \
-     awk '/stack/    {print "\033[1;34m"$0"\033[0m"; next}
-          /\.text/   {print "\033[1;32m"$0"\033[0m"; next}
-          /\.rodata/ {print "\033[1;36m"$0"\033[0m"; next}
-          /\.data/   {print "\033[1;31m"$0"\033[0m"; next}
-          /\.bss/    {print "\033[1;33m"$0"\033[0m"; next}
-          /\.heap/   {print "\033[1;35m"$0"\033[0m"; next}
-          /Total/    {print "\033[1;37m"$0"\033[0m"; next}
-                    {print}'
+if [ -f "qmk_firmware/${basename}_last.bin" ] && [ -f "qmk_firmware/${basename}_1.bin" ]
+then
+     if cmp -s "qmk_firmware/${basename}_last.bin" "qmk_firmware/${basename}_1.bin"
+     then
+          echo "same file skip"
+     else
+          $zypp flash $(wslpath -w "qmk_firmware/${basename}_1.bin")
+     fi
 fi
-popd > /dev/null
 
-echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
-pushd "qmk_firmware" > /dev/null
+echo -e "\e[;32m---- flash _2 to _9 .bin file (Ctrl+c, abort) ----\e[m"
 
-for bin in "${basename}.bin" \
-           "${basename}_last.bin"         
+for bin in "qmk_firmware/${basename}_2.bin" \
+           "qmk_firmware/${basename}_3.bin" \
+           "qmk_firmware/${basename}_4.bin" \
+           "qmk_firmware/${basename}_5.bin" \
+           "qmk_firmware/${basename}_6.bin" \
+           "qmk_firmware/${basename}_7.bin" \
+           "qmk_firmware/${basename}_8.bin" \
+           "qmk_firmware/${basename}_9.bin"        
 do
      [ ! -f "$bin" ] && continue
-     hash=$(sha256sum "$bin" | awk '{print substr($1,1,7),"---",$1}')
-     time=$(date --utc -r "$bin" '+%Y-%m-%dT%H:%M:%S')
- 
-     echo "$hash $time $bin"
+
+     $zypp flash $(wslpath -w "${bin}")
 done
-
-echo ""
-
-for bin in "${basename}_1.bin" \
-           "${basename}_2.bin" \
-           "${basename}_3.bin" \
-           "${basename}_4.bin" \
-           "${basename}_5.bin" \
-           "${basename}_6.bin" \
-           "${basename}_7.bin" \
-           "${basename}_8.bin" \
-           "${basename}_9.bin"        
-do
-     [ ! -f "$bin" ] && continue
-     hash=$(sha256sum "$bin" | awk '{print substr($1,1,7),"---",$1}')
-     time=$(date --utc -r "$bin" '+%Y-%m-%dT%H:%M:%S')
-
-     echo "$hash $time $bin"
-done
-
-popd > /dev/null
 
 echo -e "\e[;32m---- done! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
