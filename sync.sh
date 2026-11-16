@@ -6,12 +6,14 @@ date --utc '+%Y-%m-%dT%H:%M:%S'
 echo -e "\e[;32m---- update zsa modules repo ----\e[m"
 pushd qmk_firmware/modules/zsa > /dev/null
 git fetch --all --prune
+git switch main
 git pull --ff-only origin
 popd > /dev/null
 
 echo -e "\e[;32m---- update qmk firmware repo ----\e[m"
 pushd qmk_firmware > /dev/null
 git fetch --all --prune --multiple
+git switch firmware25
 git pull --ff-only origin
 git submodule update --init --recursive
 popd > /dev/null
