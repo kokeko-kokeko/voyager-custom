@@ -38,9 +38,13 @@ echo "from upstream, ahead: $ahead, behind: $behind"
 git --no-pager diff --stat upstream/firmware25 HEAD -- ':(exclude).gitmodules' 
 popd > /dev/null
 
+echo -e "\e[;32m---- check user side code upstream ----\e[m"
+read ahead behind <<< $(git rev-list --left-right --count origin/main...upstream/main)
+echo "from upstream, ahead: $ahead, behind: $behind"
+
 echo -e "\e[;32m---- check user side code remote ----\e[m"
-#read ahead behind <<< $(git rev-list --left-right --count origin/main...upstream/main)
-#echo "from upstream, ahead: $ahead, behind: $behind"
+read ahead behind <<< $(git rev-list --left-right --count origin/main...HEAD)
+echo "from upstream, ahead: $ahead, behind: $behind"
 
 #git --no-pager status
 git --no-pager diff --stat origin/main HEAD
