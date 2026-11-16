@@ -54,7 +54,7 @@ popd > /dev/null
 echo -e "\e[;32m---- run build! ---- "
 pushd "qmk_firmware" > /dev/null
 
-# clean link or real-file
+# clean link, before compile, replace real file
 rm -f "${basename}.bin" 
 
 #make ${vendor}/${product}:${keymap}
@@ -62,12 +62,12 @@ qmk compile --keyboard "${vendor}/${product}" --keymap "${keymap}" --parallel "$
 || qmk compile --keyboard "${vendor}/${product}" --keymap "${keymap}" --clean
 popd > /dev/null
 
-echo -e "\e[;32m---- backup success .bin to soft-link .bin file ----\e[m"
+echo -e "\e[;32m---- convert success .bin to soft-link .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
 
 if [ -f "${basename}.bin" ]
 then
-     echo "run backup."
+     echo "run convert."
 
      # keep creation information
      mv "${basename}.bin" "${branch_basename}.bin"
