@@ -43,11 +43,11 @@ read ahead behind <<< $(git rev-list --left-right --count origin/main...upstream
 echo "from upstream, ahead: $ahead, behind: $behind"
 
 echo -e "\e[;32m---- check user side code remote ----\e[m"
-read ahead behind <<< $(git rev-list --left-right --count origin/main...HEAD)
-echo "from upstream, ahead: $ahead, behind: $behind"
+read ahead behind <<< $(git rev-list --left-right --count HEAD...origin/main)
+echo "from remote, ahead: $ahead, behind: $behind"
 
 #git --no-pager status
-git --no-pager diff --stat origin/main HEAD
+git --no-pager diff --stat HEAD origin/main
 
 echo -e "\e[;32m---- done! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
