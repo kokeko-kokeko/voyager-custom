@@ -19,6 +19,9 @@ popd > /dev/null
 echo -e "\e[;32m---- fetch only user side code repo ----\e[m"
 git fetch --prune --multiple zsa upstream origin
 
+echo -e "\e[;32m---- sync done! ----\e[m\a"
+date --utc '+%Y-%m-%dT%H:%M:%S'
+
 echo -e "\e[;32m---- check zsa modules upstream ----\e[m"
 pushd qmk_firmware/modules/zsa > /dev/null
 read ahead behind <<< $(git rev-list --left-right --count main...upstream/main)
@@ -42,12 +45,33 @@ echo -e "\e[;32m---- check user side code upstream ----\e[m"
 read ahead behind <<< $(git rev-list --left-right --count origin/main...upstream/main)
 echo "from upstream, ahead: $ahead, behind: $behind"
 
-echo -e "\e[;32m---- check user side code remote (main only) ----\e[m"
+echo -e "\e[;32m---- check user side code remote (main) ----\e[m"
 read ahead behind <<< $(git rev-list --left-right --count main...origin/main)
 echo "from remote, ahead: $ahead, behind: $behind"
 
 #git --no-pager status
 git --no-pager diff --stat origin/main main
 
-echo -e "\e[;32m---- done! ----\e[m\a"
+echo -e "\e[;32m---- check user side code remote (feat) ----\e[m"
+for branch in $(git branch --list 'feat/*' --format='%(refname:short)')
+do
+    echo "==== $branch ===="
+    read ahead behind <<< $(git rev-list --left-right --count $branch...origin/$branch)
+    echo "from remote, ahead: $ahead, behind: $behind"
+
+    git --no-pager diff --stat origin/$branch $branch
+done
+
+echo -e "\e[;32m---- check user side code (feat) ----\e[m"
+for branch in $(git branch --list 'feat/*' --format='%(refname:short)')
+do
+    echo "==== $branch ===="
+    read ahead behind <<< $(git rev-list --left-right --count $branch...main)
+    echo "from remote, ahead: $ahead, behind: $behind"
+
+    git --no-pager diff --stat main $branch
+done
+
+echo -e "\e[;32m---- check done! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
+
