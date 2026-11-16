@@ -23,18 +23,18 @@ echo -e "\e[;32m---- check zsa modules upstream ----\e[m"
 pushd qmk_firmware/modules/zsa > /dev/null
 #git --no-pager diff --stat HEAD..upstream/main -- ':(exclude)automouse/automouse.c'
 #git --no-pager diff --stat HEAD..upstream/main -- ':(exclude)mousejiggler/mousejiggler.c'
-git --no-pager diff --stat HEAD..upstream/main
+git --no-pager diff --stat upstream/main HEAD
 popd > /dev/null
 
 echo -e "\e[;32m---- check qmk firmware upstream ----\e[m"
 pushd qmk_firmware > /dev/null
 #git --no-pager diff --stat HEAD..upstream/firmware25 -- ':(exclude).gitmodules' ':(exclude)modules/zsa/' ':(exclude)keyboards/zsa/voyager/voyager.c'  ':(exclude)keyboards/zsa/voyager/matrix.c' 
-git --no-pager diff --stat HEAD..upstream/firmware25 -- ':(exclude).gitmodules' 
+git --no-pager diff --stat upstream/firmware25 HEAD -- ':(exclude).gitmodules' 
 popd > /dev/null
 
 echo -e "\e[;32m---- check user side code remote ----\e[m"
 #git --no-pager status
-git --no-pager diff --stat HEAD..origin/main
+git --no-pager diff --stat origin/main HEAD
 
 echo -e "\e[;32m---- done! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
