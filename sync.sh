@@ -47,7 +47,7 @@ read ahead behind <<< $(git rev-list --left-right --count HEAD...origin/main)
 echo "from remote, ahead: $ahead, behind: $behind"
 
 #git --no-pager status
-git --no-pager diff --stat HEAD origin/main
+git --no-pager diff --stat origin/main HEAD
 
 echo -e "\e[;32m---- done! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
