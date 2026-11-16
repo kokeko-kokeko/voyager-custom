@@ -4,9 +4,9 @@
 # first run one liner
 #
 # main
-# curl -fsSL https://raw.githubusercontent.com/kokeko-kokeko/voyager-custom/refs/heads/main/__init.sh | bash
+# curl -fsSL https://raw.githubusercontent.com/kokeko-kokeko/voyager-custom/refs/heads/main/__init__.sh | bash
 # or feature dev branch
-# curl -fsSL https://raw.githubusercontent.com/kokeko-kokeko/voyager-custom/refs/heads/feat/support-scripts/__init.sh | bash
+# curl -fsSL https://raw.githubusercontent.com/kokeko-kokeko/voyager-custom/refs/heads/feat/support-scripts/__init__.sh | bash
 # 
 
 echo -e "\e[;32m---- init build env ----\e[m"
