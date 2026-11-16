@@ -5,19 +5,19 @@ date --utc '+%Y-%m-%dT%H:%M:%S'
 
 echo -e "\e[;32m---- update zsa modules repo ----\e[m"
 pushd qmk_firmware/modules/zsa > /dev/null
-git fetch --prune --multiple upstream
+git fetch --all --prune
 git pull --ff-only origin
 popd > /dev/null
 
 echo -e "\e[;32m---- update qmk firmware repo ----\e[m"
 pushd qmk_firmware > /dev/null
-git fetch --prune --multiple qmk upstream
+git fetch --all --prune --multiple
 git pull --ff-only origin
 git submodule update --init --recursive
 popd > /dev/null
 
 echo -e "\e[;32m---- fetch only user side code repo ----\e[m"
-git fetch --prune --multiple zsa upstream origin
+git fetch --all --prune
 
 echo -e "\e[;32m---- sync done! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
@@ -70,6 +70,16 @@ do
     echo "from remote, ahead: $ahead, behind: $behind"
 
     git --no-pager diff --stat main $branch
+done
+
+echo -e "\e[;32m---- check user side code remote (stable - main) ----\e[m"
+for branch in $(git branch --remote --list 'origin/stable/*' --format='%(refname:short)')
+do
+    echo "==== $branch ===="
+    read ahead behind <<< $(git rev-list --left-right --count $branch...origin/main)
+    echo "from remote, ahead: $ahead, behind: $behind"
+
+    git --no-pager diff --stat origin/main $branch
 done
 
 echo -e "\e[;32m---- check done! ----\e[m\a"
