@@ -69,7 +69,8 @@ for bin in "qmk_firmware/${basename}_2.bin" \
            "qmk_firmware/${basename}_9.bin"        
 do
      [ ! -f "$bin" ] && continue
-
+     
+     echo "${bin}"
      $zypp flash $(wslpath -w "${bin}")
 done
 
