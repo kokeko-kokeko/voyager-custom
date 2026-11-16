@@ -3,15 +3,15 @@
 echo -e "\e[;32m---- start! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
 
-echo -e "\e[;32m---- update zsa modules repo ----\e[m"
 pushd qmk_firmware/modules/zsa > /dev/null
+echo -e "\e[;32m---- update zsa modules repo ----\e[m"
 git fetch --all --prune
 git switch main
 git pull --ff-only origin
 popd > /dev/null
 
-echo -e "\e[;32m---- update qmk firmware repo ----\e[m"
 pushd qmk_firmware > /dev/null
+echo -e "\e[;32m---- update qmk firmware repo ----\e[m"
 git fetch --all --prune --multiple
 git switch firmware25
 git pull --ff-only origin
@@ -24,8 +24,8 @@ git fetch --all --prune
 echo -e "\e[;32m---- sync done! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
 
-echo -e "\e[;32m---- check zsa modules (local - upstream remote) ----\e[m"
 pushd qmk_firmware/modules/zsa > /dev/null
+echo -e "\e[;32m---- check zsa modules (local - upstream remote) ----\e[m"
 read ahead behind <<< $(git rev-list --left-right --count main...upstream/main)
 echo "from upstream, ahead: $ahead, behind: $behind"
 
@@ -34,8 +34,8 @@ echo "from upstream, ahead: $ahead, behind: $behind"
 git --no-pager diff --stat upstream/main main
 popd > /dev/null
 
-echo -e "\e[;32m---- check qmk firmware (local - upstream remote) ----\e[m"
 pushd qmk_firmware > /dev/null
+echo -e "\e[;32m---- check qmk firmware (local - upstream remote) ----\e[m"
 read ahead behind <<< $(git rev-list --left-right --count firmware25...upstream/firmware25)
 echo "from upstream, ahead: $ahead, behind: $behind"
 

@@ -27,14 +27,14 @@ date --utc '+%Y-%m-%dT%H:%M:%S'
 
 if ! [ -d "qmk_firmware/keyboards/${vendor}/${product}/keymaps/${keymap}" ]
 then
-    echo -e "\e[;32m---- link file to qmk_firmware keyboards folder ----\e[m"
     pushd "qmk_firmware/keyboards/${vendor}/${product}/keymaps" > /dev/null
+    echo -e "\e[;32m---- link file to qmk_firmware keyboards folder ----\e[m"
     ln -s "../../../../../${keymap}"
     popd > /dev/null
 fi
 
-echo -e "\e[;32m---- backup last compile .bin to last .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
+echo -e "\e[;32m---- backup last compile .bin to last .bin file ----\e[m"
 
 # clean link
 rm -f "${basename}_last.bin" 
@@ -51,8 +51,8 @@ then
 fi
 popd > /dev/null
 
-echo -e "\e[;32m---- run build! ---- "
 pushd "qmk_firmware" > /dev/null
+echo -e "\e[;32m---- run build! ---- "
 
 # clean link, before compile, replace real file
 rm -f "${basename}.bin" 
@@ -62,8 +62,8 @@ qmk compile --keyboard "${vendor}/${product}" --keymap "${keymap}" --parallel "$
 || qmk compile --keyboard "${vendor}/${product}" --keymap "${keymap}" --clean
 popd > /dev/null
 
-echo -e "\e[;32m---- convert success .bin to soft-link .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
+echo -e "\e[;32m---- convert success .bin to soft-link .bin file ----\e[m"
 
 if [ -f "${basename}.bin" ]
 then
@@ -77,8 +77,8 @@ then
 fi
 popd > /dev/null
 
-echo -e "\e[;32m---- only diff backup old .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
+echo -e "\e[;32m---- only diff backup old .bin file ----\e[m"
 if [ -f "${branch_basename}.bin" ] && [ -f "${branch_basename}_last.bin" ]
 then
      # if diff, move once
@@ -120,11 +120,10 @@ fi
 [ -f "${branch_basename}_7.bin" ] && ln -sf "${branch_basename}_7.bin" "${basename}_7.bin"
 [ -f "${branch_basename}_8.bin" ] && ln -sf "${branch_basename}_8.bin" "${basename}_8.bin"
 [ -f "${branch_basename}_9.bin" ] && ln -sf "${branch_basename}_9.bin" "${basename}_9.bin"
-
 popd > /dev/null
 
-echo -e "\e[;32m---- memory usage stat from elf file ----\e[m"
 pushd "qmk_firmware/.build" > /dev/null
+echo -e "\e[;32m---- memory usage stat from elf file ----\e[m"
 if [ -f "${basename}.elf" ]
 then 
      ~/.local/share/qmk/bin/arm-none-eabi-size -B -d "${basename}.elf" | \
@@ -148,8 +147,8 @@ then
 fi
 popd > /dev/null
 
-echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
 pushd "qmk_firmware" > /dev/null
+echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
 
 for bin in "${basename}.bin" \
            "${basename}_last.bin"         
@@ -179,7 +178,6 @@ do
 
      echo "$hash $time $bin"
 done
-
 popd > /dev/null
 
 echo -e "\e[;32m---- done! ----\e[m\a"
