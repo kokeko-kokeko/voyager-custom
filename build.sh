@@ -27,159 +27,157 @@ date --utc '+%Y-%m-%dT%H:%M:%S'
 
 if ! [ -d "qmk_firmware/keyboards/${vendor}/${product}/keymaps/${keymap}" ]
 then
-    echo -e "\e[;32m---- link file to qmk_firmware keyboards folder ----\e[m"
     pushd "qmk_firmware/keyboards/${vendor}/${product}/keymaps" > /dev/null
+    echo -e "\e[;32m---- link file to qmk_firmware keyboards folder ----\e[m"
     ln -s "../../../../../${keymap}"
     popd > /dev/null
 fi
 
-echo -e "\e[;32m---- backup last compile .bin to last .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
+     echo -e "\e[;32m---- backup last compile .bin to last .bin file ----\e[m"
 
-# clean link
-rm -f "${basename}_last.bin" 
+     # clean link
+     rm -f "${basename}_last.bin" 
 
-if [ -f "${branch_basename}.bin" ]
-then
-     echo "bufore build, run backup."
-
-     # keep creation information
-     mv "${branch_basename}.bin" "${branch_basename}_last.bin"
-
-     # link gen
-     ln -sf "${branch_basename}_last.bin" "${basename}_last.bin"
-fi
-popd > /dev/null
-
-echo -e "\e[;32m---- run build! ---- "
-pushd "qmk_firmware" > /dev/null
-
-# clean link, before compile, replace real file
-rm -f "${basename}.bin" 
-
-#make ${vendor}/${product}:${keymap}
-qmk compile --keyboard "${vendor}/${product}" --keymap "${keymap}" --parallel "$(nproc)" \
-|| qmk compile --keyboard "${vendor}/${product}" --keymap "${keymap}" --clean
-popd > /dev/null
-
-echo -e "\e[;32m---- convert success .bin to soft-link .bin file ----\e[m"
-pushd "qmk_firmware" > /dev/null
-
-if [ -f "${basename}.bin" ]
-then
-     echo "run convert."
-
-     # keep creation information
-     mv "${basename}.bin" "${branch_basename}.bin"
-
-     # link gen
-     ln -sf "${branch_basename}.bin" "${basename}.bin"
-fi
-popd > /dev/null
-
-echo -e "\e[;32m---- only diff backup old .bin file ----\e[m"
-pushd "qmk_firmware" > /dev/null
-if [ -f "${branch_basename}.bin" ] && [ -f "${branch_basename}_last.bin" ]
-then
-     # if diff, move once
-     if ! cmp -s "${branch_basename}.bin" "${branch_basename}_last.bin"
+     if [ -f "${branch_basename}.bin" ]
      then
-          echo -e "\033[1;31mrun backup!\033[0m"
-          [ -f "${branch_basename}_8.bin" ] && mv "${branch_basename}_8.bin" "${branch_basename}_9.bin"
-          [ -f "${branch_basename}_7.bin" ] && mv "${branch_basename}_7.bin" "${branch_basename}_8.bin"
-          [ -f "${branch_basename}_6.bin" ] && mv "${branch_basename}_6.bin" "${branch_basename}_7.bin"
-          [ -f "${branch_basename}_5.bin" ] && mv "${branch_basename}_5.bin" "${branch_basename}_6.bin"
-          [ -f "${branch_basename}_4.bin" ] && mv "${branch_basename}_4.bin" "${branch_basename}_5.bin"
-          [ -f "${branch_basename}_3.bin" ] && mv "${branch_basename}_3.bin" "${branch_basename}_4.bin"
-          [ -f "${branch_basename}_2.bin" ] && mv "${branch_basename}_2.bin" "${branch_basename}_3.bin"
-          [ -f "${branch_basename}_1.bin" ] && mv "${branch_basename}_1.bin" "${branch_basename}_2.bin"
+          echo "bufore build, run backup."
 
           # keep creation information
-          cp -p "${branch_basename}_last.bin" "${branch_basename}_1.bin"
+          mv "${branch_basename}.bin" "${branch_basename}_last.bin"
+
+          # link gen
+          ln -sf "${branch_basename}_last.bin" "${basename}_last.bin"
      fi
-fi
-
-# not clean link, only update
-#rm -f "${basename}_1.bin" 
-#rm -f "${basename}_2.bin" 
-#rm -f "${basename}_3.bin" 
-#rm -f "${basename}_4.bin" 
-#rm -f "${basename}_5.bin" 
-#rm -f "${basename}_6.bin" 
-#rm -f "${basename}_7.bin" 
-#rm -f "${basename}_8.bin" 
-#rm -f "${basename}_9.bin"
-
-# gen & overwrite link
-[ -f "${branch_basename}_1.bin" ] && ln -sf "${branch_basename}_1.bin" "${basename}_1.bin"
-[ -f "${branch_basename}_2.bin" ] && ln -sf "${branch_basename}_2.bin" "${basename}_2.bin"
-[ -f "${branch_basename}_3.bin" ] && ln -sf "${branch_basename}_3.bin" "${basename}_3.bin"
-[ -f "${branch_basename}_4.bin" ] && ln -sf "${branch_basename}_4.bin" "${basename}_4.bin"
-[ -f "${branch_basename}_5.bin" ] && ln -sf "${branch_basename}_5.bin" "${basename}_5.bin"
-[ -f "${branch_basename}_6.bin" ] && ln -sf "${branch_basename}_6.bin" "${basename}_6.bin"
-[ -f "${branch_basename}_7.bin" ] && ln -sf "${branch_basename}_7.bin" "${basename}_7.bin"
-[ -f "${branch_basename}_8.bin" ] && ln -sf "${branch_basename}_8.bin" "${basename}_8.bin"
-[ -f "${branch_basename}_9.bin" ] && ln -sf "${branch_basename}_9.bin" "${basename}_9.bin"
-
 popd > /dev/null
 
-echo -e "\e[;32m---- memory usage stat from elf file ----\e[m"
-pushd "qmk_firmware/.build" > /dev/null
-if [ -f "${basename}.elf" ]
-then 
-     ~/.local/share/qmk/bin/arm-none-eabi-size -B -d "${basename}.elf" | \
-     awk 'NR==1 {print; next}
-          NR==2 {print "\033[1;37m"$0"\033[0m"; next}'
-     echo ""
-     ~/.local/share/qmk/bin/arm-none-eabi-size -A "${basename}.elf" | \
-     awk 'NR==1   {next}
-          NR==2   {printf "%16s %10s    %08s\n", $1, $2, $3; next}
-          /^Total/{printf "%16s %10s\n", $1, $2; exit}
-          /^\.ram/{next}
-          NR>=3   {printf "%16s %10s  0x%08x\n", $1, $2, $3}' | \
-     awk '/stack/    {print "\033[1;34m"$0"\033[0m"; next}
-          /\.text/   {print "\033[1;32m"$0"\033[0m"; next}
-          /\.rodata/ {print "\033[1;36m"$0"\033[0m"; next}
-          /\.data/   {print "\033[1;31m"$0"\033[0m"; next}
-          /\.bss/    {print "\033[1;33m"$0"\033[0m"; next}
-          /\.heap/   {print "\033[1;35m"$0"\033[0m"; next}
-          /Total/    {print "\033[1;37m"$0"\033[0m"; next}
-                    {print}'
-fi
-popd > /dev/null
-
-echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
 pushd "qmk_firmware" > /dev/null
+     echo -e "\e[;32m---- run build! ---- "
 
-for bin in "${basename}.bin" \
-           "${basename}_last.bin"         
-do
-     [ ! -f "$bin" ] && continue
-     hash=$(sha256sum "$bin" | awk '{print substr($1,1,7),"---",$1}')
-     time=$(date --utc -r "$bin" '+%Y-%m-%dT%H:%M:%S')
- 
-     echo "$hash $time $bin"
-done
+     # clean link, before compile, replace real file
+     rm -f "${basename}.bin" 
 
-echo ""
+     #make ${vendor}/${product}:${keymap}
+     qmk compile --keyboard "${vendor}/${product}" --keymap "${keymap}" --parallel "$(nproc)" \
+     || qmk compile --keyboard "${vendor}/${product}" --keymap "${keymap}" --clean
+popd > /dev/null
 
-for bin in "${basename}_1.bin" \
-           "${basename}_2.bin" \
-           "${basename}_3.bin" \
-           "${basename}_4.bin" \
-           "${basename}_5.bin" \
-           "${basename}_6.bin" \
-           "${basename}_7.bin" \
-           "${basename}_8.bin" \
-           "${basename}_9.bin"        
-do
-     [ ! -f "$bin" ] && continue
-     hash=$(sha256sum "$bin" | awk '{print substr($1,1,7),"---",$1}')
-     time=$(date --utc -r "$bin" '+%Y-%m-%dT%H:%M:%S')
+pushd "qmk_firmware" > /dev/null
+     echo -e "\e[;32m---- convert success .bin to soft-link .bin file ----\e[m"
 
-     echo "$hash $time $bin"
-done
+     if [ -f "${basename}.bin" ]
+     then
+          echo "run convert."
 
+          # keep creation information
+          mv "${basename}.bin" "${branch_basename}.bin"
+
+          # link gen
+          ln -sf "${branch_basename}.bin" "${basename}.bin"
+     fi
+popd > /dev/null
+
+pushd "qmk_firmware" > /dev/null
+     echo -e "\e[;32m---- only diff backup old .bin file ----\e[m"
+     if [ -f "${branch_basename}.bin" ] && [ -f "${branch_basename}_last.bin" ]
+     then
+          # if diff, move once
+          if ! cmp -s "${branch_basename}.bin" "${branch_basename}_last.bin"
+          then
+               echo -e "\033[1;31mrun backup!\033[0m"
+               [ -f "${branch_basename}_8.bin" ] && mv "${branch_basename}_8.bin" "${branch_basename}_9.bin"
+               [ -f "${branch_basename}_7.bin" ] && mv "${branch_basename}_7.bin" "${branch_basename}_8.bin"
+               [ -f "${branch_basename}_6.bin" ] && mv "${branch_basename}_6.bin" "${branch_basename}_7.bin"
+               [ -f "${branch_basename}_5.bin" ] && mv "${branch_basename}_5.bin" "${branch_basename}_6.bin"
+               [ -f "${branch_basename}_4.bin" ] && mv "${branch_basename}_4.bin" "${branch_basename}_5.bin"
+               [ -f "${branch_basename}_3.bin" ] && mv "${branch_basename}_3.bin" "${branch_basename}_4.bin"
+               [ -f "${branch_basename}_2.bin" ] && mv "${branch_basename}_2.bin" "${branch_basename}_3.bin"
+               [ -f "${branch_basename}_1.bin" ] && mv "${branch_basename}_1.bin" "${branch_basename}_2.bin"
+
+               # keep creation information
+               cp -p "${branch_basename}_last.bin" "${branch_basename}_1.bin"
+          fi
+     fi
+
+     # not clean link, only update
+     #rm -f "${basename}_1.bin" 
+     #rm -f "${basename}_2.bin" 
+     #rm -f "${basename}_3.bin" 
+     #rm -f "${basename}_4.bin" 
+     #rm -f "${basename}_5.bin" 
+     #rm -f "${basename}_6.bin" 
+     #rm -f "${basename}_7.bin" 
+     #rm -f "${basename}_8.bin" 
+     #rm -f "${basename}_9.bin"
+
+     # gen & overwrite link
+     [ -f "${branch_basename}_1.bin" ] && ln -sf "${branch_basename}_1.bin" "${basename}_1.bin"
+     [ -f "${branch_basename}_2.bin" ] && ln -sf "${branch_basename}_2.bin" "${basename}_2.bin"
+     [ -f "${branch_basename}_3.bin" ] && ln -sf "${branch_basename}_3.bin" "${basename}_3.bin"
+     [ -f "${branch_basename}_4.bin" ] && ln -sf "${branch_basename}_4.bin" "${basename}_4.bin"
+     [ -f "${branch_basename}_5.bin" ] && ln -sf "${branch_basename}_5.bin" "${basename}_5.bin"
+     [ -f "${branch_basename}_6.bin" ] && ln -sf "${branch_basename}_6.bin" "${basename}_6.bin"
+     [ -f "${branch_basename}_7.bin" ] && ln -sf "${branch_basename}_7.bin" "${basename}_7.bin"
+     [ -f "${branch_basename}_8.bin" ] && ln -sf "${branch_basename}_8.bin" "${basename}_8.bin"
+     [ -f "${branch_basename}_9.bin" ] && ln -sf "${branch_basename}_9.bin" "${basename}_9.bin"
+popd > /dev/null
+
+pushd "qmk_firmware/.build" > /dev/null
+     echo -e "\e[;32m---- memory usage stat from elf file ----\e[m"
+     if [ -f "${basename}.elf" ]
+     then 
+          ~/.local/share/qmk/bin/arm-none-eabi-size -B -d "${basename}.elf" | \
+          awk 'NR==1 {print; next}
+               NR==2 {print "\033[1;37m"$0"\033[0m"; next}'
+          echo ""
+          ~/.local/share/qmk/bin/arm-none-eabi-size -A "${basename}.elf" | \
+          awk 'NR==1   {next}
+               NR==2   {printf "%16s %10s    %08s\n", $1, $2, $3; next}
+               /^Total/{printf "%16s %10s\n", $1, $2; exit}
+               /^\.ram/{next}
+               NR>=3   {printf "%16s %10s  0x%08x\n", $1, $2, $3}' | \
+          awk '/stack/    {print "\033[1;34m"$0"\033[0m"; next}
+               /\.text/   {print "\033[1;32m"$0"\033[0m"; next}
+               /\.rodata/ {print "\033[1;36m"$0"\033[0m"; next}
+               /\.data/   {print "\033[1;31m"$0"\033[0m"; next}
+               /\.bss/    {print "\033[1;33m"$0"\033[0m"; next}
+               /\.heap/   {print "\033[1;35m"$0"\033[0m"; next}
+               /Total/    {print "\033[1;37m"$0"\033[0m"; next}
+                         {print}'
+     fi
+popd > /dev/null
+
+pushd "qmk_firmware" > /dev/null
+     echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
+
+     for bin in "${basename}.bin" \
+               "${basename}_last.bin"         
+     do
+          [ ! -f "$bin" ] && continue
+          hash=$(sha256sum "$bin" | awk '{print substr($1,1,7),"---",$1}')
+          time=$(date --utc -r "$bin" '+%Y-%m-%dT%H:%M:%S')
+     
+          echo "$hash $time $bin"
+     done
+
+     echo ""
+
+     for bin in "${basename}_1.bin" \
+               "${basename}_2.bin" \
+               "${basename}_3.bin" \
+               "${basename}_4.bin" \
+               "${basename}_5.bin" \
+               "${basename}_6.bin" \
+               "${basename}_7.bin" \
+               "${basename}_8.bin" \
+               "${basename}_9.bin"        
+     do
+          [ ! -f "$bin" ] && continue
+          hash=$(sha256sum "$bin" | awk '{print substr($1,1,7),"---",$1}')
+          time=$(date --utc -r "$bin" '+%Y-%m-%dT%H:%M:%S')
+
+          echo "$hash $time $bin"
+     done
 popd > /dev/null
 
 echo -e "\e[;32m---- done! ----\e[m\a"
