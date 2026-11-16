@@ -33,21 +33,21 @@ then
     popd > /dev/null
 fi
 
-echo -e "\e[;32m---- backup pre-compile .bin to prev .bin file ----\e[m"
+echo -e "\e[;32m---- backup last compile .bin to last .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
 
 # clean link
-rm -f "${basename}_prev.bin" 
+rm -f "${basename}_last.bin" 
 
 if [ -f "${branch_basename}.bin" ]
 then
      echo "bufore build, run backup."
 
      # keep creation information
-     mv "${branch_basename}.bin" "${branch_basename}_prev.bin"
+     mv "${branch_basename}.bin" "${branch_basename}_last.bin"
 
      # link gen
-     ln -sf "${branch_basename}_prev.bin" "${basename}_prev.bin"
+     ln -sf "${branch_basename}_last.bin" "${basename}_last.bin"
 fi
 popd > /dev/null
 
@@ -79,10 +79,10 @@ popd > /dev/null
 
 echo -e "\e[;32m---- only diff backup old .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
-if [ -f "${branch_basename}.bin" ] && [ -f "${branch_basename}_prev.bin" ]
+if [ -f "${branch_basename}.bin" ] && [ -f "${branch_basename}_last.bin" ]
 then
      # if diff, move once
-     if ! cmp -s "${branch_basename}.bin" "${branch_basename}_prev.bin"
+     if ! cmp -s "${branch_basename}.bin" "${branch_basename}_last.bin"
      then
           echo -e "\033[1;31mrun backup!\033[0m"
           [ -f "${branch_basename}_8.bin" ] && mv "${branch_basename}_8.bin" "${branch_basename}_9.bin"
@@ -95,7 +95,7 @@ then
           [ -f "${branch_basename}_1.bin" ] && mv "${branch_basename}_1.bin" "${branch_basename}_2.bin"
 
           # keep creation information
-          cp -p "${branch_basename}_prev.bin" "${branch_basename}_1.bin"
+          cp -p "${branch_basename}_last.bin" "${branch_basename}_1.bin"
      fi
 fi
 
@@ -152,7 +152,7 @@ echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
 pushd "qmk_firmware" > /dev/null
 
 for bin in "${basename}.bin" \
-           "${basename}_prev.bin"         
+           "${basename}_last.bin"         
 do
      [ ! -f "$bin" ] && continue
      hash=$(sha256sum "$bin" | awk '{print substr($1,1,7),"---",$1}')
