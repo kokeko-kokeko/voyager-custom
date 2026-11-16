@@ -52,7 +52,7 @@ echo "from remote, ahead: $ahead, behind: $behind"
 #git --no-pager status
 git --no-pager diff --stat origin/main main
 
-echo -e "\e[;32m---- check user side code remote (feat) ----\e[m"
+echo -e "\e[;32m---- check user side code remote (each feat) ----\e[m"
 for branch in $(git branch --list 'feat/*' --format='%(refname:short)')
 do
     echo "==== $branch ===="
@@ -62,7 +62,7 @@ do
     git --no-pager diff --stat origin/$branch $branch
 done
 
-echo -e "\e[;32m---- check user side code (feat) ----\e[m"
+echo -e "\e[;32m---- check user side code local (feat - main) ----\e[m"
 for branch in $(git branch --list 'feat/*' --format='%(refname:short)')
 do
     echo "==== $branch ===="
