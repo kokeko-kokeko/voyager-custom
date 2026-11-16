@@ -5,7 +5,7 @@
 #
 # main
 # curl -fsSL https://raw.githubusercontent.com/kokeko-kokeko/voyager-custom/refs/heads/main/__init.sh | bash
-# or feature dav
+# or feature dev branch
 # curl -fsSL https://raw.githubusercontent.com/kokeko-kokeko/voyager-custom/refs/heads/feat/support-scripts/__init.sh | bash
 # 
 
