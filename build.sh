@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # base principle
-# .bin -> last -> prev -> 1,2,3... backup
-# last prev add git branch name for independent backup
+# .bin -> prev -> 1,2,3... backup
+# .bin prev add git branch name for independent backup
 #
 
 # parm for path, filename
@@ -33,18 +33,18 @@ then
     popd > /dev/null
 fi
 
-echo -e "\e[;32m---- backup pre-compile last .bin to prev .bin file ----\e[m"
+echo -e "\e[;32m---- backup pre-compile .bin to prev .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
 
 # clean link
 rm -f "${basename}_prev.bin" 
 
-if [ -f "${branch_basename}_last.bin" ]
+if [ -f "${branch_basename}.bin" ]
 then
      echo "bufore build, run backup."
 
      # keep creation information
-     cp -p "${branch_basename}_last.bin" "${branch_basename}_prev.bin"
+     mv "${branch_basename}.bin" "${branch_basename}_prev.bin"
 
      # link gen
      ln -sf "${branch_basename}_prev.bin" "${basename}_prev.bin"
@@ -53,35 +53,36 @@ popd > /dev/null
 
 echo -e "\e[;32m---- run build! ---- "
 pushd "qmk_firmware" > /dev/null
+
+# clean link or real-file
+rm -f "${basename}.bin" 
+
 #make ${vendor}/${product}:${keymap}
 qmk compile --keyboard "${vendor}/${product}" --keymap "${keymap}" --parallel "$(nproc)" \
 || qmk compile --keyboard "${vendor}/${product}" --keymap "${keymap}" --clean
 popd > /dev/null
 
-echo -e "\e[;32m---- backup success .bin to last .bin file ----\e[m"
+echo -e "\e[;32m---- backup success .bin to soft-link .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
-
-# clean link
-rm -f "${basename}_last.bin" 
 
 if [ -f "${basename}.bin" ]
 then
      echo "run backup."
 
      # keep creation information
-     cp -p "${basename}.bin" "${branch_basename}_last.bin"
+     mv "${basename}.bin" "${branch_basename}.bin"
 
      # link gen
-     ln -sf "${branch_basename}_last.bin" "${basename}_last.bin"
+     ln -sf "${branch_basename}.bin" "${basename}.bin"
 fi
 popd > /dev/null
 
 echo -e "\e[;32m---- only diff backup old .bin file ----\e[m"
 pushd "qmk_firmware" > /dev/null
-if [ -f "${branch_basename}_last.bin" ] && [ -f "${branch_basename}_prev.bin" ]
+if [ -f "${branch_basename}.bin" ] && [ -f "${branch_basename}_prev.bin" ]
 then
      # if diff, move once
-     if ! cmp -s "${branch_basename}_last.bin" "${branch_basename}_prev.bin"
+     if ! cmp -s "${branch_basename}.bin" "${branch_basename}_prev.bin"
      then
           echo -e "\033[1;31mrun backup!\033[0m"
           [ -f "${branch_basename}_8.bin" ] && mv "${branch_basename}_8.bin" "${branch_basename}_9.bin"
@@ -151,7 +152,6 @@ echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
 pushd "qmk_firmware" > /dev/null
 
 for bin in "${basename}.bin" \
-           "${basename}_last.bin" \
            "${basename}_prev.bin"         
 do
      [ ! -f "$bin" ] && continue
