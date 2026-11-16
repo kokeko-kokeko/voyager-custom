@@ -22,7 +22,7 @@ git fetch --prune --multiple zsa upstream origin
 echo -e "\e[;32m---- sync done! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
 
-echo -e "\e[;32m---- check zsa modules upstream ----\e[m"
+echo -e "\e[;32m---- check zsa modules (local - upstream remote) ----\e[m"
 pushd qmk_firmware/modules/zsa > /dev/null
 read ahead behind <<< $(git rev-list --left-right --count main...upstream/main)
 echo "from upstream, ahead: $ahead, behind: $behind"
@@ -32,7 +32,7 @@ echo "from upstream, ahead: $ahead, behind: $behind"
 git --no-pager diff --stat upstream/main main
 popd > /dev/null
 
-echo -e "\e[;32m---- check qmk firmware upstream ----\e[m"
+echo -e "\e[;32m---- check qmk firmware (local - upstream remote) ----\e[m"
 pushd qmk_firmware > /dev/null
 read ahead behind <<< $(git rev-list --left-right --count firmware25...upstream/firmware25)
 echo "from upstream, ahead: $ahead, behind: $behind"
@@ -41,18 +41,18 @@ echo "from upstream, ahead: $ahead, behind: $behind"
 git --no-pager diff --stat upstream/firmware25 firmware25 -- ':(exclude).gitmodules' 
 popd > /dev/null
 
-echo -e "\e[;32m---- check user side code upstream ----\e[m"
+echo -e "\e[;32m---- check user side code remote (origin - upstream) ----\e[m"
 read ahead behind <<< $(git rev-list --left-right --count origin/main...upstream/main)
 echo "from upstream, ahead: $ahead, behind: $behind"
 
-echo -e "\e[;32m---- check user side code remote (main) ----\e[m"
+echo -e "\e[;32m---- check user side code (local - remote) ----\e[m"
 read ahead behind <<< $(git rev-list --left-right --count main...origin/main)
 echo "from remote, ahead: $ahead, behind: $behind"
 
 #git --no-pager status
 git --no-pager diff --stat origin/main main
 
-echo -e "\e[;32m---- check user side code remote (each feat) ----\e[m"
+echo -e "\e[;32m---- check user side code each feat (local - remote) ----\e[m"
 for branch in $(git branch --list 'feat/*' --format='%(refname:short)')
 do
     echo "==== $branch ===="
