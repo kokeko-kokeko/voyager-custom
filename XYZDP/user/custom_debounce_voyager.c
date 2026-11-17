@@ -253,8 +253,8 @@ void debounce_init(const uint8_t num_rows) {
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows, const bool changed) {
     const fast_timer_t now = timer_read_fast();
 
-    // copy to local, fixed this cycle, or changed ahead
-    const bool do_conv_local = do_convolution || changed;
+    // copy to local var, fixed current cycle, or changed ahead
+    const bool do_conv_current = do_convolution || changed;
 
     // next cycle update last
     bool do_conv_next = false;  
@@ -293,11 +293,11 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
 
         // all flag set for re-run all check this cycle
-        //do_conv_local = true;
+        //do_conv_current = true;
     }
 
     // valid history, do convolution, and/or to *_acc
-    if (do_conv_local) {
+    if (do_conv_current) {
         // 2-pass first gen list for condition, second exec from list
         // valid condition sample list, no init, must write first
         uint8_t * const conv_s_list = convolution_s_buf;
@@ -385,7 +385,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     bool cooked_changed = false;
 
     // apply cooked update
-    if (do_conv_local) {
+    if (do_conv_current) {
         // find last pointer ahead
         const uint8_t * const rd_last_data = hist_data[last_s_idx];
 
