@@ -30,7 +30,8 @@ echo -e "\e[;32m---- flash compiled .bin file (Ctrl+c, abort) ----\e[m"
 
 if [ -f "qmk_firmware/${basename}.bin" ]
 then
-     $zypp flash $(wslpath -w "qmk_firmware/${basename}.bin") && sleep 5 || sleep 1
+     # if fail exit script
+     $zypp flash $(wslpath -w "qmk_firmware/${basename}.bin") && echo -e "\nSuccess!" && sleep 8 || exit 0
 fi
 
 echo -e "\e[;32m---- flash last .bin file (Ctrl+c, abort) ----\e[m"
@@ -41,7 +42,7 @@ then
      then
           echo "same file skip"
      else
-          $zypp flash $(wslpath -w "qmk_firmware/${basename}_last.bin") && sleep 5 || sleep 1
+          $zypp flash $(wslpath -w "qmk_firmware/${basename}_last.bin") && echo -e "\nSuccess!" && sleep 8 || exit 0
      fi
 fi
 
@@ -53,7 +54,7 @@ then
      then
           echo "same file skip"
      else
-          $zypp flash $(wslpath -w "qmk_firmware/${basename}_1.bin") && sleep 5 || sleep 1
+          $zypp flash $(wslpath -w "qmk_firmware/${basename}_1.bin") && echo -e "\nSuccess!" && sleep 8 || exit 0
      fi
 fi
 
@@ -71,7 +72,7 @@ do
      [ ! -f "$bin" ] && continue
      
      echo "${bin}"
-     $zypp flash $(wslpath -w "${bin}") && sleep 5 || sleep 1
+     $zypp flash $(wslpath -w "${bin}") && echo -e "\nSuccess!" && sleep 8 || exit 0
 done
 
 echo -e "\e[;32m---- done! ----\e[m\a"
