@@ -27,7 +27,10 @@ date --utc '+%Y-%m-%dT%H:%M:%S'
 pushd qmk_firmware/modules/zsa > /dev/null
     echo -e "\e[;32m---- check zsa modules (local - upstream remote) ----\e[m"
     read ahead behind <<< $(git rev-list --left-right --count main...upstream/main)
-    echo -e "\033[1;33m ahead: $ahead,\033[1;31m behind: $behind,\033[0m from upstream"
+    [ $ahead -ne 0 ] && echo -en "\033[1;33m ahead: $ahead,"
+    [ $behind -ne 0 ] && echo -en "\033[1;31m behind: $behind,"
+    [ $ahead -eq 0 ] && [ $behind -eq 0 ] && echo -en "\033[1;32m up to date,"
+    echo -e "\033[0m from upstream"
 
     #git --no-pager diff --stat HEAD..upstream/main -- ':(exclude)automouse/automouse.c'
     #git --no-pager diff --stat HEAD..upstream/main -- ':(exclude)mousejiggler/mousejiggler.c'
@@ -37,7 +40,10 @@ popd > /dev/null
 pushd qmk_firmware > /dev/null
     echo -e "\e[;32m---- check qmk firmware (local - upstream remote) ----\e[m"
     read ahead behind <<< $(git rev-list --left-right --count firmware25...upstream/firmware25)
-    echo -e "\033[1;33m ahead: $ahead,\033[1;31m behind: $behind,\033[0m from upstream"
+    [ $ahead -ne 0 ] && echo -en "\033[1;33m ahead: $ahead,"
+    [ $behind -ne 0 ] && echo -en "\033[1;31m behind: $behind,"
+    [ $ahead -eq 0 ] && [ $behind -eq 0 ] && echo -en "\033[1;32m up to date,"
+    echo -e "\033[0m from upstream"
 
     #git --no-pager diff --stat HEAD..upstream/firmware25 -- ':(exclude).gitmodules' ':(exclude)modules/zsa/' ':(exclude)keyboards/zsa/voyager/voyager.c'  ':(exclude)keyboards/zsa/voyager/matrix.c' 
     git --no-pager diff --stat upstream/firmware25 firmware25 -- ':(exclude).gitmodules' 
@@ -45,11 +51,17 @@ popd > /dev/null
 
 echo -e "\e[;32m---- check user side code remote (origin - upstream) ----\e[m"
 read ahead behind <<< $(git rev-list --left-right --count origin/main...upstream/main)
-echo -e "\033[1;33m ahead: $ahead,\033[1;31m behind: $behind,\033[0m from upstream"
+[ $ahead -ne 0 ] && echo -en "\033[1;33m ahead: $ahead,"
+[ $behind -ne 0 ] && echo -en "\033[1;31m behind: $behind,"
+[ $ahead -eq 0 ] && [ $behind -eq 0 ] && echo -en "\033[1;32m up to date,"
+echo -e "\033[0m from upstream"
 
 echo -e "\e[;32m---- check user side code (local - remote) ----\e[m"
 read ahead behind <<< $(git rev-list --left-right --count main...origin/main)
-echo -e "\033[1;33m ahead: $ahead,\033[1;31m behind: $behind,\033[0m from remote"
+[ $ahead -ne 0 ] && echo -en "\033[1;33m ahead: $ahead,"
+[ $behind -ne 0 ] && echo -en "\033[1;31m behind: $behind,"
+[ $ahead -eq 0 ] && [ $behind -eq 0 ] && echo -en "\033[1;32m up to date,"
+echo -e "\033[0m from remote"
 
 #git --no-pager status
 git --no-pager diff --stat origin/main main
@@ -59,7 +71,10 @@ for branch in $(git branch --list 'feat/*' --format='%(refname:short)')
 do
     echo -e "\033[1;36m==== $branch ====\033[0m"
     read ahead behind <<< $(git rev-list --left-right --count $branch...origin/$branch)
-    echo -e "\033[1;33m ahead: $ahead,\033[1;31m behind: $behind,\033[0m from remote"
+    [ $ahead -ne 0 ] && echo -en "\033[1;33m ahead: $ahead,"
+    [ $behind -ne 0 ] && echo -en "\033[1;31m behind: $behind,"
+    [ $ahead -eq 0 ] && [ $behind -eq 0 ] && echo -en "\033[1;32m up to date,"
+    echo -e "\033[0m from remote"
 
     git --no-pager diff --stat origin/$branch $branch
 done
@@ -69,7 +84,10 @@ for branch in $(git branch --list 'feat/*' --format='%(refname:short)')
 do
     echo -e "\033[1;35m==== $branch ====\033[0m"
     read ahead behind <<< $(git rev-list --left-right --count $branch...main)
-    echo -e "\033[1;33m ahead: $ahead,\033[1;31m behind: $behind,\033[0m from main"
+    [ $ahead -ne 0 ] && echo -en "\033[1;33m ahead: $ahead,"
+    [ $behind -ne 0 ] && echo -en "\033[1;31m behind: $behind,"
+    [ $ahead -eq 0 ] && [ $behind -eq 0 ] && echo -en "\033[1;32m up to date,"
+    echo -e "\033[0m from main"
 
     git --no-pager diff --stat main $branch
 done
@@ -79,7 +97,10 @@ for branch in $(git branch --remote --list 'origin/stable/*' --format='%(refname
 do
     echo -e "\033[1;32m==== $branch ====\033[0m"
     read ahead behind <<< $(git rev-list --left-right --count $branch...origin/main)
-    echo -e "\033[1;33m ahead: $ahead,\033[1;31m behind: $behind,\033[0m from main"
+    [ $ahead -ne 0 ] && echo -en "\033[1;33m ahead: $ahead,"
+    [ $behind -ne 0 ] && echo -en "\033[1;31m behind: $behind,"
+    [ $ahead -eq 0 ] && [ $behind -eq 0 ] && echo -en "\033[1;32m up to date,"
+    echo -e "\033[0m from main"
 
     git --no-pager diff --stat origin/main $branch
 done
