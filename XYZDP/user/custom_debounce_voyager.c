@@ -169,8 +169,9 @@
 
 // buffer size (only automatic calc, override clear)
 // clear all flags
+// minimal 2 (+2)
 #undef HISTORY_SAMPLE_COUNT
-#define HISTORY_SAMPLE_COUNT (LONG_DEBOUNCE+1) 
+#define HISTORY_SAMPLE_COUNT (LONG_DEBOUNCE+2) 
 
 // Maximum buffer: 255
 #if HISTORY_SAMPLE_COUNT > UINT8_MAX
