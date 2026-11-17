@@ -47,9 +47,17 @@ do
      if cmp -s "${previous}" "${current}"
      then
           echo "same file skip, ${current} == ${previous}"
+          echo ""
      else
           echo "flash ${current}"
-          $zypp flash $(wslpath -w "${current}") && echo -e "\nSuccess!" && sleep 8 || exit 0
+
+          # if zypp abort exit
+          $zypp flash $(wslpath -w "${current}") || exit 0
+
+          echo -e "\nSuccess!" 
+          sleep 5
+          echo ""
+          
           previous="${current}"
      fi
 done
