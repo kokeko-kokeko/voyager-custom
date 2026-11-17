@@ -5,21 +5,21 @@ date --utc '+%Y-%m-%dT%H:%M:%S'
 
 pushd qmk_firmware/modules/zsa > /dev/null
     echo -e "\e[;32m---- update zsa modules repo ----\e[m"
-    git fetch --all --prune
+    git fetch --all --prune --jobs "$(nproc)"
     git switch main
-    git pull --ff-only origin
+    git pull --ff-only --jobs "$(nproc)" origin
 popd > /dev/null
 
 pushd qmk_firmware > /dev/null
     echo -e "\e[;32m---- update qmk firmware repo ----\e[m"
-    git fetch --all --prune --multiple
+    git fetch --all --prune --jobs "$(nproc)"
     git switch firmware25
-    git pull --ff-only origin
+    git pull --ff-only --jobs "$(nproc)" origin
     git submodule update --init --recursive
 popd > /dev/null
 
 echo -e "\e[;32m---- fetch only user side code repo ----\e[m"
-git fetch --all --prune
+git fetch --all --prune --jobs "$(nproc)"
 
 echo -e "\e[;32m---- sync done! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'

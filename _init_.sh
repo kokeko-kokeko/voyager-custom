@@ -10,7 +10,7 @@
 # 
 
 echo -e "\e[;32m---- init build env ----\e[m"
-git clone https://github.com/kokeko-kokeko/voyager-custom.git
+git clone --jobs "$(nproc)" https://github.com/kokeko-kokeko/voyager-custom.git
 
 cd voyager-custom
 
@@ -22,9 +22,9 @@ git remote set-url --push zsa no-push
 
 git remote set-url --push origin git@github.com:kokeko-kokeko/voyager-custom.git
 
-git fetch --all
+git fetch --all --jobs "$(nproc)"
 #git submodule update --init --remote --depth=1 --no-single-branch
-git submodule update --init --remote
+git submodule update --init --remote --jobs "$(nproc)"
 
 pushd qmk_firmware
 
@@ -37,10 +37,10 @@ git remote set-url --push qmk no-push
 git remote set-url --push origin git@github.com:kokeko-kokeko/zsa_qmk_firmware.git
 
 
-git fetch --all
+git fetch --all --jobs "$(nproc)"
 #git checkout -B firmware25 origin/firmware25
 git switch -C firmware25 origin/firmware25
-git submodule update --init --recursive
+git submodule update --init --recursive --jobs "$(nproc)"
 
 pushd modules/zsa
 
@@ -50,7 +50,7 @@ git remote set-url --push upstream no-push
 
 git remote set-url --push origin git@github.com:kokeko-kokeko/zsa_qmk_modules.git
 
-git fetch --all
+git fetch --all --jobs "$(nproc)"
 #git checkout -B main origin/main
 git switch -C main origin/main
 
