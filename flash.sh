@@ -26,53 +26,32 @@ declare -r zypp="/mnt/c/Users/${win_user}/voyager/zapp.exe"
 
 $zypp --version || exit 1
 
-echo -e "\e[;32m---- flash compiled .bin file (Ctrl+c, abort) ----\e[m"
+echo -e "\e[;32m---- flash .bin file ordered (Ctrl+c, abort) ----\e[m"
 
-if [ -f "qmk_firmware/${basename}.bin" ]
-then
-     # if fail exit script
-     $zypp flash $(wslpath -w "qmk_firmware/${basename}.bin") && echo -e "\nSuccess!" && sleep 8 || exit 0
-fi
+declare previous=""
 
-echo -e "\e[;32m---- flash last .bin file (Ctrl+c, abort) ----\e[m"
-
-if [ -f "qmk_firmware/${basename}.bin" ] && [ -f "qmk_firmware/${basename}_last.bin" ]
-then
-     if cmp -s "qmk_firmware/${basename}.bin" "qmk_firmware/${basename}_last.bin"
-     then
-          echo "same file skip"
-     else
-          $zypp flash $(wslpath -w "qmk_firmware/${basename}_last.bin") && echo -e "\nSuccess!" && sleep 8 || exit 0
-     fi
-fi
-
-echo -e "\e[;32m---- flash _1 .bin file (Ctrl+c, abort) ----\e[m"
-
-if [ -f "qmk_firmware/${basename}_last.bin" ] && [ -f "qmk_firmware/${basename}_1.bin" ]
-then
-     if cmp -s "qmk_firmware/${basename}_last.bin" "qmk_firmware/${basename}_1.bin"
-     then
-          echo "same file skip"
-     else
-          $zypp flash $(wslpath -w "qmk_firmware/${basename}_1.bin") && echo -e "\nSuccess!" && sleep 8 || exit 0
-     fi
-fi
-
-echo -e "\e[;32m---- flash _2 to _9 .bin file (Ctrl+c, abort) ----\e[m"
-
-for bin in "qmk_firmware/${basename}_2.bin" \
-           "qmk_firmware/${basename}_3.bin" \
-           "qmk_firmware/${basename}_4.bin" \
-           "qmk_firmware/${basename}_5.bin" \
-           "qmk_firmware/${basename}_6.bin" \
-           "qmk_firmware/${basename}_7.bin" \
-           "qmk_firmware/${basename}_8.bin" \
-           "qmk_firmware/${basename}_9.bin"        
+for current in "qmk_firmware/${basename}.bin" \
+               "qmk_firmware/${basename}_last.bin" \
+               "qmk_firmware/${basename}_1.bin" \
+               "qmk_firmware/${basename}_2.bin" \
+               "qmk_firmware/${basename}_3.bin" \
+               "qmk_firmware/${basename}_4.bin" \
+               "qmk_firmware/${basename}_5.bin" \
+               "qmk_firmware/${basename}_6.bin" \
+               "qmk_firmware/${basename}_7.bin" \
+               "qmk_firmware/${basename}_8.bin" \
+               "qmk_firmware/${basename}_9.bin"        
 do
-     [ ! -f "$bin" ] && continue
+     [ ! -f "$current" ] && continue
      
-     echo "${bin}"
-     $zypp flash $(wslpath -w "${bin}") && echo -e "\nSuccess!" && sleep 8 || exit 0
+     if cmp -s "${previous}" "${current}"
+     then
+          echo "same file skip, ${current} == ${previous}"
+     else
+          echo "flash ${current}"
+          $zypp flash $(wslpath -w "${current}") && echo -e "\nSuccess!" && sleep 8 || exit 0
+          previous="${current}"
+     fi
 done
 
 echo -e "\e[;32m---- done! ----\e[m\a"
