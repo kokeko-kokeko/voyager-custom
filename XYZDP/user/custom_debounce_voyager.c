@@ -204,9 +204,6 @@ static uint8_t wr_s_idx;
 // reset on loop head, set again at condition hit
 static bool do_convolution;
 
-// momery last state for gen extra margin cycle
-static bool cooked_changed;
-
 // mask for unused cross-point, for voyager only
 static const matrix_row_t matrix_mask[MATRIX_ROWS] = {
     0b01111110,
@@ -245,11 +242,8 @@ void debounce_init(const uint8_t num_rows) {
     last_s_idx = 0;
     wr_s_idx = 1;
 
-    // only reset flags
-    do_convolution = false;
-    
     // first time run
-    cooked_changed = true;
+    do_convolution = true;
 }
 
 // raw and cooked pass from caller, keep value, not local memory
@@ -259,6 +253,12 @@ void debounce_init(const uint8_t num_rows) {
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows, const bool changed) {
     const fast_timer_t now = timer_read_fast();
 
+    // copy to local, fixed this cycle, or changed ahead
+    const bool do_conv_local = do_convolution || changed;
+
+    // next cycle update last
+    bool do_conv_next = false;  
+    
     if (changed) {
         // last time final decide here, 
         // when last data not use time, leave time here
@@ -293,23 +293,11 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         if (wr_s_idx >= HISTORY_SAMPLE_COUNT) wr_s_idx = 0;
 
         // all flag set for re-run all check this cycle
-        do_convolution = true;
-        cooked_changed = true;
-    } else {
-        // non-change, flag update only
-        // delay for gen safety 1 extra cycle for do_convolution 1 -> 0
-        // short-circuit for keep true
-        cooked_changed = cooked_changed || do_convolution;
-
-        // time update, only write when change, last time not see (all time valid)
-        //hist_time[last_s_idx] = now;
+        //do_conv_local = true;
     }
 
     // valid history, do convolution, and/or to *_acc
-    if (do_convolution) {
-        // flag reset, if find valid sample set in loop, without last
-        do_convolution = false;
-
+    if (do_conv_local) {
         // 2-pass first gen list for condition, second exec from list
         // valid condition sample list, no init, must write first
         uint8_t * const conv_s_list = convolution_s_buf;
@@ -345,7 +333,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
                 // single from end, pre-dec, 1 line style for opt
                 conv_s_list[--single_index] = s;
 
-                do_convolution = true;
+                do_conv_next = true;
                 continue; 
             }
 #endif
@@ -355,11 +343,11 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             conv_s_list[both_index++] = s;
 
             // reach here (and_valid || or_valid) is true
-            do_convolution = true; 
+            do_conv_next = true; 
         }
 
         // exec convolution from *_s_list
-        if (do_convolution) {
+        if (do_conv_next) {
             // post-inc record
             for (uint8_t i = 0; i < both_index; i++) {
                 const uint8_t s = conv_s_list[i];
@@ -393,12 +381,11 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
     // debug status -> works good!
     //DEBUG_LED_1(and_valid);
     //DEBUG_LED_2(or_valid);
+    
+    bool cooked_changed = false;
 
     // apply cooked update
-    if (cooked_changed) {
-        // flag reset, if find change set in loop
-        cooked_changed = false;
-
+    if (do_conv_local) {
         // find last pointer ahead
         const uint8_t * const rd_last_data = hist_data[last_s_idx];
 
@@ -431,6 +418,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
             or_acc[r]  = (~matrix_mask[r]) | rd_last_data[r];
         }
     }
+
+    // pass next cycle
+    do_convolution = do_conv_next;
 
     return cooked_changed;
 }
