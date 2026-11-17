@@ -347,6 +347,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         }
 
         // exec convolution from *_s_list
+        // do_conv_next == true, valid entry exist
         if (do_conv_next) {
             // post-inc record
             for (uint8_t i = 0; i < both_index; i++) {
@@ -419,7 +420,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], const uint8_t num_rows,
         }
     }
 
-    // pass next cycle
+    // pass result next cycle
     do_convolution = do_conv_next;
 
     return cooked_changed;
