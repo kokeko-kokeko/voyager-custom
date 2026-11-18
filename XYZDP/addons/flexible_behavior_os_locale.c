@@ -11,8 +11,9 @@
 
 #include "flexible_behavior_os_locale.h"
 
-#include "color_palette.h"
-#include "fade_matrix.h"
+#include "rgb_matrix_extra/color_palette.h"
+#include "rgb_matrix_extra/fade_matrix.h"
+
 #include "firmware_map.h"
 
 // call JP keycode

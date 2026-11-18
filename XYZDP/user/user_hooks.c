@@ -6,9 +6,7 @@
 #endif
 
 // module impl
-#include "addons/color_palette.h"
 #include "addons/exec_halt.h"
-#include "addons/fade_matrix.h"
 #include "addons/firmware_map.h"
 #include "addons/flexible_behavior_os_locale.h"
 #include "addons/ime_state_sync.h"
@@ -16,6 +14,8 @@
 #include "layer/layer_caps_word.h"
 #include "layer/virt_layer.h"
 
+#include "rgb_matrix_extra/color_palette.h"
+#include "rgb_matrix_extra/fade_matrix.h"
 #include "rgb_matrix_extra/layer_mod_overlay.h"
 #include "rgb_matrix_extra/mouse_button_indicator.h"
 #include "rgb_matrix_extra/pos_press_overlay.h"

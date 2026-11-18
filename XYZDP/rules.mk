@@ -12,9 +12,7 @@ POINTING_DEVICE_DRIVER = custom
 
 OS_DETECTION_ENABLE = yes
 
-SRC += addons/color_palette_voyager.c
 SRC += addons/exec_halt_voyager.c
-SRC += addons/fade_matrix.c
 SRC += addons/firmware_map_voyager.c
 SRC += addons/flexible_behavior_os_locale_voyager.c
 SRC += addons/flexible_behavior_os_locale.c
@@ -26,6 +24,8 @@ SRC += layer/virt_layer.c
 
 SRC += pos/get_pos_from_keyrecord_voyager.c
 
+SRC += rgb_matrix_extra/color_palette_voyager.c
+SRC += rgb_matrix_extra/fade_matrix.c
 SRC += rgb_matrix_extra/layer_mod_overlay_voyager.c
 SRC += rgb_matrix_extra/mouse_button_indicator_voyager.c
 SRC += rgb_matrix_extra/pos_press_overlay_voyager.c

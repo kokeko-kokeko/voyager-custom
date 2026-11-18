@@ -18,7 +18,7 @@
 
 #include "firmware_map.h"
 
-#include "fade_matrix.h"
+#include "rgb_matrix_extra/fade_matrix.h"
 #include "ime_state_sync.h"
 
 #include "user/split_txn_trackball.h"
