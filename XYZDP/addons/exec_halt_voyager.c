@@ -18,7 +18,7 @@
 
 #include "status/status_led.h"
 
-#include "fade_matrix.h"
+#include "rgb_matrix_extra/fade_matrix.h"
 
 #include "ch.h"
 #include "usb_main.h"
