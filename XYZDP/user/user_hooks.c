@@ -12,12 +12,13 @@
 #include "addons/firmware_map.h"
 #include "addons/flexible_behavior_os_locale.h"
 #include "addons/ime_state_sync.h"
-#include "addons/layer_mod_overlay.h"
-#include "addons/mouse_button_indicator.h"
-#include "addons/pos_press_overlay.h"
 
 #include "layer/layer_caps_word.h"
 #include "layer/virt_layer.h"
+
+#include "rgb_indicators/layer_mod_overlay.h"
+#include "rgb_indicators/mouse_button_indicator.h"
+#include "rgb_indicators/pos_press_overlay.h"
 
 #include "status/connection_layer_os_swap_status.h"
 #include "status/status_led.h"

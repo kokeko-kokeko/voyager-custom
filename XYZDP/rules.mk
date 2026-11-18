@@ -20,14 +20,15 @@ SRC += addons/flexible_behavior_os_locale_voyager.c
 SRC += addons/flexible_behavior_os_locale.c
 SRC += addons/ime_state_sync_voyager.c
 SRC += addons/ime_state_sync.c
-SRC += addons/layer_mod_overlay_voyager.c
-SRC += addons/mouse_button_indicator_voyager.c
-SRC += addons/pos_press_overlay_voyager.c
 
 SRC += layer/layer_caps_word.c
 SRC += layer/virt_layer.c
 
 SRC += pos/get_pos_from_keyrecord_voyager.c
+
+SRC += rgb_indicators/layer_mod_overlay_voyager.c
+SRC += rgb_indicators/mouse_button_indicator_voyager.c
+SRC += rgb_indicators/pos_press_overlay_voyager.c
 
 SRC += status/connection_layer_os_swap_status.c
 SRC += status/status_led_voyager.c
