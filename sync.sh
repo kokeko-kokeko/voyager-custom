@@ -68,8 +68,8 @@ echo -e "\033[0m from origin"
 #git --no-pager status
 git --no-pager diff --stat origin/main main
 
-echo -e "\e[;32m---- check user side code each local feat (local - origin) ----\e[m"
-for branch in $(git branch --list 'feat/*' --format='%(refname:short)')
+echo -e "\e[;32m---- check user side code each local branch (local - origin) ----\e[m"
+for branch in $(git branch --list '*/*' --format='%(refname:short)')
 do
     echo -e "\033[1;36m==== $branch ====\033[0m"
     read ahead behind <<< $(git rev-list --left-right --count $branch...origin/$branch)
@@ -81,8 +81,8 @@ do
     git --no-pager diff --stat origin/$branch $branch
 done
 
-echo -e "\e[;32m---- check user side code each local feat (feat - main) ----\e[m"
-for branch in $(git branch --list 'feat/*' --format='%(refname:short)')
+echo -e "\e[;32m---- check user side code each local branch (branch - main) ----\e[m"
+for branch in $(git branch --list '*/*' --format='%(refname:short)')
 do
     echo -e "\033[1;35m==== $branch ====\033[0m"
     read ahead behind <<< $(git rev-list --left-right --count $branch...main)
