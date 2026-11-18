@@ -33,10 +33,10 @@ SRC += rgb_matrix_extra/pos_press_overlay_voyager.c
 SRC += status_led/connection_layer_os_swap_status.c
 SRC += status_led/status_led_voyager.c
 
-SRC += user/custom_debounce_voyager.c
-SRC += user/split_txn_trackball.c
-SRC += user/tap_hold_settings.c
-SRC += user/user_hooks.c
+SRC += user_extra/custom_debounce_voyager.c
+SRC += user_extra/split_txn_trackball.c
+SRC += user_extra/tap_hold_settings.c
+SRC += user_extra/user_hooks.c
 
 EXTRAFLAGS += -flto=auto -O3
 EXTRAFLAGS += -Werror
