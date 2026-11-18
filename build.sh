@@ -22,7 +22,7 @@ branch_id=$(printf '%s' "$branch" | sha256sum | cut -c1-32)
 if [ "${branch}" = "main" ]
 then
      # special on main, non-hash name
-     declare -r branch_basename="___main___${basename}"
+     declare -r branch_basename="____main____${basename}"
 else
      # branch first for sort
      declare -r branch_basename="__${branch_id}__${basename}"
