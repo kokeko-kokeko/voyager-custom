@@ -100,9 +100,9 @@ pushd "qmk_firmware" > /dev/null
                     [ -f "${branch_basename}_5.bin" ] && mv "${branch_basename}_5.bin" "${branch_basename}_6.bin"
                     [ -f "${branch_basename}_4.bin" ] && mv "${branch_basename}_4.bin" "${branch_basename}_5.bin"
                     [ -f "${branch_basename}_3.bin" ] && mv "${branch_basename}_3.bin" "${branch_basename}_4.bin"
+                    [ -f "${branch_basename}_2.bin" ] && mv "${branch_basename}_2.bin" "${branch_basename}_3.bin"
                fi
 
-               [ -f "${branch_basename}_2.bin" ] && mv "${branch_basename}_2.bin" "${branch_basename}_3.bin"
                [ -f "${branch_basename}_1.bin" ] && mv "${branch_basename}_1.bin" "${branch_basename}_2.bin"
 
                # keep creation information
