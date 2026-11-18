@@ -30,8 +30,8 @@ SRC += rgb_matrix_extra/layer_mod_overlay_voyager.c
 SRC += rgb_matrix_extra/mouse_button_indicator_voyager.c
 SRC += rgb_matrix_extra/pos_press_overlay_voyager.c
 
-SRC += status/connection_layer_os_swap_status.c
-SRC += status/status_led_voyager.c
+SRC += status_led/connection_layer_os_swap_status.c
+SRC += status_led/status_led_voyager.c
 
 SRC += user/custom_debounce_voyager.c
 SRC += user/split_txn_trackball.c

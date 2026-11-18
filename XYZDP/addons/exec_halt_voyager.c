@@ -16,7 +16,7 @@
 
 #include "pos/get_pos_from_keyrecord.h"
 
-#include "status/status_led.h"
+#include "status_led/status_led.h"
 
 #include "rgb_matrix_extra/fade_matrix.h"
 
