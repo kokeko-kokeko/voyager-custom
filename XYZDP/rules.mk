@@ -26,9 +26,9 @@ SRC += layer/virt_layer.c
 
 SRC += pos/get_pos_from_keyrecord_voyager.c
 
-SRC += rgb_indicators/layer_mod_overlay_voyager.c
-SRC += rgb_indicators/mouse_button_indicator_voyager.c
-SRC += rgb_indicators/pos_press_overlay_voyager.c
+SRC += rgb_matrix_extra/layer_mod_overlay_voyager.c
+SRC += rgb_matrix_extra/mouse_button_indicator_voyager.c
+SRC += rgb_matrix_extra/pos_press_overlay_voyager.c
 
 SRC += status/connection_layer_os_swap_status.c
 SRC += status/status_led_voyager.c
