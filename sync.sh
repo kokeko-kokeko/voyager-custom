@@ -56,7 +56,7 @@ read ahead behind <<< $(git rev-list --left-right --count origin/main...upstream
 [ $ahead -eq 0 ] && [ $behind -eq 0 ] && echo -en "\033[1;32m up to date,"
 echo -e "\033[0m from upstream"
 
-[ $ahead -ne 0 ] && echo " no diff display, add many code"
+[ $ahead -ne 0 ] && echo " suppress diff display, too many code added"
 
 echo -e "\e[;32m---- check user side code (local - origin) ----\e[m"
 read ahead behind <<< $(git rev-list --left-right --count main...origin/main)
