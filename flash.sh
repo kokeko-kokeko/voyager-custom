@@ -43,23 +43,31 @@ for current in "qmk_firmware/${basename}.bin" \
                "qmk_firmware/${basename}_9.bin"        
 do
      [ ! -f "$current" ] && continue
+
+     hash=$(sha256sum "$current" | awk '{print substr($1,1,7),"---",$1}')
+     time=$(date --utc -r "$current" '+%Y-%m-%dT%H:%M:%S')
+     
+     echo "$hash $time "$(basename "$current")
      
      if cmp -s "${previous}" "${current}"
      then
-          echo "same file skip, ${current} == ${previous}"
+          echo "same file skip next"
           echo ""
+
+          continue
      else
           echo "flash ${current}"
 
           # if zypp abort exit
           $zypp flash $(wslpath -w "${current}") || exit 0
-
-          echo -e "\nSuccess!" 
-          sleep 5
           echo ""
-          
+
           previous="${current}"
      fi
+
+     echo "Success!"
+     sleep 5
+     echo ""
 done
 
 echo -e "\e[;32m---- done! ----\e[m\a"
