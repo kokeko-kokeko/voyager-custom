@@ -5,8 +5,6 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "layer/virt_layer.h"
-
 // module impl
 #include "addons/color_palette.h"
 #include "addons/exec_halt.h"
@@ -14,10 +12,12 @@
 #include "addons/firmware_map.h"
 #include "addons/flexible_behavior_os_locale.h"
 #include "addons/ime_state_sync.h"
-#include "addons/layer_caps_word.h"
 #include "addons/layer_mod_overlay.h"
 #include "addons/mouse_button_indicator.h"
 #include "addons/pos_press_overlay.h"
+
+#include "layer/layer_caps_word.h"
+#include "layer/virt_layer.h"
 
 #include "status/connection_layer_os_swap_status.h"
 #include "status/status_led.h"
