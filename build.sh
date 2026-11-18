@@ -19,8 +19,14 @@ branch=$(git branch --show-current 2>/dev/null || echo "unknown")
 # hashed branch name (32 char = 128 bit)
 branch_id=$(printf '%s' "$branch" | sha256sum | cut -c1-32)
 
-# branch first for sort
-declare -r branch_basename="__${branch_id}__${basename}"
+if [ "${branch}" = "main" ]
+then
+     # special on main, non-hash name
+     declare -r branch_basename="___main___${basename}"
+else
+     # branch first for sort
+     declare -r branch_basename="__${branch_id}__${basename}"
+fi
 
 echo -e "\e[;32m---- start! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
@@ -85,12 +91,17 @@ pushd "qmk_firmware" > /dev/null
           if ! cmp -s "${branch_basename}.bin" "${branch_basename}_last.bin"
           then
                echo -e "\033[1;31mrun backup!\033[0m"
-               [ -f "${branch_basename}_8.bin" ] && mv "${branch_basename}_8.bin" "${branch_basename}_9.bin"
-               [ -f "${branch_basename}_7.bin" ] && mv "${branch_basename}_7.bin" "${branch_basename}_8.bin"
-               [ -f "${branch_basename}_6.bin" ] && mv "${branch_basename}_6.bin" "${branch_basename}_7.bin"
-               [ -f "${branch_basename}_5.bin" ] && mv "${branch_basename}_5.bin" "${branch_basename}_6.bin"
-               [ -f "${branch_basename}_4.bin" ] && mv "${branch_basename}_4.bin" "${branch_basename}_5.bin"
-               [ -f "${branch_basename}_3.bin" ] && mv "${branch_basename}_3.bin" "${branch_basename}_4.bin"
+               if [ "${branch}" = "main" ]
+               then
+                    # more long on main
+                    [ -f "${branch_basename}_8.bin" ] && mv "${branch_basename}_8.bin" "${branch_basename}_9.bin"
+                    [ -f "${branch_basename}_7.bin" ] && mv "${branch_basename}_7.bin" "${branch_basename}_8.bin"
+                    [ -f "${branch_basename}_6.bin" ] && mv "${branch_basename}_6.bin" "${branch_basename}_7.bin"
+                    [ -f "${branch_basename}_5.bin" ] && mv "${branch_basename}_5.bin" "${branch_basename}_6.bin"
+                    [ -f "${branch_basename}_4.bin" ] && mv "${branch_basename}_4.bin" "${branch_basename}_5.bin"
+                    [ -f "${branch_basename}_3.bin" ] && mv "${branch_basename}_3.bin" "${branch_basename}_4.bin"
+               fi
+
                [ -f "${branch_basename}_2.bin" ] && mv "${branch_basename}_2.bin" "${branch_basename}_3.bin"
                [ -f "${branch_basename}_1.bin" ] && mv "${branch_basename}_1.bin" "${branch_basename}_2.bin"
 
