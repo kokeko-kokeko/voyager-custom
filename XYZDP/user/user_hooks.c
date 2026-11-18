@@ -16,9 +16,9 @@
 #include "layer/layer_caps_word.h"
 #include "layer/virt_layer.h"
 
-#include "rgb_indicators/layer_mod_overlay.h"
-#include "rgb_indicators/mouse_button_indicator.h"
-#include "rgb_indicators/pos_press_overlay.h"
+#include "rgb_matrix_extra/layer_mod_overlay.h"
+#include "rgb_matrix_extra/mouse_button_indicator.h"
+#include "rgb_matrix_extra/pos_press_overlay.h"
 
 #include "status/connection_layer_os_swap_status.h"
 #include "status/status_led.h"
