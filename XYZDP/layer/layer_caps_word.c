@@ -5,7 +5,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "layer/virt_layer.h"
+#include "virt_layer.h"
 
 #include "layer_caps_word.h"
 
