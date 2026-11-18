@@ -151,7 +151,7 @@ pushd "qmk_firmware" > /dev/null
      echo -e "\e[;32m---- sha256 .bin file hash check ----\e[m"
 
      for bin in "${basename}.bin" \
-               "${basename}_last.bin"         
+                "${basename}_last.bin"         
      do
           [ ! -f "$bin" ] && continue
           hash=$(sha256sum "$bin" | awk '{print substr($1,1,7),"---",$1}')
@@ -163,14 +163,14 @@ pushd "qmk_firmware" > /dev/null
      echo ""
 
      for bin in "${basename}_1.bin" \
-               "${basename}_2.bin" \
-               "${basename}_3.bin" \
-               "${basename}_4.bin" \
-               "${basename}_5.bin" \
-               "${basename}_6.bin" \
-               "${basename}_7.bin" \
-               "${basename}_8.bin" \
-               "${basename}_9.bin"        
+                "${basename}_2.bin" \
+                "${basename}_3.bin" \
+                "${basename}_4.bin" \
+                "${basename}_5.bin" \
+                "${basename}_6.bin" \
+                "${basename}_7.bin" \
+                "${basename}_8.bin" \
+                "${basename}_9.bin"        
      do
           [ ! -f "$bin" ] && continue
           hash=$(sha256sum "$bin" | awk '{print substr($1,1,7),"---",$1}')
