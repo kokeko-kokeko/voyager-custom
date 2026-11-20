@@ -41,13 +41,16 @@ void keyboard_post_init_user(void) {
   // init virt layer data first (some module use)
   keyboard_post_init_virt_layer();
 
-  keyboard_post_init_connection_layer_os_swap_status();
+  // addons
   keyboard_post_init_exec_halt();
-  keyboard_post_init_fade_matrix();
   keyboard_post_init_layer_caps_word();
   keyboard_post_init_pos_press_overlay();
-  keyboard_post_init_split_txn_trackball();
+  keyboard_post_init_connection_layer_os_swap_status();
+
+  // core_ext
+  keyboard_post_init_fade_matrix();
   keyboard_post_init_status_led();
+  keyboard_post_init_split_txn_trackball();
 }
 
 void matrix_scan_user(void) {
@@ -55,10 +58,13 @@ void matrix_scan_user(void) {
 }
 
 bool process_detected_host_os_user(os_variant_t detected_os) {
-  if (process_detected_host_os_connection_layer_os_swap_status(detected_os) == false) return false;
-  if (process_detected_host_os_fade_matrix(detected_os) == false) return false;
+  // addons
   if (process_detected_host_os_flexible_behavior_os_locale(detected_os) == false) return false;
+  if (process_detected_host_os_connection_layer_os_swap_status(detected_os) == false) return false;
 
+  // core_ext
+  if (process_detected_host_os_fade_matrix(detected_os) == false) return false;
+  
   return true;
 }
 
@@ -66,12 +72,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   // update tri layer on virt first
   state = layer_state_set_virt_layer(state);
 
-  // addon
+  // addons
+  state = layer_state_set_exec_halt(state);
+  state = layer_state_set_layer_caps_word(state);
   state = layer_state_set_color_palette(state);
   state = layer_state_set_connection_layer_os_swap_status(state);
-  state = layer_state_set_exec_halt(state);
+
+  // core_ext
   state = layer_state_set_fade_matrix(state);
-  state = layer_state_set_layer_caps_word(state);
   state = layer_state_set_split_txn_trackball(state);
   
   return state;
@@ -97,11 +105,14 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (pre_process_record_fade_matrix(keycode, record) == false) return false;
+  // addons
   if (pre_process_record_ime_state_sync(keycode, record) == false) return false;
   if (pre_process_record_layer_caps_word(keycode, record) == false) return false;
   if (pre_process_record_pos_press_overlay(keycode, record) == false) return false;
-  
+
+  // core_ext
+  if (pre_process_record_fade_matrix(keycode, record) == false) return false;
+
   return true;
 }
 
@@ -111,8 +122,10 @@ bool process_record_zsa_oryx(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // if (process_record_fade_matrix(keycode, record) == false) return false;
+  // addons
   if (process_record_flexible_behavior_os_locale(keycode, record) == false) return false;
   if (process_record_ime_state_sync(keycode, record) == false) return false;
+
   if (process_record_zsa_oryx(keycode, record) == false) return false;
   
   return true;
@@ -131,10 +144,11 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 }
 
 void housekeeping_task_user(void) {
-  housekeeping_task_connection_layer_os_swap_status();
-  housekeeping_task_fade_matrix();
   housekeeping_task_ime_state_sync();
   housekeeping_task_pos_press_overlay();
+  housekeeping_task_connection_layer_os_swap_status();
+  
+  housekeeping_task_fade_matrix();
   housekeeping_task_status_led();
 
   // exec halt last
