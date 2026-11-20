@@ -19,8 +19,8 @@ SRC += addons/flexible_behavior_os_locale.c
 SRC += addons/ime_state_sync_voyager.c
 SRC += addons/ime_state_sync.c
 
-SRC += layer/layer_caps_word.c
-SRC += layer/virt_layer.c
+SRC += core_ext/layer/layer_caps_word.c
+SRC += core_ext/layer/virt_layer.c
 
 SRC += core_ext/pos/get_pos_from_keyrecord_voyager.c
 

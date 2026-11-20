@@ -10,7 +10,7 @@
 #    error "this file contains ZSA Voyager only magic number constants"
 #endif
 
-#include "layer/virt_layer.h"
+#include "core_ext/layer/virt_layer.h"
 
 #include "mouse_button_indicator.h"
 

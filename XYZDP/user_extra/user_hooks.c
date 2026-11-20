@@ -11,8 +11,8 @@
 #include "addons/flexible_behavior_os_locale.h"
 #include "addons/ime_state_sync.h"
 
-#include "layer/layer_caps_word.h"
-#include "layer/virt_layer.h"
+#include "core_ext/layer/layer_caps_word.h"
+#include "core_ext/layer/virt_layer.h"
 
 #include "rgb_matrix_extra/color_palette.h"
 #include "rgb_matrix_extra/fade_matrix.h"
