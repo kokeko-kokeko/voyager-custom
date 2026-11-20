@@ -13,6 +13,7 @@ POINTING_DEVICE_DRIVER = custom
 OS_DETECTION_ENABLE = yes
 
 SRC += addons/exec_halt/exec_halt_voyager.c
+
 SRC += addons/firmware_map_voyager.c
 SRC += addons/flexible_behavior_os_locale_voyager.c
 SRC += addons/flexible_behavior_os_locale.c
