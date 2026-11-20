@@ -19,7 +19,7 @@
 #include "addons/firmware_map/firmware_map.h"
 
 #include "core_ext/rgb_matrix/fade_matrix.h"
-#include "addons/ime_state_sync.h"
+#include "addons/ime_state_sync/ime_state_sync.h"
 
 #include "core_ext/trackball/split_txn_trackball.h"
 

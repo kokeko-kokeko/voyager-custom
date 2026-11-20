@@ -19,8 +19,8 @@ SRC += addons/firmware_map/firmware_map_voyager.c
 SRC += addons/flexible_behavior/flexible_behavior_os_locale_voyager.c
 SRC += addons/flexible_behavior/flexible_behavior_os_locale.c
 
-SRC += addons/ime_state_sync_voyager.c
-SRC += addons/ime_state_sync.c
+SRC += addons/ime_state_sync/ime_state_sync_voyager.c
+SRC += addons/ime_state_sync/ime_state_sync.c
 
 SRC += core_ext/layer/layer_caps_word.c
 SRC += core_ext/layer/virt_layer.c

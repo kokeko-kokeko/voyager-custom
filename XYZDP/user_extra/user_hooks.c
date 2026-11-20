@@ -10,7 +10,7 @@
 #include "addons/flexible_behavior/flexible_behavior_os_locale.h"
 
 #include "addons/firmware_map/firmware_map.h"
-#include "addons/ime_state_sync.h"
+#include "addons/ime_state_sync/ime_state_sync.h"
 
 #include "core_ext/layer/layer_caps_word.h"
 #include "core_ext/layer/virt_layer.h"
