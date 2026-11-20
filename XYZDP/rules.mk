@@ -25,12 +25,12 @@ SRC += addons/rgb_matrix/mouse_button_indicator_voyager.c
 SRC += addons/rgb_matrix/pos_press_overlay_voyager.c
 SRC += addons/status_led/connection_layer_os_swap_status.c
 
+SRC += core_ext/debounce/custom_debounce_voyager.c
 SRC += core_ext/layer/virt_layer.c
 SRC += core_ext/pos/get_pos_from_keyrecord_voyager.c
 SRC += core_ext/rgb_matrix/fade_matrix.c
 SRC += core_ext/status_led/status_led_voyager.c
 SRC += core_ext/trackball/split_txn_trackball.c
-SRC += core_ext/custom_debounce_voyager.c
 
 SRC += user_extra/tap_hold_settings.c
 SRC += user_extra/user_hooks.c
