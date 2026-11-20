@@ -20,7 +20,7 @@
 #include "core_ext/rgb_matrix/fade_matrix.h"
 
 #include "addons/exec_halt/exec_halt.h"
-#include "firmware_map.h"
+#include "addons/firmware_map.h"
 
 // call JP keycode
 #include "keymap_japanese.h"
