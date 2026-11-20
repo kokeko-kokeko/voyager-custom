@@ -14,7 +14,7 @@
 #    error "must enable flow tapping term"
 #endif
 
-#include "addons/flexible_behavior_os_locale.h"
+#include "addons/flexible_behavior/flexible_behavior_os_locale.h"
 
 // per-key tapping parameter setting
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {

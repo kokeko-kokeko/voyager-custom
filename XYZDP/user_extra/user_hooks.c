@@ -6,21 +6,25 @@
 #endif
 
 // module impl
-#include "addons/exec_halt.h"
-#include "addons/firmware_map.h"
-#include "addons/flexible_behavior_os_locale.h"
-#include "addons/ime_state_sync.h"
+#include "addons/exec_halt/exec_halt.h"
 
-#include "core_ext/layer/layer_caps_word.h"
+#include "addons/firmware_map/firmware_map.h"
+
+#include "addons/flexible_behavior/flexible_behavior_os_locale.h"
+
+#include "addons/ime_state_sync/ime_state_sync.h"
+
+#include "addons/layer/layer_caps_word.h"
+
 #include "core_ext/layer/virt_layer.h"
 
-#include "core_ext/rgb_matrix/color_palette.h"
+#include "addons/rgb_matrix/color_palette.h"
 #include "core_ext/rgb_matrix/fade_matrix.h"
-#include "core_ext/rgb_matrix/layer_mod_overlay.h"
-#include "core_ext/rgb_matrix/mouse_button_indicator.h"
-#include "core_ext/rgb_matrix/pos_press_overlay.h"
+#include "addons/rgb_matrix/layer_mod_overlay.h"
+#include "addons/rgb_matrix/mouse_button_indicator.h"
+#include "addons/rgb_matrix/pos_press_overlay.h"
 
-#include "core_ext/status_led/connection_layer_os_swap_status.h"
+#include "addons/status_led/connection_layer_os_swap_status.h"
 #include "core_ext/status_led/status_led.h"
 
 #include "core_ext/trackball/split_txn_trackball.h"
