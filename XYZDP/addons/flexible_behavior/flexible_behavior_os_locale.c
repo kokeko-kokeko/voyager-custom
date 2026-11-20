@@ -14,7 +14,7 @@
 #include "core_ext/rgb_matrix/color_palette.h"
 #include "core_ext/rgb_matrix/fade_matrix.h"
 
-#include "addons/firmware_map.h"
+#include "addons/firmware_map/firmware_map.h"
 
 // call JP keycode
 #include "keymap_japanese.h"

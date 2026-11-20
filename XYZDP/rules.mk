@@ -14,10 +14,10 @@ OS_DETECTION_ENABLE = yes
 
 SRC += addons/exec_halt/exec_halt_voyager.c
 
+SRC += addons/firmware_map/firmware_map_voyager.c
+
 SRC += addons/flexible_behavior/flexible_behavior_os_locale_voyager.c
 SRC += addons/flexible_behavior/flexible_behavior_os_locale.c
-
-SRC += addons/firmware_map_voyager.c
 
 SRC += addons/ime_state_sync_voyager.c
 SRC += addons/ime_state_sync.c

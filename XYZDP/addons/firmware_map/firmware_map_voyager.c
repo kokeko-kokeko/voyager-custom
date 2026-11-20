@@ -16,10 +16,10 @@
 
 #include "core_ext/status_led/status_led.h"
 
-#include "firmware_map.h"
+#include "addons/firmware_map/firmware_map.h"
 
 #include "core_ext/rgb_matrix/fade_matrix.h"
-#include "ime_state_sync.h"
+#include "addons/ime_state_sync.h"
 
 #include "core_ext/trackball/split_txn_trackball.h"
 
