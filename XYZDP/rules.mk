@@ -32,8 +32,8 @@ SRC += core_ext/rgb_matrix/fade_matrix.c
 SRC += core_ext/status_led/status_led_voyager.c
 SRC += core_ext/trackball/split_txn_trackball.c
 
-SRC += user_extra/tap_hold_settings.c
-SRC += user_extra/user_hooks.c
+SRC += user/tap_hold_settings.c
+SRC += user/user_hooks.c
 
 EXTRAFLAGS += -flto=auto -O3
 EXTRAFLAGS += -Werror
