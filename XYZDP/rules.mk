@@ -22,7 +22,7 @@ SRC += addons/ime_state_sync.c
 SRC += layer/layer_caps_word.c
 SRC += layer/virt_layer.c
 
-SRC += pos/get_pos_from_keyrecord_voyager.c
+SRC += core_ext/pos/get_pos_from_keyrecord_voyager.c
 
 SRC += rgb_matrix_extra/color_palette_voyager.c
 SRC += rgb_matrix_extra/fade_matrix.c
