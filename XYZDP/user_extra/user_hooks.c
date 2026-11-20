@@ -24,7 +24,7 @@
 #include "addons/rgb_matrix/mouse_button_indicator.h"
 #include "addons/rgb_matrix/pos_press_overlay.h"
 
-#include "core_ext/status_led/connection_layer_os_swap_status.h"
+#include "addons/status_led/connection_layer_os_swap_status.h"
 #include "core_ext/status_led/status_led.h"
 
 #include "core_ext/trackball/split_txn_trackball.h"

@@ -8,7 +8,7 @@
 #include "core_ext/layer/virt_layer.h"
 
 #include "connection_layer_os_swap_status.h"
-#include "status_led.h"
+#include "core_ext/status_led/status_led.h"
 
 #include "navigator_trackpad_common.h"
 
