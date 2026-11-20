@@ -11,7 +11,7 @@
 
 #include "flexible_behavior_os_locale.h"
 
-#include "core_ext/rgb_matrix/color_palette.h"
+#include "addons/rgb_matrix/color_palette.h"
 #include "core_ext/rgb_matrix/fade_matrix.h"
 
 #include "addons/firmware_map/firmware_map.h"

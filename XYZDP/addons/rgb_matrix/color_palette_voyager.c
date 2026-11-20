@@ -16,7 +16,7 @@
 
 #include "core_ext/status_led/status_led.h"
 
-#include "fade_matrix.h"
+#include "core_ext/rgb_matrix/fade_matrix.h"
 
 #include "navigator_trackpad_common.h"
 
