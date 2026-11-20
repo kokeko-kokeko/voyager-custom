@@ -6,7 +6,6 @@
 #endif
 
 #include "core_ext/layer/virt_layer.h"
-
 #include "core_ext/status_led/status_led.h"
 
 #include "fade_matrix.h"
