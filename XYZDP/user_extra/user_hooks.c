@@ -6,7 +6,7 @@
 #endif
 
 // module impl
-#include "addons/exec_halt.h"
+#include "addons/exec_halt/exec_halt.h"
 #include "addons/firmware_map.h"
 #include "addons/flexible_behavior_os_locale.h"
 #include "addons/ime_state_sync.h"

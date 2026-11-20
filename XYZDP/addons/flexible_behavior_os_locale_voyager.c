@@ -19,7 +19,7 @@
 #include "core_ext/rgb_matrix/color_palette.h"
 #include "core_ext/rgb_matrix/fade_matrix.h"
 
-#include "exec_halt.h"
+#include "addons/exec_halt/exec_halt.h"
 #include "firmware_map.h"
 
 // call JP keycode
