@@ -10,11 +10,11 @@
 #    error "this file contains ZSA Voyager only magic number constants"
 #endif
 
-#include "layer/virt_layer.h"
+#include "core_ext/layer/virt_layer.h"
 
-#include "pos/get_pos_from_keyrecord.h"
+#include "core_ext/pos/get_pos_from_keyrecord.h"
 
-#include "status_led/status_led.h"
+#include "core_ext/status_led/status_led.h"
 
 #include "fade_matrix.h"
 

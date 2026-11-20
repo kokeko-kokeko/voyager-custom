@@ -5,9 +5,9 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "layer/virt_layer.h"
+#include "core_ext/layer/virt_layer.h"
 
-#include "status_led/status_led.h"
+#include "core_ext/status_led/status_led.h"
 
 #include "fade_matrix.h"
 

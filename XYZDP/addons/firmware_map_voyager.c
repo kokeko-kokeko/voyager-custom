@@ -10,18 +10,18 @@
 #    error "this file contains ZSA Voyager only magic number constants"
 #endif
 
-#include "layer/virt_layer.h"
+#include "core_ext/layer/virt_layer.h"
 
-#include "pos/get_pos_from_keyrecord.h"
+#include "core_ext/pos/get_pos_from_keyrecord.h"
 
-#include "status_led/status_led.h"
+#include "core_ext/status_led/status_led.h"
 
 #include "firmware_map.h"
 
-#include "rgb_matrix_extra/fade_matrix.h"
+#include "core_ext/rgb_matrix/fade_matrix.h"
 #include "ime_state_sync.h"
 
-#include "user_extra/split_txn_trackball.h"
+#include "core_ext/trackball/split_txn_trackball.h"
 
 #include "navigator_trackpad_common.h"
 

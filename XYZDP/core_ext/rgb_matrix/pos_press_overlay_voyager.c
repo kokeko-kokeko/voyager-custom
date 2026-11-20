@@ -10,7 +10,7 @@
 #    error "this file contains ZSA Voyager only magic number constants"
 #endif
 
-#include "pos/get_pos_from_keyrecord.h"
+#include "core_ext/pos/get_pos_from_keyrecord.h"
 
 #include "pos_press_overlay.h"
 

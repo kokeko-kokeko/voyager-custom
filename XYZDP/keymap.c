@@ -148,7 +148,7 @@ bool process_record_zsa_oryx(uint16_t keycode, keyrecord_t *record) {
 //
 // -----------------------------------------------------------------------------
 
-#include "layer/phys_layer.h"
+#include "core_ext/layer/phys_layer.h"
 
 // enum for layer define sync oryx side
 #define ORYX_LAYER_COUNT (sizeof(keymaps) / sizeof(keymaps[0]))

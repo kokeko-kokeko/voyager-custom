@@ -5,7 +5,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-#include "layer/virt_layer.h"
+#include "core_ext/layer/virt_layer.h"
 
 #include "connection_layer_os_swap_status.h"
 #include "status_led.h"
