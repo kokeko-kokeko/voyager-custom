@@ -20,8 +20,8 @@
 #include "rgb_matrix_extra/mouse_button_indicator.h"
 #include "rgb_matrix_extra/pos_press_overlay.h"
 
-#include "status_led/connection_layer_os_swap_status.h"
-#include "status_led/status_led.h"
+#include "core_ext/status_led/connection_layer_os_swap_status.h"
+#include "core_ext/status_led/status_led.h"
 
 #include "split_txn_trackball.h"
 

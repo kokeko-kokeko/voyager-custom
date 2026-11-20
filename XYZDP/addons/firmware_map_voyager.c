@@ -14,7 +14,7 @@
 
 #include "core_ext/pos/get_pos_from_keyrecord.h"
 
-#include "status_led/status_led.h"
+#include "core_ext/status_led/status_led.h"
 
 #include "firmware_map.h"
 
