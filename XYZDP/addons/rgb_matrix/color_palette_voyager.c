@@ -11,11 +11,8 @@
 #endif
 
 #include "core_ext/layer/virt_layer.h"
-
 #include "core_ext/pos/get_pos_from_keyrecord.h"
-
 #include "core_ext/status_led/status_led.h"
-
 #include "core_ext/rgb_matrix/fade_matrix.h"
 
 #include "navigator_trackpad_common.h"

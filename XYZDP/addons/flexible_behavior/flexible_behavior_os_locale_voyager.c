@@ -10,17 +10,15 @@
 #    error "this file contains ZSA Voyager only magic number constants"
 #endif
 
-#include "core_ext/layer/virt_layer.h"
-
-#include "core_ext/pos/get_pos_from_keyrecord.h"
-
-#include "flexible_behavior_os_locale.h"
-
-#include "addons/rgb_matrix/color_palette.h"
-#include "core_ext/rgb_matrix/fade_matrix.h"
-
 #include "addons/exec_halt/exec_halt.h"
 #include "addons/firmware_map/firmware_map.h"
+#include "addons/rgb_matrix/color_palette.h"
+
+#include "core_ext/layer/virt_layer.h"
+#include "core_ext/pos/get_pos_from_keyrecord.h"
+#include "core_ext/rgb_matrix/fade_matrix.h"
+
+#include "flexible_behavior_os_locale.h"
 
 // call JP keycode
 #include "keymap_japanese.h"
