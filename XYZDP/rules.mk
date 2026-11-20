@@ -24,11 +24,11 @@ SRC += core_ext/layer/virt_layer.c
 
 SRC += core_ext/pos/get_pos_from_keyrecord_voyager.c
 
-SRC += rgb_matrix_extra/color_palette_voyager.c
-SRC += rgb_matrix_extra/fade_matrix.c
-SRC += rgb_matrix_extra/layer_mod_overlay_voyager.c
-SRC += rgb_matrix_extra/mouse_button_indicator_voyager.c
-SRC += rgb_matrix_extra/pos_press_overlay_voyager.c
+SRC += core_ext/rgb_matrix/color_palette_voyager.c
+SRC += core_ext/rgb_matrix/fade_matrix.c
+SRC += core_ext/rgb_matrix/layer_mod_overlay_voyager.c
+SRC += core_ext/rgb_matrix/mouse_button_indicator_voyager.c
+SRC += core_ext/rgb_matrix/pos_press_overlay_voyager.c
 
 SRC += core_ext/status_led/connection_layer_os_swap_status.c
 SRC += core_ext/status_led/status_led_voyager.c

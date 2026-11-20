@@ -14,11 +14,11 @@
 #include "core_ext/layer/layer_caps_word.h"
 #include "core_ext/layer/virt_layer.h"
 
-#include "rgb_matrix_extra/color_palette.h"
-#include "rgb_matrix_extra/fade_matrix.h"
-#include "rgb_matrix_extra/layer_mod_overlay.h"
-#include "rgb_matrix_extra/mouse_button_indicator.h"
-#include "rgb_matrix_extra/pos_press_overlay.h"
+#include "core_ext/rgb_matrix/color_palette.h"
+#include "core_ext/rgb_matrix/fade_matrix.h"
+#include "core_ext/rgb_matrix/layer_mod_overlay.h"
+#include "core_ext/rgb_matrix/mouse_button_indicator.h"
+#include "core_ext/rgb_matrix/pos_press_overlay.h"
 
 #include "core_ext/status_led/connection_layer_os_swap_status.h"
 #include "core_ext/status_led/status_led.h"
