@@ -21,7 +21,7 @@
 #include "core_ext/rgb_matrix/fade_matrix.h"
 #include "ime_state_sync.h"
 
-#include "user_extra/split_txn_trackball.h"
+#include "core_ext/trackball/split_txn_trackball.h"
 
 #include "navigator_trackpad_common.h"
 

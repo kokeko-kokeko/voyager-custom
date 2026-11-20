@@ -26,7 +26,7 @@
 #include "mcp23018.h"
 #include "i2c_master.h"
 
-#include "user_extra/split_txn_trackball.h"
+#include "core_ext/trackball/split_txn_trackball.h"
 
 #include "navigator_trackpad_common.h"
 

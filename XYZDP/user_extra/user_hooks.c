@@ -23,7 +23,7 @@
 #include "core_ext/status_led/connection_layer_os_swap_status.h"
 #include "core_ext/status_led/status_led.h"
 
-#include "split_txn_trackball.h"
+#include "core_ext/trackball/split_txn_trackball.h"
 
 // access to voyager system-side flag
 //extern keyboard_config_t keyboard_config;
