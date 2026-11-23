@@ -61,6 +61,7 @@ bool exec_halt_invoke_halt_keyrecord(const keyrecord_t * const record) {
   // MT template
   if (record->tap.count > 0) {
     if (record->event.pressed) {
+      // tap
       halt_invoke_count = record->tap.count;
       halt_invoke_reset_trigger = now + HALT_RESET_DELAY;
     } else {
@@ -68,7 +69,8 @@ bool exec_halt_invoke_halt_keyrecord(const keyrecord_t * const record) {
     }
   } else {
     if (record->event.pressed) {
-      
+      // hold
+      soft_reset_keyboard();
     } else {
       halt_invoke_count = 0;
       halt_invoke_reset_trigger = now + (UINT32_MAX / 2) - 1;
