@@ -6,9 +6,18 @@
 #
 
 # parm for path, filename
-declare -r vendor="zsa"
-declare -r product="voyager"
-declare -r keymap="XYZDP"
+if [ "${1}" = "vwr" ]
+then
+     # Voyager Wireless Reference
+     declare -r vendor="zsa"
+     declare -r product="wireless_voyager"
+     declare -r keymap="5LXY6"
+else
+     # default
+     declare -r vendor="zsa"
+     declare -r product="voyager"
+     declare -r keymap="XYZDP"
+fi
 
 # filename
 declare -r basename="${vendor}_${product}_${keymap}"
