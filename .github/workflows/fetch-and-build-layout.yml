@@ -12,6 +12,7 @@ on:
         type: choice
         options:
           - voyager
+          - wireless_voyager
           - moonlander/reva
           - moonlander/revb
           - ergodox_ez
@@ -36,6 +37,9 @@ jobs:
         uses: actions/checkout@v5
         with:
           ref: oryx
+      
+      - name: display config
+        run: echo ${{ github.event.inputs.layout_id }} on ${{ github.event.inputs.layout_geometry }} 
 
       - name: Download the full history for the merge to work correctly
         run: git pull --unshallow

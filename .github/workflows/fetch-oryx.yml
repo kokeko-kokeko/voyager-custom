@@ -12,6 +12,7 @@ on:
         type: choice
         options:
           - voyager
+          - wireless_voyager
           - moonlander/reva
           - moonlander/revb
           - ergodox_ez
