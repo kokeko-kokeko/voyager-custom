@@ -170,10 +170,11 @@ void housekeeping_task_connection_layer_os_swap_status(void) {
     status_update_flag = true;
   }
 
-  if (trackpad_init != trackpad_flag) {
-    trackpad_flag = trackpad_init; 
-    status_update_flag = true;
-  }
+  trackpad_flag = true;
+  //if (trackpad_init != trackpad_flag) {
+  //  trackpad_flag = trackpad_init; 
+  //  status_update_flag = true;
+  //}
   
   if ((bool)trackball_init != trackball_flag) {
     trackball_flag = (bool)trackball_init; 
