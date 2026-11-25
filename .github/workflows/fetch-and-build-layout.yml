@@ -38,8 +38,8 @@ jobs:
         with:
           ref: oryx
       
-      - name: display config
-        run: echo ${{ github.event.inputs.layout_id }} on ${{ github.event.inputs.layout_geometry }} 
+      - name: Display Config
+        run: echo keymap ${{ github.event.inputs.layout_id }} on ${{ github.event.inputs.layout_geometry }} keyboard 
 
       - name: Download the full history for the merge to work correctly
         run: git pull --unshallow
