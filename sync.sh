@@ -94,18 +94,18 @@ do
     git --no-pager diff --stat main $branch
 done
 
-echo -e "\e[;32m---- check user side code remote (stable - main) ----\e[m"
-for branch in $(git branch --remote --list 'origin/stable/*' --format='%(refname:short)')
-do
-    echo -e "\033[1;32m==== $branch ====\033[0m"
-    read ahead behind <<< $(git rev-list --left-right --count $branch...origin/main)
-    [ $ahead -ne 0 ] && echo -en "\033[1;33m ahead: $ahead,"
-    [ $behind -ne 0 ] && echo -en "\033[1;31m behind: $behind,"
-    [ $ahead -eq 0 ] && [ $behind -eq 0 ] && echo -en "\033[1;32m up to date,"
-    echo -e "\033[0m from origin/main"
-
-    git --no-pager diff --stat origin/main $branch
-done
+#echo -e "\e[;32m---- check user side code remote (stable - main) ----\e[m"
+#for branch in $(git branch --remote --list 'origin/stable/*' --format='%(refname:short)')
+#do
+#    echo -e "\033[1;32m==== $branch ====\033[0m"
+#    read ahead behind <<< $(git rev-list --left-right --count $branch...origin/main)
+#    [ $ahead -ne 0 ] && echo -en "\033[1;33m ahead: $ahead,"
+#    [ $behind -ne 0 ] && echo -en "\033[1;31m behind: $behind,"
+#    [ $ahead -eq 0 ] && [ $behind -eq 0 ] && echo -en "\033[1;32m up to date,"
+#    echo -e "\033[0m from origin/main"
+#
+#    git --no-pager diff --stat origin/main $branch
+#done
 
 echo -e "\e[;32m---- check done! ----\e[m\a"
 date --utc '+%Y-%m-%dT%H:%M:%S'
