@@ -6,9 +6,9 @@
 #
 
 # parm for path, filename
-if [ "${1}" = "vwr" ]
+if [ "${1}" = "wvr" ]
 then
-     # Voyager Wireless Reference
+     # wireless voyager reference
      declare -r vendor="zsa"
      declare -r product="wireless_voyager"
      declare -r keymap="5LXY6"
