@@ -46,7 +46,7 @@ pushd qmk_firmware > /dev/null
     echo -e "\033[0m from upstream"
 
     #git --no-pager diff --stat HEAD..upstream/firmware25 -- ':(exclude).gitmodules' ':(exclude)modules/zsa/' ':(exclude)keyboards/zsa/voyager/voyager.c'  ':(exclude)keyboards/zsa/voyager/matrix.c' 
-    git --no-pager diff --stat upstream/firmware25 firmware25 -- ':(exclude).gitmodules' 
+    git --no-pager diff --stat upstream/firmware25 firmware25 -- ':(exclude).gitmodules' ':(exclude)modules/zsa/' 
 popd > /dev/null
 
 echo -e "\e[;32m---- check user side code (origin - upstream) ----\e[m"
