@@ -1,9 +1,9 @@
 # split common config from {1}
-# no-exec
+# no-exec, only use with source
 
 case "${1}" in
      "wlvr")
-          # wireless voyager reference
+          # WireLess Voyager Reference
           declare -r vendor="zsa"
           declare -r product="wireless_voyager"
           declare -r keymap="5LXY6"
