@@ -6,18 +6,20 @@
 #
 
 # parm for path, filename
-if [ "${1}" = "wvr" ]
-then
-     # wireless voyager reference
-     declare -r vendor="zsa"
-     declare -r product="wireless_voyager"
-     declare -r keymap="5LXY6"
-else
-     # default
-     declare -r vendor="zsa"
-     declare -r product="voyager"
-     declare -r keymap="XYZDP"
-fi
+case "${1}" in
+     "wlvr")
+          # wireless voyager reference
+          declare -r vendor="zsa"
+          declare -r product="wireless_voyager"
+          declare -r keymap="5LXY6"
+          ;;
+     *)
+          # default
+          declare -r vendor="zsa"
+          declare -r product="voyager"
+          declare -r keymap="XYZDP"
+          ;;
+esac
 
 # filename
 declare -r basename="${vendor}_${product}_${keymap}"
